@@ -1,7 +1,21 @@
 #!/usr/local/bin/bash
 
-NTOPNG_DIR=/var/db/ntopng
+# This script will use ntopng and parses its RRD structure to get information about the monthly traffic usage every day.
+# The information is provided per host, up/down/total, with special attention to the last 24 hours
+# Requirements
+#    - works on BSD, on pfSense
+#    - ntopng is installed in pfsense (with default config about RRD)
+#    - local DNS server is up and running with DHCP host-based registration
+#    - script is parameterized corretly:
+#      > INTERFACE number must be the LAN interface
+#      > HOSTS are the LAN hosts you are interested in
+
 INTERFACE=0
+HOSTS="ubuntu omv synology216 torrents"
+
+
+
+NTOPNG_DIR=/var/db/ntopng
 RRDTOOL=/usr/local/bin/rrdtool
 AWK=/usr/bin/awk
 BC=/usr/bin/bc
@@ -106,7 +120,7 @@ days=$(${DATE} +%d)
 ip=$(${CURL} -s ipinfo.io/ip)
 echo "Getting monthly traffic data based on ${days} days for ${ip}"
 printf "%12s %8s %7s %8s %7s %8s %7s\n" "HOST" "UP" "" "DOWN" "" "TOTAL" ""
-for host in ubuntu omv synology216 torrents; do
+for host in ${HOSTS}; do
   get_total_up_for_host ${host} "-${days}day" "3600"
 done
 printf "%12s %6.2fGB %7s %6.2fGB %7s %6.2fGB %7s\n" "SUM" "${sum_total_up_gb}" "" "${sum_total_down_gb}" "" "${sum_total_gb}" ""

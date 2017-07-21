@@ -1,5 +1,13 @@
 #!/usr/local/bin/bash
 
+# This script will send a push message over pushover
+# Requirements:
+#    - Create a file pushover.info, with the following format:
+#      token=YOURAPITOKEN
+#      user=YOURUSERTOKEN
+# Arguments:
+#    1 - The message itself
+
 source pushover.info
 
 message="$1"
