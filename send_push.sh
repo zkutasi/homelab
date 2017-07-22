@@ -8,11 +8,12 @@
 # Arguments:
 #    1 - The message itself
 
-source pushover.info
+source /root/pushover.info
 
 message="$1"
+CURL=/usr/local/bin/curl
 
-curl -s \
+${CURL} -s \
   --form-string "token=${token}" \
   --form-string "user=${user}" \
   --form-string "message=${message}" \
