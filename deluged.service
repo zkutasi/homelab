@@ -10,11 +10,12 @@ BindsTo=mnt-Movies\x2dhdd01.mount mnt-Movies\x2dhdd02.mount mnt-Movies\x2dhdd03.
 Type=simple
 User=deluge
 Group=deluge
-Umask=000
+UMask=000
 
 ExecStart=/usr/bin/deluged -d
 
 Restart=on-failure
+RestartSec=5
 
 TimeoutStopSec=300
 
