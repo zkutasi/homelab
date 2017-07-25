@@ -1,0 +1,61 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+/dev/mapper/torrents--vg-root /               ext4    errors=remount-ro 0       1
+# /boot was on /dev/sda1 during installation
+UUID=80036202-60f1-4e3a-8f4c-fa1d6a94109e /boot           ext2    defaults        0       2
+/dev/mapper/torrents--vg-swap_1 none            swap    sw              0       0
+### Media
+omv.local:/Movies-hdd01/   /mnt/Movies-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd02/   /mnt/Movies-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd03/   /mnt/Movies-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd04/   /mnt/Movies-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd05/   /mnt/Movies-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd06/   /mnt/Movies-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Movies-hdd07/   /mnt/Movies-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd01/   /mnt/Anime-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd02/   /mnt/Anime-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd03/   /mnt/Anime-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd04/   /mnt/Anime-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd05/   /mnt/Anime-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd06/   /mnt/Anime-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Anime-hdd07/   /mnt/Anime-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd01/   /mnt/Docu-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd02/   /mnt/Docu-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd03/   /mnt/Docu-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd04/   /mnt/Docu-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd05/   /mnt/Docu-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd06/   /mnt/Docu-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Docu-hdd07/   /mnt/Docu-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd01/   /mnt/Animation-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd02/   /mnt/Animation-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd03/   /mnt/Animation-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd04/   /mnt/Animation-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd05/   /mnt/Animation-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd06/   /mnt/Animation-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/Animation-hdd07/   /mnt/Animation-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd01/   /mnt/AnimeSeries-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd02/   /mnt/AnimeSeries-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd03/   /mnt/AnimeSeries-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd04/   /mnt/AnimeSeries-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd05/   /mnt/AnimeSeries-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd06/   /mnt/AnimeSeries-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/AnimeSeries-hdd07/   /mnt/AnimeSeries-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd01/   /mnt/DocuSeries-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd02/   /mnt/DocuSeries-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd03/   /mnt/DocuSeries-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd04/   /mnt/DocuSeries-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd05/   /mnt/DocuSeries-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd06/   /mnt/DocuSeries-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/DocuSeries-hdd07/   /mnt/DocuSeries-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd01/   /mnt/TVSeries-hdd01/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd02/   /mnt/TVSeries-hdd02/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd03/   /mnt/TVSeries-hdd03/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd04/   /mnt/TVSeries-hdd04/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd05/   /mnt/TVSeries-hdd05/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd06/   /mnt/TVSeries-hdd06/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
+omv.local:/TVSeries-hdd07/   /mnt/TVSeries-hdd07/   nfs   auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0   0   0
