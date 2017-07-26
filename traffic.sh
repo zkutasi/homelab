@@ -91,14 +91,14 @@ function get_total_up_for_host()
   total_down=0
   get_info "${full_host}" "-24hour"
   total_up_gb_diff=$(echo "${total_up} /1024.0/1024.0/1024.0" | ${BC} -l)
-  if [[ "${total_up_gb_diff}" != \.* ]]; then
+  if [[ ! "${total_up_gb_diff}" =~ ^[.0].*$ ]]; then
     total_up_gb_diff=$(printf "%4.0f" "${total_up_gb_diff}")
     total_up_gb_diff="(+${total_up_gb_diff})"
   else
     total_up_gb_diff=""
   fi
   total_down_gb_diff=$(echo "${total_down} /1024.0/1024.0/1024.0" | ${BC} -l)
-  if [[ "${total_down_gb_diff}" != \.* ]]; then
+  if [[ ! "${total_down_gb_diff}" =~ ^[.0].*$ ]]; then
     total_down_gb_diff=$(printf "%4.0f" "${total_down_gb_diff}")
     total_down_gb_diff="(+${total_down_gb_diff})"
   else
