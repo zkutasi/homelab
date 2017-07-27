@@ -1,15 +1,18 @@
 #!/bin/bash
 
-# This script will send a push message if system update is pending on OMV
+# This script will send a push message on OMV
 # Requirements:
 #    - send_push.sh with proper setup
 #    - On OpenMediaVault, put this script in /usr/share/openmediavault/notification/sink.d
 
 text="0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded"
 
+message=cat ${OMV_NOTIFICATION_MESSAGE_FILE}
 if [[ "${OMV_NOTIFICATION_SUBJECT}" == *CRON-APT\ completed* ]]; then
   cat ${OMV_NOTIFICATION_MESSAGE_FILE} | grep -q "${text}"
   if [ $? -ne 0 ]; then
-    /root/send_push.sh "Upgrades are pending on host $(hostname)"
+    message="Upgrades are pending on host $(hostname)"
   fi
 fi
+
+/root/send_push.sh "${message}"
