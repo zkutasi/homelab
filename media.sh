@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script tries to quickly parse the NAS's given HDDs, given directories
 # and counts how many unique media-elements there are (movies, episodes, etc...)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script checks all of the directories against a deluge torrent client, and shows
 # if a particular torrent is not added with the specific content, so it can be added later manually

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script will check if there are updates, and send a push notification if true
 # Requirements

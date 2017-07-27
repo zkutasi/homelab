@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # This script can push a message whenever a torrent is downloaded, and also the free disk space available
 # Requirements:
