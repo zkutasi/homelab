@@ -5,12 +5,19 @@
 #    - send_push.sh with proper setup
 #    - On Ubuntu, place it in /etc/cron.daily
 
+PUSH_SCRIPT="/home/qta/send_push.sh"
+APT_GET="/usr/bin/apt-get"
+HOST=$(hostname)
+
+
+
 text="[[:digit:]]+ upgraded, [[:digit:]]+ newly installed, [[:digit:]]+ to remove and [[:digit:]]+ not upgraded"
 
-message2=$(/usr/bin/apt-get -o Acquire::http::Dl-Limit=25 dist-upgrade -d -y -o APT::Get::Show-Upgraded=true | egrep "${text}")
+message2=$(${APT_GET} -o Acquire::http::Dl-Limit=250 dist-upgrade -d -y -o APT::Get::Show-Upgraded=true | egrep "${text}")
 res=$(echo ${message2} | tr -d -c [0-9])
 if [ "${res}" != "0000" ]; then
-  message1="Upgrades are pending on host $(hostname):"
-  /home/qta/send_push.sh "${message1}
+  message1="Upgrades are pending on host ${HOST}:"
+  ${PUSH_SCRIPT} "${message1}
 ${message2}"
 fi
+

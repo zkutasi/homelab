@@ -5,6 +5,10 @@
 #    - send_push.sh with proper setup
 #    - On OpenMediaVault, put this script in /usr/share/openmediavault/notification/sink.d
 
+PUSH_SCRIPT="/root/send_push.sh"
+
+
+
 text="0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded"
 
 message=cat ${OMV_NOTIFICATION_MESSAGE_FILE}
@@ -15,4 +19,4 @@ if [[ "${OMV_NOTIFICATION_SUBJECT}" == *CRON-APT\ completed* ]]; then
   fi
 fi
 
-/root/send_push.sh "${message}"
+${PUSH_SCRIPT} "${message}"
