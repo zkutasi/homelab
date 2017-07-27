@@ -11,13 +11,13 @@ Type=simple
 User=deluge
 Group=deluge
 UMask=000
-
-ExecStart=/usr/bin/deluged -d
-
 Restart=on-failure
 RestartSec=5
-
 TimeoutStopSec=300
+
+ExecStart=/usr/bin/deluged -d
+ExecStartPost=/home/qta/send_push.sh "Deluged started"
+ExecStopPost=/home/qta/send_push.sh "Deluged stopped"
 
 [Install]
 WantedBy=multi-user.target mnt-Movies\\x2dhdd01.mount mnt-Movies\\x2dhdd02.mount mnt-Movies\\x2dhdd03.mount mnt-Movies\\x2dhdd04.mount mnt-Movies\\x2dhdd05.mount mnt-Movies\\x2dhdd06.mount mnt-Movies\\x2dhdd07.mount
