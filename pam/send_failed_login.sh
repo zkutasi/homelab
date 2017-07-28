@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script when put inside /etc/pam.d/common-auth will send failed login attempts via a push message
+# This script when put inside /usr/local/bin for example will send failed login attempts via a push message
 # Requirements:
 #    - properly set up send_push.sh
 #    - Add the following line into /etc/pam.d/common-auth:

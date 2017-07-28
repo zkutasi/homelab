@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This script when put inside /etc/pam.d/sshd will send login attempts via a push message
+# This script when put inside /usr/local/bin for example will send login attempts via a push message
 # Requirements:
 #    - properly set up send_push.sh
 #    - Add the following line into /etc/pam.d/sshd:
