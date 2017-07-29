@@ -1,0 +1,150 @@
+---
+- hosts: localhost
+  become: true
+  vars:
+    user_home: /home/qta
+  tasks:
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src: pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+    - name: Copy and set-up update checker cron script
+      vars:
+        apt_path: /usr/bin/apt-get
+      template:
+        src: are_updates_available.j2
+        dest: /etc/cron.daily/are_updates_available
+        mode: 0755
+    - name: Copy SSH checker script on successful logins
+      template:
+        src: pam/send_login.sh.j2
+        dest: /usr/local/bin/send_login.sh
+        mode: 0755
+    - name: Copy SSH checker script on failed logins
+      template:
+        src: pam/send_failed_login.sh.j2
+        dest: /usr/local/bin/send_failed_login.sh
+        mode: 0755
+- hosts: torrents
+  vars:
+    user_home: /home/qta
+  tasks:
+    - name: Copy torrent checker script
+      copy:
+        src: check_files.sh
+        dest: "{{ user_home }}/check_files.sh"
+        mode: 0755
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src: pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+    - name: Copy deluged.service file
+      become: true
+      template:
+        src: deluged.service.j2
+        dest: /etc/systemd/system/deluged.service
+        mode: 0644
+      register: servicefile
+    - name: Restart systemctl daemon
+      systemd:
+        daemon_reload: yes
+      when: servicefile.changed
+    - name: Copy and set-up update checker cron script
+      become: true
+      vars:
+        apt_path: /usr/bin/apt-get
+      template:
+        src: are_updates_available.j2
+        dest: /etc/cron.daily/are_updates_available
+        mode: 0755
+- hosts: pfsense
+  vars:
+    user_home: /root
+  tasks:
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/local/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src:  pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+    - name: Copy traffic script
+      copy:
+        src: traffic.sh
+        dest: "{{ user_home }}/traffic.sh"
+        mode: 0755
+- hosts: omv
+  vars:
+    user_home: /root
+  tasks:
+    - name: Copy sink.d script for push notifications
+      template:
+        src: OMV_send_push.j2
+        dest: /usr/share/openmediavault/notification/sink.d/send_push
+        mode: 0755
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src:  pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+    - name: Copy media aggregator script
+      copy:
+        src: media.sh
+        dest: "{{ user_home }}/media.sh"
+        mode: 0755
+- hosts: seed
+  vars:
+    user_home: /home/user
+  tasks:
+    - name: Copy torrent notification script
+      template:
+        src: push_torrent.sh.j2
+        dest: "{{ user_home }}/notify.sh"
+        mode: 0755
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src:  pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+- hosts: syno
+  tasks:
+    - name: Copy push php script
+      copy:
+        src: synology-pushover.php
+        dest: /volume1/web/synology-pushover.php
+        mode: 0755

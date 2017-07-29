@@ -5,8 +5,8 @@
 #    - send_push.sh with proper setup
 #    - On Ubuntu, place it in /etc/cron.daily
 
-PUSH_SCRIPT="/home/qta/send_push.sh"
-APT_GET="/usr/bin/apt-get"
+PUSH_SCRIPT={{ user_home }}/send_push.sh
+APT_GET={{ apt_path }}
 HOST=$(hostname)
 
 

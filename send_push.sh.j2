@@ -8,10 +8,10 @@
 # Arguments:
 #    1 - The message itself
 
-source /root/pushover.info
+source {{ user_home }}/pushover.info
 
 message="$1"
-CURL=/usr/local/bin/curl
+CURL={{ curl_path }}
 
 ${CURL} -s \
   --form-string "token=${token}" \

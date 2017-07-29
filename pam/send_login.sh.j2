@@ -6,9 +6,13 @@
 #    - Add the following line into /etc/pam.d/sshd:
 #      session   optional   pam_exec.so /usr/local/bin/send_login.sh
 
+PUSH_SCRIPT={{ user_home }}/send_push.sh
+
+
+
 if [ "${PAM_TYPE}" == "open_session" ]; then
   message="User ${PAM_USER} from ${PAM_RHOST} logged in just now onto host $(hostname)"
-  /home/qta/send_push.sh "${message}"
+  ${PUSH_SCRIPT} "${message}"
 fi
 
 exit 0
