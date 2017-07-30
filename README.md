@@ -6,9 +6,11 @@ A lot of the scripts are built around the pushover service, which is a push noti
 - Notify with a push if a torrent on my seed server is downloaded, also notify me about the free space, so I can get in if it gets low
 - Notify me about failed login attempts
 - Notify me about successful login attempts
-- Notify me if a server has pending upgrades
+- Notify me if a server has pending software upgrades
 - Notify me about my monthly traffic, specifically for the last 24 hours, per host (so I can fine-tune the quotas/traffic/bandwidth)
 
 Also there are other things
 - Manage deluge with systemd, and let me know if it stopped/started
+- A custom media-summarizer, to check which HDD has how many stuff of what kind
+- Check files in directories against a running Deluge daemon and saee if they are added or not
 
