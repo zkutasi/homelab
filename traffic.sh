@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/local/bin/bash
 
 # This script will use ntopng and parses its RRD structure to get information about the monthly traffic usage every day.
 # The information is provided per host, up/down/total, with special attention to the last 24 hours

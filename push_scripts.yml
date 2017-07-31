@@ -3,6 +3,7 @@
   become: true
   vars:
     user_home: /home/qta
+    bash_path: /usr/bin/env bash
   tasks:
     - name: Copy and set-up send_push script
       vars:
@@ -36,6 +37,7 @@
 - hosts: torrents
   vars:
     user_home: /home/qta
+    bash_path: /usr/bin/env bash
   tasks:
     - name: Copy torrent checker script
       copy:
@@ -76,6 +78,7 @@
 - hosts: pfsense
   vars:
     user_home: /root
+    bash_path: /usr/local/bin/bash
   tasks:
     - name: Copy and set-up send_push script
       vars:
@@ -97,6 +100,7 @@
 - hosts: omv
   vars:
     user_home: /root
+    bash_path: /usr/bin/env bash
   tasks:
     - name: Copy sink.d script for push notifications
       template:
@@ -123,6 +127,7 @@
 - hosts: seed
   vars:
     user_home: /home/user
+    bash_path: /usr/bin/env bash
   tasks:
     - name: Copy torrent notification script
       template:
