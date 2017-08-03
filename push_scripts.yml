@@ -147,9 +147,15 @@
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
 - hosts: syno
+  become: true
   tasks:
     - name: Copy push php script
       copy:
         src: synology-pushover.php
         dest: /volume1/web/synology-pushover.php
+        mode: 0755
+    - name: Copy varroa startup script
+      copy:
+        src: varroa.sh
+        dest: /usr/local/etc/rc.d/varroa.sh
         mode: 0755
