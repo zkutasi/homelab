@@ -22,7 +22,7 @@
         apt_path: /usr/bin/apt-get
       template:
         src: are_updates_available.j2
-        dest: /etc/cron.daily/are_updates_available
+        dest: /etc/cron.weekly/are_updates_available
         mode: 0755
     - name: Copy SSH checker script on successful logins
       template:
@@ -73,7 +73,7 @@
         apt_path: /usr/bin/apt-get
       template:
         src: are_updates_available.j2
-        dest: /etc/cron.daily/are_updates_available
+        dest: /etc/cron.weekly/are_updates_available
         mode: 0755
 - hosts: pfsense
   vars:
@@ -158,4 +158,29 @@
       copy:
         src: varroa.sh
         dest: /usr/local/etc/rc.d/varroa.sh
+        mode: 0755
+- hosts: htpc
+  vars:
+    user_home: /home/qta
+    bash_path: /usr/bin/env bash
+  tasks:
+    - name: Copy and set-up send_push script
+      vars:
+        curl_path: /usr/bin/curl
+      template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: 0755
+    - name: Copy and set-up pushover.info file
+      template:
+        src: pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: 0744
+    - name: Copy and set-up update checker cron script
+      become: true
+      vars:
+        apt_path: /usr/bin/apt-get
+      template:
+        src: are_updates_available.j2
+        dest: /etc/cron.weekly/are_updates_available
         mode: 0755
