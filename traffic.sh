@@ -11,7 +11,7 @@
 #      > HOSTS are the LAN hosts you are interested in
 
 INTERFACE=0
-HOSTS="control omv synology216 torrents"
+HOSTS="control omv synology216 torrents htpc"
 
 
 
