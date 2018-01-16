@@ -76,8 +76,8 @@
         dest: /etc/cron.weekly/are_updates_available
         mode: 0755
     - name: Copy torrent completed trigger script for Deluge
-      copy:
-        src: deluge_torrent_completed.sh
+      template:
+        src: deluge_torrent_completed.sh.j2
         dest: "{{ user_home }}/deluge_torrent_completed.sh"
         mode: 0755
 - hosts: pfsense
