@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Fix HDMI output if the Receiver is switched off and then back on
+# This script relies on udev events, when the HDMI connection is recovered,
+#   triggering a service that runs a bash script. The way is convoluted
+#   because it seems xrandr is not yet ready to be set while the event triggers
+#   and udev does not let scripts to sleep too much
+# Recuirements:
+#   - udev is supported in the machine
+#   - Change the below configuration to your needs
+
+OUTPUT="DP1"
+MODE="1920x1080"
+
+export DISPLAY=:0
+export XAUTHORITY={{ user_home }}/.Xauthority
+
+function connect()
+{
+  xrandr --output ${OUTPUT} --mode ${MODE}
+}
+
+function disconnect()
+{
+  # Do not disconnect, we need it for X11VNC
+  #xrandr --output ${OUTPUT} --off
+  :
+}
+
+# Sleep some, as udev signal might be too soon, even before xrandr output is updated
+sleep 3
+xrandr | grep "${OUTPUT} connected" &> /dev/null && connect || disconnect
+
