@@ -9,19 +9,19 @@
       vars:
         curl_path: /usr/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src: pushover.info.j2
+        src: push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
     - name: Copy and set-up update checker cron script
       vars:
         apt_path: /usr/bin/apt-get
       template:
-        src: are_updates_available.j2
+        src: push_messages/are_updates_available.j2
         dest: /etc/cron.weekly/are_updates_available
         mode: 0755
     - name: Copy SSH checker script on successful logins
@@ -41,19 +41,19 @@
   tasks:
     - name: Copy torrent checker script
       copy:
-        src: check_files.sh
+        src: standalone_scripts/check_files.sh
         dest: "{{ user_home }}/check_files.sh"
         mode: 0755
     - name: Copy and set-up send_push script
       vars:
         curl_path: /usr/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src: pushover.info.j2
+        src: push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
     - name: Copy deluged.service file
@@ -73,12 +73,12 @@
       vars:
         apt_path: /usr/bin/apt-get
       template:
-        src: are_updates_available.j2
+        src: push_messages/are_updates_available.j2
         dest: /etc/cron.weekly/are_updates_available
         mode: 0755
     - name: Copy torrent completed trigger script for Deluge
       template:
-        src: deluge_torrent_completed.sh.j2
+        src: push_messages/deluge_torrent_completed.sh.j2
         dest: "{{ user_home }}/deluge_torrent_completed.sh"
         mode: 0755
 - hosts: pfsense
@@ -90,17 +90,17 @@
       vars:
         curl_path: /usr/local/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src:  pushover.info.j2
+        src:  push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
     - name: Copy traffic script
       copy:
-        src: traffic.sh
+        src: standalone_scripts/traffic.sh
         dest: "{{ user_home }}/traffic.sh"
         mode: 0755
 - hosts: omv
@@ -110,24 +110,24 @@
   tasks:
     - name: Copy sink.d script for push notifications
       template:
-        src: OMV_send_push.j2
+        src: push_messages/OMV_send_push.j2
         dest: /usr/share/openmediavault/notification/sink.d/send_push
         mode: 0755
     - name: Copy and set-up send_push script
       vars:
         curl_path: /usr/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src:  pushover.info.j2
+        src:  push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
     - name: Copy media aggregator script
       copy:
-        src: media.sh
+        src: standalone_scripts/media.sh
         dest: "{{ user_home }}/media.sh"
         mode: 0755
 - hosts: seed
@@ -137,19 +137,19 @@
   tasks:
     - name: Copy torrent notification script
       template:
-        src: push_torrent.sh.j2
+        src: push_messages/push_torrent.sh.j2
         dest: "{{ user_home }}/notify.sh"
         mode: 0755
     - name: Copy and set-up send_push script
       vars:
         curl_path: /usr/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src:  pushover.info.j2
+        src:  push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
 - hosts: syno
@@ -157,12 +157,12 @@
   tasks:
     - name: Copy push php script
       copy:
-        src: synology-pushover.php
+        src: push_messages/synology-pushover.php
         dest: /volume1/web/synology-pushover.php
         mode: 0755
     - name: Copy varroa startup script
       copy:
-        src: varroa.sh
+        src: standalone_scripts/varroa.sh
         dest: /usr/local/etc/rc.d/varroa.sh
         mode: 0755
 - hosts: htpc
@@ -175,12 +175,12 @@
       vars:
         curl_path: /usr/bin/curl
       template:
-        src: send_push.sh.j2
+        src: push_messages/send_push.sh.j2
         dest: "{{ user_home }}/send_push.sh"
         mode: 0755
     - name: Copy and set-up pushover.info file
       template:
-        src: pushover.info.j2
+        src: push_messages/pushover.info.j2
         dest: "{{ user_home }}/pushover.info"
         mode: 0744
     - name: Copy and set-up update checker cron script
@@ -188,19 +188,19 @@
       vars:
         apt_path: /usr/bin/apt-get
       template:
-        src: are_updates_available.j2
+        src: push_messages/are_updates_available.j2
         dest: /etc/cron.weekly/are_updates_available
         mode: 0755
     - name: Copy HDMI hot plug fix udev rule
       become: true
       template:
-        src: 95-hdmi.rules.j2
+        src: hdmi_hotplug/95-hdmi.rules.j2
         dest: /etc/udev/rules.d/95-hdmi.rules
         mode: 0755
     - name: Copy HDMI hot plug fix service
       become: true
       template:
-        src: hot_plug.service.j2
+        src: hdmi_hotplug/hot_plug.service.j2
         dest: /etc/systemd/system/hot_plug.service
         mode: 0644
       register: servicefile
@@ -212,6 +212,6 @@
     - name: Copy HDMI hot plug fix script
       become: true
       template:
-        src: recover_hdmi.sh.j2
+        src: hdmi_hotplug/recover_hdmi.sh.j2
         dest: "{{ user_home }}/recover_hdmi.sh"
         mode: 0755
