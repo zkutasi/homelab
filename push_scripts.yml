@@ -194,13 +194,13 @@
     - name: Copy HDMI hot plug fix udev rule
       become: true
       template:
-        src: hdmi_hotplug/95-hdmi.rules.j2
+        src: receiver/95-hdmi.rules.j2
         dest: /etc/udev/rules.d/95-hdmi.rules
         mode: 0755
     - name: Copy HDMI hot plug fix service
       become: true
       template:
-        src: hdmi_hotplug/hot_plug.service.j2
+        src: receiver/hot_plug.service.j2
         dest: /etc/systemd/system/hot_plug.service
         mode: 0644
       register: servicefile
@@ -210,8 +210,12 @@
         daemon_reload: yes
       when: servicefile.changed
     - name: Copy HDMI hot plug fix script
-      become: true
       template:
-        src: hdmi_hotplug/recover_hdmi.sh.j2
+        src: receiver/recover_hdmi.sh.j2
         dest: "{{ user_home }}/recover_hdmi.sh"
+        mode: 0755
+    - name: Copy on-off script
+      template:
+        src: receiver/yamaha_start_stop.py
+        dest: "{{ user_home }}/yamaha_start_stop.py"
         mode: 0755
