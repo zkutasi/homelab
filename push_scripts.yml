@@ -224,3 +224,9 @@
         src: standalone_scripts/emby_updater.sh
         dest: "{{ user_home }}/emby_updater.sh"
         mode: 0755
+    - name: Copy forked-daapd config file
+      become: true
+      template:
+        src: forked_daapd.conf
+        dest: "/etc/forked-daapd.conf"
+        mode: 0744
