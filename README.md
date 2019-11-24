@@ -27,11 +27,11 @@ You can reuse any of the scripts, after you remove the jinja templating from the
 Let us assume, you will try to use Ansible, so how to do it?
 
 1. Install Ansible on a control machine
-2. Fill /etc/ansible/hosts file with your hosts
-3. Fill /etc/ansible/host_vars/xxx files, where xxx are YAML files named after your hosts
+2. Create an Ansible inventory with your hosts
+3. Fill host_vars and group_vars to set up variables in the playbook roles
 4. Use ansible-vault to encrypt these files, since most probably you will need passwords in them
 5. Now it is a good time to test the connections with the ping module of Ansible
-6. Rewrite the existing playbook push_scripts.yml, or create your own
+6. Rewrite the existing playbook setup.yml, or create your own
 7. Use ansible-playbook to execute the script-pushing to the right machines to the right places, without having a single concern whether you miss something or not.
 
 ## Running the tests
