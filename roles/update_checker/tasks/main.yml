@@ -1,0 +1,6 @@
+---
+- name: Copy and set-up update checker cron script
+  template:
+    src: are_updates_available.j2
+    dest: "{{ cron_weekly_dir }}/are_updates_available"
+    mode: 0755

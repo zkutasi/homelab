@@ -4,7 +4,7 @@
 # Requirements:
 #    - A Torrent client that supports such functionality (like rTorrent)
 #    - Edit .rtorrent.rc and add the following line at the end
-#      method.set_key = event.download.finished,notify_me,"execute=~/push_torrent.sh,$d.name="
+#      system.method.set_key = event.download.finished,notify_me,"execute=~/push_torrent.sh,$d.name="
 #    - Fill in the quota you have
 # Arguments:
 #    - The torrent name (will come from the client)

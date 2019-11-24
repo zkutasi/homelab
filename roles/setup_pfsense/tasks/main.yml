@@ -1,0 +1,6 @@
+---
+- name: Copy traffic script
+  copy:
+    src: traffic.sh
+    dest: "{{ user_home }}/traffic.sh"
+    mode: 0755

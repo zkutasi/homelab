@@ -1,0 +1,3 @@
+---
+cron_weekly_dir: /etc/cron.weekly
+apt_path: /usr/bin/apt-get

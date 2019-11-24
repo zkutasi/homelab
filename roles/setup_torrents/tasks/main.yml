@@ -1,0 +1,23 @@
+---
+- name: Copy torrent checker script
+  template:
+    src: check_files.sh.j2
+    dest: "{{ user_home }}/check_files.sh"
+    mode: 0755
+- name: Copy deluged.service file
+  become: true
+  template:
+    src: deluged.service.j2
+    dest: /etc/systemd/system/deluged.service
+    mode: 0644
+  register: servicefile
+- name: Restart systemctl daemon
+  become: true
+  systemd:
+    daemon_reload: yes
+  when: servicefile.changed
+- name: Copy torrent completed trigger script for Deluge
+  template:
+    src: deluge_torrent_completed.sh.j2
+    dest: "{{ user_home }}/deluge_torrent_completed.sh"
+    mode: 0755

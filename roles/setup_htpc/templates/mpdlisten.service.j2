@@ -3,7 +3,7 @@ Description=MPD listener Client
 After=mpd.service
 
 [Service]
-User={{ user }}
+User={{ ansible_user }}
 Restart=always
 Type=simple
 ExecStart={{ user_home }}/mpdlisten mpdpass@localhost 6600 {{ user_home }}/yamaha_start_stop.py

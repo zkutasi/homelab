@@ -1,0 +1,79 @@
+---
+- name: Set up pushover notifications
+  hosts:
+  - localhost
+  - torrents
+  - pfsense
+  - omv
+  - seed
+  - htpc
+  roles:
+  - pushover_setup
+  tags:
+  - pushover
+
+- name: Setup update checker cron script
+  hosts:
+  - localhost
+  - torrents
+  - htpc
+  roles:
+  - update_checker
+  tags:
+  - pushover
+
+- name: SSH checker script on successful/failed logins
+  hosts:
+  - localhost
+  roles:
+  - login_checker
+  tags:
+  - pushover
+
+- name: Setup Deluge torrent server
+  hosts:
+  - torrents
+  roles:
+  - setup_torrents
+  tags:
+  - torrents
+
+- name: Setup OMV server
+  hosts:
+  - omv
+  roles:
+  - setup_omv
+  tags:
+  - omv
+
+- name: Setup Seed server
+  hosts:
+  - seed
+  roles:
+  - setup_seed
+  tags:
+  - seed
+
+- name: Setup Synology server
+  hosts:
+  - syno
+  roles:
+  - setup_syno
+  tags:
+  - syno
+
+- name: Setup HTPC server
+  hosts:
+  - htpc
+  roles:
+  - setup_htpc
+  tags:
+  - htpc
+
+- name: Setup PfSense router server
+  hosts:
+  - pfsense
+  roles:
+  - setup_pfsense
+  tags:
+  - pfsense

@@ -1,0 +1,6 @@
+---
+- name: Copy media aggregator script
+  copy:
+    src: media.sh
+    dest: "{{ user_home }}/media.sh"
+    mode: 0755

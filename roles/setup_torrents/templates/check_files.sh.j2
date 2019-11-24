@@ -8,9 +8,9 @@
 # Arguments: NONE
 
 HOST=127.0.0.1
-PORT=
-USER=""
-PASSWD=""
+PORT={{ deluge_port }}
+USER="{{ deluge_user }}"
+PASSWD="{{ deluge_pwd }}"
 DISK_PATH="/mnt/Movies-hdd0"
 DISKS=$(seq -w 1 7 | sed "s,^,${DISK_PATH},")
 

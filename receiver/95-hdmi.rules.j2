@@ -1,1 +1,0 @@
-KERNEL=="*card0", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="{{ user_home }}/.Xauthority", RUN+="/bin/systemctl start hot_plug.service"
