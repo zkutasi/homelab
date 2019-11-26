@@ -2,7 +2,7 @@
 - name: Copy torrent notification script
   template:
     src: push_torrent.sh.j2
-    dest: "{{ user_home }}/push_torrents.sh"
+    dest: "{{ user_home }}/push_torrent.sh"
     mode: 0755
 
 - name: Edit .rtorrent.rc file
