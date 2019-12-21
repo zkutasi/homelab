@@ -40,7 +40,7 @@ elif [[ $(dpkg-query -W --showformat='${Status}\n' emby-server 2> /dev/null | gr
 	# Get installed version number
 	lcl_emby_version=$(dpkg -l emby-server | grep ^ii | awk '{split($0,a," "); print a[3]}')
 	# Get stable release version number
-	rmt_emby_version=$(curl -s https://api.github.com/repos/MediaBrowser/Emby/releases/latest | grep "browser_download_url.*emby-server-deb.*amd64" | cut -d : -f 2,3 | tr -d \" | awk '{split($0,a,"/"); print a[8]}')
+	rmt_emby_version=$(curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest | grep "browser_download_url.*emby-server-deb.*amd64" | cut -d : -f 2,3 | tr -d \" | awk '{split($0,a,"/"); print a[8]}')
 	# Check if version numbers differs
 	if [ "$lcl_emby_version" != "$rmt_emby_version" ]; then
 		echo "You local version number differs from the latest Emby version:"
@@ -77,7 +77,7 @@ fi
 cd /tmp/emby-update
 
 # Download the latest stable release
-curl -s https://api.github.com/repos/MediaBrowser/Emby/releases/latest \
+curl -s https://api.github.com/repos/MediaBrowser/Emby.Releases/releases/latest \
 | grep "browser_download_url.*emby-server-deb.*amd64" \
 | cut -d : -f 2,3 \
 | tr -d \" \
