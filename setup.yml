@@ -5,7 +5,7 @@
   - torrents
   - pfsense
   - omv
-  - seed
+#  - seed
   - htpc
   roles:
   - pushover_setup
@@ -46,13 +46,13 @@
   tags:
   - omv
 
-- name: Setup Seed server
-  hosts:
-  - seed
-  roles:
-  - setup_seed
-  tags:
-  - seed
+#- name: Setup Seed server
+#  hosts:
+#  - seed
+#  roles:
+#  - setup_seed
+#  tags:
+#  - seed
 
 - name: Setup Synology server
   hosts:
