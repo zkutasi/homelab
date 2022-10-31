@@ -4,3 +4,8 @@
     src: media.sh
     dest: "{{ user_home }}/media.sh"
     mode: 0755
+- name: Copy subtitle aggregator script
+  copy:
+    src: subtitles.sh
+    dest: "{{ user_home }}/subtitles.sh"
+    mode: 0755
