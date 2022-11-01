@@ -9,3 +9,8 @@
     src: subtitles.sh
     dest: "{{ user_home }}/subtitles.sh"
     mode: 0755
+- name: Copy hasher script
+  copy:
+    src: hasher.sh
+    dest: "{{ user_home }}/hasher.sh"
+    mode: 0755

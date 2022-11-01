@@ -2,7 +2,7 @@
 
 # This script tries to summarize the state of subtitles in every HDD, for Movies
 # It expects Hungarian subtitles, with suffix of '.HUN.srt'
-# If the Movie has embedded subtitles, mark it with '.srt.inside'
+# If the Movie has embedded subtitles, mark it with '.HUN.srt.inside'
 # Requirements:
 #    - Setting up the PATHS variable properly, so you end up with a list of your Paths to scan.
 # Arguments: NONE
@@ -28,7 +28,7 @@ function process_path()
     if [ -f "${srtbasename}.HUN.srt" ]; then
       substatus=SUBBED
       ((subbed++))
-    elif [ -f "${srtbasename}.srt.inside" ]; then
+    elif [ -f "${srtbasename}.HUN.srt.inside" ]; then
       substatus=INSIDE
       ((inside++))
     else

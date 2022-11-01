@@ -4,3 +4,4 @@
     src: are_updates_available.j2
     dest: "{{ cron_weekly_dir }}/are_updates_available"
     mode: 0755
+  become: yes
