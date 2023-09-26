@@ -14,20 +14,24 @@ DRIVE_DIR="/srv/dev-disk-by-label-hdd0"
 DRIVES=$(seq -w 1 7 | sed "s,^,${DRIVE_DIR},")
 
 for drive in ${DRIVES}; do
+  echo "Handling drive ${drive}..."
   for type in Animation Anime Docu Movies AnimeSeries DocuSeries TVSeries; do
+    i=1
+    num=$(find ${drive}/${type} -type f -name '*.mkv' | wc -l)
     while IFS= read -r file; do
       if [ -n "$file" ]; then
         if [ ! -s "${file}.sha" ]; then
           filename=$(basename "${file}")
-	  dirname=$(dirname "${file}")
-          echo "Creating SHA hash for ${file}..."
+          dirname=$(dirname "${file}")
+          echo "[${i}/${num}] Creating SHA hash for ${file}..."
           pushd "${dirname}" 2>&1 > /dev/null
           sha1sum "${filename}" > "${filename}.sha"
           popd 2>&1 > /dev/null
-#        else
-#  	echo "${file} already has a SHA hash"
+        else
+          echo "[${i}/${num}] ${file} already has a SHA hash"
         fi
       fi
+      ((i++))
     done <<< $(find ${drive}/${type} -type f -name '*.mkv')
   done
 done
