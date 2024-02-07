@@ -15,7 +15,7 @@ Restart=on-failure
 RestartSec=5
 TimeoutStopSec=300
 
-ExecStart=/usr/bin/deluged -d
+ExecStart=/usr/bin/deluged -d -l /var/log/deluge/daemon.log -L warning --logrotate
 ExecStartPost={{ user_home }}/send_push.sh "Deluged started"
 ExecStopPost={{ user_home }}/send_push.sh "Deluged stopped"
 
