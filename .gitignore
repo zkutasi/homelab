@@ -1,6 +1,7 @@
-inventory/
+inventory
 *.retry
 terraform.tfvars
 .terraform
 .terraform.lock.*
 terraform.tfstate*
+kubespray-repo

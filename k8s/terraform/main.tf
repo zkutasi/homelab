@@ -3,6 +3,9 @@ terraform {
     proxmox = {
       source = "bpg/proxmox"
     }
+    htpasswd = {
+      source = "loafoe/htpasswd"
+    }
   }
 }
 
@@ -23,6 +26,13 @@ provider "proxmox" {
   }
 }
 
+provider "htpasswd" {
+}
+
+resource "htpasswd_password" "hash" {
+  password = var.password
+}
+
 resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
   count = length(var.pves)
   content_type = "iso"
@@ -30,6 +40,73 @@ resource "proxmox_virtual_environment_download_file" "ubuntu_cloud_image" {
   node_name = var.pves[count.index]["name"]
 
   url = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+}
+
+resource "proxmox_virtual_environment_file" "user_data_cloud_config" {
+  count = length(var.pves)
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name = var.pves[count.index]["name"]
+
+  source_raw {
+    data = <<-EOF
+    #cloud-config
+    timezone: Europe/Budapest
+    users:
+      - default
+      - name: ${var.username}
+        passwd: ${htpasswd_password.hash.sha512}
+        lock_passwd: false
+        groups:
+          - sudo
+        shell: /bin/bash
+        sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_pwauth: True
+    package_update: true
+    packages:
+      - qemu-guest-agent
+      - net-tools
+      - curl
+    runcmd:
+      - systemctl enable qemu-guest-agent
+      - systemctl start qemu-guest-agent
+      - echo "done" > /tmp/cloud-config.done
+    EOF
+
+    file_name = "user-data-cloud-config.yaml"
+  }
+}
+
+resource "proxmox_virtual_environment_file" "meta_data_cloud_config_controller" {
+  count = length(var.pves)
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name = var.pves[count.index]["name"]
+
+  source_raw {
+    data = <<-EOF
+    #cloud-config
+    local-hostname: ${var.k8s_controllers[count.index]["name"]}
+    EOF
+
+    file_name = "meta-data-cloud-config_controller.yaml"
+  }
+}
+
+resource "proxmox_virtual_environment_file" "meta_data_cloud_config_worker" {
+  count = length(var.pves)
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name = var.pves[count.index]["name"]
+
+  source_raw {
+    data = <<-EOF
+    #cloud-config
+    local-hostname: ${var.k8s_workers[count.index]["name"]}
+    EOF
+
+    file_name = "meta-data-cloud-config_worker.yaml"
+  }
 }
 
 resource "proxmox_virtual_environment_vm" "k8s_controller_vm" {
@@ -50,10 +127,8 @@ resource "proxmox_virtual_environment_vm" "k8s_controller_vm" {
       }
     }
 
-    user_account {
-      username = "qta"
-      password = var.passwd
-    }
+    user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config[count.index].id
+    meta_data_file_id = proxmox_virtual_environment_file.meta_data_cloud_config_controller[count.index].id
   }
 
   cpu {
@@ -98,10 +173,8 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_vm" {
       }
     }
 
-    user_account {
-      username = "qta"
-      password = var.passwd
-    }
+    user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config[count.index].id
+    meta_data_file_id = proxmox_virtual_environment_file.meta_data_cloud_config_worker[count.index].id
   }
 
   cpu {

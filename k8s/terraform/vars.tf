@@ -39,7 +39,11 @@ variable "k8s_workers" {
   }))
 }
 
-variable "passwd" {
+variable "username" {
+  type = string
+}
+
+variable "password" {
   type = string
   sensitive = true
 }
