@@ -5,3 +5,5 @@ terraform.tfvars
 .terraform.lock.*
 terraform.tfstate*
 kubespray-repo
+.ansible
+.vscode

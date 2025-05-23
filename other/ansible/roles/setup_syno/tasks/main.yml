@@ -1,6 +1,0 @@
----
-- name: Copy varroa startup script
-  copy:
-    src: varroa.sh
-    dest: /usr/local/etc/rc.d/varroa.sh
-    mode: 0755
