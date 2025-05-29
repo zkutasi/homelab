@@ -1,0 +1,22 @@
+- name: Create qbittorrent as docker on Synology216
+  hosts:
+    - synology216
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: qbittorrent-nox
+    requested_version: "5.0.2-1"
+    docker_compose_extra_volumes:
+      - /volume1/torrent/downloads
+      - /volume1/torrent
+      - /volume1/music
+- name: Create qbittorrent as docker on torrents
+  hosts:
+    - torrents22
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: qbittorrent-nox
+    requested_version: "5.0.2-1"
+    docker_compose_extra_volumes:
+      - /mnt

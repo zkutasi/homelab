@@ -1,0 +1,12 @@
+- name: Setup docker
+  hosts: standalone
+  become: true
+  roles:
+    - docker
+- name: Set up Docker Compose on Synology
+  hosts: synology
+  become: true
+  roles:
+    - synology
+  vars:
+    synology_docker_compose_v2_version: "2.36.2"

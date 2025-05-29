@@ -1,0 +1,14 @@
+- name: Make right click actually paste text
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.vimrc"
+    create: true
+    line: 'set mouse-=a'
+    mode: '0644'
+    state: present
+- name: Paste without auto-indentation
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.vimrc"
+    create: true
+    line: 'set paste'
+    mode: '0644'
+    state: present

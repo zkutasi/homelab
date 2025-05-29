@@ -1,0 +1,39 @@
+docker_cli_path: /usr/bin/docker
+docker_compose_static_configfiles_copy: []
+docker_compose_template_configfiles_copy: []
+docker_compose_create_dirs: []
+docker_compose_rootdir: "/home/qta/docker-compose"
+docker_compose_files_owner: "{{ lookup('env', 'USER') }}"
+docker_compose_files_group: "{{ lookup('env', 'USER') }}"
+docker_compose_projectname: "{{ undef(hint='You must specify the docker compose project name') }}"
+docker_path_to_commands: ""
+docker_socket_path: /var/run/docker.sock
+docker_volumes_path: /var/lib/docker/volumes
+docker_compose_extra_volumes: []
+docker_with_sudo: false
+docker_uid: 1000
+docker_gid: 1000
+
+requested_version: "{{ undef(hint='You must specify the requested version') }}"
+timezone: "Europe/Budapest"
+
+port_cup: 8800
+port_dockge: 5001
+port_emby_http: 8096
+port_emby_https: 8920
+port_komodo_periphery: 8120
+port_portainer_agent: 9001
+port_smartctl_exporter: 9633
+port_qbittorrent: 48080
+
+cup_control_server: ""
+cup_servers: []
+
+ddns_alias: ""
+ddns_aliases: []
+ddns_interface: ""
+ddns_hostname: ""
+ddns_password: ""
+ddns_username: ""
+
+smartctlexporter_extra_args: []

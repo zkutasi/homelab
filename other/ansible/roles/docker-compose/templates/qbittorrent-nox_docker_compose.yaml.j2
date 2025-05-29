@@ -1,0 +1,31 @@
+services:
+  qbittorrent-nox:
+    image: qbittorrentofficial/qbittorrent-nox:{{ requested_version }}
+    container_name: qbittorrent-nox
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - QBT_LEGAL_NOTICE=confirm
+      - QBT_WEBUI_PORT=48080
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    networks:
+      - default
+      - qbittorrent-nox-ipv6
+    ports:
+      - {{ port_qbittorrent }}:48080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume }}:{{ volume }}
+{% endfor %}
+
+networks:
+  qbittorrent-nox-ipv6:
+    name: qbittorrent-nox-ipv6
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 2001:db8:abc2::/64
+          gateway: 2001:db8:abc2::1

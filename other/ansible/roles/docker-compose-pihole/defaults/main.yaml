@@ -1,0 +1,11 @@
+pihole_requested_version: "{{ undef(hint='You must specify the requested version of PiHole') }}"
+pihole_ip_address: "{{ undef(hint='You must specify the PiHole IP Address') }}"
+pihole_password: "{{ undef(hint='You must specify the PiHole password') }}"
+pihole_dns_domain: "home"
+docker_compose_rootdir: "/home/qta/docker-compose"
+pihole_docker_compose_projectdir: "pihole"
+pihole_docker_network_3digit: "172.21.200"
+pihole_timezone: "Europe/Budapest"
+
+pihole_unbound_requested_version: "{{ undef(hint='You must specify the requested version of Unbound') }}"
+pihole_unbound_exposed_port: 5335

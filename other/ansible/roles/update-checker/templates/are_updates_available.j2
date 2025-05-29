@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# This script will check if there are updates, and send a push notification if true
+# Requirements
+#    - send_push.sh with proper setup
+#    - On Ubuntu, place it in /etc/cron.xxx
+
+PUSH_SCRIPT={{ user_home }}/send_push.sh
+APT_GET={{ update_checker_apt_path }}
+HOST=$(hostname)
+
+
+${APT_GET} update
+
+text="[[:digit:]]+ upgraded, [[:digit:]]+ newly installed, [[:digit:]]+ to remove and [[:digit:]]+ not upgraded"
+
+message2=$(${APT_GET} dist-upgrade --download-only --yes --show-upgraded | egrep "${text}")
+res=$(echo ${message2} | tr -d -c [0-9])
+if [ "${res}" != "0000" ]; then
+  message1="Upgrades are pending on host ${HOST}:"
+  ${PUSH_SCRIPT} "${message1}
+${message2}"
+fi
+

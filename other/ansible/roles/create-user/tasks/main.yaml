@@ -1,0 +1,29 @@
+- name: Create a new user
+  ansible.builtin.user:
+    name: "{{ username }}"
+    password: "{{ password | password_hash('sha512') }}"
+    shell: /bin/bash
+    state: present
+
+- name: Add user to sudo group
+  ansible.builtin.user:
+    name: "{{ username }}"
+    groups: sudo
+    append: true
+
+# - name: Allow passwordless sudo for the user (Debian/Ubuntu)
+#   ansible.builtin.lineinfile:
+#     path: /etc/sudoers
+#     state: present
+#     regexp: '^{{ username }}'
+#     line: '{{ username }} ALL=(ALL) NOPASSWD:ALL'
+#     validate: '/usr/sbin/visudo -cf %s'
+
+- name: Allow passwordless sudo for the user
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers.d/{{ username }}"
+    state: present
+    line: '{{ username }} ALL=(ALL) NOPASSWD:ALL'
+    create: true
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'

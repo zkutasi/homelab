@@ -1,0 +1,16 @@
+- name: Create emby as docker
+  hosts:
+    - htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: emby
+    requested_version: "4.8.11.0"
+- name: Create plex as docker
+  hosts:
+    - htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: plex
+    requested_version: "1.41.6.9685-d301f511a"

@@ -1,0 +1,2 @@
+hosts_dns_server: "{{ undef(hint='You must specify the DNS server address') }}"
+hosts_entries: []

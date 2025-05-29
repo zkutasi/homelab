@@ -1,0 +1,41 @@
+- name: Install some packages
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+- name: Check if GPG key exists
+  ansible.builtin.stat:
+    path: /usr/share/keyrings/docker-archive-keyring.gpg
+  register: gpg_file
+- name: Download and dearmor GPG key
+  when: not gpg_file.stat.exists
+  block:
+    - name: Add docker GPG key
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        dest: "/tmp/docker-keyring.asc"
+        mode: "0644"
+    - name: Dearmor the GPG key
+      ansible.builtin.command:
+        cmd: gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg /tmp/docker-keyring.asc
+        creates: /usr/share/keyrings/docker-archive-keyring.gpg
+- name: Add Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable"
+    filename: docker
+    state: present
+    update_cache: true
+- name: Install docker
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - docker-ce
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: true

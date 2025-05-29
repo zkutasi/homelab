@@ -1,0 +1,4 @@
+bin_filename: "{{ undef(hint='You must specify the Binary filename') }}"
+download_url: "{{ undef(hint='You must specify the download URL') }}"
+requested_version: "{{ undef(hint='You must specify the requested version') }}"
+service_name: "{{ undef(hint='You must specify the service name') }}"

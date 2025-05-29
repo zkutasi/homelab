@@ -1,0 +1,23 @@
+- name: Populate service facts
+  ansible.builtin.service_facts:
+- name: Make sure NTP service is running (systemd-timesyncd)
+  ansible.builtin.systemd_service:
+    name: systemd-timesyncd
+    enabled: true
+    state: started
+  when: ansible_facts['services']['systemd-timesyncd.service']['status'] | default('not-found') != 'not-found'
+- name: Make sure NTP service is running (crony)
+  ansible.builtin.systemd_service:
+    name: chronyd
+    enabled: true
+    state: started
+  when: ansible_facts['services']['chronyd.service']['status'] | default('not-found') != 'not-found'
+- name: Make sure NTP service is running (ntpd)
+  ansible.builtin.systemd_service:
+    name: ntpd
+    enabled: true
+    state: started
+  when: ansible_facts['services']['ntpd.service']['status'] | default('not-found') != 'not-found'
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ ntp_timezone }}"

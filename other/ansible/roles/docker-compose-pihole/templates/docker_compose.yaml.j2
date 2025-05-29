@@ -1,0 +1,58 @@
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:{{ pihole_requested_version }}
+    depends_on:
+      - unbound
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: "{{ pihole_timezone }}"
+      FTLCONF_LOCAL_IPV4: {{ pihole_ip_address }}
+      FTLCONF_dns_dnssec: false
+      FTLCONF_dns_domain: {{ pihole_dns_domain }}
+      FTLCONF_dns_listeningMode: ALL
+      FTLCONF_dns_upstreams: {{ pihole_docker_network_3digit }}.3#53
+      FTLCONF_webserver_api_password: "{{ pihole_password }}"
+      FTLCONF_webserver_interface_theme: default-dark
+      VIRTUAL_HOST: pihole.{{ pihole_dns_domain }}
+      WEB_BIND_ADDR: {{ pihole_ip_address }}
+#    dns:
+#      - 127.0.0.1
+#      - 8.8.8.8
+#      - 8.8.4.4
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/etc-pihole:/etc/pihole
+#      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/etc-dnsmaskd:/etc/dnsmasq.d
+    networks:
+      pihole_dns_network:
+        ipv4_address: {{ pihole_docker_network_3digit }}.2
+    restart: unless-stopped
+  unbound:
+    container_name: unbound
+    image: mvance/unbound-rpi:{{ pihole_unbound_requested_version }}
+    hostname: unbound.home
+    ports:
+      - "{{ pihole_unbound_exposed_port }}:53/tcp"
+      - "{{ pihole_unbound_exposed_port }}:53/udp"
+    environment:
+      TZ: "{{ pihole_timezone }}"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/unbound-conf:/opt/unbound/etc/unbound/
+    networks:
+      pihole_dns_network:
+        ipv4_address: {{ pihole_docker_network_3digit }}.3
+    restart: unless-stopped
+
+networks:
+  pihole_dns_network:
+    name: "pihole_dns_network"
+    ipam:
+      driver: default
+      config:
+        - subnet: {{ pihole_docker_network_3digit }}.0/24
+          gateway: {{ pihole_docker_network_3digit }}.1
+          ip_range: {{ pihole_docker_network_3digit }}.0/24

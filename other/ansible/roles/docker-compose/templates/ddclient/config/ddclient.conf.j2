@@ -1,0 +1,12 @@
+daemon=60
+syslog=yes
+pid=/var/run/ddclient.pid
+use=if, if={{ ddns_interface }}
+ssl=yes
+server=api.dynu.com
+protocol=dyndns2
+login={{ ddns_username }}
+password={{ ddns_password }}
+{% for alias in ddns_aliases %}
+{{ ddns_hostname }}&alias={{ alias }}
+{% endfor %}

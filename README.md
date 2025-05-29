@@ -1,63 +1,261 @@
-# Scripts by Zoltan Kutasi
+# Homelab by Zoltan Kutasi
 
-These are scripts I have written over the time for myself, to do various small things. Some of them may be useful for somebody else, some may only be meaningful for me. Feel free to use whatever you like.
+This repository is the home of my homelab and various scripts and tool configs for it. 
+Separate README files are placed in each selected folder to further emphasize how the specific component can be used.
 
-## Getting Started
+## Overview
 
-Most of these scripts are based on an Ansible distribution system, so they sometimes contain Jinja template variables, and named ...j2. This ensures that I can reuse the same scripts on multiple machines, even if those machines have different distros or architectures. Also this makes it possible to develop them in a single place, then deploy them to the target machines without getting crazy. Ansible is a very powerful tool in helping manage remote machines using no more than SSH and python.
+All of this is a work in progress. The hardware is more or less final,
+but the Infrastructure as Code aspects will evolve as well as the hosted Services will grow.
 
-A lot of the scripts are built around the pushover service, which is a push notification service anyone can use to get any kind of push notices, as you can see I have numerous little messages prepared:
-- Notify with a push if a torrent on my seed server is downloaded, also notify me about the free space, so I can get in if it gets low
-- Notify me about failed login attempts
-- Notify me about successful login attempts
-- Notify me if a server has pending software upgrades
-- Notify me about my monthly traffic, specifically for the last 24 hours, per host (so I can fine-tune the quotas/traffic/bandwidth)
+### Hardware
 
-Also there are other things
-- Manage deluge with systemd, and let me know if it stopped/started
-- A custom media-summarizer, to check which HDD has how many stuff of what kind
-- Check files in directories against a running Deluge daemon and saee if they are added or not
+- 1x Digitus DN-19 16U-6/6-SW Rack & a bunch of extra stuff for it
+- 1x TP-Link TL-SG3428X 24 Port Gigabit Switch + 4 Port SFP+
+- 1x TP-Link TL-SG2008P JetStream 8 Port Gigabit Smart Switch PoE
+- 3x Dell Optiplex Micro 7060 with i5-8500T, 32GB RAM, 256GB SSD + 1TB SSD
+- 1x Synology 216+II with 2x6TB HDD
+- 1x Synology 224+ with 2x6TB HDD
+- 2x Raspberry Pi 4 32GB SD
+- 1x Eaton Ellipse PRO 1600 DIN 1600VA UPS
+- 1x DigitalOcean VPS with 1 vCPU and 512MB RAM
+- 1x Intel NUC Kit 7i3DNHE with i3-7100U, 16GB RAM, 500GB SSD
+- 1x Intel NUC Kit 7i3BNH with i3-7100U, 8GB RAM, 256GB SSD
+- 1x Self-built tower PC
+  - Motherboard: 
+  - CPU: Intel Pentium G4560
+  - RAM: 32GB
+  - Storage: 256GB SSD + 8x 8TB HDD
 
-### Prerequisites
+And a bunch of smaller stuff. A diagram is in the works soon.
+They consist of:
+- 3x Dell Optiplex for a Kubernetes cluster
+- 1x synology NAS for Music
+- 1x Synology NAS for Documents, Photos and work related stuff
+- 1x Raspberry Pi 4 for PiHole DNS
+- 1x Raspberry Pi 4 for a Dashboard screen
+- 1x VPS for essential things to host remotely (RustDesk for example)
+- 1x NUC for HTPC purposes
+- 1x NUC for private stuff (Windows)
+- 1x Self-build tower PC for NAS with Movies, TVShows and co.
 
-You can reuse any of the scripts, after you remove the jinja templating from them, OR you can of course use Ansible to manage your scripts and machines. No additional prerequisite is there to know, other than of course most of the scripts need to be parameterized a bit to work in your environment. Usually this can be done by reading the first few lines, and filling in some variables.
+### Tech stacks
 
-### Installing
+#### General tools
 
-Let us assume, you will try to use Ansible, so how to do it?
+These are fundamental or general tools I built my infrastructure on or use it across the whole homelab.
 
-1. Install Ansible on a control machine
-2. Create an Ansible inventory with your hosts
-3. Fill host_vars and group_vars to set up variables in the playbook roles
-4. Use ansible-vault to encrypt these files, since most probably you will need passwords in them
-5. Now it is a good time to test the connections with the ping module of Ansible
-6. Rewrite the existing playbook setup.yml, or create your own
-7. Use ansible-playbook to execute the script-pushing to the right machines to the right places, without having a single concern whether you miss something or not.
+<table>
+    <tr>
+        <th>Logo</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/proxmox.svg"></td>
+        <td><a href="https://www.proxmox.com">Proxmox</a></td>
+        <td>Provide the virtualization layer on bigger hardware units</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/hashicorp-terraform.svg"></td>
+        <td><a href="https://developer.hashicorp.com/terraform">Terraform</a></td>
+        <td>Create VMs on top of Proxmox</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ansible.svg"></td>
+        <td><a href="https://www.ansible.com">Ansible</a></td>
+        <td>Automate bare metal provisioning and configuration on every machine</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/docker.svg"></td>
+        <td><a href="https://www.docker.com/">Docker</a></td>
+        <td>Containerize everything, using Docker Compose</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/pi-hole.svg"></td>
+        <td><a href="https://pi-hole.net/">Pihole</a></td>
+        <td>Network-wide Ad Blocking and local DNS server</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/unbound.svg"></td>
+        <td><a href="https://www.nlnetlabs.nl/projects/unbound/about/">Unbound</a></td>
+        <td>Used with Pihole, to bypass public DNS Servers</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubuntu.svg"></td>
+        <td><a href="https://ubuntu.com/server">Ubuntu Server</a></td>
+        <td>Base OS for anything requiring one</td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+</table>
 
-## Running the tests
+#### Kubernetes infrastructure stack
 
-Hahaha, no tests were written, these are scripts with a maximum of a few hundred lines.
+<table>
+    <tr>
+        <th>Logo</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kubernetes.svg"></td>
+        <td><a href="https://kubernetes.io/">Kubernetes</a></td>
+        <td>Orchestrate containerized applications</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/helm.svg"></td>
+        <td><a href="https://helm.sh/">Helm</a></td>
+        <td>A package manager for Helm</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://github.com/jetstack/cert-manager/raw/master/logo/logo.png"></td>
+        <td><a href="https://cert-manager.io/">Cert Manager</a></td>
+        <td>Cloud native certificate management, using self signed certs as well as Let's Encrypt ones</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://avatars.githubusercontent.com/u/60239468?s=200&v=4"></td>
+        <td><a href="https://metallb.io/">MetalLB</a></td>
+        <td>Bare metal load-balancer for Kubernetes, for those External IPs</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://avatars.githubusercontent.com/u/54918165?s=200&v=4"></td>
+        <td><a href="https://projectcontour.io/">Contour</a></td>
+        <td>Ingress Controller for the services exposed</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png"></td>
+        <td><a href="https://github.com/kubernetes-sigs/external-dns">ExternalDNS</a></td>
+        <td>Synchronizes exposed Kubernetes Services and Ingresses (Contour HTTPProxies too) with DNS providers (Pihole too)</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://raw.githubusercontent.com/rook/artwork/master/logo/blue.svg"></td>
+        <td><a href="https://rook.io">Rook Ceph</a></td>
+        <td>Cloud-Native Storage for Kubernetes</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/prometheus.svg"></td>
+        <td><a href="https://prometheus.io">Prometheus</a></td>
+        <td>Collect metrics from all hosts with various exporters</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana.svg"></td>
+        <td><a href="https://grafana.com">Grafana</a></td>
+        <td>Visualize metrics and other sources of information</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/loki.svg"></td>
+        <td><a href="https://grafana.com/oss/loki/">Loki</a></td>
+        <td>A Log Aggregation system with Grafana integration</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana-alloy.svg"></td>
+        <td><a href="https://grafana.com/docs/alloy/latest/">Alloy</a></td>
+        <td>Collect logs from any source and transfer it to Loki</td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+</table>
 
-## Deployment
+#### Selfhosted apps
 
-Some scripts have to be deployed into specific directories, that could be different depending on distro or installation parameters. Always check every script if it has the correct end-destination.
+These are apps or services I self host myself in my infrastructure
 
-## Built With
-
-No, these are just scripts and descriptor files, no building was necessary.
-
-## Versioning
-
-No.
-
-## Authors
-
-Me.
-
-## License
-
-Do whatever you like with these, I do not care. I have done these for myself.
-
-## Acknowledgements
-
-My congratulations go to the people out there who inspired me with Wikis, Blog-posts or whole articles about what to do and how to do it.
+<table>
+    <tr>
+        <th>Logo</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/rustdesk.svg"></td>
+        <td><a href="https://rustdesk.com/">RustDesk</a></td>
+        <td>Open-Source Remote Desktop (to anywhere) with Self-Hosted Server Solutions (on the VPS)</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/network-ups-tools.svg"></td>
+        <td><a href="https://networkupstools.org/">Network UPS Tools</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/portainer.svg"></td>
+        <td><a href="https://www.portainer.io/">Portainer</a></td>
+        <td>Manage docker containers and compose stacks from a central place</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/komodo.svg"></td>
+        <td><a href="https://komo.do/">Komodo</a></td>
+        <td>A portainer alternative</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/cup-updates.svg"></td>
+        <td><a href="https://cup.sergi0g.dev">Cup</a></td>
+        <td>Get notified of version updates of docker images</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/speedtest-tracker.svg"></td>
+        <td><a href="https://github.com/alexjustesen/speedtest-tracker">Speedtest tracker</a></td>
+        <td>Measure internet speed, latency and get notified if something happens</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/omnitools.svg"></td>
+        <td><a href="https://github.com/iib0011/omni-tools">Omni Tools</a></td>
+        <td>Various useful tools</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg"></td>
+        <td><a href="https://github.com/CorentinTh/it-tools">IT Tools</a></td>
+        <td>IT swiss army knife</td>
+    </tr>
+    <tr>
+        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png"></td>
+        <td><a href="https://github.com/C4illin/ConvertX">ConvertX</a></td>
+        <td>Convert anything into something else</td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><img width="32" src=""></td>
+        <td><a href="">xxxx</a></td>
+        <td></td>
+    </tr>
+</table>

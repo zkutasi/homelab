@@ -1,0 +1,12 @@
+services:
+  smartctl-exporter:
+    container_name: smartctl-exporter
+{% if smartctlexporter_extra_args is defined and smartctlexporter_extra_args | length > 0 %}
+    entrypoint: /bin/smartctl_exporter {{ smartctlexporter_extra_args | join(' ') }}
+{% endif %}
+    image: prometheuscommunity/smartctl-exporter:v{{ requested_version }}
+    ports:
+      - {{ port_smartctl_exporter }}:9633
+    privileged: true
+    restart: unless-stopped
+    user: root

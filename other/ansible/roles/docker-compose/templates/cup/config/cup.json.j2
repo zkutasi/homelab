@@ -1,0 +1,11 @@
+{
+{% if cup_control_server | length > 0 and inventory_hostname == cup_control_server and cup_servers | length > 0 %}
+  "servers": {
+{% for server in cup_servers | dict2items %}
+        "{{ server.key }}": "{{ server.value }}"{{ ", " if not loop.last else "" }}
+{% endfor %}
+  }
+{% else %}
+  "agent": true
+{% endif %}
+}

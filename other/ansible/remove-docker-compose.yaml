@@ -1,0 +1,8 @@
+- name: Delete dockge
+  hosts:
+    - standalone
+    - synology
+  roles:
+    - remove-docker-compose
+  vars:
+    docker_compose_projectname: dockge

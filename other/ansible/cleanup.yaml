@@ -1,0 +1,5 @@
+- name: Docker Prune
+  hosts:
+    - standalone
+  roles:
+    - docker-cleanup

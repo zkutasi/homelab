@@ -1,0 +1,9 @@
+- name: Ensure given /etc/hosts entries are added
+  ansible.builtin.lineinfile:
+    dest: /etc/hosts
+    regexp: "^{{ ip_address }}"
+    line: "{{ ip_address }} {{ item }}"
+    state: present
+  vars:
+    ip_address: "{{ lookup('community.general.dig', item, hosts_dns_server) }}"
+  loop: "{{ hosts_entries }}"

@@ -1,0 +1,46 @@
+- name: Check if the binary is present
+  ansible.builtin.stat:
+    path: "{{ bin_path }}/{{ bin_filename }}"
+  register: binary_filestat
+- name: Check the version of the binary if present
+  when: binary_filestat.stat.exists and not binary_filestat.stat.isdir
+  check_mode: false
+  block:
+    - name: Check the version of the binary if present
+      ansible.builtin.command:
+        cmd: "{{ bin_path }}/{{ bin_filename }} --version"
+      register: binary_installed_version_output
+      changed_when: false
+    - name: Extract exact version
+      ansible.builtin.set_fact:
+        binary_installed_version: "{{ (binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines)[0]
+          | regex_search('.*, version ([0-9\\.]+)', '\\1') | first }}"
+    - name: Print out the binary version
+      ansible.builtin.debug:
+        var: binary_installed_version
+- name: Download the given version of binary if not already installed
+  when: not binary_filestat.stat.exists or requested_version != binary_installed_version
+  ansible.builtin.unarchive:
+    src: "{{ download_url }}"
+    remote_src: true
+    dest: "{{ bin_path }}"
+    extra_opts:
+      - "--wildcards"
+      - "*/{{ bin_filename }}"
+      - "--strip-components=1"
+  notify: Restart the service
+- name: Create a new Service for the binary
+  ansible.builtin.template:
+    src: service.j2
+    dest: "/etc/systemd/system/{{ service_name }}.service"
+    mode: '0644'
+    owner: root
+    group: root
+  notify: Restart the service
+- name: Start the service
+  ansible.builtin.systemd_service:
+    daemon_reexec: true
+    daemon_reload: true
+    name: "{{ service_name }}"
+    state: started
+    enabled: true

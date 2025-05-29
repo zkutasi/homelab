@@ -1,0 +1,13 @@
+services:
+  emby:
+    container_name: plex
+    environment:
+      - UID=1000
+      - GID=100
+      - GIDLIST=100
+    image: plexinc/pms-docker:{{ requested_version }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - /mnt:/mnt

@@ -1,0 +1,7 @@
+---
+- name: Copy and set-up update checker cron script
+  ansible.builtin.template:
+    src: are_updates_available.j2
+    dest: "{{ update_checker_cron_weekly_dir }}/are_updates_available"
+    mode: "0755"
+  become: true

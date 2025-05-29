@@ -1,0 +1,2 @@
+update_checker_cron_weekly_dir: /etc/cron.weekly
+update_checker_apt_path: /usr/bin/apt-get

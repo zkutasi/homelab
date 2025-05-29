@@ -1,0 +1,12 @@
+services:
+  ddclient:
+    container_name: ddclient
+    environment:
+      - PUID=1000
+      - PGID=100
+      - TZ={{ timezone }}
+    image: lscr.io/linuxserver/ddclient:{{ requested_version }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

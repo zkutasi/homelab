@@ -1,0 +1,19 @@
+- name: Docker prune
+  community.docker.docker_prune:
+    debug: true
+    containers: true
+    images: true
+    networks: true
+    volumes: true
+- name: Get all images
+  community.docker.docker_image_info:
+  register: docker_images
+- name: Remove all latest images
+  community.docker.docker_image:
+    state: absent
+    name: "{{ item.RepoTags[0].split(':')[0] }}"
+    tag: latest
+  loop: "{{ docker_images.images }}"
+  loop_control:
+    label: "{{ item.RepoTags }}"
+  when: "'latest' in (item.RepoTags | map('split', ':') | map('last'))"

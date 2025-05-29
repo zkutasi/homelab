@@ -1,0 +1,8 @@
+server {
+  listen 5001;
+  server_name synology216v4.zkhome.dynu.net;
+
+    resolver 8.8.8.8 ipv4=off ipv6=on valid=60s;
+    set $upstream synology216.zkhome.dynu.net;
+    proxy_pass $upstream:5001;
+}

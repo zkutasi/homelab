@@ -1,0 +1,9 @@
+- name: Proxmox specific apt setup
+  hosts: proxmox
+  roles:
+    - proxmox-apt-repos
+- name: Update and upgrade packages
+  hosts: standalone
+  become: true
+  roles:
+    - package-update

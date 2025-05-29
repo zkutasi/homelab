@@ -1,0 +1,11 @@
+services:
+  cup:
+    container_name: cup
+    command: -c /config/cup.json serve
+    image: ghcr.io/sergi0g/cup:v{{ requested_version }}
+    ports:
+      - {{ port_cup }}:8000
+    restart: unless-stopped
+    volumes:
+      - {{ docker_socket_path }}:/var/run/docker.sock
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/cup.json:/config/cup.json

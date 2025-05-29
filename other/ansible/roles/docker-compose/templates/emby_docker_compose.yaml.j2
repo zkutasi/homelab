@@ -1,0 +1,17 @@
+services:
+  emby:
+    container_name: embyserver
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - UID=1000
+      - GID=100
+      - GIDLIST=100
+    image: emby/embyserver:{{ requested_version }}
+    ports:
+      - {{ port_emby_http }}:8096
+      - {{ port_emby_https }}:8920
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - /mnt:/mnt

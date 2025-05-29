@@ -1,0 +1,90 @@
+- name: Create the docker-compose directory if it does not exist
+  ansible.builtin.file:
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+    state: directory
+    mode: '0755'
+- name: Copy any static files necessary
+  ansible.builtin.copy:
+    src: "{{ docker_compose_projectname }}/{{ item }}/"   # Note the / at the end !
+    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
+    mode: "0644"
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+    directory_mode: "755"
+  loop: "{{ docker_compose_static_configfiles_copy }}"
+- name: Make sure destination dir exists for template files
+  ansible.builtin.file:
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item | dirname }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+  loop: "{{ docker_compose_template_configfiles_copy }}"
+- name: Copy any template files necessary
+  ansible.builtin.template:
+    src: "{{ docker_compose_projectname }}/{{ item }}.j2"
+    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
+    mode: "0644"
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+  loop: "{{ docker_compose_template_configfiles_copy }}"
+- name: Copy docker compose file
+  ansible.builtin.template:
+    src: "{{ docker_compose_projectname }}_docker_compose.yaml.j2"
+    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/docker-compose.yaml"
+    mode: "0644"
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+- name: Get the version of docker compose
+  check_mode: false
+  block:
+    - name: Check the version of docker compose (v2)
+      ansible.builtin.command:
+        cmd: "{{ docker_path_to_commands }}docker compose version"
+      register: docker_compose_version_output
+      changed_when: false
+    - name: Extract exact version (v2)
+      ansible.builtin.set_fact:
+        docker_compose_installed_version: "{{ docker_compose_version_output.stdout_lines[0]
+          | regex_search('Docker Compose version v?([0-9\\.]*)', '\\1') | first }}"
+    - name: Print out the docker compose version (v2)
+      ansible.builtin.debug:
+        var: docker_compose_installed_version
+  rescue:
+    - name: Falling back to v1
+      ansible.builtin.debug:
+        msg: "Falling back to docker-compose v1"
+    - name: Check the version of docker compose (v1)
+      ansible.builtin.command:
+        cmd: "{{ docker_path_to_commands }}docker-compose --version"
+      register: docker_compose_version_output
+      changed_when: false
+    - name: Extract exact version (v1)
+      ansible.builtin.set_fact:
+        docker_compose_installed_version: "{{ docker_compose_version_output.stdout_lines[0]
+          | regex_search('docker-compose version v?([0-9\\.]*)', '\\1') | first }}"
+    - name: Print out the docker compose version (v1)
+      ansible.builtin.debug:
+        var: docker_compose_installed_version
+- name: Create bind mount directories
+  become: true
+  ansible.builtin.file:
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+  loop: "{{ docker_compose_create_dirs }}"
+- name: Docker compose up (v2)
+  when: docker_compose_installed_version is version('2.0', '>=')
+  become: "{{ docker_with_sudo }}"
+  community.docker.docker_compose_v2:
+    project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+    docker_cli: "{{ docker_cli_path }}"
+    remove_orphans: true
+- name: Docker compose up (v1)
+  when: docker_compose_installed_version | length == 0 or docker_compose_installed_version is version('2', '<')
+  become: "{{ docker_with_sudo }}"
+  community.docker.docker_compose:
+    project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+    remove_orphans: true
