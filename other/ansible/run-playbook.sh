@@ -18,9 +18,9 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-[ -z "${PLAYBOOOK}" ] && echo "ERROR: No playbook specified" && exit 1
+[ -z "${PLAYBOOK}" ] && echo "ERROR: No playbook specified" && exit 1
 
-CMD=ansible-playbook -i inventory/hosts.yaml ${PLAYBOOK}
+CMD="ansible-playbook -i inventory/hosts.yaml ${PLAYBOOK}"
 [ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
 [ "${CHECK}" -eq 1 ] && CMD="${CMD} --check"
 
