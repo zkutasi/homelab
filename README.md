@@ -211,7 +211,7 @@ These are apps or services I self host myself in my infrastructure
     <tr>
         <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/network-ups-tools.svg"></td>
         <td><a href="https://networkupstools.org/">Network UPS Tools</a></td>
-        <td></td>
+        <td>Connect the UPS to the internal Network and make it reusable</td>
     </tr>
     <tr>
         <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/portainer.svg"></td>
