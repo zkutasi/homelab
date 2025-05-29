@@ -1,17 +1,14 @@
 ---
-- name: Copy and set-up send_push script
-  template:
-    src: send_push.sh.j2
-    dest: "{{ user_home }}/send_push.sh"
-    mode: 0755
-- name: Copy and set-up pushover.info file
-  template:
-    src: pushover.info.j2
-    dest: "{{ user_home }}/pushover.info"
-    mode: 0744
-- name: Copy sink.d script for push notifications on OMV
-  template:
-    src: OMV_send_push.j2
-    dest: /usr/share/openmediavault/notification/sink.d/send_push
-    mode: 0755
-  when: inventory_hostname == "omv"
+- name: Set up pushover if a token is defined
+  when: pushover_token is defined
+  block:
+    - name: Copy and set up send_push script
+      ansible.builtin.template:
+        src: send_push.sh.j2
+        dest: "{{ user_home }}/send_push.sh"
+        mode: "0755"
+    - name: Copy and set up pushover.info file
+      ansible.builtin.template:
+        src: pushover.info.j2
+        dest: "{{ user_home }}/pushover.info"
+        mode: "0644"

@@ -11,7 +11,7 @@
 source {{ user_home }}/pushover.info
 
 message="$1"
-CURL={{ curl_path }}
+CURL={{ pushover_curl_path }}
 
 ${CURL} -s \
   --form-string "token=${token}" \

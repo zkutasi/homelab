@@ -1,1 +1,1 @@
-curl_path: /usr/bin/curl
+pushover_curl_path: /usr/bin/curl
