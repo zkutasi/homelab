@@ -29,6 +29,7 @@ but the Infrastructure as Code aspects will evolve as well as the hosted Service
 
 And a bunch of smaller stuff. A diagram is in the works soon.
 They consist of:
+
 - 3x Dell Optiplex for a Kubernetes cluster
 - 1x synology NAS for Music
 - 1x Synology NAS for Documents, Photos and work related stuff
@@ -45,217 +46,44 @@ They consist of:
 
 These are fundamental or general tools I built my infrastructure on or use it across the whole homelab.
 
-<table>
-    <tr>
-        <th>Logo</th>
-        <th>Name</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/proxmox.svg"></td>
-        <td><a href="https://www.proxmox.com">Proxmox</a></td>
-        <td>Provide the virtualization layer on bigger hardware units</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/hashicorp-terraform.svg"></td>
-        <td><a href="https://developer.hashicorp.com/terraform">Terraform</a></td>
-        <td>Create VMs on top of Proxmox</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ansible.svg"></td>
-        <td><a href="https://www.ansible.com">Ansible</a></td>
-        <td>Automate bare metal provisioning and configuration on every machine</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/docker.svg"></td>
-        <td><a href="https://www.docker.com/">Docker</a></td>
-        <td>Containerize everything, using Docker Compose</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/pi-hole.svg"></td>
-        <td><a href="https://pi-hole.net/">Pihole</a></td>
-        <td>Network-wide Ad Blocking and local DNS server</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/unbound.svg"></td>
-        <td><a href="https://www.nlnetlabs.nl/projects/unbound/about/">Unbound</a></td>
-        <td>Used with Pihole, to bypass public DNS Servers</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubuntu.svg"></td>
-        <td><a href="https://ubuntu.com/server">Ubuntu Server</a></td>
-        <td>Base OS for anything requiring one</td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-</table>
+| Logo | Name | Description |
+|------|------|-------------|
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/proxmox.svg" alt="Proxmox"> | [Proxmox](https://www.proxmox.com) | Provide the virtualization layer on bigger hardware units |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/hashicorp-terraform.svg" alt="Terraform"> | [Terraform](https://developer.hashicorp.com/terraform) | Create VMs on top of Proxmox |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ansible.svg" alt="Ansible"> | [Ansible](https://www.ansible.com) | Automate bare metal provisioning and configuration on every machine |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/docker.svg" alt="Docker"> | [Docker](https://www.docker.com/) | Containerize everything, using Docker Compose |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/pi-hole.svg" alt="Pihole"> | [Pihole](https://pi-hole.net/) | Network-wide Ad Blocking and local DNS server |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/unbound.svg" alt="Unbound"> | [Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) | Used with Pihole, to bypass public DNS Servers |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubuntu.svg" alt="Ubuntu Server"> | [Ubuntu Server](https://ubuntu.com/server) | Base OS for anything requiring one |
 
 #### Kubernetes infrastructure stack
 
-<table>
-    <tr>
-        <th>Logo</th>
-        <th>Name</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kubernetes.svg"></td>
-        <td><a href="https://kubernetes.io/">Kubernetes</a></td>
-        <td>Orchestrate containerized applications</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/helm.svg"></td>
-        <td><a href="https://helm.sh/">Helm</a></td>
-        <td>A package manager for Helm</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://github.com/jetstack/cert-manager/raw/master/logo/logo.png"></td>
-        <td><a href="https://cert-manager.io/">Cert Manager</a></td>
-        <td>Cloud native certificate management, using self signed certs as well as Let's Encrypt ones</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://avatars.githubusercontent.com/u/60239468?s=200&v=4"></td>
-        <td><a href="https://metallb.io/">MetalLB</a></td>
-        <td>Bare metal load-balancer for Kubernetes, for those External IPs</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://avatars.githubusercontent.com/u/54918165?s=200&v=4"></td>
-        <td><a href="https://projectcontour.io/">Contour</a></td>
-        <td>Ingress Controller for the services exposed</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png"></td>
-        <td><a href="https://github.com/kubernetes-sigs/external-dns">ExternalDNS</a></td>
-        <td>Synchronizes exposed Kubernetes Services and Ingresses (Contour HTTPProxies too) with DNS providers (Pihole too)</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://raw.githubusercontent.com/rook/artwork/master/logo/blue.svg"></td>
-        <td><a href="https://rook.io">Rook Ceph</a></td>
-        <td>Cloud-Native Storage for Kubernetes</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/prometheus.svg"></td>
-        <td><a href="https://prometheus.io">Prometheus</a></td>
-        <td>Collect metrics from all hosts with various exporters</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana.svg"></td>
-        <td><a href="https://grafana.com">Grafana</a></td>
-        <td>Visualize metrics and other sources of information</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/loki.svg"></td>
-        <td><a href="https://grafana.com/oss/loki/">Loki</a></td>
-        <td>A Log Aggregation system with Grafana integration</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana-alloy.svg"></td>
-        <td><a href="https://grafana.com/docs/alloy/latest/">Alloy</a></td>
-        <td>Collect logs from any source and transfer it to Loki</td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-</table>
+| Logo | Name | Description |
+|------|------|-------------|
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kubernetes.svg" alt="Kubernetes"> | [Kubernetes](https://kubernetes.io/) | Orchestrate containerized applications |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/helm.svg" alt="Helm"> | [Helm](https://helm.sh/) | A package manager for Helm |
+| <img width="32" src="https://github.com/jetstack/cert-manager/raw/master/logo/logo.png" alt="Cert Manager"> | [Cert Manager](https://cert-manager.io/) | Cloud native certificate management, using self signed certs as well as Let's Encrypt ones |
+| <img width="32" src="https://avatars.githubusercontent.com/u/60239468?s=200&v=4" alt="MetalLB"> | [MetalLB](https://metallb.io/) | Bare metal load-balancer for Kubernetes, for those External IPs |
+| <img width="32" src="https://avatars.githubusercontent.com/u/54918165?s=200&v=4" alt="Contour"> | [Contour](https://projectcontour.io/) | Ingress Controller for the services exposed |
+| <img width="32" src="https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png" alt="ExternalDNS"> | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) | Synchronizes exposed Kubernetes Services and Ingresses (Contour HTTPProxies too) with DNS providers (Pihole too) |
+| <img width="32" src="https://raw.githubusercontent.com/rook/artwork/master/logo/blue.svg" alt="Rook Ceph"> | [Rook Ceph](https://rook.io) | Cloud-Native Storage for Kubernetes |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/prometheus.svg" alt="Prometheus"> | [Prometheus](https://prometheus.io) | Collect metrics from all hosts with various exporters |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana.svg" alt="Grafana"> | [Grafana](https://grafana.com) | Visualize metrics and other sources of information |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/loki.svg" alt="Loki"> | [Loki](https://grafana.com/oss/loki/) | A Log Aggregation system with Grafana integration |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/grafana-alloy.svg" alt="Alloy"> | [Alloy](https://grafana.com/docs/alloy/latest/) | Collect logs from any source and transfer it to Loki |
 
 #### Selfhosted apps
 
 These are apps or services I self host myself in my infrastructure
 
-<table>
-    <tr>
-        <th>Logo</th>
-        <th>Name</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/rustdesk.svg"></td>
-        <td><a href="https://rustdesk.com/">RustDesk</a></td>
-        <td>Open-Source Remote Desktop (to anywhere) with Self-Hosted Server Solutions (on the VPS)</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/network-ups-tools.svg"></td>
-        <td><a href="https://networkupstools.org/">Network UPS Tools</a></td>
-        <td>Connect the UPS to the internal Network and make it reusable</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/portainer.svg"></td>
-        <td><a href="https://www.portainer.io/">Portainer</a></td>
-        <td>Manage docker containers and compose stacks from a central place</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/komodo.svg"></td>
-        <td><a href="https://komo.do/">Komodo</a></td>
-        <td>A portainer alternative</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/cup-updates.svg"></td>
-        <td><a href="https://cup.sergi0g.dev">Cup</a></td>
-        <td>Get notified of version updates of docker images</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/speedtest-tracker.svg"></td>
-        <td><a href="https://github.com/alexjustesen/speedtest-tracker">Speedtest tracker</a></td>
-        <td>Measure internet speed, latency and get notified if something happens</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/omnitools.svg"></td>
-        <td><a href="https://github.com/iib0011/omni-tools">Omni Tools</a></td>
-        <td>Various useful tools</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg"></td>
-        <td><a href="https://github.com/CorentinTh/it-tools">IT Tools</a></td>
-        <td>IT swiss army knife</td>
-    </tr>
-    <tr>
-        <td><img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png"></td>
-        <td><a href="https://github.com/C4illin/ConvertX">ConvertX</a></td>
-        <td>Convert anything into something else</td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><img width="32" src=""></td>
-        <td><a href="">xxxx</a></td>
-        <td></td>
-    </tr>
-</table>
+| Logo | Name | Description |
+|------|------|-------------|
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/rustdesk.svg" alt="RustDesk"> | [RustDesk](https://rustdesk.com/) | Open-Source Remote Desktop (to anywhere) with Self-Hosted Server Solutions (on the VPS) |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/network-ups-tools.svg" alt="Network UPS Tools"> | [Network UPS Tools](https://networkupstools.org/) | Connect the UPS to the internal Network and make it reusable |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/portainer.svg" alt="Portainer"> | [Portainer](https://www.portainer.io/) | Manage docker containers and compose stacks from a central place |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/komodo.svg" alt="Komodo"> | [Komodo](https://komo.do/) | A portainer alternative |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/cup-updates.svg" alt="Cup"> | [Cup](https://cup.sergi0g.dev) | Get notified of version updates of docker images |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/speedtest-tracker.svg" alt="Speedtest tracker"> | [Speedtest tracker](https://github.com/alexjustesen/speedtest-tracker) | Measure internet speed, latency and get notified if something happens |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/omnitools.svg" alt="Omni Tools"> | [Omni Tools](https://github.com/iib0011/omni-tools) | Various useful tools |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg" alt="IT Tools"> | [IT Tools](https://github.com/CorentinTh/it-tools) | IT swiss army knife |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png" alt="ConvertX"> | [ConvertX](https://github.com/C4illin/ConvertX) | Convert anything into something else |
