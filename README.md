@@ -1,6 +1,6 @@
 # Homelab by Zoltan Kutasi
 
-This repository is the home of my homelab and various scripts and tool configs for it. 
+This repository is the home of my homelab and various scripts and tool configs for it.
 Separate README files are placed in each selected folder to further emphasize how the specific component can be used.
 
 ## Overview
@@ -22,7 +22,7 @@ but the Infrastructure as Code aspects will evolve as well as the hosted Service
 - 1x Intel NUC Kit 7i3DNHE with i3-7100U, 16GB RAM, 500GB SSD
 - 1x Intel NUC Kit 7i3BNH with i3-7100U, 8GB RAM, 256GB SSD
 - 1x Self-built tower PC
-  - Motherboard: 
+  - Motherboard:
   - CPU: Intel Pentium G4560
   - RAM: 32GB
   - Storage: 256GB SSD + 8x 8TB HDD
