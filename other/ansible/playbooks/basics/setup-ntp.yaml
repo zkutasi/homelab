@@ -1,0 +1,5 @@
+- name: Set up NTP
+  hosts: "*"
+  become: true
+  roles:
+    - ntp

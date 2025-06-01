@@ -1,0 +1,10 @@
+- name: Setup smartctl-exporter
+  ansible.builtin.import_playbook: monitoring/setup-smartctl-exporter.yaml
+- name: Setup node-exporter
+  ansible.builtin.import_playbook: monitoring/setup-node-exporter.yaml
+- name: Setup portainer
+  ansible.builtin.import_playbook: monitoring/setup-portainer.yaml
+- name: Setup komodo
+  ansible.builtin.import_playbook: monitoring/setup-komodo.yaml
+- name: Setup cup
+  ansible.builtin.import_playbook: monitoring/setup-cup.yaml

@@ -1,0 +1,4 @@
+- name: Copy all required scripts
+  hosts: "*"
+  roles:
+    - scripts

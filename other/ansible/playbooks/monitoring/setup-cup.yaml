@@ -1,0 +1,21 @@
+- name: Create cup as docker
+  hosts:
+    - standalone
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: cup
+    requested_version: "3.4.0"
+    docker_compose_create_dirs:
+      - config
+    docker_compose_template_configfiles_copy:
+      - config/cup.json
+    # cup_control_server: control
+    # cup_servers:
+    #   # control: http://192.168.31.164:8800
+    #   torrents22: http://192.168.31.96:8800
+    #   synology216: http://192.168.31.138:8800
+    #   htpc: http://192.168.31.157:8800
+    #   pihole: http://192.168.31.2:8800
+    #   droplet: http://droplet.zkhome.dynu.net:8800

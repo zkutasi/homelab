@@ -1,0 +1,19 @@
+- name: Create node_exporter as a service
+  hosts: proxmox
+  roles:
+    - create-service
+  vars:
+    requested_version: "1.9.1"
+    bin_filename: node_exporter
+    service_name: node-exporter
+    download_url: "https://github.com/prometheus/node_exporter/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-{{ requested_version }}.linux-amd64.tar.gz"
+- name: Create node_exporter as docker
+  hosts:
+    - standalone
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: node-exporter
+    requested_version: "1.9.1"

@@ -1,0 +1,11 @@
+- name: Create komodo-periphery as docker
+  hosts:
+    - standalone
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: komodo-periphery
+    requested_version: "1.17.5"
+    docker_compose_create_dirs:
+      - config

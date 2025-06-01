@@ -1,0 +1,19 @@
+- name: Create smartctl_exporter as a service
+  hosts: proxmox
+  roles:
+    - create-service
+  vars:
+    requested_version: "0.14.0"
+    bin_filename: smartctl_exporter
+    service_name: smartctl-exporter
+    download_url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-{{ requested_version }}.linux-amd64.tar.gz"
+- name: Create smartctl_exporter as docker
+  hosts:
+    - htpc
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: smartctl-exporter
+    requested_version: "0.14.0"

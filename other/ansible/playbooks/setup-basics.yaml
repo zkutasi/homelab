@@ -1,0 +1,22 @@
+- name: Set up scripts
+  ansible.builtin.import_playbook: basics/setup-scripts.yaml
+- name: Install some packages
+  hosts: "*"
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - sudo
+      - vim
+      - curl
+- name: Set up vim
+  ansible.builtin.import_playbook: basics/setup-vim.yaml
+- name: Set up ntp
+  ansible.builtin.import_playbook: basics/setup-ntp.yaml
+- name: Set up hosts
+  ansible.builtin.import_playbook: basics/setup-hosts.yaml
+- name: Set up fstab
+  ansible.builtin.import_playbook: basics/setup-fstab.yaml
+- name: Set up pushover
+  ansible.builtin.import_playbook: basics/setup-pushover.yaml
