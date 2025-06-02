@@ -27,7 +27,10 @@ but the Infrastructure as Code aspects will evolve as well as the hosted Service
   - RAM: 32GB
   - Storage: 256GB SSD + 8x 8TB HDD
 
-And a bunch of smaller stuff. A diagram is in the works soon.
+And a bunch of smaller stuff.
+
+![Architecture](architecture.drawio.png)
+
 They consist of:
 
 - 3x Dell Optiplex for a Kubernetes cluster
