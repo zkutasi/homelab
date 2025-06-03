@@ -18,7 +18,7 @@ while [ $# -ge 1 ]; do
     --no-diff)
       DIFF=0
       ;;
-    ---no-check)
+    --no-check)
       CHECK=0
       ;;
     *)
