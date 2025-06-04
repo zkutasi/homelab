@@ -1,9 +1,15 @@
 - name: Print the package manager
   ansible.builtin.debug:
     msg: System {{ inventory_hostname }} has package manager {{ ansible_pkg_mgr }}
-- name: Install packages
-  when: ansible_pkg_mgr != 'unknown'
-  ansible.builtin.package:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ packages }}"
+- name: Install the requested packages
+  when: ansible_pkg_mgr == 'apt'
+  block:
+    - name: Update APT package cache
+      ansible.builtin.apt:
+        update_cache: true
+    - name: Install packages
+      when: ansible_pkg_mgr != 'unknown'
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages }}"
