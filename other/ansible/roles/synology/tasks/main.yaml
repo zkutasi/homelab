@@ -15,7 +15,6 @@
       ansible.builtin.file:
         path: "{{ synology_docker_cliplugin_path }}"
         state: directory
-        recurse: true
     - name: Download the requested version of compose
       ansible.builtin.get_url:
         url: "https://github.com/docker/compose/releases/download/v{{ synology_docker_compose_v2_version }}/docker-compose-linux-x86_64"
