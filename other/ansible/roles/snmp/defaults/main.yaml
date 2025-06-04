@@ -1,0 +1,4 @@
+snmp_auth_pass: "{{ undef(hint='You must specify the SNMP auth pass') }}"
+snmp_auth_type: "SHA-512"
+snmp_priv_pass: "{{ undef(hint='You must specify the SNMP priv pass') }}"
+snmp_priv_type: "AES"

@@ -1,0 +1,10 @@
+- name: Set up SNMP
+  become: true
+  hosts:
+    - standalone
+  roles:
+    - snmp
+  vars:
+    snmp_auth_pass: "authPass"
+    snmp_priv_pass: "privPass"
+    snmp_username: "readonly"

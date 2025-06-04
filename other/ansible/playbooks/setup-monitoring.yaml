@@ -1,3 +1,5 @@
+- name: Setup SNMP
+  ansible.builtin.import_playbook: monitoring/setup-snmp.yaml
 - name: Setup smartctl-exporter
   ansible.builtin.import_playbook: monitoring/setup-smartctl-exporter.yaml
 - name: Setup node-exporter
@@ -8,3 +10,5 @@
   ansible.builtin.import_playbook: monitoring/setup-komodo.yaml
 - name: Setup cup
   ansible.builtin.import_playbook: monitoring/setup-cup.yaml
+- name: Setup netalertx
+  ansible.builtin.import_playbook: monitoring/setup-netalertx.yaml

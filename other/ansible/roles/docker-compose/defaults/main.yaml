@@ -22,9 +22,10 @@ port_dockge: 5001
 port_emby_http: 8096
 port_emby_https: 8920
 port_komodo_periphery: 8120
+port_netalertx: 20211
 port_portainer_agent: 9001
-port_smartctl_exporter: 9633
 port_qbittorrent: 48080
+port_smartctl_exporter: 9633
 
 cup_control_server: ""
 cup_servers: []
@@ -35,5 +36,8 @@ ddns_interface: ""
 ddns_hostname: ""
 ddns_password: ""
 ddns_username: ""
+
+netalertx_interface: "{{ undef(hint='You must specify the interface for ARPSCAN') }}"
+netalertx_subnet: "{{ undef(hint='You must specify the subnet for ARPSCAN') }}"
 
 smartctlexporter_extra_args: []

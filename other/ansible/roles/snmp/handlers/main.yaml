@@ -1,0 +1,6 @@
+- name: Make sure snmpd service is running
+  ansible.builtin.systemd_service:
+    name: snmpd
+    enabled: true
+    state: restarted
+  listen: Restart snmpd

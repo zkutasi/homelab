@@ -1,0 +1,44 @@
+- name: Install snmp packages
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - snmp
+      - snmpd
+      - libsnmp-dev
+- name: Listen on all addresses
+  ansible.builtin.lineinfile:
+    dest: /etc/snmp/snmpd.conf
+    regex: "^agentaddress"
+    line: "agentaddress 0.0.0.0,[::1]"
+    state: present
+  notify: Restart snmpd
+- name: Get existing SNMPv3 users
+  ansible.builtin.shell: set -o pipefail && grep '^usmUser' /var/lib/snmp/snmpd.conf | awk '{print $5}' | tr -d '"'
+  args:
+    executable: /bin/bash
+  register: snmp_users
+  changed_when: false
+  failed_when: false
+- name: Print out the SNMP users
+  ansible.builtin.debug:
+    var: snmp_users
+- name: Make sure snmpd service is stopped while registering a new user
+  ansible.builtin.systemd_service:
+    name: snmpd
+    enabled: true
+    state: stopped
+  when: snmp_username not in snmp_users.stdout_lines
+- name: Create SNMPv3 user if not present
+  ansible.builtin.command: net-snmp-create-v3-user -ro \
+    -A {{ snmp_auth_pass }} -a {{ snmp_auth_type }} \
+    -X {{ snmp_priv_pass }} -x {{ snmp_priv_type }} \
+    {{ snmp_username }}
+  when: snmp_username not in snmp_users.stdout_lines
+  changed_when: true
+  notify: Restart snmpd
+- name: Make sure snmpd service is running
+  ansible.builtin.systemd_service:
+    name: snmpd
+    enabled: true
+    state: started
