@@ -20,3 +20,30 @@
     requested_version: "5.0.2-1"
     docker_compose_extra_volumes:
       - /mnt
+- name: Authenticate to qbittorrent web UI
+  hosts:
+    - torrents22
+  roles:
+    - rest-api
+  vars:
+    rest_api_url: "http://{{ ansible_host }}:48080"
+    rest_api_endpoint: "/api/v2/auth/login"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Referer: "http://{{ ansible_host }}:48080"
+    rest_api_data:
+      username: "{{ qbittorrent_username }}"
+      password: "{{ qbittorrent_password }}"
+- name: Set pushover script for torrent completion
+  hosts:
+    - torrents22
+  roles:
+    - rest-api
+  vars:
+    rest_api_url: "http://{{ ansible_host }}:48080"
+    rest_api_endpoint: "/api/v2/app/setPreferences"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Cookie: "{{ rest_api_response.cookies_string }}"
+      Referer: "http://{{ ansible_host }}:48080"
+    rest_api_data: 'json={"autorun_enabled": true, "autorun_program": "/bin/bash {{ ansible_user_dir }}/send_push.sh \"%N Completed!\""}'

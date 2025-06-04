@@ -1,0 +1,4 @@
+rest_api_data: {}
+rest_api_headers: {}
+rest_api_method: GET
+rest_api_url: "{{ undef(hint='You must specify the REST API URL') }}"
