@@ -6,6 +6,8 @@
       - apt-transport-https
       - ca-certificates
       - software-properties-common
+      - apparmor
+      - apparmor-utils
 - name: Check if GPG key exists
   ansible.builtin.stat:
     path: /usr/share/keyrings/docker-archive-keyring.gpg
