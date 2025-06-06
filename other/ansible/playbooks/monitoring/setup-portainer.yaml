@@ -7,3 +7,53 @@
   vars:
     docker_compose_projectname: portainer-agent
     requested_version: "2.30.0"
+- name: List all environments on the REST API
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "portainer_urls"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ portainer_urls.json | community.general.json_query('[*].URL') }}"
+  vars:
+    rest_api_url: "{{ portainer_host }}"
+    rest_api_endpoint: "/api/endpoints"
+    rest_api_method: "GET"
+    rest_api_headers:
+      X-API-Key: "{{ portainer_access_token }}"
+- name: Register in new docker endpoints
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      when: not (portainer_urls.json | selectattr('URL', 'contains', 'tcp://{{ hostvars[item].ansible_host }}:9001'))
+      loop: "{{ groups['standalone'] + groups['synology'] }}"
+      vars:
+        rest_api_data: Name={{ hostvars[item].id }}&EndpointCreationType=2&ContainerEngine=docker&URL=tcp://{{ hostvars[item].ansible_host }}:9001&TLS=true&TLSSkipVerify=true&TLSSkipClientVerify=true
+  vars:
+    rest_api_url: "{{ portainer_host }}"
+    rest_api_endpoint: "/api/endpoints"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Content-Type: "application/x-www-form-urlencoded; charset=utf-8"
+      X-API-Key: "{{ portainer_access_token }}"
+- name: Register in the Kubernetes endpoint
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      when: not (portainer_urls.json | selectattr('URL', 'contains', 'https://kubernetes.default.svc'))
+      vars:
+        rest_api_data: Name=local&EndpointCreationType=5&URL=https://kubernetes.default.svc
+  vars:
+    rest_api_url: "{{ portainer_host }}"
+    rest_api_endpoint: "/api/endpoints"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Content-Type: "application/x-www-form-urlencoded; charset=utf-8"
+      X-API-Key: "{{ portainer_access_token }}"
