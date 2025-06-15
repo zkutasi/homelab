@@ -45,7 +45,11 @@
     password: terraform
 - name: Copy SSH Keys
   hosts: proxmox
-  roles:
-    - ssh-keys
+  tasks:
+    - name: Install SSH Keys
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
   vars:
     username: terraform

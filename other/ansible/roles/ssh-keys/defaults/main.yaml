@@ -1,0 +1,6 @@
+ssh_key_types:
+  - ed25519
+  - rsa
+  - ecdsa
+
+ssh_key_type_to_generate: ed25519

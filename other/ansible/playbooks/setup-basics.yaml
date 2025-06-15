@@ -10,6 +10,10 @@
       - sudo
       - vim
       - curl
+- name: Generate SSH public-private key pair
+  hosts: "*"
+  roles:
+    - ssh-keys
 - name: Set up vim
   ansible.builtin.import_playbook: basics/setup-vim.yaml
 - name: Set up ntp
