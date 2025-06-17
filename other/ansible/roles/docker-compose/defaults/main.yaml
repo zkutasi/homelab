@@ -30,6 +30,8 @@ port_smartctl_exporter: 9633
 
 backupfolders: []
 
+borgmatic_encryption_passphrase: "encryptionPass"
+
 cup_control_server: ""
 cup_servers: []
 

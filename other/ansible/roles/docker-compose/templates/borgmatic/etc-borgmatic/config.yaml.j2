@@ -5,7 +5,7 @@ repositories:
     - path: ssh://borgwarehouse@{{ hostvars[groups['backupserver'][0]].ansible_host }}:{{ port_borgwarehouse_ssh }}/./{{ borgwarehouse_repo_id }}
 
 archive_name_format: '{fqdn}-{now}'
-encryption_passphrase: "encryptionPass"
+encryption_passphrase: "{{ borgmatic_encryption_passphrase }}"
 
 keep_daily: 7
 keep_weekly: 4
