@@ -1,6 +1,8 @@
 services:
   portainer-agent:
     container_name: portainer-agent
+    environment:
+      - TZ={{ timezone }}
     image: portainer/agent:{{ requested_version }}
     ports:
       - {{ port_portainer_agent }}:9001

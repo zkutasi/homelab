@@ -5,6 +5,7 @@ services:
       - UID=1000
       - GID=100
       - GIDLIST=100
+      - TZ={{ timezone }}
     image: plexinc/pms-docker:{{ requested_version }}
     network_mode: host
     restart: unless-stopped

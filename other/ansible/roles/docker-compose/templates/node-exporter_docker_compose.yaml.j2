@@ -3,6 +3,8 @@ services:
     command:
       - '--path.rootfs=/host'
     container_name: node_exporter
+    environment:
+      - TZ={{ timezone }}
     image: quay.io/prometheus/node-exporter:v{{ requested_version }}
     network_mode: host
     pid: host

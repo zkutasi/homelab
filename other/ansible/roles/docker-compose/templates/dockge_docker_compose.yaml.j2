@@ -3,6 +3,7 @@ services:
     container_name: dockge
     environment:
       - DOCKGE_STACKS_DIR=/opt/stacks
+      - TZ={{ timezone }}
     image: louislam/dockge:{{ requested_version }}
     ports:
       - {{ port_dockge }}:5001

@@ -1,6 +1,8 @@
 services:
   nginx:
     container_name: nginx
+    environment:
+      - TZ={{ timezone }}
     image: nginx:{{ requested_version }}
     networks:
       - nginx-network

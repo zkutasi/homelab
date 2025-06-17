@@ -20,4 +20,4 @@
   when: ansible_facts['services']['ntpd.service']['status'] | default('not-found') != 'not-found'
 - name: Set timezone
   community.general.timezone:
-    name: "{{ ntp_timezone }}"
+    name: "{{ timezone }}"

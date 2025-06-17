@@ -16,6 +16,7 @@ services:
       - SSH_SERVER_PORT_LAN={{ port_borgwarehouse_ssh }}
       - WEB_SERVER_PORT=3000
       - CRONJOB_KEY={{ borgwarehouse_cronjob_key }}
+      - TZ={{ timezone }}
     ports:
       - {{ port_borgwarehouse }}:3000
       - {{ port_borgwarehouse_ssh }}:{{ port_borgwarehouse_ssh }}
