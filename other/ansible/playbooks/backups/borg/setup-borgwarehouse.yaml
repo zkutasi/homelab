@@ -1,0 +1,34 @@
+- name: Create borgwarehouse as docker
+  hosts:
+    - backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: borgwarehouse
+    requested_version: "OWN"
+    docker_compose_create_dirs:
+      - config
+      - logs
+      - ssh
+      - ssh_host
+      - tmp
+- name: Override the SSH port and restart the docker service
+  hosts: backupserver
+  tasks:
+  - name: Ensure borgwarehouse SSH port is set
+    
+    ansible.builtin.lineinfile:
+      path: "{{ ansible_user_dir }}/docker-compose/borgwarehouse/ssh_host/sshd_config"
+      state: present
+      regexp: '^Port '
+      line: 'Port {{ port_borgwarehouse_ssh }}'
+    notify:
+      - Restart borgwarehouse docker service
+
+  handlers:
+    - name: Restart borgwarehouse docker service
+      become: true
+      community.docker.docker_compose_v2:
+        docker_cli: "{{ docker_cli_path }}"
+        project_src: "{{ ansible_user_dir }}/docker-compose/borgwarehouse"
+        recreate: always

@@ -1,0 +1,14 @@
+services:
+  borgmatic:
+    image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_version }}
+    container_name: borgmatic
+    volumes:
+{% for folder in backupfolders %}
+      - {{ folder }}:/sources{{ folder }}:ro
+{% endfor %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-borgmatic:/etc/borgmatic.d/
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/root/.config/borg
+      - {{ ansible_user_dir }}/.ssh:/root/.ssh
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cache:/root/.cache/borg
+    environment:
+      - TZ={{ timezone }}

@@ -1,0 +1,30 @@
+services:
+  borgwarehouse:
+    build:
+      context: borgwarehouse
+      dockerfile: Dockerfile
+      args:
+        - UID={{ docker_uid }}
+        - GID={{ backups_gid }}
+    container_name: borgwarehouse
+    environment:
+      - UID={{ docker_uid }}
+      - GID={{ backups_gid }}
+      - FQDN={{ hostvars[groups['backupserver'][0]].id }}.home
+      - FQDN_LAN={{ hostvars[groups['backupserver'][0]].ansible_host }}
+      - SSH_SERVER_PORT={{ port_borgwarehouse_ssh }}
+      - SSH_SERVER_PORT_LAN={{ port_borgwarehouse_ssh }}
+      - WEB_SERVER_PORT=3000
+      - CRONJOB_KEY={{ borgwarehouse_cronjob_key }}
+    ports:
+      - {{ port_borgwarehouse }}:3000
+      - {{ port_borgwarehouse_ssh }}:{{ port_borgwarehouse_ssh }}
+    restart: unless-stopped
+    user: "{{ docker_uid }}:{{ backups_gid }}"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/home/borgwarehouse/app/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ssh:/home/borgwarehouse/.ssh
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ssh_host:/etc/ssh
+      - {{ backups_folder }}/borg:/home/borgwarehouse/repos
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/tmp:/home/borgwarehouse/tmp
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/logs:/home/borgwarehouse/logs

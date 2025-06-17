@@ -1,0 +1,58 @@
+- name: List all repos on the REST API
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "borgwarehouse_repos"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
+  vars:
+    rest_api_url: "http://localhost:3000"
+    rest_api_endpoint: "/api/v1/repositories"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgwarehouse_api_key }}"
+- name: Get SSH public-private key pairs
+  hosts: "*"
+  roles:
+    - ssh-keys
+- name: Register in new repositories
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      when: not (borgwarehouse_repos.json.repoList | selectattr('alias', 'contains', hostvars[item].id))
+      loop: "{{ groups['backupclient'] }}"
+      vars:
+        rest_api_data:
+          alias: "{{ hostvars[item].id }}"
+          sshPublicKey: "{{ hostvars[item].ssh_public_key | trim }}"
+          storageSize: 1
+  vars:
+    rest_api_url: "http://localhost:3000"
+    rest_api_endpoint: "/api/v1/repositories"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgwarehouse_api_key }}"
+    rest_api_body_format: json
+- name: List all repos on the REST API
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "borgwarehouse_repos"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
+  vars:
+    rest_api_url: "http://localhost:3000"
+    rest_api_endpoint: "/api/v1/repositories"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgwarehouse_api_key }}"

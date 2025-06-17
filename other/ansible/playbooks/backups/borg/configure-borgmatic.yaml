@@ -1,0 +1,13 @@
+- name: Set up the known hosts
+  hosts: backupclient
+  roles:
+    - ssh-known-hosts
+- name: Initialize the repository
+  hosts: backupclient
+  tasks:
+    - name: Docker exec borgmatic init
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/borgmatic"
+        service: borgmatic
+        command: borgmatic init -e repokey-blake2
+      register: result

@@ -1,0 +1,1 @@
+ssh_known_hosts_file: "{{ ansible_user_dir }}/.ssh/known_hosts"

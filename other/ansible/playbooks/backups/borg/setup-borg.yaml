@@ -1,0 +1,6 @@
+- name: Setup borgwarehouse
+  ansible.builtin.import_playbook: setup-borgwarehouse.yaml
+- name: Configure borgwarehouse
+  ansible.builtin.import_playbook: configure-borgwarehouse.yaml
+- name: Setup borgmatic
+  ansible.builtin.import_playbook: setup-borgmatic.yaml

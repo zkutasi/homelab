@@ -1,0 +1,18 @@
+- name: Get remote server ssh fingerprints
+  ansible.builtin.command: "ssh-keyscan -p {{ port_borgwarehouse_ssh | default(22) }} {{ hostvars[item].ansible_host | default(item) }}"
+  changed_when: true
+  register: ssh_fingerprints
+  loop: "{{ groups['backupserver'] }}"
+
+- name: All known_hosts are registered
+  ansible.builtin.known_hosts:
+    name: "{{ item_host }}"
+    key: "{{ item.1 }}"
+    path: "{{ ssh_known_hosts_file }}"
+  loop: "{{ ssh_fingerprints.results | subelements('stdout_lines') }}"
+  when: item.1 is not regex('^#.*')
+  vars:
+    item_host: "{{ item.1.split(' ').0 }}"
+    item_type: "{{ item.1.split(' ').1 }}"
+  loop_control:
+    label: "{{ item_host }} {{ item_type }}"

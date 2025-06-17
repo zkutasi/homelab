@@ -17,6 +17,7 @@ docker_gid: 1000
 requested_version: "{{ undef(hint='You must specify the requested version') }}"
 timezone: "Europe/Budapest"
 
+port_borgwarehouse: 3000
 port_cup: 8800
 port_dockge: 5001
 port_emby_http: 8096
@@ -26,6 +27,8 @@ port_netalertx: 20211
 port_portainer_agent: 9001
 port_qbittorrent: 48080
 port_smartctl_exporter: 9633
+
+backupfolders: []
 
 cup_control_server: ""
 cup_servers: []
