@@ -1,0 +1,4 @@
+- name: Generate SSH public-private key pair
+  hosts: "*"
+  roles:
+    - ssh-keys

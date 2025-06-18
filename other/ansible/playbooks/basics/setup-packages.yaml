@@ -1,0 +1,10 @@
+- name: Install some packages
+  hosts: "*"
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - sudo
+      - vim
+      - curl
