@@ -1,6 +1,6 @@
 services:
   borgmatic:
-    image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_version }}
+    image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_version['borgmatic'] }}
     container_name: borgmatic
 {% if docker_compose_ipv6 %}
     networks:

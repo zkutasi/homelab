@@ -4,7 +4,7 @@ services:
     environment:
       - DOCKGE_STACKS_DIR=/opt/stacks
       - TZ={{ timezone }}
-    image: louislam/dockge:{{ requested_version }}
+    image: louislam/dockge:{{ requested_version['dockge'] }}
     ports:
       - {{ port_dockge }}:5001
     restart: unless-stopped

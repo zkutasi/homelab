@@ -16,4 +16,5 @@
     - docker-compose
   vars:
     docker_compose_projectname: node-exporter
-    requested_version: "1.9.1"
+    requested_version:
+      node-exporter: "1.9.1"

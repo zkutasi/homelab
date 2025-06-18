@@ -5,7 +5,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: borgwarehouse
-    requested_version: "OWN"
+    requested_version:
+      borgwarehouse: "OWN"
     docker_compose_create_dirs:
       - config
       - logs

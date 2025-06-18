@@ -5,7 +5,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: nginx
-    requested_version: "1.28.0-perl"
+    requested_version:
+      nginx: "1.28.0-perl"
     docker_compose_static_configfiles_copy:
       - nginx-conf
 - name: Create rustdesk as docker
@@ -15,4 +16,5 @@
     - docker-compose
   vars:
     docker_compose_projectname: rustdesk
-    requested_version: "1.1.14"
+    requested_version:
+      rustdesk: "1.1.14"

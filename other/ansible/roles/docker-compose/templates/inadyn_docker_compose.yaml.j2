@@ -3,7 +3,7 @@ services:
     container_name: inadyn
     environment:
       - TZ={{ timezone }}
-    image: troglobit/inadyn:v{{ requested_version }}
+    image: troglobit/inadyn:v{{ requested_version['inadyn'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

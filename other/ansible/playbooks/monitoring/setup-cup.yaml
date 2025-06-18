@@ -6,7 +6,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: cup
-    requested_version: "3.4.0"
+    requested_version:
+      cup: "3.4.0"
     docker_compose_create_dirs:
       - config
     docker_compose_template_configfiles_copy:

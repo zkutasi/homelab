@@ -8,7 +8,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: inadyn
-    requested_version: "2.12.0"
+    requested_version:
+      inadyn: "2.12.0"
     docker_compose_template_configfiles_copy:
       - config/inadyn.conf
 - name: Create ddclient as docker
@@ -18,6 +19,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: ddclient
-    requested_version: "4.0.0"
+    requested_version:
+      ddclient: "4.0.0"
     docker_compose_template_configfiles_copy:
       - config/ddclient.conf

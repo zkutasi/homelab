@@ -6,7 +6,7 @@ services:
       - hbbr
     environment:
       - TZ={{ timezone }}
-    image: rustdesk/rustdesk-server:{{ requested_version }}
+    image: rustdesk/rustdesk-server:{{ requested_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped
     volumes:
@@ -17,7 +17,7 @@ services:
     container_name: hbbr
     environment:
       - TZ={{ timezone }}
-    image: rustdesk/rustdesk-server:{{ requested_version }}
+    image: rustdesk/rustdesk-server:{{ requested_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped
     volumes:

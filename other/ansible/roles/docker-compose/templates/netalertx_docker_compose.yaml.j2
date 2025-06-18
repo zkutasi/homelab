@@ -10,7 +10,7 @@ services:
       - PGID={{ docker_gid }}
       - APP_CONF_OVERRIDE={"SCAN_SUBNETS":"['{{ netalertx_subnet }} --interface={{ netalertx_interface }}']"}
       - PIHOLE_RUN=schedule
-    image: ghcr.io/jokob-sk/netalertx:{{ requested_version }}
+    image: ghcr.io/jokob-sk/netalertx:{{ requested_version['netalertx'] }}
     network_mode: host
     ports:
       - {{ port_netalertx }}:{{ port_netalertx }}

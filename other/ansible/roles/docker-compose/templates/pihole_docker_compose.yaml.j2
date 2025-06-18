@@ -1,7 +1,7 @@
 services:
   pihole:
     container_name: pihole
-    image: pihole/pihole:{{ pihole_requested_version }}
+    image: pihole/pihole:{{ requested_version['pihole'] }}
     depends_on:
       - unbound
     ports:
@@ -11,7 +11,7 @@ services:
       - "443:443/tcp"
     environment:
       TZ: "{{ timezone }}"
-      FTLCONF_LOCAL_IPV4: {{ pihole_ip_address }}
+      FTLCONF_LOCAL_IPV4: {{ ansible_host }}
       FTLCONF_dns_dnssec: false
       FTLCONF_dns_domain: {{ pihole_dns_domain }}
       FTLCONF_dns_listeningMode: ALL
@@ -19,29 +19,29 @@ services:
       FTLCONF_webserver_api_password: "{{ pihole_password }}"
       FTLCONF_webserver_interface_theme: default-dark
       VIRTUAL_HOST: pihole.{{ pihole_dns_domain }}
-      WEB_BIND_ADDR: {{ pihole_ip_address }}
+      WEB_BIND_ADDR: {{ ansible_host }}
 #    dns:
 #      - 127.0.0.1
 #      - 8.8.8.8
 #      - 8.8.4.4
     volumes:
-      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/etc-pihole:/etc/pihole
-#      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/etc-dnsmaskd:/etc/dnsmasq.d
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-pihole:/etc/pihole
+#      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-dnsmaskd:/etc/dnsmasq.d
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.2
     restart: unless-stopped
   unbound:
     container_name: unbound
-    image: mvance/unbound-rpi:{{ pihole_unbound_requested_version }}
+    image: mvance/unbound-rpi:{{ requested_version['unbound'] }}
     hostname: unbound.home
     ports:
-      - "{{ pihole_unbound_exposed_port }}:53/tcp"
-      - "{{ pihole_unbound_exposed_port }}:53/udp"
+      - "{{ port_pihole_unbound }}:53/tcp"
+      - "{{ port_pihole_unbound }}:53/udp"
     environment:
       TZ: "{{ timezone }}"
     volumes:
-      - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/unbound-conf:/opt/unbound/etc/unbound/
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound-conf:/opt/unbound/etc/unbound/
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.3

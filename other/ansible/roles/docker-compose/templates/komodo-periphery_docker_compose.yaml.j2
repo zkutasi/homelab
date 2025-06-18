@@ -9,7 +9,7 @@ services:
       - PERIPHERY_SSL_ENABLED: "true"
       - PERIPHERY_INCLUDE_DISK_MOUNTS: /etc/hostname
       - TZ={{ timezone }}
-    image: ghcr.io/moghtech/komodo-periphery:{{ requested_version }}
+    image: ghcr.io/moghtech/komodo-periphery:{{ requested_version['komodo-periphery'] }}
     logging:
       driver: local
     ports:

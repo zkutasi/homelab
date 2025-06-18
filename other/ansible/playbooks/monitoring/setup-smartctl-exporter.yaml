@@ -16,4 +16,5 @@
     - docker-compose
   vars:
     docker_compose_projectname: smartctl-exporter
-    requested_version: "0.14.0"
+    requested_version:
+      smartctl-exporter: "0.14.0"

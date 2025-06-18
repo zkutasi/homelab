@@ -6,7 +6,7 @@ services:
       - GID=100
       - GIDLIST=100
       - TZ={{ timezone }}
-    image: plexinc/pms-docker:{{ requested_version }}
+    image: plexinc/pms-docker:{{ requested_version['plex'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

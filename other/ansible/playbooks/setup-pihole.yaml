@@ -1,10 +1,25 @@
-- name: Setup pihole
-  hosts: pihole
+- name: Turn off systemd-resolved
   become: true
+  hosts: pihole
+  tasks:
+    - name: Disable Ubuntu default Stub DNS Resolver
+      ansible.builtin.lineinfile:
+        path: "/etc/systemd/resolved.conf"
+        state: present
+        line: 'DNSStubListener=no'
+        regexp: '#?\s*DNSStubListener=.*'
+    - name: Relink resolve.conf
+      ansible.builtin.file:
+        path: /etc/resolv.conf
+        force: true
+        state: link
+        src: /run/systemd/resolve/resolv.conf
+- name: Create pihole as docker
+  hosts: pihole
   roles:
-    - docker-compose-pihole
+    - docker-compose
   vars:
-    pihole_requested_version: "2025.04.0"
-    pihole_unbound_requested_version: "1.22.0"
-    pihole_ip_address: "192.168.31.2"
-    pihole_password: "piholeS3rv3r"
+    docker_compose_projectname: pihole
+    requested_version:
+      pihole: "2025.04.0"
+      unbound: "1.22.0"

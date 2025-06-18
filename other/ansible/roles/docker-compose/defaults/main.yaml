@@ -13,7 +13,7 @@ docker_volumes_path: /var/lib/docker/volumes
 docker_uid: 1000
 docker_gid: 1000
 
-requested_version: "{{ undef(hint='You must specify the requested version') }}"
+requested_version: {}
 
 port_borgwarehouse: 3000
 port_borgwarehouse_ssh: 22223
@@ -23,6 +23,7 @@ port_emby_http: 8096
 port_emby_https: 8920
 port_komodo_periphery: 8120
 port_netalertx: 20211
+port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
 port_smartctl_exporter: 9633
@@ -43,5 +44,9 @@ ddns_username: ""
 
 netalertx_interface: "{{ undef(hint='You must specify the interface for ARPSCAN') }}"
 netalertx_subnet: "{{ undef(hint='You must specify the subnet for ARPSCAN') }}"
+
+pihole_password: "{{ undef(hint='You must specify the PiHole password') }}"
+pihole_dns_domain: "home"
+pihole_docker_network_3digit: "172.21.200"
 
 smartctlexporter_extra_args: []

@@ -8,7 +8,7 @@ services:
       - GID=100
       - GIDLIST=100
       - TZ={{ timezone }}
-    image: emby/embyserver:{{ requested_version }}
+    image: emby/embyserver:{{ requested_version['emby'] }}
     ports:
       - {{ port_emby_http }}:8096
       - {{ port_emby_https }}:8920

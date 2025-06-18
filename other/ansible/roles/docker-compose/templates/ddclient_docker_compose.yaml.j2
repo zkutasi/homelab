@@ -5,7 +5,7 @@ services:
       - PUID=1000
       - PGID=100
       - TZ={{ timezone }}
-    image: lscr.io/linuxserver/ddclient:{{ requested_version }}
+    image: lscr.io/linuxserver/ddclient:{{ requested_version['ddclient'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

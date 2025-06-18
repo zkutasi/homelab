@@ -3,7 +3,7 @@ services:
     container_name: portainer-agent
     environment:
       - TZ={{ timezone }}
-    image: portainer/agent:{{ requested_version }}
+    image: portainer/agent:{{ requested_version['portainer-agent'] }}
     ports:
       - {{ port_portainer_agent }}:9001
     restart: unless-stopped

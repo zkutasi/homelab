@@ -6,7 +6,7 @@ services:
 {% endif %}
     environment:
       - TZ={{ timezone }}
-    image: prometheuscommunity/smartctl-exporter:v{{ requested_version }}
+    image: prometheuscommunity/smartctl-exporter:v{{ requested_version['smartctl-exporter'] }}
     ports:
       - {{ port_smartctl_exporter }}:9633
     privileged: true

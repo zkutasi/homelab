@@ -5,7 +5,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: qbittorrent-nox
-    requested_version: "5.0.2-1"
+    requested_version:
+      qbittorrent-nox: "5.0.2-1"
     docker_compose_extra_volumes:
       - /volume1/torrent/downloads
       - /volume1/torrent
@@ -17,7 +18,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: qbittorrent-nox
-    requested_version: "5.0.2-1"
+    requested_version:
+      qbittorrent-nox: "5.0.2-1"
     docker_compose_extra_volumes:
       - /mnt
 - name: Authenticate to qbittorrent web UI

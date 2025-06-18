@@ -1,6 +1,6 @@
 services:
   qbittorrent-nox:
-    image: qbittorrentofficial/qbittorrent-nox:{{ requested_version }}
+    image: qbittorrentofficial/qbittorrent-nox:{{ requested_version['qbittorrent-nox'] }}
     container_name: qbittorrent-nox
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

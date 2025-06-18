@@ -6,4 +6,5 @@
     - docker-compose
   vars:
     docker_compose_projectname: portainer-agent
-    requested_version: "2.30.0"
+    requested_version:
+      portainer-agent: "2.30.0"

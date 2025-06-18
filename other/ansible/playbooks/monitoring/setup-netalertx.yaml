@@ -5,6 +5,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: netalertx
-    requested_version: "25.5.24"
+    requested_version:
+      netalertx: "25.5.24"
     netalertx_interface: eth0
     netalertx_subnet: 192.168.31.0/24

@@ -5,7 +5,7 @@ services:
     container_name: node_exporter
     environment:
       - TZ={{ timezone }}
-    image: quay.io/prometheus/node-exporter:v{{ requested_version }}
+    image: quay.io/prometheus/node-exporter:v{{ requested_version['node-exporter'] }}
     network_mode: host
     pid: host
     restart: unless-stopped

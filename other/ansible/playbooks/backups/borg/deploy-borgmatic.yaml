@@ -21,7 +21,8 @@
     - docker-compose
   vars:
     docker_compose_projectname: borgmatic
-    requested_version: "2.0.6"
+    requested_version:
+      borgmatic: "2.0.6"
     docker_compose_create_dirs:
       - cache
       - config
