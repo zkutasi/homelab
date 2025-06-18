@@ -2,10 +2,16 @@
   hosts: backupclient
   roles:
     - ssh-known-hosts
+  vars:
+    ssh_host: "{{ backupserver_hostname }}"
+    ssh_port: "{{ port_borgwarehouse_ssh }}"
 - name: Initialize the repository
+  environment:
+    PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
   hosts: backupclient
   tasks:
     - name: Docker exec borgmatic init
+      become: "{{ docker_with_sudo }}"
       community.docker.docker_compose_v2_exec:
         project_src: "{{ ansible_user_dir }}/docker-compose/borgmatic"
         service: borgmatic

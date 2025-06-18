@@ -17,6 +17,9 @@ services:
       - WEB_SERVER_PORT=3000
       - CRONJOB_KEY={{ borgwarehouse_cronjob_key }}
       - TZ={{ timezone }}
+      - "HOSTNAME=::"
+    networks:
+      - borgwarehouse-network
     ports:
       - {{ port_borgwarehouse }}:3000
       - {{ port_borgwarehouse_ssh }}:{{ port_borgwarehouse_ssh }}
@@ -29,3 +32,12 @@ services:
       - {{ backups_folder }}/borg:/home/borgwarehouse/repos
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/tmp:/home/borgwarehouse/tmp
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/logs:/home/borgwarehouse/logs
+
+networks:
+  borgwarehouse-network:
+    name: borgwarehouse-ipv6
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 2001:db8:abc3::/64
+          gateway: 2001:db8:abc3::1

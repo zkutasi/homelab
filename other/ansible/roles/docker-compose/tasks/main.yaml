@@ -37,10 +37,12 @@
     group: "{{ docker_compose_files_group }}"
 - name: Get the version of docker compose
   check_mode: false
+  environment:
+    PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
   block:
     - name: Check the version of docker compose (v2)
       ansible.builtin.command:
-        cmd: "{{ docker_path_to_commands }}docker compose version"
+        cmd: "docker compose version"
       register: docker_compose_version_output
       changed_when: false
     - name: Extract exact version (v2)
@@ -56,7 +58,7 @@
         msg: "Falling back to docker-compose v1"
     - name: Check the version of docker compose (v1)
       ansible.builtin.command:
-        cmd: "{{ docker_path_to_commands }}docker-compose --version"
+        cmd: "docker-compose --version"
       register: docker_compose_version_output
       changed_when: false
     - name: Extract exact version (v1)

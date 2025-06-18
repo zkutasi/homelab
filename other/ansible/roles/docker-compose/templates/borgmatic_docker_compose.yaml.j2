@@ -2,6 +2,10 @@ services:
   borgmatic:
     image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_version }}
     container_name: borgmatic
+{% if docker_compose_ipv6 %}
+    networks:
+      - borgmatic-network
+{% endif %}
     volumes:
 {% for folder in backupfolders %}
       - {{ folder }}:/sources{{ folder }}:ro
@@ -12,3 +16,9 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cache:/root/.cache/borg
     environment:
       - TZ={{ timezone }}
+
+{% if docker_compose_ipv6 %}
+networks:
+  borgmatic-network:
+    enable_ipv6: true
+{% endif %}

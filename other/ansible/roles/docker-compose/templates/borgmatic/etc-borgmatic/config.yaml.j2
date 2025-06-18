@@ -2,7 +2,7 @@ source_directories:
     - /sources
 
 repositories:
-    - path: ssh://borgwarehouse@{{ hostvars[groups['backupserver'][0]].ansible_host }}:{{ port_borgwarehouse_ssh }}/./{{ borgwarehouse_repo_id }}
+    - path: ssh://borgwarehouse@{{ backupserver_hostname }}:{{ port_borgwarehouse_ssh }}/./{{ borgwarehouse_repo_id }}
 
 archive_name_format: '{fqdn}-{now}'
 encryption_passphrase: "{{ borgmatic_encryption_passphrase }}"
@@ -20,5 +20,5 @@ commands:
     - after: action
       run:
         - echo "Refreshing borgwarehouse"
-        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ hostvars[groups['backupserver'][0]].ansible_host }}:{{ port_borgwarehouse }}/api/v1/cron/status"
-        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ hostvars[groups['backupserver'][0]].ansible_host }}:{{ port_borgwarehouse }}/api/v1/cron/storage"
+        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/status"
+        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/storage"

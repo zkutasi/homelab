@@ -3,7 +3,6 @@ docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
 docker_compose_files_owner: "{{ lookup('env', 'USER') }}"
 docker_compose_files_group: "{{ lookup('env', 'USER') }}"
 docker_compose_projectname: "{{ undef(hint='You must specify the docker compose projectname') }}"
-docker_path_to_commands: ""
 docker_socket_path: /var/run/docker.sock
 docker_volumes_path: /var/lib/docker/volumes
 docker_with_sudo: false

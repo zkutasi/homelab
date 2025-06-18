@@ -30,8 +30,9 @@
       vars:
         rest_api_data:
           alias: "{{ hostvars[item].id }}"
+          alert: 604800 # 7 days
           sshPublicKey: "{{ hostvars[item].ssh_public_key | trim }}"
-          storageSize: 1
+          storageSize: 10 # 10 GB
   vars:
     rest_api_url: "http://localhost:3000"
     rest_api_endpoint: "/api/v1/repositories"
