@@ -1,0 +1,16 @@
+# XXX
+
+## The setup
+
+## Prerequisites
+
+## Ansible inventory setup
+
+X. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+## Usage
+
+## Notable comments

@@ -33,7 +33,8 @@ backupfolders: []
 borgmatic_encryption_passphrase: "encryptionPass"
 
 cup_control_server: ""
-cup_servers: []
+cup_registries: {}
+cup_servers: {}
 
 ddns_alias: ""
 ddns_aliases: []

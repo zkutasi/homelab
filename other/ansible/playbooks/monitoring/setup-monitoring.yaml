@@ -9,6 +9,6 @@
 - name: Setup komodo
   ansible.builtin.import_playbook: monitoring/setup-komodo.yaml
 - name: Setup cup
-  ansible.builtin.import_playbook: monitoring/setup-cup.yaml
+  ansible.builtin.import_playbook: monitoring/version-checkers/cup/setup-cup.yaml
 - name: Setup netalertx
   ansible.builtin.import_playbook: monitoring/setup-netalertx.yaml

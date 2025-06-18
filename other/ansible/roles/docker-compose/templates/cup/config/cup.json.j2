@@ -1,8 +1,17 @@
 {
+{% if cup_registries | length > 0 %}
+  "registries": {
+{% for registry in cup_registries | dict2items %}
+    "{{ registry.key }}": {
+      "authentication": "{{ registry.value.authentication }}"{{ ", " if not loop.last else "" }}
+    }
+{% endfor %}
+  }{{ ", " if cup_registries | length > 0 else "" }}
+{% endif %}
 {% if cup_control_server | length > 0 and inventory_hostname == cup_control_server and cup_servers | length > 0 %}
   "servers": {
 {% for server in cup_servers | dict2items %}
-        "{{ server.key }}": "{{ server.value }}"{{ ", " if not loop.last else "" }}
+    "{{ server.key }}": "{{ server.value }}"{{ ", " if not loop.last else "" }}
 {% endfor %}
   }
 {% else %}
