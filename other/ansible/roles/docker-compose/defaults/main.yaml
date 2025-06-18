@@ -15,7 +15,6 @@ docker_uid: 1000
 docker_gid: 1000
 
 requested_version: "{{ undef(hint='You must specify the requested version') }}"
-timezone: "Europe/Budapest"
 
 port_borgwarehouse: 3000
 port_cup: 8800

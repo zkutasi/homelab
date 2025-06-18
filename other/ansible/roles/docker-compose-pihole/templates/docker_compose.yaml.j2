@@ -10,7 +10,7 @@ services:
       - "80:80/tcp"
       - "443:443/tcp"
     environment:
-      TZ: "{{ pihole_timezone }}"
+      TZ: "{{ timezone }}"
       FTLCONF_LOCAL_IPV4: {{ pihole_ip_address }}
       FTLCONF_dns_dnssec: false
       FTLCONF_dns_domain: {{ pihole_dns_domain }}
@@ -39,7 +39,7 @@ services:
       - "{{ pihole_unbound_exposed_port }}:53/tcp"
       - "{{ pihole_unbound_exposed_port }}:53/udp"
     environment:
-      TZ: "{{ pihole_timezone }}"
+      TZ: "{{ timezone }}"
     volumes:
       - {{ docker_compose_rootdir }}/{{ pihole_docker_compose_projectdir }}/unbound-conf:/opt/unbound/etc/unbound/
     networks:
