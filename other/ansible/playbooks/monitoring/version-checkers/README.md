@@ -23,6 +23,8 @@ Cons:
 
 [Official Site](https://crazymax.dev/diun/)
 
+A very lightweight solution to the version checking.
+
 Cons:
 
 - Only a CLI, no Web GUI
@@ -31,13 +33,15 @@ Cons:
 
 [Official Site](https://github.com/getwud/wud)
 
-Cons: 
+Cons:
 
 - Requires opening up the whole docker socket
 
 ### Watchtower
 
 [Official Site](https://containrrr.dev/watchtower/)
+
+For a long time the de facto standard for this purpose.
 
 Cons:
 
