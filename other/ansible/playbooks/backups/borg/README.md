@@ -47,7 +47,10 @@ If you have a Synology and the backup server is going to be there, these items h
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client|
-    |backupfolders|M|A list containing the folders to back up on the client|
+    |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
+    |borgmatic_backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
+    |borgmatic_exclude_patterns|O|A list of exclude_patterns, see the borgmatic manual for more info. Default is *.log.|
+    |borgmatic_patterns|O|A list of patterns, see the borgmatic manual for more info. Default is an empty list.|
 
 ## Usage
 
@@ -66,7 +69,7 @@ This will do the following
 Then go to the Borgwarehouse UI and
 
 1. Log in with admin/admin
-2. Go to the Admin page (far top right) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
+2. Go to the Admin page (top right corner) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
 3. Place the generated token into your inventory (preferrably in group_vars/all.yaml) as `borgwarehouse_api_key` into the `all` group_vars file
 
 Then finish the deployment with
@@ -86,6 +89,27 @@ Then finish the deployment with
    1. Add the backupserver's SSH key to each client's known_host file
    2. Init the borg repo from the client side, which requires proper SSH connection to the server
 
+## Commands
+
+Dry-run a test backup exposing the filenames that would be backed up, tests the used filters:
+
+```bash
+docker exec -ti borgmatic borgmatic --dry-run --verbosity 2 --log-file - --files
+```
+
+Do a backup, useful to check how big a backup is:
+
+```bash
+docker exec -ti borgmatic borgmatic --verbosity 1 --stats --log-file -
+```
+
+Delete a backup (XXX is the backup's name):
+
+```bash
+docker exec -ti borgmatic borgmatic delete --archive XXX
+docker exec -ti borgmatic borgmatic compact --progress
+```
+
 ## Notable comments
 
 - Borgwarehouse
@@ -93,5 +117,6 @@ Then finish the deployment with
   - On Synology, there is a weird issue: SSHd will log this `Fatal glibc error: cannot get entropy for arc4random`. Which means that the built in SSHd wants to use a kernel feature not present on this particular host. The solution was to rebuild the docker image using the Bullseye version of Debian instead of the Bookworm. This rolls back the `glibc` version to one that still has the old ways of generating random numbers.
   - If IPv6 is required, one needs to set the `HOSTNAME=::` environment variable, this will bind to the IPv6 address on the NextJS UI app. This is handled by the playbooks.
 - Borgmatic
+  - It is mandatory to have at least 1GB of RAM on the hosts, otherwise even the repo init will be potentially OOMKilled
   - It is required for each client to have its own public key in the backupServer's `authorized_keys` and also the backupserver's host key in its own `known_hosts` file. This is handled by the playbooks
-- It is mandatory to have at least 1GB of RAM on the hosts, otherwise even the repo init will be potentially OOMKilled
+  

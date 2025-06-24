@@ -4,7 +4,7 @@ source_directories:
 repositories:
     - path: ssh://borgwarehouse@{{ backupserver_hostname }}:{{ port_borgwarehouse_ssh }}/./{{ borgwarehouse_repo_id }}
 
-archive_name_format: '{fqdn}-{now}'
+archive_name_format: '{{ id }}-{now}'
 encryption_passphrase: "{{ borgmatic_encryption_passphrase }}"
 
 keep_daily: 7
@@ -22,3 +22,17 @@ commands:
         - echo "Refreshing borgwarehouse"
         - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/status"
         - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/storage"
+
+{% if borgmatic_patterns | length > 0 %}
+patterns:
+{% for pattern in borgmatic_patterns %}
+    - {{ pattern }}
+{% endfor %}
+{% endif %}
+
+{% if borgmatic_exclude_patterns | length > 0 %}
+exclude_patterns:
+{% for pattern in borgmatic_exclude_patterns %}
+    - {{ pattern }}
+{% endfor %}
+{% endif %}
