@@ -15,4 +15,5 @@ services:
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/emby-backup:/emby-backup
       - /mnt:/mnt
