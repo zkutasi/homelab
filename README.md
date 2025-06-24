@@ -90,3 +90,5 @@ These are apps or services I self host myself in my infrastructure
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/omnitools.svg" alt="Omni Tools"> | [Omni Tools](https://github.com/iib0011/omni-tools) | Various useful tools |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg" alt="IT Tools"> | [IT Tools](https://github.com/CorentinTh/it-tools) | IT swiss army knife |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png" alt="ConvertX"> | [ConvertX](https://github.com/C4illin/ConvertX) | Convert anything into something else |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/emby.png" alt="Emby"> | [Emby](https://emby.media/) | Host my Media files through a Web Interface or just through the TV |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/plex.png" alt="Plex"> | [Plex](https://www.plex.tv/) | Alternative to Emby, but I just use it for testing and deduplication |
