@@ -4,9 +4,9 @@ services:
     devices:
       - /dev/dri:/dev/dri
     environment:
-      - UID=1000
-      - GID=100
-      - GIDLIST=100
+      - UID={{ docker_uid }}
+      - GID={{ docker_gid }}
+      - GIDLIST={{ docker_gid }}
       - TZ={{ timezone }}
     image: emby/embyserver:{{ requested_version['emby'] }}
     ports:

@@ -1,21 +1,4 @@
-- name: Create emby as docker
-  hosts:
-    - htpc
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: emby
-    docker_compose_create_dirs:
-      - config
-      - emby-backup
-    requested_version:
-      emby: "4.8.11.0"
-# - name: Create plex as docker
-#   hosts:
-#     - htpc
-#   roles:
-#     - docker-compose
-#   vars:
-#     docker_compose_projectname: plex
-#     requested_version:
-#       plex: "1.41.6.9685-d301f511a"
+- name: Deploy emby
+  ansible.builtin.import_playbook: media/deploy-emby.yaml
+- name: Deploy plex
+  ansible.builtin.import_playbook: media/deploy-plex.yaml

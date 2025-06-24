@@ -1,10 +1,10 @@
 services:
-  emby:
+  plex:
     container_name: plex
     environment:
-      - UID=1000
-      - GID=100
-      - GIDLIST=100
+      - UID={{ docker_uid }}
+      - GID={{ docker_gid }}
+      - GIDLIST={{ docker_gid }}
       - TZ={{ timezone }}
     image: plexinc/pms-docker:{{ requested_version['plex'] }}
     network_mode: host
