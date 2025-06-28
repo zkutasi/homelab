@@ -30,9 +30,9 @@
       vars:
         rest_api_data:
           alias: "{{ hostvars[item].id }}"
-          alert: 604800 # 7 days
+          alert: "{{ hostvars[item].borgwarehouse_alert | default(604800) }}"   # 7 days
           sshPublicKey: "{{ hostvars[item].ssh_public_key | trim }}"
-          storageSize: 10 # 10 GB
+          storageSize: "{{ hostvars[item].borgwarehouse_storage_size | default(10) }}"   # 10 GB
   vars:
     rest_api_url: "http://localhost:3000"
     rest_api_endpoint: "/api/v1/repositories"

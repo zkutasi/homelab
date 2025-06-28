@@ -50,6 +50,8 @@ If you have a Synology and the backup server is going to be there, these items h
     |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
     |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
     |backup_exclude_patterns|O|A list of exclude_patterns, see the borgmatic manual for more info. Default is *.log.|
+    |borgwarehouse_alert|O|The amount of minutes borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
+    |borgwarehouse_storage_size|O| The size of the storage quota. Default is 10 GB.|
 
 ## Usage
 
