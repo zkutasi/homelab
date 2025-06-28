@@ -1,0 +1,68 @@
+services:
+  kopia:
+    command:
+      - server
+      - start
+      - --disable-csrf-token-checks
+{% if kopia_generate_certs %}
+      - --tls-generate-cert
+{% endif %}
+      - --tls-cert-file=/ssl-certs/fullchain.pem
+      - --tls-key-file=/ssl-certs/privkey.pem
+{% if inventory_hostname in groups['backupserver'] %}
+      - --address=0.0.0.0:51515
+      - --server-username={{ kopia_server_username }}
+      - --server-password={{ kopia_server_password }}
+      - --server-control-username={{ kopia_server_username }}
+      - --server-control-password={{ kopia_server_password }}
+{% else %}
+      - --no-ui
+{% endif %}
+    container_name: kopia
+    environment:
+{% if inventory_hostname in groups['backupserver'] %}
+      - KOPIA_PASSWORD={{ kopia_repo_password }}
+{% else %}
+      - KOPIA_PASSWORD={{ kopia_client_password }}
+{% endif %}
+      - TZ={{ timezone }}
+      - USER={{ ansible_user }}
+    image: kopia/kopia:{{ requested_version['kopia'] }}
+{% if docker_compose_ipv6 %}
+    networks:
+      - kopia-network
+{% endif %}
+    ports:
+      - {{ port_kopia }}:51515
+    restart: "unless-stopped"
+    security_opt:
+      - apparmor:unconfined
+{% if kopia_generate_certs %}
+    user: "{{ docker_uid }}:{{ docker_gid }}"
+{% else %}
+    user: "0:0"
+{% endif %}
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/app/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cache:/app/cache
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/logs:/app/logs
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ssl-certs:/ssl-certs
+{% if inventory_hostname in groups['backupserver'] %}
+      - {{ backups_folder }}/kopia:/repository
+{% endif %}
+{% for folder in backupfolders %}
+      - {{ folder }}:/sources{{ folder }}:ro
+{% endfor %}
+
+{% if docker_compose_ipv6 %}
+networks:
+  kopia-network:
+    name: kopia-ipv6
+    enable_ipv6: true
+{% if docker_compose_ipv6_ipam_subnet is defined %}
+    ipam:
+      config:
+        - subnet: {{ docker_compose_ipv6_ipam_subnet }}
+          gateway: {{ (docker_compose_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}

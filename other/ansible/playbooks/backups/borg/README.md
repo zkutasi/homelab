@@ -48,9 +48,8 @@ If you have a Synology and the backup server is going to be there, these items h
     |------|--------------------|---------|
     |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client|
     |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
-    |borgmatic_backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
-    |borgmatic_exclude_patterns|O|A list of exclude_patterns, see the borgmatic manual for more info. Default is *.log.|
-    |borgmatic_patterns|O|A list of patterns, see the borgmatic manual for more info. Default is an empty list.|
+    |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
+    |backup_exclude_patterns|O|A list of exclude_patterns, see the borgmatic manual for more info. Default is *.log.|
 
 ## Usage
 

@@ -1,0 +1,46 @@
+- name: Check if SSL certs exist
+  hosts:
+    - backupserver
+    - backupclient
+  tasks:
+  - name: Check if SSL certs exist
+    ansible.builtin.stat:
+      path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+    register: certs
+- name: Create kopia as docker with init certs
+  hosts:
+    - backupserver
+    - backupclient
+  roles:
+    - role: docker-compose
+      when: not certs.stat.exists
+  vars:
+    docker_compose_projectname: kopia
+    requested_version:
+      kopia: "0.20.1"
+    docker_compose_create_dirs:
+      - config
+      - cache
+      - logs
+      - ssl-certs
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_kopia }}"
+    kopia_generate_certs: true
+- name: Wait until the SSL certs are present before continuing
+  hosts:
+    - backupserver
+    - backupclient
+  tasks:
+    - name: Wait until the SSL certs are present before continuing
+      ansible.builtin.wait_for:
+        path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+- name: Create kopia as docker
+  hosts:
+    - backupserver
+    - backupclient
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: kopia
+    requested_version:
+      kopia: "0.20.1"
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_kopia }}"

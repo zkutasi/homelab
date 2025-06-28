@@ -23,16 +23,9 @@ commands:
         - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/status"
         - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/storage"
 
-{% if borgmatic_patterns | length > 0 %}
-patterns:
-{% for pattern in borgmatic_patterns %}
-    - {{ pattern }}
-{% endfor %}
-{% endif %}
-
-{% if borgmatic_exclude_patterns | length > 0 %}
+{% if backup_exclude_patterns | length > 0 %}
 exclude_patterns:
-{% for pattern in borgmatic_exclude_patterns %}
-    - {{ pattern }}
+{% for pattern in backup_exclude_patterns %}
+    - {{ pattern | quote }}
 {% endfor %}
 {% endif %}

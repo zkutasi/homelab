@@ -1,0 +1,105 @@
+- name: Configure the repository server
+  hosts:
+    - backupserver
+  tasks:
+    - name: Check if Kopia repository is initialized
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia repository connect filesystem --path=/repository"
+      register: kopia_repo_check
+      failed_when: false
+    - name: Create repository
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia repository create filesystem --path=/repository"
+      when: "'repository not initialized' in kopia_repo_check.stderr"
+    - name: Docker compose restart the Server due to the new repository
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+        docker_cli: "{{ docker_cli_path }}"
+        remove_orphans: true
+        recreate: always
+      when: "'repository not initialized' in kopia_repo_check.stderr"
+    - name: List users
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia server users list"
+      register: kopia_repo_users
+    - name: Print the current users
+      ansible.builtin.debug:
+        msg: "{{ kopia_repo_users.stdout | split('\n') }}"
+    - name: Create kopia server users
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia server users add {{ hostvars[item].ansible_user }}@{{ hostvars[item].id }}
+          --user-password={{ kopia_client_password }}"
+      loop: "{{ groups['backupclient'] }}"
+      when: hostvars[item].ansible_user + '@' + hostvars[item].id not in kopia_repo_users.stdout
+    - name: Print the current users
+      ansible.builtin.debug:
+        msg: "{{ kopia_repo_users.stdout | split('\n') }}"
+    - name: Get the server cert fingerprint
+      community.crypto.x509_certificate_info:
+        path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+      register: server_certs
+    - name: Set the certs in a fact for later use
+      ansible.builtin.set_fact:
+        kopia_server_certs: "{{ server_certs }}"
+    - name: Print the server cert fingerprint
+      ansible.builtin.debug:
+        msg: "{{ kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
+- name: Configure the repository server
+  hosts:
+    - backupclient
+  tasks:
+    - name: Connect kopia clients
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia repository connect server
+          --url https://{{ backupserver_hostname }}:{{ port_kopia }}
+          --override-username={{ ansible_user }}
+          --override-hostname={{ id }}
+          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
+      when: inventory_hostname != groups['backupserver'][0]
+- name: Configure the policies
+  hosts:
+    - backupserver
+  tasks:
+    - name: Create the policies
+      ansible.builtin.include_tasks:
+        file: create-policy-task.yaml
+      loop: "{{ groups['backupclient'] }}"
+      loop_control:
+        loop_var: backupclient
+- name: Refresh the server
+  hosts:
+    - backupserver
+    - backupclient
+  tasks:
+    - name: Refresh the server
+      become: "{{ docker_with_sudo }}"
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+        docker_cli: "{{ docker_cli_path }}"
+        service: kopia
+        command: "kopia server refresh
+          --address https://{{ backupserver_hostname }}:{{ port_kopia }}
+          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}
+          --server-control-username {{ kopia_server_username }}
+          --server-control-password {{ kopia_server_password }}"

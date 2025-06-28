@@ -110,9 +110,13 @@ Kopia natively supports many local or remote repos, being it a remove Host, NAS 
 
 In server mode, the webUI is going to be active, managing multiple machines with it is possible. All of the managed client Hosts have to install Kopia somehow in non-server mode (docker or binary).
 
+Also can act as a Repository server, where multiple clients can write snapshots into.
+
 Cons:
 
 - The webUI is only able to connect to one repository at once ?
+- Does not natively support Archive storage classes (Amazon Glacier), but doable via RClone probably
+- Documentation is not so great, confusing with many settings. Also the dockerization is kind of weird, not nice to automation
 
 ### Duplicacy
 

@@ -2,7 +2,7 @@ services:
   borgmatic:
     container_name: borgmatic
     environment:
-      - BACKUP_CRON={{ borgmatic_backup_cron }}
+      - BACKUP_CRON={{ backup_cron }}
       - TZ={{ timezone }}
     image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_version['borgmatic'] }}
 {% if docker_compose_ipv6 %}

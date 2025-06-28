@@ -1,4 +1,3 @@
-docker_cli_path: /usr/bin/docker
 docker_compose_create_dirs: []
 docker_compose_extra_volumes: []
 docker_compose_files_owner: "{{ lookup('env', 'USER') }}"
@@ -30,10 +29,9 @@ port_smartctl_exporter: 9633
 
 backupfolders: []
 
-borgmatic_encryption_passphrase: "encryptionPass"
-borgmatic_exclude_patterns:
+borgmatic_encryption_passphrase: "{{ undef(hint='You must specify the Borgmatic encryption password') }}"
+backup_exclude_patterns:
   - "*.log"
-borgmatic_patterns: []
 
 cup_control_server: ""
 cup_registries: {}
@@ -45,6 +43,8 @@ ddns_interface: ""
 ddns_hostname: ""
 ddns_password: ""
 ddns_username: ""
+
+kopia_generate_certs: false
 
 netalertx_interface: "{{ undef(hint='You must specify the interface for ARPSCAN') }}"
 netalertx_subnet: "{{ undef(hint='You must specify the subnet for ARPSCAN') }}"
