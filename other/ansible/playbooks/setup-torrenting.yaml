@@ -13,7 +13,7 @@
       - /volume1/music
 - name: Create qbittorrent as docker on torrents
   hosts:
-    - torrents22
+    - torrents
   roles:
     - docker-compose
   vars:
@@ -24,7 +24,7 @@
       - /mnt
 - name: Authenticate to qbittorrent web UI
   hosts:
-    - torrents22
+    - torrents
   roles:
     - rest-api
   vars:
@@ -38,7 +38,7 @@
       password: "{{ qbittorrent_password }}"
 - name: Set pushover script for torrent completion
   hosts:
-    - torrents22
+    - torrents
   roles:
     - rest-api
   vars:

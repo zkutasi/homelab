@@ -1,7 +1,7 @@
 - name: Set up /etc/hosts
   hosts:
     - htpc
-    - torrents22
+    - torrents
   become: true
   roles:
     - hosts
