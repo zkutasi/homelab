@@ -13,6 +13,7 @@
       - ssh
       - ssh_host
       - tmp
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_borgwarehouse }}"
 - name: Override the SSH port and restart the docker service
   hosts: backupserver
   tasks:

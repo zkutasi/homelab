@@ -18,8 +18,10 @@ services:
       - CRONJOB_KEY={{ borgwarehouse_cronjob_key }}
       - TZ={{ timezone }}
       - "HOSTNAME=::"
+{% if docker_compose_ipv6 %}
     networks:
       - borgwarehouse-network
+{% endif %}
     ports:
       - {{ port_borgwarehouse }}:3000
       - {{ port_borgwarehouse_ssh }}:{{ port_borgwarehouse_ssh }}
@@ -33,11 +35,15 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/tmp:/home/borgwarehouse/tmp
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/logs:/home/borgwarehouse/logs
 
+{% if docker_compose_ipv6 %}
 networks:
   borgwarehouse-network:
     name: borgwarehouse-ipv6
     enable_ipv6: true
+{% if docker_compose_ipv6_ipam_subnet is defined %}
     ipam:
       config:
-        - subnet: 2001:db8:abc3::/64
-          gateway: 2001:db8:abc3::1
+        - subnet: {{ docker_compose_ipv6_ipam_subnet }}
+          gateway: {{ (docker_compose_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}

@@ -11,6 +11,7 @@
       - /volume1/torrent/downloads
       - /volume1/torrent
       - /volume1/music
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
 - name: Create qbittorrent as docker on torrents
   hosts:
     - torrents
@@ -22,6 +23,7 @@
       qbittorrent-nox: "5.0.2-1"
     docker_compose_extra_volumes:
       - /mnt
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
 - name: Authenticate to qbittorrent web UI
   hosts:
     - torrents

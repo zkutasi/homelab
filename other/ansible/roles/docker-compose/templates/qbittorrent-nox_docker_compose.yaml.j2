@@ -11,7 +11,9 @@ services:
       - TZ={{ timezone }}
     networks:
       - default
+{% if docker_compose_ipv6 %}
       - qbittorrent-nox-ipv6
+{% endif %}
     ports:
       - {{ port_qbittorrent }}:48080
     restart: unless-stopped
@@ -21,11 +23,15 @@ services:
       - {{ volume }}:{{ volume }}
 {% endfor %}
 
+{% if docker_compose_ipv6 %}
 networks:
   qbittorrent-nox-ipv6:
     name: qbittorrent-nox-ipv6
     enable_ipv6: true
+{% if docker_compose_ipv6_ipam_subnet is defined %}
     ipam:
       config:
-        - subnet: 2001:db8:abc2::/64
-          gateway: 2001:db8:abc2::1
+        - subnet: {{ docker_compose_ipv6_ipam_subnet }}
+          gateway: {{ (docker_compose_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}
