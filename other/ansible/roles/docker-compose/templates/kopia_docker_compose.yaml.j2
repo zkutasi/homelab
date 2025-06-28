@@ -16,7 +16,12 @@ services:
       - --server-control-username={{ kopia_server_username }}
       - --server-control-password={{ kopia_server_password }}
 {% else %}
-      - --no-ui
+      # - --no-ui
+      - --address=0.0.0.0:51515
+      - --server-username={{ kopia_server_username }}
+      - --server-password={{ kopia_server_password }}
+      - --server-control-username={{ kopia_server_username }}
+      - --server-control-password={{ kopia_server_password }}
 {% endif %}
     container_name: kopia
     environment:

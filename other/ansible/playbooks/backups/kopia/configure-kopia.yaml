@@ -8,16 +8,21 @@
         project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
         docker_cli: "{{ docker_cli_path }}"
         service: kopia
-        command: "kopia repository connect filesystem --path=/repository"
+        command: "kopia repository connect filesystem
+          --path=/repository
+          --override-username={{ ansible_user }}
+          --override-hostname={{ id }}"
       register: kopia_repo_check
-      failed_when: false
     - name: Create repository
       become: "{{ docker_with_sudo }}"
       community.docker.docker_compose_v2_exec:
         project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
         docker_cli: "{{ docker_cli_path }}"
         service: kopia
-        command: "kopia repository create filesystem --path=/repository"
+        command: "kopia repository create filesystem
+          --path=/repository
+          --override-username={{ ansible_user }}
+          --override-hostname={{ id }}"
       when: "'repository not initialized' in kopia_repo_check.stderr"
     - name: Docker compose restart the Server due to the new repository
       become: "{{ docker_with_sudo }}"
