@@ -14,7 +14,7 @@ A control host is required that has Ansible installed and can access to every ot
 
 ## Ansible inventory setup
 
-1. Create an innevtory folder
+1. Create an inventory folder
 2. In it, create a `hosts.yaml` file, and list your hosts
 3. You can and should create groups of these hosts too
    1. `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
