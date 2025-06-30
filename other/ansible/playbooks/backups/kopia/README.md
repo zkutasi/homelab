@@ -20,9 +20,7 @@ If you have a Synology and the backup server is going to be there, these items h
 
 ## Ansible inventory setup
 
-1. Create a group called `backupserver`, and include your host to act as a backup server, hosting the backups and the borgwarehouse UI
-2. Create a group called `backupclient` and list all the hosts you want to take backup from, these will host borgmatic
-3. Add the following variables into the `all` group_vars file:
+1. Add the following variables into the `all` group_vars file:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
@@ -32,20 +30,15 @@ If you have a Synology and the backup server is going to be there, these items h
     |kopia_server_password|M|The above user's password|
     |port_kopia|M|The Kopia Server port any Server will listen on|
 
-4. Create a `backupserver` group_vars file and set up the following variables:
+2. Create a `backupserver` group_vars file and set up the following variables:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |backups_folder|M|The volume created on Synology to store backups in|
 
-5. For each Ansible host, the following variables can be set
+3. For each Ansible host, the following variables can be set
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client|
-    |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
-    |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
-    |backup_exclude_patterns|O|A list of exclude_patterns, see the borgmatic manual for more info. Default is *.log.|
 
 ## Usage
 

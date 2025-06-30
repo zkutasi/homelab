@@ -26,6 +26,12 @@ port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
 port_smartctl_exporter: 9633
+port_urbackup_client_fileserver: 35621
+port_urbackup_client_discovery: 35622
+port_urbackup_client_commands: 35623
+port_urbackup_server_fastcgi: 55413
+port_urbackup_server_http: 55414
+port_urbackup_server_internet_clients: 55415
 
 backupfolders: []
 

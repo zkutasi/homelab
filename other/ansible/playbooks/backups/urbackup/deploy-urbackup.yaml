@@ -1,0 +1,22 @@
+- name: Create urbackup-server as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: urbackup-server
+    requested_version:
+      urbackup-server: "latest"
+    docker_compose_create_dirs:
+      - database
+      - wwwfolder
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_urbackup_server }}"
+- name: Create urbackup-client as docker
+  hosts: backupclient
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: urbackup-client
+    requested_version:
+      urbackup-client: "latest"
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_urbackup_client }}"
+      

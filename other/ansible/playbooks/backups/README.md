@@ -204,3 +204,27 @@ Cons:
 - [Jottacloud](https://jottacloud.com/en/pricing?category=jottacloud-personal) - 6.9euro/1TB/month, also have unlimited for 12euro/month
 - [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/) - 15$/1TB/month, no egress cost
 - [Scaleway Glacier S3](https://www.scaleway.com/en/pricing/storage/#scaleway-glacier) - 2euro/1TB/month
+
+## Ansible inventory setup
+
+1. Create a group called `backupserver`, and include your host to act as a backup server, hosting the backups and the server UI
+2. Create a group called `backupclient` and list all the hosts you want to take backup from, these will host the client agents
+3. Add the following variables into the `group_vars/all` file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+4. Create a `group_vars/backupserver` file and set up the following variables:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |backups_folder|M|The volume created on the backup server to store backups in|
+
+5. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client. This can be different if the backupserver is on your LAN or external, from the point of the corresponding client|
+    |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
+    |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
+    |backup_exclude_patterns|O|A list of things to exlude from the backup. Default is *.log.|
