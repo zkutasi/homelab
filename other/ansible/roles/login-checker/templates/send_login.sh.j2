@@ -6,7 +6,7 @@
 #    - Add the following line into /etc/pam.d/sshd:
 #      session   optional   pam_exec.so /usr/local/bin/send_login.sh
 
-PUSH_SCRIPT={{ user_home }}/send_push.sh
+PUSH_SCRIPT={{ ansible_user_dir }}/send_push.sh
 
 
 

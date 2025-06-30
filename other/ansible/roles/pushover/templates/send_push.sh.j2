@@ -8,7 +8,7 @@
 # Arguments:
 #    1 - The message itself
 
-source {{ user_home }}/pushover.info
+source {{ ansible_user_dir }}/pushover.info
 
 message="$1"
 CURL={{ pushover_curl_path }}

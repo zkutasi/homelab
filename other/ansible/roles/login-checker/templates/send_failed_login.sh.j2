@@ -7,7 +7,7 @@
 #      auth    [default=ignore]                pam_exec.so seteuid /usr/local/bin/send_failed_login.sh
 #    - Also increase the success counter to jump over this line also in case of success
 
-PUSH_SCRIPT={{ user_home }}/send_push.sh
+PUSH_SCRIPT={{ ansible_user_dir }}/send_push.sh
 
 
 

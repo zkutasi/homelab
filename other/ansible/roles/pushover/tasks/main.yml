@@ -5,10 +5,10 @@
     - name: Copy and set up send_push script
       ansible.builtin.template:
         src: send_push.sh.j2
-        dest: "{{ user_home }}/send_push.sh"
+        dest: "{{ ansible_user_dir }}/send_push.sh"
         mode: "0755"
     - name: Copy and set up pushover.info file
       ansible.builtin.template:
         src: pushover.info.j2
-        dest: "{{ user_home }}/pushover.info"
+        dest: "{{ ansible_user_dir }}/pushover.info"
         mode: "0644"

@@ -5,7 +5,7 @@
 #    - send_push.sh with proper setup
 #    - On Ubuntu, place it in /etc/cron.xxx
 
-PUSH_SCRIPT={{ user_home }}/send_push.sh
+PUSH_SCRIPT={{ ansible_user_dir }}/send_push.sh
 APT_GET={{ update_checker_apt_path }}
 HOST=$(hostname)
 

@@ -39,7 +39,6 @@ A control host is required that has Ansible installed and can access to every ot
     |docker_with_sudo|O|If docker requires sudo to be executed (On Synology NASes it might be true)|
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|
     |timezone|M|The timezone to be set in all containers and on the host as well|
-    |user_home|O|The home directory of the user to enter|
 
 ## Usage
 
