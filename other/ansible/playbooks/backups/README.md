@@ -25,9 +25,9 @@ In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 - Knowledgebase txt and Obsidian Markdown files
 - Linux/Windows Server home folders
   - Configuration files
-  - Browser profiles with bookmarks, passwords
-- Important documents (shall be moved into a Document repository too)
-- Family Photos/Videos (they are stored on Google Photos though)
+  - Browser profiles with bookmarks, passwords (It might be better to use Firefox Sync)
+- Important documents (shall be moved into a Document repository like Paperless NGX)
+- Family Photos/Videos (they are stored on Google Photos though or on a NAS)
 - Kubernetes Databases
 
 ## Contenders

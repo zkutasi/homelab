@@ -49,6 +49,14 @@ This will do the following:
 
 Most probably you will need to rerun the playbook a second time, because you need to set for each client host an auth key on the Server UI.
 
+For Windows clients or for clients not capable to be in automations, do the following:
+
+1. Go into the UrBackup Server and Add a new client to get a new auth key
+2. Install the client UI application manually (prefer the pre-configured one that you can download from the Add-new-client page)
+3. In the client App select the folders you want to include in the backup
+4. Right click on the icon to get into the Settings, and configure an Internet backup Server, be sure to set the auth key also.
+5. Wait a few minutes, it shall
+
 ## Commands
 
 This solution seems entirely UI based, which makes it very simple to handle.

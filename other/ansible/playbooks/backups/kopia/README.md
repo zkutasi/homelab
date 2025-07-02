@@ -72,6 +72,15 @@ This will do the following:
    1. Register exclude patterns
    2. Register the cron schedule
 
+Now attach into the client UIs one by one and initiate a snapshot of the folder `/sources` which maps all of the requested ones.
+
+For Windows clients or for clients not capable to be in automations, do the following:
+
+1. Install the client UI application manually
+2. Create a user@host user in the Repository Server to be able to connect: `docker exec -ti kopia kopia server users add <username>@<host> --user-password=<password>`
+3. Restart the server docker container (`docker compose down; docker compose up -d`) or reload the config (or wait 5-10 minutes)
+4. Connect on the client UI to the Repository Server (using the URL, the fingerprint and the client password). Do not forget to set the same username@host that was created before.
+
 ## Commands
 
 [Command line reference](https://kopia.io/docs/reference/command-line/common/)
