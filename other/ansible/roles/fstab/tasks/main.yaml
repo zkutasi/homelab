@@ -4,6 +4,7 @@
   vars:
     packages:
       - nfs-common
+      - cifs-utils
 - name: Make sure the directories exist (only if not mounted already)
   ansible.builtin.file:
     path: "{{ item.path }}"
