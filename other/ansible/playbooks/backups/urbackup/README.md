@@ -55,7 +55,7 @@ For Windows clients or for clients not capable to be in automations, do the foll
 2. Install the client UI application manually (prefer the pre-configured one that you can download from the Add-new-client page)
 3. In the client App select the folders you want to include in the backup
 4. Right click on the icon to get into the Settings, and configure an Internet backup Server, be sure to set the auth key also.
-5. Wait a few minutes, it shall
+5. Wait a few minutes, it shall start working
 
 ## Commands
 
