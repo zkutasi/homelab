@@ -1,0 +1,27 @@
+plugins: deezer discogs edit fromfilename info spotify unimported web
+
+art_filename: folder
+
+directory: {{ beets_music_folder }}
+
+discogs:
+  user_token: {{ discogs_user_token }}
+
+edit:
+  itemfields: tracknumber discnumber track title artist album
+
+import:
+  move: no
+  copy: no
+  write: yes
+
+library: /config/musiclibrary.db
+
+match:
+  track_length: none
+
+per_disc_numbering: yes
+
+web:
+  host: 0.0.0.0
+  port: 8337

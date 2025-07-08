@@ -14,6 +14,7 @@ docker_gid: 1000
 
 requested_version: {}
 
+port_beets: 8337
 port_borgwarehouse: 3000
 port_borgwarehouse_ssh: 22223
 port_cup: 8800

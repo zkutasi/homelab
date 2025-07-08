@@ -22,6 +22,7 @@ Otherwise, all docker-executing hosts will have one cup docker container running
 ## Usage
 
 First deploy the workers:
+
 ```bash
 ./run-playbook.sh --playbook playbooks/monitoring/version-checkers/cup/deploy-cup.yaml --no-check
 ```
