@@ -9,6 +9,6 @@
     requested_version:
       cup: "3.4.0"
     docker_compose_create_dirs:
-      - config
-    docker_compose_template_configfiles_copy:
-      - config/cup.json
+      - name: config
+    docker_compose_template_files_copy:
+      - name: config/cup.json

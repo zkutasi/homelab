@@ -8,11 +8,11 @@
     requested_version:
       borgwarehouse: "OWN"
     docker_compose_create_dirs:
-      - config
-      - logs
-      - ssh
-      - ssh_host
-      - tmp
+      - name: config
+      - name: logs
+      - name: ssh
+      - name: ssh_host
+      - name: tmp
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_borgwarehouse }}"
 - name: Override the SSH port and restart the docker service
   hosts: backupserver

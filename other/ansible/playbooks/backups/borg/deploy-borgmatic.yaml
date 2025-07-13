@@ -24,10 +24,10 @@
     requested_version:
       borgmatic: "2.0.6"
     docker_compose_create_dirs:
-      - cache
-      - config
-      - etc-borgmatic
-      - repo
-    docker_compose_template_configfiles_copy:
-      - etc-borgmatic/config.yaml
+      - name: cache
+      - name: config
+      - name: etc-borgmatic
+      - name: repo
+    docker_compose_template_files_copy:
+      - name: etc-borgmatic/config.yaml
     borgwarehouse_repo_id: "{{ hostvars[groups['backupserver'][0]].borgwarehouse_repos.json.repoList | community.general.json_query('[?alias==`' + inventory_hostname + '`].repositoryName') | first }}"

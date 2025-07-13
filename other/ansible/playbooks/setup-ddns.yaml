@@ -10,8 +10,8 @@
     docker_compose_projectname: inadyn
     requested_version:
       inadyn: "2.12.0"
-    docker_compose_template_configfiles_copy:
-      - config/inadyn.conf
+    docker_compose_template_files_copy:
+      - name: config/inadyn.conf
 - name: Create ddclient as docker
   hosts:
     - droplet
@@ -21,5 +21,5 @@
     docker_compose_projectname: ddclient
     requested_version:
       ddclient: "4.0.0"
-    docker_compose_template_configfiles_copy:
-      - config/ddclient.conf
+    docker_compose_template_files_copy:
+      - name: config/ddclient.conf

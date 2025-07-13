@@ -6,9 +6,9 @@
   vars:
     docker_compose_projectname: beets
     docker_compose_create_dirs:
-      - config
-      - library
+      - name: config
+      - name: library
     requested_version:
       beets: "2.3.1"
-    docker_compose_template_configfiles_copy:
-      - config/config.yaml
+    docker_compose_template_files_copy:
+      - name: config/config.yaml

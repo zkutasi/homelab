@@ -1,0 +1,42 @@
+services:
+  selenium:
+    container_name: selenium
+    environment:
+      - TZ={{ timezone }}
+    image: selenium/standalone-chrome:{{ requested_version['selenium'] }}
+    networks:
+      - selenium-net
+    ports:
+      - {{ port_selenium }}:4444
+      - {{ port_selenium_vnc }}:7900
+    restart: unless-stopped
+    shm_size: 2g
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/downloads:/downloads
+
+  kr-docu-decrypt:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    command: python3 kr-docu-decrypt.py
+    container_name: kr-docu-decrypt
+    depends_on:
+      - selenium
+    environment:
+      - UID={{ docker_uid }}
+      - GID={{ docker_gid }}
+      - TZ={{ timezone }}
+      - SELENIUM_URL=http://selenium:{{ port_selenium }}/wd/hub
+    networks:
+      - selenium-net
+    ports:
+      - {{ port_kr_docu_decrypt }}:8000
+    restart: unless-stopped
+    user: "{{ docker_uid }}:{{ docker_gid }}"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/app:/app:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/downloads:/downloads
+
+networks:
+  selenium-net:
+    driver: bridge

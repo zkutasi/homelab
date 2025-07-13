@@ -9,4 +9,4 @@
     requested_version:
       komodo-periphery: "1.17.5"
     docker_compose_create_dirs:
-      - config
+      - name: config
