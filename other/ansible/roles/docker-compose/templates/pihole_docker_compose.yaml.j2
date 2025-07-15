@@ -5,43 +5,45 @@ services:
     depends_on:
       - unbound
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "80:80/tcp"
-      - "443:443/tcp"
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 80:80/tcp
+      - 443:443/tcp
     environment:
       TZ: "{{ timezone }}"
       FTLCONF_LOCAL_IPV4: {{ ansible_host }}
       FTLCONF_dns_dnssec: false
       FTLCONF_dns_domain: {{ pihole_dns_domain }}
       FTLCONF_dns_listeningMode: ALL
-      FTLCONF_dns_upstreams: {{ pihole_docker_network_3digit }}.3#53
+      FTLCONF_dns_upstreams: {{ pihole_docker_network_3digit }}.3#5335
       FTLCONF_webserver_api_password: "{{ pihole_password }}"
       FTLCONF_webserver_interface_theme: default-dark
       VIRTUAL_HOST: pihole.{{ pihole_dns_domain }}
       WEB_BIND_ADDR: {{ ansible_host }}
-#    dns:
-#      - 127.0.0.1
-#      - 8.8.8.8
-#      - 8.8.4.4
+    dns:
+      - {{ pihole_docker_network_3digit }}.3
     volumes:
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-pihole:/etc/pihole
-#      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-dnsmaskd:/etc/dnsmasq.d
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pihole/etc-pihole:/etc/pihole
+#      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pihole/etc-dnsmasqd:/etc/dnsmasq.d
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.2
     restart: unless-stopped
   unbound:
     container_name: unbound
-    image: mvance/unbound-rpi:{{ requested_version['unbound'] }}
+    image: madnuttah/unbound:{{ requested_version['unbound'] }}
     hostname: unbound.home
     ports:
-      - "{{ port_pihole_unbound }}:53/tcp"
-      - "{{ port_pihole_unbound }}:53/udp"
+      - "{{ port_pihole_unbound }}:5335/tcp"
+      - "{{ port_pihole_unbound }}:5335/udp"
     environment:
       TZ: "{{ timezone }}"
     volumes:
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound-conf:/opt/unbound/etc/unbound/
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/unbound.conf:/usr/local/unbound/unbound.conf
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/conf.d/:/usr/local/unbound/conf.d/
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/log.d:/usr/local/unbound/log.d
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/zones.d/:/usr/local/unbound/zones.d/
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.3

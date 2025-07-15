@@ -5,29 +5,29 @@
     mode: '0755'
 - name: Copy any static files necessary
   ansible.builtin.copy:
-    src: "{{ docker_compose_projectname }}/{{ item }}/"   # Note the / at the end !
-    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
-    mode: "0644"
+    src: "{{ docker_compose_projectname }}/{{ item.name }}/"   # Note the / at the end !
+    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
+    mode: "{{ item.file_mode | default('0644') }}"
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
-    directory_mode: "755"
-  loop: "{{ docker_compose_static_configfiles_copy }}"
+    directory_mode: "{{ item.folder_mode | default('0755') }}"
+  loop: "{{ docker_compose_static_files_copy }}"
 - name: Make sure destination dir exists for template files
   ansible.builtin.file:
-    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item | dirname }}"
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name | dirname }}"
     state: directory
-    mode: "0755"
+    mode: "{{ item.folder_mode | default('0755') }}"
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
-  loop: "{{ docker_compose_template_configfiles_copy }}"
+  loop: "{{ docker_compose_template_files_copy }}"
 - name: Copy any template files necessary
   ansible.builtin.template:
-    src: "{{ docker_compose_projectname }}/{{ item }}.j2"
-    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
-    mode: "0644"
+    src: "{{ docker_compose_projectname }}/{{ item.name }}.j2"
+    dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
+    mode: "{{ item.file_mode | default('0644') }}"
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
-  loop: "{{ docker_compose_template_configfiles_copy }}"
+  loop: "{{ docker_compose_template_files_copy }}"
 - name: Copy docker compose file
   ansible.builtin.template:
     src: "{{ docker_compose_projectname }}_docker_compose.yaml.j2"
@@ -71,9 +71,9 @@
 - name: Create bind mount directories
   become: true
   ansible.builtin.file:
-    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item }}"
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
     state: directory
-    mode: '0755'
+    mode: "{{ item.folder_mode | default('0755') }}"
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
   loop: "{{ docker_compose_create_dirs }}"

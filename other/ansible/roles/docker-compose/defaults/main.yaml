@@ -5,8 +5,8 @@ docker_compose_files_group: "{{ lookup('env', 'USER') }}"
 docker_compose_ipv6: false
 docker_compose_projectname: "{{ undef(hint='You must specify the docker compose project name') }}"
 docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
-docker_compose_static_configfiles_copy: []
-docker_compose_template_configfiles_copy: []
+docker_compose_static_files_copy: []
+docker_compose_template_files_copy: []
 docker_socket_path: /var/run/docker.sock
 docker_volumes_path: /var/lib/docker/volumes
 docker_uid: 1000
@@ -14,6 +14,7 @@ docker_gid: 1000
 
 requested_version: {}
 
+port_alloy: 12345
 port_beets: 8337
 port_borgwarehouse: 3000
 port_borgwarehouse_ssh: 22223
@@ -22,10 +23,13 @@ port_dockge: 5001
 port_emby_http: 8096
 port_emby_https: 8920
 port_komodo_periphery: 8120
+port_kr_docu_decrypt: 8000
 port_netalertx: 20211
 port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
+port_selenium: 4444
+port_selenium_vnc: 7900
 port_smartctl_exporter: 9633
 port_urbackup_client_fileserver: 35621
 port_urbackup_client_discovery: 35622

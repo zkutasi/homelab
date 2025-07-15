@@ -14,7 +14,7 @@
         force: true
         state: link
         src: /run/systemd/resolve/resolv.conf
-- name: Create pihole as docker
+- name: Create pihole & unbound as docker
   hosts: pihole
   roles:
     - docker-compose
@@ -22,4 +22,19 @@
     docker_compose_projectname: pihole
     requested_version:
       pihole: "2025.04.0"
-      unbound: "1.22.0"
+      unbound: "1.23.0-1"
+    docker_compose_create_dirs:
+      - name: pihole/etc-pihole
+      - name: pihole/etc-dnsmasqd
+      - name: unbound/conf.d
+      - name: unbound/log.d
+      - name: unbound/zones.d
+    docker_compose_template_files_copy:
+      - name: unbound/unbound.conf
+      - name: unbound/conf.d/access-control.conf
+      - name: unbound/conf.d/interfaces.conf
+      - name: unbound/conf.d/logging.conf
+      - name: unbound/conf.d/performance.conf
+      - name: unbound/conf.d/remote-control.conf
+      - name: unbound/conf.d/security.conf
+      - name: unbound/conf.d/trust-anchor.conf
