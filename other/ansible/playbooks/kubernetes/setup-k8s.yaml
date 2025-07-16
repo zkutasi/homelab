@@ -1,0 +1,9 @@
+- name: Set the fs.inotify.max_user_instances Kernel parameter
+  become: true
+  hosts: kubernetes
+  tasks:
+    - name: Ensure fs.inotify.max_user_instances is set to a high enough value
+      ansible.posix.sysctl:
+        name: fs.inotify.max_user_instances
+        value: 512
+        state: present
