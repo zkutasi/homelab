@@ -1,0 +1,12 @@
+- name: Deploy clasp as docker
+  hosts:
+    - control
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: clasp
+    docker_compose_create_dirs:
+      - name: config
+      - name: gas
+    docker_compose_template_files_copy:
+      - name: Dockerfile

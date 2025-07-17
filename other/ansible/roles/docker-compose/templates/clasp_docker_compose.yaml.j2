@@ -1,0 +1,9 @@
+services:
+  clasp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: "{{ docker_uid }}:{{ backups_gid }}"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gas:/gas
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/root

@@ -1,0 +1,10 @@
+FROM node:20-slim
+
+# Install clasp
+RUN npm install -g @google/clasp
+
+# Set working directory
+WORKDIR /gas
+
+# Entrypoint to run clasp
+ENTRYPOINT [ "clasp" ]
