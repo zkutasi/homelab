@@ -1,4 +1,0 @@
-- name: Deploy emby
-  ansible.builtin.import_playbook: media/deploy-emby.yaml
-- name: Deploy plex
-  ansible.builtin.import_playbook: media/deploy-plex.yaml
