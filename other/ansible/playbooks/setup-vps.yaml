@@ -1,38 +1,6 @@
-- name: Create nginx as docker
-  hosts:
-    - droplet
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: nginx
-    requested_version:
-      nginx: "1.28.0-perl"
-    docker_compose_static_files_copy:
-      - nginx-conf
-- name: Create rustdesk as docker
-  hosts:
-    - droplet
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: rustdesk
-    requested_version:
-      rustdesk: "1.1.14"
-- name: Deploy a KR document decryptor service as docker
-  hosts:
-    - droplet
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: kr-docu-decrypt
-    requested_version:
-      python: "3.11"
-      selenium: "125.0-20250707"
-    docker_compose_create_dirs:
-      - name: app
-      - name: downloads
-        folder_mode: '0777'
-    docker_compose_static_files_copy:
-      - name: app
-    docker_compose_template_files_copy:
-      - name: app/Dockerfile
+- name: Deploy nginx proxy
+  ansible.builtin.import_playbook: selfhosting/nginx-proxy/deploy-nginx-proxy.yaml
+- name: Deploy rustdesk
+  ansible.builtin.import_playbook: selfhosting/rustdesk/deploy-rustdesk.yaml
+- name: Deploy kr-docu-decrypt
+  ansible.builtin.import_playbook: selfhosting/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml

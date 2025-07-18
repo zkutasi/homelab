@@ -1,0 +1,18 @@
+- name: Deploy a KR document decryptor service as docker
+  hosts:
+    - droplet
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: kr-docu-decrypt
+    requested_version:
+      python: "3.11"
+      selenium: "125.0-20250707"
+    docker_compose_create_dirs:
+      - name: app
+      - name: downloads
+        folder_mode: '0777'
+    docker_compose_static_files_copy:
+      - name: app
+    docker_compose_template_files_copy:
+      - name: app/Dockerfile

@@ -8,6 +8,8 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
 
 ## Prerequisites
 
+1. Have a Google App Scripts account
+
 ## Ansible inventory setup
 
 No special setup is required.
