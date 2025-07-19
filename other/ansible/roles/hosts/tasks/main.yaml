@@ -1,9 +1,23 @@
-- name: Ensure given /etc/hosts entries are added
-  ansible.builtin.lineinfile:
-    dest: /etc/hosts
-    regexp: "^{{ ip_address }}"
-    line: "{{ ip_address }} {{ item }}"
-    state: present
-  vars:
-    ip_address: "{{ lookup('community.general.dig', item, hosts_dns_server) }}"
+- name: Initialize resolved_hosts dictionary
+  ansible.builtin.set_fact:
+    resolved_hosts: {}
+- name: Resolve hostnames to IPs and group them
+  ansible.builtin.set_fact:
+    resolved_hosts: >-
+      {{
+        resolved_hosts | default({}) | combine({
+          (lookup('community.general.dig', item, hosts_dns_server)): (
+            resolved_hosts.get(lookup('community.general.dig', item, hosts_dns_server), []) + [item]
+          )
+        })
+      }}
   loop: "{{ hosts_entries }}"
+- name: Ensure grouped /etc/hosts entries are present
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: "^{{ item.key }}\\s"
+    line: "{{ item.key }} {{ item.value | join(' ') }}"
+    state: present
+  loop: "{{ resolved_hosts | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
