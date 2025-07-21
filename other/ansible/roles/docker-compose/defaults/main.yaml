@@ -38,6 +38,8 @@ port_urbackup_server_fastcgi: 55413
 port_urbackup_server_http: 55414
 port_urbackup_server_internet_clients: 55415
 
+alloy_monitor_containers: true
+
 backupfolders: []
 
 borgmatic_encryption_passphrase: "{{ undef(hint='You must specify the Borgmatic encryption password') }}"
@@ -48,7 +50,6 @@ cup_control_server: ""
 cup_registries: {}
 cup_servers: {}
 
-ddns_alias: ""
 ddns_aliases: []
 ddns_interface: ""
 ddns_hostname: ""
