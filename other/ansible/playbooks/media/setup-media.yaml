@@ -1,0 +1,4 @@
+- name: Deploy stuff on the HTPC
+  ansible.builtin.import_playbook: setup-htpc.yaml
+- name: Deploy stuff on Synology NAS
+  ansible.builtin.import_playbook: setup-nas.yaml

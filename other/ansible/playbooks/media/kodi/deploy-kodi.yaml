@@ -1,0 +1,5 @@
+- name: Install and set up Kodi
+  hosts:
+    - htpc
+  roles:
+    - kodi

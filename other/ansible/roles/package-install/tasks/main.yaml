@@ -2,6 +2,7 @@
   ansible.builtin.debug:
     msg: System {{ inventory_hostname }} has package manager {{ ansible_pkg_mgr }}
 - name: Install the requested packages
+  become: true
   when: ansible_pkg_mgr == 'apt'
   block:
     - name: Update APT package cache

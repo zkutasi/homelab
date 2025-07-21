@@ -81,9 +81,10 @@ Manage my Movies, Music and all media files.
 
 | Logo | Name | Description |
 |------|------|-------------|
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/beets.svg" alt="Plex"> | [Beets](https://beets.io/) | Music metadata improver |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/emby.png" alt="Emby"> | [Emby](https://emby.media/) | Host my Media files through a Web Interface or just through the TV |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/plex.png" alt="Plex"> | [Plex](https://www.plex.tv/) | Alternative to Emby, but I just use it for testing and deduplication |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/beets.svg" alt="Beets"> | [Beets](https://beets.io/) | Music metadata improver |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/emby.svg" alt="Emby"> | [Emby](https://emby.media/) | Host my Media files through a Web Interface or just through the TV |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/plex.svg" alt="Plex"> | [Plex](https://www.plex.tv/) | Alternative to Emby, but I just use it for testing and deduplication |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kodi.svg" alt="Kodi"> | [Kodi](https://kodi.tv/) | An addon based Media playback software for HTPCs. |
 
 #### Management stack
 

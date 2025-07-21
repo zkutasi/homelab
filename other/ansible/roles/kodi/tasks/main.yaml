@@ -1,0 +1,26 @@
+- name: Install some packages
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - flatpak
+      - gnome-software-plugin-flatpak
+      - gnome-tweaks
+- name: Add the flathub flatpak repository remote to the user installation
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: system
+- name: Install the Kodi flatpak
+  become: true
+  community.general.flatpak:
+    name: tv.kodi.Kodi
+    remote: flathub
+    state: present
+- name: Copy and kodi.destop autostart
+  ansible.builtin.template:
+    src: kodi.desktop.j2
+    dest: "{{ ansible_user_dir }}/.config/autostart/kodi.desktop"
+    mode: "0755"
