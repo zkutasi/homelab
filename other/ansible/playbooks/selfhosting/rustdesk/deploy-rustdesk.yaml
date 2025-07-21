@@ -7,3 +7,15 @@
     docker_compose_projectname: rustdesk
     requested_version:
       rustdesk: "1.1.14"
+- name: Disable Wayland
+  become: true
+  hosts:
+    - htpc
+  tasks:
+    ansible.builtin.lineinfile:
+      path: /etc/gdm/custom.conf
+      regexp: '#WaylandEnable=false'
+      line: 'WaylandEnable=false'
+      owner: root
+      group: root
+      mode: '0644'
