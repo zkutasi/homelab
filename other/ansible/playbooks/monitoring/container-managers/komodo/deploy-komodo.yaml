@@ -1,6 +1,7 @@
 - name: Create komodo-periphery as docker
   hosts:
     - standalone
+    - external
     - synology
   roles:
     - docker-compose

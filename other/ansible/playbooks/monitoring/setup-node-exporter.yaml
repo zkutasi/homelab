@@ -11,6 +11,7 @@
 - name: Create node_exporter as docker
   hosts:
     - standalone
+    - external
     - synology
   roles:
     - docker-compose

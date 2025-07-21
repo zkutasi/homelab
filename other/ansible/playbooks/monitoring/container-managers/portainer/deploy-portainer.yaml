@@ -1,6 +1,7 @@
 - name: Create portainer-agent as docker
   hosts:
     - standalone
+    - external
     - synology
   roles:
     - docker-compose

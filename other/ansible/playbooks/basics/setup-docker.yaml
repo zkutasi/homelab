@@ -1,5 +1,7 @@
 - name: Setup docker
-  hosts: standalone
+  hosts: 
+    - standalone
+    - external
   become: true
   roles:
     - docker

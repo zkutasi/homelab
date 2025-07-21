@@ -48,6 +48,7 @@
 - name: List all filesystem docker compose projects
   hosts:
     - standalone
+    - external
     - synology
   tasks:
     - name: List the folders
@@ -107,6 +108,7 @@
 - name: Create new stacks
   hosts:
     - standalone
+    - external
     - synology
   tasks:
     - name: Call the REST API

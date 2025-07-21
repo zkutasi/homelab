@@ -1,6 +1,7 @@
 - name: Create cup as docker
   hosts:
     - standalone
+    - external
     - synology
   roles:
     - docker-compose

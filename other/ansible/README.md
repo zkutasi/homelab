@@ -18,11 +18,12 @@ A control host is required that has Ansible installed and can access to every ot
 2. In it, create a `hosts.yaml` file, and list your hosts
 3. You can and should create groups of these hosts too
    1. `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
-   2. `synology` - All the Synology NAS-es, which require special care
-   3. `backupserver` - The Backup Server that hosts all of the backups of the various hosts
-   4. `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
-   5. `proxmox` - All the Proxmox hosts
-   6. `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
+   2. `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
+   3. `synology` - All the Synology NAS-es, which require special care
+   4. `backupserver` - The Backup Server that hosts all of the backups of the various hosts
+   5. `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
+   6. `proxmox` - All the Proxmox hosts
+   7. `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
 4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX.yaml` where XXX is a valid group name
 5. The following variables can be set on a host (uniquely or on a group):
 

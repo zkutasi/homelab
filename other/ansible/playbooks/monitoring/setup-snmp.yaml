@@ -2,6 +2,7 @@
   become: true
   hosts:
     - standalone
+    - external
   roles:
     - snmp
   vars:

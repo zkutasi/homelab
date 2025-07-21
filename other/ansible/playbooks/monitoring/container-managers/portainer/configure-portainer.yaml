@@ -22,7 +22,7 @@
       ansible.builtin.include_role:
         name: rest-api
       when: not (portainer_urls.json | selectattr('URL', 'contains', 'tcp://{{ hostvars[item].ansible_host }}:9001'))
-      loop: "{{ groups['standalone'] + groups['synology'] }}"
+      loop: "{{ groups['standalone'] + groups['external'] + groups['synology'] }}"
       vars:
         rest_api_data: Name={{ hostvars[item].id }}&EndpointCreationType=2&ContainerEngine=docker&URL=tcp://{{ hostvars[item].ansible_host }}:9001&TLS=true&TLSSkipVerify=true&TLSSkipClientVerify=true
   vars:
