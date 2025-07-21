@@ -8,4 +8,4 @@
     requested_version:
       nginx: "1.28.0-perl"
     docker_compose_static_files_copy:
-      - nginx-conf
+      - name: nginx-conf

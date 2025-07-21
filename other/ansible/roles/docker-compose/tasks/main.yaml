@@ -3,6 +3,14 @@
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
     state: directory
     mode: '0755'
+- name: Create bind mount directories
+  ansible.builtin.file:
+    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
+    state: directory
+    mode: "{{ item.folder_mode | default('0755') }}"
+    owner: "{{ docker_compose_files_owner }}"
+    group: "{{ docker_compose_files_group }}"
+  loop: "{{ docker_compose_create_dirs }}"
 - name: Copy any static files necessary
   ansible.builtin.copy:
     src: "{{ docker_compose_projectname }}/{{ item.name }}/"   # Note the / at the end !
@@ -68,15 +76,6 @@
     - name: Print out the docker compose version (v1)
       ansible.builtin.debug:
         var: docker_compose_installed_version
-- name: Create bind mount directories
-  become: true
-  ansible.builtin.file:
-    path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
-    state: directory
-    mode: "{{ item.folder_mode | default('0755') }}"
-    owner: "{{ docker_compose_files_owner }}"
-    group: "{{ docker_compose_files_group }}"
-  loop: "{{ docker_compose_create_dirs }}"
 - name: Docker compose up (v2)
   when: docker_compose_installed_version is version('2.0', '>=')
   become: "{{ docker_with_sudo }}"

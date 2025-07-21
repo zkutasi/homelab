@@ -1,19 +1,18 @@
-# - name: Set up /etc/hosts for media
-#   hosts:
-#     - htpc
-#     - torrents
-#   become: true
-#   roles:
-#     - hosts
-#   vars:
-#     hosts_dns_server: "@192.168.31.2"
-#     hosts_entries:
-#       - omv.home
-#       - synology216.home
+- name: Set up /etc/hosts for media
+  hosts:
+    - htpc
+    - torrents
+  become: true
+  roles:
+    - hosts
+  vars:
+    hosts_dns_server: "@192.168.31.2"
+    hosts_entries:
+      - omv.home
+      - synology216.home
 - name: Set up /etc/hosts for monitoring
   hosts:
-    - control
-    # - standalone
+    - standalone
     # - synology
   become: true
   roles:

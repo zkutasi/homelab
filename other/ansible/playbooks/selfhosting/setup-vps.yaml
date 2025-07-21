@@ -1,0 +1,6 @@
+- name: Deploy nginx proxy
+  ansible.builtin.import_playbook: nginx-proxy/deploy-nginx-proxy.yaml
+- name: Deploy rustdesk
+  ansible.builtin.import_playbook: rustdesk/deploy-rustdesk.yaml
+- name: Deploy kr-docu-decrypt
+  ansible.builtin.import_playbook: kr-docu-decrypt/deploy-kr-docu-decrypt.yaml
