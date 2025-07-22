@@ -16,3 +16,4 @@
       - name: app
     docker_compose_template_files_copy:
       - name: app/Dockerfile
+      - name: app/docker_utils.py
