@@ -3,7 +3,6 @@ kind: HTTPProxy
 metadata:
   labels:
     k8s-app: kubernetes-dashboard
-  namespace: kubernetes-dashboard
   name: kubernetes-dashboard-httpproxy
 spec:
   routes:

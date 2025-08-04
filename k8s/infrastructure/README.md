@@ -59,4 +59,4 @@ Popular alternative choice instead of Rook, albeit it has a few issues still req
 
 ### Minio
 
-For S3 storage, this is what I have chosen as I work with this one. Though I need to learn a lot about it.
+For S3 object storage, this is what I have chosen as I work with this one. Though I need to learn a lot about it.
