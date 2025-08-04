@@ -1,0 +1,19 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+  name: kubernetes-dashboard-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: kubernetes-dashboard-kong-proxy
+      port: 443
+      protocol: tls
+  virtualhost:
+    fqdn: dashboard.kubernetes.home
+    tls:
+      secretName: kubernetes-dashboard-cert-secret
