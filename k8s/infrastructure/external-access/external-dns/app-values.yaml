@@ -1,0 +1,11 @@
+image:
+  tag: v0.17.0
+#managedRecordTypes:
+#  - "CNAME"
+policy: upsert-only
+provider:
+  name: pihole
+registry: noop
+sources:
+  - service
+  - contour-httpproxy

@@ -1,4 +1,4 @@
-NS=metallb-system
+NS=external-dns
 VERSION=
 
 while [ $# -ge 1 ]; do
@@ -18,7 +18,7 @@ done
 
 [ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
 
-helm upgrade --install metallb metallb/metallb \
+helm upgrade --install external-dns external-dns/external-dns \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \

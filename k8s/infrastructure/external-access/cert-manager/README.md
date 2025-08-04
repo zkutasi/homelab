@@ -25,19 +25,21 @@ N/A
     helm search repo jetstack/cert-manager -l
     ```
 
-3. Install with the provided script
+3. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+4. Install with the provided script
 
     ```bash
     ./deploy.sh
     ```
 
-4. Generate the internal self-signed certificate, valid for 30 years
+5. Generate the internal self-signed certificate, valid for 30 years
 
     ```bash
     ./internal-certs.sh
     ```
 
-5. Load the generated CA also into the Browser as trusted CA
+6. Load the generated CA also into the Browser as trusted CA
 
 ## Commands
 

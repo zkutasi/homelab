@@ -8,3 +8,4 @@ kubespray-repo
 .ansible
 .vscode
 *.code-workspace
+app-values-private.yaml

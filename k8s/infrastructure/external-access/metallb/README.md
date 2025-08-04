@@ -25,7 +25,9 @@ The external access of the services inside the cluster wil be provided on the IP
     helm search repo metallb/metallb -l
     ```
 
-3. Install with the provided script
+3. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+4. Install with the provided script
 
     ```bash
     ./deploy.sh

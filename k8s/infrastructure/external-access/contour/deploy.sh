@@ -23,4 +23,5 @@ helm upgrade --install contour bitnami/contour \
     --namespace $NS \
     --create-namespace \
     --values app-values.yaml \
+    --values app-values-private.yaml \
     --debug

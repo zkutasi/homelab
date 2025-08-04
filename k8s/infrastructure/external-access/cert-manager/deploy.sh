@@ -23,4 +23,5 @@ helm upgrade --install cert-manager jetstack/cert-manager \
     --namespace $NS \
     --create-namespace \
     --values app-values.yaml \
+    --values app-values-private.yaml \
     --debug

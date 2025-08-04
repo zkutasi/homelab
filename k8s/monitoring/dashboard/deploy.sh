@@ -23,6 +23,7 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
     --namespace $NS \
     --create-namespace \
     --values app-values.yaml \
+    --values app-values-private.yaml \
     --debug
 
 kubectl apply -f httpproxy.yaml -n $NS
