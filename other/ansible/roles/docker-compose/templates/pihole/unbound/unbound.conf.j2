@@ -2,9 +2,10 @@ include: "/usr/local/unbound/conf.d/*.conf"
 include: "/usr/local/unbound/zones.d/*.conf"
 
 server:
-  module-config: "validator iterator"
+  #module-config: "iterator validator"
+  module-config: "iterator"
   username: ""
-directory: "/usr/local/unbound"
+  directory: "/usr/local/unbound"
   chroot: ""
   do-daemonize: no
   tls-cert-bundle: /etc/ssl/certs/ca-certificates.crt
