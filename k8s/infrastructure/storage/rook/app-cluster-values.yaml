@@ -1,0 +1,33 @@
+cephClusterSpec:
+  resources:
+    mgr:
+      requests:
+        cpu: "250m"
+    mon:
+      requests:
+        cpu: "250m"
+        memory: "1Gi"
+    osd:
+      requests:
+        cpu: "250m"
+    prepareosd:
+      requests:
+        cpu: "150m"
+    cleanup:
+      requests:
+        cpu: "150m"
+  storage:
+    useAllNodes: false
+    useAllDevices: false
+    nodes:
+      - name: "k8s-worker-1"
+        devices:
+          - name: "sdb"
+      - name: "k8s-worker-2"
+        devices:
+          - name: "sdb"
+      - name: "k8s-worker-3"
+        devices:
+          - name: "sdb"
+cephFileSystems: {}
+cephObjectStores: {}

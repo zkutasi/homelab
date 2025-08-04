@@ -1,0 +1,16 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: ceph-dashboard-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: rook-ceph-mgr-dashboard
+      port: 8443
+      protocol: tls
+  virtualhost:
+    fqdn: ceph.kubernetes.home
+    tls:
+      secretName: ceph-dashboard-cert-secret
