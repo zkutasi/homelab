@@ -24,3 +24,15 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
     --create-namespace \
     --values app-values.yaml \
     --debug
+
+kubectl create sa kube-ds-viewer -n $NS
+kubectl create sa kube-ds-editor -n $NS
+kubectl create sa kube-ds-admin -n $NS
+
+kubectl create clusterrolebinding kube-ds-viewer-role-binding --clusterrole=view --user=system:serviceaccount:$NS:kube-ds-viewer
+kubectl create clusterrolebinding kube-ds-editor-role-binding --clusterrole=edit --user=system:serviceaccount:$NS:kube-ds-editor
+kubectl create clusterrolebinding kube-ds-admin-role-binding --clusterrole=admin --user=system:serviceaccount:$NS:kube-ds-admin
+
+kubectl create token kube-ds-viewer -n $NS
+kubectl create token kube-ds-editor -n $NS
+kubectl create token kube-ds-admin -n $NS
