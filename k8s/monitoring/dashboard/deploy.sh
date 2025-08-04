@@ -25,6 +25,9 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
     --values app-values.yaml \
     --debug
 
+kubectl apply -f httpproxy.yaml -n $NS
+kubectl apply -f internal-certificate.yaml -n $NS
+
 kubectl create sa kube-ds-viewer -n $NS
 kubectl create sa kube-ds-editor -n $NS
 kubectl create sa kube-ds-admin -n $NS
