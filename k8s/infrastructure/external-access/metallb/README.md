@@ -28,7 +28,7 @@ The external access of the services inside the cluster wil be provided on the IP
 3. Install with the provided script
 
     ```bash
-    ./install.sh
+    ./deploy.sh
     ```
 
 ## Commands

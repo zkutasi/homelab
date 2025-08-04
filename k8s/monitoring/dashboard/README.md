@@ -28,7 +28,7 @@ N/A
 3. Install with the provided script
 
     ```bash
-    ./install.sh
+    ./deploy.sh
     ```
 
 ## Commands
