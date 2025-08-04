@@ -1,0 +1,12 @@
+contour:
+  certgen:
+    networkPolicy:
+      enabled: false
+  networkPolicy:
+    enabled: false
+defaultBackend:
+  networkPolicy:
+    enabled: false
+envoy:
+  networkPolicy:
+    enabled: false
