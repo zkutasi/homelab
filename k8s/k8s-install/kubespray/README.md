@@ -13,12 +13,7 @@ Opted for a 3master + 3worker setup, virtualized under Proxmox. This gives me HA
 
 ## Ansible inventory setup
 
-Kubespray requires an inventory to identify what to do with the Nodes, which roles they are intended to be running.
-
-X. Add the following variables into the `all` group_vars file:
-
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+Kubespray requires an inventory to identify what to do with the Nodes, which roles they are intended to be running. The inventory is best to be created from the sample inventory from the git repo (see later).
 
 ## Usage
 
