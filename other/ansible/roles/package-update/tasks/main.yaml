@@ -20,5 +20,6 @@
       ansible.builtin.stat:
         path: /var/run/reboot-required
         get_checksum: false
+      register: reboot
       changed_when: reboot.stat.exists
       # notify: Perform reboot
