@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: portainer
+  name: portainer-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: portainer
+      port: 9443
+      protocol: tls
+  virtualhost:
+    fqdn: portainer.kubernetes.home
+    tls:
+      secretName: portainer-cert-secret

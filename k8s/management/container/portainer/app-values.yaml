@@ -1,0 +1,6 @@
+image:
+  tag: lts
+service:
+  type: ClusterIP
+tls:
+  force: true
