@@ -1,18 +1,18 @@
 - name: Set up scripts
-  ansible.builtin.import_playbook: basics/setup-scripts.yaml
+  ansible.builtin.import_playbook: setup-scripts.yaml
 - name: Set up packages
-  ansible.builtin.import_playbook: basics/setup-packages.yaml
+  ansible.builtin.import_playbook: setup-packages.yaml
 - name: Set up ssh
-  ansible.builtin.import_playbook: basics/setup-ssh.yaml
+  ansible.builtin.import_playbook: setup-ssh.yaml
 - name: Set up vim
-  ansible.builtin.import_playbook: basics/setup-vim.yaml
+  ansible.builtin.import_playbook: setup-vim.yaml
 - name: Set up ntp
-  ansible.builtin.import_playbook: basics/setup-ntp.yaml
+  ansible.builtin.import_playbook: setup-ntp.yaml
 - name: Set up docker
-  ansible.builtin.import_playbook: basics/setup-docker.yaml
+  ansible.builtin.import_playbook: setup-docker.yaml
 - name: Set up hosts
-  ansible.builtin.import_playbook: basics/setup-hosts.yaml
+  ansible.builtin.import_playbook: setup-hosts.yaml
 - name: Set up fstab
-  ansible.builtin.import_playbook: basics/setup-fstab.yaml
+  ansible.builtin.import_playbook: setup-fstab.yaml
 - name: Set up pushover
-  ansible.builtin.import_playbook: basics/setup-pushover.yaml
+  ansible.builtin.import_playbook: setup-pushover.yaml
