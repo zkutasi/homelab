@@ -1,4 +1,6 @@
+CHART_NAME=external-dns/external-dns
 NS=external-dns
+RELEASE_NAME=external-dns
 VERSION=
 
 while [ $# -ge 1 ]; do
@@ -16,12 +18,8 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-[ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
-
-helm upgrade --install external-dns external-dns/external-dns \
-    --version ${VERSION} \
+$(git rev-parse --show-toplevel)/k8s/common-deploy.sh \
+    --chart-name "${CHART_NAME}" \
     --namespace $NS \
-    --create-namespace \
-    --values app-values.yaml \
-    --values app-values-private.yaml \
-    --debug
+    --release-name "${RELEASE_NAME}" \
+    --version "${VERSION}"

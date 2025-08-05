@@ -20,7 +20,7 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
     helm repo update
     ```
 
-2. Check which version you want to install
+2. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash
     helm search repo external-dns -l

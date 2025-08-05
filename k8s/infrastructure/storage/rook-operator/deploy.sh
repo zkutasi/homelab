@@ -1,6 +1,6 @@
-CHART_NAME=bitnami/contour
-NS=projectcontour
-RELEASE_NAME=contour
+CHART_NAME=rook-release/rook-ceph
+NS=rook-ceph
+RELEASE_NAME=rook-ceph
 VERSION=
 
 while [ $# -ge 1 ]; do

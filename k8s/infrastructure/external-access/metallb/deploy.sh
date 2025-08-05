@@ -1,4 +1,6 @@
+CHART_NAME=metallb/metallb
 NS=metallb-system
+RELEASE_NAME=metallb
 VERSION=
 
 while [ $# -ge 1 ]; do
@@ -16,12 +18,8 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-[ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
-
-helm upgrade --install metallb metallb/metallb \
-    --version ${VERSION} \
+$(git rev-parse --show-toplevel)/k8s/common-deploy.sh \
+    --chart-name "${CHART_NAME}" \
     --namespace $NS \
-    --create-namespace \
-    --values app-values.yaml \
-    --values app-values-private.yaml \
-    --debug
+    --release-name "${RELEASE_NAME}" \
+    --version "${VERSION}"

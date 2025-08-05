@@ -12,7 +12,7 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
 
 ## Usage
 
-1. Check which version you want to install
+1. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash
     curl -s https://tccr.io/v2/truecharts/speedtest-tracker/tags/list | jq

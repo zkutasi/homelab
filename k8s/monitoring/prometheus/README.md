@@ -26,7 +26,7 @@ N/A
     helm repo update
     ```
 
-2. Check which version you want to install
+2. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash
     helm search repo prometheus-community/kube-prometheus-stack -l

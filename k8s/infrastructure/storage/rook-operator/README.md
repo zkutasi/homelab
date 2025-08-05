@@ -13,7 +13,6 @@ Rook can provide the following:
 ## Prerequisites
 
 - Kubernetes Nodes shall have disks useful for storage.
-- Rook Operator is deployed
 
 ## Usage
 
@@ -36,12 +35,6 @@ Rook can provide the following:
 
     ```bash
     ./deploy.sh
-    ```
-
-5. Create a dashboard user via the toolbox Pod
-
-    ```bash
-    echo "<PASSWORD>" | kubectl -n rook-ceph exec -ti deployments/rook-ceph-tools -- ceph dashboard ac-user-create <USERNAME> -i /dev/stdin administrator
     ```
 
 ## Commands

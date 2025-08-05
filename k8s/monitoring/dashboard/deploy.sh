@@ -1,4 +1,6 @@
+CHART_NAME=kubernetes-dashboard/kubernetes-dashboard
 NS=kubernetes-dashboard
+RELEASE_NAME=kubernetes-dashboard
 VERSION=
 
 while [ $# -ge 1 ]; do
@@ -16,18 +18,11 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-[ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
-
-helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
-    --version ${VERSION} \
+$(git rev-parse --show-toplevel)/k8s/common-deploy.sh \
+    --chart-name "${CHART_NAME}" \
     --namespace $NS \
-    --create-namespace \
-    --values app-values.yaml \
-    --values app-values-private.yaml \
-    --debug
-
-kubectl apply -f httpproxy.yaml -n $NS
-kubectl apply -f internal-certificate.yaml -n $NS
+    --release-name "${RELEASE_NAME}" \
+    --version "${VERSION}"
 
 kubectl create sa kube-ds-viewer -n $NS
 kubectl create sa kube-ds-editor -n $NS
