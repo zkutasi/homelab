@@ -4,10 +4,10 @@ services:
       - SYS_PTRACE
     container_name: periphery
     environment:
-      - PERIPHERY_ROOT_DIRECTORY: {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config
-      - PERIPHERY_PASSKEYS: arandompasskey
-      - PERIPHERY_SSL_ENABLED: "true"
-      - PERIPHERY_INCLUDE_DISK_MOUNTS: /etc/hostname
+      - PERIPHERY_ROOT_DIRECTORY={{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config
+      - PERIPHERY_PASSKEYS=arandompasskey
+      - PERIPHERY_SSL_ENABLED="true"
+      - PERIPHERY_INCLUDE_DISK_MOUNTS=/etc/hostname
       - TZ={{ timezone }}
     image: ghcr.io/moghtech/komodo-periphery:{{ requested_version['komodo-periphery'] }}
     logging:
