@@ -25,13 +25,15 @@ Cons:
 
 ### Kops
 
+[Official Site](https://kops.sigs.k8s.io/)
+
 ### Kubespray
 
-A modern way to install Kubernetes using Ansible and inventories. Has a vast amount of additional settings as well.
+[Official Site](https://github.com/kubernetes-sigs/kubespray). A modern way to install Kubernetes using Ansible and inventories. Has a vast amount of additional settings as well.
 
 ### Minikube
 
-A Simple way to test Kubernetes and gain knowledge.
+[Official Site](https://minikube.sigs.k8s.io/docs/). A Simple way to test Kubernetes and gain knowledge.
 
 Cons:
 
@@ -40,7 +42,7 @@ Cons:
 
 ### Kind
 
-Intended for development and testing
+[Official Site](https://kind.sigs.k8s.io/). Intended for development and testing.
 
 Cons:
 
@@ -48,10 +50,16 @@ Cons:
 
 ### K0s
 
+[Official Site](https://k0sproject.io/)
+
 ### K3s
+
+[Official Site](https://k3s.io/)
 
 ### Rancher RKE
 
+[Official Site](https://www.rancher.com/index.php/products/rke). From SUSE.
+
 ### MicroK8s
 
-The Kubernetes flavor from Ubuntu.
+[Official SIte](https://microk8s.io/). The Kubernetes flavor from Ubuntu.
