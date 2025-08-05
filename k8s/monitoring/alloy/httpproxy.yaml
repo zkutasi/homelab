@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: alloy
+  namespace: monitoring
+  name: alloy-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: alloy
+      port: 12345
+  virtualhost:
+    fqdn: alloy.kubernetes.home
+    tls:
+      secretName: alloy-cert-secret
