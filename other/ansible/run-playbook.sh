@@ -1,6 +1,7 @@
-PLAYBOOK=
-DIFF=1
 CHECK=1
+DIFF=1
+LIMIT=
+PLAYBOOK=
 
 function usage()
 {
@@ -14,6 +15,10 @@ while [ $# -ge 1 ]; do
     --playbook)
       shift
       PLAYBOOK=$1
+      ;;
+    --limit)
+      shift
+      LIMIT=$1
       ;;
     --no-diff)
       DIFF=0
@@ -33,8 +38,9 @@ done
 [ -z "${PLAYBOOK}" ] && echo "ERROR: No playbook specified" && exit 1
 
 CMD="ansible-playbook -i inventory/hosts.yaml ${PLAYBOOK}"
-[ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
 [ "${CHECK}" -eq 1 ] && CMD="${CMD} --check"
+[ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
+[ -n "${LIMIT}" ] && CMD="${CMD} --limit ${LIMIT}"
 
 echo "Executing command: ${CMD}"
 ${CMD}
