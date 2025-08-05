@@ -13,12 +13,6 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
 - Kube-state-metrics provides Kubernetes level metrics
 - Node exporter provides Host level metrics --- With Alloy, this is no longer required though
 
-Additionally the following tools are used:
-
-- `smartctl_exporter` - Export SMART data from HDDs and SSDs from all of the systems. Installed on all those systems that have such hardware and then Prometheus collects the metrics.
-- `Loki` - Aggregate logs from all of the systems, installed on the Kubernetes cluster.
-- `Alloy` - Collect logs and metrics from all of the systems. Installed on all external systems as well as in Kubernetes. Then Loki and Prometheus collects the logs and metrics respectively.
-
 ## Prerequisites
 
 N/A

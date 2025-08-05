@@ -26,7 +26,7 @@ helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheu
     --values app-values-private.yaml \
     --debug
 
-kubectl apply -f prometheus/prometheus-internal-certificate.yaml
-kubectl apply -f prometheus/prometheus-httpproxy.yaml
-kubectl apply -f prometheus/grafana-internal-certificate.yaml
-kubectl apply -f prometheus/grafana-httpproxy.yaml
+kubectl apply -f prometheus-internal-certificate.yaml -n $NS
+kubectl apply -f prometheus-httpproxy.yaml -n $NS
+kubectl apply -f grafana-internal-certificate.yaml -n $NS
+kubectl apply -f grafana-httpproxy.yaml -n $NS

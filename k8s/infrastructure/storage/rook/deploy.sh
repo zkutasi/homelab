@@ -34,6 +34,6 @@ helm upgrade --install rook-ceph-cluster rook-release/rook-ceph-cluster \
     --values app-cluster-values-private.yaml \
     --debug
 
-kubectl apply -f toolbox.yaml
-kubectl apply -f dashboard-httpproxy.yaml
-kubectl apply -f dashboard-internal-certificate.yaml
+kubectl apply -f toolbox.yaml -n $NS
+kubectl apply -f dashboard-httpproxy.yaml -n $NS
+kubectl apply -f dashboard-internal-certificate.yaml -n $NS
