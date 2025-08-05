@@ -5,19 +5,55 @@
   ansible.builtin.set_fact:
     resolved_hosts: >-
       {{
-        resolved_hosts | default({}) | combine({
+        resolved_hosts | combine({
           (lookup('community.general.dig', item, hosts_dns_server)): (
-            resolved_hosts.get(lookup('community.general.dig', item, hosts_dns_server), []) + [item]
+            (resolved_hosts.get(lookup('community.general.dig', item, hosts_dns_server), []) + [item]) | unique
           )
-        })
+        }, recursive=True)
       }}
   loop: "{{ hosts_entries }}"
-- name: Ensure grouped /etc/hosts entries are present
-  ansible.builtin.lineinfile:
+- name: Read current /etc/hosts
+  ansible.builtin.slurp:
+    path: /etc/hosts
+  register: hosts_file
+- name: Parse only matching IP entries from /etc/hosts
+  ansible.builtin.set_fact:
+    hosts_lines: "{{
+        hosts_file.content
+        | b64decode
+        | split('\n')
+        | select('match', '^[0-9]')
+        | map('regex_replace', '\\s+', ' ')
+        | map('split')
+        | selectattr('0', 'in', resolved_hosts.keys() | list)
+      }}"
+- name: Initialize existing_hosts
+  ansible.builtin.set_fact:
+    existing_hosts: {}
+- name: Add parsed /etc/hosts entries to existing_hosts
+  ansible.builtin.set_fact:
+    existing_hosts: "{{ existing_hosts | combine({ item[0]: item[1:] }) }}"
+  loop: "{{ hosts_lines }}"
+- name: Initialize merged_hosts
+  set_fact:
+    merged_hosts: {}
+- name: Merge resolved and existing hostnames
+  set_fact:
+    merged_hosts: >-
+      {{
+        merged_hosts | combine({
+          item.key: (
+            (item.value | default([])) + (existing_hosts[item.key] | default([]))
+          ) | unique | sort
+        })
+      }}
+  loop: "{{ resolved_hosts | dict2items }}"
+- name: Ensure merged /etc/hosts entries are present
+  lineinfile:
     path: /etc/hosts
     regexp: "^{{ item.key }}\\s"
     line: "{{ item.key }} {{ item.value | join(' ') }}"
     state: present
-  loop: "{{ resolved_hosts | dict2items }}"
+  loop: "{{ merged_hosts | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
