@@ -14,7 +14,7 @@
       - name: config/inadyn.conf
 - name: Create ddclient as docker
   hosts:
-    - droplet
+    - external
   roles:
     - docker-compose
   vars:
