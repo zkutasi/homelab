@@ -1,0 +1,19 @@
+global:
+  fallbackDefaults:
+    pvcSize: 10Gi
+
+cnpg:
+  main:
+    cluster:
+      storage:
+        size: 8Gi
+      walStorage:
+        size: 8Gi
+
+persistence:
+  drive:
+    size: 8Gi
+  recordings:
+    size: 8Gi
+
+TZ: Europe/Budapest

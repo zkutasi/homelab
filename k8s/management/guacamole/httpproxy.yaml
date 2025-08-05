@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: guacamole
+  name: guacamole-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: guacamole
+      port: 10123
+  virtualhost:
+    fqdn: guacamole.kubernetes.home
+    tls:
+      secretName: guacamole-cert-secret
