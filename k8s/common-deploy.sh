@@ -32,9 +32,7 @@ done
 
 if [ -z "${VERSION}" ]; then
   echo "Trying to figure out the latest version..."
-  CURL_CHART_REPO=${CHART_NAME/oci/https}
-  CURL_CHART_REPO=${CURL_CHART_REPO/tccr.io/tccr.io\/v2}
-  latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
+  latest=$(helm search repo ${CHART_NAME} | tail -n1 | awk '{print $2}')
   echo "Latest version is ${latest}"
   VERSION=${latest}
 fi
