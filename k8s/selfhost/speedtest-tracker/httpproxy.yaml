@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: speedtest
+  name: speedtest-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: speedtest-tracker
+      port: 9004
+  virtualhost:
+    fqdn: speedtest.kubernetes.home
+    tls:
+      secretName: speedtest-cert-secret

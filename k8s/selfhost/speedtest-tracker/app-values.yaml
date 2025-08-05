@@ -1,0 +1,26 @@
+global:
+  fallbackDefaults:
+    pvcSize: 10Gi
+
+cnpg:
+  main:
+    cluster:
+      storage:
+        size: 8Gi
+      walStorage:
+        size: 8Gi
+
+persistence:
+  config:
+    size: 8Gi
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            DISPLAY_TIMEZONE: Europe/Budapest
+            SPEEDTEST_SCHEDULE: "*/30 * * * *"
