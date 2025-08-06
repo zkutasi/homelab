@@ -50,13 +50,16 @@ if [ -z "${VERSION}" ]; then
 fi
 
 echo "Install helm chart..."
-helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
+CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
     --values app-values.yaml \
     --values app-values-private.yaml \
-    --debug
+    --debug"
+
+echo "Executing command: ${CMD}"
+${CMD}
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then

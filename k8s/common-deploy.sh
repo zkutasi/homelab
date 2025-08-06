@@ -32,25 +32,27 @@ done
 
 if [ -z "${VERSION}" ]; then
   echo "Trying to figure out the latest version..."
-  latest=$(helm search repo ${CHART_NAME} | tail -n1 | awk '{print $2}')
+  latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
   echo "Latest version is ${latest}"
   VERSION=${latest}
 fi
 
-[ -z "${CALLER_PWD}" ] && echo "ERROR: No caller PWD specified" && exit 1
 [ -z "${CHART_NAME}" ] && echo "ERROR: No chart name specified" && exit 1
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 [ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
 [ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
 
 echo "Install helm chart..."
-helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
+CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
     --values app-values.yaml \
     --values app-values-private.yaml \
-    --debug
+    --debug"
+
+echo "Executing command: ${CMD}"
+${CMD}
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
