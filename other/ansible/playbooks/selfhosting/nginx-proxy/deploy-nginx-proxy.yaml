@@ -1,6 +1,6 @@
 - name: Create nginx as docker
   hosts:
-    - droplet
+    - external
   roles:
     - docker-compose
   vars:

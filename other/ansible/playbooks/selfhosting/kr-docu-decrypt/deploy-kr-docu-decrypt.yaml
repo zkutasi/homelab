@@ -1,6 +1,6 @@
 - name: Deploy a KR document decryptor service as docker
   hosts:
-    - droplet
+    - external
   roles:
     - docker-compose
   vars:

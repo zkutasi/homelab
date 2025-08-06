@@ -1,6 +1,6 @@
 - name: Create rustdesk as docker
   hosts:
-    - droplet
+    - external
   roles:
     - docker-compose
   vars:
@@ -12,10 +12,11 @@
   hosts:
     - htpc
   tasks:
-    ansible.builtin.lineinfile:
-      path: /etc/gdm/custom.conf
-      regexp: '#WaylandEnable=false'
-      line: 'WaylandEnable=false'
-      owner: root
-      group: root
-      mode: '0644'
+    - name: Disable Wayland in GDM
+      ansible.builtin.lineinfile:
+        path: /etc/gdm/custom.conf
+        regexp: '#WaylandEnable=false'
+        line: 'WaylandEnable=false'
+        owner: root
+        group: root
+        mode: '0644'
