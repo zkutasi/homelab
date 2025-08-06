@@ -8,6 +8,8 @@ alertmanager:
               storage: 50Gi
 
 grafana:
+  deploymentStrategy:
+    type: Recreate
   persistence:
     enabled: true
     size: 20Gi
