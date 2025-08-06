@@ -27,7 +27,7 @@
       ansible.builtin.include_role:
         name: rest-api
       when: not (komodo_servers.json | selectattr('info.address', 'contains', 'https://{{ hostvars[item].ansible_host }}:8120'))
-      loop: "{{ groups['standalone'] + groups['synology'] }}"
+      loop: "{{ groups['standalone'] + groups['external'] + groups['synology'] }}"
       vars:
         rest_api_data:
           type: "CreateServer"
