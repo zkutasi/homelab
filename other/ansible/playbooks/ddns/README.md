@@ -51,3 +51,4 @@ Cons:
     |------|--------------------|---------|
     |ddns_interface|M|The network interface to check for the IP address on|
     |ddns_aliases|O|The alias to set the IP on. Can be multiple for DDclient, can only be a single element list for Inadyn|
+    |ddns_ipv6|O|Specify whether IPv6 IPs are needed or IPv4 ones. Defaults to true.|
