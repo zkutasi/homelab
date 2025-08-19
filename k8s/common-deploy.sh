@@ -1,4 +1,5 @@
 CHART_NAME=
+LATEST=0
 NS=
 RELEASE_NAME=
 VERSION=
@@ -8,6 +9,9 @@ while [ $# -ge 1 ]; do
     --chart-name)
       shift
       CHART_NAME=$1
+      ;;
+    --latest)
+      LATEST=1
       ;;
     --namespace)
       shift
@@ -30,6 +34,16 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+if [ -z "${VERSION}" ] && [ $LATEST -eq 0 ]; then
+  echo "Trying to figure out the current version..."
+  current=$(helm -n $NS get metadata ${RELEASE_NAME} | grep ^VERSION | awk '{print $NF}')
+  if [ -n "${current}" ]; then
+    echo "Current version is ${current}"
+    VERSION=${current}
+  else
+    echo "No current version found."
+  fi
+fi
 if [ -z "${VERSION}" ]; then
   echo "Trying to figure out the latest version..."
   latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')

@@ -1,18 +1,13 @@
 CHART_NAME=kubernetes-dashboard/kubernetes-dashboard
 NS=kubernetes-dashboard
 RELEASE_NAME=kubernetes-dashboard
-VERSION=
+
+EXTRA_PARAMS=
 
 while [ $# -ge 1 ]; do
   case "$1" in
-    --version)
-      shift
-      VERSION=$1
-      ;;
     *)
-      echo "ERROR: unknown parameter \"$1\""
-      usage
-      exit 1
+      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
       ;;
   esac
   shift
@@ -22,7 +17,7 @@ $(git rev-parse --show-toplevel)/k8s/common-deploy.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
-    --version "${VERSION}"
+    ${EXTRA_PARAMS}
 
 kubectl create sa kube-ds-viewer -n $NS
 kubectl create sa kube-ds-editor -n $NS
