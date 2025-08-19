@@ -13,14 +13,16 @@ server:
     log-servfail: yes
 
     interface: 0.0.0.0
+    interface: ::0
     port: 5335
     do-ip4: yes
     do-udp: yes
     do-tcp: yes
 
     # May be set to no if you don't have IPv6 connectivity
-    interface: ::0
     do-ip6: yes
+    # Forbid outgoing IPv6
+    do-not-query-address: ::0/0
 
     # You want to leave this to no unless you have *native* IPv6. With 6to4 and
     # Terredo tunnels your web browser should favor IPv4 for the same reasons
