@@ -1,0 +1,10 @@
+librenms:
+  snmp_scanner:
+    enabled: true
+    cron: "0 3 * * *"
+mysql:
+  networkPolicy:
+    enabled: false
+redis:
+  networkPolicy:
+    enabled: false

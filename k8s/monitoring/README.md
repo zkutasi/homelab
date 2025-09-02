@@ -16,6 +16,18 @@ There are multiple monitoring stacks and options available.
 
 ## Contenders
 
+### All in one solutions
+
+These solutions are very easy to deploy, extensive, but has many limitations and customizing them is not that easy. Figuring out how to add some exytra metrics is harder as they might be not that widely used or even proprietarily managed.
+
+Some more popular examples are:
+
+- [LibreNMS](https://www.librenms.org/) is based on SNMP for example to collect data like Node-exporter and visualize them too. Has the ability to discover your network even in a given IP-range.
+- [CheckMK](https://checkmk.com/) is an all-in-one solution with an agent-based approach. The agents are super-flexible and programmable. The tool can collect a lot of metrics by default, has sensible warnings on them and quite extensible. Though the configuration of it might be a nightmare due to the conplexity.
+- [Netdata](https://www.netdata.cloud/) is also an all-in-one solution focusing on near-real-time metrics collection. Also agent based, and very flexible. The company focuses on Cloud data-storage for the tool but self-hosting is also possible.
+- [Paessler PRTG](https://www.paessler.com/prtg), a very nice solution with a huge drawback: The dashboard is Windows only.
+- [Zabbix](https://www.zabbix.com/index)
+
 ### Grafana LGTM+ stack
 
 This stack is all from Grafana Labs, and consists of the following components:

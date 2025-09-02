@@ -1,0 +1,22 @@
+resources:
+  - all.yaml
+patches:
+  - patch: |-
+      - op: replace
+        path: /apiVersion
+        value: batch/v1
+    target:
+      kind: CronJob
+      name: librenms-snmp-scanner
+  - patch: |-
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/containers/0/env
+        value: 
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: librenms-mysql
+                key: mysql-password
+    target:
+      kind: CronJob
+      name: librenms-snmp-scanner
