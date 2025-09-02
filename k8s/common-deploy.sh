@@ -34,7 +34,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-if [ -z "${VERSION}" ] && [ $LATEST -eq 0 ]; then
+if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
   echo "Trying to figure out the current version..."
   current=$(helm -n $NS get metadata ${RELEASE_NAME} | grep ^VERSION | awk '{print $NF}')
   if [ -n "${current}" ]; then

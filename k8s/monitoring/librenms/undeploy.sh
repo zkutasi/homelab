@@ -1,8 +1,7 @@
-CHART_NAME=librenms/librenms
 NS=librenms
 RELEASE_NAME=librenms
 
-EXTRA_PARAMS="--post-renderer kustomize.sh"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in
@@ -13,8 +12,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/k8s/common-deploy.sh \
-    --chart-name "${CHART_NAME}" \
+$(git rev-parse --show-toplevel)/k8s/common-undeploy.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}
