@@ -12,6 +12,17 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+CLUSTERS=$(kubectl get clusters.postgresql.cnpg.io \
+    --all-namespaces \
+    -o go-template \
+    --template='{{range .items}}{{.metadata.namespace}}/{{.metadata.name}}{{"\n"}}{{end}}')
+
+if [ -n "$CLUSTERS" ]; then
+  echo "The following PostgreSQL clusters exist and must be deleted before uninstalling the operator:"
+  echo "$CLUSTERS"
+  exit 1
+fi
+
 $(git rev-parse --show-toplevel)/k8s/common-undeploy.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
