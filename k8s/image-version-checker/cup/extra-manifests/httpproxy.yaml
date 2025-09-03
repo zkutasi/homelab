@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: cup
+  name: cup-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: cup
+      port: 8000
+  virtualhost:
+    fqdn: cup.kubernetes.home
+    tls:
+      secretName: cup-cert-secret

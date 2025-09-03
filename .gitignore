@@ -9,3 +9,5 @@ kubespray-repo
 .vscode
 *.code-workspace
 app-values-private.yaml
+kompose-manifests
+cup.json
