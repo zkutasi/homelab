@@ -1,4 +1,4 @@
-NS=cup
+NS=it-tools
 
 EXTRA_PARAMS=""
 

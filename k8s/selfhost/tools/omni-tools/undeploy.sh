@@ -1,4 +1,4 @@
-NS=cup
+NS=omni-tools
 
 EXTRA_PARAMS=""
 

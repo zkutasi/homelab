@@ -11,3 +11,4 @@ kubespray-repo
 app-values-private.yaml
 kompose-manifests
 cup.json
+*.env

@@ -1,4 +1,4 @@
-NS=cup
+NS=convertx
 
 EXTRA_PARAMS=""
 

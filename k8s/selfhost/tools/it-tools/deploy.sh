@@ -1,6 +1,6 @@
-NS=cup
+NS=it-tools
 
-EXTRA_PARAMS=""
+EXTRA_PARAMS=
 
 while [ $# -ge 1 ]; do
   case "$1" in
@@ -11,6 +11,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/k8s/common-undeploy-namespace.sh \
+$(git rev-parse --show-toplevel)/k8s/common-deploy-kompose.sh \
     --namespace $NS \
     ${EXTRA_PARAMS}

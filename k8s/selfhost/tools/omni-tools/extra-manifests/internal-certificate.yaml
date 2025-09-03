@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: omni-tools-cert
+spec:
+  secretName: omni-tools-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - omnitools.kubernetes.home
