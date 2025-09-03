@@ -17,9 +17,9 @@ CLUSTERS=$(kubectl get clusters.postgresql.cnpg.io \
     -o go-template \
     --template='{{range .items}}{{.metadata.namespace}}/{{.metadata.name}}{{"\n"}}{{end}}')
 
-if [ -n "$CLUSTERS" ]; then
+if [ -n "${CLUSTERS}" ]; then
   echo "The following PostgreSQL clusters exist and must be deleted before uninstalling the operator:"
-  echo "$CLUSTERS"
+  echo "${CLUSTERS}"
   exit 1
 fi
 
