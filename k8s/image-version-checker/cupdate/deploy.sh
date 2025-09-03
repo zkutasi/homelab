@@ -1,7 +1,6 @@
-NS=cup
-RELEASE_NAME=cup
+NS=cupdate
 
-EXTRA_PARAMS=""
+EXTRA_PARAMS=
 
 while [ $# -ge 1 ]; do
   case "$1" in
@@ -12,7 +11,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/k8s/common-undeploy-namespace.sh \
+$(git rev-parse --show-toplevel)/k8s/common-deploy-kustomize.sh \
     --namespace $NS \
-    --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}

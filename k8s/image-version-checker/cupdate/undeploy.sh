@@ -1,5 +1,4 @@
-NS=cup
-RELEASE_NAME=cup
+NS=cupdate
 
 EXTRA_PARAMS=""
 
@@ -14,5 +13,4 @@ done
 
 $(git rev-parse --show-toplevel)/k8s/common-undeploy-namespace.sh \
     --namespace $NS \
-    --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}
