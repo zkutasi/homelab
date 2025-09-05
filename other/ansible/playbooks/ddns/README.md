@@ -10,30 +10,9 @@ Dynamic DNS Clients I have investigated and used or using.
 
 ## Contenders
 
-### Ddclient
-
-[Official Site](https://ddclient.net/)
-
-Cons:
-
-- It really is a mess with configuring IPv6 due to its legacy
-- A lot of times it was not flexible enuough for my DDNS Provider, sending the incorrect API request
-
-### Inadyn
-
-[Official Site](https://github.com/troglobit/inadyn)
-
-Cons:
-
-- It is relative new, but did not find any issues yet
-
-### DDNS-updater
-
-[Official Site](https://github.com/qdm12/ddns-updater)
-
-Cons:
-
-- Looks pretty abandoned at 2025, with 160 open issues and no releases past 2024
+- [Ddclient](https://ddclient.net/) - The original software, but it really is a mess with configuring IPv6 due to its legacy. A lot of times it was not flexible enuough for my DDNS Provider, sending the incorrect API request
+- [Inadyn](https://github.com/troglobit/inadyn) - A relative new contender, but did not find any issues yet
+- [DDNS-updater](https://github.com/qdm12/ddns-updater) - Looks pretty abandoned at 2025, with 160 open issues and no releases past 2024
 
 ## Ansible inventory setup
 

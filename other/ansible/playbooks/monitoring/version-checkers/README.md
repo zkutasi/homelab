@@ -11,38 +11,7 @@ These are applications designed to either only show if a container image is out 
 
 ## Contenders
 
-### Cup
-
-[Official Site](https://github.com/sergi0g/cup)
-
-Cons:
-
-- Maybe too simple?
-
-### Diun
-
-[Official Site](https://crazymax.dev/diun/)
-
-A very lightweight solution to the version checking.
-
-Cons:
-
-- Only a CLI, no Web GUI
-
-### What's Up Docker
-
-[Official Site](https://github.com/getwud/wud)
-
-Cons:
-
-- Requires opening up the whole docker socket
-
-### Watchtower
-
-[Official Site](https://containrrr.dev/watchtower/)
-
-For a long time the de facto standard for this purpose.
-
-Cons:
-
-- Abandoned? Last release is in 2023
+- [Cup](https://github.com/sergi0g/cup) - A very simple one
+- [Diun](https://crazymax.dev/diun/) - A very lightweight solution to the version checking. Only a CLI, no Web GUI
+- [What's Up Docker](https://github.com/getwud/wud) - Requires opening up the whole docker socket, to support remote Hosts
+- [Watchtower](https://containrrr.dev/watchtower/) - For a long time the de facto standard for this purpose. But abandoned? Last release is in 2023
