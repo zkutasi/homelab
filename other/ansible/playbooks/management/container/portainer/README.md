@@ -30,13 +30,13 @@ Then generate an access token to access the REST API:
 Then deploy the portainer agents to every host required
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/container-managers/portainer/deploy-portainer.yaml --no-check
+./run-playbook.sh --playbook playbooks/management/container/portainer/deploy-portainer.yaml --no-check
 ```
 
 And finally register all of the hosts on the REST API
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/container-managers/portainer/configure-portainer.yaml --no-check
+./run-playbook.sh --playbook playbooks/management/container/portainer/configure-portainer.yaml --no-check
 ```
 
 ## Notable comments

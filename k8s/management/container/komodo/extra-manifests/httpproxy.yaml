@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: komodo
+  name: komodo-httpproxy
+spec:
+  routes:
+  - conditions:
+    - prefix: /
+    services:
+    - name: komodo
+      port: 9120
+  virtualhost:
+    fqdn: komodo.kubernetes.home
+    tls:
+      secretName: komodo-cert-secret

@@ -30,13 +30,13 @@ Then generate an access token to access the REST API:
 Then deploy the periphery agents to every host required
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/container-managers/komodo/deploy-komodo.yaml --no-check
+./run-playbook.sh --playbook playbooks/management/container/komodo/deploy-komodo.yaml --no-check
 ```
 
 And finally register all of the hosts and existing stacks on the REST API
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/container-managers/komodo/configure-komodo.yaml --no-check
+./run-playbook.sh --playbook playbooks/management/container/komodo/configure-komodo.yaml --no-check
 ```
 
 ## Notable comments

@@ -13,7 +13,7 @@ done
 
 if [ ! -f 'cup.json' ]; then
   echo "No cup.json file found, creating and empty one"
-  cat <<EOF > cup.json_2
+  cat <<EOF > cup.json
 {}
 EOF
 fi

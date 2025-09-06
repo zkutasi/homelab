@@ -8,6 +8,6 @@
   vars:
     docker_compose_projectname: komodo-periphery
     requested_version:
-      komodo-periphery: "1.17.5"
+      komodo-periphery: "1.19.3"
     docker_compose_create_dirs:
       - name: config

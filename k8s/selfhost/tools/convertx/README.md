@@ -12,7 +12,7 @@ N/A
 
 ## Usage
 
-1. Create a .env file with the following content
+1. Create a `.env` file with the following content
 
     ```env
     JWT_SECRET=<A_RANDOM_SECRET_STRING>

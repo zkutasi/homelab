@@ -1,3 +1,4 @@
+APP=app
 CHART_NAME=
 LATEST=0
 NS=
@@ -6,6 +7,10 @@ VERSION=
 
 while [ $# -ge 1 ]; do
   case "$1" in
+    --app)
+      shift
+      APP=$1
+      ;;
     --chart-name)
       shift
       CHART_NAME=$1
@@ -61,8 +66,8 @@ CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
-    --values app-values.yaml \
-    --values app-values-private.yaml \
+    --values ${APP}-values.yaml \
+    --values ${APP}-values-private.yaml \
     --debug"
 
 echo "Executing command: ${CMD}"
