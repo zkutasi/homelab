@@ -58,3 +58,4 @@ N/A
 - Some good dashboards I use:
   - [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
   - [Fail2Ban banned locations](https://grafana.com/grafana/dashboards/19691-fail2ban-banned-locations/)
+- For a very cool CLI-based tool for Grafana, check out [GDG (Grafana Dash-n-Grab)](https://github.com/esnet/gdg)
