@@ -1,4 +1,4 @@
-- name: Create borgwarehouse as docker
+- name: Deploy borgwarehouse as docker
   hosts:
     - backupserver
   roles:

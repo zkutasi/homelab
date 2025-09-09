@@ -1,4 +1,4 @@
-- name: Create netalertx as docker
+- name: Deploy netalertx as docker
   hosts:
     - pihole
   roles:

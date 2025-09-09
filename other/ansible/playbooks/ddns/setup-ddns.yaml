@@ -1,4 +1,4 @@
-- name: Create inadyn as docker
+- name: Deploy inadyn as docker
   hosts:
     - standalone
     - external

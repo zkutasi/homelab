@@ -1,4 +1,4 @@
-- name: Create nginx as docker
+- name: Deploy nginx as docker
   hosts:
     - external
   roles:

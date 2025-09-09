@@ -1,4 +1,4 @@
-- name: Create plex as docker
+- name: Deploy plex as docker
   hosts:
     - htpc
   roles:

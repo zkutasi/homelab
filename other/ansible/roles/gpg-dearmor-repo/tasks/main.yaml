@@ -1,0 +1,22 @@
+- name: Check if GPG key exists
+  ansible.builtin.stat:
+    path: "{{ gpg_key_path }}"
+  register: gpg_file
+- name: Download and dearmor GPG key
+  when: not gpg_file.stat.exists
+  block:
+    - name: Add GPG key
+      ansible.builtin.get_url:
+        url: "{{ gpg_key_url }}"
+        dest: "/tmp/{{ gpg_project_name }}-keyring.asc"
+        mode: "0644"
+    - name: Dearmor the GPG key
+      ansible.builtin.command:
+        cmd: "gpg --dearmor -o {{ gpg_key_path }} /tmp/{{ gpg_project_name }}-keyring.asc"
+        creates: "{{ gpg_key_path }}"
+    - name: Add repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by={{ gpg_key_path }}] {{ gpg_signed_repo }}"
+        filename: grafana
+        state: present
+        update_cache: true

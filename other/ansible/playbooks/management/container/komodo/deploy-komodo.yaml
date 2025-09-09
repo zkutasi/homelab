@@ -1,4 +1,4 @@
-- name: Create komodo-periphery as docker
+- name: Deploy komodo-periphery as docker
   hosts:
     - standalone
     - external

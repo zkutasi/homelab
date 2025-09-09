@@ -1,4 +1,4 @@
-- name: Create urbackup-server as docker
+- name: Deploy urbackup-server as docker
   hosts: backupserver
   roles:
     - docker-compose
@@ -10,7 +10,7 @@
       - name: database
       - name: wwwfolder
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_urbackup_server }}"
-- name: Create urbackup-client as docker
+- name: Deploy urbackup-client as docker
   hosts: backupclient
   roles:
     - docker-compose

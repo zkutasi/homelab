@@ -1,4 +1,4 @@
-- name: Create portainer-agent as docker
+- name: Deploy portainer-agent as docker
   hosts:
     - standalone
     - external

@@ -1,4 +1,4 @@
-- name: Create qbittorrent as docker on Synology216
+- name: Deploy qbittorrent as docker on Synology216
   hosts:
     - synology216
   roles:
@@ -12,7 +12,7 @@
       - /volume1/torrent
       - /volume1/music
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
-- name: Create qbittorrent as docker on torrents
+- name: Deploy qbittorrent as docker on torrents
   hosts:
     - torrents
   roles:

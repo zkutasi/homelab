@@ -1,0 +1,3 @@
+gpg_project_name: ""
+gpg_key_path: "/usr/share/keyrings/{{ gpg_project_name }}.gpg"
+gpg_signed_repo: ""

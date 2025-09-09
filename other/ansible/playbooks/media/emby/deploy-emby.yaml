@@ -1,4 +1,4 @@
-- name: Create emby as docker
+- name: Deploy emby as docker
   hosts:
     - htpc
   roles:

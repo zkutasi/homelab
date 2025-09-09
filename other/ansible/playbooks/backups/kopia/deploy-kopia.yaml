@@ -7,7 +7,7 @@
     ansible.builtin.stat:
       path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
     register: certs
-- name: Create kopia as docker with init certs
+- name: Deploy kopia as docker with init certs
   hosts:
     - backupserver
     - backupclient
@@ -33,7 +33,7 @@
     - name: Wait until the SSL certs are present before continuing
       ansible.builtin.wait_for:
         path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
-- name: Create kopia as docker
+- name: Deploy kopia as docker
   hosts:
     - backupserver
     - backupclient

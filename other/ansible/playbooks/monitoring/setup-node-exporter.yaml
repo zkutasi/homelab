@@ -1,4 +1,4 @@
-- name: Create node_exporter as a service
+- name: Deploy node_exporter as a service
   hosts: proxmox
   roles:
     - create-service
@@ -8,7 +8,7 @@
     service_name: node-exporter
     download_url: "https://github.com/prometheus/node_exporter/releases/download/\
           v{{ requested_version }}/{{ bin_filename }}-{{ requested_version }}.linux-amd64.tar.gz"
-- name: Create node_exporter as docker
+- name: Deploy node_exporter as docker
   hosts:
     - standalone
     - external

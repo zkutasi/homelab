@@ -15,7 +15,7 @@
     rest_api_method: "GET"
     rest_api_headers:
       Authorization: "Bearer {{ borgwarehouse_api_key }}"
-- name: Create borgmatic as docker
+- name: Deploy borgmatic as docker
   hosts: backupclient
   roles:
     - docker-compose

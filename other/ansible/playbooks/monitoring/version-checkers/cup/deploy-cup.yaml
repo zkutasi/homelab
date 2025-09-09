@@ -1,4 +1,4 @@
-- name: Create cup as docker
+- name: Deploy cup as docker
   hosts:
     - standalone
     - external

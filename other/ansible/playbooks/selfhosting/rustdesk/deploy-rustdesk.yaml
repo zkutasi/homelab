@@ -1,4 +1,4 @@
-- name: Create rustdesk as docker
+- name: Deploy rustdesk as docker
   hosts:
     - external
   roles:

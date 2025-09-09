@@ -1,4 +1,4 @@
-- name: Create beets as docker
+- name: Deploy beets as docker
   hosts:
     - synology216
   roles:

@@ -1,4 +1,15 @@
-- name: Create alloy as docker
+- name: Deploy alloy as service
+  hosts: proxmox
+  roles:
+    - gpg-dearmor-repo
+    - package-install
+  vars:
+    gpg_project_name: alloy
+    gpg_key_url: https://packages.grafana.com/gpg.key
+    gpg_signed_repo: "https://apt.grafana.com stable main"
+    packages:
+      - alloy
+- name: Deploy alloy as docker
   hosts:
     - standalone
     # - external
