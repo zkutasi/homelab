@@ -22,6 +22,8 @@ port_cup: 8800
 port_dockge: 5001
 port_emby_http: 8096
 port_emby_https: 8920
+port_fail2ban_exporter: 8006
+port_fail2ban_geoexporter: 8007
 port_komodo_periphery: 8120
 port_kr_docu_decrypt: 8000
 port_netalertx: 20211

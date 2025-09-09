@@ -49,10 +49,10 @@ if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
     echo "No current version found."
   fi
 fi
+echo "Trying to figure out the latest version..."
+latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
+echo "Latest version is ${latest}"
 if [ -z "${VERSION}" ]; then
-  echo "Trying to figure out the latest version..."
-  latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
-  echo "Latest version is ${latest}"
   VERSION=${latest}
 fi
 

@@ -14,6 +14,10 @@ Monitoring the Home infrastructure is essential, checking high CPU usage, error 
 
 ## Contenders
 
+### Logs
+
+[Dozzle](https://dozzle.dev/) - A tool to help visualize all container logs in a WebUI. Supports multiple remote Hosts too.
+
 ### Agent based Logs & Metrics
 
 - [Alloy](https://grafana.com/docs/alloy/latest/) - Collects logs, metrics (host and container) and is extensible with plugins too

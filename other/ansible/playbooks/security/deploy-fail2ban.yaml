@@ -1,0 +1,21 @@
+- name: Deploy fail2ban as docker
+  hosts:
+    # - standalone
+    - external
+    # - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: fail2ban
+    requested_version:
+      geoipupdate: "7.1.1"
+      fail2ban: "1.1.0"
+      f2b_geoexporter: "0.3.2"
+      f2b_exporter: "0.10.3"
+    docker_compose_create_dirs:
+      - name: fail2ban
+      - name: f2b_geoexporter
+      - name: geoipupdate
+    docker_compose_static_files_copy:
+      - name: fail2ban
+      - name: f2b_geoexporter
