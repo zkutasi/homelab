@@ -1,12 +1,19 @@
-# Monitoring
+# Monitoring solutions
 
-There are multiple monitoring stacks and options available.
+Monitoring the Home infrastructure is essential, checking high CPU usage, error logs or SMART data for failure detection, but also to see if anything needs updating. And much more...
 
 ## Requirements
 
 - Free and Open source, preferrably 0$ cost
 - Cloud Native, with collectors possible to be installed anywhere (preferrably in docker too)
 - Able to visualize anything, in a highly customizable way
+- Collect logs from the host and from containers too
+- Collect metrics from the hosts and from containers too
+- Collect any additional data specific for a unique use-case
+  - HDD and SSD/NVME SMART info
+  - Power consumption
+  - UPS info
+- Collect running container and helm chart versions and notify about updates
   
 ## What to collect
 
@@ -49,6 +56,10 @@ Can be all deployed using the `k8s-monitoring-helm` helm chart.
 - [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - The discontinued log collector from Grafana Labs
 - [Vector](https://vector.dev/) - By Datadog
 - [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) - From InfluxDB
+- [Node exporter](https://github.com/prometheus/node_exporter) - A Prometheus metrics compatible exporter about the Node info
+- [Smartctl exporter](https://github.com/prometheus-community/smartctl_exporter) - A specific exporter for SMART data from `smartctl`. Also compatible with Windows too
+- [Windows exporter](https://github.com/prometheus-community/windows_exporter) - A specific exporter for Windows systems, just like Node exporter, but for Windows
+- [PVE Prometheus Exporter](https://github.com/prometheus-pve/prometheus-pve-exporter) - Either install it on each PVE Host or in a docker remotely and specify the PVE targets. Not ideal though as PVE has built-in metrics solutions, but only for Graphite and InfluxDB targets.
 
 ### Visualization
 
@@ -73,6 +84,7 @@ It is also important to see if the metrics collection is push or pull. Prometheu
 - [VictoriaLogs](https://docs.victoriametrics.com/victorialogs/) - Sister of VictoriaMetrics, focusing on footprint reduction and performance improvements
 - [GrayLog](https://graylog.org/) - A popular alternative among homelabbers, [more info here](https://last9.io/blog/graylog-vs-loki/)
 - [ELK Stack](https://www.elastic.co/elastic-stack) - The ELK stack, [more info here](https://last9.io/blog/kibana-vs-grafana/)
+- [Dozzle](https://dozzle.dev/) - A tool to help visualize all container logs in a WebUI. Supports multiple remote Hosts too.
 
 ### Tracing
 
@@ -81,3 +93,7 @@ Allows to show across microservices the end-to-end flow of data, and catch the r
 - [Jaeger](https://www.jaegertracing.io/) - From Uber
 - [Zipkin](https://zipkin.io/) - From Twitter, [more info here](https://last9.io/blog/jaeger-vs-zipkin/)
 - [Tempo](https://grafana.com/oss/tempo/) - The Grafana Labs contender, [more info here](https://last9.io/blog/grafana-tempo-vs-jaeger/)
+
+### Special ones
+
+- [NetAlertX](https://netalertx.com/) - Scans the network, discovers Hosts and alerts for changes (new host for example)
