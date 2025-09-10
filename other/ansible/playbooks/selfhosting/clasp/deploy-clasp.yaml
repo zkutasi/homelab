@@ -1,6 +1,5 @@
 - name: Deploy clasp as docker
-  hosts:
-    - control
+  hosts: control
   roles:
     - docker-compose
   vars:

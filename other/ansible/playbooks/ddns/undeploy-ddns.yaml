@@ -1,0 +1,8 @@
+- name: Delete inadyn
+  hosts:
+    - standalone
+    - external
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: inadyn

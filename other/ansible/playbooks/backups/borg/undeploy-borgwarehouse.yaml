@@ -1,0 +1,6 @@
+- name: Delete borgwarehouse
+  hosts: backupserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: borgwarehouse

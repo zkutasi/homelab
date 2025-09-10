@@ -1,6 +1,5 @@
 - name: Deploy plex as docker
-  hosts:
-    - htpc
+  hosts: htpc
   roles:
     - docker-compose
   vars:

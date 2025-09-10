@@ -1,6 +1,5 @@
 - name: Deploy borgwarehouse as docker
-  hosts:
-    - backupserver
+  hosts: backupserver
   roles:
     - docker-compose
   vars:

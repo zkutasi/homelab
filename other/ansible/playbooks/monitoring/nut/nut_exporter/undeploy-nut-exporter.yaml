@@ -1,0 +1,6 @@
+- name: Delete nut_exporter
+  hosts: nutserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: nut_exporter

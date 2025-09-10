@@ -1,0 +1,9 @@
+- name: Delete fail2ban
+  hosts:
+    # - standalone
+    - external
+    # - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: fail2ban

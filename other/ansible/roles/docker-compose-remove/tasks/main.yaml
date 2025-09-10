@@ -56,7 +56,7 @@
     remove_images: all
     remove_volumes: true
     remove_orphans: true
-- name: Delete the docker-compose directory if it does not exist
+- name: Delete the docker-compose directory if it exists
   become: true
   ansible.builtin.file:
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"

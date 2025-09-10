@@ -1,6 +1,5 @@
 - name: Deploy emby as docker
-  hosts:
-    - htpc
+  hosts: htpc
   roles:
     - docker-compose
   vars:

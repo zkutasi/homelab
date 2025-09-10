@@ -1,0 +1,6 @@
+- name: Delete clasp
+  hosts: control
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: clasp

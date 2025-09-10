@@ -1,6 +1,5 @@
 - name: Deploy beets as docker
-  hosts:
-    - synology216
+  hosts: synology216
   roles:
     - docker-compose
   vars:

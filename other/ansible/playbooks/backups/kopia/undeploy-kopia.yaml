@@ -1,0 +1,8 @@
+- name: Delete kopia
+  hosts:
+    - backupserver
+    - backupclient
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: kopia

@@ -1,0 +1,6 @@
+- name: Delete Plex
+  hosts: htpc
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: plex

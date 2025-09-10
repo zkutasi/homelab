@@ -1,0 +1,6 @@
+- name: Delete kr-docu-decrypt
+  hosts: external
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: kr-docu-decrypt

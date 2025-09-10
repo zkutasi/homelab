@@ -1,0 +1,9 @@
+- name: Delete portainer-agent
+  hosts:
+    - standalone
+    - external
+    - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: portainer-agent

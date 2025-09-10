@@ -1,0 +1,9 @@
+- name: Delete komodo-periphery
+  hosts:
+    - standalone
+    - external
+    - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: komodo-periphery

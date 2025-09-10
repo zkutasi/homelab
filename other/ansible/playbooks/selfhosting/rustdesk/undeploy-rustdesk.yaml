@@ -1,0 +1,6 @@
+- name: Delete rustdesk
+  hosts: external
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: rustdesk
