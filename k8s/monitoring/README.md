@@ -13,6 +13,7 @@ There are multiple monitoring stacks and options available.
 - Logs (from the Host and from Docker containers too)
 - Performance and other metrics
 - SMART data
+- UPS (NUT) data
 
 ## Contenders
 
@@ -27,6 +28,7 @@ Some more popular examples are:
 - [Netdata](https://www.netdata.cloud/) - Also an all-in-one solution focusing on near-real-time metrics collection. Also agent based, and very flexible. The company focuses on Cloud data-storage for the tool but self-hosting is also possible.
 - [Paessler PRTG](https://www.paessler.com/prtg) -A very nice solution with a huge drawback: The dashboard is Windows only.
 - [Zabbix](https://www.zabbix.com/index)
+- [Beszel](https://beszel.dev/) - A relative newcomer, very simple minimalistic, straight-to-the-point dashboards only
 
 ### Grafana LGTM+ stack
 

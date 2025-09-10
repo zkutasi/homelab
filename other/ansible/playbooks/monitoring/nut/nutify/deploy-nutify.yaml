@@ -1,0 +1,13 @@
+- name: Deploy nutify as docker
+  hosts: nutserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: nutify
+    requested_version:
+      nutify: "0.1.7"
+    docker_compose_create_dirs:
+      - name: logs
+      - name: instance
+      - name: ssl
+      - name: etc/nut

@@ -1,0 +1,34 @@
+services:
+  nutify:
+    # cap_add:
+    #   - SYS_ADMIN
+    #   - SYS_RAWIO
+    #   - MKNOD
+    container_name: nutify
+    # devices:
+    #   - /dev/bus/usb:/dev/bus/usb:rwm
+    # device_cgroup_rules:
+    #   - 'c 189:* rwm'
+    environment:
+      - ENABLE_LOG_STARTUP=Y
+      - LOG=true
+      - LOG_LEVEL=DEBUG
+      - LOG_WERKZEUG=true
+      - SECRET_KEY={{ nutify_secret_key }}
+      - TZ={{ timezone }}
+      - UDEV=1
+    image: dartsteven/nutify:amd64-{{ requested_version['nutify'] }}
+    network_mode: host
+    # ports:
+    #   - {{ port_nutify_nut_server }}:3493
+    #   - {{ port_nutify_web }}:5050
+    # privileged: true
+    restart: unless-stopped
+    user: root
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/logs:/app/nutify/logs
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/instance:/app/nutify/instance
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ssl:/app/ssl
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc/nut:/etc/nut
+      - /dev:/dev:rw              # Full /dev access improves hotplug handling
+      - /run/udev:/run/udev:ro    # Access to udev events

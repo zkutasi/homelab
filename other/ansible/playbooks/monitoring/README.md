@@ -37,3 +37,7 @@ It is best for Network switches, that cannot run extra agents at all. There are 
 ### Version checkers
 
 See the deeper README for these
+
+### Network UPS Tools
+
+See the deeper README for these

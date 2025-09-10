@@ -1,0 +1,8 @@
+- name: Deploy nut-exporter as docker
+  hosts: nutserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: nut_exporter
+    requested_version:
+      nut_exporter: "3.2.1"

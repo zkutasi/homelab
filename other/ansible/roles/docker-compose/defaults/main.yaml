@@ -27,6 +27,8 @@ port_fail2ban_geoexporter: 8007
 port_komodo_periphery: 8120
 port_kr_docu_decrypt: 8000
 port_netalertx: 20211
+port_nutify_nut_server: 3494
+port_nutify_web: 5050
 port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
@@ -63,6 +65,8 @@ kopia_generate_certs: false
 
 netalertx_interface: "{{ undef(hint='You must specify the interface for ARPSCAN') }}"
 netalertx_subnet: "{{ undef(hint='You must specify the subnet for ARPSCAN') }}"
+
+nutify_secret_key: ""
 
 pihole_password: "{{ undef(hint='You must specify the PiHole password') }}"
 pihole_dns_domain: "home"
