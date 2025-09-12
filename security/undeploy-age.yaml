@@ -1,0 +1,11 @@
+- name: Deploy age as a binary
+  hosts: control
+  tasks:
+    - name: Delete age binary
+      ansible.builtin.file:
+        path: /usr/local/bin/age
+        state: absent
+    - name: Delete age-keygen binary
+      ansible.builtin.file:
+        path: /usr/local/bin/age-keygen
+        state: absent

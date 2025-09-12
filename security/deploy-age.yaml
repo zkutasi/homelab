@@ -1,0 +1,9 @@
+- name: Deploy age as a binary
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "1.2.1"
+    bin_filename: age
+    download_url: "https://github.com/FiloSottile/age/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-v{{ requested_version }}-linux-amd64.tar.gz"

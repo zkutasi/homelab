@@ -1,0 +1,11 @@
+- name: Deploy SOPS as a binary
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "3.10.2"
+    bin_filename: sops
+    download_url: "https://github.com/getsops/sops/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-v{{ requested_version }}.linux.amd64"
+    compressed: false
+    destination_path: /usr/local/bin/sops

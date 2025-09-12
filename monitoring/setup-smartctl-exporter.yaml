@@ -1,7 +1,7 @@
 - name: Deploy smartctl_exporter as a service
   hosts: proxmox
   roles:
-    - create-service
+    - binary-install
   vars:
     requested_version: "0.14.0"
     bin_filename: smartctl_exporter

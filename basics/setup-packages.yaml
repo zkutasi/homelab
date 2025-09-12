@@ -1,4 +1,4 @@
-- name: Install some packages
+- name: Install some generic packages everywhere
   hosts: "*"
   become: true
   roles:
@@ -7,6 +7,7 @@
     packages:
       - curl
       - gpg
+      - jq
       - sudo
       - ufw
       - vim

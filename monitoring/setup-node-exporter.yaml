@@ -1,7 +1,7 @@
 - name: Deploy node_exporter as a service
   hosts: proxmox
   roles:
-    - create-service
+    - binary-install
   vars:
     requested_version: "1.9.1"
     bin_filename: node_exporter
