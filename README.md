@@ -106,3 +106,13 @@ These are services that allow mw to manage certain aspects of the infrastructure
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png" alt="ConvertX"> | [ConvertX](https://github.com/C4illin/ConvertX) | Convert anything into something else |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg" alt="IT Tools"> | [IT Tools](https://github.com/CorentinTh/it-tools) | IT swiss army knife |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/omnitools.png" alt="Omni Tools"> | [Omni Tools](https://github.com/iib0011/omni-tools) | Various useful tools |
+
+### Development
+
+I am using VS Code, with a few plugins and tricks:
+
+- Remote SSH - Writing code on my Windows PC, but using it to enter into a Linux host that has a few things installed (Git, Ansible, Terraform, Kubernetes toolings, etc...)
+- Drawing pictures with Draw.io
+- Github Copilot - To help me with some code completion and writing faster
+- Encrypting secrets in the repository with [SOPS](https://github.com/getsops/sops) and [age](https://github.com/FiloSottile/age)
+- Support for Jinja, Python, Ansible and any languages required
