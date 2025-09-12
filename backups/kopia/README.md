@@ -45,7 +45,7 @@ If you have a Synology and the backup server is going to be there, these items h
 First, deploy Kopia on the BackupServer, hosting the Repository and also on the client Hosts as well
 
 ```bash
-./run-playbook.sh --playbook playbooks/backups/borg/deploy-kopia.yaml --no-check
+./common-run-playbook.sh --playbook backups/kopia/deploy-kopia.yaml --no-check
 ```
 
 This will do the following:
@@ -58,7 +58,7 @@ This will do the following:
 Then configure the Server and the clients
 
 ```bash
-./run-playbook.sh --playbook playbooks/backups/borg/configure-kopia.yaml --no-check
+./common-run-playbook.sh --playbook backups/kopia/configure-kopia.yaml --no-check
 ```
 
 This will do the following:

@@ -34,7 +34,7 @@ N/A
 2. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 3. After going to the URL, enter your wanted credentials and hit the "Sign Up" button
@@ -50,13 +50,13 @@ Generate an access token to access the REST API:
 Then deploy the periphery agents to every host required
 
 ```bash
-./run-playbook.sh --playbook management/container/komodo/deploy-komodo.yaml --no-check
+./common-run-playbook.sh --playbook management/container/komodo/deploy-komodo.yaml --no-check
 ```
 
 And finally register all of the hosts and existing stacks on the REST API
 
 ```bash
-./run-playbook.sh --playbook management/container/komodo/configure-komodo.yaml --no-check
+./common-run-playbook.sh --playbook management/container/komodo/configure-komodo.yaml --no-check
 ```
 
 ## Commands

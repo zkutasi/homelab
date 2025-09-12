@@ -25,7 +25,7 @@ N/A
 Deploy with:
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/nut/nut_exporter/deploy-nut-exporter.yaml --no-check
+./common-run-playbook.sh --playbook monitoring/nut/nut_exporter/deploy-nut-exporter.yaml --no-check
 ```
 
 ## Notable comments

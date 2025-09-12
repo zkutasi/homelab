@@ -14,7 +14,9 @@ Dynamic DNS Clients I have investigated and used or using.
 - [Inadyn](https://github.com/troglobit/inadyn) - A relative new contender, but did not find any issues yet
 - [DDNS-updater](https://github.com/qdm12/ddns-updater) - Looks pretty abandoned at 2025, with 160 open issues and no releases past 2024
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `group_vars/all` file:
 
@@ -31,3 +33,13 @@ Dynamic DNS Clients I have investigated and used or using.
     |ddns_interface|M|The network interface to check for the IP address on|
     |ddns_aliases|O|The alias to set the IP on. Can be multiple for DDclient, can only be a single element list for Inadyn|
     |ddns_ipv6|O|Specify whether IPv6 IPs are needed or IPv4 ones. Defaults to true.|
+
+### Deploy
+
+```bash
+./common-run-playbook.sh --playbook ddns/deploy-ddns.yaml --no-check
+```
+
+## Commands
+
+## Notable comments

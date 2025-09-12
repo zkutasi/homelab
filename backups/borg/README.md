@@ -51,7 +51,7 @@ If you have a Synology and the backup server is going to be there, these items h
 First, deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI
 
 ```bash
-./run-playbook.sh --playbook playbooks/backups/borg/deploy-borgwarehouse.yaml --no-check
+./common-run-playbook.sh --playbook backups/borg/deploy-borgwarehouse.yaml --no-check
 ```
 
 This will do the following
@@ -69,7 +69,7 @@ Then go to the Borgwarehouse UI and
 Then finish the deployment with
 
 ```bash
-./run-playbook.sh --playbook playbooks/backups/borg/setup-borg.yaml --no-check
+./common-run-playbook.sh --playbook backups/borg/setup-borg.yaml --no-check
 ```
 
 1. Configure borgwarehouse

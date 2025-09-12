@@ -23,7 +23,7 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
 Deploy with:
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/nut/nutify/deploy-nutify.yaml --no-check
+./common-run-playbook.sh --playbook monitoring/nut/nutify/deploy-nutify.yaml --no-check
 ```
 
 Then go to the Web UI and complete the Setup with the Wizard.

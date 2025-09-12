@@ -30,7 +30,7 @@ N/A
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 5. Generate the internal self-signed certificate, valid for 30 years

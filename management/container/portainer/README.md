@@ -40,7 +40,7 @@ N/A
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ### Install the agents
@@ -54,13 +54,13 @@ Generate an access token to access the REST API:
 Then deploy the portainer agents to every host required
 
 ```bash
-./run-playbook.sh --playbook management/container/portainer/deploy-portainer.yaml --no-check
+./common-run-playbook.sh --playbook management/container/portainer/deploy-portainer.yaml --no-check
 ```
 
 And finally register all of the hosts on the REST API
 
 ```bash
-./run-playbook.sh --playbook management/container/portainer/configure-portainer.yaml --no-check
+./common-run-playbook.sh --playbook management/container/portainer/configure-portainer.yaml --no-check
 ```
 
 ## Commands

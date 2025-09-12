@@ -23,7 +23,7 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
 3. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands

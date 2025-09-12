@@ -36,7 +36,7 @@ The used plugins are:
 ## Usage
 
 ```bash
-./run-playbook.sh --playbook playbooks/media/beets/deploy-beets.yaml --no-check
+./common-run-playbook.sh --playbook media/beets/deploy-beets.yaml --no-check
 ```
 
 ## Commands

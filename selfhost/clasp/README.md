@@ -17,7 +17,7 @@ No special setup is required.
 ## Usage
 
 ```bash
-./run-playbook.sh --playbook playbooks/selfhosting/clasp/deploy-clasp.yaml --no-check
+./common-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check
 ```
 
 ## Commands

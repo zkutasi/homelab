@@ -39,7 +39,7 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands

@@ -38,7 +38,7 @@ Deploy SNMP on each monitored host.
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands

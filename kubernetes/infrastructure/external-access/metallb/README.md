@@ -30,7 +30,7 @@ The external access of the services inside the cluster wil be provided on the IP
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands

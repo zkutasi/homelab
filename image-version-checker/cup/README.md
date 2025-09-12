@@ -25,7 +25,7 @@ N/A
 ### Deploy the workers
 
 ```bash
-./run-playbook.sh --playbook playbooks/monitoring/version-checkers/cup/deploy-cup.yaml --no-check
+./common-run-playbook.sh --playbook image-version-checker/cup/deploy-cup.yaml --no-check
 ```
 
 ### Deploy the central component
@@ -35,7 +35,7 @@ N/A
 2. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands

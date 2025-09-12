@@ -35,7 +35,7 @@ Rook can provide the following:
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 5. Create a dashboard user via the toolbox Pod

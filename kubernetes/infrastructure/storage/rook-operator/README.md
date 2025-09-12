@@ -34,7 +34,7 @@ Rook can provide the following:
 4. Install with the provided script
 
     ```bash
-    ./deploy.sh
+    ./deploy-k8s.sh
     ```
 
 ## Commands
