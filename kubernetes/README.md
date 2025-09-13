@@ -42,6 +42,17 @@ KubeSpray is used to setup the cluster and install some basic tools, but there a
 ./common-run-playbook.sh --playbook kubernetes/setup-k8s-hosts.yaml --no-check
 ```
 
+## Tools
+
+A lot of tools should be used with Kubernetes:
+
+- [Kubectl](https://kubernetes.io/docs/reference/kubectl/) - The fundamental CLI tool to manage anything kubernetes-related
+- [Helm](https://helm.sh/) - The Kubernetes package manager
+- [Kustomize](https://github.com/kubernetes-sigs/kustomize) - Ability to modify Kubernetes manifests or even Helm charts via post-rendering, if something needs customization
+- [Kompose](https://kompose.io/) - Convert existing Docker-compose YAML files into Kubernetes manifests. Perfect for converting any project into Kubernetes-native
+- [Kubeconform](https://github.com/yannh/kubeconform) - Kubernetes Manifest validation
+- [Krew](https://github.com/kubernetes-sigs/krew) - Extend kubectl with plugins
+
 ### Notable comments
 
 - The inotify kernel settings were not high enough and the root user (id 0) had already used 128 instances which is the max number per user by default. Setting this a little bit higher avoids having for example log-tailing to error with "failed to create fsnotify watcher: too many open files", or in Loki, all of the Containers logged this error too.
