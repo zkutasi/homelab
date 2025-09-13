@@ -11,5 +11,3 @@ This folder contains fundamental settings applied to hosts, including
 - `setup-scripts.yaml` - Some hosts have developed bash scripts. Distribute them.
 - `setup-ssh.yaml` - Set up on each host a public-private SSH key for the default (hopefully non-root) user
 - `setup-vim.yaml` - Configure vim with defaults
-
-To run all of them, there is a wrapper playbook as well (`setup-basics.yaml`).

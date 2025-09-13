@@ -1,0 +1,26 @@
+- name: Install git
+  hosts: control
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - git
+- name: Add some aliases for git
+  hosts: control
+  tasks:
+  - name: Add alias for status
+    community.general.git_config:
+      name: alias.st
+      scope: global
+      value: status
+  - name: Add alias for checkout
+    community.general.git_config:
+      name: alias.co
+      scope: global
+      value: checkout
+  - name: Add alias for branch
+    community.general.git_config:
+      name: alias.br
+      scope: global
+      value: branch
