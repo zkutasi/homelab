@@ -1,2 +1,0 @@
-synology_docker_compose_v2_version: "{{ undef(hint='You must specify the requested version') }}"
-synology_docker_cliplugin_path: /usr/local/lib/docker/cli-plugins
