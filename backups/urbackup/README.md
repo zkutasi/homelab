@@ -1,6 +1,6 @@
 # UrBackup
 
-[UrBackup](https://www.urbackup.org/) is a Client-Server architecture backup solution, where the design clearly has built in multiühost support.
+[UrBackup](https://www.urbackup.org/) is a Client-Server architecture backup solution, where the design clearly has built in multi-host support.
 
 ## The setup
 

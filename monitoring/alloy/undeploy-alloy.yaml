@@ -1,0 +1,16 @@
+- name: Undeploy alloy binaries
+  hosts: proxmox
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - alloy
+- name: Undeploy alloy containers
+  hosts:
+    - standalone
+    # - external
+    - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: alloy

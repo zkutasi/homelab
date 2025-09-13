@@ -39,7 +39,7 @@ KubeSpray is used to setup the cluster and install some basic tools, but there a
 ### Usage
 
 ```bash
-./common-run-playbook.sh --playbook kubernetes/setup-k8s.yaml --no-check
+./common-run-playbook.sh --playbook kubernetes/setup-k8s-hosts.yaml --no-check
 ```
 
 ### Notable comments

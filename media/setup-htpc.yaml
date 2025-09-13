@@ -1,6 +1,0 @@
-- name: Deploy emby
-  ansible.builtin.import_playbook: emby/deploy-emby.yaml
-- name: Deploy plex
-  ansible.builtin.import_playbook: plex/deploy-plex.yaml
-- name: Deploy kodi
-  ansible.builtin.import_playbook: kodi/deploy-kodi.yaml

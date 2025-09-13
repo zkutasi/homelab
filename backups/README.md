@@ -16,7 +16,7 @@ In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 - Free and Open source, preferrably 0$ cost
 - Local, remote and cloud support (possibly with RClone) for repositories
 
-## What to back up (non-exhaustive list)
+### What to back up (non-exhaustive list)
 
 - Git repo untracked files
   - Inventories
@@ -64,7 +64,7 @@ Other things to consider:
   - [Docker image for Borgmatic clients](https://github.com/borgmatic-collective/docker-borgmatic)
   - [Docker image & Helm Chart for the Backup Server](https://github.com/AnotherStranger/docker-borg-backup/)
 
-A Borg Repository Server acts as storage of backups and multiple clients can write into this, into different folders per Host. Clients can initialize themselves to write remotely via SSH into the Repository Server into their own folders. How to setup all of this is instructed [here](https://borgbackup.readthedocs.io/en/1.4-maint/deployment/central-backup-server.html).
+A Borg Repository Server acts as storage of backups and multiple clients can write into this, into different folders per Host. Clients can initialize themselves to write remotely via SSH into the Repository Server into their own folders. How to setup all of this is instructed [in this blogpost](https://borgbackup.readthedocs.io/en/1.4-maint/deployment/central-backup-server.html).
 
 The Borgwarehouse GUI has to be deployed next to the Repository Server (or even it could act as a repository Server?), so it is not an option for Cloud Storage. But if clients would set up themselves to back up both into Cloud and into a local Borg Repo, then things would be simpler a bit, though would require local storage too to store the backups.
 
@@ -99,7 +99,7 @@ Official docker container exists with the restic binary, which has to be install
 
 Cons:
 
-- No central management possible, the webUI (backrest) is local to the host (this is incoming, see [here](https://github.com/garethgeorge/backrest/issues/68), proposed to be ready in 1.9.0+)
+- No central management possible, the webUI (backrest) is local to the host (this is incoming, see [this issue](https://github.com/garethgeorge/backrest/issues/68), proposed to be ready in 1.9.0+)
 - Non-Agent based, Works over SSH, remote hosts must be mounted
 
 ### Kopia
@@ -122,7 +122,7 @@ Cons:
 
 [Official Site](https://duplicacy.com)
 
-Duplicacy can back up folders on the local host only. Therefore it must be installed on all of the Hosts. A multi-host feature was planned, but it seems it was ditched (see [here](https://forum.duplicacy.com/t/allow-a-single-web-ui-to-manage-multiple-workstations/8425)). No official docker container exists, but there are people who create them and publish them on DockerHub. It is imperative to know, that there are two binaries: duplicacy and duplicacy-web, so the latter is needed for the WebUI. Chose a docker image that contains this one too.
+Duplicacy can back up folders on the local host only. Therefore it must be installed on all of the Hosts. A multi-host feature was planned, but it seems it was ditched (see [this forum post](https://forum.duplicacy.com/t/allow-a-single-web-ui-to-manage-multiple-workstations/8425)). No official docker container exists, but there are people who create them and publish them on DockerHub. It is imperative to know, that there are two binaries: duplicacy and duplicacy-web, so the latter is needed for the WebUI. Chose a docker image that contains this one too.
 
 Cons:
 

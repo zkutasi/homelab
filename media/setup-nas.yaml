@@ -1,2 +1,0 @@
-- name: Deploy beets
-  ansible.builtin.import_playbook: beets/deploy-beets.yaml
