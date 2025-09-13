@@ -43,3 +43,16 @@
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"
     version_flag: "version"
+- name: Deploy kubeconform
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "0.7.0"
+    bin_filename: kubeconform
+    download_url: "https://github.com/yannh/{{ bin_filename }}/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
+    version_flag: "-v"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}"
