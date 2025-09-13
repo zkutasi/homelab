@@ -1,10 +1,39 @@
 - name: Print the package manager
   ansible.builtin.debug:
     msg: System {{ inventory_hostname }} has package manager {{ ansible_pkg_mgr }}
+- name: Check if GPG key exists
+  ansible.builtin.stat:
+    path: "{{ gpg_key_path }}"
+  register: gpg_file
+  when: gpg_dearmor
 - name: Install the requested packages
   become: true
   when: ansible_pkg_mgr == 'apt'
   block:
+    - name: Download and dearmor GPG key
+      when: gpg_dearmor and not gpg_file.stat.exists
+      block:
+        - name: Add GPG key
+          ansible.builtin.get_url:
+            url: "{{ gpg_key_url }}"
+            dest: "/tmp/{{ gpg_project_name }}-keyring.asc"
+            mode: "0644"
+        - name: Dearmor the GPG key
+          ansible.builtin.command:
+            cmd: "gpg --dearmor -o {{ gpg_key_path }} /tmp/{{ gpg_project_name }}-keyring.asc"
+            creates: "{{ gpg_key_path }}"
+        - name: Add repository
+          ansible.builtin.apt_repository:
+            repo: "deb [signed-by={{ gpg_key_path }}] {{ gpg_signed_repo }}"
+            filename: "{{ gpg_project_name }}"
+            state: present
+            update_cache: true
+    - name: Add repository
+      when: not gpg_dearmor and apt_add_repo | length > 0
+      ansible.builtin.apt_repository:
+        repo: "{{ apt_add_repo }}"
+        state: present
+        update_cache: true
     - name: Update APT package cache
       ansible.builtin.apt:
         update_cache: true

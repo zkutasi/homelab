@@ -1,0 +1,9 @@
+- name: Install terraform
+  hosts: control
+  become: true
+  roles:
+    - package-install
+  vars:
+    apt_add_repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main"
+    packages:
+      - terraform
