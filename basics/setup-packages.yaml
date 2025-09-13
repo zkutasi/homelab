@@ -1,33 +1,24 @@
-# - name: Install some generic packages everywhere
-#   hosts: "*"
-#   become: true
-#   roles:
-#     - package-install
-#   vars:
-#     packages:
-#       - curl
-#       - gpg
-#       - jq
-#       - sudo
-#       - ufw
-#       - vim
-# - name: Deploy yq
-#   hosts: control
-#   roles:
-#     - binary-install
-#   vars:
-#     requested_version: "4.47.2"
-#     bin_filename: yq
-#     download_url: "https://github.com/mikefarah/{{ bin_filename }}/releases/download/\
-#           v{{ requested_version }}/{{ bin_filename }}_linux_amd64"
-#     compressed: false
-#     destination_path: /usr/local/bin/yq
-- name: Deploy helm
+- name: Install some generic packages everywhere
+  hosts: "*"
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - curl
+      - gpg
+      - jq
+      - sudo
+      - ufw
+      - vim
+- name: Deploy yq
   hosts: control
   roles:
     - binary-install
   vars:
-    requested_version: "3.17.3"
-    bin_filename: helm
-    download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_version }}-linux-amd64.tar.gz"
-    version_flag: "version --short"
+    requested_version: "4.47.2"
+    bin_filename: yq
+    download_url: "https://github.com/mikefarah/{{ bin_filename }}/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}_linux_amd64"
+    compressed: false
+    destination_path: /usr/local/bin/yq

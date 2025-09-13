@@ -1,0 +1,20 @@
+- name: Deploy kubectl
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "1.32.4"
+    bin_filename: kubectl
+    download_url: "https://dl.k8s.io/release/v{{ requested_version }}/bin/linux/amd64/{{ bin_filename }}"
+    compressed: false
+    destination_path: "/usr/local/bin/{{ bin_filename }}"
+    version_flag: "version"
+- name: Deploy helm
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "3.17.3"
+    bin_filename: helm
+    download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_version }}-linux-amd64.tar.gz"
+    version_flag: "version --short"

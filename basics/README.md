@@ -4,7 +4,9 @@ This folder contains fundamental settings applied to hosts, including
 
 - `setup-fstab.yaml` - Set up the mount points to mount NFS shares around the home network
 - `setup-docker.yaml` - Set up docker on the hosts, pay special attention to Synology, where the docker compose version should be uplifted as well
+- `setup-git` - Set up git and some common best practices
 - `setup-hosts.yaml` - Set up the /etc/hosts file to have home-routable DNS entries, until the PiHole instance is spread by the DHCP server
+- `setup-k8s-tools.yaml` - Sets up kubectl, helm, kustomize and more
 - `setup-ntp.yaml` - Set up the timezone for all of the hosts and enable automatic time sync
 - `setup-packages.yaml` - Install some basic useful packages everywhere
 - `setup-pushover.yaml` - Set up push-notifications via Pushover
