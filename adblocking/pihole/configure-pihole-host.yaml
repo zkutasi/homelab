@@ -1,0 +1,16 @@
+- name: Turn off systemd-resolved
+  become: true
+  hosts: pihole
+  tasks:
+    - name: Disable Ubuntu default Stub DNS Resolver
+      ansible.builtin.lineinfile:
+        path: "/etc/systemd/resolved.conf"
+        state: present
+        line: 'DNSStubListener=no'
+        regexp: '#?\s*DNSStubListener=.*'
+    - name: Relink resolve.conf
+      ansible.builtin.file:
+        path: /etc/resolv.conf
+        force: true
+        state: link
+        src: /run/systemd/resolve/resolv.conf

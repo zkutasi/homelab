@@ -1,11 +1,11 @@
-- name: Undeploy alloy binaries
+- name: Delete alloy binaries
   hosts: proxmox
   roles:
     - package-remove
   vars:
     packages:
       - alloy
-- name: Undeploy alloy containers
+- name: Delete alloy containers
   hosts:
     - standalone
     # - external
