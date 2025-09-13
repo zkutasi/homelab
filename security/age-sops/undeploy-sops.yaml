@@ -1,0 +1,7 @@
+- name: Delete SOPS
+  hosts: control
+  tasks:
+    - name: Delete SOPS binary
+      ansible.builtin.file:
+        path: /usr/local/bin/sops
+        state: absent

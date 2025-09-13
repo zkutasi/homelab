@@ -1,4 +1,4 @@
-- name: Deploy age as a binary
+- name: Delete age
   hosts: control
   tasks:
     - name: Delete age binary
