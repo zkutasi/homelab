@@ -31,3 +31,15 @@
     decompression_options:
       - "--wildcards"
       - "{{ bin_filename }}"
+- name: Deploy kompose
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "1.36.0"
+    bin_filename: kompose
+    download_url: "https://github.com/kubernetes/{{ bin_filename }}/releases/download/\
+          v{{ requested_version }}/{{ bin_filename }}-linux-amd64"
+    compressed: false
+    destination_path: "/usr/local/bin/{{ bin_filename }}"
+    version_flag: "version"
