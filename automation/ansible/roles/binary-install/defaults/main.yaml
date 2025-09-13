@@ -1,4 +1,5 @@
 bin_filename: "{{ undef(hint='You must specify the Binary filename') }}"
+bin_path: /usr/local/bin
 compressed: true
 decompression_options:
   - "--wildcards"
@@ -9,3 +10,4 @@ download_url: "{{ undef(hint='You must specify the download URL') }}"
 requested_version: "{{ undef(hint='You must specify the requested version') }}"
 service_name: ""
 version_flag: "--version"
+install_cmd: ""

@@ -2,6 +2,9 @@
   ansible.builtin.stat:
     path: "{{ bin_path }}/{{ bin_filename }}"
   register: binary_filestat
+- name: Debug
+  ansible.builtin.debug:
+    var: bin_path
 - name: Check the version of the binary if present
   when: binary_filestat.stat.exists and not binary_filestat.stat.isdir
   check_mode: false
@@ -13,7 +16,7 @@
       changed_when: false
     - name: Extract exact version
       ansible.builtin.set_fact:
-        binary_installed_version: "{{ (binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines)[0]
+        binary_installed_version: "{{ (binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines) | join('\n')
           | regex_search('(^|\\s)v?([0-9]+(\\.[0-9]+)+)(\\s|\\+.*|$)', '\\2') | first }}"
     - name: Print out the binary version
       ansible.builtin.debug:
@@ -25,26 +28,50 @@
     - name: Debug the input data
       ansible.builtin.debug:
         msg: "Downloading {{ bin_filename }} version {{ requested_version }} from {{ download_url }}"
+    - name: Download and execute installer
+      when: install_cmd | length > 0
+      block:
+        - name: Create temporary directory for {{ bin_filename }} installer
+          ansible.builtin.tempfile:
+            state: directory
+            suffix: "{{ bin_filename }}"
+          register: installer_tmpdir
+        - name: Download and extract {{ bin_filename }}
+          ansible.builtin.unarchive:
+            src: "{{ download_url }}"
+            remote_src: true
+            dest: "{{ installer_tmpdir.path }}"
+        - name: Run {{ bin_filename }} installer
+          ansible.builtin.command:
+            cmd: "{{ installer_tmpdir.path }}/{{ install_cmd }}"
+        - name: Clean up temp directory
+          ansible.builtin.file:
+            path: "{{ installer_tmpdir.path }}"
+            state: absent
     - name: Download and extract the binary
+      when: install_cmd | length == 0
       become: true
-      ansible.builtin.unarchive:
-        src: "{{ download_url }}"
-        remote_src: true
-        dest: "{{ bin_path }}"
-        extra_opts: "{{ decompression_options }}"
-        mode: '0755'
-        owner: root
-        group: root
-      when: compressed
-    - name: Download the binary
-      become: true
-      ansible.builtin.get_url:
-        url: "{{ download_url }}"
-        dest: "{{ bin_path if destination_path | length == 0 else destination_path }}"
-        mode: '0755'
-        owner: root
-        group: root
-      when: not compressed
+      block:
+        - name: Download and extract the binary
+          become: true
+          ansible.builtin.unarchive:
+            src: "{{ download_url }}"
+            remote_src: true
+            dest: "{{ bin_path }}"
+            extra_opts: "{{ decompression_options }}"
+            mode: '0755'
+            owner: root
+            group: root
+          when: compressed
+        - name: Download the binary
+          become: true
+          ansible.builtin.get_url:
+            url: "{{ download_url }}"
+            dest: "{{ bin_path if destination_path | length == 0 else destination_path }}"
+            mode: '0755'
+            owner: root
+            group: root
+          when: not compressed
 - name: Create a new Service for the binary if requested
   become: true
   ansible.builtin.template:
