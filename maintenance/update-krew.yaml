@@ -1,0 +1,6 @@
+- name: Update krew and plugins
+  hosts: control
+  tasks:
+    - name: Update krew
+      ansible.builtin.command:
+        cmd: "kubectl krew upgrade"
