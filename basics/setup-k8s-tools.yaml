@@ -18,3 +18,16 @@
     bin_filename: helm
     download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_version }}-linux-amd64.tar.gz"
     version_flag: "version --short"
+- name: Deploy kustomize
+  hosts: control
+  roles:
+    - binary-install
+  vars:
+    requested_version: "5.7.1"
+    bin_filename: kustomize
+    download_url: "https://github.com/kubernetes-sigs/{{ bin_filename }}/releases/download/{{ bin_filename }}/\
+          v{{ requested_version }}/{{ bin_filename }}_v{{ requested_version }}_linux_amd64.tar.gz"
+    version_flag: "version"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}"

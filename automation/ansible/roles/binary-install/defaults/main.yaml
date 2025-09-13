@@ -1,5 +1,9 @@
 bin_filename: "{{ undef(hint='You must specify the Binary filename') }}"
 compressed: true
+decompression_options:
+  - "--wildcards"
+  - "*/{{ bin_filename }}*"
+  - "--strip-components=1"
 destination_path: ""
 download_url: "{{ undef(hint='You must specify the download URL') }}"
 requested_version: "{{ undef(hint='You must specify the requested version') }}"

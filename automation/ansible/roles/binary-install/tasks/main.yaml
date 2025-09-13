@@ -31,10 +31,7 @@
         src: "{{ download_url }}"
         remote_src: true
         dest: "{{ bin_path }}"
-        extra_opts:
-          - "--wildcards"
-          - "*/{{ bin_filename }}*"
-          - "--strip-components=1"
+        extra_opts: "{{ decompression_options }}"
         mode: '0755'
         owner: root
         group: root
