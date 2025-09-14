@@ -1,0 +1,22 @@
+- name: Delete kubectl tools
+  hosts: control
+  become: true
+  tasks:
+    - name: "Remove binary"
+      ansible.builtin.file:
+        path: "/usr/local/bin/{{ item }}"
+        state: absent
+      loop:
+        - kubectl
+        - helm
+        - kustomize
+        - kompose
+        - kubeconform
+- name: Delete krew and all plugins
+  hosts: control
+  become: false
+  tasks:
+    - name: Remove .krew folder
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.krew"
+        state: absent
