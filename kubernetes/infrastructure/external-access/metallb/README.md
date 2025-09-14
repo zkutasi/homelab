@@ -1,6 +1,6 @@
 # MetalLB
 
-[Official Site](https://metallb.io/)
+[MetalLB](https://metallb.io/) is a LoadBalancer implementation for Bare-metal, non-cloud Kubernetes clusters.
 
 ## The setup
 

@@ -1,6 +1,6 @@
 # Loki
 
-[Official Site](https://grafana.com/oss/loki/). A log aggregator from Grafana Labs.
+[Loki](https://grafana.com/oss/loki/) is the log aggregator from Grafana Labs.
 
 ## The setup
 

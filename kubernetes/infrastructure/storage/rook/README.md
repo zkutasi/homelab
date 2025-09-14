@@ -1,6 +1,6 @@
 # Rook
 
-[Official Site](https://github.com/rook/rook)
+[Rook](https://github.com/rook/rook) makes it possible to use the Kubernetes hosts' Disk drives for network storage.
 
 ## The setup
 

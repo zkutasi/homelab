@@ -1,6 +1,6 @@
 # Terraform
 
-[Official Site](https://developer.hashicorp.com/terraform). Infrastructure as Code mainly to handle Virtual machines and Provisioning them.
+[Terraform](https://developer.hashicorp.com/terraform). Infrastructure as Code mainly to handle Virtual machines and Provisioning them.
 
 Recently in 2025 there was a big shift in the license const of this tool, so if you still want to use it in the future, probably a good way to go is to look into [OpenTofu](https://opentofu.org/). It still uses the same language to write the IaC, and is completely still open source.
 

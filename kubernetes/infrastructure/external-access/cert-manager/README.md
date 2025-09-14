@@ -1,6 +1,6 @@
 # Cert-manager
 
-[Official Site](https://cert-manager.io/)
+[Cert Manager](https://cert-manager.io/) is a convenient tool to create, renew and store certificates.
 
 ## The setup
 

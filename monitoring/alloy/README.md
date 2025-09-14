@@ -1,6 +1,6 @@
 # Alloy
 
-[Official Site](https://grafana.com/docs/alloy/latest/). A metrics and logs collector agent, highly configurable and versatile.
+[Alloy](https://grafana.com/docs/alloy/latest/) is a unified metrics and logs (plus more) collector agent, highly configurable and versatile.
 
 ## The setup
 

@@ -1,6 +1,6 @@
 # Kubespray
 
-[Official Site](https://github.com/kubernetes-sigs/kubespray). The Ansible way to install a Kubernetes cluster. Highly configurable and has vast extra capabilities to populate the cluster with standard basic tools.
+[Kubespray](https://github.com/kubernetes-sigs/kubespray) is the Ansible way to install a Kubernetes cluster. Highly configurable and has vast extra capabilities to populate the cluster with standard basic tools.
 
 ## The setup
 

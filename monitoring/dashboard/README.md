@@ -1,6 +1,6 @@
 # Kubernetes Dasboard
 
-[Official Site](https://github.com/kubernetes/dashboard)
+[Kubernetes Dashboard](https://github.com/kubernetes/dashboard) is the default simple dashboard to observe a Kubernetes cluster and its various workloads and manifests.
 
 ## The setup
 

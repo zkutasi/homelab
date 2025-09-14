@@ -1,6 +1,6 @@
 # Guacamole
 
-[Official Site](https://guacamole.apache.org/). SSH, RDP & VNC client in the browser.
+[Guacamole](https://guacamole.apache.org/) is an SSH, RDP & VNC client running in the browser.
 
 ## The setup
 

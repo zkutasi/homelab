@@ -1,6 +1,6 @@
 # Kubernetes
 
-[Official Site](https://kubernetes.io/) is a container orchestration and management solution with a huge learning curve and vast potentials. I have chosen to run K8s because I work with it daily and it helps me keep sharp with technology and improve my knowledge with the vast landscape of Cloud Native applications.
+[Kubernetes](https://kubernetes.io/) is a container orchestration and management solution with a huge learning curve and vast potentials. I have chosen to run K8s because I work with it daily and it helps me keep sharp with technology and improve my knowledge with the vast landscape of Cloud Native applications.
 
 Here is a matrix that collects most of the possibilities and their capabilities: [Kubernetes Distributions & Installers Matrix Table](https://nubenetes.com/matrix-table/#).
 

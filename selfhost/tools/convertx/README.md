@@ -1,6 +1,6 @@
 # ConvertX
 
-[Official Site](https://github.com/C4illin/ConvertX). A useful set of file conversions.
+[ConvertX](https://github.com/C4illin/ConvertX) is a useful set of file conversions in one package.
 
 ## The setup
 

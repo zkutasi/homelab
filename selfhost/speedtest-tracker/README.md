@@ -1,6 +1,6 @@
 # Speedtest-tracker
 
-[Official Site](https://github.com/alexjustesen/speedtest-tracker). Monitors the performance and uptime of the internet connection.
+[Speedtest Tracker](https://github.com/alexjustesen/speedtest-tracker) is a handy tool to monitors the performance and uptime of the internet connection and graph it.
 
 ## The setup
 

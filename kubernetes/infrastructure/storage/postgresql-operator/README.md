@@ -1,6 +1,6 @@
 # Cloud Native PostgreSQL (CNPG)
 
-[Official Site](https://cloudnative-pg.io/)
+[Cloud Native PostgreSQL](https://cloudnative-pg.io/) is a Kubernetes native way to run PSQL instances.
 
 ## The setup
 

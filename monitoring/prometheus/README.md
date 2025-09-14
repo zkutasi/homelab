@@ -1,7 +1,7 @@
 # Prometheus & Grafana
 
-[Grafana Official Site](https://grafana.com/). The de-facto visualizer layer for logs, metrics and all kinds of dashboards.
-[Prometheus Official Site](https://prometheus.io/). A metrics collection server and time-series database to store these metrics and query them.
+[Grafana](https://grafana.com/): The de-facto visualizer layer for logs, metrics and all kinds of dashboards.
+[Prometheus](https://prometheus.io/): A metrics collection server and time-series database to store these metrics and query them.
 
 ## The setup
 

@@ -1,6 +1,6 @@
 # Omni-Tools
 
-[Official Site](https://github.com/iib0011/omni-tools). A useful set of tools.
+[Omni-Tools](https://github.com/iib0011/omni-tools) is a useful set of tools in one package.
 
 ## The setup
 

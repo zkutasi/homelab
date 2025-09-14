@@ -1,6 +1,6 @@
 # LibreNMS
 
-[Official Site](https://www.librenms.org/)
+[LibreNMS](https://www.librenms.org/) is an SNMP based network discovery and monitoring solution.
 
 ## The setup
 

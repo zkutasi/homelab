@@ -1,6 +1,6 @@
 # Rook
 
-[Official Site](https://github.com/rook/rook)
+[Rook](https://github.com/rook/rook) and the Rook Operator makes it possible to cloud-natively handle Network Storage based on the Hosts' disk drives.
 
 ## The setup
 

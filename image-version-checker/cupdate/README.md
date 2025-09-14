@@ -1,6 +1,6 @@
 # Cupdate
 
-[Official Site](https://github.com/AlexGustafsson/cupdate). A very lightweight solution with Vulnerability scanning included.
+[Cupdate](https://github.com/AlexGustafsson/cupdate) is a very lightweight solution with Vulnerability scanning included.
 
 ## The setup
 

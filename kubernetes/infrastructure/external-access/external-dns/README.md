@@ -1,6 +1,6 @@
 # External DNS
 
-[Official Site](https://github.com/kubernetes-sigs/external-dns)
+[External DNS](https://github.com/kubernetes-sigs/external-dns) is a convenience tool to register the given FQDN-IP pairs into a DNS Service automatically and keep them up-to-date.
 
 ## The setup
 

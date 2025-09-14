@@ -1,6 +1,6 @@
 # Contour
 
-[Official Site](https://projectcontour.io/)
+[Contour](https://projectcontour.io/) is an Ingress Controller based on the HTTPProxy YAML mianfest specification.
 
 ## The setup
 

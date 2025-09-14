@@ -36,19 +36,13 @@ In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 
 - [RClone](https://rclone.org/) - This is the final step of the process to ship backups to any cloud provider, but is not a backup software in itself. This is a popular pattern: do the backup with any tool (borg, restic, etc...) and then rclone to your favourite cloud provider storage.
 - [Syncthing](https://syncthing.net/) - Just synchronizes files/folders, does not do backups. So if the change happening on the file is wrong/destructive, it will still be synced.
-
-### Synology Active Backup for Business
-
-If someone has a Synology NAS, this is a pretty good alternative. It seems to support many things required. Vendor lock-in though is a thing here.
-
-### Proxmox Backup Server (PBS)
-
-[Official Site](https://www.proxmox.com/en/products/proxmox-backup-server/overview)
-
-Cons:
-
-- No Windows support
-- Primarily intended for VM and LXC backups, so file-based backups are rudimentary at best
+- [Minarca](https://minarca.org) - No encryption at rest, only at transport
+- [Nakivo](https://www.nakivo.com/) - Not free
+- Synology Active Backup for Business - If someone has a Synology NAS, this is a pretty good alternative. It seems to support many things required. Vendor lock-in though is a thing here.
+- [Proxmox Backup Server (PBS)](https://www.proxmox.com/en/products/proxmox-backup-server/overview) - No Windows support. Primarily intended for VM and LXC backups, so file-based backups are rudimentary at best
+- [Veeam](https://www.veeam.com/) - Since Veeam requires a central Windows machine, it completely falls short. Also it is not dockerized.
+- [Duplicity](https://duplicity.us/) - No GUI. No deduplication. No native support for Windows (WSL or cygwin only). Not agent based. Generally very old
+  - [Duplicati](https://duplicati.com/) - A C# reimplementation of Duplicity. Official docker images are available: there is duplicati and duplicati-agent. Supports all kinds of cloud providers too. However numerous angry customers due to backup & database corruption. Also no built in centralized management, webUI is per Host on the free tier... though there is a Duplicati Console which is intended as the centralized management. Though not so many info can be found about it.
 
 ### Borg
 
@@ -130,40 +124,6 @@ Cons:
 - No central management, webUI is per Host
 - Not agent-based therefore
 
-### Duplicity
-
-[Official Site](https://duplicity.us/)
-
-Cons:
-
-- No GUI
-- No deduplication
-- No native support for Windows (WSL or cygwin only)
-- Not agent based
-- Generally very old
-
-### Duplicati
-
-[Official Site](https://duplicati.com/) - A C# reimplementation of Duplicity
-
-Official docker images are available: there is duplicati and duplicati-agent. Supports all kinds of cloud providers too.
-
-Cons:
-
-- Numerous angry customers due to backup & database corruption
-- No built in centralized management, webUI is per Host on the free tier... though there is a Duplicati Console which is intended as the centralized management. Though not so many info can be found about it.
-
-### Veeam
-
-[Official Site](https://www.veeam.com/)
-
-Since Veeam requires a central Windows machine, it completely falls short.
-
-Cons:
-
-- The central server requires Windows (Linux support is coming in 2025)
-- Not dockerized
-
 ### UrBackup
 
 [Official Site](https://www.urbackup.org/)
@@ -174,22 +134,6 @@ Cons:
 
 - No cross-host deduplication
 - No direct cloud support, needs RClone or similar
-
-### Minarca
-
-[Official Site](https://minarca.org)
-
-Cons:
-
-- No encryption at rest, only at transport
-
-### Nakivo
-
-[Official Site](https://www.nakivo.com/)
-
-Cons:
-
-- Not free
 
 ## Offsite cloud providers
 

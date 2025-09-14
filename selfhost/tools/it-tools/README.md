@@ -1,6 +1,6 @@
 # IT-Tools
 
-[Official Site](https://github.com/CorentinTh/it-tools). A useful set of tools specifically for Developers and IT Professionals.
+[IT-Tools](https://github.com/CorentinTh/it-tools) is a useful set of tools specifically for Developers and IT Professionals.
 
 ## The setup
 
