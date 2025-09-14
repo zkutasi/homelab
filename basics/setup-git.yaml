@@ -24,3 +24,8 @@
       name: alias.br
       scope: global
       value: branch
+  - name: Add alias for listing ignored files
+    community.general.git_config:
+      name: alias.lsig
+      scope: global
+      value: "ls-files --others --ignored --exclude-standard"
