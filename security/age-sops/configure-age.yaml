@@ -1,0 +1,21 @@
+- name: Configure age & SOPS
+  hosts: control
+  tasks:
+    - name: Ensure .sops directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.sops"
+        state: directory
+    - name: Check if age key pair exists
+      ansible.builtin.stat:
+        path: "{{ ansible_user_dir }}/.sops/age.key"
+      register: age_keypair_stat
+    - name: Generate age key pair if not existing
+      ansible.builtin.command:
+        cmd: "age-keygen -o {{ ansible_user_dir }}/.sops/age.key"
+      when: not age_keypair_stat.stat.exists
+    - name: Add the key to the bashrc if not already present
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        state: present
+        line: 'export SOPS_AGE_KEY_FILE="${HOME}/.sops/age.key"'
+        regexp: '#?\s*SOPS_AGE_KEY_FILE=.*'
