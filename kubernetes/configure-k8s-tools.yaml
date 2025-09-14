@@ -11,3 +11,12 @@
         - kubectl
         - helm
         - kompose
+- name: Extend bashrc with krew path
+  hosts: control
+  tasks:
+    - name: Add krew path to bashrc if not already present
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        state: present
+        line: 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"'
+        regexp: '#?\s*export PATH="\${KREW_ROOT:-\$HOME/\.krew}/bin:\$PATH".*'
