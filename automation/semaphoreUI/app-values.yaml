@@ -1,0 +1,5 @@
+database:
+  persistence:
+    size: 5Gi
+persistence:
+  size: 10Gi
