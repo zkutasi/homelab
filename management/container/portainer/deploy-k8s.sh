@@ -1,6 +1,7 @@
 CHART_NAME=portainer/portainer
 NS=portainer
 RELEASE_NAME=portainer
+REPO_URL=https://portainer.github.io/k8s/
 
 EXTRA_PARAMS=
 
@@ -17,4 +18,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
+    --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}

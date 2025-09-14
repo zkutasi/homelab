@@ -3,6 +3,8 @@ CHART_NAME=
 LATEST=0
 NS=
 RELEASE_NAME=
+REPO_NAME=
+REPO_URL=
 VERSION=
 
 while [ $# -ge 1 ]; do
@@ -14,6 +16,7 @@ while [ $# -ge 1 ]; do
     --chart-name)
       shift
       CHART_NAME=$1
+      REPO_NAME=$(echo ${CHART_NAME} | cut -d'/' -f1)
       ;;
     --latest)
       LATEST=1
@@ -25,6 +28,10 @@ while [ $# -ge 1 ]; do
     --release-name)
       shift
       RELEASE_NAME=$1
+      ;;
+    --repo-url)
+      shift
+      REPO_URL=$1
       ;;
     --version)
       shift
@@ -39,6 +46,22 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+[ -z "${REPO_NAME}" ] && echo "ERROR: No repo name specified" && exit 1
+[ -z "${REPO_URL}" ] && echo "ERROR: No repo URL specified" && exit 1
+
+echo "Add the helm repo if not already added..."
+if helm repo list | grep -q "^${REPO_NAME}[[:space:]]"; then
+  echo "Helm repo ${REPO_NAME} already added."
+else
+  helm repo add ${REPO_NAME} ${REPO_URL}
+fi
+
+echo "Update helm repos..."
+helm repo update
+
+[ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
+[ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
+
 if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
   echo "Trying to figure out the current version..."
   current=$(helm -n $NS get metadata ${RELEASE_NAME} | grep ^VERSION | awk '{print $NF}')
@@ -49,6 +72,9 @@ if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
     echo "No current version found."
   fi
 fi
+
+[ -z "${CHART_NAME}" ] && echo "ERROR: No chart name specified" && exit 1
+
 echo "Trying to figure out the latest version..."
 latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
 echo "Latest version is ${latest}"
@@ -56,9 +82,6 @@ if [ -z "${VERSION}" ]; then
   VERSION=${latest}
 fi
 
-[ -z "${CHART_NAME}" ] && echo "ERROR: No chart name specified" && exit 1
-[ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
-[ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
 [ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
 
 echo "Install helm chart..."

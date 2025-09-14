@@ -1,6 +1,7 @@
 CHART_NAME=prometheus-community/kube-prometheus-stack
 NS=monitoring
 RELEASE_NAME=kube-prometheus-stack
+REPO_URL=https://prometheus-community.github.io/helm-charts
 
 EXTRA_PARAMS=
 
@@ -17,4 +18,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
+    --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}

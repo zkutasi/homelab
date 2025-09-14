@@ -1,6 +1,7 @@
 CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager
+REPO_URL=https://charts.jetstack.io
 
 EXTRA_PARAMS=
 
@@ -17,4 +18,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
+    --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}

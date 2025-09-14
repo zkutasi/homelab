@@ -1,6 +1,7 @@
 CHART_NAME=external-dns/external-dns
 NS=external-dns
 RELEASE_NAME=external-dns
+REPO_URL=https://kubernetes-sigs.github.io/external-dns/
 
 EXTRA_PARAMS=
 
@@ -17,4 +18,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
+    --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}

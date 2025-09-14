@@ -1,6 +1,7 @@
 CHART_NAME=rook-release/rook-ceph-cluster
 NS=rook-ceph
 RELEASE_NAME=rook-ceph-cluster
+REPO_URL=https://charts.rook.io/release
 
 EXTRA_PARAMS=
 
@@ -17,4 +18,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
+    --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}

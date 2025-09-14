@@ -1,4 +1,5 @@
 NS=komodo
+REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
 
 EXTRA_PARAMS=
 
@@ -29,6 +30,7 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name cnpg/cluster \
     --release-name postgresql \
     --namespace $NS \
+    --repo-url ${REPO_URL_CNPG} \
     --app postgresql-cluster \
     ${EXTRA_PARAMS}
 
