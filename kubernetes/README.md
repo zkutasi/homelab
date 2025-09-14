@@ -36,10 +36,8 @@ In preference order:
 
 KubeSpray is used to setup the cluster and install some basic tools, but there are some things that the setup is not doing.
 
-### Usage
-
 ```bash
-./common-run-playbook.sh --playbook kubernetes/setup-k8s-hosts.yaml --no-check
+./common-run-playbook.sh --playbook kubernetes/configure-k8s-hosts.yaml --no-check
 ```
 
 ## Tools
@@ -52,6 +50,11 @@ A lot of tools should be used with Kubernetes:
 - [Kompose](https://kompose.io/) - Convert existing Docker-compose YAML files into Kubernetes manifests. Perfect for converting any project into Kubernetes-native
 - [Kubeconform](https://github.com/yannh/kubeconform) - Kubernetes Manifest validation
 - [Krew](https://github.com/kubernetes-sigs/krew) - Extend kubectl with plugins
+
+```bash
+./common-run-playbook.sh --playbook kubernetes/deploy-k8s-tools.yaml --no-check
+./common-run-playbook.sh --playbook kubernetes/configure-k8s-tools.yaml --no-check
+```
 
 ### Notable comments
 

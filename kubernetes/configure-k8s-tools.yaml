@@ -1,0 +1,13 @@
+- name: Extend bashrc with autocompletions
+  hosts: control
+  tasks:
+    - name: Add autocompletion to bashrc if not already present
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        state: present
+        line: 'source <({{ item }} completion bash)'
+        regexp: '#?\s*source <\({{ item }} completion bash\).*'
+      loop:
+        - kubectl
+        - helm
+        - kompose
