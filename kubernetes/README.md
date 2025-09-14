@@ -31,6 +31,7 @@ In preference order:
 1. Official Helm Chart sources (bigger projects all should have them)
 2. [Kompose](https://kompose.io/) - A tool to migrate a docker compose file into Kubernetes manifests automatically
 3. [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, but I haven't figured out how exactly to use it, as it is extremely complex
+4. [Artifact Hub](https://artifacthub.io/) - Like Docker Hub, but for Helm Charts, from anyone
 
 ## Extra settings
 

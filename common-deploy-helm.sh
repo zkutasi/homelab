@@ -54,10 +54,9 @@ if helm repo list | grep -q "^${REPO_NAME}[[:space:]]"; then
   echo "Helm repo ${REPO_NAME} already added."
 else
   helm repo add ${REPO_NAME} ${REPO_URL}
+  echo "Update helm repos..."
+  helm repo update
 fi
-
-echo "Update helm repos..."
-helm repo update
 
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 [ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1

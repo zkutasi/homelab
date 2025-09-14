@@ -1,0 +1,57 @@
+AGE_KEY=$(cat ${SOPS_AGE_KEY_FILE} | grep -oP "public key: \K(.*)")
+ENCRYPT_FILE=""
+MODE=decrypt-all
+FILE_TYPE="yaml"
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --decrypt-all)
+        MODE=decrypt-all
+        ;;
+    --encrypt)
+        MODE=encrypt
+        shift
+        ENCRYPT_FILE=$1
+        ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+if [ "${MODE}" == "encrypt" ]; then
+    echo "Encrypting file: ${ENCRYPT_FILE}..."
+    sops --encrypt \
+        --input-type ${FILE_TYPE} \
+        --output-type ${FILE_TYPE} \
+        --age ${AGE_KEY} \
+        --output "${ENCRYPT_FILE}_encrypted" \
+        "${ENCRYPT_FILE}"
+elif [ "${MODE}" == "decrypt-all" ]; then
+    while read -r line; do
+        echo "Decrypting file: ${line}..."
+        decrypted_filename=${line%_encrypted}
+        if [ -f "${decrypted_filename}" ]; then
+            echo "WARNING: Decrypted file ${decrypted_filename} already exists. Skipping decryption, but check the diff..."
+            diff -u <(sops --decrypt \
+                --input-type ${FILE_TYPE} \
+                --output-type ${FILE_TYPE} \
+                --age ${AGE_KEY} \
+                "${line}") \
+                "${decrypted_filename}" && echo "No differences found." || echo "Differences found!"
+        else
+            sops --decrypt \
+                --input-type ${FILE_TYPE} \
+                --output-type ${FILE_TYPE} \
+                --age ${AGE_KEY} \
+                --output "${decrypted_filename}" \
+                "${line}"
+        fi
+    done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
+else
+    echo "ERROR: unknown mode \"${MODE}\""
+    exit 1
+fi
