@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=cupdate
 
 EXTRA_PARAMS=

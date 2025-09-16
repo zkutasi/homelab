@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=external-dns/external-dns
 NS=external-dns
 RELEASE_NAME=external-dns

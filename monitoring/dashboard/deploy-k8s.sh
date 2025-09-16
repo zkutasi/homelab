@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=kubernetes-dashboard/kubernetes-dashboard
 NS=kubernetes-dashboard
 RELEASE_NAME=kubernetes-dashboard

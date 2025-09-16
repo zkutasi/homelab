@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=semaphoreui/semaphore
 NS=semaphore 
 RELEASE_NAME=semaphore 

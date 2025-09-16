@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=monitoring
 RELEASE_NAME=alloy
 

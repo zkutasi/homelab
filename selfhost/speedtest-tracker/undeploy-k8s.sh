@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=speedtest-tracker
 RELEASE_NAME=speedtest-tracker
 

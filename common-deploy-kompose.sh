@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=
 
 while [ $# -ge 1 ]; do

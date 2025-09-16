@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DELETE_NAMESPACE=1
 NS=
 RELEASE_NAME=

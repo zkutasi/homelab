@@ -1,3 +1,5 @@
+#!/bin/bash
+
 APP=guacamole
 
 EXTRA_PARAMS=

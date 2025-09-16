@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=external-dns
 RELEASE_NAME=external-dns
 

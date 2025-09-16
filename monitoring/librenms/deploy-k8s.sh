@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=librenms/librenms
 NS=librenms
 RELEASE_NAME=librenms

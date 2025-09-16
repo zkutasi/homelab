@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=omni-tools
 
 EXTRA_PARAMS=

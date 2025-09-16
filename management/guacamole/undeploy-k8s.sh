@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=guacamole
 RELEASE_NAME=guacamole
 

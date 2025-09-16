@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=rook-release/rook-ceph
 NS=rook-ceph
 RELEASE_NAME=rook-ceph

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=
 RELEASE_NAME=
 

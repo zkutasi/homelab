@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=bitnami/contour
 NS=projectcontour
 RELEASE_NAME=contour

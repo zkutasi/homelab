@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=grafana/loki
 NS=monitoring
 RELEASE_NAME=loki

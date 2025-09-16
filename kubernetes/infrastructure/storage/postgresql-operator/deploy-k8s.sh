@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=cnpg/cloudnative-pg
 NS=cnpg-system
 RELEASE_NAME=cnpg

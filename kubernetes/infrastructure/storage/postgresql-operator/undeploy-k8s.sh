@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=cnpg-system
 RELEASE_NAME=cnpg
 

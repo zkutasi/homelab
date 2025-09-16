@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=metallb-system
 RELEASE_NAME=metallb
 

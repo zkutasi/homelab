@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=convertx
 
 EXTRA_PARAMS=""

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=rook-release/rook-ceph-cluster
 NS=rook-ceph
 RELEASE_NAME=rook-ceph-cluster

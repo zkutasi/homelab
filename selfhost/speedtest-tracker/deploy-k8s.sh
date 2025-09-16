@@ -1,3 +1,5 @@
+#!/bin/bash
+
 APP=speedtest-tracker
 VERSION=""
 

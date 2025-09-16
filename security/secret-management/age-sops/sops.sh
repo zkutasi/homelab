@@ -1,3 +1,5 @@
+#!/bin/bash
+
 AGE_KEY=$(cat ${SOPS_AGE_KEY_FILE} | grep -oP "public key: \K(.*)")
 ENCRYPT_FILE=""
 MODE=decrypt-all

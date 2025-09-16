@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=portainer/portainer
 NS=portainer
 RELEASE_NAME=portainer

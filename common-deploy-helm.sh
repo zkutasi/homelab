@@ -1,3 +1,5 @@
+#!/bin/bash
+
 APP=app
 CHART_NAME=
 LATEST=0

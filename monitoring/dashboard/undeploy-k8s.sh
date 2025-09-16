@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=kubernetes-dashboard
 RELEASE_NAME=kubernetes-dashboard
 

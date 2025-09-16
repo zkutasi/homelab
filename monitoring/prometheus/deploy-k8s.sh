@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=prometheus-community/kube-prometheus-stack
 NS=monitoring
 RELEASE_NAME=kube-prometheus-stack

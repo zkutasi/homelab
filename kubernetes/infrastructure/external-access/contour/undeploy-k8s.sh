@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=projectcontour
 RELEASE_NAME=contour
 

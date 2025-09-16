@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=portainer
 RELEASE_NAME=portainer
 

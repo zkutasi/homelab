@@ -1,3 +1,5 @@
+#!/bin/bash
+
 OUTPUT_DIR=certs
 VALID_FOR_YEARS=30
 VALID_FOR_DAYS=$((VALID_FOR_YEARS * 365))

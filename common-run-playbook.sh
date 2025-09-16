@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHECK=1
 DIFF=1
 LIMIT=

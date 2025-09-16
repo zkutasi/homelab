@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=it-tools
 
 EXTRA_PARAMS=

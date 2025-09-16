@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=cert-manager
 RELEASE_NAME=cert-manager
 

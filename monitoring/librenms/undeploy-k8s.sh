@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=librenms
 RELEASE_NAME=librenms
 

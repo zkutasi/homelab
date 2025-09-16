@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=komodo
 REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
 

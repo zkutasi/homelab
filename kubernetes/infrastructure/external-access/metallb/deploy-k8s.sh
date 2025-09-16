@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=metallb/metallb
 NS=metallb-system
 RELEASE_NAME=metallb

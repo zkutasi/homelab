@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager

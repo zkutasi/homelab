@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NS=komodo
 
 EXTRA_PARAMS=""

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CHART_NAME=grafana/alloy
 NS=monitoring
 RELEASE_NAME=alloy
