@@ -8,7 +8,7 @@ I wanted a central management webUI, so I have placed the Kopia Repository Serve
 
 All other client machines also will have a Kopia Server, but they will connect to this remote Repository.
 
-All of the Servers can have a webUI, and fortunately the Repository Server's webUI shows every hosts's snapshots (these are the backups themselves) and policies (these control what do back up, skip, on shat schedule and many-many more).
+All of the Servers can have a webUI, and fortunately the Repository Server's webUI shows every hosts's snapshots (these are the backups themselves) and policies (these control what do back up, skip, on what schedule and many-many more).
 
 ## Prerequisites
 

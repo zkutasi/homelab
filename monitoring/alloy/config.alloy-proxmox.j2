@@ -53,7 +53,7 @@ loki.source.journal "journal" {
     job = string.format("%s-journal", "{{ id }}"),
   }
   // NOTE: This is important to fix https://github.com/grafana/alloy/issues/924
-  path          = "/var/log/journal" 
+  path          = "/var/log/journal"
 }
 
 discovery.relabel "journal" {

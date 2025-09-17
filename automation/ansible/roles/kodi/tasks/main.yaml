@@ -19,7 +19,7 @@
     name: tv.kodi.Kodi
     remote: flathub
     state: present
-- name: Copy and kodi.destop autostart
+- name: Copy and kodi.desktop autostart
   ansible.builtin.template:
     src: kodi.desktop.j2
     dest: "{{ ansible_user_dir }}/.config/autostart/kodi.desktop"

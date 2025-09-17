@@ -1,10 +1,10 @@
 # Secret management
 
-Handling secrets centrally and securely is very important to keep them safe and private/encripted.
+Handling secrets centrally and securely is very important to keep them safe and private/encrypted.
 
 ## Requirements
 
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - Ability to handle many secrets
   - Ansible inventories: whole or parts of it (IPs, keys, passwords)
   - Terraform tfstate and tfvars
@@ -14,7 +14,7 @@ Handling secrets centrally and securely is very important to keep them safe and 
 ## Contenders
 
 - [SOPS](https://github.com/getsops/sops), [age](https://github.com/FiloSottile/age) and VSCode integration - A robust albeit half-manual way
-- [Dotenvx](https://dotenvx.com/) - Docker compose .env files encription
+- [Dotenvx](https://dotenvx.com/) - Docker compose .env files encryption
 - [Infisical](https://infisical.com/) - A full stack of a secret management with integration into many platforms
 - [HashiCorp Vault](https://www.hashicorp.com/en/products/vault) - A Corporate solution to secret management, pricey for homelabbers
 - [OpenBao](https://openbao.org/) - An open-source alternative to Vault

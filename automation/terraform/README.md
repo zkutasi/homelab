@@ -27,7 +27,7 @@ The `vars.tf` file holds the schema for the config you need to pass in (see late
     |endpoint|The PVE system's entry HTTP address|
     |api_token|The Terraform user's Proxmox API token, created beforehand|
     |k8s_controllers|A list of Kubernetes controller Hosts, with fields `address` (IP/mask), `cpu`, `disk`, `memory`, `name` (hostname), `node_name` (which PVE should have this VM) and `vm_id`|
-    |k8s_worker|A list of Kubernetes worker hosts. Same fields are valid as for controlers. Additional fields: `disk_data`|
+    |k8s_worker|A list of Kubernetes worker hosts. Same fields are valid as for controllers. Additional fields: `disk_data`|
     |username|The username for the created VM Guest|
     |password|The password for the created user|
 

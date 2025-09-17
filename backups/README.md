@@ -11,9 +11,9 @@ In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 - Encryption
 - Support for Linux as well as Windows
 - Centralized management with web GUI (Native UI is not OK)
-- Preferrably agent-based (SSH would not be on Windows)
+- Preferably agent-based (SSH would not be on Windows)
 - Server is dockerized, agents could be dockerized or single-binary
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - Local, remote and cloud support (possibly with RClone) for repositories
 
 ### What to back up (non-exhaustive list)
@@ -171,4 +171,4 @@ Cons:
     |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client. This can be different if the backupserver is on your LAN or external, from the point of the corresponding client|
     |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
     |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
-    |backup_exclude_patterns|O|A list of things to exlude from the backup. Default is *.log.|
+    |backup_exclude_patterns|O|A list of things to exclude from the backup. Default is *.log.|

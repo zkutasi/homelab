@@ -4,11 +4,11 @@ metadata:
   name: grafana-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: kube-prometheus-stack-grafana
-      port: 80
+    - conditions:
+        - prefix: /
+      services:
+        - name: kube-prometheus-stack-grafana
+          port: 80
   virtualhost:
     fqdn: grafana.kubernetes.home
     tls:

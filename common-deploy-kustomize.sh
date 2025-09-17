@@ -36,4 +36,3 @@ if [ -d "./extra-manifests" ]; then
     kubectl apply -f "$line" -n $NS
   done < <(find ./extra-manifests -type f -name "*.yaml")
 fi
-

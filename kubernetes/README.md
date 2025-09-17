@@ -6,7 +6,7 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 
 ## Requirements
 
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - A cluster installer capable of doing everything and so therefore highly configurable
 - Native Kubernetes, no "playground"
 

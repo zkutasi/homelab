@@ -45,7 +45,7 @@ Generate an access token to access the REST API:
 
 1. Log into the UI
 2. Go to Settings -> Profile -> API Keys, and add a new one, two things will be generated an API Key and a Secret
-3. Place this API Key & Secret into the inventory (preferrably in group_vars/all.yaml) as `komodo_api_key` and `komodo_api_secret` into the `all` group_vars file
+3. Place this API Key & Secret into the inventory (preferably in group_vars/all.yaml) as `komodo_api_key` and `komodo_api_secret` into the `all` group_vars file
 
 Then deploy the periphery agents to every host required
 

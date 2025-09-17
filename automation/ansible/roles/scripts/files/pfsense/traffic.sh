@@ -6,7 +6,7 @@
 #    - works on BSD, on pfSense
 #    - ntopng is installed in pfsense (with default config about RRD)
 #    - local DNS server is up and running with DHCP host-based registration
-#    - script is parameterized corretly:
+#    - script is parameterized correctly:
 #      > INTERFACE number must be the LAN interface
 #      > HOSTS are the LAN hosts you are interested in
 
@@ -124,4 +124,3 @@ for host in ${HOSTS}; do
   get_total_up_for_host ${host} "-${days}day" "3600"
 done
 printf "%12s %6.2fGB %7s %6.2fGB %7s %6.2fGB %7s\n" "SUM" "${sum_total_up_gb}" "" "${sum_total_down_gb}" "" "${sum_total_gb}" ""
-

@@ -24,7 +24,7 @@ minio:
   enabled: true
   persistence:
     size: 25Gi
-      
+
 deploymentMode: SingleBinary
 
 singleBinary:

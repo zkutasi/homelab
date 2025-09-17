@@ -6,11 +6,11 @@ metadata:
   name: loki-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: loki-gateway
-      port: 80
+    - conditions:
+        - prefix: /
+      services:
+        - name: loki-gateway
+          port: 80
   virtualhost:
     fqdn: loki.kubernetes.home
     tls:

@@ -6,12 +6,12 @@ metadata:
   name: portainer-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: portainer
-      port: 9443
-      protocol: tls
+    - conditions:
+        - prefix: /
+      services:
+        - name: portainer
+          port: 9443
+          protocol: tls
   virtualhost:
     fqdn: portainer.kubernetes.home
     tls:

@@ -4,7 +4,7 @@
 
 ## The setup
 
-In this tool, one needs to either add the monitored hosts manually or there is a possibility to discover the hosts using SNMP sweep on a given internal IP network. The tool uses the hosts' SNMP daemon to provide information on various layers of data. 
+In this tool, one needs to either add the monitored hosts manually or there is a possibility to discover the hosts using SNMP sweep on a given internal IP network. The tool uses the hosts' SNMP daemon to provide information on various layers of data.
 
 ## Prerequisites
 

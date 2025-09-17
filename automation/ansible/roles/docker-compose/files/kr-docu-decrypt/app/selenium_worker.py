@@ -20,7 +20,7 @@ def run_decrypt_logic(xml_path):
     # Create temporary download directory
     download_dir = "/downloads"
 
-    logger.info("Set up Chrome...")    
+    logger.info("Set up Chrome...")
     chrome_options = Options()
     chrome_options.add_experimental_option("prefs", {
         "download.default_directory": download_dir,

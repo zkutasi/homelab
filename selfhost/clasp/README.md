@@ -26,7 +26,7 @@ No special setup is required.
    1. Also enable if required in the [Coogle Cloud Console](https://console.cloud.google.com), navigating into Dashboard -> Enable API Services -> App Scripts API
 
 2. Create an Oauth ID
-   1. Navigate to [Your Coogle Cloud Console](https://console.cloud.google.com), then Dashboard -> Credentials and Create a new Oauth CLient ID. Type shall be Desktop App.
+   1. Navigate to [Your Coogle Cloud Console](https://console.cloud.google.com), then Dashboard -> Credentials and Create a new Oauth Client ID. Type shall be Desktop App.
    2. Be sure to download the client-secret.json, because this is the last time you can do that.
    3. Place this JSON file next to the container, to be ready for the login command to access it.
 
@@ -40,7 +40,7 @@ No special setup is required.
     docker compose run -ti --rm clasp login --creds /root/email-events-client-secret.json --no-localhost
     ```
 
-    Copy the URL into a browser, enable the things you would like your App to access, then when the Browser redirects you to some localhost URL, copy that URL back into the App, press enter, and you should be logged in. A file of `.clasprc.json` should be created to persist your credentials accross docker-compose sessions.
+    Copy the URL into a browser, enable the things you would like your App to access, then when the Browser redirects you to some localhost URL, copy that URL back into the App, press enter, and you should be logged in. A file of `.clasprc.json` should be created to persist your credentials across docker-compose sessions.
 
 5. Clone the GAS project of your liking
 
@@ -53,5 +53,5 @@ No special setup is required.
 ## Notable comments
 
 - At least node:20 was required, earlier ones could not login
-- There is an bigger ongoing change for clasp 3.0, but that one is in Alpha now (2025-07), so be sure to read the readme for the 2.5.0 version (lates of date)
+- There is an bigger ongoing change for clasp 3.0, but that one is in Alpha now (2025-07), so be sure to read the readme for the 2.5.0 version (latest of date)
 - The file `.clasprc.json` is created in the container user's home folder, which is `/root`, so this is why the config folder is mounted into this one, to get access to this generated file.

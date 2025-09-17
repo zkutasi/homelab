@@ -6,11 +6,11 @@ metadata:
   name: cup-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: cup
-      port: 8000
+    - conditions:
+        - prefix: /
+      services:
+        - name: cup
+          port: 8000
   virtualhost:
     fqdn: cup.kubernetes.home
     tls:

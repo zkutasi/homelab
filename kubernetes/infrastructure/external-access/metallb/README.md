@@ -4,7 +4,7 @@
 
 ## The setup
 
-The external access of the services inside the cluster wil be provided on the IP level via MetalLB.
+The external access of the services inside the cluster will be provided on the IP level via MetalLB.
 
 ## Prerequisites
 

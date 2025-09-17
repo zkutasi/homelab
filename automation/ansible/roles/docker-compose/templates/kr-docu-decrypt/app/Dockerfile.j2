@@ -4,7 +4,7 @@ ARG DOCKER_GID=988
 # Create group with same GID as host's docker group
 RUN groupadd -g $DOCKER_GID dockerhost && \
     useradd -m -u {{ docker_uid }} -G dockerhost appuser
-    
+
 WORKDIR /app
 
 COPY requirements.txt ./

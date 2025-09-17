@@ -3,10 +3,10 @@
     - backupserver
     - backupclient
   tasks:
-  - name: Check if SSL certs exist
-    ansible.builtin.stat:
-      path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
-    register: certs
+    - name: Check if SSL certs exist
+      ansible.builtin.stat:
+        path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+      register: certs
 - name: Deploy kopia as docker with init certs
   hosts:
     - backupserver

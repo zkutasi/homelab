@@ -2,7 +2,7 @@
 
 [Borg](https://www.borgbackup.org/) is a Linux backup tool one can use to backup individual folders, encrypt, deduplicate and manage.
 
-[Borgmatic](https://torsion.org/borgmatic/) is a wrapper around Borg to provide a better, YAML-based configuration format to help prevent the exessive usage of the Borg CLI.
+[Borgmatic](https://torsion.org/borgmatic/) is a wrapper around Borg to provide a better, YAML-based configuration format to help prevent the excessive usage of the Borg CLI.
 
 [Borgwarehouse](https://borgwarehouse.com/) is an aggregator WebUI for those who use Borg on various hosts, to have a unified view.
 
@@ -64,7 +64,7 @@ Then go to the Borgwarehouse UI and
 
 1. Log in with admin/admin
 2. Go to the Admin page (top right corner) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
-3. Place the generated token into your inventory (preferrably in group_vars/all.yaml) as `borgwarehouse_api_key` into the `all` group_vars file
+3. Place the generated token into your inventory (preferably in group_vars/all.yaml) as `borgwarehouse_api_key` into the `all` group_vars file
 
 Then finish the deployment with
 
@@ -113,4 +113,3 @@ docker exec -ti borgmatic borgmatic compact --progress
 - Borgmatic
   - It is mandatory to have at least 1GB of RAM on the hosts, otherwise even the repo init will be potentially OOMKilled
   - It is required for each client to have its own public key in the backupServer's `authorized_keys` and also the backupserver's host key in its own `known_hosts` file. This is handled by the playbooks
-  

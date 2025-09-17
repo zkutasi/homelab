@@ -6,11 +6,11 @@ metadata:
   name: convertx-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: convertx
-      port: 3000
+    - conditions:
+        - prefix: /
+      services:
+        - name: convertx
+          port: 3000
   virtualhost:
     fqdn: convertx.kubernetes.home
     tls:

@@ -4,7 +4,7 @@ services:
     environment:
       - GEOIPUPDATE_ACCOUNT_ID={{ geoip_account_id }}
       - GEOIPUPDATE_LICENSE_KEY={{ geoip_license_key }}
-      - GEOIPUPDATE_EDITION_IDS=GeoLite2-City 
+      - GEOIPUPDATE_EDITION_IDS=GeoLite2-City
       - TZ={{ timezone }}
     image: maxmindinc/geoipupdate:v{{ requested_version['geoipupdate'] }}
     restart: "no"
@@ -23,10 +23,10 @@ services:
     network_mode: "host"
     restart: always
     volumes:
-      - /var/log/auth.log:/var/log/auth.log:ro 
+      - /var/log/auth.log:/var/log/auth.log:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/data:/data
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/socket:/var/run/fail2ban
-  
+
   f2b_geoexporter:
     container_name: f2b_geoexporter
     environment:
@@ -41,7 +41,7 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/data/db/fail2ban.sqlite3:/var/lib/fail2ban/fail2ban.sqlite3:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/f2b_geoexporter/conf.yml:/f2b-exporter/conf.yml
 
-  f2b_exporter: 
+  f2b_exporter:
     container_name: f2b_exporter
     environment:
       - TZ={{ timezone }}

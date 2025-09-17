@@ -6,11 +6,11 @@ metadata:
   name: librenms-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: librenms
-      port: 8000
+    - conditions:
+        - prefix: /
+      services:
+        - name: librenms
+          port: 8000
   virtualhost:
     fqdn: librenms.kubernetes.home
     tls:

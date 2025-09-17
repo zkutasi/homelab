@@ -4,7 +4,7 @@ These applications can manage docker containers, docker-compose stacks or even d
 
 ## Requirements
 
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - Centralized management with web GUI (Native UI is not OK)
 - Agent-based, no need to open up the docker socket
 - Ability to not fully manage docker-compose YAML files through the app, but just show them on the UI as is

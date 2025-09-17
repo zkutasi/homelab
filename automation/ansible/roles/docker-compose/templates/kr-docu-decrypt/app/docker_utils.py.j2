@@ -24,7 +24,7 @@ def selenium_container():
         try:
             container = client.containers.get(SELENIUM_CONTAINER_NAME)
             logger.info(f"Found existing container: {container.name}")
-            
+
             if container.status != "running":
                 logger.info(f"Container '{SELENIUM_CONTAINER_NAME}' exists but not running. Starting...")
                 container.start()

@@ -6,11 +6,11 @@ metadata:
   name: guacamole-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: guacamole
-      port: 10123
+    - conditions:
+        - prefix: /
+      services:
+        - name: guacamole
+          port: 10123
   virtualhost:
     fqdn: guacamole.kubernetes.home
     tls:

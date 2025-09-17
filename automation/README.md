@@ -4,7 +4,7 @@ Managing multiple hosts, being VMs, VPS-es or baremetal is a challenge. Making s
 
 ## Requirements
 
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - Infrastructure as Code (IaC): commit the declarative or imperative steps and the tool should just do/achieve
 - Schedule through a webUI, but command line execution shall be also possible
 

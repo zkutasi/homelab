@@ -3,7 +3,7 @@
   roles:
     - proxmox-apt-repos
 - name: Update and upgrade packages
-  hosts: 
+  hosts:
     - standalone
     - external
   become: true

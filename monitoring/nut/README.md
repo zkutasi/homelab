@@ -14,5 +14,5 @@ The UPS will be plugged into a single Host via USB.
 - [NUT Exporter](https://github.com/DRuggeri/nut_exporter) - A Prometheus compatible exporter for the NUT Server
 - [Nutify](https://github.com/DartSteven/Nutify) - A NUT Server and a dashboard as well, in one package
 - [PeaNUT](https://github.com/Brandawg93/PeaNUT) - A tiny dashboard for the NUT Server
-- [WebNUT](https://github.com/rshipp/webNUT) - A simple dasboard for the NUT Server. Pretty abandoned, last commit is in 2020.
+- [WebNUT](https://github.com/rshipp/webNUT) - A simple dashboard for the NUT Server. Pretty abandoned, last commit is in 2020.
 - [NutAlert](https://github.com/rmfatemi/nutalert) - UPS monitoring and alering system

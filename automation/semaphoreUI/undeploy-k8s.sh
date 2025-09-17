@@ -1,7 +1,7 @@
 #!/bin/bash
 
-NS=semaphore 
-RELEASE_NAME=semaphore 
+NS=semaphore
+RELEASE_NAME=semaphore
 
 EXTRA_PARAMS=""
 

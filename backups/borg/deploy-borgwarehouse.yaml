@@ -16,15 +16,14 @@
 - name: Override the SSH port and restart the docker service
   hosts: backupserver
   tasks:
-  - name: Ensure borgwarehouse SSH port is set
-    
-    ansible.builtin.lineinfile:
-      path: "{{ ansible_user_dir }}/docker-compose/borgwarehouse/ssh_host/sshd_config"
-      state: present
-      regexp: '^Port '
-      line: 'Port {{ port_borgwarehouse_ssh }}'
-    notify:
-      - Restart borgwarehouse docker service
+    - name: Ensure borgwarehouse SSH port is set
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/docker-compose/borgwarehouse/ssh_host/sshd_config"
+        state: present
+        regexp: '^Port '
+        line: 'Port {{ port_borgwarehouse_ssh }}'
+      notify:
+        - Restart borgwarehouse docker service
 
   handlers:
     - name: Restart borgwarehouse docker service

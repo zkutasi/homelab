@@ -7,7 +7,7 @@ It is best to keep track of the image versions of containers and helm charts in 
 - Possibility to just show the required updated but not necessarily auto-update the images
 - Ability to handle remote hosts
 - No need to open up the docker-socket at all (agent-based)
-- Free and Open source, preferrably 0$ cost
+- Free and Open source, preferably 0$ cost
 - Should handle all kinds of tags: semantic versions, latest, date-driven
 
 ## Contenders

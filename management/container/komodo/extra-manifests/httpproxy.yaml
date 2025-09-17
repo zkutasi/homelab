@@ -6,11 +6,11 @@ metadata:
   name: komodo-httpproxy
 spec:
   routes:
-  - conditions:
-    - prefix: /
-    services:
-    - name: komodo
-      port: 9120
+    - conditions:
+        - prefix: /
+      services:
+        - name: komodo
+          port: 9120
   virtualhost:
     fqdn: komodo.kubernetes.home
     tls:

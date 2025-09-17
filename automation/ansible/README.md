@@ -1,6 +1,6 @@
 # Ansible
 
-[Ansible](https://docs.ansible.com/) is a vast automation framework written in Python, that is able to provision nearly anything after it has an OS and SSH access and python on the repote hosts. It can install software, configure them, and even deploy dockerized containers and so much more.
+[Ansible](https://docs.ansible.com/) is a vast automation framework written in Python, that is able to provision nearly anything after it has an OS and SSH access and python on the remote hosts. It can install software, configure them, and even deploy dockerized containers and so much more.
 
 ## The setup
 
@@ -32,7 +32,7 @@ A control host is required that has Ansible installed and can access to every ot
     |ansible_connection|O|If you set up the local ansible host as well, set this to local on that inventory host|
     |ansible_host|M|The IP address of the machine|
     |ansible_port|O|If the port of the SSH access is different than 22, set it here. Default is 22|
-    |ansible_user|M|The user to enter via SSH onto the corresponsing host|
+    |ansible_user|M|The user to enter via SSH onto the corresponding host|
     |ansible_ssh_pass|O|If you have SSH password set, set it here, otherwise set passwordless SSH with SSH keys|
     |ansible_become_pass|O|If you have sudo password set, set it here, otherwise set up passwordless sudo first|
     |bash_path|O|If your host has its bash shell path elsewhere, set it here. Default is /usr/bin/env bash|

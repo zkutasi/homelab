@@ -19,4 +19,3 @@
     requested_version:
       urbackup-client: "latest"
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_urbackup_client }}"
-      

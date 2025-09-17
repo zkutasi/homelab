@@ -1,6 +1,6 @@
 # Tools
 
-These are some useful tools combinded into selfhosted images.
+These are some useful tools combined into selfhosted images.
 
 ## Requirements
 

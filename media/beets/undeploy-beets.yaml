@@ -1,5 +1,5 @@
 - name: Delete beets
-  hosts: synology216 
+  hosts: synology216
   roles:
     - docker-compose-remove
   vars:

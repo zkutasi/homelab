@@ -4,8 +4,8 @@ Monitoring the Home infrastructure is essential, checking high CPU usage, error 
 
 ## Requirements
 
-- Free and Open source, preferrably 0$ cost
-- Cloud Native, with collectors possible to be installed anywhere (preferrably in docker too)
+- Free and Open source, preferably 0$ cost
+- Cloud Native, with collectors possible to be installed anywhere (preferably in docker too)
 - Able to visualize anything, in a highly customizable way
 - Collect logs from the host and from containers too
 - Collect metrics from the hosts and from containers too
@@ -14,7 +14,7 @@ Monitoring the Home infrastructure is essential, checking high CPU usage, error 
   - Power consumption
   - UPS info
 - Collect running container and helm chart versions and notify about updates
-  
+
 ## What to collect
 
 - Logs (from the Host and from Docker containers too)
