@@ -1,0 +1,39 @@
+- name: Install git
+  hosts: control
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - git
+- name: Add some aliases for git
+  hosts: control
+  tasks:
+    - name: Add alias for status
+      community.general.git_config:
+        name: alias.st
+        scope: global
+        value: status
+    - name: Add alias for checkout
+      community.general.git_config:
+        name: alias.co
+        scope: global
+        value: checkout
+    - name: Add alias for branch
+      community.general.git_config:
+        name: alias.br
+        scope: global
+        value: branch
+    - name: Add alias for listing ignored files
+      community.general.git_config:
+        name: alias.lsig
+        scope: global
+        value: "ls-files --others --ignored --exclude-standard"
+- name: install pre-commit package
+  hosts: control
+  tasks:
+    - name: install pre-commit via pip
+      ansible.builtin.pip:
+        name: pre-commit
+        executable: pip3
+        state: present
