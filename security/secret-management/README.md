@@ -10,6 +10,7 @@ Handling secrets centrally and securely is very important to keep them safe and 
   - Terraform tfstate and tfvars
   - Helm Chart values.yamls: The private ones
   - Docker compose .env variables
+- For secret detection, ability to add it as a git pre-commit hook
 
 ## Contenders
 
@@ -18,3 +19,6 @@ Handling secrets centrally and securely is very important to keep them safe and 
 - [Infisical](https://infisical.com/) - A full stack of a secret management with integration into many platforms
 - [HashiCorp Vault](https://www.hashicorp.com/en/products/vault) - A Corporate solution to secret management, pricey for homelabbers
 - [OpenBao](https://openbao.org/) - An open-source alternative to Vault
+- [GitLeaks](https://github.com/gitleaks/gitleaks) - Detect secrets in git repos
+- [TruffleHog](https://github.com/trufflesecurity/trufflehog) - Find leaked credentials
+- [detect-secrets](https://github.com/Yelp/detect-secrets)
