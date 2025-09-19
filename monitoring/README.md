@@ -56,10 +56,7 @@ Can be all deployed using the `k8s-monitoring-helm` helm chart.
 - [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - The discontinued log collector from Grafana Labs
 - [Vector](https://vector.dev/) - By Datadog
 - [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/) - From InfluxDB
-- [Node exporter](https://github.com/prometheus/node_exporter) - A Prometheus metrics compatible exporter about the Node info
-- [Smartctl exporter](https://github.com/prometheus-community/smartctl_exporter) - A specific exporter for SMART data from `smartctl`. Also compatible with Windows too
-- [Windows exporter](https://github.com/prometheus-community/windows_exporter) - A specific exporter for Windows systems, just like Node exporter, but for Windows
-- [PVE Prometheus Exporter](https://github.com/prometheus-pve/prometheus-pve-exporter) - Either install it on each PVE Host or in a docker remotely and specify the PVE targets. Not ideal though as PVE has built-in metrics solutions, but only for Graphite and InfluxDB targets.
+- There are a vast amount of different exporters for different purposes, common or niche.
 
 ### Visualization
 
