@@ -9,3 +9,19 @@
   become: true
   roles:
     - package-update
+- name: Update and upgrade pip packages on Control Server
+  hosts: control
+  roles:
+    - package-update-pip
+  vars:
+    pip_packages_to_upgrade:
+      - name: ansible
+        version: 10.7.0
+      - name: ansible-lint
+        version: 25.9.0
+      - name: ansible-dev-tools
+        version: 25.8.3
+      - name: passlib
+        version: 1.7.4
+      - name: pyOpenSSL
+        version: 21.0.0
