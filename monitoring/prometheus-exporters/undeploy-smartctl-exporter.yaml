@@ -1,0 +1,15 @@
+- name: Delete smartctl
+  hosts:
+    - htpc
+    - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: smartctl
+- name: Delete smartctl as a service
+  hosts: proxmox
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: smartctl
+    service_name: smartctl-exporter

@@ -1,0 +1,4 @@
+bin_filename: "{{ undef(hint='You must specify the Binary filename') }}"
+bin_path: /usr/local/bin
+service_name: ""
+service_path: /etc/systemd/system

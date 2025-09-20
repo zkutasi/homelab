@@ -1,0 +1,16 @@
+- name: Delete node_exporter
+  hosts:
+    - standalone
+    - external
+    - synology
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: node_exporter
+- name: Delete node_exporter as a service
+  hosts: proxmox
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: node_exporter
+    service_name: node-exporter

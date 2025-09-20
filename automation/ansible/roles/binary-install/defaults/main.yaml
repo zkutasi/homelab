@@ -9,5 +9,6 @@ destination_path: ""
 download_url: "{{ undef(hint='You must specify the download URL') }}"
 requested_version: "{{ undef(hint='You must specify the requested version') }}"
 service_name: ""
+service_path: /etc/systemd/system
 version_flag: "--version"
 install_cmd: ""
