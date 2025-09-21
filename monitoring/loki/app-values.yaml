@@ -20,6 +20,9 @@ loki:
   ruler:
     enable_api: true
 
+chunksCache:
+  allocatedMemory: 1024
+
 minio:
   enabled: true
   persistence:
