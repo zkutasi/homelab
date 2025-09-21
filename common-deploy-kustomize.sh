@@ -25,7 +25,7 @@ kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
 echo "Apply kustomization.yaml..."
 CMD="kubectl apply \
     --kustomize . \
-	  --namespace cupdate"
+	  --namespace $NS"
 
 echo "Executing command: ${CMD}"
 ${CMD}
