@@ -12,3 +12,6 @@ kubespray-repo
 kompose-manifests
 cup.json
 *.env
+*.pem
+*.csr
+wazuh-kubernetes

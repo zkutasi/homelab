@@ -1,0 +1,48 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: wazuh
+resources:
+  - ./wazuh-kubernetes/wazuh
+patches:
+  - patch: |-
+      $patch: delete
+      apiVersion: storage.k8s.io/v1
+      kind: StorageClass
+      metadata:
+        name: wazuh-storage
+  - target:
+      kind: StatefulSet
+      name: wazuh-manager-master
+    patch: |-
+      - op: remove
+        path: /spec/volumeClaimTemplates/0/spec/storageClassName
+  - target:
+      kind: StatefulSet
+      name: wazuh-manager-worker
+    patch: |-
+      - op: remove
+        path: /spec/volumeClaimTemplates/0/spec/storageClassName
+  - target:
+      kind: StatefulSet
+      name: wazuh-indexer
+    patch: |-
+      - op: remove
+        path: /spec/volumeClaimTemplates/0/spec/storageClassName
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: wazuh-indexer
+        namespace: wazuh
+      spec:
+        template:
+          spec:
+            containers:
+              - name: wazuh-indexer
+                resources:
+                  requests:
+                    cpu: 500m
+                    memory: 1Gi
+                  limits:
+                    cpu: 1
+                    memory: 2Gi

@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wazuh-cert
+spec:
+  secretName: wazuh-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - wazuh.kubernetes.home
