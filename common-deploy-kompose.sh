@@ -21,6 +21,7 @@ done
 
 echo "Execute Kompose conversion..."
 rm -rf ./kompose-manifests/*
+mkdir -p ./kompose-manifests
 CMD="kompose convert \
     --file docker-compose.yaml \
     --service-group-mode label \

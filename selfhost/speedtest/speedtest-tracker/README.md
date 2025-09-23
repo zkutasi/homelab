@@ -12,13 +12,17 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
 
 ## Usage
 
-1. Check which version you want to install, or leave empty to take the latest available version
+1. Generate an APP_KEY for encryption with the following command
 
     ```bash
-    curl -s https://tccr.io/v2/truecharts/speedtest-tracker/tags/list | jq
+    echo -n 'base64:'; openssl rand -base64 32;
     ```
 
-2. Create a values yaml file for potential private data named `app-values-private.yaml`
+2. Create a `.speedtest.env` file with the following content
+
+    ```env
+    APP_KEY=<APP_KEY>
+    ```
 
 3. Install with the provided script
 

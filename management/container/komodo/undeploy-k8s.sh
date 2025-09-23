@@ -2,7 +2,7 @@
 
 NS=komodo
 
-EXTRA_PARAMS=""
+EXTRA_PARAMS=
 
 while [ $# -ge 1 ]; do
   case "$1" in

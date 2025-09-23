@@ -1,0 +1,21 @@
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    env_file: .speedtest.env
+    environment:
+      PUID: 1000
+      PGID: 1000
+      DB_CONNECTION: pgsql
+      DB_HOST: postgresql-cluster-rw
+      DB_PORT: 5432
+      DB_DATABASE: speedtest_tracker
+      DB_USERNAME: speedtest_tracker
+      DISPLAY_TIMEZONE: Europe/Budapest
+      SPEEDTEST_SCHEDULE: "*/30 * * * *"
+    image: lscr.io/linuxserver/speedtest-tracker:1.6.7
+    ports:
+      - 8080:80
+      - 8443:443
+    restart: unless-stopped
+    volumes:
+      - /path/to/data:/config

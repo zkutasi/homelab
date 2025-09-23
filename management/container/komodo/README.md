@@ -25,10 +25,10 @@ N/A
 1. Create a `.komodo.env` file with the following content
 
     ```env
-    KOMODO_DATABASE_URI: mongodb://<USER>:<PASSWORD>@<HOST>:<PORT>/komodo
-    KOMODO_PASSKEY: <RANDOM_STRING>
-    KOMODO_DATABASE_USERNAME: <USER>
-    KOMODO_DATABASE_PASSWORD: <PASSWORD>
+    KOMODO_DATABASE_URI=mongodb://<USER>:<PASSWORD>@<HOST>:<PORT>/komodo
+    KOMODO_PASSKEY=<RANDOM_STRING>
+    KOMODO_DATABASE_USERNAME=<USER>
+    KOMODO_DATABASE_PASSWORD=<PASSWORD>
     ```
 
 2. Install with the provided script
