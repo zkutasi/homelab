@@ -3,6 +3,13 @@
 NS=
 RELEASE_NAME=
 
+function usage() {
+    echo "Usage: $0 --namespace <namespace>"
+    echo ""
+    echo "Options:"
+    echo "  --namespace <namespace>   Specify the Kubernetes namespace to delete (required)"
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --namespace)

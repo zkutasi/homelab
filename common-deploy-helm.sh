@@ -9,6 +9,19 @@ REPO_NAME=
 REPO_URL=
 VERSION=
 
+function usage() {
+    echo "Usage: $0 --app <app> --chart-name <chart-name> --repo-url <repo-url> --namespace <namespace> --release-name <release-name> [--version <version>] [--latest]"
+    echo ""
+    echo "Options:"
+    echo "  --app <app>                 Name of the application (used for values files)"
+    echo "  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart)"
+    echo "  --repo-url <repo-url>       URL of the Helm chart repository"
+    echo "  --namespace <namespace>     Kubernetes namespace to deploy to"
+    echo "  --release-name <release-name> Name of the Helm release"
+    echo "  --version <version>         Version of the Helm chart to deploy (if not specified, tries to use current version or latest)"
+    echo "  --latest                    Use the latest version of the Helm chart"
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --app)

@@ -4,6 +4,15 @@ DELETE_NAMESPACE=1
 NS=
 RELEASE_NAME=
 
+function usage() {
+    echo "Usage: $0 --namespace <namespace> --release-name <release-name> [--delete-namespace <0|1>]"
+    echo ""
+    echo "Options:"
+    echo "  --namespace <namespace>         Kubernetes namespace where the Helm release is deployed (required)"
+    echo "  --release-name <release-name>   Name of the Helm release to uninstall (required)"
+    echo "  --delete-namespace <0|1>        Whether to delete the namespace after uninstalling the Helm release (default: 1)"
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --delete-namespace)

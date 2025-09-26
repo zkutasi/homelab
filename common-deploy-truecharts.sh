@@ -7,6 +7,18 @@ NS=
 RELEASE_NAME=
 VERSION=
 
+function usage() {
+    echo "Usage: $0 --app <app-name> [--chart-name <chart-name>] [--latest] [--namespace <namespace>] [--release-name <release-name>] [--version <version>]"
+    echo ""
+    echo "Options:"
+    echo "  --app <app-name>            Name of the application (required)"
+    echo "  --chart-name <chart-name>   Full chart name, e.g., oci://tccr.io/truecharts/<app-name> (default: derived from app name)"
+    echo "  --latest                    Use the latest chart version (overrides --version)"
+    echo "  --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)"
+    echo "  --release-name <name>       Helm release name (default: same as app name)"
+    echo "  --version <version>         Specific chart version to deploy (default: current or latest if not installed)"
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --app)

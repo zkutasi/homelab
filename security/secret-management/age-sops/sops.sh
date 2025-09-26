@@ -5,6 +5,17 @@ ENCRYPT_FILE=""
 MODE=decrypt-all
 FILE_TYPE="yaml"
 
+function usage() {
+    echo "Usage: $0 [--decrypt-all] [--encrypt <file>]"
+    echo ""
+    echo "Options:"
+    echo "  --decrypt-all         Decrypt all files ending with '_encrypted' in the repository (default)"
+    echo "  --encrypt <file>      Encrypt the specified file and save it as '<file>_encrypted'"
+    echo ""
+    echo "Environment Variables:"
+    echo "  SOPS_AGE_KEY_FILE     Path to the file containing the age public key (required)"
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --decrypt-all)

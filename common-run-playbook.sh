@@ -5,11 +5,14 @@ DIFF=1
 LIMIT=
 PLAYBOOK=
 
-function usage()
-{
-  cat << EOF
-./run-playbook.sh --playbook PLAYBOOKFILENAME [--no-diff] [--no-check]
-EOF
+function usage() {
+    echo "Usage: $0 --playbook <playbook> [--limit <limit>] [--no-diff] [--no-check]"
+    echo ""
+    echo "Options:"
+    echo "  --playbook <playbook>   Specify the Ansible playbook to run (required)"
+    echo "  --limit <limit>         Limit execution to the specified hosts or groups"
+    echo "  --no-diff               Disable diff mode"
+    echo "  --no-check              Disable check mode"
 }
 
 while [ $# -ge 1 ]; do
