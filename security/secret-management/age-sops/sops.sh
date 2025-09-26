@@ -3,7 +3,7 @@
 AGE_KEY=$(cat ${SOPS_AGE_KEY_FILE} | grep -oP "public key: \K(.*)")
 ENCRYPT_FILE=""
 MODE=decrypt-all
-FILE_TYPE="yaml"
+FILE_TYPE="binary"
 
 function usage() {
     echo "Usage: $0 [--decrypt-all] [--encrypt <file>]"
@@ -54,7 +54,14 @@ elif [ "${MODE}" == "decrypt-all" ]; then
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
                 "${line}") \
-                "${decrypted_filename}" && echo "No differences found." || echo "Differences found!"
+                "${decrypted_filename}"
+            res=$?
+            if [ $res -eq 0 ]; then
+                echo "No differences found between decrypted content and existing file."
+            elif [ $res -eq 1 ]; then
+                echo "Differences found between decrypted content and existing file."
+                exit 1
+            fi
         else
             sops --decrypt \
                 --input-type ${FILE_TYPE} \
