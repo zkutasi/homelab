@@ -77,13 +77,24 @@ if [ -z "${VERSION}" ]; then
   VERSION=${latest}
 fi
 
+if [ ! -f "${APP}-values.yaml" ]; then
+  echo "WARNING: No values file ${APP}-values.yaml found"
+  echo "Creating an empty values file ${APP}-values.yaml"
+  touch ${APP}-values.yaml
+fi
+if [ ! -f "${APP}-values-private.yaml" ]; then
+  echo "WARNING: No private values file ${APP}-values-private.yaml found"
+  echo "Creating an empty private values file ${APP}-values-private.yaml"
+  touch ${APP}-values-private.yaml
+fi
+
 echo "Install helm chart..."
 CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
-    --values app-values.yaml \
-    --values app-values-private.yaml \
+    --values ${APP}-values.yaml \
+    --values ${APP}-values-private.yaml \
     --debug"
 
 echo "Executing command: ${CMD}"
