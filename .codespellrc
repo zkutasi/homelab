@@ -1,2 +1,3 @@
 [codespell]
-ignore-words=.codespell-ignoredwords
+ignore-words = .codespell-ignoredwords
+skip = *_encrypted

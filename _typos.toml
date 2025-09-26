@@ -1,2 +1,7 @@
+[files]
+extend-exclude = [
+    "**/*_encrypted"
+]
+
 [default.extend-words]
 Hashi = "Hashi"

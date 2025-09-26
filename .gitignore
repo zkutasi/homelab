@@ -6,8 +6,6 @@ terraform.tfvars
 terraform.tfstate*
 kubespray-repo
 .ansible
-.vscode
-*.code-workspace
 *-values-private.yaml
 kompose-manifests
 cup.json
