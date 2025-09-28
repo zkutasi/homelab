@@ -8,6 +8,11 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
 ## Prerequisites
 
+- A git repo that has the automations in it
+- A way the inventory can be injected
+  - In the same (public) git repo protected with Ansible Vault
+  - In a separate private git repo (preferred)
+
 ## Usage
 
 1. Add the helm repository
@@ -31,6 +36,13 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
     ./deploy-k8s.sh
     ```
 
+On the GUI, set up the required things: Repositories, Inventories, Task Templates, etc....
+
 ## Commands
 
 ## Notable comments
+
+- In the world of automation, SemaphoreUI seems a bit limiting: cannot execute commands in their own custom docker container, and I could not solve the secret handling with SOPS only as I could not chain together a pipeline with one Script Task and one Ansible Task. Not to mention the SOPS binary is nowhere to be found in Semaphore's environment.
+- Certain things are only for certain kinds of Tasks: Vaults can only be passed to Ansible type of tasks for example
+- I had little luck to have a properly updating log-screen after executing a Task. Maybe it is a browser-specific issue though (Firefox).
+- Ansible Vault is highly recommended, as Semaphore UI closely integrates into Vault and is able to use the decryption facilities. No extra commands or dependencies required. Otherwise it is pretty hard to provide the inventory from the git repo itself.

@@ -30,3 +30,6 @@ N/A
     ```
 
 ## Notable comments
+
+- One can use the provided `sops.sh` script to encrypt and decrypt files with SOPS.
+- Even a git pre-commit hook was added to protect in the case of not properly updating the encrypted (& committed) files.

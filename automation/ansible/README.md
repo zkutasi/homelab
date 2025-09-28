@@ -8,9 +8,12 @@ One Ansible control host can access all remote machines (and even localhost as w
 
 All kinds of automations are written, common roles, playbooks, and everything required to set things up.
 
+The Ansible inventory is stored in a private git repository.
+
 ## Prerequisites
 
-A control host is required that has Ansible installed and can access to every other machine.
+- A control host is required that has Ansible installed and can access to every other machine.
+- An inventory set up (by hand, or stored in a private repository)
 
 ## Ansible inventory setup
 
