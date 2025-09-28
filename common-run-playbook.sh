@@ -43,8 +43,7 @@ done
 [ -z "${PLAYBOOK}" ] && echo "ERROR: No playbook specified" && exit 1
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
-export ANSIBLE_CONFIG="${REPO_ROOT}/automation/ansible/ansible.cfg"
-CMD="ansible-playbook -i ${REPO_ROOT}/automation/ansible/inventory/hosts.yaml ${PLAYBOOK}"
+CMD="ansible-playbook --inventory ${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory ${PLAYBOOK}"
 [ "${CHECK}" -eq 1 ] && CMD="${CMD} --check"
 [ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
 [ -n "${LIMIT}" ] && CMD="${CMD} --limit ${LIMIT}"

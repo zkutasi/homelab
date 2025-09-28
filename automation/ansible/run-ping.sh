@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible -i inventory/hosts.yaml -m ping all
+ansible --inventory homelab-ansible-inventory/inventory -m ping all

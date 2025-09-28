@@ -1,3 +1,4 @@
+homelab-ansible-inventory
 inventory
 *.retry
 terraform.tfvars
