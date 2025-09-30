@@ -16,12 +16,46 @@ patches:
     patch: |-
       - op: remove
         path: /spec/volumeClaimTemplates/0/spec/storageClassName
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: wazuh-manager-master
+        namespace: wazuh
+      spec:
+        volumeClaimTemplates:
+          - metadata:
+              name: wazuh-manager-master
+              namespace: wazuh
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 10Gi
   - target:
       kind: StatefulSet
       name: wazuh-manager-worker
     patch: |-
       - op: remove
         path: /spec/volumeClaimTemplates/0/spec/storageClassName
+  - patch: |-
+      apiVersion: apps/v1
+      kind: StatefulSet
+      metadata:
+        name: wazuh-manager-worker
+        namespace: wazuh
+      spec:
+        volumeClaimTemplates:
+          - metadata:
+              name: wazuh-manager-worker
+              namespace: wazuh
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 10Gi
   - target:
       kind: StatefulSet
       name: wazuh-indexer
@@ -46,3 +80,13 @@ patches:
                   limits:
                     cpu: 1
                     memory: 2Gi
+        volumeClaimTemplates:
+          - metadata:
+              name: wazuh-indexer
+              namespace: indexer-cluster
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 10Gi
