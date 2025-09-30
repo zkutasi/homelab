@@ -1,8 +1,8 @@
 services:
-  conntrack_exporter:
+  conntrack-exporter:
     cap_add:
       - NET_ADMIN
-    container_name: conntrack_exporter
+    container_name: conntrack-exporter
     environment:
       - TZ={{ timezone }}
     image: hiveco/conntrack_exporter:{{ requested_version['conntrack-exporter'] }}

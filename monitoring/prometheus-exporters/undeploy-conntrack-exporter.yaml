@@ -1,8 +1,8 @@
-- name: Delete conntrack_exporter
+- name: Delete conntrack-exporter
   hosts:
     - standalone
     - synology
   roles:
     - docker-compose-remove
   vars:
-    docker_compose_projectname: conntrack_exporter
+    docker_compose_projectname: conntrack-exporter

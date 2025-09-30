@@ -1,6 +1,6 @@
 services:
-  nut_exporter:
-    container_name: nut_exporter
+  nut-exporter:
+    container_name: nut-exporter
     command:
       - --nut.server={{  nut_server_hostname }}
       - --nut.username={{ nut_server_username }}
@@ -8,6 +8,6 @@ services:
     environment:
       - NUT_EXPORTER_PASSWORD={{ nut_server_password }}
       - TZ={{ timezone }}
-    image: druggeri/nut_exporter:{{ requested_version['nut_exporter'] }}
+    image: druggeri/nut_exporter:{{ requested_version['nut-exporter'] }}
     network_mode: host
     restart: unless-stopped
