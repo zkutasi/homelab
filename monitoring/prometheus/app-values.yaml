@@ -28,6 +28,10 @@ grafana:
 prometheus:
   prometheusSpec:
     enableRemoteWriteReceiver: true
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
     storageSpec:
       volumeClaimTemplate:
         spec:
