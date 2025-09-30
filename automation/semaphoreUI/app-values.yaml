@@ -1,5 +1,7 @@
 database:
   persistence:
     size: 5Gi
+extraEnvVariables:
+  SEMAPHORE_SCHEDULE_TIMEZONE: "Europe/Budapest"
 persistence:
   size: 10Gi
