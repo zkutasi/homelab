@@ -1,0 +1,15 @@
+# - name: Delete wazuh-agent
+#   hosts:
+#     - standalone
+#   roles:
+#     - docker-compose-remove
+#   vars:
+#     docker_compose_projectname: wazuh-agent
+- name: Delete wazuh-agent
+  hosts:
+    - standalone
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - wazuh-agent

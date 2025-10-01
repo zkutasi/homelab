@@ -1,0 +1,35 @@
+- name: Deploy wazuh-agent as binary
+  hosts:
+    - standalone
+  roles:
+    - binary-install
+  become: true
+  environment:
+    WAZUH_MANAGER: "{{ wazuh_manager_host }}"
+    WAZUH_REGISTRATION_PASSWORD: "{{ wazuh_registration_password }}"
+    WAZUH_AGENT_NAME: "{{ id }}"
+  vars:
+    requested_version: "4.13.0"
+    bin_filename: wazuh-agentd
+    arch_map:
+      x86_64: amd64
+      aarch64: arm64
+    arch: "{{ arch_map.get(ansible_architecture, ansible_architecture) }}"
+    download_url: "https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/\
+      wazuh-agent_{{ requested_version }}-1_{{ arch }}.deb"
+    compressed: false
+    install_cmd: "dpkg --install ./\
+      wazuh-agent_{{ requested_version }}-1_{{ arch }}.deb"
+    version_flag: "-V"
+- name: Start the service
+  hosts:
+    - standalone
+  become: true
+  tasks:
+    - name: Start the wazuh-agent service
+      ansible.builtin.systemd_service:
+        daemon_reexec: true
+        daemon_reload: true
+        name: "wazuh-agent"
+        state: started
+        enabled: true

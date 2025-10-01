@@ -2,9 +2,6 @@
   ansible.builtin.stat:
     path: "{{ bin_path }}/{{ bin_filename }}"
   register: binary_filestat
-- name: Debug
-  ansible.builtin.debug:
-    var: bin_path
 - name: Check the version of the binary if present
   when: binary_filestat.stat.exists and not binary_filestat.stat.isdir
   check_mode: false
@@ -36,19 +33,31 @@
             state: directory
             suffix: "{{ bin_filename }}"
           register: installer_tmpdir
-        - name: Download and extract {{ bin_filename }}
-          ansible.builtin.unarchive:
-            src: "{{ download_url }}"
-            remote_src: true
-            dest: "{{ installer_tmpdir.path }}"
+        - name: Download and extract also if required
+          block:
+            - name: Download and extract the installer
+              ansible.builtin.unarchive:
+                src: "{{ download_url }}"
+                remote_src: true
+                dest: "{{ installer_tmpdir.path }}"
+              when: compressed
+            - name: Download the installer
+              ansible.builtin.get_url:
+                url: "{{ download_url }}"
+                dest: "{{ installer_tmpdir.path }}"
+                mode: '0755'
+                owner: root
+                group: root
+              when: not compressed
         - name: Run {{ bin_filename }} installer
           ansible.builtin.command:
-            cmd: "{{ installer_tmpdir.path }}/{{ install_cmd }}"
+            cmd: "{{ install_cmd }}"
+            chdir: "{{ installer_tmpdir.path }}"
         - name: Clean up temp directory
           ansible.builtin.file:
             path: "{{ installer_tmpdir.path }}"
             state: absent
-    - name: Download and extract the binary
+    - name: Download and extract also if required
       when: install_cmd | length == 0
       become: true
       block:

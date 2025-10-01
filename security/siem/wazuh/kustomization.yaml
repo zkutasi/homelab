@@ -32,7 +32,7 @@ patches:
                 - ReadWriteOnce
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 30Gi
   - target:
       kind: StatefulSet
       name: wazuh-manager-worker
@@ -55,7 +55,7 @@ patches:
                 - ReadWriteOnce
               resources:
                 requests:
-                  storage: 10Gi
+                  storage: 30Gi
   - target:
       kind: StatefulSet
       name: wazuh-indexer
@@ -90,3 +90,31 @@ patches:
               resources:
                 requests:
                   storage: 10Gi
+  - target:
+      kind: Service
+      name: dashboard
+    patch: |-
+      - op: add
+        path: /metadata/annotations/metallb.io~1allow-shared-ip
+        value: wazuh
+  - target:
+      kind: Service
+      name: indexer
+    patch: |-
+      - op: add
+        path: /metadata/annotations/metallb.io~1allow-shared-ip
+        value: wazuh
+  - target:
+      kind: Service
+      name: wazuh
+    patch: |-
+      - op: add
+        path: /metadata/annotations/metallb.io~1allow-shared-ip
+        value: wazuh
+  - target:
+      kind: Service
+      name: wazuh-workers
+    patch: |-
+      - op: add
+        path: /metadata/annotations/metallb.io~1allow-shared-ip
+        value: wazuh
