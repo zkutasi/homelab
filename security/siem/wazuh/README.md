@@ -10,6 +10,15 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
 
 N/A
 
+## Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |wazuh_manager_host|M|The manager IP or hostname that the agents use to communicate with|
+    |wazuh_registration_password|M|This is the enrollment password that the Agents use to enroll|
+
 ## Usage
 
 ### Install the central component
