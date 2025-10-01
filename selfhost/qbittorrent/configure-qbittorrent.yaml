@@ -1,0 +1,29 @@
+- name: Authenticate to qbittorrent web UI
+  hosts:
+    - torrents
+    - synology216
+  roles:
+    - rest-api
+  vars:
+    rest_api_url: "http://{{ ansible_host }}:{{ qbittorrent_port }}"
+    rest_api_endpoint: "/api/v2/auth/login"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Referer: "http://{{ ansible_host }}:{{ qbittorrent_port }}"
+    rest_api_data:
+      username: "{{ qbittorrent_username }}"
+      password: "{{ qbittorrent_password }}"
+- name: Set completion script for torrent completion
+  hosts:
+    - torrents
+    - synology216
+  roles:
+    - rest-api
+  vars:
+    rest_api_url: "http://{{ ansible_host }}:{{ qbittorrent_port }}"
+    rest_api_endpoint: "/api/v2/app/setPreferences"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Cookie: "{{ rest_api_response.cookies_string }}"
+      Referer: "http://{{ ansible_host }}:{{ qbittorrent_port }}"
+    rest_api_data: 'json={"autorun_enabled": true, "autorun_program": "/bin/bash {{ ansible_user_dir }}/torrent_completed.sh \"%N\""}'
