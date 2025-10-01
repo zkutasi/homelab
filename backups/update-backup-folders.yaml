@@ -1,0 +1,6 @@
+- name: Update borgmatic
+  ansible.builtin.import_playbook: borg/deploy-borgmatic.yaml
+- name: Update Kopia
+  ansible.builtin.import_playbook: kopia/deploy-kopia.yaml
+- name: Update UrBackup
+  ansible.builtin.import_playbook: urbackup/deploy-urbackup.yaml
