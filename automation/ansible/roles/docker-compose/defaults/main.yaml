@@ -29,6 +29,10 @@ port_kr_docu_decrypt: 8000
 port_netalertx: 20211
 port_nutify_nut_server: 3494
 port_nutify_web: 5050
+port_pihole_pihole_dns: 53
+port_pihole_pihole_dhcp: 67
+port_pihole_pihole_webui_http: 80
+port_pihole_pihole_webui_https: 443
 port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
