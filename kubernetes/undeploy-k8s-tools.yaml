@@ -1,5 +1,5 @@
 - name: Delete kubectl tools
-  hosts: control
+  hosts: controlserver
   become: true
   tasks:
     - name: "Remove binary"
@@ -14,7 +14,7 @@
       loop_control:
         loop_var: bin_filename
 - name: Delete krew and all plugins
-  hosts: control
+  hosts: controlserver
   become: false
   tasks:
     - name: Remove .krew folder

@@ -1,5 +1,5 @@
 - name: Update krew and plugins
-  hosts: control
+  hosts: controlserver
   tasks:
     - name: Update krew
       ansible.builtin.command:

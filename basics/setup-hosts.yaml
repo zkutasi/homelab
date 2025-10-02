@@ -25,8 +25,7 @@
       - loki.kubernetes.home
       - prometheus.kubernetes.home
 - name: Set up /etc/hosts for ansible
-  hosts:
-    - control
+  hosts: controlserver
   become: true
   roles:
     - hosts

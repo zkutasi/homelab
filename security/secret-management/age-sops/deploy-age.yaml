@@ -1,5 +1,5 @@
 - name: Deploy age as a binary
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:

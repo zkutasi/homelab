@@ -1,5 +1,5 @@
 - name: Deploy SOPS as a binary
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:

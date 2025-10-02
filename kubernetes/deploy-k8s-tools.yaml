@@ -1,5 +1,5 @@
 - name: Deploy kubectl
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -10,7 +10,7 @@
     destination_path: "/usr/local/bin/{{ bin_filename }}"
     version_flag: "version"
 - name: Deploy helm
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -19,7 +19,7 @@
     download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_version }}-linux-amd64.tar.gz"
     version_flag: "version --short"
 - name: Deploy kustomize
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -32,7 +32,7 @@
       - "--wildcards"
       - "{{ bin_filename }}"
 - name: Deploy kompose
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -44,7 +44,7 @@
     destination_path: "/usr/local/bin/{{ bin_filename }}"
     version_flag: "version"
 - name: Deploy kubeconform
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -57,7 +57,7 @@
       - "--wildcards"
       - "{{ bin_filename }}"
 - name: Deploy krew
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:
@@ -69,7 +69,7 @@
     install_cmd: "krew-linux_amd64 install krew"
     version_flag: "version"
 - name: Deploy krew plugins
-  hosts: control
+  hosts: controlserver
   tasks:
     - name: Ensure krew plugins are installed
       ansible.builtin.command:

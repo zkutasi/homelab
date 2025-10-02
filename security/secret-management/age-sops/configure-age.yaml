@@ -1,5 +1,5 @@
 - name: Configure age & SOPS
-  hosts: control
+  hosts: controlserver
   tasks:
     - name: Ensure .sops directory exists
       ansible.builtin.file:

@@ -1,5 +1,5 @@
 - name: Delete clasp
-  hosts: control
+  hosts: controlserver
   roles:
     - docker-compose-remove
   vars:

@@ -13,7 +13,7 @@
       - ufw
       - vim
 - name: Deploy yq
-  hosts: control
+  hosts: controlserver
   roles:
     - binary-install
   vars:

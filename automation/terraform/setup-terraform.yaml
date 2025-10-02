@@ -1,5 +1,5 @@
 - name: Install terraform
-  hosts: control
+  hosts: controlserver
   become: true
   roles:
     - package-install

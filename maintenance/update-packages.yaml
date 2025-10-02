@@ -10,7 +10,7 @@
   roles:
     - package-update
 - name: Update and upgrade pip packages on Control Server
-  hosts: control
+  hosts: controlserver
   roles:
     - package-update-pip
   vars:

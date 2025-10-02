@@ -1,5 +1,5 @@
 - name: Install git
-  hosts: control
+  hosts: controlserver
   become: true
   roles:
     - package-install
@@ -7,7 +7,7 @@
     packages:
       - git
 - name: Add some aliases for git
-  hosts: control
+  hosts: controlserver
   tasks:
     - name: Add alias for status
       community.general.git_config:
@@ -30,7 +30,7 @@
         scope: global
         value: "ls-files --others --ignored --exclude-standard"
 - name: install pre-commit package
-  hosts: control
+  hosts: controlserver
   tasks:
     - name: install pre-commit via pip
       ansible.builtin.pip:
