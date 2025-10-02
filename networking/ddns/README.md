@@ -37,7 +37,7 @@ Dynamic DNS Clients I have investigated and used or using.
 ### Deploy
 
 ```bash
-./common-run-playbook.sh --playbook ddns/deploy-ddns.yaml --no-check
+./common-run-playbook.sh --playbook networking/ddns/deploy-ddns.yaml --no-check
 ```
 
 ## Commands

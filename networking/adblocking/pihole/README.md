@@ -28,7 +28,7 @@ This Unbound instance is configured in Recursive mode.
 ## Usage
 
 ```bash
-./common-run-playbook.sh --playbook adblocking/pihole/deploy-pihole-unbound.yaml --no-check
+./common-run-playbook.sh --playbook networking/adblocking/pihole/deploy-pihole-unbound.yaml --no-check
 ```
 
 ## Commands
