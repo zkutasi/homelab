@@ -14,11 +14,16 @@
     group: root
   when: ansible_mounts | selectattr('mount', 'equalto', item.path | dirname) | list | length == 0
   loop: "{{ fstab_entries }}"
+- name: Unmount the given entries
+  ansible.posix.mount:
+    path: "{{ item.path }}"
+    state: unmounted
+  loop: "{{ fstab_entries }}"
 - name: Mount the given entries
   ansible.posix.mount:
     src: "{{ item.src }}"
     path: "{{ item.path }}"
     state: mounted
     fstype: "{{ item.fstype | default('nfs') }}"
-    opts: "{{ item.opts | default('auto,x-systemd.device-timeout=1min,timeo=14,x-systemd.idle-timeout=0,_netdev') }}"
+    opts: "{{ item.opts | default('defaults,_netdev,x-systemd.requires=network-online.target,nofail,timeo=14') }}"
   loop: "{{ fstab_entries }}"
