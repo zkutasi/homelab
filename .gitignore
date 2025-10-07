@@ -1,5 +1,6 @@
 homelab-ansible-inventory
 inventory
+simoncaron.pve_permissions
 *.retry
 terraform.tfvars
 .terraform

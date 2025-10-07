@@ -1,22 +1,56 @@
-- name: Comment out Proxmox enterprise repo
-  ansible.builtin.lineinfile:
-    path: /etc/apt/sources.list.d/pve-enterprise.list
-    regexp: ^[^#]
-    line: '# \1'
-    backrefs: true
-    state: present
-- name: Comment out Proxmox ceph repo
-  ansible.builtin.lineinfile:
-    path: /etc/apt/sources.list.d/ceph.list
-    regexp: ^[^#]
-    line: '# \1'
-    backrefs: true
-    state: present
-- name: Add Proxmox community repo
-  ansible.builtin.apt_repository:
-    repo: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
-    filename: pve-no-subscription
-    state: present
+- name: Get Proxmox version
+  ansible.builtin.command: pveversion
+  register: pve_version_result
+  changed_when: false
+- name: Set fact for major version
+  ansible.builtin.set_fact:
+    pve_major_version: "{{ pve_version_result.stdout | regex_search('pve-manager/([0-9]+)\\.', '\\1') | first }}"
+- name: Show detected version
+  ansible.builtin.debug:
+    msg: "Detected Proxmox major version: {{ pve_major_version }}"
+- name: Handle repos for Proxmox 8
+  when: pve_major_version == 8
+  block:
+    - name: Comment out Proxmox enterprise repo
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/pve-enterprise.list
+        regexp: ^[^#]
+        line: '# \1'
+        backrefs: true
+        state: present
+    - name: Comment out Proxmox ceph repo
+      ansible.builtin.lineinfile:
+        path: /etc/apt/sources.list.d/ceph.list
+        regexp: ^[^#]
+        line: '# \1'
+        backrefs: true
+        state: present
+    - name: Add Proxmox community repo
+      ansible.builtin.apt_repository:
+        repo: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+        filename: pve-no-subscription
+        state: present
+- name: Handle repos for Proxmox 9
+  when: pve_major_version == 9
+  block:
+    - name: Delete Proxmox enterprise repo
+      ansible.builtin.file:
+        dest: /etc/apt/sources.list.d/pve-enterprise.sources
+        state: absent
+    - name: Add Proxmox community repo
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/proxmox.sources
+        content: |
+          Types: deb
+          URIs: http://download.proxmox.com/debian/pve
+          Suites: trixie
+          Components: pve-no-subscription
+          Signed-By: /usr/share/keyrings/proxmox-archive-keyring.gpg
+        mode: "0644"
+    - name: Delete Proxmox ceph repo
+      ansible.builtin.file:
+        dest: /etc/apt/sources.list.d/ceph.sources
+        state: absent
 - name: Force IPv4 for apt
   ansible.builtin.copy:
     dest: /etc/apt/apt.conf.d/99force-ipv4

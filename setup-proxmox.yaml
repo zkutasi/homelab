@@ -1,5 +1,12 @@
-- name: Handle the Intel NIC bug
+- name: Proxmox specific apt setup
   hosts: proxmox
+  roles:
+    - proxmox-apt-repos
+- name: Handle the Intel NIC bug
+  hosts:
+    - proxmox1
+    - proxmox2
+    - proxmox3
   roles:
     - proxmox-intelnic-bug
 - name: Create a terraform role & user in PVE
@@ -20,7 +27,6 @@
           - VM.Config.Memory
           - VM.Config.Network
           - VM.Config.Options
-          - VM.Monitor
           - VM.Audit
           - VM.PowerMgmt
           - Datastore.AllocateSpace
@@ -29,6 +35,7 @@
           - Datastore.Allocate
           - Datastore.AllocateTemplate
           - SDN.Use
+          - Sys.Audit
     pve_permissions_users:
       - name: terraform
         realm: pve
