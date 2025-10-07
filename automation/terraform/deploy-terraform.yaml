@@ -4,6 +4,9 @@
   roles:
     - package-install
   vars:
-    apt_add_repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main"
+    gpg_dearmor: true
+    gpg_project_name: hashicorp-archive-keyring
+    gpg_key_url: https://apt.releases.hashicorp.com/gpg
+    gpg_signed_repo: "https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main"
     packages:
       - terraform
