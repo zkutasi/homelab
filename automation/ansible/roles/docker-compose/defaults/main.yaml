@@ -36,6 +36,8 @@ port_pihole_pihole_webui_https: 443
 port_pihole_unbound: 5335
 port_portainer_agent: 9001
 port_qbittorrent: 48080
+port_reverseproxy_http: 80
+port_reverseproxy_https: 443
 port_selenium: 4444
 port_selenium_vnc: 7900
 port_smartctl_exporter: 9633

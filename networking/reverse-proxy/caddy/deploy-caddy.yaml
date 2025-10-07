@@ -1,0 +1,14 @@
+- name: Deploy caddy as docker
+  hosts: reverseproxy
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: caddy
+    requested_version:
+      caddy: "2.10.2"
+    docker_compose_create_dirs:
+      - name: conf
+      - name: caddy_data
+      - name: caddy_config
+    # docker_compose_template_files_copy:
+    #   - name: conf/Caddyfile
