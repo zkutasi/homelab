@@ -6,6 +6,19 @@
   vars:
     packages:
       - git
+- name: Set up identity
+  hosts: controlserver
+  tasks:
+    - name: Set name
+      community.general.git_config:
+        name: user.name
+        scope: global
+        value: "{{ git_name }}"
+    - name: Set email
+      community.general.git_config:
+        name: user.email
+        scope: global
+        value: "{{ git_email }}"
 - name: Add some aliases for git
   hosts: controlserver
   tasks:
@@ -32,8 +45,7 @@
 - name: install pre-commit package
   hosts: controlserver
   tasks:
-    - name: install pre-commit via pip
-      ansible.builtin.pip:
+    - name: install pre-commit via pipx
+      community.general.pipx:
         name: pre-commit
-        executable: pip3
         state: present
