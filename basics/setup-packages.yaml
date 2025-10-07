@@ -5,10 +5,10 @@
     - package-install
   vars:
     packages:
+      - bash-completion
       - curl
       - gpg
       - jq
-      - python3-pip
       - sudo
       - ufw
       - vim
