@@ -1,0 +1,8 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "enable": true,
+  "source": "/srv/dev-disk-by-uuid-{{ hdd.uuid }}/",
+  "destination": "/srv/dev-disk-by-label-{{ hdd.label }}"
+}

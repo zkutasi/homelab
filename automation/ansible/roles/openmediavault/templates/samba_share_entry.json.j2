@@ -1,0 +1,27 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "enable": true,
+  "sharedfolderref": "{{ shared_folder_entry.uuid }}",
+  "comment": "{{ comment }}",
+  "guest": "no",
+  "readonly": {{ samba_readonly }},
+  "browseable": true,
+  "recyclebin": false,
+  "recyclemaxsize": 0,
+  "recyclemaxage": 0,
+  "hidedotfiles": false,
+  "inheritacls": false,
+  "inheritpermissions": false,
+  "easupport": true,
+  "storedosattributes": false,
+  "hostsallow": "",
+  "hostsdeny": "",
+  "audit": false,
+  "timemachine": false,
+  "transportencryption": false,
+  "followsymlinks": true,
+  "widelinks": false,
+  "extraoptions": ""
+}

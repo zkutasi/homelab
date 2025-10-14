@@ -1,0 +1,50 @@
+- name: Apply OMV config fragment
+  block:
+    - name: Read current OMV configuration
+      ansible.builtin.command: >
+        omv-confdbadm read {{ omv_config_fragment }}
+      register: omv_conf_read
+      check_mode: false
+      changed_when: false
+      failed_when: omv_conf_read.rc != 0
+    - name: Parse current config into JSON
+      ansible.builtin.set_fact:
+        current_config: "{{ omv_conf_read.stdout | from_json }}"
+    - name: Filter current config if required
+      when: current_config_filter_enabled
+      ansible.builtin.set_fact:
+        current_config: >-
+          {{
+            (current_config
+              | selectattr(current_config_filter_key, 'equalto', current_config_filter_value)
+              | list
+              | first) | default({})
+          }}
+    - name: Render config template into variable
+      vars:
+        omv_uuid: "{{ current_config.uuid }}"
+      ansible.builtin.set_fact:
+        omv_rendered: >-
+          {{
+            omv_rendered | default({}) |
+            combine({
+              omv_config_fragment: (lookup('template', omv_config_fragment + '.j2', convert_data=False) | from_json)
+            })
+          }}
+    - name: Compare rendered and current configuration
+      vars:
+        desired_config: "{{ omv_rendered[omv_config_fragment] }}"
+      ansible.builtin.set_fact:
+        omv_config_needs_update: "{{ current_config != desired_config }}"
+    - name: Apply OMV configuration inline
+      ansible.builtin.command: >
+        omv-confdbadm update {{ omv_config_fragment }} '{{ omv_rendered[omv_config_fragment] | to_json }}'
+      # ansible.builtin.debug:
+      #   msg: >
+      #     current_config={{ current_config }}
+      #     desired_config={{ omv_rendered[omv_config_fragment] }}
+      #     omv_config_needs_update={{ omv_config_needs_update }}
+      register: omv_conf_results
+      changed_when: omv_conf_results.rc == 0
+      failed_when: omv_conf_results.rc != 0
+      when: omv_config_needs_update

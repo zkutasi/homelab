@@ -1,0 +1,13 @@
+current_config_filter_enabled: false
+current_config_filter_key: ''
+current_config_filter_value: ''
+
+omv_input_disks: {}
+
+omv_mergerfs_createpolicy: erofs
+omv_mergerfs_pools: {}
+
+omv_nfs_allowed_clients: ''
+
+omv_shared_folders_as_nfs_shares: false
+omv_shared_folders_as_samba_shares: true

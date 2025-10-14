@@ -1,0 +1,744 @@
+- name: Enable email notifications
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+  loop:
+    - conf.system.notification.email
+  loop_control:
+    loop_var: omv_config_fragment
+- name: Enable OMV Extras
+  block:
+    - name: Define OMV major version
+      ansible.builtin.shell: |
+        dpkg -l openmediavault | awk '$2 == "openmediavault" { print substr($3,1,1) }'
+      register: omv_version
+      changed_when: false
+    - name: Set OMV version fact
+      ansible.builtin.set_fact:
+        omv_version_major: "{{ omv_version.stdout | trim }}"
+    - name: Check if OMV-Extras is already installed
+      ansible.builtin.shell: dpkg -l | grep -q "^ii  openmediavault-omvextrasorg"
+      register: omvextras_installed
+      ignore_errors: true
+      changed_when: false
+    - name: Download OMV-Extras package
+      ansible.builtin.get_url:
+        url: "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/\
+          openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+        dest: "/tmp/openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+        mode: '0644'
+      when: omvextras_installed.rc != 0
+    - name: Install OMV-Extras package
+      ansible.builtin.apt:
+        deb: "/tmp/openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+      when: omvextras_installed.rc != 0
+- name: Enable docker
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+  loop:
+    - conf.system.omvextras
+  loop_control:
+    loop_var: omv_config_fragment
+- name: Install some OMV Extras packages
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - openmediavault-compose
+      - openmediavault-mergerfs
+      - openmediavault-snapraid
+      - openmediavault-symlinks
+- name: Build list of available disks with allowed labels
+  block:
+    - name: Discover all disks by UUID
+      ansible.builtin.find:
+        paths: /dev/disk/by-uuid
+        file_type: link
+        follow: false
+      register: disk_links
+    - name: Resolve symlink targets
+      ansible.builtin.command: readlink -f "{{ item.path }}"
+      register: disk_targets
+      changed_when: false
+      check_mode: false
+      loop: "{{ disk_links.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+    - name: Build base disk list
+      ansible.builtin.set_fact:
+        disks_base: >-
+          {{
+            disks_base | default([]) + [
+              {
+                'uuid': disk_links.files[idx].path | basename,
+                'name': (disk_targets.results[idx].stdout | regex_replace('^.*/', ''))
+              }
+            ]
+          }}
+      loop: "{{ range(0, disk_links.files | length) | list }}"
+      loop_control:
+        loop_var: idx
+    - name: Get lsblk JSON info for filtered disks
+      ansible.builtin.command: lsblk -J -o NAME,LABEL,UUID {{ item.name | regex_replace('^', '/dev/') }}
+      loop: "{{ disks_base }}"
+      register: lsblk_info
+      changed_when: false
+      check_mode: false
+    - name: Combine base info with lsblk labels
+      ansible.builtin.set_fact:
+        disks_full: >-
+          {{
+            disks_full | default([]) + [
+              disks_base[idx] | combine({
+                'label': (lsblk_info.results[idx].stdout | from_json).blockdevices[0].label
+              })
+            ]
+          }}
+      loop: "{{ range(0, disks_base | length) | list }}"
+      loop_control:
+        loop_var: idx
+    - name: Filter disks by allowed labels
+      vars:
+        allowed_labels: "{{ omv_input_disks.keys() | list }}"
+      ansible.builtin.set_fact:
+        disks_filtered: >-
+          {{
+            disks_full
+            | selectattr('label', 'in', allowed_labels)
+            | list
+          }}
+    - name: Merge input data into discovered disks
+      ansible.builtin.set_fact:
+        disks: >-
+          {{
+            disks | default([]) + [
+              item | combine({
+                'snapraid_role': (omv_input_disks[item.label].snapraid_role
+                                  if item.label in omv_input_disks
+                                  else ''),
+                'shared_folders': (omv_input_disks[item.label].shared_folders
+                                  if item.label in omv_input_disks and 'shared_folders' in omv_input_disks[item.label]
+                                  else [])
+              })
+            ]
+          }}
+      loop: "{{ disks_filtered }}"
+      loop_control:
+        loop_var: item
+- name: Handle Filesystem mounts
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured in OMV
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('fsname', 'equalto', '/dev/disk/by-uuid/' + hdd.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'mount_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.filesystem.mountpoint '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ item.label }}"
+      notify: Run omv-salt deploy run fstab
+- name: Handle Symlinks
+  block:
+    - name: Get current OMV symlinks
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.symlinks.symlink
+      register: omv_symlinks
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured a symlink in OMV
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_symlinks.stdout | from_json
+              | selectattr('source', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + '/')
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'symlink_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.symlinks.symlink '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      register: confdb_update
+      changed_when: current_entry != new_entry
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ item.label }}"
+    - name: Get current OMV symlinks
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.symlinks.symlink
+      register: omv_symlinks
+      changed_when: false
+      check_mode: false
+    - name: Check if symlink exists on the filesystem
+      ansible.builtin.stat:
+        path: "/srv/dev-disk-by-label-{{ item.item.label }}"
+      loop: "{{ confdb_update.results }}"
+      register: symlink_stats
+      loop_control:
+        label: "{{ item.item.label }}"
+    - name: Apply symlink configuration via RPC for changed or missing entries
+      vars:
+        update_result: "{{ item.0 }}"
+        stat_result: "{{ item.1 }}"
+        hdd: "{{ update_result.item }}"
+        omv_entry: >-
+          {{
+            (omv_symlinks.stdout | from_json)
+              | selectattr('source', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + '/')
+              | list | first
+          }}
+        omv_uuid: "{{ omv_entry.uuid }}"
+        rpc_payload: "{{ lookup('template', 'symlink_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-rpc Symlinks setSymlink '{{ rpc_payload | to_json }}'
+      loop: "{{ confdb_update.results | zip(symlink_stats.results) | list }}"
+      when: update_result.changed or not stat_result.stat.exists
+      changed_when: current_entry != new_entry
+      loop_control:
+        label: "{{ update_result.item.label }}"
+- name: Handle shared folders
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured a shared folder in OMV
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        current_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'shared_folder_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.sharedfolder '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+- name: Handle Snapraid configuration
+  block:
+    - name: Create a Snapraid array
+      ansible.builtin.include_tasks:
+        file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+      loop:
+        - conf.service.snapraid.array
+      loop_control:
+        loop_var: omv_config_fragment
+      vars:
+        current_config_filter_enabled: true
+        current_config_filter_key: 'name'
+        current_config_filter_value: "{{ omv_snapraid_array_name }}"
+    - name: Read OMV configuration
+      ansible.builtin.command: omv-confdbadm read conf.service.snapraid.array
+      register: omv_snapraid_arrays
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV snapraid drives
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.snapraid.drive
+      register: omv_snapraid_drives
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured in snapraid either as data or parity
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_snapraid_drives.stdout | from_json
+              | selectattr('path', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        snapraid_uuid: >-
+          {{
+            (omv_snapraid_arrays.stdout | from_json
+              | selectattr('name', 'equalto', omv_snapraid_array_name)
+              | first).uuid
+          }}
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'snapraid_drive_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.snapraid.drive '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      changed_when: current_entry != new_entry
+      register: confdb_update
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ hdd.label }}"
+- name: Handle MergerFS
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each mergerFS pool is configured in OMV as a mountpoint
+      vars:
+        mergerfs_pool_name: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        mergerfs_uuid: "{{ current_entry.fsname | default(ansible_date_time.iso8601_micro | to_uuid) }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'mergerfs_mount_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.filesystem.mountpoint '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools.keys() | list }}"
+      # notify: Run omv-salt deploy run fstab
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV mergerFS Pools
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.mergerfs.pool
+      register: omv_omv_mergerfs_pools
+      changed_when: false
+      check_mode: false
+    - name: Ensure each mergerFS Pool is configured in OMV
+      vars:
+        mergerfs_pool_name: "{{ item }}"
+        mergerfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list
+              | first).uuid
+          }}
+        mergerfs_sharedfolderrefs: >-
+          {{
+            omv_sharedfolders.stdout | from_json
+            | selectattr('reldirpath', 'match', '^' + mergerfs_pool_name + '/')
+            | map(attribute='uuid')
+          }}
+        current_entry: >-
+          {{
+            (omv_omv_mergerfs_pools.stdout | from_json
+              | selectattr('name', 'equalto', mergerfs_pool_name)
+              | list
+              | first) | default({})
+          }}
+        disk_mounts: >-
+          {{
+            omv_mounts.stdout | from_json
+            | selectattr('dir', 'match', '^/srv/dev-disk-by-uuid-')
+            | list
+          }}
+        current_entry_omvrpc: >-
+          {
+            "name": "{{ current_entry.name | default('') }}",
+            "mntentref": "{{ current_entry.mntentref | default('') }}",
+            "sharedfolderrefs": {{
+              current_entry.paths | default('')
+                | mergerfs_paths_to_sharedfolderrefs(disk_mounts, omv_sharedfolders.stdout | from_json)
+            }},
+            "createpolicy": "{{ current_entry.createpolicy | default(omv_mergerfs_createpolicy) }}",
+            "minfreespace": {{ current_entry.minfreespace | default(4) }},
+            "minfreespaceunit": "{{ current_entry.minfreespaceunit | default('G') }}",
+            "options": "{{ current_entry.options | default('') }}",
+          }
+        omv_uuid: "{{ current_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'mergerfs_pool_entry_via_rpc.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-rpc mergerfs set '{{ new_entry | to_json }}'
+      when: current_entry_omvrpc != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools.keys() | list }}"
+- name: Handle NFS shares for shared folders
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured in OMV as an NFS mountpoint
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('fsname', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + "/" + shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        filesystem_name: "/srv/dev-disk-by-uuid-{{ hdd.uuid }}/{{ shared_folder.path }}"
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'nfs_mountpoint_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.filesystem.mountpoint '{{ new_entry | to_json }}'
+      when:
+        - shared_folder.share_as_nfs | default(omv_shared_folders_as_nfs_shares)
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV NFS shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.nfs.share
+      register: omv_nfsshares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured in OMV as an NFS share
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        nfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        nfs_sharedfolderref: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('name', 'equalto', shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        current_entry: >-
+          {{
+            (omv_nfsshares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', nfs_sharedfolderref)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        nfs_accessmode: rw
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'nfs_share_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.nfs.share '{{ new_entry | to_json }}'
+      when:
+        - shared_folder.share_as_nfs | default(omv_shared_folders_as_nfs_shares)
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+- name: Handle NFS shares for MergerFS pools
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured a shared folder in OMV
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        current_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'shared_folder_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.sharedfolder '{{ new_entry | to_json }}'
+      when: current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured in OMV as an NFS mountpoint
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        filesystem_name: "/srv/mergerfs/{{ mergerfs_pool_name }}/{{ shared_folder.path }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'nfs_mountpoint_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.system.filesystem.mountpoint '{{ new_entry | to_json }}'
+      when:
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV NFS shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.nfs.share
+      register: omv_nfsshares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured in OMV as an NFS share
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        nfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        nfs_sharedfolderref: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('name', 'equalto', shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        current_entry: >-
+          {{
+            (omv_nfsshares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', nfs_sharedfolderref)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        nfs_accessmode: ro
+        comment: ""
+        new_entry: "{{ lookup('template', 'nfs_share_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.nfs.share '{{ new_entry | to_json }}'
+      when:
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+- name: Handle Samba shares for shared folders
+  block:
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current Samba shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.smb.share
+      register: omv_sambashares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured also as a Samba share in OMV
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        shared_folder_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        current_entry: >-
+          {{
+            (omv_sambashares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', shared_folder_entry.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: "{{ hdd.label }}"
+        samba_readonly: false
+        new_entry: "{{ lookup('template', 'samba_share_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.smb.share '{{ new_entry | to_json }}'
+      when:
+        - shared_folder.share_as_samba | default(omv_shared_folders_as_samba_shares)
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+- name: Handle Samba shares for MergerFS pools
+  block:
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current Samba shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.smb.share
+      register: omv_sambashares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured also as a Samba share in OMV
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        shared_folder_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        current_entry: >-
+          {{
+            (omv_sambashares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', shared_folder_entry.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: ""
+        samba_readonly: true
+        new_entry: "{{ lookup('template', 'samba_share_entry.json.j2') | to_json | from_json }}"
+      ansible.builtin.command: >
+        omv-confdbadm update conf.service.smb.share '{{ new_entry | to_json }}'
+      when:
+        - shared_folder.share_as_samba | default(omv_shared_folders_as_samba_shares)
+        - current_entry != new_entry
+      changed_when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"

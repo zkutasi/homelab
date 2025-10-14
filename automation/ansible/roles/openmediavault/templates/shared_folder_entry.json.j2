@@ -1,0 +1,12 @@
+{
+{%- if omv_uuid is defined -%}
+  "uuid": "{{ omv_uuid }}",
+{%- endif -%}
+  "name": "{{ shared_folder.name }}",
+  "comment": "{{ comment }}",
+  "mntentref": "{{ disk_mount_uuid }}",
+  "reldirpath": "{{ shared_folder.path }}",
+  "privileges": {
+    "privilege": []
+  }
+}

@@ -1,0 +1,14 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "fsname": "{{ filesystem_name }}",
+  "dir": "/export/{{ shared_folder.name }}",
+  "type": "none",
+  "opts": "bind,nofail",
+  "freq": 0,
+  "passno": 0,
+  "hidden": false,
+  "usagewarnthreshold": 0,
+  "comment": "{{ comment }}"
+}

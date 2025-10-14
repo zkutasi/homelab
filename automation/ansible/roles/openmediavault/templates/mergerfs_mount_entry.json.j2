@@ -1,0 +1,14 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "fsname": "{{ mergerfs_uuid }}",
+  "dir": "/srv/mergerfs/{{ mergerfs_pool_name }}",
+  "type": "fuse.mergerfs",
+  "opts": "",
+  "freq": 0,
+  "passno": 0,
+  "hidden": true,
+  "usagewarnthreshold": 0,
+  "comment": "{{ comment }}"
+}

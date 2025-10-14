@@ -1,0 +1,14 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "fsname": "/dev/disk/by-uuid/{{ hdd.uuid }}",
+  "dir": "/srv/dev-disk-by-uuid-{{ hdd.uuid }}",
+  "type": "ext4",
+  "opts": "defaults,nofail,user_xattr,usrquota,grpquota,acl",
+  "freq": 0,
+  "passno": 2,
+  "hidden": false,
+  "usagewarnthreshold": 0,
+  "comment": "{{ comment }}"
+}

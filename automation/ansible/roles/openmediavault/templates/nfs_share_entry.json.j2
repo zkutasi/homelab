@@ -1,0 +1,11 @@
+{
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
+  "sharedfolderref": "{{ nfs_sharedfolderref }}",
+  "mntentref": "{{ nfs_mountref }}",
+  "client": "{{ omv_nfs_allowed_clients}}",
+  "options": "{{ nfs_accessmode }}",
+  "comment": "{{ comment }}",
+  "extraoptions": "subtree_check,insecure"
+}

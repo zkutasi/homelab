@@ -1,0 +1,23 @@
+{
+{%- if omv_uuid is defined -%}
+  "uuid": "{{ omv_uuid }}",
+{%- endif -%}
+  "arrayref": "{{ snapraid_uuid }}",
+  "mntentref": "{{ disk_mount_uuid }}",
+  "name": "{{ hdd.label }}",
+  "label": "{{ hdd.label }}",
+  "path": "/srv/dev-disk-by-uuid-{{ hdd.uuid }}",
+{%- if hdd.snapraid_role == 'data' -%}
+  "content": true,
+  "data": true,
+  "parity": false,
+  "paritynum": 1,
+  "paritysplit": false
+{%- elif hdd.snapraid_role == 'parity' -%}
+  "content": false,
+  "data": false,
+  "parity": true,
+  "paritynum": 1,
+  "paritysplit": false
+{%- endif -%}
+}
