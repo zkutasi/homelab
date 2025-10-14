@@ -1,8 +1,27 @@
 - name: Ensure bash_aliases file exists
-  hosts: controlserver
+  hosts:
+    - controlserver
+    - omv
   tasks:
     - name: Ensure bash_aliases file exists
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.bash_aliases"
         state: touch
+        mode: '0644'
+- name: Set up omv-specific bash configuration
+  hosts: omv
+  tasks:
+    - name: Ensure .bash_profile is present
+      ansible.builtin.template:
+        src: omv/bash_profile.j2
+        dest: "{{ ansible_user_dir }}/.bash_profile"
+        owner: "{{ ansible_user }}"
+        group: "users"
+        mode: '0644'
+    - name: Ensure .bash_aliases is present
+      ansible.builtin.template:
+        src: omv/bash_aliases.j2
+        dest: "{{ ansible_user_dir }}/.bash_aliases"
+        owner: "{{ ansible_user }}"
+        group: "users"
         mode: '0644'

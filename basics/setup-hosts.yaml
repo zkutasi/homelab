@@ -1,7 +1,6 @@
 - name: Set up /etc/hosts for media
   hosts:
     - htpc
-    - torrents
   become: true
   roles:
     - hosts
