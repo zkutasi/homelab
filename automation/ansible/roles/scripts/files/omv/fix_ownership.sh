@@ -6,13 +6,13 @@ GROUP=users
 ROOT=/export
 
 echo "Finding files not owned by ${USER}..."
-find ${ROOT} \! -user ${USER} -print
+sudo find ${ROOT} \! -user ${USER} -print
 
 echo "Fixing the ownerships..."
-chown -R ${USER}:${GROUP} ${ROOT}/*/*
-chmod -R 777 ${ROOT}/*/*
+sudo chown -R ${USER}:${GROUP} ${ROOT}/*/*
+sudo chmod -R 777 ${ROOT}/*/*
 
 echo "Rechecking..."
-find ${ROOT} \! -user ${USER} -print
+sudo find ${ROOT} \! -user ${USER} -print
 
 echo "DONE"
