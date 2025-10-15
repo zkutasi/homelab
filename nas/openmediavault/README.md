@@ -34,17 +34,24 @@ Since this is an OS in itself, just a fresh empty host is required.
 
 Install it into a Host or a VM as the OS and then configure it on the UI. Can be a bit slow if you have a lot of things you want to do.
 
+On the UI, you shall add a user. Use the following groups to be part of:
+
+- _ssh
+- docker
+- sudo
+- users
+
+Also create a group for this user, make it so that the group name is the same as the user name.
+
 Alternatively, use the Ansible playbook to deploy my setup:
 
 ```bash
 ./common-run-playbook.sh --playbook nas/openmediavault/configure-omv.yaml
 ```
 
-On the UI, you shall add a user for you, as Samba shares only work with a non-root user it seems.
-
 Also, if anything goes south, on the UI you can delete, investigate and modify as well. It is just so cumbersome to change 50 shares to modify a single value.
 
-Be sure to finish with an UI Apply (for example create a user), as it seems it is also required to properly finish some steps.
+Be sure to finish with an UI Apply, as it seems it is also required to properly finish some steps. If any setting does not work, just make sure you have it correctly in the DB (on the UI), and issue a small change on the UI for that component, then Apply. Most of the time, this will redo everything for that specific component and clean things up.
 
 ## Commands
 
