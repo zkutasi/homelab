@@ -1,5 +1,5 @@
 - name: Deploy pihole & unbound as docker
-  hosts: pihole
+  hosts: dnsserver
   roles:
     - docker-compose
   vars:

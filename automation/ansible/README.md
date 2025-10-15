@@ -29,6 +29,7 @@ The Ansible inventory is stored in a private git repository.
    7. `proxmox` - All the Proxmox hosts
    8. `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    9. `reverseproxy` - A host used to run a reverseproxy in the whole network. I run mine next to the piHole service.
+   10. `dnsserver` - All of the local DNS servers like PiHole
 4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX.yaml` where XXX is a valid group name
 5. The following variables can be set on a host (uniquely or on a group):
 

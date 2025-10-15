@@ -1,6 +1,6 @@
 - name: Turn off systemd-resolved
   become: true
-  hosts: pihole
+  hosts: dnsserver
   tasks:
     - name: Disable Ubuntu default Stub DNS Resolver
       ansible.builtin.lineinfile:

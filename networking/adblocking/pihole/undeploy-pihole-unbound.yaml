@@ -1,5 +1,5 @@
 - name: Delete pihole
-  hosts: pihole
+  hosts: dnsserver
   roles:
     - docker-compose-remove
   vars:

@@ -5,7 +5,7 @@
   roles:
     - hosts
   vars:
-    hosts_dns_server: "@192.168.31.2"
+    hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
       - omv.home
       - synology216.home
@@ -18,8 +18,7 @@
   roles:
     - hosts
   vars:
-    vars:
-    hosts_dns_server: "@192.168.31.2"
+    hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
       - loki.kubernetes.home
       - prometheus.kubernetes.home
@@ -29,8 +28,7 @@
   roles:
     - hosts
   vars:
-    vars:
-    hosts_dns_server: "@192.168.31.2"
+    hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
       - komodo.kubernetes.home
       - portainer.kubernetes.home

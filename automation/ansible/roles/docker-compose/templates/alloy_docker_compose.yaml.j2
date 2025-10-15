@@ -9,8 +9,8 @@ services:
     environment:
       - TZ={{ timezone }}
     extra_hosts:
-      - "prometheus.kubernetes.home:192.168.31.31"
-      - "loki.kubernetes.home:192.168.31.31"
+      - "prometheus.kubernetes.home:{{  kubernetes_ingress_ip }}"
+      - "loki.kubernetes.home:{{ kubernetes_ingress_ip }}"
     image: grafana/alloy:v{{ requested_version['alloy'] }}
     ports:
       - {{ port_alloy }}:12345

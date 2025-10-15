@@ -1,6 +1,5 @@
 - name: Delete caddy containers
-  hosts:
-    - pihole
+  hosts: reverseproxy
   roles:
     - docker-compose-remove
   vars:

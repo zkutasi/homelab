@@ -1,6 +1,5 @@
 - name: Deploy netalertx as docker
-  hosts:
-    - pihole
+  hosts: pihole
   roles:
     - docker-compose
   vars:
@@ -8,4 +7,4 @@
     requested_version:
       netalertx: "25.5.24"
     netalertx_interface: eth0
-    netalertx_subnet: 192.168.31.0/24
+    netalertx_subnet: "{{ network_subnet }}"
