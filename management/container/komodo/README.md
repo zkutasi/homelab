@@ -18,7 +18,7 @@ N/A
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |komodo_host|M|The FQDN hostname of the komodo service, to access the REST API|
+    |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
 
 ### Install the central component
 

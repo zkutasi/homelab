@@ -18,7 +18,7 @@ N/A
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |portainer_host|M|The FQDN hostname of the portainer service|
+    |portainer_hostname|M|The FQDN hostname of the portainer service|
 
 ### Install the central component
 

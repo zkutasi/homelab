@@ -16,7 +16,7 @@ N/A
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |wazuh_manager_host|M|The manager IP or hostname that the agents use to communicate with|
+    |wazuh_manager_hostname|M|The manager IP or hostname that the agents use to communicate with|
     |wazuh_registration_password|M|This is the enrollment password that the Agents use to enroll|
 
 ## Usage

@@ -10,7 +10,7 @@
       ansible.builtin.debug:
         msg: "{{ komodo_servers.json | community.general.json_query('[*].info.address') }}"
   vars:
-    rest_api_url: "{{ komodo_host }}"
+    rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
     rest_api_headers:
@@ -40,7 +40,7 @@
               enabled: true
               auto_prune: false
   vars:
-    rest_api_url: "{{ komodo_host }}"
+    rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/write"
     rest_api_method: "POST"
     rest_api_headers:
@@ -76,7 +76,7 @@
       ansible.builtin.debug:
         msg: "{{ komodo_stacks.json | community.general.json_query('[*].name') }}"
   vars:
-    rest_api_url: "{{ komodo_host }}"
+    rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
     rest_api_headers:
@@ -96,7 +96,7 @@
         rest_api_fact_name: "komodo_stacks_detailed_{{ item.name | replace('-', '_') }}"
       loop: "{{ komodo_stacks.json }}"
   vars:
-    rest_api_url: "{{ komodo_host }}"
+    rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
     rest_api_headers:
@@ -136,7 +136,7 @@
               poll_for_updates: true
               project_name: "{{ item }}"
   vars:
-    rest_api_url: "{{ komodo_host }}"
+    rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/write"
     rest_api_method: "POST"
     rest_api_headers:

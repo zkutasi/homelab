@@ -5,7 +5,7 @@
     - binary-install
   become: true
   environment:
-    WAZUH_MANAGER: "{{ wazuh_manager_host }}"
+    WAZUH_MANAGER: "{{ wazuh_manager_hostname }}"
     WAZUH_REGISTRATION_PASSWORD: "{{ wazuh_registration_password }}"
     WAZUH_AGENT_NAME: "{{ id }}"
   vars:
