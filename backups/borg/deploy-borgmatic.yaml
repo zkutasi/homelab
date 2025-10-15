@@ -31,3 +31,4 @@
     docker_compose_template_files_copy:
       - name: etc-borgmatic/config.yaml
     borgwarehouse_repo_id: "{{ hostvars[groups['backupserver'][0]].borgwarehouse_repos.json.repoList | community.general.json_query('[?alias==`' + inventory_hostname + '`].repositoryName') | first }}"
+    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_borgmatic }}"
