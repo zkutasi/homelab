@@ -1,6 +1,6 @@
 - name: Authenticate to qbittorrent web UI
   hosts:
-    - torrents
+    - omv
     - synology216
   roles:
     - rest-api
@@ -15,7 +15,7 @@
       password: "{{ qbittorrent_password }}"
 - name: Set completion script for torrent completion
   hosts:
-    - torrents
+    - omv
     - synology216
   roles:
     - rest-api

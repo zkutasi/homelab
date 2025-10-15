@@ -7,22 +7,32 @@
     docker_compose_projectname: qbittorrent-nox
     requested_version:
       qbittorrent-nox: "5.0.2-1"
-    docker_compose_extra_volumes:
-      - /volume1/torrent/downloads
-      - /volume1/torrent
-      - /volume1/music
-      - "{{ ansible_user_dir }}"
+    docker_compose_extra_volumes: >-
+      {{
+        qbittorrent_extra_mounts | default([]) + [
+          {
+            "from": ansible_user_dir,
+            "to": ansible_user_dir
+          }
+        ]
+      }}
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
-- name: Deploy qbittorrent as docker on torrents
+- name: Deploy qbittorrent as docker on omv
   hosts:
-    - torrents
+    - omv
   roles:
     - docker-compose
   vars:
     docker_compose_projectname: qbittorrent-nox
     requested_version:
       qbittorrent-nox: "5.0.2-1"
-    docker_compose_extra_volumes:
-      - /mnt
-      - "{{ ansible_user_dir }}"
+    docker_compose_extra_volumes: >-
+      {{
+        qbittorrent_extra_mounts | default([]) + [
+          {
+            "from": ansible_user_dir,
+            "to": ansible_user_dir
+          }
+        ]
+      }}
     docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"

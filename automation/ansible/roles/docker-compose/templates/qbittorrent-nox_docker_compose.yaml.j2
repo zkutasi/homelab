@@ -20,7 +20,7 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
 {% for volume in docker_compose_extra_volumes %}
-      - {{ volume }}:{{ volume }}
+      - {{ volume.from }}:{{ volume.to }}
 {% endfor %}
 
 {% if docker_compose_ipv6 %}
