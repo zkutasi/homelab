@@ -13,6 +13,7 @@
     body_format: "{{ rest_api_body_format | default('form-urlencoded') }}"
     return_content: true
     validate_certs: false
+    status_code: "{{ rest_api_status_code | default(200) }}"
   register: rest_api_response
 - name: Set the result in a fact
   ansible.builtin.set_fact:

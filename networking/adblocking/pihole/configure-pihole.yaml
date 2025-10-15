@@ -1,0 +1,93 @@
+- name: Authenticate and get session info
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+    - name: Debug SID
+      ansible.builtin.debug:
+        var: pihole_authresponse.cookies.sid
+  vars:
+    rest_api_fact_name: "pihole_authresponse"
+    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_endpoint: "/api/auth"
+    rest_api_method: "POST"
+    rest_api_data:
+      password: "{{ pihole_password }}"
+    rest_api_body_format: "json"
+- name: Get the custom DNS entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "pihole_response"
+    - name: Debug custom DNS entries
+      ansible.builtin.debug:
+        var: pihole_response.json.config.dns.hosts
+  vars:
+    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_endpoint: "/api/config/dns/hosts"
+    rest_api_method: "GET"
+    rest_api_data:
+      sid: "{{ pihole_authresponse.cookies.sid }}"
+    rest_api_body_format: "json"
+- name: Update the custom DNS entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      loop: "{{ groups['standalone'] + groups['synology'] + groups['kubernetes'] + groups['proxmox'] }}"
+      when: entry not in pihole_response.json.config.dns.hosts
+      vars:
+        ip: "{{ hostvars[item].ansible_host }}"
+        fqdn: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.{{ network_domain }}"
+        entry: "{{ ip }} {{ fqdn }}"
+        rest_api_fact_name: "pihole_response"
+        rest_api_url: "{{ pihole_api_hostname }}"
+        rest_api_endpoint: "/api/config/dns/hosts/{{ ip }}%20{{ fqdn }}"
+        rest_api_method: "PUT"
+        rest_api_data:
+          sid: "{{ pihole_authresponse.cookies.sid }}"
+        rest_api_body_format: "json"
+        rest_api_status_code: [200, 201]
+- name: Get the custom CNAME entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "pihole_response"
+    - name: Debug custom DNS entries
+      ansible.builtin.debug:
+        var: pihole_response.json.config.dns.cnameRecords
+  vars:
+    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_endpoint: "/api/config/dns/cnameRecords"
+    rest_api_method: "GET"
+    rest_api_data:
+      sid: "{{ pihole_authresponse.cookies.sid }}"
+    rest_api_body_format: "json"
+- name: Update the custom CNAME entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      loop: "{{ localdns_cname_entries | dict2items }}"
+      when: entry not in pihole_response.json.config.dns.cnameRecords
+      vars:
+        alias: "{{ item.key }}"
+        dest: "{{ item.value }}"
+        entry: "{{ alias }},{{ dest }}"
+        rest_api_fact_name: "pihole_response"
+        rest_api_url: "{{ pihole_api_hostname }}"
+        rest_api_endpoint: "/api/config/dns/cnameRecords/{{ alias }},{{ dest }}"
+        rest_api_method: "PUT"
+        rest_api_data:
+          sid: "{{ pihole_authresponse.cookies.sid }}"
+        rest_api_body_format: "json"
+        rest_api_status_code: [200, 201]

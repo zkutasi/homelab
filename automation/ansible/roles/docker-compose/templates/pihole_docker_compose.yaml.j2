@@ -23,7 +23,7 @@ services:
       - {{ port_pihole_pihole_dns }}:53/udp
       - {{ port_pihole_pihole_dhcp }}:67/udp
       - {{ port_pihole_pihole_webui_http }}:80/tcp
-      - {{ port_pihole_pihole_webui_https }}:443/tcp
+      - {{ port_pihole_webui_https }}:443/tcp
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pihole/etc-pihole:/etc/pihole
