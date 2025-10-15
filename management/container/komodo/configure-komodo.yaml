@@ -26,8 +26,10 @@
     - name: Call the REST API
       ansible.builtin.include_role:
         name: rest-api
-      when: not (komodo_servers.json | selectattr('info.address', 'contains', 'https://{{ hostvars[item].ansible_host }}:8120'))
+      when: not (komodo_servers.json | selectattr('info.address', 'contains', 'https://' + hostvars[item].ansible_host + ':8120'))
       loop: "{{ groups['standalone'] + groups['external'] + groups['synology'] }}"
+      loop_control:
+        label: "{{ hostvars[item].id }}"
       vars:
         rest_api_data:
           type: "CreateServer"
@@ -118,6 +120,8 @@
           delegate_to: localhost
       when: hostvars['localhost'].komodo_stacks.json | selectattr('name', 'equalto', hostvars[inventory_hostname].id + '-' + item) | length == 0
       loop: "{{ docker_compose_projects }}"
+      loop_control:
+        label: "{{ hostvars[inventory_hostname].id }} - {{ item }}"
       vars:
         rest_api_data:
           type: "CreateStack"
