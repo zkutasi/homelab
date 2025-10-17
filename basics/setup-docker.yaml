@@ -6,7 +6,7 @@
   roles:
     - docker
 - name: Set up Docker Compose on Synology
-  hosts: synology
+  hosts: synology216
   become: true
   tasks:
     - name: Install pip
@@ -37,3 +37,30 @@
       vars:
         synology_docker_compose_v2_version: "2.36.2"
         synology_docker_cliplugin_path: /usr/local/lib/docker/cli-plugins
+- name: Set up sudoless docker usage on Synology
+  hosts: synology
+  become: true
+  environment:
+    PATH: "{{ ansible_env.PATH }}:/usr/syno/sbin/"
+  tasks:
+    - name: Check if 'docker' group already exists
+      command: /usr/syno/sbin/synogroup --enum all
+      register: synogroup_list
+      changed_when: false
+    - name: Ensure docker group exists
+      ansible.builtin.command: synogroup --add docker
+      register: add_group
+      when: "'docker' not in synogroup_list.stdout"
+      changed_when: add_group.rc == 0
+    - name: Add user to docker group
+      ansible.builtin.command: synogroup --memberadd docker {{ ansible_user }}
+      register: add_member
+      failed_when: add_member.rc != 0
+      changed_when: add_member.rc == 0
+    - name: Change ownership of docker socket
+      file:
+        path: /var/run/docker.sock
+        owner: root
+        group: docker
+        state: file
+        mode: '0660'
