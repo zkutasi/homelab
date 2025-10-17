@@ -7,4 +7,4 @@ ansible-navigator:
   logging:
     level: debug
   playbook-artifact:
-    enabled: false
+    enable: false
