@@ -6,3 +6,5 @@ ansible-navigator:
       policy: never
   logging:
     level: debug
+  playbook-artifact:
+    enabled: false
