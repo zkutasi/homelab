@@ -16,7 +16,7 @@
     rest_api_headers:
       Authorization: "Bearer {{ borgwarehouse_api_key }}"
 - name: Get SSH public-private key pairs
-  hosts: "*"
+  hosts: linux
   roles:
     - ssh-keys
 - name: Register in new repositories

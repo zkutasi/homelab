@@ -1,4 +1,4 @@
 - name: Copy all required scripts
-  hosts: "*"
+  hosts: linux
   roles:
     - scripts

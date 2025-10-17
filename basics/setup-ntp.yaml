@@ -1,5 +1,5 @@
 - name: Set up NTP
-  hosts: "*"
+  hosts: linux
   become: true
   roles:
     - ntp

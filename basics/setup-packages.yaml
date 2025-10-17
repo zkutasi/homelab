@@ -1,5 +1,5 @@
 - name: Install some generic packages everywhere
-  hosts: "*"
+  hosts: linux
   become: true
   roles:
     - package-install
