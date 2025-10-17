@@ -51,7 +51,8 @@ INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
 
 if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
-  CMD=(ansible-navigator run "${PLAYBOOK}" -m stdout --inventory "${INVENTORY}")
+  export ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
+  CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY}"
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."
   CMD="ansible-playbook --inventory ${INVENTORY} ${PLAYBOOK}"
