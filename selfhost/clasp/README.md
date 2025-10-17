@@ -17,7 +17,7 @@ No special setup is required.
 ## Usage
 
 ```bash
-./common-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check
+./common-ansible-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check
 ```
 
 ## Commands

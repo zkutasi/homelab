@@ -30,13 +30,13 @@ This Unbound instance is configured in Recursive mode.
 Deploy the docker containers:
 
 ```bash
-./common-run-playbook.sh --playbook networking/adblocking/pihole/deploy-pihole-unbound.yaml --no-check
+./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole/deploy-pihole-unbound.yaml --no-check
 ```
 
 To set up some local DNS entries, run this playbook too after:
 
 ```bash
-./common-run-playbook.sh --playbook networking/adblocking/pihole/configure-pihole.yaml --no-check
+./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole/configure-pihole.yaml --no-check
 ```
 
 ## Commands

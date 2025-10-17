@@ -19,14 +19,14 @@ N/A
 1. Install the tools first
 
     ```bash
-    ./common-run-playbook.sh --playbook security/age-sops/deploy-age.yaml --no-check
-    ./common-run-playbook.sh --playbook security/age-sops/deploy-sops.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/age-sops/deploy-age.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/age-sops/deploy-sops.yaml --no-check
     ```
 
 2. Configure age to generate keys
 
     ```bash
-    ./common-run-playbook.sh --playbook security/age-sops/configure-age.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/age-sops/configure-age.yaml --no-check
     ```
 
 ## Notable comments

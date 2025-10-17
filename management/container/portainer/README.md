@@ -54,13 +54,13 @@ Generate an access token to access the REST API:
 Then deploy the portainer agents to every host required
 
 ```bash
-./common-run-playbook.sh --playbook management/container/portainer/deploy-portainer-agent.yaml --no-check
+./common-ansible-run-playbook.sh --playbook management/container/portainer/deploy-portainer-agent.yaml --no-check
 ```
 
 And finally register all of the hosts on the REST API
 
 ```bash
-./common-run-playbook.sh --playbook management/container/portainer/configure-portainer.yaml --no-check
+./common-ansible-run-playbook.sh --playbook management/container/portainer/configure-portainer.yaml --no-check
 ```
 
 ## Commands

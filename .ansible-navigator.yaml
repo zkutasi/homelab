@@ -1,0 +1,8 @@
+ansible-navigator:
+  execution-environment:
+    enabled: true
+    image: ansible-execution-environment:latest
+    pull:
+      policy: never
+  logging:
+    level: debug

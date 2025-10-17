@@ -15,6 +15,22 @@ The Ansible inventory is stored in a private git repository.
 - A control host is required that has Ansible installed and can access to every other machine.
 - An inventory set up (by hand, or stored in a private repository)
 
+### Control windows hosts
+
+For windows control, you need to set up WinRM. Open an Administrator CMD and issue the following:
+
+```bash
+winrm quickconfig
+```
+
+If it is not yet started, say Yes to the questions and it should get configured right away.
+
+Then check if the Listeners are running:
+
+```bash
+winrm enumerate winrm/config/Listener
+```
+
 ## Ansible inventory setup
 
 1. Create an inventory folder
@@ -53,6 +69,6 @@ Some helper scripts are placed in the repo to ease the execution of the playbook
 
 - `run-ping.sh` - The very first thing to do is to check your inventory setup, whether the IPs work or not
 - `run-fact-gathering.sh` - Useful to get all the magic variables and facts Ansible would get automatically.
-- `common-run-playbook.sh` - A wrapper script to execute a playbook. By default it runs with check-mode and diff-mode. Check the usage of it if needed.
+- `common-ansible-run-playbook.sh` - A wrapper script to execute a playbook. By default it runs with check-mode and diff-mode. Check the usage of it if needed.
 
 ## Notable comments

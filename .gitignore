@@ -16,3 +16,5 @@ cup.json
 *.pem
 *.csr
 wazuh-kubernetes
+context
+*.log

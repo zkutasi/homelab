@@ -46,7 +46,7 @@ Also create a group for this user, make it so that the group name is the same as
 Alternatively, use the Ansible playbook to deploy my setup:
 
 ```bash
-./common-run-playbook.sh --playbook nas/openmediavault/configure-omv.yaml
+./common-ansible-run-playbook.sh --playbook nas/openmediavault/configure-omv.yaml
 ```
 
 Also, if anything goes south, on the UI you can delete, investigate and modify as well. It is just so cumbersome to change 50 shares to modify a single value.

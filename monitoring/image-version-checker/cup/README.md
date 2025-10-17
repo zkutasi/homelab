@@ -25,7 +25,7 @@ N/A
 ### Deploy the workers
 
 ```bash
-./common-run-playbook.sh --playbook monitoring/image-version-checker/cup/deploy-cup.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/deploy-cup.yaml --no-check
 ```
 
 ### Deploy the central component

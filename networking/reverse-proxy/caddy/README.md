@@ -11,7 +11,7 @@ N/A
 ## Usage
 
 ```bash
-./common-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check
+./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check
 ```
 
 ## Commands

@@ -21,7 +21,7 @@ No special setup is required.
 1. Deploy the service
 
     ```bash
-    ./common-run-playbook.sh --playbook selfhosting/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook selfhosting/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml --no-check
     ```
 
 2. Prepare a Google App script to handle the emails with the encrypted XML automatically.

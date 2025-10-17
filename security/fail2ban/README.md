@@ -18,7 +18,7 @@ N/A
 ## Usage
 
 ```bash
-./common-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
+./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
 ```
 
 ## Commands

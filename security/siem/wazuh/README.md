@@ -41,7 +41,7 @@ N/A
 Deploy the agents to every host required
 
 ```bash
-./common-run-playbook.sh --playbook security/siem/wazuh/deploy-wazuh-agent.yaml --no-check
+./common-ansible-run-playbook.sh --playbook security/siem/wazuh/deploy-wazuh-agent.yaml --no-check
 ```
 
 ## Commands

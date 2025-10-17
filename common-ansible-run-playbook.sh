@@ -46,7 +46,20 @@ REPO_ROOT="."
 if command -v git >/dev/null 2>&1; then
   REPO_ROOT=$(git rev-parse --show-toplevel)
 fi
-CMD="ansible-playbook --inventory ${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory ${PLAYBOOK}"
+
+INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
+
+if command -v ansible-navigator >/dev/null 2>&1; then
+  echo "Using ansible-navigator..."
+  CMD=(ansible-navigator run "${PLAYBOOK}" -m stdout --inventory "${INVENTORY}")
+elif command -v ansible >/dev/null 2>&1; then
+  echo "Using ansible-playbook..."
+  CMD="ansible-playbook --inventory ${INVENTORY} ${PLAYBOOK}"
+else
+  echo "ERROR: neither ansible-navigator nor ansible-playbook is available"
+  exit 1
+fi
+
 [ "${CHECK}" -eq 1 ] && CMD="${CMD} --check"
 [ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
 [ -n "${LIMIT}" ] && CMD="${CMD} --limit ${LIMIT}"

@@ -1,0 +1,19 @@
+version: 3
+dependencies:
+  ansible_core:
+    package_pip: ansible-core
+  ansible_runner:
+    package_pip: ansible-runner
+  galaxy:
+    collections:
+      - name: community.docker
+        type: galaxy
+    roles:
+      - name: simoncaron.pve_permissions
+        type: galaxy
+  python:
+    - pypsrp
+
+images:
+  base_image:
+    name: ghcr.io/ansible-community/community-ee-base:latest

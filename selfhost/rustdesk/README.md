@@ -19,7 +19,7 @@ No special setup is required.
 1. Deploy the Relay server:
 
     ```bash
-    ./common-run-playbook.sh --playbook selfhosting/rustdesk/deploy-rustdesk.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook selfhosting/rustdesk/deploy-rustdesk.yaml --no-check
     ```
 
 2. Get the relay Server's Public Key: `cat data/id_ed25519.pub`

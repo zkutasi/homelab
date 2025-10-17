@@ -36,7 +36,7 @@ The used plugins are:
 ## Usage
 
 ```bash
-./common-run-playbook.sh --playbook media/beets/deploy-beets.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/beets/deploy-beets.yaml --no-check
 ```
 
 ## Commands

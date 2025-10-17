@@ -39,7 +39,7 @@ If you have a Synology and the backup server is going to be there, these items h
 First deploy everything with the playbook
 
 ```bash
-./common-run-playbook.sh --playbook backups/urbackup/deploy-urbackup.yaml --no-check
+./common-ansible-run-playbook.sh --playbook backups/urbackup/deploy-urbackup.yaml --no-check
 ```
 
 This will do the following:
