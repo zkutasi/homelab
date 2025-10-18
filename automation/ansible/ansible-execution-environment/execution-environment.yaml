@@ -8,10 +8,13 @@ dependencies:
     collections:
       - name: community.docker
         type: galaxy
+      - name: community.general
+        type: galaxy
     roles:
       - name: simoncaron.pve_permissions
         type: galaxy
   python:
+    - jmespath
     - pypsrp
 
 images:
