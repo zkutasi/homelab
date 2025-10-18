@@ -1,7 +1,13 @@
 services:
   node_exporter:
     command:
-      - '--path.rootfs=/host'
+{% if is_slave_mount_allowed %}
+      - --path.rootfs=/host
+{% else %}
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/rootfs
+{% endif %}
     container_name: node_exporter
     environment:
       - TZ={{ timezone }}
@@ -10,4 +16,10 @@ services:
     pid: host
     restart: unless-stopped
     volumes:
-      - '/:/host:ro,rslave'
+{% if is_slave_mount_allowed %}
+      - /:/host:ro,rslave
+{% else %}
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+{% endif %}
