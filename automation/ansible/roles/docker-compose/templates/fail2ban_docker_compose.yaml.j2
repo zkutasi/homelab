@@ -27,11 +27,11 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/data:/data
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/socket:/var/run/fail2ban
 
-  f2b_geoexporter:
-    container_name: f2b_geoexporter
+  f2b-geoexporter:
+    container_name: f2b-geoexporter
     environment:
       - TZ={{ timezone }}
-    image: vdcloudcraft/fail2ban-geo-exporter:{{ requested_version['f2b_geoexporter'] }}
+    image: vdcloudcraft/fail2ban-geo-exporter:{{ requested_version['f2b-geoexporter'] }}
     ports:
       - {{ port_fail2ban_geoexporter }}:8007
     restart: unless-stopped
@@ -39,13 +39,13 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/geoipupdate/data/GeoLite2-City.mmdb:/f2b-exporter/db/GeoLite2-City.mmdb:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/data/jail.d/custom-jail.conf:/etc/fail2ban/jail.local:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/fail2ban/data/db/fail2ban.sqlite3:/var/lib/fail2ban/fail2ban.sqlite3:ro
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/f2b_geoexporter/conf.yml:/f2b-exporter/conf.yml
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/f2b-geoexporter/conf.yml:/f2b-exporter/conf.yml
 
-  f2b_exporter:
-    container_name: f2b_exporter
+  f2b-exporter:
+    container_name: f2b-exporter
     environment:
       - TZ={{ timezone }}
-    image: registry.gitlab.com/hctrdev/fail2ban-prometheus-exporter:{{ requested_version['f2b_exporter'] }}
+    image: registry.gitlab.com/hctrdev/fail2ban-prometheus-exporter:{{ requested_version['f2b-exporter'] }}
     ports:
       - {{ port_fail2ban_exporter }}:9191
     restart: unless-stopped

@@ -1,5 +1,5 @@
 services:
-  node_exporter:
+  node-exporter:
     command:
 {% if is_slave_mount_allowed %}
       - --path.rootfs=/host
@@ -8,7 +8,7 @@ services:
       - --path.sysfs=/host/sys
       - --path.rootfs=/rootfs
 {% endif %}
-    container_name: node_exporter
+    container_name: node-exporter
     environment:
       - TZ={{ timezone }}
     image: quay.io/prometheus/node-exporter:v{{ requested_version['node-exporter'] }}

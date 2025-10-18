@@ -1,7 +1,7 @@
 docker_compose_create_dirs: []
 docker_compose_extra_volumes: []
-docker_compose_files_owner: "{{ lookup('env', 'USER') }}"
-docker_compose_files_group: "{{ lookup('env', 'USER') }}"
+docker_compose_files_owner: "{{ ansible_user }}"
+docker_compose_files_group: "{{ ansible_user }}"
 docker_compose_ipv6: false
 docker_compose_projectname: "{{ undef(hint='You must specify the docker compose project name') }}"
 docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
