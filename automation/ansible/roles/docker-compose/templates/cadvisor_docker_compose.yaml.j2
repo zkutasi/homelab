@@ -1,0 +1,16 @@
+services:
+  cadvisor:
+    container_name: cadvisor
+    environment:
+      - TZ={{ timezone }}
+    image: ghcr.io/google/cadvisor:v{{ requested_version['cadvisor'] }}
+    ports:
+      - {{ port_cadvisor }}:8080
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - {{ docker_lib_path }}:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro

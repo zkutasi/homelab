@@ -20,6 +20,7 @@ port_alloy: 12345
 port_beets: 8337
 port_borgwarehouse: 3000
 port_borgwarehouse_ssh: 22223
+port_cadvisor: 18080
 port_cup: 8800
 port_dockge: 5001
 port_emby_http: 8096

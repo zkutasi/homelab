@@ -1,0 +1,9 @@
+- name: Deploy cadvisor as docker
+  hosts:
+    - external
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: cadvisor
+    requested_version:
+      cadvisor: "0.53.0"
