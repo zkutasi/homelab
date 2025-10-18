@@ -1,24 +1,10 @@
 services:
-  adind:
-    container_name: adind
-    command: ["dockerd", "--host=tcp://0.0.0.0:2375"]
-    environment:
-      - TZ=Europe/Budapest
-    image: docker:28.1.1-dind
-    labels:
-      kompose.service.group: cup
-    ports:
-      - 2375:2375
-    privileged: True
-    restart: unless-stopped
   cup:
     container_name: cup
     command: -c /config/cup.json serve
-    depends_on:
-      - adind
     environment:
       - TZ=Europe/Budapest
-    image: ghcr.io/sergi0g/cup:v3.4.0
+    image: ghcr.io/sergi0g/cup:v3.4.3
     labels:
       kompose.volume.type: configMap
       kompose.service.group: cup
