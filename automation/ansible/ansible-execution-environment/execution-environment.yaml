@@ -6,6 +6,8 @@ dependencies:
     package_pip: ansible-runner
   galaxy:
     collections:
+      - name: community.crypto
+        type: galaxy
       - name: community.docker
         type: galaxy
       - name: community.general
