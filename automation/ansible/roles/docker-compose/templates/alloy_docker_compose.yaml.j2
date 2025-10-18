@@ -23,6 +23,6 @@ services:
       - /var/log:/var/log:ro
       - /sys:/sys:ro
 {% if alloy_monitor_containers %}
-      - /var/lib/docker/:/var/lib/docker/:ro
+      - {{ docker_lib_path }}:/var/lib/docker/:ro
 {% endif %}
       - /run/udev/data:/run/udev/data:ro
