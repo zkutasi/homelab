@@ -60,4 +60,5 @@ N/A
   - [Ceph Cluster](https://grafana.com/grafana/dashboards/2842-ceph-cluster/)
   - [Fail2Ban banned locations](https://grafana.com/grafana/dashboards/19691-fail2ban-banned-locations/)
   - [NUT Exporter](https://grafana.com/grafana/dashboards/19308-prometheus-nut-exporter-for-druggeri/)
+  - [Jetstack version checker](https://grafana.com/grafana/dashboards/12833-version-checker/)
 - For a very cool CLI-based tool for Grafana, check out [GDG (Grafana Dash-n-Grab)](https://github.com/esnet/gdg)

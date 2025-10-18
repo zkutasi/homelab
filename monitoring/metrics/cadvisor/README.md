@@ -15,7 +15,7 @@ N/A
 ## Usage
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/cadvisor/deploy-cadvisor.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/metrics/cadvisor/deploy-cadvisor.yaml --no-check
 ```
 
 ## Commands
