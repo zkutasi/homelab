@@ -4,6 +4,10 @@ ansible-navigator:
     image: ansible-execution-environment:latest
     pull:
       policy: never
+    volume-mounts:
+      - src: /etc/hosts
+        dest: /etc/hosts
+        options: Z
   logging:
     level: debug
   playbook-artifact:
