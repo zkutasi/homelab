@@ -8,6 +8,8 @@ ansible-navigator:
       - src: /etc/hosts
         dest: /etc/hosts
         options: Z
+      - src: $HOME/.ssh
+        dest: /runner/.ssh
   logging:
     level: debug
   playbook-artifact:

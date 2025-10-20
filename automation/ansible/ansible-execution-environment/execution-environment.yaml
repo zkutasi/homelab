@@ -17,6 +17,7 @@ dependencies:
         type: galaxy
   python:
     - jmespath
+    - passlib
     - pypsrp
 
 images:
