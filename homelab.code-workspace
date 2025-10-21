@@ -2,9 +2,13 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "automation/ansible/homelab-ansible-inventory"
 		}
 	],
 	"settings": {
+
 		"ansible.python.interpreterPath": "/bin/python"
 	}
 }
