@@ -16,6 +16,7 @@ dependencies:
       - name: simoncaron.pve_permissions
         type: galaxy
   python:
+    - dnspython
     - jmespath
     - passlib
     - pypsrp
