@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: influxdb
+  name: influxdb-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: influxdb2
+          port: 80
+  virtualhost:
+    fqdn: influxdb.kubernetes.home
+    tls:
+      secretName: influxdb-cert-secret
