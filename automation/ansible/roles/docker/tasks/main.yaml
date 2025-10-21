@@ -20,6 +20,21 @@
       - docker-ce
 - name: Add user to docker group
   ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
+    name: "{{ ansible_user }}"
     groups: docker
     append: true
+- name: Prepare docker for IPv6
+  block:
+    - name: Create docker daemon.json with IPv6 configuration
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+              "ipv6": true,
+              "fixed-cidr-v6": "{{ docker_ipv6_ula_subnet }}"
+          }
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Docker
+  when: docker_ipv6_ula_subnet is defined
