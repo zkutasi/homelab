@@ -35,7 +35,6 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
     |group_vars/k8s_cluster/addons.yml|metrics_server_enabled: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|kube_proxy_strict_arp: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|kube_encrypt_secret_data: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|deploy_netchecker: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|kubernetes_audit: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|kubeconfig_localhost: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|auto_renew_certificates: true|
@@ -46,7 +45,7 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
 
 5. Run the installer
 
-    `./rin-install.sh`
+    `./run-install.sh`
 
 ## Commands
 
