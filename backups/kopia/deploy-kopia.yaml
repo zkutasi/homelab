@@ -23,7 +23,7 @@
       - name: cache
       - name: logs
       - name: ssl-certs
-    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_kopia }}"
+    docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_kopia }}"
     kopia_generate_certs: true
 - name: Wait until the SSL certs are present before continuing
   hosts:
@@ -43,4 +43,4 @@
     docker_compose_projectname: kopia
     requested_version:
       kopia: "0.20.1"
-    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_kopia }}"
+    docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_kopia }}"

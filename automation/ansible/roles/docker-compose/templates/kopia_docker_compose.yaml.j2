@@ -64,10 +64,10 @@ networks:
   kopia-network:
     name: kopia-ipv6
     enable_ipv6: true
-{% if docker_compose_ipv6_ipam_subnet is defined %}
+{% if docker_ipv6_ipam_subnet is defined %}
     ipam:
       config:
-        - subnet: {{ docker_compose_ipv6_ipam_subnet }}
-          gateway: {{ (docker_compose_ipv6_ipam_subnet | split('/') | first) + '1' }}
+        - subnet: {{ docker_ipv6_ipam_subnet }}
+          gateway: {{ (docker_ipv6_ipam_subnet | split('/') | first) + '1' }}
 {% endif %}
 {% endif %}

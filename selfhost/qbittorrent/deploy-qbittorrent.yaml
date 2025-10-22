@@ -16,7 +16,7 @@
           }
         ]
       }}
-    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
+    docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_qbittorrent_nox }}"
 - name: Deploy qbittorrent as docker on omv
   hosts:
     - omv
@@ -35,4 +35,4 @@
           }
         ]
       }}
-    docker_compose_ipv6_ipam_subnet: "{{ docker_compose_ipv6_ipam_subnet_qbittorrent_nox }}"
+    docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_qbittorrent_nox }}"
