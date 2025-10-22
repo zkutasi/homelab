@@ -16,5 +16,3 @@ spec:
         response: 3600s
   virtualhost:
     fqdn: kubeshark.kubernetes.home
-    tls:
-      secretName: kubeshark-cert-secret
