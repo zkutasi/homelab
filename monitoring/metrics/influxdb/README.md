@@ -33,6 +33,10 @@ N/A
     ./deploy-k8s.sh
     ```
 
+5. On the GUI create an Organization and in it the required buckets.
+    1. For Organization, for example use `home`
+    2. For Bucket, create one for `proxmox`
+
 ## Commands
 
 ## Notable comments
