@@ -1,0 +1,51 @@
+- name: Create a terraform role & user in PVE
+  hosts: proxmox
+  roles:
+    - simoncaron.pve_permissions
+  vars:
+    pve_permissions_roles:
+      - name: terraform-role
+        privs:
+          - VM.Allocate
+          - VM.Clone
+          - VM.Config.CDROM
+          - VM.Config.CPU
+          - VM.Config.Cloudinit
+          - VM.Config.Disk
+          - VM.Config.HWType
+          - VM.Config.Memory
+          - VM.Config.Network
+          - VM.Config.Options
+          - VM.Audit
+          - VM.PowerMgmt
+          - Datastore.AllocateSpace
+          - Datastore.Audit
+          - Sys.AccessNetwork
+          - Datastore.Allocate
+          - Datastore.AllocateTemplate
+          - SDN.Use
+          - Sys.Audit
+    pve_permissions_users:
+      - name: terraform
+        realm: pve
+        password: "terraform"
+        acls:
+          - path: /
+            role: terraform-role
+- name: Create terraform user in Linux
+  hosts: proxmox
+  roles:
+    - create-user
+  vars:
+    username: terraform
+    password: terraform
+- name: Copy SSH Keys
+  hosts: proxmox
+  tasks:
+    - name: Install SSH Keys
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('file', lookup('env', 'HOME') + '/.ssh/id_rsa.pub') }}"
+  vars:
+    username: terraform

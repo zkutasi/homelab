@@ -1,0 +1,28 @@
+- name: Setup InfluxDB metrics server
+  hosts: proxmox
+  vars:
+    influxdb_id: influxdb
+  tasks:
+    - name: Check if metrics server exists
+      command: pvesh get /cluster/metrics/server --output json
+      register: metrics_servers_raw
+      changed_when: false
+    - name: Parse metrics servers JSON
+      ansible.builtin.set_fact:
+        metrics_servers_json: "{{ metrics_servers_raw.stdout | from_json }}"
+    - name: Debug print the JSON content
+      ansible.builtin.debug:
+        var: metrics_servers_json
+    - name: Create InfluxDB metrics server configuration
+      ansible.builtin.command: >
+        pvesh create /cluster/metrics/server/{{ influxdb_id }}
+          --type influxdb \
+          --disable 0 \
+          --server {{ influxdb_hostname }} \
+          --port {{ port_influxdb }} \
+          --organization {{ network_domain }} \
+          --bucket proxmox \
+          --token {{ influxdb_admin_token }} \
+          --influxdbproto https \
+          --verify-certificate 0
+      when: metrics_servers_json | selectattr('id','equalto', influxdb_id) | list | length == 0
