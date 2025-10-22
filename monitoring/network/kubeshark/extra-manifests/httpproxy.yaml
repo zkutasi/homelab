@@ -1,0 +1,20 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: kubeshark
+  name: kubeshark-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: kubeshark-front
+          port: 80
+      enableWebsockets: true
+      timeoutPolicy:
+        response: 3600s
+  virtualhost:
+    fqdn: kubeshark.kubernetes.home
+    tls:
+      secretName: kubeshark-cert-secret

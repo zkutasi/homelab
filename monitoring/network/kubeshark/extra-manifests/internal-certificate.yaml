@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kubeshark-cert
+spec:
+  secretName: kubeshark-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - kubeshark.kubernetes.home
