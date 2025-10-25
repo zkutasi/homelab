@@ -29,8 +29,18 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 In preference order:
 
 1. Official Helm Chart sources (bigger projects all should have them)
-2. [Kompose](https://kompose.io/) - A tool to migrate a docker compose file into Kubernetes manifests automatically
-3. [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, but I haven't figured out how exactly to use it, as it is extremely complex
+2. Use the `docker-compose.yaml` file provided by the author and use one of the many template and deployment engines:
+    - [Kompose](https://kompose.io/) - An official Kubernetes tool to migrate a docker compose file into Kubernetes manifests automatically. Problem is that it is severely limited even for a simple compose file and development is at a stall in 2025. Really only works as a blueprint for migrations.
+    - [Cloud Development Kit for Kubernetes (cdk8s)](https://cdk8s.io/) - Use Python, Java, Typescript or Go to define your manifests. Every such CDK8s App synthetises into Kubernetes Manifests. It is an NPM app. Originally for AWS CDK. Part of CNCF.
+    - [Timoni](https://timoni.sh/) and the [CUE language](https://cuelang.org/). Timoni is a helm-replacement (module=chart, bundle=IHC, instance=release), but CUE can be templated into YAML manifests themselves. CUE is a superset of JSON.
+    - [Carvel](https://carvel.dev/) - The [ytt templating language](https://carvel.dev/ytt/) treats templates like true YAML, unlike Helm go-templates, based on YAML and Starlark. Carvel is a whole exosystem of apps, the kapp CLI tool to install them, and a few other helper tools too. Has strong ties to VMWare.
+    - [Pulumi](https://github.com/pulumi/pulumi) - Write IaC in any language. Supports 120+ platforms. Kind of a replacement for Terraform, due to it is able to do platform-level stuff as well.
+    - [Grafana Tanka](https://tanka.dev/) and the [JSonnet configuration language](https://jsonnet.org/). The language comes from one of Google's 20% projects. It is an extension of JSON.
+    - [DHall-Kubernetes](https://github.com/dhall-lang/dhall-kubernetes) and the [DHall language](https://github.com/dhall-lang/dhall-lang)
+    - [Crossplane](https://github.com/crossplane/crossplane)
+    - KCL - Check the [comparison Wiki](https://www.kcl-lang.io/docs/user_docs/getting-started/intro) for a good explanation of these various languages
+3. Take a library chart and just configure to use a specific image and version, with parameters to set up the app (env vars, mounts, dependencies, etc...)
+    - [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, but I haven't figured out how exactly to use it, as it is extremely complex
 4. [Artifact Hub](https://artifacthub.io/) - Like Docker Hub, but for Helm Charts, from anyone
 
 ## Extra settings
