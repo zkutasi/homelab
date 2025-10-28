@@ -26,20 +26,22 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 
 ### App sources
 
-In preference order:
+I would like to keep everything though Helm, so I could manage the lifecycle with helm commands.
 
-1. Official Helm Chart sources (bigger projects all should have them)
-2. Use the `docker-compose.yaml` file provided by the author and use one of the many template and deployment engines:
+So the sources to consider in preference order:
+
+1. Official Helm Charts (bigger projects all should have them)
+2. Take a library chart and just configure to use a specific image and version, with parameters to set up the app (env vars, mounts, dependencies, etc...)
+    - [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, with only a `values.yaml` to fully configure it. Pair it together for example with a YAML-to-YAML transformer that takes the `docker-compose.yaml` as input and spits out this `values.yaml`, for this CUE seems to a be perfect candidate.
+3. Use the `docker-compose.yaml` file provided by the author and use one of the many template and deployment engines:
     - [Kompose](https://kompose.io/) - An official Kubernetes tool to migrate a docker compose file into Kubernetes manifests automatically. Problem is that it is severely limited even for a simple compose file and development is at a stall in 2025. Really only works as a blueprint for migrations.
-    - [Cloud Development Kit for Kubernetes (cdk8s)](https://cdk8s.io/) - Use Python, Java, Typescript or Go to define your manifests. Every such CDK8s App synthetises into Kubernetes Manifests. It is an NPM app. Originally for AWS CDK. Part of CNCF.
-    - [Timoni](https://timoni.sh/) and the [CUE language](https://cuelang.org/). Timoni is a helm-replacement (module=chart, bundle=IHC, instance=release), but CUE can be templated into YAML manifests themselves. CUE is a superset of JSON.
+    - [Cloud Development Kit for Kubernetes (cdk8s)](https://cdk8s.io/) - Use Python, Java, Typescript or Go to define your manifests. Every such CDK8s App synthetises into Kubernetes Manifests. It is an NPM app.
+    - [Timoni](https://timoni.sh/) and the [CUE language](https://cuelang.org/). Timoni is a helm-replacement (module=chart, bundle=IHC, instance=release), but CUE can be templated into YAML manifests themselves. CUE is a superset of JSON. One of the most promising solutions out there.
     - [Carvel](https://carvel.dev/) - The [ytt templating language](https://carvel.dev/ytt/) treats templates like true YAML, unlike Helm go-templates, based on YAML and Starlark. Carvel is a whole exosystem of apps, the kapp CLI tool to install them, and a few other helper tools too. Has strong ties to VMWare. Another disadvantage is that one would still need to write all those lengthy YAML files, and all boilerplate things.
-    - [Pulumi](https://github.com/pulumi/pulumi) - Write IaC in any language. Supports 120+ platforms. Kind of a replacement for Terraform, due to it is able to do platform-level stuff as well.
+    - [Pulumi](https://github.com/pulumi/pulumi) - Write IaC in any language. Supports 120+ platforms. Kind of a replacement for Terraform, due to its massive IaC capabilities.
     - [Grafana Tanka](https://tanka.dev/) and the [JSonnet configuration language](https://jsonnet.org/). The language comes from one of Google's 20% projects. It is an extension of JSON.
-    - [DHall-Kubernetes](https://github.com/dhall-lang/dhall-kubernetes) and the [DHall language](https://github.com/dhall-lang/dhall-lang)
+    - [DHall-Kubernetes](https://github.com/dhall-lang/dhall-kubernetes) and the [DHall language](https://github.com/dhall-lang/dhall-lang) - Does not seem to be very active.
     - [KCL](https://github.com/kcl-lang/kcl) - Check the [comparison Wiki](https://www.kcl-lang.io/docs/user_docs/getting-started/intro) for a good explanation of these various languages. Also has a [CLI toolset](https://github.com/kcl-lang/cli)
-3. Take a library chart and just configure to use a specific image and version, with parameters to set up the app (env vars, mounts, dependencies, etc...)
-    - [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, but I haven't figured out how exactly to use it, as it is extremely complex
 4. [Artifact Hub](https://artifacthub.io/) - Like Docker Hub, but for Helm Charts, from anyone
 
 ## Extra settings
