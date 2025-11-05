@@ -47,6 +47,28 @@
       X-API-Key: "{{ komodo_api_key }}"
       X-API-Secret: "{{ komodo_api_secret }}"
     rest_api_body_format: "json"
+- name: Reload all Servers from the REST API
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "komodo_servers"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ komodo_servers.json | community.general.json_query('[*].info.address') }}"
+  vars:
+    rest_api_url: "{{ komodo_hostname }}"
+    rest_api_endpoint: "/read"
+    rest_api_method: "POST"
+    rest_api_headers:
+      X-API-Key: "{{ komodo_api_key }}"
+      X-API-Secret: "{{ komodo_api_secret }}"
+    rest_api_data:
+      type: "ListServers"
+      params: {}
+    rest_api_body_format: "json"
 - name: List all filesystem docker compose projects
   hosts:
     - standalone
