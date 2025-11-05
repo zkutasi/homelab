@@ -36,16 +36,20 @@ winrm enumerate winrm/config/Listener
 1. Create an inventory folder
 2. In it, create a `hosts.yaml` file, and list your hosts
 3. You can and should create groups of these hosts too
-   1. `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
-   2. `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
-   3. `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
-   4. `synology` - All the Synology NAS-es, which require special care
-   5. `backupserver` - The Backup Server that hosts all of the backups of the various hosts
-   6. `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
-   7. `proxmox` - All the Proxmox hosts
-   8. `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
-   9. `reverseproxy` - A host used to run a reverseproxy in the whole network. I run mine next to the piHole service.
-   10. `dnsserver` - All of the local DNS servers like PiHole
+   - `backupserver` - The Backup Server that hosts all of the backups of the various hosts
+   - `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
+   - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
+   - `dnsserver` - All of the local DNS servers like PiHole
+   - `docker` - All hosts that prefer dockerized apps over binaries
+   - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
+   - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
+   - `linux` - All Linux hosts, separated from Windows ones
+   - `proxmox` - All the Proxmox hosts
+   - `reverseproxy` - A host used to run a reverseproxy in the whole network. I run mine next to the piHole service.
+   - `smart` - Hosts that require S.M.A.R.T. data to be collected
+   - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
+   - `synology` - All the Synology NAS-es, which require special care
+   - `windows` - All Windows hosts, they require a completely different set of roles
 4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX.yaml` where XXX is a valid group name
 5. The following variables can be set on a host (uniquely or on a group):
 

@@ -1,5 +1,5 @@
 - name: Deploy smartctl-exporter as a service
-  hosts: proxmox
+  hosts: "{{ groups['smart'] | difference(groups['docker']) }}"
   roles:
     - binary-install
   vars:
@@ -9,9 +9,7 @@
     download_url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/\
           v{{ requested_version }}/{{ bin_filename }}-{{ requested_version }}.linux-amd64.tar.gz"
 - name: Deploy smartctl-exporter as docker
-  hosts:
-    - htpc
-    - synology
+  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
   roles:
     - docker-compose
   vars:
