@@ -1,0 +1,12 @@
+- name: Deploy ntopng as docker
+  hosts: qotom
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: ntopng
+    requested_version:
+      ntopng: "latest"
+    docker_compose_create_dirs:
+      - name: ntopng
+      - name: redis
+        folder_mode: '0777'
