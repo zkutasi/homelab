@@ -11,6 +11,7 @@
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
   loop: "{{ docker_compose_create_dirs }}"
+  ignore_errors: yes
 - name: Copy any static files necessary
   ansible.builtin.copy:
     src: "{{ docker_compose_projectname }}/{{ item.name }}/"   # Note the / at the end !
