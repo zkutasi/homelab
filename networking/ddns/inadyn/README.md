@@ -31,7 +31,7 @@ N/A
 ### Deploy
 
 ```bash
-./common-ansible-run-playbook.sh --playbook networking/ddns/deploy-ddns.yaml --no-check
+./common-ansible-run-playbook.sh --playbook networking/ddns/inadyn/deploy-inadyn.yaml --no-check
 ```
 
 ## Commands
