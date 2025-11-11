@@ -1,0 +1,85 @@
+from contextlib import contextmanager
+import docker
+import logging
+import requests
+import sys
+import time
+
+logger = logging.getLogger(__name__)
+
+SELENIUM_IMAGE = "selenium/standalone-chrome:{{ requested_image_version['selenium'] }}"
+SELENIUM_CONTAINER_NAME = "selenium"
+DOWNLOADS_HOST_DIR = "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/downloads"
+TIMEZONE = "{{ timezone }}"
+NETWORK_NAME = "{{ docker_compose_projectname }}_selenium-net"
+PORT_SELENIUM = {{ port_selenium }}
+PORT_VNC = {{ port_selenium_vnc }}
+
+@contextmanager
+def selenium_container():
+    client = docker.from_env()
+    container = None
+
+    try:
+        try:
+            container = client.containers.get(SELENIUM_CONTAINER_NAME)
+            logger.info(f"Found existing container: {container.name}")
+
+            if container.status != "running":
+                logger.info(f"Container '{SELENIUM_CONTAINER_NAME}' exists but not running. Starting...")
+                container.start()
+            else:
+                logger.info(f"Container '{SELENIUM_CONTAINER_NAME}' is already running.")
+
+        except docker.errors.NotFound:
+            logger.info(f"Container '{SELENIUM_CONTAINER_NAME}' does not exist. Creating...")
+
+            # Ensure the image is available
+            try:
+                client.images.get(SELENIUM_IMAGE)
+            except docker.errors.ImageNotFound:
+                logger.info(f"Image '{SELENIUM_IMAGE}' not found locally. Pulling...")
+                client.images.pull(SELENIUM_IMAGE)
+
+            container = client.containers.run(
+                image=SELENIUM_IMAGE,
+                name=SELENIUM_CONTAINER_NAME,
+                detach=True,
+                shm_size="2g",
+                environment={
+                    "TZ": TIMEZONE
+                },
+                ports={
+                    "4444/tcp": PORT_SELENIUM,
+                    "7900/tcp": PORT_VNC,
+                },
+                volumes={
+                    DOWNLOADS_HOST_DIR: {"bind": "/downloads", "mode": "rw"},
+                },
+                network=NETWORK_NAME,
+            )
+
+        selenium_url = f"http://{SELENIUM_CONTAINER_NAME}:{PORT_SELENIUM}/status"
+        logger.info("Waiting for Selenium to become ready...")
+
+        for _ in range(30):
+            try:
+                response = requests.get(selenium_url)
+                if response.status_code == 200:
+                    status = response.json().get("value", {}).get("ready")
+                    if status:
+                        logger.info("Selenium is ready.")
+                        break
+            except Exception:
+                pass
+            time.sleep(1)
+        else:
+            raise TimeoutError("Timed out waiting for Selenium to be ready.")
+
+        yield
+    finally:
+        if container:
+            logger.info("Stopping Selenium container...")
+            container.stop()
+            logger.info("Removing Selenium container...")
+            container.remove()

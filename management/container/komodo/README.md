@@ -50,7 +50,7 @@ Generate an access token to access the REST API:
 Then deploy the periphery agents to every host required
 
 ```bash
-./common-ansible-run-playbook.sh --playbook management/container/komodo/deploy-komodo-periphery.yaml --no-check
+./common-ansible-run-playbook.sh --playbook management/container/komodo/periphery/deploy-komodo-periphery.yaml --no-check
 ```
 
 And finally register all of the hosts and existing stacks on the REST API

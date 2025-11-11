@@ -5,5 +5,5 @@
     - docker-compose
   vars:
     docker_compose_projectname: cadvisor
-    requested_version:
+    requested_image_version:
       cadvisor: "0.53.0"

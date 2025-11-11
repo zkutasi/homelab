@@ -7,5 +7,5 @@
     docker_compose_create_dirs:
       - name: config
       - name: emby-backup
-    requested_version:
+    requested_image_version:
       emby: "4.8.11.0"

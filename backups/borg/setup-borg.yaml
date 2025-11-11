@@ -1,8 +1,8 @@
 - name: Deploy borgwarehouse
-  ansible.builtin.import_playbook: deploy-borgwarehouse.yaml
+  ansible.builtin.import_playbook: borgwarehouse/deploy-borgwarehouse.yaml
 - name: Configure borgwarehouse
-  ansible.builtin.import_playbook: configure-borgwarehouse.yaml
+  ansible.builtin.import_playbook: borgwarehouse/configure-borgwarehouse.yaml
 - name: Deploy borgmatic
-  ansible.builtin.import_playbook: deploy-borgmatic.yaml
+  ansible.builtin.import_playbook: borgmatic/deploy-borgmatic.yaml
 - name: Configure borgmatic
-  ansible.builtin.import_playbook: configure-borgmatic.yaml
+  ansible.builtin.import_playbook: borgmatic/configure-borgmatic.yaml

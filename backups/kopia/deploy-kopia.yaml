@@ -16,7 +16,7 @@
       when: not certs.stat.exists
   vars:
     docker_compose_projectname: kopia
-    requested_version:
+    requested_image_version:
       kopia: "0.20.1"
     docker_compose_create_dirs:
       - name: config
@@ -41,6 +41,6 @@
     - docker-compose
   vars:
     docker_compose_projectname: kopia
-    requested_version:
+    requested_image_version:
       kopia: "0.20.1"
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_kopia }}"

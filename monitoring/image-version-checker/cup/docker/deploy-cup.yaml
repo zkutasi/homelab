@@ -1,0 +1,15 @@
+- name: Deploy cup as docker
+  hosts:
+    - standalone
+    - external
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: cup
+    requested_image_version:
+      cup: "3.4.0"
+    docker_compose_create_dirs:
+      - name: config
+    docker_compose_template_files_copy:
+      - name: config/cup.json

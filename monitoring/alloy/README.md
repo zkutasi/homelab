@@ -35,10 +35,16 @@ N/A
     ./deploy-k8s.sh
     ```
 
-### Install the host agents
+### Install the host agents on docker hosts
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/alloy/deploy-alloy.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/alloy/docker/deploy-alloy.yaml --no-check
+```
+
+### Install the host agents on baremetal hosts
+
+```bash
+./common-ansible-run-playbook.sh --playbook monitoring/alloy/host/deploy-alloy.yaml --no-check
 ```
 
 ## Commands

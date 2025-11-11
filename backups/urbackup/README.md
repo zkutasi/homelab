@@ -36,16 +36,17 @@ If you have a Synology and the backup server is going to be there, these items h
 
 ## Usage
 
-First deploy everything with the playbook
+1. Deploy the server with the playbook
 
-```bash
-./common-ansible-run-playbook.sh --playbook backups/urbackup/deploy-urbackup.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook backups/urbackup/server/deploy-urbackup-server.yaml --no-check
+    ```
 
-This will do the following:
-
-1. Deploy UrBackup Server on the backup server
 2. Deploy UrBackup client on each backup client host
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook backups/urbackup/client/deploy-urbackup-client.yaml --no-check
+    ```
 
 Most probably you will need to rerun the playbook a second time, because you need to set for each client host an auth key on the Server UI.
 

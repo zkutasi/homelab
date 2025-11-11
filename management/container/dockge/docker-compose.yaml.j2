@@ -1,0 +1,14 @@
+services:
+  dockge:
+    container_name: dockge
+    environment:
+      - DOCKGE_STACKS_DIR=/opt/stacks
+      - TZ={{ timezone }}
+    image: louislam/dockge:{{ requested_image_version['dockge'] }}
+    ports:
+      - {{ port_dockge }}:5001
+    restart: unless-stopped
+    volumes:
+      - {{ docker_socket_path }}:/var/run/docker.sock
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
+      - {{ docker_compose_rootdir }}:/opt/stacks

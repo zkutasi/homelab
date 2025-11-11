@@ -7,7 +7,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: fail2ban
-    requested_version:
+    requested_image_version:
       geoipupdate: "7.1.1"
       fail2ban: "1.1.0"
       f2b-geoexporter: "0.3.2"

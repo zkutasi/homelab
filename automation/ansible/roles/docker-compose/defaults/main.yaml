@@ -4,6 +4,7 @@ docker_compose_files_owner: "{{ ansible_user }}"
 docker_compose_files_group: "{{ ansible_user }}"
 docker_compose_ipv6: false
 docker_compose_projectname: "{{ undef(hint='You must specify the docker compose project name') }}"
+docker_compose_source_basepath: "{{ playbook_dir }}"
 docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
 docker_compose_static_files_copy: []
 docker_compose_template_files_copy: []
@@ -14,7 +15,7 @@ docker_gid: 1000
 
 is_slave_mount_allowed: true
 
-requested_version: {}
+requested_image_version: {}
 
 port_alloy: 12345
 port_beets: 8337

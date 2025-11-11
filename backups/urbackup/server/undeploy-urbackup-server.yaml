@@ -1,0 +1,6 @@
+- name: Delete urbackup-server
+  hosts: backupserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: urbackup-server

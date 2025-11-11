@@ -1,0 +1,6 @@
+- name: Delete urbackup-client
+  hosts: backupclient
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: urbackup-client

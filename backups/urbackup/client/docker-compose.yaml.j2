@@ -1,0 +1,35 @@
+services:
+  urbackup-client:
+    container_name: urbackup-client
+    environment:
+      - TZ={{ timezone }}
+      - URBACKUP_SERVER_NAME={{ backupserver_hostname }}
+      - URBACKUP_CLIENT_NAME={{ id }}
+      - URBACKUP_CLIENT_AUTHKEY={{ urbackup_authkey }}
+    image: uroni/urbackup-client:{{ requested_image_version['urbackup-client'] }}
+{% if docker_compose_ipv6 %}
+    networks:
+      - urbackup-client-network
+{% endif %}
+    ports:
+      - {{ port_urbackup_client_fileserver }}:35621/udp
+      - {{ port_urbackup_client_discovery }}:35622/udp
+      - {{ port_urbackup_client_commands }}:35623/udp
+    restart: unless-stopped
+    volumes:
+{% for folder in backupfolders %}
+      - {{ folder }}:/backup{{ folder }}:ro
+{% endfor %}
+
+{% if docker_compose_ipv6 %}
+networks:
+  urbackup-client-network:
+    enable_ipv6: true
+    name: urbackup-client-ipv6
+{% if docker_ipv6_ipam_subnet is defined %}
+    ipam:
+      config:
+        - subnet: {{ docker_ipv6_ipam_subnet }}
+          gateway: {{ (docker_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}

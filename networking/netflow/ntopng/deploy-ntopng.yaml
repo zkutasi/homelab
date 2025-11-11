@@ -4,7 +4,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: ntopng
-    requested_version:
+    requested_image_version:
       ntopng: "latest"
     docker_compose_create_dirs:
       - name: ntopng

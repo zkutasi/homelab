@@ -1,0 +1,13 @@
+- name: Deploy komodo-periphery as docker
+  hosts:
+    - standalone
+    - external
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: komodo-periphery
+    requested_image_version:
+      komodo-periphery: "1.19.3"
+    docker_compose_create_dirs:
+      - name: config

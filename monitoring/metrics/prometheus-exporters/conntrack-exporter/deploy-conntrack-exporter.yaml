@@ -1,0 +1,10 @@
+- name: Deploy conntrack-exporter as docker
+  hosts:
+    - standalone
+    - synology
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: conntrack-exporter
+    requested_image_version:
+      conntrack-exporter: "0.3.1"

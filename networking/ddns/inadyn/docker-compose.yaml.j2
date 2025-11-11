@@ -1,0 +1,10 @@
+services:
+  inadyn:
+    container_name: inadyn
+    environment:
+      - TZ={{ timezone }}
+    image: troglobit/inadyn:v{{ requested_image_version['inadyn'] }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/inadyn.conf:/etc/inadyn.conf

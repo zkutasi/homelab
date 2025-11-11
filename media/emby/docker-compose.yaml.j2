@@ -1,0 +1,25 @@
+services:
+  emby:
+    container_name: embyserver
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - UID={{ docker_uid }}
+      - GID={{ docker_gid }}
+      - GIDLIST={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: emby/embyserver:{{ requested_image_version['emby'] }}
+    healthcheck:
+      test: ["CMD-SHELL", "for d in /mnt/*; do mountpoint -q \"$d\" || exit 1; done"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    ports:
+      - {{ port_emby_http }}:8096
+      - {{ port_emby_https }}:8920
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/emby-backup:/emby-backup
+      - /mnt:/mnt

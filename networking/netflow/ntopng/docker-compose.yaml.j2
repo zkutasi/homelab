@@ -1,0 +1,19 @@
+services:
+  ntopng:
+    command:
+      - --community
+      - --interface
+      - {{ ntopng_interface}}
+      - --local-networks
+      - {{ network_subnet }}
+    container_name: ntopng
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+    environment:
+      TZ: {{ timezone }}
+    image: ntop/ntopng:{{ requested_image_version['ntopng'] }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ntopng:/var/lib/ntopng:rw
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redis:/var/lib/redis:rw

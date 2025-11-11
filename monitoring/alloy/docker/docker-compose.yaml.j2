@@ -1,0 +1,28 @@
+services:
+  alloy:
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+    container_name: alloy
+    environment:
+      - TZ={{ timezone }}
+    extra_hosts:
+      - "prometheus.kubernetes.home:{{  kubernetes_ingress_ip }}"
+      - "loki.kubernetes.home:{{ kubernetes_ingress_ip }}"
+    image: grafana/alloy:v{{ requested_image_version['alloy'] }}
+    ports:
+      - {{ port_alloy }}:12345
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/config.alloy:/etc/alloy/config.alloy
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/var/lib/alloy/data
+      - /:/rootfs:ro
+      - /run:/run:ro
+      - /var/log:/var/log:ro
+      - /sys:/sys:ro
+{% if alloy_monitor_containers %}
+      - {{ docker_lib_path }}:/var/lib/docker/:ro
+{% endif %}
+      - /run/udev/data:/run/udev/data:ro

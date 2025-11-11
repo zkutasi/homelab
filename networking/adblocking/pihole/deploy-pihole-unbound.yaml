@@ -4,7 +4,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: pihole
-    requested_version:
+    requested_image_version:
       pihole: "2025.04.0"
       unbound: "1.23.0-1"
     docker_compose_create_dirs:

@@ -1,0 +1,12 @@
+- name: Deploy urbackup-server as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: urbackup-server
+    requested_image_version:
+      urbackup-server: "latest"
+    docker_compose_create_dirs:
+      - name: database
+      - name: wwwfolder
+    docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_urbackup_server }}"

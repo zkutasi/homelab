@@ -1,0 +1,10 @@
+services:
+  conntrack-exporter:
+    cap_add:
+      - NET_ADMIN
+    container_name: conntrack-exporter
+    environment:
+      - TZ={{ timezone }}
+    image: hiveco/conntrack_exporter:{{ requested_image_version['conntrack-exporter'] }}
+    network_mode: host
+    restart: unless-stopped

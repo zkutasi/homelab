@@ -4,7 +4,7 @@
     - docker-compose
   vars:
     docker_compose_projectname: netalertx
-    requested_version:
+    requested_image_version:
       netalertx: "25.5.24"
     netalertx_interface: eth0
     netalertx_subnet: "{{ network_subnet }}"

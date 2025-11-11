@@ -51,7 +51,7 @@ If you have a Synology and the backup server is going to be there, these items h
 First, deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI
 
 ```bash
-./common-ansible-run-playbook.sh --playbook backups/borg/deploy-borgwarehouse.yaml --no-check
+./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/deploy-borgwarehouse.yaml --no-check
 ```
 
 This will do the following

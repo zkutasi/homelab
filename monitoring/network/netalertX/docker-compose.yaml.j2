@@ -1,0 +1,24 @@
+services:
+  netalertx:
+    container_name: netalertx
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+    environment:
+      - TZ={{ timezone }}
+      - PORT={{ port_netalertx }}
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - APP_CONF_OVERRIDE={"SCAN_SUBNETS":"['{{ netalertx_subnet }} --interface={{ netalertx_interface }}']"}
+      - PIHOLE_RUN=schedule
+    image: ghcr.io/jokob-sk/netalertx:{{ requested_image_version['netalertx'] }}
+    network_mode: host
+    ports:
+      - {{ port_netalertx }}:{{ port_netalertx }}
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/app/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/db:/app/db
+      - type: tmpfs
+        target: /app/api
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/../pihole/etc-pihole/pihole-FTL.db:/etc/pihole/pihole-FTL.db:ro

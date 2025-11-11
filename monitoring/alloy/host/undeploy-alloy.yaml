@@ -1,0 +1,7 @@
+- name: Delete alloy binaries
+  hosts: proxmox
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - alloy

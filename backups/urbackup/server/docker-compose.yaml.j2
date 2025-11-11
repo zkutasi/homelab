@@ -1,0 +1,34 @@
+services:
+  urbackup-server:
+    container_name: urbackup-server
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: uroni/urbackup-server:{{ requested_image_version['urbackup-server'] }}
+{% if docker_compose_ipv6 %}
+    networks:
+      - urbackup-server-network
+{% endif %}
+    ports:
+      - {{ port_urbackup_server_fastcgi }}:55413
+      - {{ port_urbackup_server_http }}:55414
+      - {{ port_urbackup_server_internet_clients }}:55415
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/database:/var/urbackup
+      - {{ backups_folder }}/urbackup:/backups
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/wwwfolder:/usr/share/urbackup
+
+{% if docker_compose_ipv6 %}
+networks:
+  urbackup-server-network:
+    enable_ipv6: true
+    name: urbackup-server-ipv6
+{% if docker_ipv6_ipam_subnet is defined %}
+    ipam:
+      config:
+        - subnet: {{ docker_ipv6_ipam_subnet }}
+          gateway: {{ (docker_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}
