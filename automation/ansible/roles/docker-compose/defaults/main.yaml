@@ -50,35 +50,3 @@ port_urbackup_client_commands: 35623
 port_urbackup_server_fastcgi: 55413
 port_urbackup_server_http: 55414
 port_urbackup_server_internet_clients: 55415
-
-alloy_monitor_containers: true
-
-backupfolders: []
-
-borgmatic_encryption_passphrase: "{{ undef(hint='You must specify the Borgmatic encryption password') }}"
-backup_exclude_patterns:
-  - "*.log"
-
-cup_control_server: ""
-cup_registries: {}
-cup_servers: {}
-
-ddns_aliases: []
-ddns_interface: ""
-ddns_ipv6: true
-ddns_hostname: ""
-ddns_password: ""
-ddns_username: ""
-
-kopia_generate_certs: false
-
-netalertx_interface: "{{ undef(hint='You must specify the interface for ARPSCAN') }}"
-netalertx_subnet: "{{ undef(hint='You must specify the subnet for ARPSCAN') }}"
-
-nutify_secret_key: ""
-
-pihole_password: "{{ undef(hint='You must specify the PiHole password') }}"
-pihole_dns_domain: "home"
-pihole_docker_network_3digit: "172.21.200"
-
-smartctlexporter_extra_args: []

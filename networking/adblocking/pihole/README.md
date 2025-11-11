@@ -22,8 +22,7 @@ This Unbound instance is configured in Recursive mode.
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |pihole_password|M|The password set up for pihole|
-    |pihole_dns_domain|O|The used domain suffix in the system. Default is "home".|
-    |pihole_docker_network_3digit|O|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed. Default is 172.21.200|
+    |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
 
 ## Usage
 

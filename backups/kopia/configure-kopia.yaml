@@ -85,6 +85,8 @@
 - name: Configure the policies
   hosts:
     - backupserver
+  vars_files:
+    - ../defaults.yaml
   tasks:
     - name: Create the policies
       ansible.builtin.include_tasks:

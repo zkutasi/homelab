@@ -14,6 +14,8 @@
   roles:
     - role: docker-compose
       when: not certs.stat.exists
+  vars_files:
+    - ../defaults.yaml
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
@@ -39,8 +41,11 @@
     - backupclient
   roles:
     - docker-compose
+  vars_files:
+    - ../defaults.yaml
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
       kopia: "0.20.1"
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_kopia }}"
+    kopia_generate_certs: false

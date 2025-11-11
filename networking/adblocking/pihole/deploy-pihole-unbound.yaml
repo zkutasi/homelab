@@ -16,3 +16,4 @@
     docker_compose_template_files_copy:
       - name: unbound/unbound.conf
       - name: unbound/conf.d/pihole.conf
+    pihole_docker_network_3digit: "172.21.200"

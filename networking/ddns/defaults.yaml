@@ -1,0 +1,6 @@
+ddns_aliases: []
+ddns_interface: ""
+ddns_ipv6: true
+ddns_hostname: ""
+ddns_password: ""
+ddns_username: ""

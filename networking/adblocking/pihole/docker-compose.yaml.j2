@@ -7,12 +7,12 @@ services:
       TZ: "{{ timezone }}"
       FTLCONF_LOCAL_IPV4: {{ ansible_host }}
       FTLCONF_dns_dnssec: false
-      FTLCONF_dns_domain: {{ pihole_dns_domain }}
+      FTLCONF_dns_domain: {{ network_domain }}
       FTLCONF_dns_listeningMode: ALL
       FTLCONF_dns_upstreams: {{ pihole_docker_network_3digit }}.3#5335
       FTLCONF_webserver_api_password: "{{ pihole_password }}"
       FTLCONF_webserver_interface_theme: default-dark
-      VIRTUAL_HOST: pihole.{{ pihole_dns_domain }}
+      VIRTUAL_HOST: pihole.{{ network_domain }}
       WEB_BIND_ADDR: {{ ansible_host }}
     image: pihole/pihole:{{ requested_image_version['pihole'] }}
     networks:

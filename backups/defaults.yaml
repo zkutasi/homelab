@@ -1,0 +1,3 @@
+backup_exclude_patterns:
+  - "*.log"
+backupfolders: []

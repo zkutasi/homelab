@@ -45,6 +45,7 @@ If you have a Synology and the backup server is going to be there, these items h
     |------|--------------------|---------|
     |borgwarehouse_alert|O|The amount of minutes borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
     |borgwarehouse_storage_size|O| The size of the storage quota. Default is 10 GB.|
+    |borgmatic_encryption_passphrase|M|The encryption passphrase|
 
 ## Usage
 
