@@ -16,37 +16,3 @@ docker_gid: 1000
 is_slave_mount_allowed: true
 
 requested_image_version: {}
-
-port_alloy: 12345
-port_beets: 8337
-port_borgwarehouse: 3000
-port_borgwarehouse_ssh: 22223
-port_cadvisor: 18080
-port_cup: 8800
-port_dockge: 5001
-port_emby_http: 8096
-port_emby_https: 8920
-port_fail2ban_exporter: 8006
-port_fail2ban_geoexporter: 8007
-port_komodo_periphery: 8120
-port_kr_docu_decrypt: 8000
-port_netalertx: 20211
-port_nutify_nut_server: 3494
-port_nutify_web: 5050
-port_pihole_pihole_dns: 53
-port_pihole_pihole_dhcp: 67
-port_pihole_pihole_webui_http: 80
-port_pihole_unbound: 5335
-port_portainer_agent: 9001
-port_qbittorrent: 48080
-port_reverseproxy_http: 80
-port_reverseproxy_https: 443
-port_selenium: 4444
-port_selenium_vnc: 7900
-port_smartctl_exporter: 9633
-port_urbackup_client_fileserver: 35621
-port_urbackup_client_discovery: 35622
-port_urbackup_client_commands: 35623
-port_urbackup_server_fastcgi: 55413
-port_urbackup_server_http: 55414
-port_urbackup_server_internet_clients: 55415
