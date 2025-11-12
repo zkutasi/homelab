@@ -1,6 +1,6 @@
-# XXX
+# APPNAME
 
-[Example app](https://example.com) - A short introduction of the app
+[APPNAME](https://example.com) - A short introduction of the app
 
 ## The setup
 
