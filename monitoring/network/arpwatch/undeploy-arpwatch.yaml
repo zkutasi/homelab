@@ -1,3 +1,12 @@
+- name: Disable the interface-specific service
+  hosts: networkmonitoring
+  become: true
+  tasks:
+    - name: Disable and stop arpwatch service
+      ansible.builtin.systemd_service:
+        name: "arpwatch@{{ arpwatch_interface }}.service"
+        state: stopped
+        enabled: false
 - name: Delete arpwatch
   hosts: networkmonitoring
   roles:
