@@ -1,0 +1,14 @@
+services:
+  smokeping:
+    container_name: smokeping
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: lscr.io/linuxserver/smokeping:{{ requested_image_version['smokeping'] }}
+    ports:
+      - {{ port_smokeping }}:80
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data

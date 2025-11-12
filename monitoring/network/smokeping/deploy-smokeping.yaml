@@ -1,0 +1,11 @@
+- name: Deploy smokeping as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: smokeping
+    requested_image_version:
+      smokeping: "2.9.0"
+    docker_compose_create_dirs:
+      - name: config
+      - name: data

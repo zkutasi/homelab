@@ -1,0 +1,6 @@
+- name: Delete smokeping containers
+  hosts: XXX
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: smokeping
