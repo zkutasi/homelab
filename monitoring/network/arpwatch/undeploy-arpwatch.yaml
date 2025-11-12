@@ -1,0 +1,7 @@
+- name: Delete arpwatch
+  hosts: networkmonitoring
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - arpwatch

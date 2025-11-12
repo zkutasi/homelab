@@ -1,0 +1,17 @@
+- name: Deploy arpwatch on the host
+  hosts: networkmonitoring
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - arpwatch
+- name: Enable the interface-specific service
+  hosts: networkmonitoring
+  become: true
+  tasks:
+    - name: Enable and start arpwatch service
+      ansible.builtin.systemd_service:
+        name: "arpwatch@{{ arpwatch_interface }}.service"
+        state: started
+        enabled: true
