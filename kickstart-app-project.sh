@@ -53,12 +53,16 @@ TEMPLATE_SOURCE_DIR="${REPO_ROOT}/_templates/${TYPE}"
 TARGET_APP_DIR="${REPO_ROOT}/${APP_FOLDERNAME}"
 
 echo "Preparing to kickstart app '${APP_NAME}' in folder '${APP_FOLDERNAME}' using '${TYPE}' templates."
+echo "Copy files..."
 mkdir -p "${TARGET_APP_DIR}"
 cp -r "${TEMPLATE_SOURCE_DIR}/." "${TARGET_APP_DIR}/"
 cp "${REPO_ROOT}/_templates/README.layer2.md" "${TARGET_APP_DIR}/README.md"
-find "${TARGET_APP_DIR}" -type f -exec sed -i "s/APP_NAME/${APP_NAME}/g" {} +
-find "${TARGET_APP_DIR}" -type f -exec sed -i "s/APP_FOLDERNAME/${APP_FOLDERNAME}/g" {} +
 
+echo "Swap out templates..."
+sed -i "s|APP_NAME|${APP_NAME}|g" ${TARGET_APP_DIR}/*
+sed -i "s|APP_FOLDERNAME|${APP_FOLDERNAME}|g" ${TARGET_APP_DIR}/*
+
+echo "Renaming..."
 if [ "${TYPE}" == "docker" ]; then
     mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME}.yaml"
     mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME}.yaml"
