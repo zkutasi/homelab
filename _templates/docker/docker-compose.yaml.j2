@@ -1,0 +1,13 @@
+services:
+  APPNAME:
+    command:
+    container_name: APPNAME
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: XXX:{{ requested_image_version['APPNAME'] }}
+    ports:
+      - XXX:XXX
+    restart: unless-stopped
+    volumes:

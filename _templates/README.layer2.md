@@ -1,14 +1,10 @@
-# APPNAME
+# APP_NAME
 
-[APPNAME](https://example.com) - A short introduction of the app
+[APP_NAME](https://example.com) - A short introduction of the app
 
 ## The setup
 
-Some sentences about the unique implementation aspects of the architecture chosen, based on best practices and the home network setup.
-
 ## Prerequisites
-
-List of prerequisites.
 
 ## Usage
 
@@ -26,12 +22,10 @@ List of prerequisites.
 
 ### Deploy the app
 
-Describe how to deploy the app.
-
 In case of Ansible:
 
 ```bash
-./common-ansible-run-playbook.sh --playbook XXX/deploy-XXX.yaml --no-check
+./common-ansible-run-playbook.sh --playbook APP_FOLDERNAME/deploy-APP_NAME.yaml --no-check
 ```
 
 In case of Kubernetes:
@@ -59,8 +53,4 @@ In case of Kubernetes:
 
 ## Commands
 
-Some useful commands to handle some edge cases or frequent tasks
-
 ## Notable comments
-
-Irks, quirks and design decisions explained.
