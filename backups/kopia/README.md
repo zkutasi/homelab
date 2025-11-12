@@ -18,7 +18,9 @@ If you have a Synology and the backup server is going to be there, these items h
   - Docker
 - Create a backup volume, created to host all backups.
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -30,17 +32,12 @@ If you have a Synology and the backup server is going to be there, these items h
     |kopia_server_password|M|The above user's password|
     |port_kopia|M|The Kopia Server port any Server will listen on|
 
-2. Create a `backupserver` group_vars file and set up the following variables:
+2. For each Ansible host, the following variables can be set
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
 
-3. For each Ansible host, the following variables can be set
-
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
-
-## Usage
+### Deploy the app
 
 First, deploy Kopia on the BackupServer, hosting the Repository and also on the client Hosts as well
 

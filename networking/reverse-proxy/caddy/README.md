@@ -10,6 +10,8 @@ N/A
 
 ## Usage
 
+### Deploy the app
+
 ```bash
 ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check
 ```

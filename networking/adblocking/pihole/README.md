@@ -15,7 +15,9 @@ This Unbound instance is configured in Recursive mode.
 
 ## Prerequisites
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -24,7 +26,7 @@ This Unbound instance is configured in Recursive mode.
     |pihole_password|M|The password set up for pihole|
     |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
 
-## Usage
+### Deploy the app
 
 Deploy the docker containers:
 

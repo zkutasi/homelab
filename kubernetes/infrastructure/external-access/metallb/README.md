@@ -12,6 +12,8 @@ The external access of the services inside the cluster will be provided on the I
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

@@ -1,6 +1,6 @@
 # Kubeshark
 
-[Loki](https://www.kubeshark.co/) is the Wireshark for Kubernetes. Capture traffic, filter and analyze. Write custom Agents in a programming language even.
+[Kubeshark](https://www.kubeshark.co/) is the Wireshark for Kubernetes. Capture traffic, filter and analyze. Write custom Agents in a programming language even.
 
 ## The setup
 
@@ -11,6 +11,8 @@ N/A
 N/A
 
 ## Usage
+
+### Deploy the app
 
 1. Add the helm repository
 

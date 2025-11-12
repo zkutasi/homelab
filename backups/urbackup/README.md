@@ -16,25 +16,22 @@ If you have a Synology and the backup server is going to be there, these items h
   - Docker
 - Create a backup volume, created to host all backups.
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
 
-2. Create a `backupserver` group_vars file and set up the following variables:
-
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
-
-3. For each Ansible host, the following variables can be set
+2. For each Ansible host, the following variables can be set
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |urbackup_authkey|M|This is the client auth-key the server expects in case of manual internet-client setup. This is a unique key per client and can be acquired by trying to add a named client on the UI, then on the next page where the client download links are, copy the generated new key and set it in the inventory.|
 
-## Usage
+### Deploy the server
 
 1. Deploy the server with the playbook
 
@@ -42,13 +39,21 @@ If you have a Synology and the backup server is going to be there, these items h
     ./common-ansible-run-playbook.sh --playbook backups/urbackup/server/deploy-urbackup-server.yaml --no-check
     ```
 
+### Deploy the clients
+
+1. Generate an auth-key for each client
+    1. On the UrBackup Server UI, click on the "+ Add new client" button
+    2. Internet/active client --> Set a name of the client
+    3. Upon clicking "Add client", note the auth-key at the top of the page
+    4. Edit the inventory and add this auth-key and also make sure that the given ID equals to the name of the client
+
 2. Deploy UrBackup client on each backup client host
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook backups/urbackup/client/deploy-urbackup-client.yaml --no-check
     ```
 
-Most probably you will need to rerun the playbook a second time, because you need to set for each client host an auth key on the Server UI.
+### Manual client setup
 
 For Windows clients or for clients not capable to be in automations, do the following:
 

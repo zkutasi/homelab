@@ -10,7 +10,9 @@ I deployed it besides a PiHole to integrate it with.
 
 - PiHole present next to the deployment
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -19,7 +21,7 @@ I deployed it besides a PiHole to integrate it with.
     |netalertx_interface|M|The interface to scan for devices from.|
     |netalertx_subnet|M|The subnet to scan for devices.|
 
-## Usage
+### Deploy the app
 
 Deploy with:
 

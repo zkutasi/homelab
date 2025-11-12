@@ -10,7 +10,9 @@ N/A
 
 - A NUT Server is up and running
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -20,7 +22,7 @@ N/A
     |nut_server_username|M||
     |nut_server_password|M||
 
-## Usage
+### Deploy the app
 
 Deploy with:
 

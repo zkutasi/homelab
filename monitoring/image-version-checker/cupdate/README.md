@@ -12,6 +12,8 @@ N/A
 
 ## Usage
 
+### Deploy the app
+
 1. Install with the provided script
 
     ```bash

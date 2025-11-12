@@ -31,7 +31,9 @@ Then check if the Listeners are running:
 winrm enumerate winrm/config/Listener
 ```
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Create an inventory folder
 2. In it, create a `hosts.yaml` file, and list your hosts
@@ -67,7 +69,7 @@ winrm enumerate winrm/config/Listener
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|
     |timezone|M|The timezone to be set in all containers and on the host as well|
 
-## Usage
+## Commands
 
 Some helper scripts are placed in the repo to ease the execution of the playbooks.
 

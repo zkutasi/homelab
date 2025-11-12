@@ -8,13 +8,9 @@ Each remote controllable machine needs the RustDesk client as well as the machin
 
 ## Prerequisites
 
-None.
-
-## Ansible inventory setup
-
-No special setup is required.
-
 ## Usage
+
+### Deploy the app
 
 1. Deploy the Relay server:
 

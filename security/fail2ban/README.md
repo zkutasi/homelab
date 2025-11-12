@@ -17,6 +17,8 @@ N/A
 
 ## Usage
 
+### Deploy the app
+
 ```bash
 ./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
 ```

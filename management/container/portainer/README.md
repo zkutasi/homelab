@@ -20,7 +20,7 @@ N/A
     |------|--------------------|---------|
     |portainer_hostname|M|The FQDN hostname of the portainer service|
 
-### Install the central component
+### Deploy the central component
 
 1. Add the helm repository
 
@@ -43,7 +43,7 @@ N/A
     ./deploy-k8s.sh
     ```
 
-### Install the agents
+### Deploy the agents
 
 Generate an access token to access the REST API:
 

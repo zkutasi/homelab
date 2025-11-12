@@ -10,7 +10,9 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
 
 - UPS Plugged into the host
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -18,7 +20,7 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
     |------|--------------------|---------|
     |nutify_secret_key|M|A string to encrypt the database with|
 
-## Usage
+### Deploy the app
 
 Deploy with:
 

@@ -15,7 +15,7 @@ Monitoring the Home infrastructure is essential, checking high CPU usage, error 
   - UPS info
 - Collect running container and helm chart versions and notify about updates
 
-## What to collect
+### What to collect
 
 - Logs (from the Host and from Docker containers too)
 - Performance and other metrics

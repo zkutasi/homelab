@@ -13,6 +13,8 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

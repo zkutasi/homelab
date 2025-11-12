@@ -12,6 +12,8 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
 
 ## Usage
 
+### Deploy the app
+
 1. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash

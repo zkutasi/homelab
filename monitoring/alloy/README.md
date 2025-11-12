@@ -12,7 +12,7 @@ N/A
 
 ## Usage
 
-### Install the kubernetes deployment
+### Deploy the kubernetes deployment
 
 1. Add the helm repository
 
@@ -35,13 +35,13 @@ N/A
     ./deploy-k8s.sh
     ```
 
-### Install the host agents on docker hosts
+### Deploy the host agents on docker hosts
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook monitoring/alloy/docker/deploy-alloy.yaml --no-check
 ```
 
-### Install the host agents on baremetal hosts
+### Deploy the host agents on baremetal hosts
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook monitoring/alloy/host/deploy-alloy.yaml --no-check

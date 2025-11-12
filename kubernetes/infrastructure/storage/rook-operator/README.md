@@ -16,6 +16,8 @@ Rook can provide the following:
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

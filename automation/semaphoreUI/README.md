@@ -15,6 +15,8 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

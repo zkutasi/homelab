@@ -12,11 +12,9 @@ An idea how to use it: Create a Google App Script to catch such emails, extract 
 
 None.
 
-## Ansible inventory setup
-
-No special setup is required.
-
 ## Usage
+
+### Deploy the app
 
 1. Deploy the service
 

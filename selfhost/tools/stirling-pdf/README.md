@@ -8,11 +8,9 @@ Installing it into the Kubernetes cluster next to the other tools.
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
-### Install the central component
+### Deploy the app
 
 1. Add the helm repository
 

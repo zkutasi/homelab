@@ -12,6 +12,8 @@ Deploy SNMP on each monitored host.
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

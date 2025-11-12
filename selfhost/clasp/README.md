@@ -10,11 +10,9 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
 
 1. Have a Google App Scripts account
 
-## Ansible inventory setup
-
-No special setup is required.
-
 ## Usage
+
+### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check

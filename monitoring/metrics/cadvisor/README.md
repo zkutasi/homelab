@@ -14,6 +14,8 @@ N/A
 
 ## Usage
 
+### Deploy the app
+
 ```bash
 ./common-ansible-run-playbook.sh --playbook monitoring/metrics/cadvisor/deploy-cadvisor.yaml --no-check
 ```

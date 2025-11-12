@@ -21,7 +21,7 @@ For each Ansible host, the following variables can be set
     |ntopng_interface|M|The interface to listen on|
     |network_subnet|M|The network subnet that defines all of the machines' IP addresses, CIDR notation|
 
-### Deploy
+### Deploy the app
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook networking/netflow/ntopng/deploy-ntopng.yaml --no-check

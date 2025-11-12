@@ -8,9 +8,9 @@ Just run the image in a cluster, and access the tools in a browser.
 
 ## Prerequisites
 
-N/A
-
 ## Usage
+
+### Deploy the app
 
 1. Install with the provided script
 

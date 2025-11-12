@@ -20,7 +20,7 @@ N/A
     |------|--------------------|---------|
     |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
 
-### Install the central component
+### Deploy the central component
 
 1. Create a `.komodo.env` file with the following content
 
@@ -39,7 +39,7 @@ N/A
 
 3. After going to the URL, enter your wanted credentials and hit the "Sign Up" button
 
-### Install the agents
+### Deploy the agents
 
 Generate an access token to access the REST API:
 

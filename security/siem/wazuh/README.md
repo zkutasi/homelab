@@ -10,7 +10,9 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
 
 N/A
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -19,9 +21,7 @@ N/A
     |wazuh_manager_hostname|M|The manager IP or hostname that the agents use to communicate with|
     |wazuh_registration_password|M|This is the enrollment password that the Agents use to enroll|
 
-## Usage
-
-### Install the central component
+### Deploy the central component
 
 1. Generate certificates, with the official scripts:
 
@@ -36,7 +36,7 @@ N/A
     ./deploy-k8s.sh
     ```
 
-### Install the Agents
+### Deploy the Agents
 
 Deploy the agents to every host required
 

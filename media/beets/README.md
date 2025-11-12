@@ -19,7 +19,9 @@ The used plugins are:
 
 ## Prerequisites
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -33,7 +35,7 @@ The used plugins are:
     |------|--------------------|---------|
     |beets_music_folder|M|The source folder of all the Music on the host that contains them|
 
-## Usage
+### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook media/beets/deploy-beets.yaml --no-check

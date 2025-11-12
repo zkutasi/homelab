@@ -14,6 +14,8 @@ N/A
 
 ## Usage
 
+### Deploy the app
+
 1. Add the helm repository
 
     ```bash

@@ -20,7 +20,9 @@ The native folders are shared via Samba, to facilitate Subtitle addition and edi
 
 Since this is an OS in itself, just a fresh empty host is required.
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 1. For each Ansible host, the following variables can be set
 
@@ -30,7 +32,7 @@ Since this is an OS in itself, just a fresh empty host is required.
     |omv_mergerfs_pools|M|The dictionary of mergerFS pools, where keys are the pool-names and under them the shared folders.|
     |omv_nfs_allowed_clients|M|A mandatory parameter for the NFS shares.|
 
-## Usage
+### Deploy the app
 
 Install it into a Host or a VM as the OS and then configure it on the UI. Can be a bit slow if you have a lot of things you want to do.
 

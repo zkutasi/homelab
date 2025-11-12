@@ -12,6 +12,8 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
 
 ## Usage
 
+### Deploy the app
+
 1. Generate an APP_KEY for encryption with the following command
 
     ```bash

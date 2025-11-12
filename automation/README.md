@@ -26,7 +26,7 @@ If one needs to have a WebUI, to manage the workflows, create and run repeated p
 
 - [Jenkins](https://www.jenkins.io/) - Industry standard CI tool to automate almost anything
 - [Semaphore UI](https://semaphoreui.com/) - Run Ansible, Terraform, OpenTofu and Bash scripts
-- [Ansible Automation Platform (AAP)](https://www.redhat.com/en/technologies/management/ansible) - Enterprise solution for automating Ansible. Formerly known as **Ansible Tower** or **Ansible COntroller**.
+- [Ansible Automation Platform (AAP)](https://www.redhat.com/en/technologies/management/ansible) - Enterprise solution for automating Ansible. Formerly known as **Ansible Tower** or **Ansible Controller**.
   - Red Hat upstream project is [AWX](https://github.com/ansible/awx) - WebUI REST API and Task Engine on top of Ansible. On hold in 2024 due to a major refactor. Also a very complex setup is required and to keep up-to-date.
 - [Rundeck](https://www.rundeck.com/) - Often comes up as an alternative to the above UIs
 - [Kestra](https://kestra.io/) - Open Source, declarative Orchestration Platform, capable to many more things, like data-pipelines too, but also can run Ansible playbooks.
