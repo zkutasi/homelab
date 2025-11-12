@@ -46,8 +46,9 @@ winrm enumerate winrm/config/Listener
    - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
    - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    - `linux` - All Linux hosts, separated from Windows ones
+   - `networkmonitoring` - Host that provides Flow analysis, IDS, and various other network monitoring capabilities
    - `proxmox` - All the Proxmox hosts
-   - `reverseproxy` - A host used to run a reverseproxy in the whole network. I run mine next to the piHole service.
+   - `reverseproxy` - A host used to run a reverseproxy in the whole network
    - `smart` - Hosts that require S.M.A.R.T. data to be collected
    - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
    - `synology` - All the Synology NAS-es, which require special care

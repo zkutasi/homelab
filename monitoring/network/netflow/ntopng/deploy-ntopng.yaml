@@ -1,5 +1,5 @@
 - name: Deploy ntopng as docker
-  hosts: qotom
+  hosts: networkmonitoring
   roles:
     - docker-compose
   vars:
