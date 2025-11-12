@@ -1,0 +1,18 @@
+services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      APP_KEY: {{ speedtest_tracker_app_key }}
+      DB_CONNECTION: sqlite
+      DISPLAY_TIMEZONE: {{ timezone }}
+      SPEEDTEST_SCHEDULE: "{{ speedtest_tracker_schedule }}"
+      TZ: {{ timezone }}
+    image: lscr.io/linuxserver/speedtest-tracker:{{ requested_image_version['speedtest-tracker'] }}
+    ports:
+      - {{ port_speedtest_tracker_http }}:80
+      - {{ port_speedtest_tracker_https }}:443
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

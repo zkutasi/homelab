@@ -4,13 +4,20 @@
 
 ## The setup
 
-Deployed into the Kubernetes cluster and measures every X minutes the speed and latency of the connection.
+Deployed onto the Network appliance Host and measures every X minutes the speed and latency of the connection.
 
 ## Prerequisites
 
-- Cloud Native PG Operator installed
-
 ## Usage
+
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |speedtest_tracker_schedule|M|A cron-expression to specify how many times a test should be scheduled|
+    |speedtest_tracker_app_key|M|A generated App-Key|
 
 ### Deploy the app
 
@@ -20,24 +27,12 @@ Deployed into the Kubernetes cluster and measures every X minutes the speed and 
     echo -n 'base64:'; openssl rand -base64 32;
     ```
 
-2. Create a `.speedtest.env` file with the following content
-
-    ```env
-    APP_KEY=<APP_KEY>
-    ```
-
-3. Install with the provided script
+2. Install with the provided script
 
     ```bash
-    ./deploy-k8s.sh
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/speedtest/speedtest-tracker/deploy-speedtest-tracker.yaml --no-check
     ```
 
 ## Commands
-
-To debug the resulting helm chart and its details:
-
-```bash
-helm template oci://tccr.io/truecharts/speedtest-tracker --version XXX --values app-values.yaml --values app-values-private.yaml | less
-```
 
 ## Notable comments

@@ -1,0 +1,10 @@
+- name: Deploy speedtest-tracker as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: speedtest-tracker
+    requested_image_version:
+      speedtest-tracker: "1.7.3"
+    docker_compose_create_dirs:
+      - name: config
