@@ -24,7 +24,7 @@ For each Ansible host, the following variables can be set
 ### Deploy the app
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook networking/netflow/ntopng/deploy-ntopng.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/netflow/ntopng/deploy-ntopng.yaml --no-check
     ```
 
 ## Commands
