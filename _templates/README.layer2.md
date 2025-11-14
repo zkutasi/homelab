@@ -1,6 +1,6 @@
-# APP_NAME
+# <APP_NAME>
 
-[APP_NAME](https://example.com) - A short introduction of the app
+[<APP_NAME>](https://example.com) - A short introduction of the app
 
 ## The setup
 
@@ -25,7 +25,7 @@
 In case of Ansible:
 
 ```bash
-./common-ansible-run-playbook.sh --playbook APP_FOLDERNAME/deploy-APP_NAME.yaml --no-check
+./common-ansible-run-playbook.sh --playbook <APP_FOLDERNAME>/deploy-<APP_NAME_LOWERCASE>.yaml --no-check
 ```
 
 In case of Kubernetes:

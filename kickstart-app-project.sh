@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP_NAME=
+APP_NAME_LOWERCASE=
 APP_FOLDERNAME=
 TYPE=docker
 
@@ -22,6 +23,7 @@ while [ $# -ge 1 ]; do
     --appname)
       shift
       APP_NAME=$1
+      APP_NAME_LOWERCASE=$(echo ${APP_NAME} | tr '[:upper:]' '[:lower:]')
       ;;
     --type)
       shift
@@ -62,19 +64,20 @@ if [ "${TYPE}" == "docker" ] && [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; 
     echo "Processing existing docker-compose.yaml for templating..."
     cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
 
-    yq -i ".services.${APP_NAME}.image |= sub(\":.*$\", \":{{ requested_image_version['${APP_NAME}'] }}\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 fi
 
 echo "Swap out templates..."
-sed -i "s|APP_NAME|${APP_NAME}|g" ${TARGET_APP_DIR}/*
-sed -i "s|APP_FOLDERNAME|${APP_FOLDERNAME}|g" ${TARGET_APP_DIR}/*
+sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" ${TARGET_APP_DIR}/*
+sed -i "s|<APP_NAME>|${APP_NAME}|g" ${TARGET_APP_DIR}/*
+sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" ${TARGET_APP_DIR}/*
 
 echo "Renaming..."
 if [ "${TYPE}" == "docker" ]; then
-    mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME}.yaml"
-    mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME}.yaml"
+    mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
+    mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
 fi
 
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."

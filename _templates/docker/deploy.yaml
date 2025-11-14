@@ -1,13 +1,13 @@
-- name: Deploy APP_NAME as docker
+- name: Deploy <APP_NAME> as docker
   hosts: XXX
   roles:
     - docker-compose
   vars_files:
     - defaults.yaml
   vars:
-    docker_compose_projectname: APP_NAME
+    docker_compose_projectname: <APP_NAME_LOWERCASE>
     requested_image_version:
-      APP_NAME: "IMAGE_VERSION"
+      <APP_NAME_LOWERCASE>: "<IMAGE_VERSION>"
     docker_compose_create_dirs:
       - name: config
       - name: data

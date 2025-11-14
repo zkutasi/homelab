@@ -1,6 +1,6 @@
-- name: Delete APP_NAME containers
+- name: Delete <APP_NAME> containers
   hosts: XXX
   roles:
     - docker-compose-remove
   vars:
-    docker_compose_projectname: APP_NAME
+    docker_compose_projectname: <APP_NAME_LOWERCASE>
