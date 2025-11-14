@@ -15,3 +15,4 @@ Analyzing all of your local subnet's traffic is a great way to get insights whic
 - [nfDump](https://github.com/phaag/nfdump)
 - [SiLK](https://tools.netsa.cert.org/silk/index.html) - Tools for large networks from Carnegie Mellon University
 - Grafana Flow - It is a made up name for a Telegraph-collector -> InfluxDB/Prometheus -> Grafana combo
+- [SniffNet](https://sniffnet.net/) - A cool little desktop app that PCAPs all your packets and gets you insights about the traffic.
