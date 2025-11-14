@@ -1,13 +1,12 @@
 services:
-  APPNAME:
+  APP_NAME:
     command:
-    container_name: APPNAME
+    container_name: APP_NAME
     environment:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
-    image: XXX:{{ requested_image_version['APPNAME'] }}
-    ports:
-      - XXX:XXX
+    image: IMAGE_PATH:{{ requested_image_version['APP_NAME'] }}
+PORTS_MAPPING
     restart: unless-stopped
     volumes:

@@ -58,6 +58,15 @@ mkdir -p "${TARGET_APP_DIR}"
 cp -r "${TEMPLATE_SOURCE_DIR}/." "${TARGET_APP_DIR}/"
 cp "${REPO_ROOT}/_templates/README.layer2.md" "${TARGET_APP_DIR}/README.md"
 
+if [ "${TYPE}" == "docker" ] && [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
+    echo "Processing existing docker-compose.yaml for templating..."
+    cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
+
+    yq -i ".services.${APP_NAME}.image |= sub(\":.*$\", \":{{ requested_image_version['${APP_NAME}'] }}\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${APP_NAME}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+    yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+fi
+
 echo "Swap out templates..."
 sed -i "s|APP_NAME|${APP_NAME}|g" ${TARGET_APP_DIR}/*
 sed -i "s|APP_FOLDERNAME|${APP_FOLDERNAME}|g" ${TARGET_APP_DIR}/*
