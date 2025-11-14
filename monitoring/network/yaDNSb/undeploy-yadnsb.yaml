@@ -1,0 +1,6 @@
+- name: Delete yadnsb containers
+  hosts: networkmonitoring
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: yadnsb

@@ -1,0 +1,8 @@
+- name: Deploy yadnsb as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: yadnsb
+    requested_image_version:
+      yadnsb: "0.0.10"
