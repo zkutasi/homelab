@@ -1,0 +1,8 @@
+- name: Deploy LibreSpeed as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: librespeed
+    requested_image_version:
+      librespeed: "5.4.1"
