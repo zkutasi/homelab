@@ -1,6 +1,6 @@
-# yaDNSb
+# YaDNSb
 
-[yaDNSb](https://example.com) - A DNS tester app, that runs various tests to various well-known DNS servers.
+[YaDNSb](https://github.com/butialabs/yadnsb) - A DNS tester app, that runs various tests to various well-known DNS servers.
 
 ## The setup
 
