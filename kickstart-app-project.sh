@@ -3,14 +3,16 @@
 APP_NAME=
 APP_NAME_LOWERCASE=
 APP_FOLDERNAME=
+ANSIBLE_HOST=
 TYPE=docker
 
 function usage() {
-    echo "Usage: $0 --foldername <foldername> --appname <appname> [--type <docker|k8s>]"
+    echo "Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>]"
     echo ""
     echo "Options:"
     echo "  --foldername <foldername>   Specify the folder to create (required)"
     echo "  --appname <appname>         Specify the application name to use as a replacement (required)"
+    echo "  --host <ansible_host>       Specify the Ansible host for deployment"
     echo "  --type <type>               Specify the template type (docker or k8s). Default: docker"
 }
 
@@ -24,6 +26,10 @@ while [ $# -ge 1 ]; do
       shift
       APP_NAME=$1
       APP_NAME_LOWERCASE=$(echo ${APP_NAME} | tr '[:upper:]' '[:lower:]')
+      ;;
+    --host)
+      shift
+      ANSIBLE_HOST=$1
       ;;
     --type)
       shift
@@ -73,6 +79,9 @@ echo "Swap out templates..."
 sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" ${TARGET_APP_DIR}/*
 sed -i "s|<APP_NAME>|${APP_NAME}|g" ${TARGET_APP_DIR}/*
 sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" ${TARGET_APP_DIR}/*
+if [ -n "${ANSIBLE_HOST}" ]; then
+  sed -i "s|<ANSIBLE_HOST>|${ANSIBLE_HOST}|g" ${TARGET_APP_DIR}/*
+fi
 
 echo "Renaming..."
 if [ "${TYPE}" == "docker" ]; then
