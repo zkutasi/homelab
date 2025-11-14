@@ -17,6 +17,7 @@ It is best to keep track of the image versions of containers and helm charts in 
   - Another fork [by Beatkind](https://github.com/beatkind/watchtower)
 - [What's up Docker](https://getwud.github.io/wud/#/) - For multi-host setups, one requires to open up the docker socket on the particular host
 - [Docker Image Update Notifier (DIUN)](https://crazymax.dev/diun/) - Command line only, no dashboard
+  - [Diun Dash](https://github.com/orkaa/diun-dash) - Adds a multi-DIUN host dashboard, quite abandoned
 - [Hoister](https://github.com/HerrMuellerluedenscheid/hoister)
 - [Dockcheck](https://github.com/mag37/dockcheck) - CLI only
 - [Slackwatch](https://github.com/mag37/dockcheck)
