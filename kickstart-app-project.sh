@@ -16,6 +16,32 @@ function usage() {
     echo "  --type <type>               Specify the template type (docker or k8s). Default: docker"
 }
 
+function add_yaml_key_as_map() {
+    local file=$1
+    local path=$2
+    local key=$3
+    local value=$4
+
+    echo "Adding key '${key}' to path '${path}' in ${file}"
+
+    # Check if the path exists
+    if yq -e "${path}" "${file}" >/dev/null; then
+        # Path exists, check if it's a list (sequence) or a map
+        local env_type
+        env_type=$(yq "${path} | type" "${file}")
+        if [[ "${env_type}" == "!!seq" ]]; then
+            # It's a list
+            yq -i "${path} += [\"${key}=${value}\"]" "${file}"
+        else
+            # It's a map or something else, treat as map
+            yq -i "${path}.${key} = \"${value}\"" "${file}"
+        fi
+    else
+        # Path doesn't exist, create it as a map
+        yq -i "${path}.${key} = \"${value}\"" "${file}"
+    fi
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --foldername)
@@ -73,6 +99,7 @@ if [ "${TYPE}" == "docker" ] && [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; 
     yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+    add_yaml_key_as_map "${TARGET_APP_DIR}/docker-compose.yaml.j2" ".services.${APP_NAME_LOWERCASE}.environment" "TZ" "{{ timezone }}"
 fi
 
 echo "Swap out templates..."
