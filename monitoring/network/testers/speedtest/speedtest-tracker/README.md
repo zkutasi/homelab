@@ -30,7 +30,7 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/speedtest/speedtest-tracker/deploy-speedtest-tracker.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/speedtest-tracker/deploy-speedtest-tracker.yaml --no-check
     ```
 
 ## Commands

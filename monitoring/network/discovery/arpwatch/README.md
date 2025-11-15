@@ -15,7 +15,7 @@ Deployed onto the Network appliance Host.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/arpwatch/deploy-arpwatch.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/arpwatch/deploy-arpwatch.yaml --no-check
     ```
 
 ## Commands

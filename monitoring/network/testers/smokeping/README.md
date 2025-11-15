@@ -1,10 +1,10 @@
-# LibreSpeed
+# SmokePing
 
-[LibreSpeed](https://librespeed.org/) - A speedtester like the big ones, but open source, minimalist and small footprint.
+[SmokePing](https://oss.oetiker.ch/smokeping/) is a tool to periodically check ping stats for multiple remote hosts, continuously.
 
 ## The setup
 
-To use this tool, one really needs remote servers to test against, the frontend is just a shell and standalone mode is not really testing the internet speeds with 0 servers given.
+Place it onto the Network monitoring appliance Host.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ To use this tool, one really needs remote servers to test against, the frontend 
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/speedtest/librespeed/deploy-librespeed.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/network/testers/smokeping/deploy-smokeping.yaml --no-check
 ```
 
 ## Commands

@@ -11,7 +11,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/yaDNSb/deploy-yadnsb.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/network/testers/yaDNSb/deploy-yadnsb.yaml --no-check
 ```
 
 ## Commands

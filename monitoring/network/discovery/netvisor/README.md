@@ -25,7 +25,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/netvisor/deploy-netvisor.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/netvisor/deploy-netvisor.yaml --no-check
 ```
 
 ## Commands

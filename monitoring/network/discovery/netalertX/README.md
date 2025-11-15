@@ -26,7 +26,7 @@ I deployed it besides a PiHole to integrate it with.
 Deploy with:
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/netalertx/deploy-netalertx.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/netalertx/deploy-netalertx.yaml --no-check
 ```
 
 ## Notable comments
