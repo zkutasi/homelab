@@ -1,0 +1,61 @@
+services:
+  daemon:
+    container_name: netvisor-daemon
+    environment:
+      NETVISOR_SERVER_TARGET: http://127.0.0.1
+      NETVISOR_PORT: {{ port_netvisor_daemon }}
+      TZ: {{ timezone }}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:{{ port_netvisor_daemon }}/api/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    image: mayanayza/netvisor-daemon:v{{ requested_image_version['netvisor'] }}
+    network_mode: host
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/daemon/config:/root/.config/daemon
+      # Comment out the line below to disable docker discovery
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro
+
+  postgres:
+    container_name: netvisor-postgres
+    environment:
+      POSTGRES_DB: netvisor
+      POSTGRES_USER: {{ netvisor_postgres_user }}
+      POSTGRES_PASSWORD: {{ netvisor_postgres_password }}
+      TZ: {{ timezone }}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    image: postgres:{{ requested_image_version['postgres'] }}
+    restart: unless-stopped
+    networks:
+      - netvisor
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/postgres/data:/var/lib/postgresql/data
+
+  server:
+    container_name: netvisor-server
+    environment:
+      NETVISOR_DATABASE_URL: postgresql://{{ netvisor_postgres_user }}:{{ netvisor_postgres_password }}@postgres:5432/netvisor
+      NETVISOR_WEB_EXTERNAL_PATH: /app/static
+      NETVISOR_INTEGRATED_DAEMON_URL: http://host.docker.internal:{{ port_netvisor_daemon }}
+      TZ: {{ timezone }}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    image: mayanayza/netvisor-server:v{{ requested_image_version['netvisor'] }}
+    networks:
+      - netvisor
+    ports:
+      - {{ port_netvisor_server }}:{{ port_netvisor_server }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/server/data:/data
+
+networks:
+  netvisor:
+    driver: bridge

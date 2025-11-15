@@ -1,0 +1,15 @@
+- name: Deploy NetVisor as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars_files:
+    - defaults.yaml
+  vars:
+    docker_compose_projectname: netvisor
+    requested_image_version:
+      netvisor: "0.9.1"
+      postgres: "17-alpine3.22"
+    docker_compose_create_dirs:
+      - name: daemon/config
+      - name: postgres/data
+      - name: server/data
