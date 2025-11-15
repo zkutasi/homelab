@@ -5,4 +5,12 @@
     owner: "{{ scripts_ownership_user }}"
     group: "{{ scripts_ownership_group }}"
     mode: "0755"
-  loop: "{{ lookup('ansible.builtin.fileglob', inventory_hostname + '/*', wantlist=True) }}"
+  loop: "{{ lookup('ansible.builtin.fileglob', role_path + '/files/' + inventory_hostname + '/*', wantlist=True) }}"
+- name: Template scripts to the host they belong to
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/{{ item | basename | regex_replace('\\.j2$', '') }}"
+    owner: "{{ scripts_ownership_user }}"
+    group: "{{ scripts_ownership_group }}"
+    mode: "0755"
+  loop: "{{ lookup('ansible.builtin.fileglob', role_path + '/templates/' + inventory_hostname + '/*', wantlist=True) }}"

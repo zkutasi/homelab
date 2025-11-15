@@ -1,2 +1,2 @@
-scripts_ownership_user: "{{ lookup('env', 'USER') }}"
+scripts_ownership_user: "{{ ansible_user }}"
 scripts_ownership_group: "users"
