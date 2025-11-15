@@ -3,6 +3,7 @@ services:
     container_name: librespeed
     environment:
       MODE: standalone
+      TZ: {{ timezone }}
     image: ghcr.io/librespeed/speedtest:{{ requested_image_version['librespeed'] }}
     ports:
       - {{ port_librespeed }}:80

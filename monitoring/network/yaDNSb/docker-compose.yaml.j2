@@ -1,6 +1,8 @@
 services:
   yadnsb:
     container_name: yadnsb
+    environment:
+      TZ: {{ timezone }}
     healthcheck:
       interval: 15s
       retries: 3
