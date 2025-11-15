@@ -43,7 +43,7 @@ On the UI, you shall add a user. Use the following groups to be part of:
 - sudo
 - users
 
-Also create a group for this user, make it so that the group name is the same as the user name.
+Also create a group for this user, make it so that the group name is the same as the user name. Make sure this user has access to all of the required Shared folders, otherwise the containers running under this user will not work properly. This can be set under the User settings, next to the Edit button (Shared Folder Permissions)
 
 Alternatively, use the Ansible playbook to deploy my setup:
 
