@@ -4,7 +4,7 @@
 
 ## The setup
 
-Deployed into the Kubernetes cluster and measures every X minutes the speed and latency of the connection.
+Deployed into the Kubernetes cluster.
 
 ## Prerequisites
 
