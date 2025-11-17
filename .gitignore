@@ -18,3 +18,5 @@ cup.json
 wazuh-kubernetes
 context
 *.log
+Chart.lock
+common-*.tgz

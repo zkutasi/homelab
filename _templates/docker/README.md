@@ -22,6 +22,10 @@
 
 ### Deploy the app
 
+```bash
+./common-ansible-run-playbook.sh --playbook <APP_FOLDERNAME>/deploy-<APP_NAME_LOWERCASE>.yaml --no-check
+```
+
 ## Commands
 
 ## Notable comments

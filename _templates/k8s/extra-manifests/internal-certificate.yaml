@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: <APP_NAME_LOWERCASE>-cert
+spec:
+  secretName: <APP_NAME_LOWERCASE>-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - <APP_NAME_LOWERCASE>.kubernetes.home

@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: <APP_NAME_LOWERCASE>
+  name: <APP_NAME_LOWERCASE>-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: <APP_NAME_LOWERCASE>
+          port: 8443
+          protocol: tls
+  virtualhost:
+    fqdn: <APP_NAME_LOWERCASE>.kubernetes.home
+    tls:
+      secretName: <APP_NAME_LOWERCASE>-cert-secret

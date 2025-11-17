@@ -84,8 +84,13 @@ elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
   [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for helm deployment" && exit 1
   [ -z "${RELEASE_NAME}" ] && echo "ERROR: Release name must be specified for helm deployment" && exit 1
   REPO_NAME=$(echo ${CHART_NAME} | cut -d'/' -f1)
+elif [ "${DEPLOYMENT_TYPE}" == "local" ]; then
+  [ -z "${CHART_NAME}" ] && echo "ERROR: Chart name must be specified for helm deployment" && exit 1
+  [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for helm deployment" && exit 1
+  [ -z "${RELEASE_NAME}" ] && echo "ERROR: Release name must be specified for helm deployment" && exit 1
+  LATEST=1
 else
-  echo "ERROR: Invalid deployment type. Must be 'helm' or 'truecharts'" && exit 1
+  echo "ERROR: Invalid deployment type. Must be 'helm' or 'truecharts' or 'local'" && exit 1
 fi
 
 if [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
@@ -118,6 +123,8 @@ if [ -z "${VERSION}" ]; then
     latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
   elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
     latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
+  elif [ "${DEPLOYMENT_TYPE}" == "local" ]; then
+    latest=local
   fi
   echo "Latest version is ${latest}"
   VERSION=${latest}
