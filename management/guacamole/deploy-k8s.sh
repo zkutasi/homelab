@@ -13,6 +13,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-truecharts.sh \
+$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --app "${APP}" \
+    --type truecharts \
     ${EXTRA_PARAMS}
