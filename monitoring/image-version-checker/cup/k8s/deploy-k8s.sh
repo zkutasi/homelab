@@ -1,6 +1,8 @@
 #!/bin/bash
 
+APP=cup
 NS=cup
+RELEASE_NAME=cup
 
 EXTRA_PARAMS=
 
@@ -13,13 +15,9 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-if [ ! -f 'cup.json' ]; then
-  echo "No cup.json file found, creating and empty one"
-  cat <<EOF > cup.json
-{}
-EOF
-fi
-
-$(git rev-parse --show-toplevel)/common-deploy-kompose.sh \
+$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
+    --chart-name ${PWD}/chart \
     --namespace $NS \
+    --release-name "${RELEASE_NAME}" \
+    --type local \
     ${EXTRA_PARAMS}

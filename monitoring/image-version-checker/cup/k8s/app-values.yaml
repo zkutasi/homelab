@@ -1,0 +1,40 @@
+image:
+  repository: ghcr.io/sergi0g/cup
+  tag: v3.4.3
+  pullPolicy: IfNotPresent
+persistence:
+  config:
+    enabled: true
+    type: configmap
+    objectName: config
+    mountPath: /config
+    optional: false
+    readOnly: true
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8000
+        protocol: http
+        targetPort: 8000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          args:
+            - -c
+            - /config/cup.json
+            - serve
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
