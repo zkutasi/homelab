@@ -8,4 +8,4 @@ spec:
     name: contour-selfsigned-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-    - ittools.kubernetes.home
+    - it-tools.kubernetes.home

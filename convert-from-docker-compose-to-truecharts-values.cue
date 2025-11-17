@@ -25,9 +25,11 @@ inputImage: {
 }
 
 inputEnv: {
-	for e in inputService.environment {
-		(strings.Split(e, "=")[0]): strings.Split(e, "=")[1]
-    }
+	if inputService.environment != _|_ {
+		for e in inputService.environment {
+			(strings.Split(e, "=")[0]): strings.Split(e, "=")[1]
+		}
+	}
 }
 
 inputPorts: {
@@ -36,14 +38,14 @@ inputPorts: {
 	container: strconv.Atoi(strings.Split(raw, ":")[1])
 }
 
-inputCmd: strings.Split(inputService.command, " ")
+inputCmd: [
+	if inputService.command != _|_ {
+		for v in strings.Split(inputService.command, " ") {v}
+	},
+]
 
 inputVolumes: {
-	raw:       inputService.volumes[0]
-	host:      strings.Split(raw, ":")[0]
-	container: strings.Split(raw, ":")[1]
-	fileName:  strings.TrimPrefix(host, "./")
-	inputVolumes: {
+	if inputService.volumes != _|_ {
 		raw:       inputService.volumes[0]
 		host:      strings.Split(raw, ":")[0]
 		container: strings.Split(raw, ":")[1]
@@ -61,14 +63,16 @@ output: {
     pullPolicy: "IfNotPresent"
   }
 
-  persistence: {
-    config: {
-      enabled:   true
-      type:      "configmap"
-      objectName:"config"
-      mountPath: inputVolumes.container
-      optional:  false
-      readOnly:  true
+  if inputService.volumes != _|_ {
+	  persistence: {
+      config: {
+        enabled:   true
+        type:      "configmap"
+        objectName:"config"
+        mountPath: inputVolumes.container
+        optional:  false
+        readOnly:  true
+      }
     }
   }
 
@@ -85,7 +89,7 @@ output: {
     }
   }
 
-  TZ: inputEnv.TZ
+  TZ: "Europe/Budapest"
 
   workload: {
     main: {
@@ -95,7 +99,7 @@ output: {
         containers: {
           main: {
             enabled: true
-            args: inputCmd
+            if inputService.inputCmd != _|_ { args: inputCmd }
             probes: {
               liveness:  { enabled: false }
               readiness: { enabled: false }

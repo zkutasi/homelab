@@ -12,6 +12,6 @@ spec:
         - name: it-tools
           port: 80
   virtualhost:
-    fqdn: ittools.kubernetes.home
+    fqdn: it-tools.kubernetes.home
     tls:
       secretName: it-tools-cert-secret
