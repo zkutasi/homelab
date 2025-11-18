@@ -4,15 +4,15 @@
 
 ## The setup
 
-Just run the image in a cluster, and access the tools in a browser.
-
 ## Prerequisites
 
 ## Usage
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

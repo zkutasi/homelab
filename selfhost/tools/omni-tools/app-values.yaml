@@ -1,0 +1,33 @@
+image:
+  repository: iib0011/omni-tools
+  tag: 0.6.0
+  pullPolicy: IfNotPresent
+persistence:
+  nginx-cache:
+    enabled: true
+    type: emptyDir
+    mountPath: /var/cache/nginx
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 80
+        protocol: http
+        targetPort: 80
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

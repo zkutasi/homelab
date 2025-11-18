@@ -12,6 +12,6 @@ spec:
         - name: omni-tools
           port: 80
   virtualhost:
-    fqdn: omnitools.kubernetes.home
+    fqdn: omni-tools.kubernetes.home
     tls:
       secretName: omni-tools-cert-secret
