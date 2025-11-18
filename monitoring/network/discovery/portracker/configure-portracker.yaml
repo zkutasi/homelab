@@ -1,0 +1,53 @@
+- name: List all servers on the REST API
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "portracker_servers"
+    - name: Debug Servers
+      ansible.builtin.debug:
+        msg: "{{ portracker_servers.json | community.general.json_query('[*].id') }}"
+  vars:
+    rest_api_url: "{{ portracker_hostname }}"
+    rest_api_endpoint: "/api/servers"
+    rest_api_method: "GET"
+- name: Register in new servers
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      when: not (portracker_servers.json | selectattr('id', 'contains', hostvars[item].id))
+      loop: "{{ groups['docker'] }}"
+      loop_control:
+        label: "{{ hostvars[item].id }}"
+      vars:
+        rest_api_data:
+          id: "{{ hostvars[item].id }}"
+          label: "{{ hostvars[item].id }}"
+          url: "http://{{ hostvars[item].ansible_host }}:4999"
+          type: "peer"
+          unreachable: 1
+          platform_type: "unknown"
+  vars:
+    rest_api_url: "{{ portracker_hostname }}"
+    rest_api_endpoint: "/api/servers"
+    rest_api_method: "POST"
+    rest_api_body_format: "json"
+- name: List all servers on the REST API
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "portracker_servers"
+    - name: Debug Servers
+      ansible.builtin.debug:
+        msg: "{{ portracker_servers.json | community.general.json_query('[*].id') }}"
+  vars:
+    rest_api_url: "{{ portracker_hostname }}"
+    rest_api_endpoint: "/api/servers"
+    rest_api_method: "GET"

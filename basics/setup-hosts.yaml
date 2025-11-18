@@ -32,3 +32,4 @@
     hosts_entries:
       - komodo.kubernetes.home
       - portainer.kubernetes.home
+      - portracker.kubernetes.home

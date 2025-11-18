@@ -1,0 +1,35 @@
+image:
+  repository: mostafawahied/portracker
+  tag: 1.1.1
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data
+    type: pvc
+    size: 5Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 4999
+        protocol: http
+        targetPort: 4999
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

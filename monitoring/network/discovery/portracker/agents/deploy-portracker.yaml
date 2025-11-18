@@ -1,0 +1,10 @@
+- name: Deploy Portracker as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: portracker
+    requested_image_version:
+      portracker: "1.1.1"
+    docker_compose_create_dirs:
+      - name: data

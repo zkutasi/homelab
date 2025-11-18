@@ -1,0 +1,19 @@
+services:
+  portracker:
+    cap_add:
+      - SYS_PTRACE     # Linux hosts: read other PIDs' /proc entries
+    container_name: portracker
+    environment:
+      - TZ={{ timezone }}
+    image: mostafawahied/portracker:{{ requested_image_version['portracker'] }}
+    pid: "host"  # Required for port detection
+    ports:
+      - {{ port_portracker }}:4999
+    restart: unless-stopped
+    security_opt:
+      - apparmor:unconfined # Required for system ports
+    volumes:
+      # Required for data persistence
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
+      # Required for discovering services running in Docker
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro
