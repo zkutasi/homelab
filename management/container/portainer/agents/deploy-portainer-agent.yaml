@@ -1,8 +1,5 @@
 - name: Deploy portainer-agent as docker
-  hosts:
-    - standalone
-    - external
-    - synology
+  hosts: docker
   roles:
     - docker-compose
   vars:

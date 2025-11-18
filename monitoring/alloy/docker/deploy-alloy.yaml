@@ -1,8 +1,5 @@
 - name: Deploy alloy as docker
-  hosts:
-    - standalone
-    # - external
-    - synology
+  hosts: "{{ groups['docker'] | difference(groups['external']) }}"
   roles:
     - docker-compose
   vars_files:

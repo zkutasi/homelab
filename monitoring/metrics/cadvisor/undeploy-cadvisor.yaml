@@ -1,6 +1,5 @@
 - name: Delete cadvisor containers
-  hosts:
-    - external
+  hosts: external
   roles:
     - docker-compose-remove
   vars:

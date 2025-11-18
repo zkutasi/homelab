@@ -1,8 +1,6 @@
 - name: Deploy fail2ban as docker
   hosts:
-    # - standalone
     - external
-    # - synology
   roles:
     - docker-compose
   vars:

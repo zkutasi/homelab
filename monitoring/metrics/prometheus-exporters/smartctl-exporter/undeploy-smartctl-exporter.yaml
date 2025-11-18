@@ -1,13 +1,11 @@
 - name: Delete smartctl
-  hosts:
-    - htpc
-    - synology
+  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
   roles:
     - docker-compose-remove
   vars:
     docker_compose_projectname: smartctl
 - name: Delete smartctl as a service
-  hosts: proxmox
+  hosts: "{{ groups['smart'] | difference(groups['docker']) }}"
   roles:
     - binary-remove
   vars:

@@ -1,8 +1,5 @@
 - name: Delete alloy containers
-  hosts:
-    - standalone
-    # - external
-    - synology
+  hosts: "{{ groups['docker'] | difference(groups['external']) }}"
   roles:
     - docker-compose-remove
   vars:

@@ -1,6 +1,5 @@
 - name: Deploy qbittorrent as docker on Synology216
-  hosts:
-    - synology216
+  hosts: synology216
   roles:
     - docker-compose
   vars:
@@ -18,8 +17,7 @@
       }}
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_qbittorrent_nox }}"
 - name: Deploy qbittorrent as docker on omv
-  hosts:
-    - omv
+  hosts: omv
   roles:
     - docker-compose
   vars:

@@ -70,10 +70,7 @@
       params: {}
     rest_api_body_format: "json"
 - name: List all filesystem docker compose projects
-  hosts:
-    - standalone
-    - external
-    - synology
+  hosts: docker
   tasks:
     - name: List the folders
       ansible.builtin.find:
@@ -130,10 +127,7 @@
         stack: "{{ item.name }}"
     rest_api_body_format: "json"
 - name: Create new stacks
-  hosts:
-    - standalone
-    - external
-    - synology
+  hosts: docker
   tasks:
     - name: Call the REST API
       ansible.builtin.include_role:

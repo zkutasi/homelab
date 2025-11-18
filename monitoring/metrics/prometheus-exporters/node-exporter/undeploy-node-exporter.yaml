@@ -1,8 +1,5 @@
 - name: Delete node-exporter
-  hosts:
-    - standalone
-    - external
-    - synology
+  hosts: docker
   roles:
     - docker-compose-remove
   vars:

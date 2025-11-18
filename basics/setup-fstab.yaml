@@ -1,6 +1,5 @@
 - name: Set up /etc/fstab
-  hosts:
-    - standalone
+  hosts: standalone
   become: true
   roles:
     - fstab

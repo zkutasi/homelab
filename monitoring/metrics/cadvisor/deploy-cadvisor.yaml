@@ -1,6 +1,5 @@
 - name: Deploy cadvisor as docker
-  hosts:
-    - external
+  hosts: external
   roles:
     - docker-compose
   vars:

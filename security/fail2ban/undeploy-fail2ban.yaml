@@ -1,8 +1,6 @@
 - name: Delete fail2ban
   hosts:
-    # - standalone
     - external
-    # - synology
   roles:
     - docker-compose-remove
   vars:

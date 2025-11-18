@@ -1,6 +1,5 @@
 - name: Set up /etc/hosts for media
-  hosts:
-    - htpc
+  hosts: htpc
   become: true
   roles:
     - hosts

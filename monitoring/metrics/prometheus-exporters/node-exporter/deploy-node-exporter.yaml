@@ -9,10 +9,7 @@
     download_url: "https://github.com/prometheus/node_exporter/releases/download/\
           v{{ requested_image_version }}/{{ bin_filename }}-{{ requested_image_version }}.linux-amd64.tar.gz"
 - name: Deploy node-exporter as docker
-  hosts:
-    - standalone
-    - external
-    - synology
+  hosts: docker
   roles:
     - docker-compose
   vars:
