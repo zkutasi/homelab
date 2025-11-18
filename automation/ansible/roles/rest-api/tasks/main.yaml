@@ -10,10 +10,10 @@
     method: "{{ rest_api_method }}"
     headers: "{{ rest_api_headers }}"
     body: "{{ rest_api_data }}"
-    body_format: "{{ rest_api_body_format | default('form-urlencoded') }}"
+    body_format: "{{ rest_api_body_format }}"
     return_content: true
     validate_certs: false
-    status_code: "{{ rest_api_status_code | default(200) }}"
+    status_code: "{{ rest_api_status_codes }}"
   register: rest_api_response
 - name: Set the result in a fact
   ansible.builtin.set_fact:

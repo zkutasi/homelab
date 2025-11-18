@@ -52,7 +52,6 @@
         rest_api_data:
           sid: "{{ pihole_authresponse.cookies.sid }}"
         rest_api_body_format: "json"
-        rest_api_status_code: [200, 201]
 - name: Get the custom CNAME entries
   hosts: controlserver
   tasks:
@@ -90,4 +89,3 @@
         rest_api_data:
           sid: "{{ pihole_authresponse.cookies.sid }}"
         rest_api_body_format: "json"
-        rest_api_status_code: [200, 201]
