@@ -143,6 +143,11 @@ if [ ! -f "${APP}-values-private.yaml" ]; then
   touch ${APP}-values-private.yaml
 fi
 
+if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
+  echo "Running helm dependency update for local helm chart..."
+  helm dependency update "${CHART_NAME}"
+fi
+
 echo "Install helm chart..."
 CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \

@@ -119,8 +119,6 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
         cp -r ${REPO_ROOT}/_templates/${TYPE}/* "${TARGET_APP_DIR}"
     fi
     if [ "${SUBTYPE}" == "truecharts-local" ]; then
-        echo "Running helm dependency update for local helm chart..."
-        helm dependency update "${TARGET_APP_DIR}/chart"
         if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
             echo "Converting docker-compose.yaml for Truecharts values.yaml with the CUE converter..."
             docker run --rm \
