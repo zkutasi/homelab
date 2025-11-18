@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: netvisor
+  name: netvisor-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: netvisor
+          port: 60072
+  virtualhost:
+    fqdn: netvisor.kubernetes.home
+    tls:
+      secretName: netvisor-cert-secret

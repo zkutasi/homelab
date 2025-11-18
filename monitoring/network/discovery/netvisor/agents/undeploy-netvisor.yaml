@@ -1,0 +1,6 @@
+- name: Delete NetVisor agent containers
+  hosts: "{{ groups['docker'] | difference(groups['external']) }}"
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: netvisor

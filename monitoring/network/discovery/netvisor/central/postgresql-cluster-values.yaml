@@ -1,0 +1,13 @@
+cluster:
+  initdb:
+    database: netvisor
+    owner: netvisor
+    secret:
+      name: netvisor-db-password-secret
+  instances: 1
+  monitoring:
+    enabled: true
+  storage:
+    size: 8Gi
+backups:
+  enabled: false

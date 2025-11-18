@@ -1,0 +1,42 @@
+image:
+  repository: mayanayza/netvisor-server
+  tag: v0.9.1
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data
+    type: pvc
+    size: 5Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 60072
+        protocol: http
+        targetPort: 60072
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            NETVISOR_DATABASE_URL:
+              secretKeyRef:
+                name: db-credentials
+                key: database-url
+            NETVISOR_USE_SECURE_SESSION_COOKIES: true
+            NETVISOR_WEB_EXTERNAL_PATH: /app/static
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

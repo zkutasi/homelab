@@ -1,7 +1,8 @@
 #!/bin/bash
 
-APP=komodo
-NS=komodo
+APP=netvisor
+NS=netvisor
+RELEASE_NAME=netvisor
 REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
 
 EXTRA_PARAMS=
@@ -16,9 +17,11 @@ while [ $# -ge 1 ]; do
 done
 
 DB_SECRET_NAME="${APP}-db-password-secret"
+DB_USERNAME="netvisor"
+DB_HOST="postgresql-cluster-rw"
+DB_DATABASE="netvisor"
 if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
   echo "Generating random database password..."
-  DB_USERNAME="komodo"
   DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
 
   kubectl create namespace $NS
@@ -29,6 +32,8 @@ if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
       --namespace=$NS
 fi
 DB_PASSWORD=$(kubectl get secret -n $NS ${DB_SECRET_NAME} -o jsonpath='{.data.password}' | base64 -d)
+DB_CONNECTION_STRING="postgresql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:5432/${DB_DATABASE}"
+yq -i ".secret.db-credentials.data.database-url=\"${DB_CONNECTION_STRING}\"" app-values-private.yaml
 
 echo "Deploying the PostgreSQL database..."
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
@@ -39,21 +44,9 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --app postgresql-cluster \
     ${EXTRA_PARAMS}
 
-echo "Setting up environment files with private data..."
-cat <<EOF > .ferret.env
-FERRETDB_POSTGRESQL_URL=postgres://komodo:${DB_PASSWORD}@postgresql-cluster-rw:5432/komodo
-EOF
-if grep -q "^KOMODO_DATABASE_URI=" .komodo.env; then
-  sed -i "s|^KOMODO_DATABASE_URI=.*|KOMODO_DATABASE_URI=mongodb://komodo:${DB_PASSWORD}@ferretdb:27017/komodo|" .komodo.env
-else
-  echo "KOMODO_DATABASE_URI=mongodb://komodo:${DB_PASSWORD}@ferretdb:27017/komodo" >> .komodo.env
-fi
-if grep -q "^KOMODO_DATABASE_PASSWORD=" .komodo.env; then
-  sed -i "s|^KOMODO_DATABASE_PASSWORD=.*|KOMODO_DATABASE_PASSWORD=${DB_PASSWORD}|" .komodo.env
-else
-  echo "KOMODO_DATABASE_PASSWORD=${DB_PASSWORD}" >> .komodo.env
-fi
-
-$(git rev-parse --show-toplevel)/common-deploy-kompose.sh \
+$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
+    --chart-name ${PWD}/chart \
     --namespace $NS \
+    --release-name "${RELEASE_NAME}" \
+    --type local \
     ${EXTRA_PARAMS}
