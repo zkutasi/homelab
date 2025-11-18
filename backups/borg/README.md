@@ -49,7 +49,7 @@ If you have a Synology and the backup server is going to be there, these items h
     |------|--------------------|---------|
     |backups_gid|M|The Group ID Synology created for the backup group|
 
-### Deploy the app
+### Deploy Borgwarehouse (GUI)
 
 First, deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI
 
@@ -69,22 +69,33 @@ Then go to the Borgwarehouse UI and
 2. Go to the Admin page (top right corner) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
 3. Place the generated token into your inventory (preferably in group_vars/all.yaml) as `borgwarehouse_api_key` into the `all` group_vars file
 
-Then finish the deployment with
+### Configure Borgwarehouse
 
 ```bash
-./common-ansible-run-playbook.sh --playbook backups/borg/setup-borg.yaml --no-check
+./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/configure-borgwarehouse.yaml --no-check
 ```
 
-1. Configure borgwarehouse
-   1. Using the Borgwarehouse REST API, list all the repos and their IDs
-   2. Make sure all clients have an SSH key, if not generate one (will be required for registering the repo for the client)
-   3. Register in non-existing repos from the `backupclient` group
-2. Deploy borgmatic to all the backupClients
-   1. Gather from the borgwarehouse REST API all the repos
-   2. Deploy the borgmatic docker container on all clients and template the borgmatic config properly with the info about the server and the proper repo ID
-3. Configure borgmatic on all the backupClients
-   1. Add the backupserver's SSH key to each client's known_host file
-   2. Init the borg repo from the client side, which requires proper SSH connection to the server
+1. Using the Borgwarehouse REST API, list all the repos and their IDs
+2. Make sure all clients have an SSH key, if not generate one (will be required for registering the repo for the client)
+3. Register in non-existing repos from the `backupclient` group
+
+### Deploy Borgmatic clients
+
+```bash
+./common-ansible-run-playbook.sh --playbook backups/borg/borgmatic/deploy-borgmatic.yaml --no-check
+```
+
+1. Gather from the borgwarehouse REST API all the repos
+2. Deploy the borgmatic docker container on all clients and template the borgmatic config properly with the info about the server and the proper repo ID
+
+### Configure Borgmatic clients
+
+```bash
+./common-ansible-run-playbook.sh --playbook backups/borg/borgmatic/configure-borgmatic.yaml --no-check
+```
+
+1. Add the backupserver's SSH key to each client's known_host file
+2. Init the borg repo from the client side, which requires proper SSH connection to the server
 
 ## Commands
 

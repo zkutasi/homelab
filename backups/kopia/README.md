@@ -37,9 +37,7 @@ If you have a Synology and the backup server is going to be there, these items h
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
 
-### Deploy the app
-
-First, deploy Kopia on the BackupServer, hosting the Repository and also on the client Hosts as well
+### Deploy Kopia Server and clients
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook backups/kopia/deploy-kopia.yaml --no-check
@@ -52,7 +50,7 @@ This will do the following:
    2. Wait until the certs are generated
 2. Deploy Kopia on every host, properly configured
 
-Then configure the Server and the clients
+### Configure the Server and the clients
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook backups/kopia/configure-kopia.yaml --no-check
