@@ -22,10 +22,10 @@ N/A
     |cup_registries|O|A map of registries and their access tokens if a rate-limit is reached and the app starts behaving erratic due to the Unauthorized issues.|
     |cup_servers|O|A list of Servers the control-server shall handle as remotes. Since the control-server runs in Kubernetes, this is not needed here.|
 
-### Deploy the workers
+### Deploy the agents
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/docker/deploy-cup.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/agents/deploy-cup.yaml --no-check
 ```
 
 ### Deploy the central component
