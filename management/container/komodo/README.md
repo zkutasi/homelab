@@ -53,7 +53,9 @@ Then deploy the periphery agents to every host required
 ./common-ansible-run-playbook.sh --playbook management/container/komodo/agents/deploy-komodo-periphery.yaml --no-check
 ```
 
-And finally register all of the hosts and existing stacks on the REST API
+### Configure Komodo server
+
+This will register all of the hosts and existing stacks on the REST API
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook management/container/komodo/configure-komodo.yaml --no-check

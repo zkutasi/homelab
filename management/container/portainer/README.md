@@ -57,7 +57,9 @@ Then deploy the portainer agents to every host required
 ./common-ansible-run-playbook.sh --playbook management/container/portainer/agents/deploy-portainer-agent.yaml --no-check
 ```
 
-And finally register all of the hosts on the REST API
+### Configure Portainer server
+
+Register all of the hosts on the REST API
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook management/container/portainer/configure-portainer.yaml --no-check
