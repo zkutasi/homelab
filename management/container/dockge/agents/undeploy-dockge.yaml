@@ -1,0 +1,6 @@
+- name: Delete dockge
+  hosts: docker
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: dockge

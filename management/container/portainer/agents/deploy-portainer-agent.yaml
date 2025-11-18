@@ -1,8 +1,0 @@
-- name: Deploy portainer-agent as docker
-  hosts: docker
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: portainer-agent
-    requested_image_version:
-      portainer-agent: "2.30.0"

@@ -11,4 +11,4 @@ services:
     volumes:
       - {{ docker_socket_path }}:/var/run/docker.sock
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
-      - {{ docker_compose_rootdir }}:/opt/stacks
+      - {{ docker_compose_rootdir }}:/opt/stacks:ro
