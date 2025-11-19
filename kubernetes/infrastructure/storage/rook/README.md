@@ -17,7 +17,30 @@ Rook can provide the following:
 
 ## Usage
 
-### Deploy the app
+### Deploy the Operator
+
+1. Add the helm repository
+
+    ```bash
+    helm repo add rook-release https://charts.rook.io/release
+    helm repo update
+    ```
+
+2. Check which version you want to install, or leave empty to take the latest available version
+
+    ```bash
+    helm search repo rook-release/rook-ceph -l
+    ```
+
+3. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+4. Install with the provided script
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
+### Deploy Rook
 
 1. Add the helm repository
 
