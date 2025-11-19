@@ -8,9 +8,13 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: netvisor
           port: 60072
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
   virtualhost:
     fqdn: netvisor.kubernetes.home
     tls:
