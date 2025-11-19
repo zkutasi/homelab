@@ -1,14 +1,31 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: netvisor
+    user: netvisor
+    monitoring:
+      enablePodMonitor: true
+
 image:
   repository: mayanayza/netvisor-server
   tag: v0.9.1
   pullPolicy: IfNotPresent
+
 persistence:
   data:
     enabled: true
     accessModes: ReadWriteOnce
     mountPath: /data
     type: pvc
-    size: 5Gi
+    size: 2Gi
+
 service:
   main:
     enabled: true
@@ -17,7 +34,9 @@ service:
         port: 60072
         protocol: http
         targetPort: 60072
+
 TZ: Europe/Budapest
+
 workload:
   main:
     enabled: true
@@ -29,8 +48,8 @@ workload:
           env:
             NETVISOR_DATABASE_URL:
               secretKeyRef:
-                name: db-credentials
-                key: database-url
+                name: cnpg-main-urls
+                key: std
             NETVISOR_USE_SECURE_SESSION_COOKIES: true
             NETVISOR_WEB_EXTERNAL_PATH: /app/static
           probes:
