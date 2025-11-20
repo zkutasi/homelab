@@ -1,0 +1,101 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      imageName: ghcr.io/ferretdb/postgres-documentdb:17-0.103.0-ferretdb-2.2.0
+      initdb:
+        postInitApplicationSQL:
+          - CREATE EXTENSION IF NOT EXISTS documentdb CASCADE;
+          - grant set on parameter documentdb.maxuserlimit to komodo;
+          - grant documentdb_admin_role to komodo;
+      instances: 1
+      postgresql:
+        cron.database_name: 'komodo'
+      postgresUID: 999
+      postgresGID: 999
+      preloadLibraries:
+        - pg_cron
+        - pg_documentdb_core
+        - pg_documentdb
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: komodo
+    monitoring:
+      enablePodMonitor: true
+    user: komodo
+
+komodo:
+  repository: ghcr.io/moghtech/komodo-core
+  tag: 1.19.3
+  pullPolicy: IfNotPresent
+
+ferretdb:
+  repository: ghcr.io/ferretdb/ferretdb
+  tag: 2.2.0
+  pullPolicy: IfNotPresent
+
+persistence:
+  ferretdb-state:
+    enabled: true
+    type: emptyDir
+    mountPath: /state
+    targetSelector:
+      main:
+        ferretdb: {}
+
+service:
+  ferretdb:
+    enabled: true
+    ports:
+      ferretdb:
+        enabled: true
+        port: 27017
+        protocol: http
+        targetPort: 27017
+        targetSelector: ferretdb
+  main:
+    ports:
+      main:
+        port: 9120
+        protocol: http
+        targetPort: 9120
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        ferretdb:
+          enabled: true
+          env:
+            FERRETDB_HANDLER: postgres
+            FERRETDB_POSTGRESQL_URL:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: std
+          imageSelector: ferretdb
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+        main:
+          env:
+            KOMODO_DATABASE_ADDRESS: komodo-ferretdb:27017
+            KOMODO_LOCAL_AUTH: "true"
+          imageSelector: komodo
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

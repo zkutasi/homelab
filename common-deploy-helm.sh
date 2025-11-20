@@ -5,6 +5,7 @@ CHART_NAME=
 DEPLOYMENT_TYPE=helm
 LATEST=0
 NS=
+POST_RENDERER=
 RELEASE_NAME=
 REPO_NAME=
 REPO_URL=
@@ -26,6 +27,7 @@ Options:
   --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)
   --release-name <release-name> Helm release name (default: same as app name)
   --version <version>         Specific chart version to deploy (default: current or latest if not installed)
+  --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
 EOF
 }
 
@@ -45,6 +47,10 @@ while [ $# -ge 1 ]; do
     --namespace)
       shift
       NS=$1
+      ;;
+    --post-renderer)
+      shift
+      POST_RENDERER=$1
       ;;
     --release-name)
       shift
@@ -156,6 +162,10 @@ CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --values ${APP}-values.yaml \
     --values ${APP}-values-private.yaml \
     --debug"
+
+if [ -n "${POST_RENDERER}" ]; then
+  CMD="${CMD} --post-renderer ${POST_RENDERER}"
+fi
 
 echo "Executing command: ${CMD}"
 ${CMD}

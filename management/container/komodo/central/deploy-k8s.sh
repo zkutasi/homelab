@@ -2,7 +2,7 @@
 
 APP=komodo
 NS=komodo
-REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
+RELEASE_NAME=komodo
 
 EXTRA_PARAMS=
 
@@ -15,45 +15,33 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-DB_SECRET_NAME="${APP}-db-password-secret"
-if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
-  echo "Generating random database password..."
-  DB_USERNAME="komodo"
-  DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
-
-  kubectl create namespace $NS
-  kubectl create secret generic ${DB_SECRET_NAME} \
-      --from-literal=username="${DB_USERNAME}" \
-      --from-literal=password="${DB_PASSWORD}" \
-      --type=kubernetes.io/basic-auth \
-      --namespace=$NS
+if [ ! -f app-values-private.yaml ]; then
+    touch app-values-private.yaml
 fi
-DB_PASSWORD=$(kubectl get secret -n $NS ${DB_SECRET_NAME} -o jsonpath='{.data.password}' | base64 -d)
 
-echo "Deploying the PostgreSQL database..."
+DB_USERNAME=$(yq '.cnpg.main.user' app-values.yaml)
+DB_PASSWORD=$(yq '.cnpg.main.password' app-values-private.yaml)
+if [[ "${DB_PASSWORD}" == "null" ]]; then
+    DB_PASSWORD=$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)
+    yq -i ".cnpg.main.password=\"${DB_PASSWORD}\"" app-values-private.yaml
+fi
+
+DB_DBNAME=$(yq '.cnpg.main.database' app-values.yaml)
+MONGODB_URI="mongodb://${DB_USERNAME}:${DB_PASSWORD}@komodo-ferretdb:27017/${DB_DBNAME}"
+yq -i ".workload.main.podSpec.containers.main.env.KOMODO_DATABASE_URI=\"${MONGODB_URI}\"" app-values-private.yaml
+yq -i ".workload.main.podSpec.containers.main.env.KOMODO_DATABASE_USERNAME=\"${DB_USERNAME}\"" app-values-private.yaml
+yq -i ".workload.main.podSpec.containers.main.env.KOMODO_DATABASE_PASSWORD=\"${DB_PASSWORD}\"" app-values-private.yaml
+
+KOMODO_PASSKEY=$(yq '.workload.main.podSpec.containers.main.env.KOMODO_PASSKEY' app-values-private.yaml)
+if [[ "${KOMODO_PASSKEY}" == "null" ]]; then
+  KOMODO_PASSKEY=$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)
+  yq -i ".workload.main.podSpec.containers.main.env.KOMODO_PASSKEY=\"${KOMODO_PASSKEY}\"" app-values-private.yaml
+fi
+
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --chart-name cnpg/cluster \
-    --release-name postgresql \
+    --chart-name ${PWD}/chart \
     --namespace $NS \
-    --repo-url ${REPO_URL_CNPG} \
-    --app postgresql-cluster \
-    ${EXTRA_PARAMS}
-
-echo "Setting up environment files with private data..."
-cat <<EOF > .ferret.env
-FERRETDB_POSTGRESQL_URL=postgres://komodo:${DB_PASSWORD}@postgresql-cluster-rw:5432/komodo
-EOF
-if grep -q "^KOMODO_DATABASE_URI=" .komodo.env; then
-  sed -i "s|^KOMODO_DATABASE_URI=.*|KOMODO_DATABASE_URI=mongodb://komodo:${DB_PASSWORD}@ferretdb:27017/komodo|" .komodo.env
-else
-  echo "KOMODO_DATABASE_URI=mongodb://komodo:${DB_PASSWORD}@ferretdb:27017/komodo" >> .komodo.env
-fi
-if grep -q "^KOMODO_DATABASE_PASSWORD=" .komodo.env; then
-  sed -i "s|^KOMODO_DATABASE_PASSWORD=.*|KOMODO_DATABASE_PASSWORD=${DB_PASSWORD}|" .komodo.env
-else
-  echo "KOMODO_DATABASE_PASSWORD=${DB_PASSWORD}" >> .komodo.env
-fi
-
-$(git rev-parse --show-toplevel)/common-deploy-kompose.sh \
-    --namespace $NS \
+    --release-name "${RELEASE_NAME}" \
+    --type local \
+    --post-renderer ./cnpg-pg-hba-post-renderer.sh \
     ${EXTRA_PARAMS}
