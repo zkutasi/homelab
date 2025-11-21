@@ -9,6 +9,7 @@ spec:
     - conditions:
         - prefix: /
       enableWebsockets: true
+      permitInsecure: true
       services:
         - name: netvisor
           port: 60072
