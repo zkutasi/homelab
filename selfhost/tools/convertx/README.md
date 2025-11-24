@@ -12,7 +12,7 @@ Just run the image in a cluster, and access the tools in a browser.
 
 ### Deploy the app
 
-1. 1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Create a values yaml file for potential private data named `app-values-private.yaml`
 
     ```env
     secret:
