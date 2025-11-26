@@ -1,0 +1,100 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: budgetboard
+    monitoring:
+      enablePodMonitor: true
+    user: budgetboard
+
+server:
+  repository: ghcr.io/teelur/budget-board/server
+  tag: v3.0.0
+  pullPolicy: IfNotPresent
+client:
+  repository: ghcr.io/teelur/budget-board/client
+  tag: v3.0.0
+  pullPolicy: IfNotPresent
+
+persistence:
+  nginx-cache:
+    enabled: true
+    type: emptyDir
+    mountPath: /var/cache/nginx
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        enabled: true
+        port: 6253
+        protocol: http
+        targetPort: 6253
+        targetSelector: main
+  server:
+    enabled: true
+    ports:
+      main:
+        enabled: true
+        port: 8080
+        protocol: http
+        targetPort: 8080
+        targetSelector: server
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        server:
+          enabled: true
+          env:
+            AUTO_UPDATE_DB: true
+            CLIENT_ADDRESS: budgetboard
+            DISABLE_NEW_USERS: false
+            DISABLE_LOCAL_AUTH: false
+            POSTGRES_HOST:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: host
+            POSTGRES_PORT: 5432
+            POSTGRES_DATABASE: budgetboard
+            POSTGRES_USER: budgetboard
+            POSTGRES_PASSWORD:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: password
+          imageSelector: server
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+        main:
+          enabled: true
+          env:
+            PORT: 6253
+            VITE_SERVER_ADDRESS: budgetboard-server
+            VITE_BUDGET_BOARD_DOMAIN: budgetboard.kubernetes.home
+          imageSelector: client
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 0

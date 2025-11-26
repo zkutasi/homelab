@@ -1,0 +1,63 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: ezbookkeeping
+    monitoring:
+      enablePodMonitor: true
+    user: ezbookkeeping
+
+image:
+  repository: mayswind/ezbookkeeping
+  tag: 1.2.0
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /ezbookkeeping/storage
+    type: pvc
+    size: 1Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8080
+        protocol: http
+        targetPort: 8080
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            EBK_DATABASE_TYPE: postgres
+            EBK_DATABASE_HOST:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: porthost
+            EBK_DATABASE_NAME: ezbookkeeping
+            EBK_DATABASE_USER: ezbookkeeping
+            EBK_DATABASE_PASSWD:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: password
+            EBK_LOG_MODE: console
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
