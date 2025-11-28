@@ -18,6 +18,7 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
     |------|--------------------|---------|
     |netvisor_network_id|M|The Network ID the agents will report against|
     |netvisor_api_key|M|An API key for daemons to communicate with NetVisor Server|
+    |netvisor_server_host|M|The host and port of the Netvisor server|
 
 2. For each Ansible host, the following variables can be set
 

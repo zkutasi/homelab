@@ -15,7 +15,7 @@ cnpg:
 
 image:
   repository: mayanayza/netvisor-server
-  tag: v0.9.1
+  tag: v0.10.4
   pullPolicy: IfNotPresent
 
 persistence:
