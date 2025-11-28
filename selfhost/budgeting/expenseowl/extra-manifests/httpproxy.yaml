@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: expenseowl
+  name: expenseowl-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: expenseowl
+          port: 8080
+  virtualhost:
+    fqdn: expenseowl.kubernetes.home
+    tls:
+      secretName: expenseowl-cert-secret

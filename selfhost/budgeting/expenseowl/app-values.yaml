@@ -1,0 +1,59 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: expenseowl
+    monitoring:
+      enablePodMonitor: true
+    user: expenseowl
+
+image:
+  repository: tanq16/expenseowl
+  tag: v4.1
+  pullPolicy: IfNotPresent
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        enabled: true
+        port: 8080
+        protocol: http
+        targetPort: 8080
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            STORAGE_TYPE: postgres
+            STORAGE_URL:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: host
+            STORAGE_USER:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: username
+            STORAGE_PASS:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: password
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
