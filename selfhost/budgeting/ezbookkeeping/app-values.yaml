@@ -15,7 +15,7 @@ cnpg:
 
 image:
   repository: mayswind/ezbookkeeping
-  tag: 1.2.0
+  tag: SNAPSHOT-20251126-19712726403
   pullPolicy: IfNotPresent
 persistence:
   data:
@@ -48,7 +48,10 @@ workload:
                 name: cnpg-main-urls
                 key: porthost
             EBK_DATABASE_NAME: ezbookkeeping
-            EBK_DATABASE_USER: ezbookkeeping
+            EBK_DATABASE_USER:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: username
             EBK_DATABASE_PASSWD:
               secretKeyRef:
                 name: cnpg-main-user

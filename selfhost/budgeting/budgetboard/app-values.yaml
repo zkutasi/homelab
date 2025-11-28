@@ -67,7 +67,10 @@ workload:
                 key: host
             POSTGRES_PORT: 5432
             POSTGRES_DATABASE: budgetboard
-            POSTGRES_USER: budgetboard
+            POSTGRES_USER:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: username
             POSTGRES_PASSWORD:
               secretKeyRef:
                 name: cnpg-main-user
