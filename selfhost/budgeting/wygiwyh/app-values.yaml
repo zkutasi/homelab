@@ -1,0 +1,75 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: wygiwyh
+    monitoring:
+      enablePodMonitor: true
+    user: wygiwyh
+
+image:
+  repository: eitchtee/wygiwyh
+  tag: 0.18.0
+  pullPolicy: IfNotPresent
+persistence:
+  static-files:
+    enabled: true
+    type: emptyDir
+    mountPath: /usr/src/app/static_files
+  django-cache:
+    enabled: true
+    type: emptyDir
+    mountPath: /var/tmp/django_cache
+  app-temp:
+    enabled: true
+    type: emptyDir
+    mountPath: /usr/src/app/temp
+securityContext:
+  container:
+    runAsGroup: 100
+    runAsUser: 100
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8000
+        protocol: http
+        targetPort: 8000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            ENABLE_SOFT_DELETE: true
+            SQL_DATABASE: wygiwyh
+            SQL_USER:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: username
+            SQL_PASSWORD:
+              secretKeyRef:
+                name: cnpg-main-user
+                key: password
+            SQL_HOST:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: host
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

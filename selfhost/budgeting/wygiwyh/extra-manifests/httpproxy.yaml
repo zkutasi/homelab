@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: wygiwyh
+  name: wygiwyh-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: wygiwyh
+          port: 8000
+  virtualhost:
+    fqdn: wygiwyh.kubernetes.home
+    tls:
+      secretName: wygiwyh-cert-secret
