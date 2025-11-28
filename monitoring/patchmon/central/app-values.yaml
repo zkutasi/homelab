@@ -1,0 +1,96 @@
+frontend:
+  repository: ghcr.io/patchmon/patchmon-frontend
+  tag: 1.3.6
+  pullPolicy: IfNotPresent
+backend:
+  repository: ghcr.io/patchmon/patchmon-backend
+  tag: 1.3.6
+  pullPolicy: IfNotPresent
+
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: patchmon
+    user: patchmon
+    monitoring:
+      enablePodMonitor: true
+
+redis:
+  enabled: true
+
+persistence:
+  agents:
+    enabled: true
+    accessModes: ReadWriteOnce
+    type: pvc
+    size: 1Gi
+    targetSelector:
+      main:
+        backend:
+          mountPath: /app/agents
+  node-modules:
+    enabled: true
+    accessModes: ReadWriteOnce
+    type: pvc
+    size: 1Gi
+    targetSelector:
+      main:
+        backend:
+          mountPath: /app/node_modules
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3000
+        protocol: http
+        targetPort: 3000
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        backend:
+          enabled: true
+          env:
+            DATABASE_URL:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: std
+            HOME: /tmp
+            REDIS_HOST: patchmon-redis
+            REDIS_PORT: 6379
+            REDIS_PASSWORD:
+              secretKeyRef:
+                name: patchmon-rediscreds
+                key: redis-password
+                expandObjectName: false
+          imageSelector: backend
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+        main:
+          enabled: true
+          imageSelector: frontend
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

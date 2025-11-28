@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: patchmon-cert
+spec:
+  secretName: patchmon-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - patchmon.kubernetes.home

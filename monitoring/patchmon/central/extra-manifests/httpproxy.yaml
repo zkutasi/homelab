@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: patchmon
+  name: patchmon-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: patchmon
+          port: 8443
+          protocol: tls
+  virtualhost:
+    fqdn: patchmon.kubernetes.home
+    tls:
+      secretName: patchmon-cert-secret
