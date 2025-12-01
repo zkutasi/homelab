@@ -11,6 +11,9 @@ spec:
       services:
         - name: wygiwyh
           port: 8000
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
   virtualhost:
     fqdn: wygiwyh.kubernetes.home
     tls:
