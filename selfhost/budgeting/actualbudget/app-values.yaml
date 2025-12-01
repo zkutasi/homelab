@@ -1,0 +1,39 @@
+image:
+  repository: docker.io/actualbudget/actual-server
+  tag: 25.11.0
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data
+    type: pvc
+    size: 5Gi
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        enabled: true
+        port: 5006
+        protocol: http
+        targetPort: 5006
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
