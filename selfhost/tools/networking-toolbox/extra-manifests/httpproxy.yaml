@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: networking-toolbox
+  name: networking-toolbox-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: networking-toolbox
+          port: 3000
+  virtualhost:
+    fqdn: networking-toolbox.kubernetes.home
+    tls:
+      secretName: networking-toolbox-cert-secret

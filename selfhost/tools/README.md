@@ -11,4 +11,5 @@ N/A
 - [Omni Tools](https://github.com/iib0011/omni-tools) - Helpful tools for everyday use
 - [IT Tools](https://github.com/CorentinTh/it-tools) - Tools for the IT Developer
 - [ConvertX](https://github.com/C4illin/ConvertX) - Convert anything to anything
+- [Network Toolbox](https://github.com/lissy93/networking-toolbox) - Over 100 tools for networking
 - [StirlingPDF](https://www.stirlingpdf.com/) - A PDF toolset
