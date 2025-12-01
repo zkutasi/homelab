@@ -10,7 +10,7 @@ spec:
         - prefix: /
       services:
         - name: <APP_NAME_LOWERCASE>
-          port: 8443
+          port: <APP_PORT>
           protocol: tls
   virtualhost:
     fqdn: <APP_NAME_LOWERCASE>.kubernetes.home

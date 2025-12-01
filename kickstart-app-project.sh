@@ -120,12 +120,45 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
     fi
     if [ "${SUBTYPE}" == "truecharts-local" ]; then
         if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
-            echo "Converting docker-compose.yaml for Truecharts values.yaml with the CUE converter..."
-            docker run --rm \
-              --volume ${TARGET_APP_DIR}:/inputdir \
-              --volume ${REPO_ROOT}/convert-from-docker-compose-to-truecharts-values.cue:/converter.cue:ro \
-              --workdir / \
-              cuelang/cue:latest export .:converter -l input: /inputdir/docker-compose.yaml -e output --out yaml > ${TARGET_APP_DIR}/app-values.yaml
+            echo "Gathering information from docker-compose.yaml for Truecharts values.yaml..."
+            SERVICES=$(yq ".services | keys | .[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+            IMAGES=$(yq ".services[].image" "${TARGET_APP_DIR}/docker-compose.yaml")
+            POSTGRESQL=$(yq '.services[].image | select(test("postgres"))' "${TARGET_APP_DIR}/docker-compose.yaml")
+            echo "Converting docker-compose.yaml for Truecharts values.yaml..."
+            echo > "${TARGET_APP_DIR}/app-values.yaml"
+            if [ -n "${POSTGRESQL}" ]; then
+              yq -i ".cnpg.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.cluster.instances = 1" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.cluster.singleNode = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.cluster.storage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.cluster.walStorage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.database = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.monitoring.enablePodMonitor = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
+            fi
+            APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
+            if (( ${#APP_SERVICES[@]} == 1 )); then
+              APP_IMAGE=$(yq ".services.${APP_SERVICES[0]}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
+              yq -i ".image.repository = \"${APP_IMAGE%%:*}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".image.tag = \"${APP_IMAGE##*:}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
+
+              APP_PORT=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
+              yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".TZ = \"Europe/Budapest\"" "${TARGET_APP_DIR}/app-values.yaml"
+
+              yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".workload.main.podSpec.containers.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+            else
+              echo "UNIMPLEMENTED: More than one application service found. Skipping image configuration."
+            fi
         fi
     fi
 fi
@@ -137,6 +170,9 @@ while read -r line; do
   sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" ${line}
   if [ -n "${ANSIBLE_HOST}" ]; then
     sed -i "s|<ANSIBLE_HOST>|${ANSIBLE_HOST}|g" ${line}
+  fi
+  if [ -n "${APP_PORT}" ]; then
+    sed -i "s|<APP_PORT>|${APP_PORT}|g" ${line}
   fi
 done < <(find ${TARGET_APP_DIR} -type f)
 
