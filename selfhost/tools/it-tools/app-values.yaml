@@ -1,6 +1,6 @@
 image:
-  repository: corentinth/it-tools
-  tag: 2024.10.22-7ca5933
+  repository: sharevb/it-tools
+  tag: 2025.10.12
   pullPolicy: IfNotPresent
 persistence:
   nginx-cache:
@@ -12,9 +12,9 @@ service:
     enabled: true
     ports:
       main:
-        port: 80
+        port: 8080
         protocol: http
-        targetPort: 80
+        targetPort: 8080
 TZ: Europe/Budapest
 workload:
   main:

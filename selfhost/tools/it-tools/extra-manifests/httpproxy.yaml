@@ -10,7 +10,7 @@ spec:
         - prefix: /
       services:
         - name: it-tools
-          port: 80
+          port: 8080
   virtualhost:
     fqdn: it-tools.kubernetes.home
     tls:
