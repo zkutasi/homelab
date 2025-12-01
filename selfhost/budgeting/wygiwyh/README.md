@@ -1,6 +1,6 @@
 # What You Get is What You Have (WYGIWYH)
 
-[WYGIWYH](https://github.com/eitchtee/WYGIWYH)
+[WYGIWYH](https://github.com/eitchtee/WYGIWYH) - A no-budget approach to expense tracking. Just (periodically) import your CSVs (do not forget to pre-create most things you need) and glance at the Sankey diagram.
 
 ## The setup
 
@@ -28,6 +28,14 @@
     ```bash
     kubectl -n wygiwyh exec -ti deployment/wygiwyh -c wygiwyh -- python manage.py createsuperuser
     ```
+
+4. On the UI, create some things before any Import could happen:
+
+    1. Categories to put transactions into
+    2. Currencies for the Accounts
+    3. Accounts for the Transactions
+    4. Rules for the Transactions
+    5. Import profile for the CSV imports
 
 ## Commands
 
