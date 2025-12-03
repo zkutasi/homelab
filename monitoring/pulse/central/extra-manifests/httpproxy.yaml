@@ -9,6 +9,7 @@ spec:
     - conditions:
         - prefix: /
       enableWebsockets: true
+      permitInsecure: true
       services:
         - name: pulse
           port: 7655
