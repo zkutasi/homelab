@@ -8,6 +8,7 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: semaphore
           port: 3000
