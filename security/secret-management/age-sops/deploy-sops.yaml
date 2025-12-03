@@ -3,9 +3,9 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "3.10.2"
+    requested_binary_version: "3.10.2"
     bin_filename: sops
     download_url: "https://github.com/getsops/sops/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}-v{{ requested_image_version }}.linux.amd64"
+          v{{ requested_binary_version }}/{{ bin_filename }}-v{{ requested_binary_version }}.linux.amd64"
     compressed: false
     destination_path: /usr/local/bin/sops

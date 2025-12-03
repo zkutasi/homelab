@@ -3,9 +3,9 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "1.32.4"
+    requested_binary_version: "1.32.4"
     bin_filename: kubectl
-    download_url: "https://dl.k8s.io/release/v{{ requested_image_version }}/bin/linux/amd64/{{ bin_filename }}"
+    download_url: "https://dl.k8s.io/release/v{{ requested_binary_version }}/bin/linux/amd64/{{ bin_filename }}"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"
     version_flag: "version"
@@ -14,19 +14,19 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "3.17.3"
+    requested_binary_version: "3.17.3"
     bin_filename: helm
-    download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_image_version }}-linux-amd64.tar.gz"
+    download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_binary_version }}-linux-amd64.tar.gz"
     version_flag: "version --short"
 - name: Deploy kustomize
   hosts: controlserver
   roles:
     - binary-install
   vars:
-    requested_image_version: "5.7.1"
+    requested_binary_version: "5.7.1"
     bin_filename: kustomize
     download_url: "https://github.com/kubernetes-sigs/{{ bin_filename }}/releases/download/{{ bin_filename }}/\
-          v{{ requested_image_version }}/{{ bin_filename }}_v{{ requested_image_version }}_linux_amd64.tar.gz"
+          v{{ requested_binary_version }}/{{ bin_filename }}_v{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"
     decompression_options:
       - "--wildcards"
@@ -36,10 +36,10 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "1.36.0"
+    requested_binary_version: "1.36.0"
     bin_filename: kompose
     download_url: "https://github.com/kubernetes/{{ bin_filename }}/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}-linux-amd64"
+          v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"
     version_flag: "version"
@@ -48,10 +48,10 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "0.7.0"
+    requested_binary_version: "0.7.0"
     bin_filename: kubeconform
     download_url: "https://github.com/yannh/{{ bin_filename }}/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
+          v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
     version_flag: "-v"
     decompression_options:
       - "--wildcards"
@@ -61,10 +61,10 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "0.4.5"
+    requested_binary_version: "0.4.5"
     bin_filename: kubectl-krew
     download_url: "https://github.com/kubernetes-sigs/krew/releases/download/\
-          v{{ requested_image_version }}/krew-linux_amd64.tar.gz"
+          v{{ requested_binary_version }}/krew-linux_amd64.tar.gz"
     bin_path: "{{ ansible_user_dir }}/.krew/bin"
     install_cmd: "./krew-linux_amd64 install krew"
     version_flag: "version"

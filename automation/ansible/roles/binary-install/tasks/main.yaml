@@ -19,12 +19,12 @@
       ansible.builtin.debug:
         var: binary_installed_version
 - name: Download the given version of binary if not already installed
-  when: not binary_filestat.stat.exists or requested_image_version != binary_installed_version
+  when: not binary_filestat.stat.exists or requested_binary_version != binary_installed_version
   notify: Restart the service
   block:
     - name: Debug the input data
       ansible.builtin.debug:
-        msg: "Downloading {{ bin_filename }} version {{ requested_image_version }} from {{ download_url }}"
+        msg: "Downloading {{ bin_filename }} version {{ requested_binary_version }} from {{ download_url }}"
     - name: Download and execute installer
       when: install_cmd | length > 0
       block:

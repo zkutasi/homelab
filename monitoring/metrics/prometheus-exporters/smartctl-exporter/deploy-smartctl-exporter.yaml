@@ -3,11 +3,11 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "0.14.0"
+    requested_binary_version: "0.14.0"
     bin_filename: smartctl_exporter
     service_name: smartctl-exporter
     download_url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}-{{ requested_image_version }}.linux-amd64.tar.gz"
+          v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
 - name: Deploy smartctl-exporter as docker
   hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
   roles:

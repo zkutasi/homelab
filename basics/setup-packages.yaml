@@ -18,9 +18,9 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "4.47.2"
+    requested_binary_version: "4.47.2"
     bin_filename: yq
     download_url: "https://github.com/mikefarah/{{ bin_filename }}/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}_linux_amd64"
+          v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64"
     compressed: false
     destination_path: /usr/local/bin/yq

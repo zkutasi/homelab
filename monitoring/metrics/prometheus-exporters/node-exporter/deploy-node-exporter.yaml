@@ -3,11 +3,11 @@
   roles:
     - binary-install
   vars:
-    requested_image_version: "1.9.1"
+    requested_binary_version: "1.9.1"
     bin_filename: node_exporter
     service_name: node-exporter
     download_url: "https://github.com/prometheus/node_exporter/releases/download/\
-          v{{ requested_image_version }}/{{ bin_filename }}-{{ requested_image_version }}.linux-amd64.tar.gz"
+          v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
 - name: Deploy node-exporter as docker
   hosts: docker
   roles:
