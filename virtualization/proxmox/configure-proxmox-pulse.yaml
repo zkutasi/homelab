@@ -1,0 +1,54 @@
+- name: Get the major Proxmox version
+  hosts: proxmox-clusters
+  tasks:
+    - name: Get Proxmox version
+      ansible.builtin.command: pveversion
+      register: pve_version_raw
+    - name: Extract major version
+      ansible.builtin.set_fact:
+        pve_major_version: "{{ pve_version_raw.stdout | regex_search('pve-manager/(?P<v>[0-9]+)', '\\g<v>') | first }}"
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "Running on Proxmox version {{ pve_major_version }}"
+    - name: Create a pulse-monitor role & user in PVE (v8)
+      ansible.builtin.include_role:
+        name: simoncaron.pve_permissions
+      vars:
+        pve_permissions_roles:
+          - name: PulseMonitor
+            privs:
+              - Sys.Audit
+              - VM.Monitor
+        pve_permissions_users:
+          - name: pulse-monitor
+            realm: pve
+            password: "pulse-monitor"
+            acls:
+              - path: /
+                role: PVEAuditor
+              - path: /storage
+                role: PVEDatastoreAdmin
+              - path: /
+                role: PulseMonitor
+      when: pve_major_version == '8'
+    - name: Create a pulse-monitor role & user in PVE (v9)
+      ansible.builtin.include_role:
+        name: simoncaron.pve_permissions
+      vars:
+        pve_permissions_roles:
+          - name: PulseMonitor
+            privs:
+              - Sys.Audit
+              - VM.GuestAgent.Audit
+        pve_permissions_users:
+          - name: pulse-monitor
+            realm: pve
+            password: "pulse-monitor"
+            acls:
+              - path: /
+                role: PVEAuditor
+              - path: /storage
+                role: PVEDatastoreAdmin
+              - path: /
+                role: PulseMonitor
+      when: pve_major_version == '9'

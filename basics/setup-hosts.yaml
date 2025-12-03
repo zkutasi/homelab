@@ -22,6 +22,7 @@
       - loki.kubernetes.home
       - prometheus.kubernetes.home
       - influxdb.kubernetes.home
+      - pulse.kubernetes.home
 - name: Set up /etc/hosts for ansible
   hosts: controlserver
   become: true

@@ -95,4 +95,5 @@ Allows to show across microservices the end-to-end flow of data, and catch the r
 
 - [NetAlertX](https://netalertx.com/) - Scans the network, discovers Hosts and alerts for changes (new host for example)
 - [Scrutiny](https://github.com/analogj/scrutiny/pkgs/container/scrutiny) - A S.M.A.R.T. checker, that also correlates data from BackBlaze to predict HDD issues. Project seems to be abandoned on the release-side, but the images are updated regularly. Pretty interesting metrics, although extremely unreliable.
+- [Pulse](https://github.com/rcourtman/Pulse) - A specific monitoring solution for Proxmox PVE servers and Docker hosts, with an agent-driven approach. Ability to check SMART data and Sensor data as well.
 - [PatchMon](https://patchmon.net/) - Centralized patch management across diverse server environments.
