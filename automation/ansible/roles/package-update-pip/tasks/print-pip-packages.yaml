@@ -1,6 +1,0 @@
-- name: Print the packages from {{ env.key }}
-  ansible.builtin.debug:
-    msg: "{{ item.key }}={{ item.value[0].version }}"
-  loop: "{{ pip_packages.packages[env.key] | dict2items }}"
-  loop_control:
-    label: "{{ item.key }}"

@@ -1,0 +1,3 @@
+- name: Upgrade all pipx packages via shell
+  ansible.builtin.shell: |
+    pipx upgrade-all --include-injected
