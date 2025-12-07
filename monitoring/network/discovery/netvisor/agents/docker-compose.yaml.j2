@@ -4,6 +4,7 @@ services:
     dns:
       - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
     environment:
+      NETVISOR_ALLOW_SELF_SIGNED_CERTS: true
       NETVISOR_DAEMON_API_KEY: {{ netvisor_api_key }}
       NETVISOR_NAME: {{ id }}
       NETVISOR_NETWORK_ID: {{ netvisor_network_id }}
