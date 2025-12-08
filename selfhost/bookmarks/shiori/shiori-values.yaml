@@ -1,0 +1,16 @@
+cnpg:
+  main:
+    cluster:
+      cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 1Gi
+      walStorage:
+        size: 1Gi
+    monitoring:
+      enablePodMonitor: true
+
+persistence:
+  data:
+    size: 1Gi

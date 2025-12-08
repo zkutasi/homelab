@@ -10,7 +10,7 @@ spec:
         - prefix: /
       services:
         - name: shiori
-          port: 8080
+          port: 10098
   virtualhost:
     fqdn: shiori.kubernetes.home
     tls:
