@@ -1,0 +1,38 @@
+image:
+  repository: ghcr.io/karakeep-app/karakeep
+  tag: 0.29.1
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data
+    type: pvc
+    size: 1Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3000
+        protocol: http
+        targetPort: 3000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            DATA_DIR: /data
+            NEXTAUTH_URL: https://karakeep.kubernetes.home
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
