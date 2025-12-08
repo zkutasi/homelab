@@ -25,9 +25,16 @@ When it comes to money, finances, or investments, there are a few apps to help o
 - [OpenBudgeteer](https://github.com/TheAxelander/OpenBudgeteer) - Based on the Bucket Budgeting principle. Simply it has 4 bucket tipes, supports CSV imports from bank documents (format is a question). Euro only?
 - [BudgetBoard](https://budgetboard.net/) - Supports SimpleFIN or CSV import, deducted by the sign of the amount. Only graphs trends, no flow graph or pie chart available. Transaction have to be still categorized, but can be done by rules as well, even after the import. Able to do more, like Assets, Budgets, Goals, but everything is manually entered.
 - [ExpenseOwl](https://github.com/Tanq16/ExpenseOwl) - Very simple, expense tracker, not a budgeting app. Only graphs monthly expenses by category in a pie chart. Can import from CSV but only its own format. Contains only limited currencies.
-- [Ghostfolio](https://ghostfol.io/) - Personal portfolio/asset management, not strictly for Budgeting
 - [Sure](https://github.com/we-promise/sure) - A Fork of the discontinued [Maybe](https://github.com/maybe-finance/maybe) app
 - [Wally](https://github.com/polius/Wally) - Based on ExpenseOwl, a very small fork
+
+### Portfolio trackers
+
+- [Ghostfolio](https://ghostfol.io/)
+- [Rotki](https://github.com/rotki/rotki)
+- [Wealthfolio](https://github.com/afadil/wealthfolio)
+- [Investbrain](https://github.com/investbrainapp/investbrain)
+- [Portfolio Performance](https://www.portfolio-performance.info/en/)
 
 ### Recurring subscription tracking
 
