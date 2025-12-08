@@ -119,6 +119,11 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
         cp -r ${REPO_ROOT}/_templates/${TYPE}/* "${TARGET_APP_DIR}"
     fi
     if [ "${SUBTYPE}" == "truecharts-local" ]; then
+        # Check if there is an original truecharts available or not
+        tags=$(curl -s https://tccr.io/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list | jq .tags)
+        if [ "${tags}" != "null" ]; then
+            echo "WARNING: Official Truecharts chart found for ${APP_NAME_LOWERCASE}. Consider using 'k8s.truecharts' type instead."
+        fi
         if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
             echo "Gathering information from docker-compose.yaml for Truecharts values.yaml..."
             SERVICES=$(yq ".services | keys | .[]" "${TARGET_APP_DIR}/docker-compose.yaml")
