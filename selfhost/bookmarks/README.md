@@ -11,7 +11,7 @@ These kind of apps help you to organize bookmarks outside of your browser, and m
 
 ## Contenders
 
-- [Linkding](https://linkding.link/) - A self-hosted bookmark manager designed to be minimal, fast, and easy to set up
+- [Linkding](https://linkding.link/) - A self-hosted bookmark manager designed to be minimal, fast, and easy to set up. Tag manually, import/export. Browser extension to add, REST API and RSS feed support.
   - [Linkding injector](https://github.com/Fivefold/linkding-injector) - A Browser extension to add linkding bookmarks into the Google searches as an extra
 - [Karakeep (ex Hoarder)](https://karakeep.app/) - Quickly save links, notes, and images and karakeep will automatically tag them for you using AI for faster retrieval.
   - [Hoarder pipette](https://github.com/DanSnow/hoarder-pipette) - Same as Linkding injector but for Karakeep
