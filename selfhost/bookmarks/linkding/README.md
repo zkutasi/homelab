@@ -10,15 +10,21 @@
 
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Check which version you want to install, or leave empty to take the latest available version
 
-2. Install with the provided script
+    ```bash
+    curl -s https://tccr.io/v2/truecharts/linkding/tags/list | jq
+    ```
+
+2. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-3. Create a superuser account
+4. Create a superuser account
 
     ```bash
     kubectl -n linkding exec -ti deployment/linkding -- python manage.py createsuperuser --username=XXX --email=XXX

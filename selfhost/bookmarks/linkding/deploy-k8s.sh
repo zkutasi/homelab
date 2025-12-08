@@ -1,8 +1,6 @@
 #!/bin/bash
 
 APP=linkding
-NS=linkding
-RELEASE_NAME=linkding
 
 EXTRA_PARAMS=
 
@@ -16,8 +14,6 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --chart-name ${PWD}/chart \
-    --namespace $NS \
-    --release-name "${RELEASE_NAME}" \
-    --type local \
+    --app "${APP}" \
+    --type truecharts \
     ${EXTRA_PARAMS}

@@ -10,7 +10,7 @@ spec:
         - prefix: /
       services:
         - name: linkding
-          port: 9090
+          port: 10210
   virtualhost:
     fqdn: linkding.kubernetes.home
     tls:
