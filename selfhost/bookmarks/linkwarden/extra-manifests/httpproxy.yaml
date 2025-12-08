@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: linkwarden
+  name: linkwarden-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: linkwarden
+          port: 2985
+  virtualhost:
+    fqdn: linkwarden.kubernetes.home
+    tls:
+      secretName: linkwarden-cert-secret

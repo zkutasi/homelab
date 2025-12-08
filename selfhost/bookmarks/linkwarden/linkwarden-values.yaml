@@ -1,0 +1,18 @@
+cnpg:
+  main:
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    monitoring:
+      enablePodMonitor: true
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /etc/linkding/data
+    type: pvc
+    size: 1Gi
