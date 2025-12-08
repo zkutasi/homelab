@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: linkding
+  name: linkding-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: linkding
+          port: 9090
+  virtualhost:
+    fqdn: linkding.kubernetes.home
+    tls:
+      secretName: linkding-cert-secret
