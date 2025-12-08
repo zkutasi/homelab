@@ -10,7 +10,7 @@ spec:
         - prefix: /
       services:
         - name: actualbudget
-          port: 5006
+          port: 10293
   virtualhost:
     fqdn: actualbudget.kubernetes.home
     tls:

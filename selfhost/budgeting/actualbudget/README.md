@@ -10,7 +10,15 @@
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Check which version you want to install, or leave empty to take the latest available version
+
+    ```bash
+    curl -s https://tccr.io/v2/truecharts/actualbudget/tags/list | jq
+    ```
+
+2. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
