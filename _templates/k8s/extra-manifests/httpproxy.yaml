@@ -11,7 +11,6 @@ spec:
       services:
         - name: <APP_NAME_LOWERCASE>
           port: <APP_PORT>
-          protocol: tls
   virtualhost:
     fqdn: <APP_NAME_LOWERCASE>.kubernetes.home
     tls:

@@ -118,7 +118,9 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
     if [ -n "${SUBTYPE}" ] && [ -d "${REPO_ROOT}/_templates/${TYPE}" ]; then
         cp -r ${REPO_ROOT}/_templates/${TYPE}/* "${TARGET_APP_DIR}"
     fi
-    if [ "${SUBTYPE}" == "truecharts-local" ]; then
+    if [ "${SUBTYPE}" == "truecharts" ]; then
+        APP_PORT=$(curl -s https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml | yq ".service.main.ports.main.port")
+    elif [ "${SUBTYPE}" == "truecharts-local" ]; then
         # Check if there is an original truecharts available or not
         tags=$(curl -s https://tccr.io/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list | jq .tags)
         if [ "${tags}" != "null" ]; then
