@@ -1,7 +1,7 @@
 #!/bin/bash
 
-NS=actualbudget
-RELEASE_NAME=actualbudget
+NS=actualserver
+RELEASE_NAME=actualserver
 
 EXTRA_PARAMS=""
 
