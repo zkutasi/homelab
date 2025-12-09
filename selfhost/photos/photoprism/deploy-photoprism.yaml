@@ -1,0 +1,13 @@
+- name: Deploy PhotoPrism as docker
+  hosts: photos
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: photoprism
+    requested_image_version:
+      photoprism: 251130
+      mariadb: 11
+    docker_compose_create_dirs:
+      - name: storage
+      - name: database
+    docker_compose_extra_volumes: "{{ photos_extra_mounts | default([]) }}"

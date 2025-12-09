@@ -1,0 +1,6 @@
+- name: Delete PhotoPrism containers
+  hosts: photos
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: photoprism

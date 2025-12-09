@@ -1,0 +1,62 @@
+services:
+
+  immich-server:
+    container_name: immich-server
+    depends_on:
+      - redis
+      - database
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+      - DB_PASSWORD={{ immich_db_password }}
+      - DB_USERNAME=immich
+      - DB_DATABASE_NAME=immich
+    image: ghcr.io/immich-app/immich-server:{{ requested_image_version['immich'] }}
+    ports:
+      - {{ port_immich }}:2283
+    restart: unless-stopped
+    volumes:
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:{{ volume.to }}:ro
+{% endfor %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/server/library:/data
+
+  immich-machine-learning:
+    container_name: immich-machine-learning
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: ghcr.io/immich-app/immich-machine-learning:{{ requested_image_version['immich'] }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ml/model-cache:/cache
+
+  redis:
+    container_name: immich-redis
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    healthcheck:
+      test: redis-cli ping || exit 1
+    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    restart: unless-stopped
+
+  database:
+    container_name: immich-postgres
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+      POSTGRES_PASSWORD: {{ immich_db_password }}
+      POSTGRES_USER: immich
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+      DB_STORAGE_TYPE: HDD
+    image: ghcr.io/immich-app/postgres:{{ requested_image_version['immich-postgres'] }}
+    restart: unless-stopped
+    shm_size: 128mb
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/postgres/data:/var/lib/postgresql/data

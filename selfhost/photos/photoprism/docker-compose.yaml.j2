@@ -1,0 +1,51 @@
+services:
+
+  photoprism:
+    command:
+    container_name: photoprism
+    depends_on:
+      - mariadb
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+      PHOTOPRISM_ADMIN_USER: admin
+      PHOTOPRISM_ADMIN_PASSWORD: {{ photoprism_admin_password }}
+      PHOTOPRISM_READONLY: true
+      PHOTOPRISM_SITE_URL: "http://localhost:2342/"
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      PHOTOPRISM_DATABASE_SERVER: "photoprism-mariadb:3306"
+      PHOTOPRISM_DATABASE_NAME: "photoprism"
+      PHOTOPRISM_DATABASE_USER: "photoprism"
+      PHOTOPRISM_DATABASE_PASSWORD: {{ photoprism_db_password }}
+      PHOTOPRISM_DEFAULT_TLS: "true"
+      PHOTOPRISM_DISABLE_TLS: "false"
+      PHOTOPRISM_HTTP_COMPRESSION: "gzip"
+      PHOTOPRISM_UID: {{ docker_uid }}
+      PHOTOPRISM_GID: {{ docker_gid }}
+    image: photoprism/photoprism:{{ requested_image_version['photoprism'] }}
+    ports:
+      - {{ port_photoprism }}:2342
+    restart: unless-stopped
+    user: "{{ docker_uid }}:{{ docker_gid }}"
+    volumes:
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:/photoprism/originals/{{ volume.to }}:ro
+{% endfor %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/storage:/photoprism/storage
+    working_dir: "/photoprism"
+
+  mariadb:
+    command: --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
+    container_name: photoprism-mariadb
+    environment:
+      MARIADB_AUTO_UPGRADE: "1"
+      MARIADB_INITDB_SKIP_TZINFO: "1"
+      MARIADB_DATABASE: "photoprism"
+      MARIADB_USER: "photoprism"
+      MARIADB_PASSWORD: {{ photoprism_db_password }}
+      MARIADB_ROOT_PASSWORD: {{ photoprism_db_root_password }}
+    image: mariadb:{{ requested_image_version['mariadb'] }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/database:/var/lib/mysql

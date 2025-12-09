@@ -1,0 +1,15 @@
+- name: Deploy immich as docker
+  hosts: photos
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: immich
+    requested_image_version:
+      immich: v2.3.1
+      valkey: 9.0.0
+      immich-postgres: 14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    docker_compose_create_dirs:
+      - name: server/library
+      - name: ml/model-cache
+      - name: postgres/data
+    docker_compose_extra_volumes: "{{ photos_extra_mounts | default([]) }}"
