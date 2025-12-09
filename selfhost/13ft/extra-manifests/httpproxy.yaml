@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: thirteenft
+  name: thirteenft-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: thirteenft
+          port: 5000
+  virtualhost:
+    fqdn: thirteenft.kubernetes.home
+    tls:
+      secretName: thirteenft-cert-secret
