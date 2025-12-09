@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: cyberchef
+  name: cyberchef-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: cyberchef
+          port: 10219
+  virtualhost:
+    fqdn: cyberchef.kubernetes.home
+    tls:
+      secretName: cyberchef-cert-secret
