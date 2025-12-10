@@ -15,6 +15,7 @@
     validate_certs: false
     status_code: "{{ rest_api_status_codes }}"
   register: rest_api_response
+  check_mode: "{{ rest_api_method != 'GET' }}"
 - name: Set the result in a fact
   ansible.builtin.set_fact:
     "{{ rest_api_fact_name | default('rest_api_response') }}": "{{ rest_api_response }}"
