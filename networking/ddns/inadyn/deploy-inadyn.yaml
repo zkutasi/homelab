@@ -5,8 +5,6 @@
   roles:
     - role: docker-compose
       when: ddns_aliases | length > 0
-  vars_files:
-    - ../defaults.yaml
   vars:
     docker_compose_projectname: inadyn
     requested_image_version:

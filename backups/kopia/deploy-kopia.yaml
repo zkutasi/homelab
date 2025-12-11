@@ -14,8 +14,6 @@
   roles:
     - role: docker-compose
       when: not certs.stat.exists
-  vars_files:
-    - ../defaults.yaml
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
@@ -41,8 +39,6 @@
     - backupclient
   roles:
     - docker-compose
-  vars_files:
-    - ../defaults.yaml
   vars:
     docker_compose_projectname: kopia
     requested_image_version:

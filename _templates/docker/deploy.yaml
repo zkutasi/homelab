@@ -2,8 +2,6 @@
   hosts: XXX
   roles:
     - docker-compose
-  vars_files:
-    - defaults.yaml
   vars:
     docker_compose_projectname: <APP_NAME_LOWERCASE>
     requested_image_version:
