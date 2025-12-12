@@ -15,7 +15,7 @@ cnpg:
 
 image:
   repository: eitchtee/wygiwyh
-  tag: 0.18.0
+  tag: 0.18.1
   pullPolicy: IfNotPresent
 persistence:
   static-files:
