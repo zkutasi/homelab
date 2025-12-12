@@ -17,7 +17,7 @@ N/A
 1. Add the helm repository
 
     ```bash
-    helm repo add kubeshark https://helm.kubeshark.co
+    helm repo add kubeshark https://helm.kubehq.com
     helm repo update
     ```
 

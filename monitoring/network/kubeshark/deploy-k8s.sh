@@ -3,7 +3,7 @@
 CHART_NAME=kubeshark/kubeshark
 NS=kubeshark
 RELEASE_NAME=kubeshark
-REPO_URL=https://helm.kubeshark.co
+REPO_URL=https://helm.kubehq.com
 
 EXTRA_PARAMS=
 
