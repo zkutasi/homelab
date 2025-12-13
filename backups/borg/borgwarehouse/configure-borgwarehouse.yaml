@@ -10,7 +10,7 @@
       ansible.builtin.debug:
         msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
   vars:
-    rest_api_url: "http://localhost:3000"
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
     rest_api_endpoint: "/api/v1/repositories"
     rest_api_method: "GET"
     rest_api_headers:
@@ -34,7 +34,7 @@
           sshPublicKey: "{{ hostvars[item].ssh_public_key | trim }}"
           storageSize: "{{ hostvars[item].borgwarehouse_storage_size | default(10) }}"   # 10 GB
   vars:
-    rest_api_url: "http://localhost:3000"
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
     rest_api_endpoint: "/api/v1/repositories"
     rest_api_method: "POST"
     rest_api_headers:
@@ -52,7 +52,7 @@
       ansible.builtin.debug:
         msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
   vars:
-    rest_api_url: "http://localhost:3000"
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
     rest_api_endpoint: "/api/v1/repositories"
     rest_api_method: "GET"
     rest_api_headers:

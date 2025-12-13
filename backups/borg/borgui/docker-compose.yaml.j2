@@ -1,0 +1,15 @@
+services:
+  borgui:
+    container_name: borgui
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: ainullcode/borg-ui:{{ requested_image_version['borgui'] }}
+    ports:
+      - {{ port_borgui }}:8081
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borg_data:/data
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borg_cache:/home/borg/.cache/borg
+      - {{ backups_folder }}/borg:/repos

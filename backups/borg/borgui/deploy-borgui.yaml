@@ -1,0 +1,11 @@
+- name: Deploy BorgUI as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: borgui
+    requested_image_version:
+      borgui: "1.35.0"
+    docker_compose_create_dirs:
+      - name: borg_cache
+      - name: borg_data

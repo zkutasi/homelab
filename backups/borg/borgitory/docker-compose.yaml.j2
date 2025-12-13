@@ -1,0 +1,19 @@
+services:
+  borgitory:
+    cap_add:
+      - SYS_ADMIN
+    container_name: borgitory
+    devices:
+      - /dev/fuse
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    image: mlapaglia/borgitory:{{ requested_image_version['borgitory'] }}
+    ports:
+      - {{ port_borgitory }}:8000
+    restart: unless-stopped
+    user: "{{ docker_uid }}:{{ docker_gid }}"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
+      - {{ backups_folder }}/borg:/repos

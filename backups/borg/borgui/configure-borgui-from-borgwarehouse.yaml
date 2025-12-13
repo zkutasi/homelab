@@ -1,0 +1,77 @@
+- name: List all repos on the Borgwarehouse REST API
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "borgwarehouse_repos"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
+  vars:
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
+    rest_api_endpoint: "/api/v1/repositories"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgwarehouse_api_key }}"
+- name: Authenticate to BorgUI
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "borgui_auth"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ borgui_auth.json }}"
+    - name: Set fact for auth token
+      ansible.builtin.set_fact:
+        borgui_auth_token: "{{ borgui_auth.json.access_token }}"
+  vars:
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgui }}"
+    rest_api_endpoint: "/api/auth/login"
+    rest_api_method: "POST"
+    rest_api_data:
+      username: "{{ borgui_username }}"
+      password: "{{ borgui_password }}"
+    rest_api_body_format: form-urlencoded
+- name: List all repos on the REST API
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "borgui_repos"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ borgui_repos.json | community.general.json_query('repositories[*].name') }}"
+  vars:
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgui }}"
+    rest_api_endpoint: "/api/repositories/"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgui_auth_token }}"
+- name: Add missing repositories to BorgUI
+  hosts: backupserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      when: not (borgui_repos.json.repositories | selectattr('name', 'contains', item.alias))
+      loop: "{{ borgwarehouse_repos.json.repoList }}"
+      vars:
+        rest_api_data:
+          name: "{{ item.alias }}"
+          path: "/repos/{{ item.repositoryName }}"
+          mode: observe
+          passphrase: "{{ borgmatic_encryption_passphrase }}"
+  vars:
+    rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgui }}"
+    rest_api_endpoint: "/api/repositories/"
+    rest_api_method: "POST"
+    rest_api_headers:
+      Authorization: "Bearer {{ borgui_auth_token }}"
+    rest_api_body_format: json

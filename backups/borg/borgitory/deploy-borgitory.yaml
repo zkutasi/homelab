@@ -1,0 +1,10 @@
+- name: Deploy Borgitory as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: borgitory
+    requested_image_version:
+      borgitory: "2.5.5"
+    docker_compose_create_dirs:
+      - name: data

@@ -52,11 +52,18 @@ Other things to consider:
 
 - [Community Resources](https://github.com/borgbackup/community)
 - [BorgMatic](https://github.com/borgmatic-collective/borgmatic) - A wrapper that makes things easier
-- [BorgWarehouse](https://borgwarehouse.com/) - Centralized webUI for the Server-handling (so does not handle the client Hosts)
+- [BorgWarehouse](https://borgwarehouse.com/) - Centralized webUI for the Server-handling (so does not handle the client Hosts). Runs its own SSH server so it can be separated from the default SSH access. Creates repos with a randon hash-ID, and uses a proprietary alias to name them properly. Limited statistics.
 - [BorgBase](https://www.borgbase.com/) - Cloud Repo solution
 - Docker
   - [Docker image for Borgmatic clients](https://github.com/borgmatic-collective/docker-borgmatic)
   - [Docker image & Helm Chart for the Backup Server](https://github.com/AnotherStranger/docker-borg-backup/)
+
+Alternative user interfaces:
+
+- [Borgitory](https://github.com/mlapaglia/Borgitory) - Supports multiple repositories, able to import existing ones. Create backups, schedule, browse repository archives. Statistics for the repos. Comprehensive notification subsystem. Built in RClone based cloud sync. Either handles the central repositories on the Server, or handles the Client borg instances, but no unified infrastructure in a multi-host environment.
+- [Borg UI](https://github.com/karanhudia/borg-ui) - Same functionality, also primarily focused on client activities (backups, restores, schedules, etc...).
+
+There is really no need to have a UI for the client hosts, as one backup per day scheduled is perfect, but a UI for the repositories to check them is preferred.
 
 A Borg Repository Server acts as storage of backups and multiple clients can write into this, into different folders per Host. Clients can initialize themselves to write remotely via SSH into the Repository Server into their own folders. How to setup all of this is instructed [in this blogpost](https://borgbackup.readthedocs.io/en/1.4-maint/deployment/central-backup-server.html).
 

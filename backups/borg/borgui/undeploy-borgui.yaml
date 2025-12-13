@@ -1,0 +1,6 @@
+- name: Delete BorgUI containers
+  hosts: backupserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: borgui
