@@ -20,11 +20,14 @@ CATEGORY_FOLDER_MAP = {
 def handle_one_torrent(session, config, torrent_hash, discogs_id):
     get_torrent_info(session, config, torrent_hash)
     if discogs_id is None:
-        discogs_id = input("Please enter Discogs release ID (or Enter if not available, or skip if just categorize): ").strip()
+        discogs_id = input("Please enter Discogs release ID (or Enter if not available, \"skip\" if just categorize, \"delete\"): ").strip()
 
     if discogs_id:
         if discogs_id.lower() == "skip":
             new_folder_name = input("Please enter the new folder name: ").strip()
+        elif discogs_id.lower() == "delete":
+            delete_torrent(session, config, torrent_hash)
+            return
         else:
             release = fetch_release_from_discogs(discogs_id)
             new_folder_name = build_folder_name(release)
@@ -72,6 +75,21 @@ def handle_multiple_torrents(session, config):
     for torrent in torrent_list:
         logging.info("Processing torrent: %s (%s)", torrent["name"], torrent["hash"])
         handle_one_torrent(session, config, torrent["hash"], None)
+
+def delete_torrent(session, config, torrent_hash):
+    qbit_url = config.get("qbit_url")
+
+    delete_url = "{url}/api/v2/torrents/delete".format(url=qbit_url)
+    delete_data = {
+        "hashes": torrent_hash,
+        "deleteFiles": "true"
+    }
+
+    logging.info("Deleting torrent %s and its files...", torrent_hash)
+    if not DRY_RUN:
+        delete_response = session.post(delete_url, data=delete_data, timeout=15)
+        delete_response.raise_for_status()
+        logging.info("Torrent deletion command sent successfully.")
 
 def fetch_release_from_discogs(release_id):
     token = os.environ.get("DISCOGS_TOKEN")
@@ -226,6 +244,7 @@ def get_torrent_info(session, config, torrent_hash):
     for files in files_properties:
         logging.debug("File: %s", files)
         current_folder_name.add(files["name"].split("/")[0])
+    logging.info("Files in the torrent: \n%s", '\n'.join(f["name"] for f in files_properties))
     if len(current_folder_name) != 1:
         logging.error("Multiple root folders found for torrent %s: %s", torrent_hash, current_folder_name)
         exit(1)
