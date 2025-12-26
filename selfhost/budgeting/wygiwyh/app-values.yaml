@@ -15,13 +15,9 @@ cnpg:
 
 image:
   repository: eitchtee/wygiwyh
-  tag: 0.18.1
+  tag: 0.18.3
   pullPolicy: IfNotPresent
 persistence:
-  static-files:
-    enabled: true
-    type: emptyDir
-    mountPath: /usr/src/app/static_files
   django-cache:
     enabled: true
     type: emptyDir
