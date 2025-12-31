@@ -1,0 +1,42 @@
+- name: Checkout borgwarehouse git repo to handle old Synology OS issues
+  hosts: backupserver
+  vars:
+    docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
+    docker_compose_projectname: borgwarehouse
+  tasks:
+    - name: Docker compose down
+      community.docker.docker_compose_v2:
+        project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+        docker_cli: "{{ docker_cli_path }}"
+        state: absent
+        remove_images: all
+        remove_volumes: true
+        remove_orphans: true
+    - name: Delete the previously built image to force docker to rebuild it
+      community.docker.docker_image:
+        name: "borgwarehouse-borgwarehouse"
+        state: absent
+    - name: Delete existing borgwarehouse directory if it exists
+      ansible.builtin.file:
+        state: absent
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse"
+    - name: Ensure borgwarehouse git repo is checked out
+      ansible.builtin.git:
+        repo: https://github.com/Ravinou/borgwarehouse.git
+        dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse"
+        version: v3.1.2
+    - name: Replace bookworm with bullseye in Dockerfile FROM clause for compatibility
+      ansible.builtin.replace:
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+        regexp: 'node:22-bookworm-slim'
+        replace: 'node:22-bullseye-slim'
+    - name: Change to archive-bullseye APT repository for compatibility
+      ansible.builtin.replace:
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+        regexp: 'http://deb.debian.org/debian bookworm-backports main'
+        replace: 'http://archive.debian.org/debian bullseye-backports main'
+    - name: Replace bookworm with bullseye in APT install for borgbackup for compatibility
+      ansible.builtin.replace:
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+        regexp: 'borgbackup/bookworm-backports'
+        replace: 'borgbackup/bullseye-backports'

@@ -51,7 +51,15 @@ If you have a Synology and the backup server is going to be there, these items h
 
 ### Deploy Borgwarehouse (GUI)
 
-First, deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI
+On my Synology216, I had to make some adjustments on the Dockerfile, so first to that with this helper Ansible playbook:
+
+```bash
+./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/configure-borgwarehouse-gitrepo.yaml --no-check
+```
+
+This will rollback the baseimage from Bookworm to Bullseye, to mitigate a Kernel feature missing on my NAS OS.
+
+Then deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI:
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/deploy-borgwarehouse.yaml --no-check
@@ -63,7 +71,9 @@ This will do the following
    1. Deploy the docker compose file, folders and start the container
    2. Edit the auto-generated sshd_conf file, and replace the SSH port from 22 to the desired one, then restart
 
-Then go to the Borgwarehouse UI and
+Since the mentioned workaround for older Kernels is needed, this process could be extremely slow as a completely new docker image has to be built.
+
+When finished go to the Borgwarehouse UI and
 
 1. Log in with admin/admin
 2. Go to the Admin page (top right corner) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
