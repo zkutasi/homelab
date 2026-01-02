@@ -1,8 +1,8 @@
 #!/bin/bash
 
-APP=netvisor
-NS=netvisor
-RELEASE_NAME=netvisor
+APP=scanopy
+NS=scanopy
+RELEASE_NAME=scanopy
 
 EXTRA_PARAMS=
 

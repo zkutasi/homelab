@@ -15,4 +15,4 @@ Applications, that periodically scans the subnet of the network your hosts are d
 - [RunZero](https://www.runzero.com/) - Network threat detection and exposure management
 - [Portracker](https://github.com/mostafa-wahied/portracker) - Network wide port tracking and discovery, supports multi-hosts too
 - [PortNote](https://github.com/crocofied/PortNote) - Minimalist port-tracker
-- [NetVisor](https://netvisor.io/) - Automatically scans the local subnet and generates a visual documentation of services and hosts
+- [Scanopy](https://scanopy.net/) - Formerly Netvisor. Automatically scans the local subnet and generates a visual documentation of services and hosts

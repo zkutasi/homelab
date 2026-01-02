@@ -1,6 +1,6 @@
-- name: Delete NetVisor agent containers
+- name: Delete Scanopy agent containers
   hosts: "{{ groups['docker'] | difference(groups['external']) }}"
   roles:
     - docker-compose-remove
   vars:
-    docker_compose_projectname: netvisor
+    docker_compose_projectname: scanopy

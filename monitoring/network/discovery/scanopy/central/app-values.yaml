@@ -8,14 +8,14 @@ cnpg:
         size: 2Gi
       walStorage:
         size: 2Gi
-    database: netvisor
-    user: netvisor
+    database: scanopy
+    user: scanopy
     monitoring:
       enablePodMonitor: true
 
 image:
-  repository: mayanayza/netvisor-server
-  tag: v0.11.3
+  repository: ghcr.io/scanopy/scanopy/server
+  tag: v0.12.9
   pullPolicy: IfNotPresent
 
 persistence:
@@ -46,12 +46,12 @@ workload:
         main:
           enabled: true
           env:
-            NETVISOR_DATABASE_URL:
+            SCANOPY_DATABASE_URL:
               secretKeyRef:
                 name: cnpg-main-urls
                 key: std
-            NETVISOR_USE_SECURE_SESSION_COOKIES: true
-            NETVISOR_WEB_EXTERNAL_PATH: /app/static
+            SCANOPY_USE_SECURE_SESSION_COOKIES: true
+            SCANOPY_WEB_EXTERNAL_PATH: /app/static
           probes:
             liveness:
               enabled: false

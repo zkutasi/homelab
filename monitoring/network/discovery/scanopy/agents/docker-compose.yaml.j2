@@ -1,0 +1,26 @@
+services:
+  scanopy-daemon:
+    container_name: scanopy-daemon
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+    environment:
+      SCANOPY_ALLOW_SELF_SIGNED_CERTS: true
+      SCANOPY_DAEMON_API_KEY: {{ scanopy_api_key }}
+      SCANOPY_NAME: {{ id }}
+      SCANOPY_NETWORK_ID: {{ scanopy_network_id }}
+      SCANOPY_SERVER_URL: {{ scanopy_server_host }}
+      SCANOPY_PORT: {{ port_scanopy_daemon }}
+      TZ: {{ timezone }}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:{{ port_scanopy_daemon }}/api/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    image: ghcr.io/scanopy/scanopy/daemon:v{{ requested_image_version['scanopy'] }}
+    network_mode: host
+    privileged: true
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/daemon/config:/root/.config/daemon
+      # Comment out the line below to disable docker discovery
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro

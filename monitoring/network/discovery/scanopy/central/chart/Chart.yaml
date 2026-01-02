@@ -8,6 +8,6 @@ dependencies:
     alias: ""
     tags: []
     import-values: []
-name: netvisor
+name: scanopy
 type: application
 version: 1.0.0

@@ -2,20 +2,20 @@ apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
   labels:
-    k8s-app: netvisor
-  name: netvisor-httpproxy
+    k8s-app: scanopy
+  name: scanopy-httpproxy
 spec:
   routes:
     - conditions:
         - prefix: /
       enableWebsockets: true
       services:
-        - name: netvisor
+        - name: scanopy
           port: 60072
       timeoutPolicy:
         idle: infinity
         response: infinity
   virtualhost:
-    fqdn: netvisor.kubernetes.home
+    fqdn: scanopy.kubernetes.home
     tls:
-      secretName: netvisor-cert-secret
+      secretName: scanopy-cert-secret

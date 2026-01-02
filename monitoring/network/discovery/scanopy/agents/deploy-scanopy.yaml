@@ -1,10 +1,10 @@
-- name: Deploy NetVisor agent as docker
+- name: Deploy Scanopy agent as docker
   hosts: "{{ groups['docker'] | difference(groups['external']) }}"
   roles:
     - docker-compose
   vars:
-    docker_compose_projectname: netvisor
+    docker_compose_projectname: scanopy
     requested_image_version:
-      netvisor: "0.11.3"
+      scanopy: "0.12.9"
     docker_compose_create_dirs:
       - name: daemon/config
