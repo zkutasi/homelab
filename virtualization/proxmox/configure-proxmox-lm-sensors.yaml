@@ -1,0 +1,11 @@
+- name: Install lm-sensors on Proxmox nodes
+  hosts: proxmox
+  tasks:
+    - name: Install lm-sensors package
+      ansible.builtin.include_role:
+        name: package-install
+      vars:
+        packages:
+          - lm-sensors
+    - name: Run sensors-detect in non-interactive mode
+      ansible.builtin.command: "sensors-detect --auto"
