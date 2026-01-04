@@ -13,7 +13,7 @@
   tasks:
     - name: Disable Wayland in GDM
       ansible.builtin.lineinfile:
-        path: /etc/gdm/custom.conf
+        path: /etc/gdm3/custom.conf
         regexp: '#WaylandEnable=false'
         line: 'WaylandEnable=false'
         owner: root
