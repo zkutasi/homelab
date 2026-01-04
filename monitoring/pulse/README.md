@@ -35,7 +35,9 @@ Deploy the central component in the Kubernetes cluster and put down agents every
 
 5. In the logs you will find the bootstrap token, use that when going to the UI to set up.
 
-### Deploy the agents
+6. Set your Network range in the settings to speed up auto discovery.
+
+### Deploy the unified agents
 
 Agents are deployable from the UI, as it provides a very comprehensive step-by-step tutorial with many alternatives.
 
@@ -43,5 +45,6 @@ Agents are deployable from the UI, as it provides a very comprehensive step-by-s
 
 ## Notable comments
 
-- For temperature monitoring, one needs to install `lm-sensors` package and set it up. I was unable to make this work though.
-- There are thousand-liner bash scripts to deploy things: HTTPS cert handling is a bit of a hassle, and there are other automation issues in the scripts. The problem seems to be that there is just too many use-cases handled: host install, dockerized install, helm chart, PVE and docker support, etc... and in the end there are possibly hundreds of combinations.
+- For temperature monitoring, one needs to install `lm-sensors` package and set it up. V5 and onwards does not need the `sensor-proxy` component anymore.
+- For the Admin password, it would not let me through until it was strong enough... be sure to use lower and uppercase characters as well as numbers and at least a special character too.
+- The `--insecure` option might be needed to avoid certificate validation issues while installing the Agents. Also use the `-k` switch for the CURL command to avoid this.
