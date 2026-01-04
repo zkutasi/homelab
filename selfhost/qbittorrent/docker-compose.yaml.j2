@@ -1,6 +1,5 @@
 services:
   qbittorrent-nox:
-    image: qbittorrentofficial/qbittorrent-nox:{{ requested_image_version['qbittorrent-nox'] }}
     container_name: qbittorrent-nox
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -9,6 +8,8 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-qbittorrent-nox
+    image: qbittorrentofficial/qbittorrent-nox:{{ requested_image_version['qbittorrent-nox'] }}
     ports:
       - {{ port_qbittorrent }}:48080
     restart: unless-stopped

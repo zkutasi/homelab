@@ -4,7 +4,7 @@ services:
     command:
     container_name: photoprism
     depends_on:
-      - mariadb
+      - photoprism-mariadb
     environment:
       PUID: {{ docker_uid }}
       PGID: {{ docker_gid }}
@@ -23,6 +23,7 @@ services:
       PHOTOPRISM_HTTP_COMPRESSION: "gzip"
       PHOTOPRISM_UID: {{ docker_uid }}
       PHOTOPRISM_GID: {{ docker_gid }}
+    hostname: {{ id }}-photoprism
     image: photoprism/photoprism:{{ requested_image_version['photoprism'] }}
     ports:
       - {{ port_photoprism }}:2342
@@ -35,7 +36,7 @@ services:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/storage:/photoprism/storage
     working_dir: "/photoprism"
 
-  mariadb:
+  photoprism-mariadb:
     command: --innodb-buffer-pool-size=512M --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --max-connections=512 --innodb-rollback-on-timeout=OFF --innodb-lock-wait-timeout=120
     container_name: photoprism-mariadb
     environment:
@@ -45,6 +46,7 @@ services:
       MARIADB_USER: "photoprism"
       MARIADB_PASSWORD: {{ photoprism_db_password }}
       MARIADB_ROOT_PASSWORD: {{ photoprism_db_root_password }}
+    hostname: {{ id }}-photoprism-mariadb
     image: mariadb:{{ requested_image_version['mariadb'] }}
     restart: unless-stopped
     volumes:

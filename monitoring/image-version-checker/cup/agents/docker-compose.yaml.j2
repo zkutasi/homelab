@@ -4,6 +4,7 @@ services:
     command: -c /config/cup.json serve
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-cup
     image: ghcr.io/sergi0g/cup:v{{ requested_image_version['cup'] }}
     ports:
       - {{ port_cup }}:8000

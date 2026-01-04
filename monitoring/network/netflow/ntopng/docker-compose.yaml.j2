@@ -9,8 +9,10 @@ services:
     container_name: ntopng
     dns:
       - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+      - {{ default_gateway_ip }}
     environment:
       TZ: {{ timezone }}
+    hostname: {{ id }}-ntopng
     image: ntop/ntopng:{{ requested_image_version['ntopng'] }}
     network_mode: host
     restart: unless-stopped

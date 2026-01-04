@@ -9,6 +9,7 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-borgitory
     image: mlapaglia/borgitory:{{ requested_image_version['borgitory'] }}
     ports:
       - {{ port_borgitory }}:8000

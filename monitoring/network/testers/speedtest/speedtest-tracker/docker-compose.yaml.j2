@@ -9,6 +9,7 @@ services:
       DISPLAY_TIMEZONE: {{ timezone }}
       SPEEDTEST_SCHEDULE: "{{ speedtest_tracker_schedule }}"
       TZ: {{ timezone }}
+    hostname: {{ id }}-speedtest-tracker
     image: lscr.io/linuxserver/speedtest-tracker:{{ requested_image_version['speedtest-tracker'] }}
     ports:
       - {{ port_speedtest_tracker_http }}:80

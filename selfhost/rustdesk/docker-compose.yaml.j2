@@ -1,22 +1,24 @@
 services:
-  hbbs:
+  rustdesk-hbbs:
     command: hbbs
-    container_name: hbbs
+    container_name: rustdesk-hbbs
     depends_on:
-      - hbbr
+      - rustdesk-hbbr
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-rustdesk-hbbs
     image: rustdesk/rustdesk-server:{{ requested_image_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/root
 
-  hbbr:
+  rustdesk-hbbr:
     command: hbbr
-    container_name: hbbr
+    container_name: rustdesk-hbbr
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-rustdesk-hbbr
     image: rustdesk/rustdesk-server:{{ requested_image_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped

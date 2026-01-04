@@ -5,6 +5,7 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-beets
     image: lscr.io/linuxserver/beets:{{ requested_image_version['beets'] }}
     ports:
       - {{ port_beets }}:8337

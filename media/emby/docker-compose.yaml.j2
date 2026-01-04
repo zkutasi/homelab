@@ -1,6 +1,6 @@
 services:
   emby:
-    container_name: embyserver
+    container_name: emby
     devices:
       - /dev/dri:/dev/dri
     environment:
@@ -8,6 +8,7 @@ services:
       - GID={{ docker_gid }}
       - GIDLIST={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-emby
     image: emby/embyserver:{{ requested_image_version['emby'] }}
     healthcheck:
       test: ["CMD-SHELL", "for d in /mnt/*; do mountpoint -q \"$d\" || exit 1; done"]

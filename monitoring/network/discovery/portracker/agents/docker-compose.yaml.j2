@@ -1,10 +1,11 @@
 services:
-  portracker:
+  portracker-agent:
     cap_add:
       - SYS_PTRACE     # Linux hosts: read other PIDs' /proc entries
-    container_name: portracker
+    container_name: portracker-agent
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-portracker-agent
     image: mostafawahied/portracker:{{ requested_image_version['portracker'] }}
     pid: "host"  # Required for port detection
     ports:

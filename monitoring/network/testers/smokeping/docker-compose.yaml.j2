@@ -5,6 +5,7 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-smokeping
     image: lscr.io/linuxserver/smokeping:{{ requested_image_version['smokeping'] }}
     ports:
       - {{ port_smokeping }}:80

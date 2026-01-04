@@ -6,6 +6,7 @@ services:
       - GID={{ docker_gid }}
       - GIDLIST={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-plex
     image: plexinc/pms-docker:{{ requested_image_version['plex'] }}
     network_mode: host
     restart: unless-stopped

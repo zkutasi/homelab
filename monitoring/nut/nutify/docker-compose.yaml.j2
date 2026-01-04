@@ -17,6 +17,7 @@ services:
       - SECRET_KEY={{ nutify_secret_key }}
       - TZ={{ timezone }}
       - UDEV=1
+    hostname: {{ id }}-nutify
     image: dartsteven/nutify:amd64-{{ requested_image_version['nutify'] }}
     network_mode: host
     # ports:

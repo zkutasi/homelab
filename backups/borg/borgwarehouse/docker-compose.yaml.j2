@@ -18,6 +18,7 @@ services:
       - CRONJOB_KEY={{ borgwarehouse_cronjob_key }}
       - TZ={{ timezone }}
       - "HOSTNAME=::"
+    hostname: {{ id }}-borgwarehouse
 {% if docker_compose_ipv6 %}
     networks:
       - borgwarehouse-network

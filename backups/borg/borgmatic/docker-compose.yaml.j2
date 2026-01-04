@@ -4,6 +4,7 @@ services:
     environment:
       - BACKUP_CRON={{ backup_cron }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-borgmatic
     image: ghcr.io/borgmatic-collective/borgmatic:{{ requested_image_version['borgmatic'] }}
 {% if docker_compose_ipv6 %}
     networks:

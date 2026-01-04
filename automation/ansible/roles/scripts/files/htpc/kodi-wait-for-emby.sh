@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Config
-CONTAINER_NAME=embyserver
+CONTAINER_NAME=emby
 API_URL="http://localhost:8096/emby/System/Info/Public"
 TIMEOUT=60  # seconds
 INTERVAL=2

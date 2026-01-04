@@ -32,6 +32,7 @@ services:
 {% endif %}
       - TZ={{ timezone }}
       - USER={{ ansible_user }}
+    hostname: {{ id }}-kopia
     image: kopia/kopia:{{ requested_image_version['kopia'] }}
 {% if docker_compose_ipv6 %}
     networks:

@@ -16,6 +16,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 15
+    hostname: {{ id }}-scanopy-daemon
     image: ghcr.io/scanopy/scanopy/daemon:v{{ requested_image_version['scanopy'] }}
     network_mode: host
     privileged: true

@@ -4,6 +4,7 @@ services:
     environment:
       - TZ={{ timezone }}
     image: nginx:{{ requested_image_version['nginx'] }}
+    hostname: {{ id }}-nginx
     networks:
       - nginx-network
     ports:

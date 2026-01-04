@@ -6,6 +6,7 @@ services:
       - URBACKUP_SERVER_NAME={{ backupserver_hostname }}
       - URBACKUP_CLIENT_NAME={{ id }}
       - URBACKUP_CLIENT_AUTHKEY={{ urbackup_authkey }}
+    hostname: {{ id }}-urbackup-client
     image: uroni/urbackup-client:{{ requested_image_version['urbackup-client'] }}
 {% if docker_compose_ipv6 %}
     networks:

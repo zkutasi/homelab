@@ -5,6 +5,7 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-ddclient
     image: lscr.io/linuxserver/ddclient:{{ requested_image_version['ddclient'] }}
     network_mode: host
     restart: unless-stopped

@@ -14,6 +14,7 @@ services:
       FTLCONF_webserver_interface_theme: default-dark
       VIRTUAL_HOST: pihole.{{ network_domain }}
       WEB_BIND_ADDR: {{ ansible_host }}
+    hostname: {{ id }}-pihole
     image: pihole/pihole:{{ requested_image_version['pihole'] }}
     networks:
       pihole_dns_network:
@@ -27,24 +28,25 @@ services:
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pihole/etc-pihole:/etc/pihole
+
   unbound:
     container_name: unbound
+    environment:
+      TZ: "{{ timezone }}"
+    hostname: {{ id }}-unbound
     image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
-    hostname: unbound.home
+    networks:
+      pihole_dns_network:
+        ipv4_address: {{ pihole_docker_network_3digit }}.3
     ports:
       - "{{ port_pihole_unbound }}:5335/tcp"
       - "{{ port_pihole_unbound }}:5335/udp"
-    environment:
-      TZ: "{{ timezone }}"
+    restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/unbound.conf:/usr/local/unbound/unbound.conf
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/conf.d/:/usr/local/unbound/conf.d/
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/log.d:/usr/local/unbound/log.d
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/zones.d/:/usr/local/unbound/zones.d/
-    networks:
-      pihole_dns_network:
-        ipv4_address: {{ pihole_docker_network_3digit }}.3
-    restart: unless-stopped
 
 networks:
   pihole_dns_network:

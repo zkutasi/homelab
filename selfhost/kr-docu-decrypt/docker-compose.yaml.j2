@@ -8,6 +8,7 @@ services:
     environment:
       - TZ={{ timezone }}
       - SELENIUM_URL=http://selenium:{{ port_selenium }}/wd/hub
+    hostname: {{ id }}-kr-docu-decrypt
     networks:
       - selenium-net
     ports:

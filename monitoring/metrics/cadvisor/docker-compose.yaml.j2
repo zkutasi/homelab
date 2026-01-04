@@ -3,6 +3,7 @@ services:
     container_name: cadvisor
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-cadvisor
     image: ghcr.io/google/cadvisor:v{{ requested_image_version['cadvisor'] }}
     ports:
       - {{ port_cadvisor }}:8080

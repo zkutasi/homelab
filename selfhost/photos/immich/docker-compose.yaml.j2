@@ -12,6 +12,7 @@ services:
       - DB_PASSWORD={{ immich_db_password }}
       - DB_USERNAME=immich
       - DB_DATABASE_NAME=immich
+    hostname: {{ id }}-immich-server
     image: ghcr.io/immich-app/immich-server:{{ requested_image_version['immich'] }}
     ports:
       - {{ port_immich }}:2283
@@ -28,6 +29,7 @@ services:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    hostname: {{ id }}-immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:{{ requested_image_version['immich'] }}
     restart: unless-stopped
     volumes:
@@ -41,6 +43,7 @@ services:
       - TZ={{ timezone }}
     healthcheck:
       test: redis-cli ping || exit 1
+    hostname: {{ id }}-immich-redis
     image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
     restart: unless-stopped
 
@@ -55,6 +58,7 @@ services:
       POSTGRES_DB: immich
       POSTGRES_INITDB_ARGS: '--data-checksums'
       DB_STORAGE_TYPE: HDD
+    hostname: {{ id }}-immich-postgres
     image: ghcr.io/immich-app/postgres:{{ requested_image_version['immich-postgres'] }}
     restart: unless-stopped
     shm_size: 128mb

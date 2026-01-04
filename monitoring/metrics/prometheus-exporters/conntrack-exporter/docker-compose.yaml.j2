@@ -5,6 +5,7 @@ services:
     container_name: conntrack-exporter
     environment:
       - TZ={{ timezone }}
+    hostname: {{ id }}-conntrack-exporter
     image: hiveco/conntrack_exporter:{{ requested_image_version['conntrack-exporter'] }}
     network_mode: host
     restart: unless-stopped
