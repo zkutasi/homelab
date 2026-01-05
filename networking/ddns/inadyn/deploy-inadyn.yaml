@@ -2,6 +2,7 @@
   hosts:
     - standalone
     - external
+    - synology
   roles:
     - role: docker-compose
       when: ddns_aliases | length > 0
