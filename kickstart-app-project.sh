@@ -122,7 +122,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
         APP_PORT=$(curl -s https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml | yq ".service.main.ports.main.port")
     elif [ "${SUBTYPE}" == "truecharts-local" ]; then
         # Check if there is an original truecharts available or not
-        tags=$(curl -s https://tccr.io/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list | jq .tags)
+        tags=$(curl -s https://oci.trueforge.org/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list | jq .tags)
         if [ "${tags}" != "null" ]; then
             echo "WARNING: Official Truecharts chart found for ${APP_NAME_LOWERCASE}. Consider using 'k8s.truecharts' type instead."
         fi

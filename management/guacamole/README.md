@@ -17,7 +17,7 @@ Deployed into the Kubernetes cluster.
 1. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash
-    curl -s https://tccr.io/v2/truecharts/guacamole/tags/list | jq
+    curl -s https://oci.trueforge.org/v2/truecharts/guacamole/tags/list | jq
     ```
 
 2. Create a values yaml file for potential private data named `app-values-private.yaml`
@@ -33,7 +33,7 @@ Deployed into the Kubernetes cluster.
 To debug the resulting helm chart and its details:
 
 ```bash
-helm template oci://tccr.io/truecharts/guacamole --version XXX --values app-values.yaml --values app-values-private.yaml | less
+helm template oci://oci.trueforge.org/truecharts/guacamole --version XXX --values app-values.yaml --values app-values-private.yaml | less
 ```
 
 ## Notable comments

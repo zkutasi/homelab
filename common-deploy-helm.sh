@@ -21,7 +21,7 @@ Options:
                                 - helm         : for public Helm charts (default)
                                 - truecharts   : for existing Truecharts helm chart
                                 - local        : for local Truecharts helm chart
-  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://tccr.io/truecharts/<app-name>)
+  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>)
   --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
   --latest                    Use the latest chart version (overrides --version)
   --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)
@@ -81,7 +81,7 @@ done
 [ -z "${DEPLOYMENT_TYPE}" ] && echo "ERROR: Deployment type must be set" && exit 1
 
 if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
-  [ -z "${CHART_NAME}" ] && CHART_NAME=oci://tccr.io/truecharts/${APP}
+  [ -z "${CHART_NAME}" ] && CHART_NAME=oci://oci.trueforge.org/truecharts/${APP}
   [ -z "${NS}" ] && NS=${APP}
   [ -z "${RELEASE_NAME}" ] && RELEASE_NAME=${APP}
 elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
@@ -125,7 +125,7 @@ if [ -z "${VERSION}" ]; then
   echo "Trying to figure out the latest version..."
   if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
     CURL_CHART_REPO=${CHART_NAME/oci/https}
-    CURL_CHART_REPO=${CURL_CHART_REPO/tccr.io/tccr.io\/v2}
+    CURL_CHART_REPO=${CURL_CHART_REPO/oci.trueforge.org/oci.trueforge.org\/v2}
     latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
   elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
     latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')

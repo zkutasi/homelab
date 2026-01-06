@@ -13,7 +13,7 @@
 1. Check which version you want to install, or leave empty to take the latest available version
 
     ```bash
-    curl -s https://tccr.io/v2/truecharts/linkding/tags/list | jq
+    curl -s https://oci.trueforge.org/v2/truecharts/linkding/tags/list | jq
     ```
 
 2. Create a values yaml file for potential private data named `app-values-private.yaml`
