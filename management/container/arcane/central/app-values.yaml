@@ -1,0 +1,43 @@
+image:
+  repository: ghcr.io/getarcaneapp/arcane
+  tag: v1.11.3
+  pullPolicy: IfNotPresent
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3552
+        protocol: http
+        targetPort: 3552
+
+persistence:
+  app-data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /app/data
+    type: pvc
+    size: 1Gi
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            APP_URL: http://localhost:3552
+            AUTO_UPDATE: "false"
+            POLLING_ENABLED: "false"
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

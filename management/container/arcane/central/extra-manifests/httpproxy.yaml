@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: arcane
+  name: arcane-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: arcane
+          port: 3552
+  virtualhost:
+    fqdn: arcane.kubernetes.home
+    tls:
+      secretName: arcane-cert-secret
