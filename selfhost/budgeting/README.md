@@ -41,3 +41,4 @@ When it comes to money, finances, or investments, there are a few apps to help o
 - [Wallos](https://github.com/ellite/Wallos)
 - [MonetR](https://monetr.app/)
 - [Subtrackr](https://github.com/bscott/subtrackr)
+- [Billmanager](https://github.com/brdweb/billmanager)
