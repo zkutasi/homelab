@@ -1,0 +1,14 @@
+services:
+  qui:
+    container_name: qui
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    hostname: {{ id }}-qui
+    image: ghcr.io/autobrr/qui:v{{ requested_image_version['qui'] }}
+    ports:
+      - {{ port_qui }}:7476
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

@@ -1,0 +1,10 @@
+- name: Deploy Qui as docker
+  hosts: omv
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: qui
+    requested_image_version:
+      qui: "1.12.0"
+    docker_compose_create_dirs:
+      - name: config

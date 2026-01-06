@@ -1,0 +1,18 @@
+services:
+  flood:
+    command: --host 0.0.0.0 --port {{ port_flood }} --allowedpath /data
+    container_name: flood
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    hostname: {{ id }}-flood
+    image: jesec/flood:{{ requested_image_version['flood'] }}
+    ports:
+      - {{ port_flood }}:3001
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:{{ volume.to }}
+{% endfor %}

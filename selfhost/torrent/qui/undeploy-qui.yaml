@@ -1,0 +1,6 @@
+- name: Delete Qui containers
+  hosts: omv
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: qui
