@@ -1,0 +1,16 @@
+services:
+  tugtainer:
+    container_name: tugtainer
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+      - AGENT_SECRET={{ tugtainer_agent_secret }}
+    hostname: {{ id }}-tugtainer
+    image: quenary/tugtainer:{{ requested_image_version['tugtainer'] }}
+    ports:
+      - {{ port_tugtainer_agent }}:8001
+    restart: unless-stopped
+    volumes:
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/tugtainer

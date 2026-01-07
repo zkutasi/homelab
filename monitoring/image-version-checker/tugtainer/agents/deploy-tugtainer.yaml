@@ -1,0 +1,10 @@
+- name: Deploy Tugtainer as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: tugtainer
+    requested_image_version:
+      tugtainer: "1.15.1"
+    docker_compose_create_dirs:
+      - name: data

@@ -1,0 +1,53 @@
+image:
+  repository: quenary/tugtainer
+  tag: 1.15.1
+  pullPolicy: IfNotPresent
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 80
+        protocol: http
+        targetPort: 80
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /tugtainer
+    type: pvc
+    size: 1Gi
+  nging-lib:
+    enabled: true
+    type: emptyDir
+    mountPath: /var/lib/nginx
+  nging-log:
+    enabled: true
+    type: emptyDir
+    mountPath: /var/log/nginx
+
+securityContext:
+  container:
+    runAsUser: 33
+    runAsGroup: 33
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            AGENT_ENABLED: "false"
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
