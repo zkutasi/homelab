@@ -18,3 +18,4 @@ A reverse proxy further helps by eliminating the need to remember port numbers: 
 - [NPMPlus](https://github.com/ZoeyVid/NPMplus) - A fork of NPM with lots of new features
 - [HAProxy](https://github.com/haproxy/haproxy) - A very fast and reliable reverse-proxy offering high availability, load balancing, and proxying for TCP and HTTP-based applications.
 - [SWAG](https://www.linuxserver.io/blog/2020-08-21-introducing-swag) - A bundle from LinuxServer.IO, using Nginx, Php7, Certbot (Let's Encrypt client) and Fail2ban.
+- [Zoraxy](https://zoraxy.aroz.org/) - A good alternative for NPM, mainly a GUI reverse Proxy with additional networking features.
