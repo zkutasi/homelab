@@ -15,3 +15,4 @@ N/A
 - [CyberChef](https://gchq.github.io/CyberChef/) - An intuitive web app for carrying out all manner of "cyber" operations within a web browser
 - [StirlingPDF](https://www.stirlingpdf.com/) - A PDF toolset
 - [BentoPDF](https://www.bentopdf.com) - Another PDF toolkit, privacy-first.
+- [Web-Check](https://web-check.xyz/) - All-in-one OSINT tool for analyzing any website
