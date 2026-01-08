@@ -17,7 +17,7 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/app:/app:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/downloads:/downloads
-      - /var/run/docker.sock:/var/run/docker.sock
+      - {{ docker_socket_path }}:/var/run/docker.sock
 
 networks:
   selenium-net:
