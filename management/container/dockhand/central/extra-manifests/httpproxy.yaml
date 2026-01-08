@@ -1,0 +1,18 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: dockhand
+  name: dockhand-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: dockhand
+          port: 3000
+  virtualhost:
+    fqdn: dockhand.kubernetes.home
+    tls:
+      secretName: dockhand-cert-secret

@@ -19,3 +19,4 @@ These applications can manage docker containers, docker-compose stacks or even d
 - [Incus](https://linuxcontainers.org/incus/)
 - [1Panel](https://github.com/1Panel-dev/1Panel) - Seems chinese to me
 - [DweebUI](https://www.dweebui.com/) - Abandoned a bit, last release was in 2024
+- [DockHand](https://dockhand.pro) - A modern take on docker management, for homelabs mostly. Low footprint, but can do version checking, start/stop, log-streaming, real-time usage metrics and more.

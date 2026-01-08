@@ -1,0 +1,6 @@
+- name: Delete DockHand Hawser containers
+  hosts: docker
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: dockhand-hawser

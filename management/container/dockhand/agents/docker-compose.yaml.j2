@@ -1,0 +1,16 @@
+services:
+  dockhand-hawser:
+    container_name: dockhand-hawser
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+      - AGENT_NAME={{ id }}
+      - TOKEN={{ dockhand_agent_token }}
+    hostname: {{ id }}-dockhand-hawser
+    image: ghcr.io/finsys/hawser:{{ requested_image_version['dockhand-hawser'] }}
+    ports:
+      - {{ port_dockhand }}:2376
+    restart: unless-stopped
+    volumes:
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro

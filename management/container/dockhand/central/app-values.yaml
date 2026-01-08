@@ -1,0 +1,59 @@
+cnpg:
+  main:
+    enabled: true
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
+    database: dockhand
+    monitoring:
+      enablePodMonitor: true
+    user: dockhand
+
+image:
+  repository: fnsys/dockhand
+  tag: v1.0.6
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /app/data
+    type: pvc
+    size: 1Gi
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3000
+        protocol: http
+        targetPort: 3000
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            DATABASE_URL:
+              secretKeyRef:
+                name: cnpg-main-urls
+                key: std
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
