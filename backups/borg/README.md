@@ -12,18 +12,6 @@ I really wanted a unified UI, so I have placed Borgwarehouse on the backupServer
 
 Then all client hosts need a Borgmatic docker container as well, even the backup server too. The Borgmatic container will also contain Borg itself. All clients will back up to the remote backupServer only, not locally.
 
-This set of ansible playbooks will set everything up.
-
-## Prerequisites
-
-If you have a Synology and the backup server is going to be there, these items have to be performed manually on the Synology DSM UI beforehand:
-
-- Required Packages
-  - Docker
-  - SynoCli Network Tools (ssh-keyscan tool)
-- Create a backup volume, created to host all backups.
-- Create a backup user group, access granted to the backup. volume. This is required to provide adequate permissions to both the backup group users (the Synology admin and the borgwarehouse user in the containers). A specific GID cannot be created on Synology, but in my case the DSM UI created the GID of `65537`.
-
 ## Usage
 
 ### Ansible inventory setup

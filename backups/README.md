@@ -30,6 +30,16 @@ In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 - Family Photos/Videos (they are stored on Google Photos though or on a NAS)
 - Kubernetes Databases
 
+## Prerequisites
+
+If you have a Synology and the backup server is going to be there, these items have to be performed manually on the Synology DSM UI beforehand:
+
+- Required Packages
+  - Docker
+  - SynoCli Network Tools (ssh-keyscan tool)
+- Create a backup volume, created to host all backups.
+- Create a backup user group, access granted to the backup volume. This is required to provide adequate permissions to both the backup group users (the Synology admin and the borgwarehouse user in the containers). A specific GID cannot be created on Synology, but in my case the DSM UI created the GID of `65537`.
+
 ## Contenders
 
 ### Honorable mentions
