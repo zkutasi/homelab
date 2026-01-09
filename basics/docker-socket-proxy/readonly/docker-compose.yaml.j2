@@ -1,0 +1,24 @@
+services:
+  docker-socket-proxy-readonly:
+    command:
+      - -loglevel=info
+      - -listenip=0.0.0.0
+      - -allowfrom=192.168.31.0/24
+      - -allowGET=.*
+      - -watchdoginterval=3600
+      - -proxyport=2375
+      - -stoponwatchdog
+      - -shutdowngracetime=5
+    container_name: docker-socket-proxy-readonly
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_docker_group_id }}
+      - TZ={{ timezone }}
+    hostname: {{ id }}-docker-socket-proxy-readonly
+    image: wollomatic/socket-proxy:{{ requested_image_version['wollomatic-docker-socket-proxy'] }}
+    ports:
+      - {{ port_docker_socket_proxy }}:2375
+    restart: unless-stopped
+    user: {{ docker_uid }}:{{ docker_docker_group_id }}
+    volumes:
+      - {{ docker_socket_path }}:/var/run/docker.sock

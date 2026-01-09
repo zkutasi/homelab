@@ -1,0 +1,6 @@
+- name: Delete docker-socket-proxy-readonly containers
+  hosts: docker
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: docker-socket-proxy-readonly

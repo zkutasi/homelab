@@ -1,0 +1,8 @@
+- name: Deploy docker-socket-proxy-readonly as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: docker-socket-proxy-readonly
+    requested_image_version:
+      wollomatic-docker-socket-proxy: "1.10.1"
