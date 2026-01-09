@@ -134,6 +134,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             echo "Converting docker-compose.yaml for Truecharts values.yaml..."
             echo > "${TARGET_APP_DIR}/app-values.yaml"
             if [ -n "${POSTGRESQL}" ]; then
+              echo "Setting up a CNPG instance..."
               yq -i ".cnpg.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.cluster.instances = 1" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.cluster.singleNode = true" "${TARGET_APP_DIR}/app-values.yaml"
@@ -145,21 +146,43 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             fi
             APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
             if (( ${#APP_SERVICES[@]} == 1 )); then
-              APP_IMAGE=$(yq ".services.${APP_SERVICES[0]}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
+              SINGLE_APP_SERVICE=${APP_SERVICES[0]}
+              echo "Configuring application service '${SINGLE_APP_SERVICE}'..."
+              APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
               yq -i ".image.repository = \"${APP_IMAGE%%:*}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.tag = \"${APP_IMAGE##*:}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
 
-              APP_PORT=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
+              APP_PORT=$(yq ".services.${SINGLE_APP_SERVICE}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
               yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
+
               yq -i ".TZ = \"Europe/Budapest\"" "${TARGET_APP_DIR}/app-values.yaml"
 
               yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+
+              echo "Extracting environment variables..."
+              ENV_PATH=".services.${SINGLE_APP_SERVICE}.environment"
+              if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null; then
+                  ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
+                  if [ "${ENV_TYPE}" == "!!seq" ]; then
+                      ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+                  else
+                      ENV_ITEMS=$(yq -r "${ENV_PATH} | to_entries | .[] | .key + \"=\" + .value" "${TARGET_APP_DIR}/docker-compose.yaml")
+                  fi
+
+                  while IFS= read -r line; do
+                      [ -z "${line}" ] && continue
+                      KEY=${line%%=*}
+                      VALUE=${line#*=}
+                      KEY="${KEY}" VALUE="${VALUE}" yq -i '.workload.main.podSpec.containers.main.env[env(KEY)] = env(VALUE)' "${TARGET_APP_DIR}/app-values.yaml"
+                  done <<< "${ENV_ITEMS}"
+              fi
+
               yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
