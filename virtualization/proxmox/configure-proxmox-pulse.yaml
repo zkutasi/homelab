@@ -1,5 +1,5 @@
 - name: Get the major Proxmox version
-  hosts: proxmox-clusters
+  hosts: proxmoxclusters
   tasks:
     - name: Get Proxmox version
       ansible.builtin.command: pveversion

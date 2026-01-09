@@ -1,5 +1,5 @@
 - name: Create a terraform role & user in PVE
-  hosts: proxmox-clusters
+  hosts: proxmoxclusters
   roles:
     - simoncaron.pve_permissions
   vars:
