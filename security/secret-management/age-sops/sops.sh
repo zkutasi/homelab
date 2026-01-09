@@ -11,6 +11,7 @@ function usage() {
     echo "Options:"
     echo "  --decrypt-all         Decrypt all files ending with '_encrypted' in the repository (default)"
     echo "  --encrypt <file>      Encrypt the specified file and save it as '<file>_encrypted'"
+    echo "  --encrypt-all-missing <filename> Find all files named <filename>, and if not empty and no encrypted version exists, encrypt them."
     echo "  --reencrypt-all       Re-encrypt all encrypted files from their non-encrypted counterparts"
     echo ""
     echo "Environment Variables:"
@@ -26,6 +27,11 @@ while [ $# -ge 1 ]; do
         MODE=encrypt
         shift
         ENCRYPT_FILE=$1
+        ;;
+    --encrypt-all-missing)
+        MODE=encrypt-all-missing
+        shift
+        MISSING_FILE_NAME=$1
         ;;
     --reencrypt-all)
         MODE=reencrypt-all
@@ -102,6 +108,21 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
             echo "WARNING: Unencrypted file ${decrypted_filename} not found. Skipping re-encryption for ${line}."
         fi
     done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
+elif [ "${MODE}" == "encrypt-all-missing" ]; then
+    while read -r line; do
+        if [ -s "${line}" ]; then
+            encrypted_filename="${line}_encrypted"
+            if [ ! -f "${encrypted_filename}" ]; then
+                echo "Encrypting missing encrypted file for: ${line}..."
+                sops --encrypt \
+                    --input-type ${FILE_TYPE} \
+                    --output-type ${FILE_TYPE} \
+                    --age ${AGE_KEY} \
+                    --output "${encrypted_filename}" \
+                    "${line}"
+            fi
+        fi
+    done < <(find $(git rev-parse --show-toplevel) -type f -name "${MISSING_FILE_NAME}")
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1
