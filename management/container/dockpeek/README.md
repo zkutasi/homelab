@@ -32,7 +32,7 @@
     ./deploy-k8s.sh
     ```
 
-3. Deploy a docker socket proxy for each remote host, no agents required (possible, actually)
+3. Deploy a docker socket proxy for each remote host, no agents required/possible
 
 ## Commands
 
