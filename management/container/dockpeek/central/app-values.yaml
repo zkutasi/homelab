@@ -1,0 +1,30 @@
+image:
+  repository: dockpeek/dockpeek
+  tag: v1.7.2
+  pullPolicy: IfNotPresent
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8000
+        protocol: http
+        targetPort: 8000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            UPDATE_FLOATING_TAGS: "minor"
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
