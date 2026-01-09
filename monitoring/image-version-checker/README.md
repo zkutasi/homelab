@@ -15,7 +15,7 @@ It is best to keep track of the image versions of containers and helm charts in 
 - [Watchtower](https://github.com/containrrr/watchtower) - One of the earliest solutions for this problem, but seems abandoned, since 2023
   - A newer version is forked [by Nicholas Fedor](https://github.com/nicholas-fedor/watchtower)
   - Another fork [by Beatkind](https://github.com/beatkind/watchtower)
-- [What's up Docker](https://getwud.github.io/wud/#/) - For multi-host setups, one requires to open up the docker socket on the particular host
+- [What's up Docker](https://getwud.github.io/wud/#/) - For multi-host setups, one requires to open up the docker socket on the particular host or use a socket-proxy
 - [Docker Image Update Notifier (DIUN)](https://crazymax.dev/diun/) - Command line only, no dashboard
   - [Diun Dash](https://github.com/orkaa/diun-dash) - Adds a multi-DIUN host dashboard, quite abandoned
 - [Tugtainer](https://github.com/Quenary/tugtainer) - Multi-host support. But seems to only handle "latest" tags.
