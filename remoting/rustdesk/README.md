@@ -15,7 +15,7 @@ Each remote controllable machine needs the RustDesk client as well as the machin
 1. Deploy the Relay server:
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook selfhosting/rustdesk/deploy-rustdesk.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook remoting/rustdesk/deploy-rustdesk.yaml --no-check
     ```
 
 2. Get the relay Server's Public Key: `cat data/id_ed25519.pub`
