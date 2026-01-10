@@ -27,7 +27,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook selfhost/photos/photoprism/deploy-photoprism.yaml --no-check
+./common-ansible-run-playbook.sh --playbook photos/photoprism/deploy-photoprism.yaml --no-check
 ```
 
 ## Commands

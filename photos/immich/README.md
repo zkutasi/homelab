@@ -26,7 +26,7 @@ browse, search and organize your photos and videos with ease, without sacrificin
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook selfhost/photos/immich/deploy-immich.yaml --no-check
+./common-ansible-run-playbook.sh --playbook photos/immich/deploy-immich.yaml --no-check
 ```
 
 ## Commands
