@@ -8,9 +8,13 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: <APP_NAME_LOWERCASE>
           port: <APP_PORT>
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
   virtualhost:
     fqdn: <APP_NAME_LOWERCASE>.kubernetes.home
     tls:
