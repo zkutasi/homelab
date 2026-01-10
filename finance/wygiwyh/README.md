@@ -40,3 +40,103 @@
 ## Commands
 
 ## Notable comments
+
+- This is my import profile:
+
+    ```yaml
+    settings:
+      file_type: csv
+      delimiter: ","
+      encoding: utf-16
+      skip_lines: 0
+      importing: transactions
+      trigger_transaction_rules: true
+      skip_errors: false
+    mapping:
+      account:
+        target: account
+        source: "Felhasználónév"
+        required: true
+        transformations:
+          - type: replace
+            pattern: "Erste FőSzámla"
+            replacement: "Erste Main Account"
+          - type: replace
+            pattern: "KUTASI ZOLTÁN"
+            replacement: "Erste Credit Card"
+      type:
+        target: type
+        source: "Összeg"
+        detection_method: sign
+      is_paid:
+        target: is_paid
+        detection_method: always_paid
+      date:
+        target: date
+        required: true
+        format:
+          - "%Y.%m.%d"
+          - "%Y.%m.%d %H:%M:%S"
+        transformations:
+          - type: merge
+            fields:
+              - "Tranzakció dátuma és ideje"
+              - "Könyvelés dátuma"
+            separator: "____"
+          - type: regex
+            pattern: "(?<=^\\d{4}\\.\\d{2}\\.\\d{2} \\d{2}:\\d{2}:\\d{2})____.*|^____"
+            replacement: ""
+            exclusive: false
+      reference_date:
+        target: reference_date
+        required: true
+        format:
+          - "%Y.%m.%d"
+          - "%Y.%m.%d %H:%M:%S"
+        transformations:
+          - type: merge
+            fields:
+              - "Tranzakció dátuma és ideje"
+              - "Könyvelés dátuma"
+            separator: "____"
+          - type: regex
+            pattern: "(?<=^\\d{4}\\.\\d{2}\\.\\d{2} \\d{2}:\\d{2}:\\d{2})____.*|^____"
+            replacement: ""
+            exclusive: false
+      amount:
+        target: amount
+        source: "Összeg"
+        required: true
+        transformations:
+          - type: replace
+            pattern: " "
+            replacement: ""
+      description:
+        target: description
+        source: "Könyvelési információk"
+        default:
+        required: false
+      entities:
+        target: entities
+        source: "Partner név"
+        required: false
+        create: true
+        type: name
+      internal_id:
+        target: internal_id
+        transformations:
+          - type: hash
+            fields:
+              - "Könyvelés dátuma"
+              - "Összeg"
+              - "Partner név"
+              - "Könyvelési információk"
+              - "Tranzakcióazonosító"
+              - "Tranzakció dátuma és ideje"
+    deduplication:
+      - type: compare
+        fields:
+          - internal_id
+        match_type: strict
+
+    ```
