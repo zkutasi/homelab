@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook selfhost/torrent/qui/deploy-qui.yaml --no-check
+./common-ansible-run-playbook.sh --playbook torrenting/qui/deploy-qui.yaml --no-check
 ```
 
 ## Commands

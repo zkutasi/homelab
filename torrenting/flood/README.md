@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook selfhost/torrent/flood/deploy-flood.yaml --no-check
+./common-ansible-run-playbook.sh --playbook torrenting/flood/deploy-flood.yaml --no-check
 ```
 
 ## Commands
