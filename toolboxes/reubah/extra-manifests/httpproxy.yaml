@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: reubah
+  name: reubah-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: reubah
+          port: 8081
+  virtualhost:
+    fqdn: reubah.kubernetes.home
+    tls:
+      secretName: reubah-cert-secret
