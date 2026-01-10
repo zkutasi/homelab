@@ -1,0 +1,17 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: mazanoke
+  name: mazanoke-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: mazanoke
+          port: 80
+  virtualhost:
+    fqdn: mazanoke.kubernetes.home
+    tls:
+      secretName: mazanoke-cert-secret
