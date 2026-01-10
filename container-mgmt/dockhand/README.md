@@ -34,7 +34,7 @@
 ### Deploy the agents
 
 ```bash
-./common-ansible-run-playbook.sh --playbook management/container/dockhand/agents/deploy-dockhand.yaml --no-check
+./common-ansible-run-playbook.sh --playbook container-mgmt/dockhand/agents/deploy-dockhand.yaml --no-check
 ```
 
 ## Commands
