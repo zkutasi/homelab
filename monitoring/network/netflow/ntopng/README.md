@@ -27,6 +27,8 @@ For each Ansible host, the following variables can be set
     ./common-ansible-run-playbook.sh --playbook monitoring/network/netflow/ntopng/deploy-ntopng.yaml --no-check
     ```
 
+After logging in with `admin/admin`, you can change these credentials.
+
 ## Commands
 
 ## Notable comments

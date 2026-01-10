@@ -6,7 +6,7 @@
     docker_compose_projectname: ntopng
     requested_image_version:
       ntopng: "latest"
+      valkey: 9.0.0
     docker_compose_create_dirs:
       - name: ntopng
       - name: redis
-        folder_mode: '0777'

@@ -1,21 +1,44 @@
 services:
   ntopng:
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     command:
       - --community
       - --interface
       - {{ ntopng_interface}}
       - --local-networks
       - {{ network_subnet }}
+      - --redis
+      - 127.0.0.1:{{ port_ntopng_redis }}:{{ ntopng_redis_password }}
     container_name: ntopng
     dns:
       - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
       - {{ default_gateway_ip }}
     environment:
-      TZ: {{ timezone }}
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
     hostname: {{ id }}-ntopng
     image: ntop/ntopng:{{ requested_image_version['ntopng'] }}
     network_mode: host
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ntopng:/var/lib/ntopng:rw
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redis:/var/lib/redis:rw
+
+  ntopng-redis:
+    command: redis-server --appendonly yes --requirepass {{ ntopng_redis_password }}
+    container_name: ntopng-redis
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    healthcheck:
+      test: redis-cli ping || exit 1
+    hostname: {{ id }}-ntopng-redis
+    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    ports:
+    - "127.0.0.1:{{ port_ntopng_redis }}:6379"
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redis:/data:rw
