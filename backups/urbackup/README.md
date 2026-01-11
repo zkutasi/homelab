@@ -68,3 +68,8 @@ This solution seems entirely UI based, which makes it very simple to handle.
 ## Notable comments
 
 - Make sure the client has a unique auth key set and known by the server, mapped to the client identifier. To do this, first on the UI, Add a new client, make it internet/active client, write the name as the identifier of the host
+- If you ever need to migrate the server's backup-folder, here is what I have used, between two Synology devices:
+
+    ```bash
+    sudo rsync -ahH --numeric-ids --hard-links --progress --inplace -e "ssh -p 22222" --rsync-path="/bin/rsync" /volume1/backups/urbackup/ <USER>@<TARGET>:/volume1/backups/urbackup/
+    ```
