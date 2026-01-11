@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: urbackup-server
     requested_image_version:
-      urbackup-server: "2.4.x"
+      urbackup-server: "2.5.x"
     docker_compose_create_dirs:
       - name: database
       - name: wwwfolder

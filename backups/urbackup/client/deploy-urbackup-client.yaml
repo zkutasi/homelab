@@ -5,5 +5,5 @@
   vars:
     docker_compose_projectname: urbackup-client
     requested_image_version:
-      urbackup-client: "2.4.x"
+      urbackup-client: "2.5.x"
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_urbackup_client }}"
