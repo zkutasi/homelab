@@ -148,26 +148,46 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             if (( ${#APP_SERVICES[@]} == 1 )); then
               SINGLE_APP_SERVICE=${APP_SERVICES[0]}
               echo "Configuring application service '${SINGLE_APP_SERVICE}'..."
+              echo "Extracting image..."
               APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
               yq -i ".image.repository = \"${APP_IMAGE%%:*}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.tag = \"${APP_IMAGE##*:}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
 
+              echo "Extracting volume mounts..."
+              VOLUME_PATH=".services.${SINGLE_APP_SERVICE}.volumes"
+              if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
+                  VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+
+                  while IFS= read -r line; do
+                      [ -z "${line}" ] && continue
+                      CONTAINER_PATH=$(echo "${line}" | cut -d':' -f2)
+                      yq -i ".persistence.data.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+                      yq -i ".persistence.data.accessModes = \"ReadWriteOnce\"" "${TARGET_APP_DIR}/app-values.yaml"
+                      CONTAINER_PATH="${CONTAINER_PATH}" yq -i ".persistence.data.mountPath = env(CONTAINER_PATH)" "${TARGET_APP_DIR}/app-values.yaml"
+                      yq -i ".persistence.data.type = \"pvc\"" "${TARGET_APP_DIR}/app-values.yaml"
+                      yq -i ".persistence.data.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  done <<< "${VOLUME_ITEMS}"
+              fi
+
+              echo "Extracting ports..."
               APP_PORT=$(yq ".services.${SINGLE_APP_SERVICE}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
               yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
 
+              echo "Setting timezone..."
               yq -i ".TZ = \"Europe/Budapest\"" "${TARGET_APP_DIR}/app-values.yaml"
 
+              echo "Preparing workload basics..."
               yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
 
               echo "Extracting environment variables..."
               ENV_PATH=".services.${SINGLE_APP_SERVICE}.environment"
-              if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null; then
+              if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
                   ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
                   if [ "${ENV_TYPE}" == "!!seq" ]; then
                       ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -183,6 +203,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                   done <<< "${ENV_ITEMS}"
               fi
 
+              echo "Preparing workload probes..."
               yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
