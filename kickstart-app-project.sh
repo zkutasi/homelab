@@ -87,7 +87,7 @@ if [ "${MAINTYPE}" == "docker" ]; then
         yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":PLACEHOLDER_IMAGE_VERSION\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
-        echo "Extracting environment variables..."
+        echo "Processing environment variables..."
         ENV_PATH=".services.${APP_NAME_LOWERCASE}.environment"
         if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
             ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -105,16 +105,41 @@ if [ "${MAINTYPE}" == "docker" ]; then
                 KEY="${KEY}" VALUE="${VALUE}" yq -i ".services.${APP_NAME_LOWERCASE}.environment[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
             done <<< "${ENV_ITEMS}"
         fi
+        yq -i ".services.${APP_NAME_LOWERCASE}.environment.PUID = \"PLACEHOLDER_PUID\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        yq -i ".services.${APP_NAME_LOWERCASE}.environment.PGID = \"PLACEHOLDER_GUID\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         yq -i ".services.${APP_NAME_LOWERCASE}.environment.TZ = \"PLACEHOLDER_TZ\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+
+        echo "Processing volumes..."
+        VOLUME_PATH=".services.${APP_NAME_LOWERCASE}.volumes"
+        if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
+            VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+
+            yq -i ".services.${APP_NAME_LOWERCASE}.volumes = []" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+            INDEX=0
+            while IFS= read -r line; do
+                [ -z "${line}" ] && continue
+                FROM=${line%%:*}
+                if [[ "${FROM}" == "/var/run/docker.sock"* ]]; then
+                    FROM="PLACEHOLDER_DOCKER_SOCK"
+                else
+                    FROM="PLACEHOLDER_VOLUME_PATH/${FROM}"
+                fi
+                TO=${line#*:}
+                INDEX="${INDEX}" FROM="${FROM}" TO="${TO}" yq -i ".services.${APP_NAME_LOWERCASE}.volumes[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+                INDEX=$((INDEX + 1))
+            done <<< "${VOLUME_ITEMS}"
+        fi
 
         yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
         echo "Replacing placeholders in docker-compose.yaml.j2..."
-        sed -i 's/PLACEHOLDER_ID/{{ id }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's/PLACEHOLDER_IMAGE_VERSION/{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's/PLACEHOLDER_TZ/{{ timezone }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's/PLACEHOLDER_DOCKER_SOCK/{{ docker_socket_path }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-
+        sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_PUID|{{ puid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_GUID|{{ guid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_DOCKER_SOCK|{{ docker_socket_path }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     fi
 elif [ "${MAINTYPE}" == "k8s" ]; then
     if [ -n "${SUBTYPE}" ] && [ -d "${REPO_ROOT}/_templates/${TYPE}" ]; then
@@ -150,13 +175,13 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             if (( ${#APP_SERVICES[@]} == 1 )); then
               SINGLE_APP_SERVICE=${APP_SERVICES[0]}
               echo "Configuring application service '${SINGLE_APP_SERVICE}'..."
-              echo "Extracting image..."
+              echo "Processing image..."
               APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
               yq -i ".image.repository = \"${APP_IMAGE%%:*}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.tag = \"${APP_IMAGE##*:}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
 
-              echo "Extracting volume mounts..."
+              echo "Processing volume mounts..."
               VOLUME_PATH=".services.${SINGLE_APP_SERVICE}.volumes"
               if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
                   VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -172,22 +197,22 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                   done <<< "${VOLUME_ITEMS}"
               fi
 
-              echo "Extracting ports..."
+              echo "Processing ports..."
               APP_PORT=$(yq ".services.${SINGLE_APP_SERVICE}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
               yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
 
-              echo "Setting timezone..."
+              echo "Processing timezone..."
               yq -i ".TZ = \"Europe/Budapest\"" "${TARGET_APP_DIR}/app-values.yaml"
 
-              echo "Preparing workload basics..."
+              echo "Processing workload..."
               yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
 
-              echo "Extracting environment variables..."
+              echo "Processing environment variables..."
               ENV_PATH=".services.${SINGLE_APP_SERVICE}.environment"
               if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
                   ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -205,7 +230,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                   done <<< "${ENV_ITEMS}"
               fi
 
-              echo "Preparing workload probes..."
+              echo "Processing workload probes..."
               yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"

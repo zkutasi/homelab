@@ -3,9 +3,9 @@ services:
     command:
     container_name: <APP_NAME_LOWERCASE>
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
-      - TZ={{ timezone }}
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
     hostname: {{ id }}-<APP_NAME_LOWERCASE>
     image: <IMAGE_PATH>:{{ requested_image_version['<APP_NAME_LOWERCASE>'] }}
 <PORTS_MAPPING>
