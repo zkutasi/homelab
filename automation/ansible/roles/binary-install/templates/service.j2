@@ -7,8 +7,11 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-User=root
+User={{ run_as_user }}
 ExecStart={{ bin_path }}/{{ bin_filename }}
+{% for env in environment_vars | dict2items %}
+Environment="{{ env.key }}={{ env.value }}"
+{% endfor %}
 
 [Install]
 WantedBy=multi-user.target

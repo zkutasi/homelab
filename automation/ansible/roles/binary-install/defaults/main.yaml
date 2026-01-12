@@ -7,8 +7,10 @@ decompression_options:
   - "--strip-components=1"
 destination_path: ""
 download_url: "{{ undef(hint='You must specify the download URL') }}"
+environment_vars: []
+install_cmd: ""
 requested_binary_version: "{{ undef(hint='You must specify the requested version') }}"
+run_as_user: root
 service_name: ""
 service_path: /etc/systemd/system
 version_flag: "--version"
-install_cmd: ""

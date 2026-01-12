@@ -1,0 +1,21 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: beszel
+  name: beszel-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: beszel
+          port: 8090
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
+  virtualhost:
+    fqdn: beszel.kubernetes.home
+    tls:
+      secretName: beszel-cert-secret

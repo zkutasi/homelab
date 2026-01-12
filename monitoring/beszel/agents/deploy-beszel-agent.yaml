@@ -1,0 +1,95 @@
+- name: Authenticate to Beszel Hub
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "beszel_auth"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ beszel_auth.json }}"
+    - name: Set fact for auth token
+      ansible.builtin.set_fact:
+        beszel_auth_token: "{{ beszel_auth.json.token }}"
+  vars:
+    rest_api_url: "{{ beszel_hub_url }}"
+    rest_api_endpoint: "/api/collections/users/auth-with-password"
+    rest_api_method: "POST"
+    rest_api_data:
+      identity: "{{ beszel_username }}"
+      password: "{{ beszel_password }}"
+    rest_api_body_format: form-urlencoded
+- name: Get universal token
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "beszel_universal_token"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ beszel_universal_token.json }}"
+    - name: Set fact for universal token
+      ansible.builtin.set_fact:
+        beszel_universal_token: "{{ beszel_universal_token.json.token }}"
+  vars:
+    rest_api_url: "{{ beszel_hub_url }}"
+    rest_api_endpoint: "/api/beszel/universal-token"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ beszel_auth_token }}"
+- name: Get SSH Key
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "beszel_ssh_key"
+    - name: Debug URLs
+      ansible.builtin.debug:
+        msg: "{{ beszel_ssh_key.json }}"
+    - name: Set fact for SSH key
+      ansible.builtin.set_fact:
+        beszel_ssh_key: "{{ beszel_ssh_key.json.key }}"
+  vars:
+    rest_api_url: "{{ beszel_hub_url }}"
+    rest_api_endpoint: "/api/beszel/getkey"
+    rest_api_method: "GET"
+    rest_api_headers:
+      Authorization: "Bearer {{ beszel_auth_token }}"
+- name: Deploy Beszel-agent as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: beszel-agent
+    requested_image_version:
+      beszel-agent: "0.18.1"
+    docker_compose_create_dirs:
+      - name: data
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"
+- name: Deploy Beszel-agent as a service
+  hosts: proxmox
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.18.1"
+    bin_filename: beszel-agent
+    service_name: beszel-agent
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}"
+    download_url: "https://github.com/henrygd/beszel/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64.tar.gz"
+    version_flag: "version"
+    environment_vars:
+      HUB_URL: "{{ beszel_hub_url }}"
+      KEY: "{{ beszel_ssh_key }}"
+      LISTEN: "{{ port_beszel }}"
+      TOKEN: "{{ beszel_universal_token }}"
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"

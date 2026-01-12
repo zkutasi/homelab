@@ -1,0 +1,24 @@
+services:
+  beszel-agent:
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    container_name: beszel-agent
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+      - {{ default_gateway_ip }}
+    environment:
+      HUB_URL: {{ beszel_hub_url }}
+      KEY: "{{ beszel_ssh_key }}"
+      LISTEN: {{ port_beszel }}
+      TOKEN: {{ beszel_universal_token }}
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-beszel-agent
+    image: henrygd/beszel-agent:{{ requested_image_version['beszel-agent'] }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/var/lib/beszel-agent
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro

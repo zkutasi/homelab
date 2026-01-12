@@ -23,6 +23,7 @@
       - prometheus.kubernetes.home
       - influxdb.kubernetes.home
       - pulse.kubernetes.home
+      - beszel.kubernetes.home
 - name: Set up /etc/hosts for ansible
   hosts: controlserver
   become: true
@@ -34,3 +35,4 @@
       - komodo.kubernetes.home
       - portainer.kubernetes.home
       - portracker.kubernetes.home
+      - beszel.kubernetes.home
