@@ -27,32 +27,6 @@ Options:
 EOF
 }
 
-function add_yaml_key_as_map() {
-    local file=$1
-    local path=$2
-    local key=$3
-    local value=$4
-
-    echo "Adding key '${key}' to path '${path}' in ${file}"
-
-    # Check if the path exists
-    if yq -e "${path}" "${file}" >/dev/null; then
-        # Path exists, check if it's a list (sequence) or a map
-        local env_type
-        env_type=$(yq "${path} | type" "${file}")
-        if [[ "${env_type}" == "!!seq" ]]; then
-            # It's a list
-            yq -i "${path} += [\"${key}=${value}\"]" "${file}"
-        else
-            # It's a map or something else, treat as map
-            yq -i "${path}.${key} = \"${value}\"" "${file}"
-        fi
-    else
-        # Path doesn't exist, create it as a map
-        yq -i "${path}.${key} = \"${value}\"" "${file}"
-    fi
-}
-
 while [ $# -ge 1 ]; do
   case "$1" in
     --foldername)
@@ -109,10 +83,38 @@ if [ "${MAINTYPE}" == "docker" ]; then
         echo "Processing existing docker-compose.yaml for templating..."
         cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
 
-        yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        yq -i ".services.${APP_NAME_LOWERCASE}.hostname = \"PLACEHOLDER_ID-${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":PLACEHOLDER_IMAGE_VERSION\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+
+        echo "Extracting environment variables..."
+        ENV_PATH=".services.${APP_NAME_LOWERCASE}.environment"
+        if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
+            ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
+            if [ "${ENV_TYPE}" == "!!seq" ]; then
+                ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+            else
+                ENV_ITEMS=$(yq -r "${ENV_PATH} | to_entries | .[] | .key + \"=\" + .value" "${TARGET_APP_DIR}/docker-compose.yaml")
+            fi
+
+            yq -i ".services.${APP_NAME_LOWERCASE}.environment = {}" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+            while IFS= read -r line; do
+                [ -z "${line}" ] && continue
+                KEY=${line%%=*}
+                VALUE=${line#*=}
+                KEY="${KEY}" VALUE="${VALUE}" yq -i ".services.${APP_NAME_LOWERCASE}.environment[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+            done <<< "${ENV_ITEMS}"
+        fi
+        yq -i ".services.${APP_NAME_LOWERCASE}.environment.TZ = \"PLACEHOLDER_TZ\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+
         yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        add_yaml_key_as_map "${TARGET_APP_DIR}/docker-compose.yaml.j2" ".services.${APP_NAME_LOWERCASE}.environment" "TZ" "{{ timezone }}"
+
+        echo "Replacing placeholders in docker-compose.yaml.j2..."
+        sed -i 's/PLACEHOLDER_ID/{{ id }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's/PLACEHOLDER_IMAGE_VERSION/{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's/PLACEHOLDER_TZ/{{ timezone }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's/PLACEHOLDER_DOCKER_SOCK/{{ docker_socket_path }}/g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+
     fi
 elif [ "${MAINTYPE}" == "k8s" ]; then
     if [ -n "${SUBTYPE}" ] && [ -d "${REPO_ROOT}/_templates/${TYPE}" ]; then
@@ -199,7 +201,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                       [ -z "${line}" ] && continue
                       KEY=${line%%=*}
                       VALUE=${line#*=}
-                      KEY="${KEY}" VALUE="${VALUE}" yq -i '.workload.main.podSpec.containers.main.env[env(KEY)] = env(VALUE)' "${TARGET_APP_DIR}/app-values.yaml"
+                      KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.main.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
                   done <<< "${ENV_ITEMS}"
               fi
 
