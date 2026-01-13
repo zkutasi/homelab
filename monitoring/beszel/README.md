@@ -23,6 +23,7 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |disk_devices|O|A list with the /dev devices to map into the agent container|
 
 ### Deploy the central hub
 

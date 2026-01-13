@@ -1,9 +1,17 @@
 services:
   beszel-agent:
+{% if disk_devices is defined and disk_devices | length > 0 %}
     cap_add:
       - SYS_RAWIO
       - SYS_ADMIN
+{% endif %}
     container_name: beszel-agent
+{% if disk_devices is defined and disk_devices | length > 0 %}
+    devices:
+{% for device in disk_devices %}
+      - {{ device.path }}:{{ device.path }}:ro
+{% endfor %}
+{% endif %}
     dns:
       - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
       - {{ default_gateway_ip }}
@@ -11,6 +19,17 @@ services:
       HUB_URL: {{ beszel_hub_url }}
       KEY: "{{ beszel_ssh_key }}"
       LISTEN: {{ port_beszel }}
+{% if disk_devices is defined and disk_devices | length > 0 %}
+{%- set smartctl_args = [] -%}
+{% for device in disk_devices %}
+{%- set device_arg = device.path -%}
+{%- if device.smartctlexporter_extra_args is defined -%}
+{%- set device_arg = device_arg ~ ':' ~ device.smartctlexporter_extra_args -%}
+{%- endif -%}
+{%- set _ = smartctl_args.append(device_arg) -%}
+{% endfor %}
+      SMART_DEVICES: {{ smartctl_args | join(',') }}
+{% endif %}
       TOKEN: {{ beszel_universal_token }}
       PUID: {{ docker_uid }}
       PGID: {{ docker_gid }}
