@@ -37,11 +37,34 @@
 
 3. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_token`
 
-### Deploy the agents
+### Deploy the agents on the Docker hosts
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/deploy-beszel-agent.yaml --no-check
 ```
+
+### Deploy the agents on the Kubernetes hosts
+
+When the regular Agents are deployed, the required Env variables are fetched from the Hub and printed.
+
+1. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+    ```yaml
+    workload:
+        main:
+            podSpec:
+            containers:
+                main:
+                env:
+                    KEY: "<KEY>"
+                    TOKEN: "<TOKEN>"
+    ```
+
+2. Install with the provided script
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
 
 ## Commands
 
