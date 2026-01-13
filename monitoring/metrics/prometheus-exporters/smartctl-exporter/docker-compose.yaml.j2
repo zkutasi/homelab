@@ -1,8 +1,16 @@
 services:
   smartctl-exporter:
     container_name: smartctl-exporter
-{% if smartctlexporter_extra_args is defined and smartctlexporter_extra_args | length > 0 %}
-    entrypoint: /bin/smartctl_exporter {{ smartctlexporter_extra_args | join(' ') }}
+{% if disk_devices is defined and disk_devices | length > 0 -%}
+{%- set smartctl_args = [] -%}
+{%- for device in disk_devices -%}
+{%- set device_arg = device.path -%}
+{%- if device.smartctlexporter_extra_args is defined -%}
+{%- set device_arg = device_arg ~ ';' ~ device.smartctlexporter_extra_args -%}
+{%- endif -%}
+{%- set _ = smartctl_args.append('--smartctl.device="' ~ device_arg ~ '"') -%}
+{%- endfor %}
+    entrypoint: /bin/smartctl_exporter {{ smartctl_args | join(' ') }}
 {% endif %}
     environment:
       - TZ={{ timezone }}
