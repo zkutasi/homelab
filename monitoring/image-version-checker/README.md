@@ -30,3 +30,4 @@ It is best to keep track of the image versions of containers and helm charts in 
 - [Cup](https://cup.sergi0g.dev/docs) - Very lightweight, with dashboard and remote host abilities. No Kubernetes support sadly (yet).
 - [Cupdate](https://github.com/AlexGustafsson/cupdate) - For Kubernetes or docker hosts
 - [Jetstack Version Checker](https://github.com/jetstack/version-checker) - Expose the versions discovered as metrics, so a Grafana dashboard can be built around them.
+- [Keel](https://keel.sh/) - Kubernetes Operator to automate Helm, DaemonSet, StatefulSet & Deployment updates. Quite in development.

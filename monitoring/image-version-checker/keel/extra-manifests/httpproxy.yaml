@@ -1,0 +1,21 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: keel
+  name: keel-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: keel
+          port: 9300
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
+  virtualhost:
+    fqdn: keel.kubernetes.home
+    tls:
+      secretName: keel-cert-secret

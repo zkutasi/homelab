@@ -1,0 +1,10 @@
+helmProvider:
+  enabled: true
+  version: "v3"
+insecureRegistry: true
+polling:
+  enabled: true
+  defaultSchedule: "@every 1h"
+service:
+  enabled: true
+  type: ClusterIP
