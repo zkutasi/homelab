@@ -66,7 +66,7 @@
               "fill": "solid"
             },
             "lineWidth": 1,
-            "pointSize": 5,
+            "pointSize": 1,
             "scaleDistribution": {
               "type": "linear"
             },
@@ -120,7 +120,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -204,7 +204,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -306,7 +306,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -410,7 +410,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -514,7 +514,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -618,11 +618,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"torrents-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"omv-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{name}}",
@@ -630,7 +630,7 @@
           "refId": "A"
         }
       ],
-      "title": "torrents",
+      "title": "omv",
       "transparent": true,
       "type": "timeseries"
     },
@@ -722,7 +722,7 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
@@ -809,6 +809,214 @@
         "x": 6,
         "y": 17
       },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"synology224-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Synology224",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 17
+      },
+      "id": 50,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"qotom-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "qotom",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 17
+      },
       "id": 33,
       "options": {
         "legend": {
@@ -826,11 +1034,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"vps-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "expr": "sum (\r\n    rate(\r\n        container_cpu_usage_seconds_total{\r\n            job=\"cadvisor\",\r\n            host=\"vps\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{name}}",
@@ -843,12 +1051,1438 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 25
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m{node=\"k8s-worker-1\"}\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-1\", resource=\"cpu\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{node=\"k8s-worker-1\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{node=\"k8s-worker-1\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker1 CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 25
+      },
+      "id": 48,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m{node=\"k8s-worker-2\"}\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-2\", resource=\"cpu\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{node=\"k8s-worker-2\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{node=\"k8s-worker-2\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker2 CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 25
+      },
+      "id": 49,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_cpu_usage_seconds_total:sum_rate5m{node=\"k8s-worker-3\"}\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-3\", resource=\"cpu\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{node=\"k8s-worker-3\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_cpu:active:kube_pod_container_resource_limits{node=\"k8s-worker-3\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker3 CPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 33
+      },
+      "id": 45,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_memory_working_set_bytes{node=\"k8s-worker-1\", container!=\"\", service=\"prometheus-kubelet\"}\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-1\", resource=\"memory\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{node=\"k8s-worker-1\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{node=\"k8s-worker-1\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker1 Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 33
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_memory_working_set_bytes{node=\"k8s-worker-2\", container!=\"\", service=\"prometheus-kubelet\"}\r\n)",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-2\", resource=\"memory\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{node=\"k8s-worker-2\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{node=\"k8s-worker-2\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker2 Memory",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Max Capacity"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Requests"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Sum of Limits"
+            },
+            "properties": [
+              {
+                "id": "custom.stacking",
+                "value": {
+                  "group": "A",
+                  "mode": "none"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 33
+      },
+      "id": 47,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n  node_namespace_pod_container:container_memory_working_set_bytes{node=\"k8s-worker-3\", container!=\"\", service=\"prometheus-kubelet\"}\r\n)",
+          "hide": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  kube_node_status_capacity{job=\"kube-state-metrics\", node=\"k8s-worker-3\", resource=\"memory\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Max Capacity",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{node=\"k8s-worker-3\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Requests",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n  cluster:namespace:pod_memory:active:kube_pod_container_resource_limits{node=\"k8s-worker-3\"}\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sum of Limits",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Worker3 Memory",
+      "type": "timeseries"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 41
       },
       "id": 24,
       "panels": [],
@@ -891,7 +2525,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 42
       },
       "id": 12,
       "options": {
@@ -909,15 +2543,16 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "max (smartctl_device_attribute{\r\n    attribute_value_type=\"raw\",\r\n    host=~\"(omv|synology.*)\",\r\n    attribute_name!~\"^(Temperature_Celsius|Spin_Up_Time|Load_Cycle_Count|Power_On_Hours|Power-Off_Retract_Count|Power_Cycle_Count|Throughput_Performance|Seek_Time_Performance|Helium_Level|Start_Stop_Count)$\"\r\n}) by (host, device)",
+          "expr": "max (smartctl_device_attribute{\r\n    attribute_value_type=\"raw\",\r\n    host=~\"(proxmox-nas|synology.*)\",\r\n    attribute_name!~\"^(Temperature_Celsius|Spin_Up_Time|Load_Cycle_Count|Power_On_Hours|Power-Off_Retract_Count|Power_Cycle_Count|Throughput_Performance|Seek_Time_Performance|Helium_Level|Start_Stop_Count)$\"\r\n}) by (host, device)",
           "format": "time_series",
           "fullMetaSearch": false,
+          "hide": false,
           "includeNullMetadata": true,
           "instant": false,
           "interval": "",
@@ -999,7 +2634,7 @@
         "h": 4,
         "w": 12,
         "x": 0,
-        "y": 30
+        "y": 46
       },
       "id": 14,
       "options": {
@@ -1017,7 +2652,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1106,7 +2741,7 @@
         "h": 4,
         "w": 12,
         "x": 12,
-        "y": 30
+        "y": 46
       },
       "id": 13,
       "options": {
@@ -1124,7 +2759,7 @@
         "showThresholdMarkers": true,
         "sizing": "auto"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1133,13 +2768,26 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "100-smartctl_device_percentage_used{}",
+          "expr": "100 - smartctl_device_percentage_used{}",
           "format": "time_series",
           "hide": false,
-          "instant": true,
+          "instant": false,
           "legendFormat": "{{host}}/{{device}}",
-          "range": false,
+          "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "smartctl_device_attribute{\r\n    attribute_value_type=\"raw\",\r\n    attribute_name=\"SSD_Life_Left\"\r\n}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{host}}/{{device}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "S.M.A.R.T. NVME %left",
@@ -1182,134 +2830,12 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 50
       },
       "id": 23,
       "panels": [],
       "title": "Disks",
       "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-red",
-            "mode": "thresholds"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 90,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "thresholdsStyle": {
-              "mode": "dashed+area"
-            }
-          },
-          "fieldMinMax": true,
-          "mappings": [],
-          "max": 100,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "semi-dark-green",
-                "value": 0
-              },
-              {
-                "color": "semi-dark-yellow",
-                "value": 80
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 10,
-        "x": 0,
-        "y": 35
-      },
-      "id": 16,
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": false
-        },
-        "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "normal",
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        },
-        "xField": "host_and_mount",
-        "xTickLabelRotation": -45,
-        "xTickLabelSpacing": 0
-      },
-      "pluginVersion": "12.1.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "label_join (\r\n    100 * (\r\n        node_filesystem_size_bytes{\r\n            job=\"node-exporter\",\r\n            host=~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        } - node_filesystem_avail_bytes{\r\n            job=\"node-exporter\",\r\n            host=~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        }\r\n    ) / node_filesystem_size_bytes{\r\n        job=\"node-exporter\",\r\n        host=~\"^(k8s.*|proxmox.*)$\",\r\n        fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n        mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n    },\r\n    \"host_and_mount\", \"@\", \"host\", \"mountpoint\"\r\n)",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "interval": "",
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Disk space occupancy% for K8s",
-      "transformations": [
-        {
-          "id": "sortBy",
-          "options": {
-            "fields": {},
-            "sort": [
-              {
-                "field": "host"
-              }
-            ]
-          }
-        }
-      ],
-      "transparent": true,
-      "type": "barchart"
     },
     {
       "datasource": {
@@ -1393,9 +2919,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 14,
-        "x": 10,
-        "y": 35
+        "w": 12,
+        "x": 0,
+        "y": 51
       },
       "id": 17,
       "options": {
@@ -1421,7 +2947,7 @@
         "xTickLabelRotation": -45,
         "xTickLabelSpacing": 0
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -1430,7 +2956,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_join (\r\n    100 * (\r\n        node_filesystem_size_bytes{\r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        } - node_filesystem_avail_bytes{\r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        }\r\n    ) / node_filesystem_size_bytes{\r\n        job=\"node-exporter\",\r\n        host!~\"^(k8s.*|proxmox.*)$\",\r\n        fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n        mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n    },\r\n\"host_and_mount\", \"@\", \"host\", \"mountpoint\")",
+          "expr": "label_join (\r\n    label_replace(\r\n        100 * (\r\n            node_filesystem_size_bytes{\r\n                job=\"node-exporter\",\r\n                host!~\"^(k8s.*|proxmox[1-9].*)$\",\r\n                fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n                mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n            } - node_filesystem_avail_bytes{\r\n                job=\"node-exporter\",\r\n                host!~\"^(k8s.*|proxmox[1-9].*)$\",\r\n                fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n                mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n            }\r\n        ) / node_filesystem_size_bytes{\r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s.*|proxmox[1-9].*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        },\r\n         \"mountpoint\",\r\n        \"disk-${1}\",\r\n        \"mountpoint\",\r\n        \".*/dev-disk-by-uuid-([a-f0-9]+).*\"\r\n    ),\r\n\"host_and_mount\", \"@\", \"host\", \"mountpoint\")",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1477,12 +3003,252 @@
       "type": "barchart"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 1,
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 75
+              },
+              {
+                "color": "red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "{endpoint=\"https-metrics\", instance=\"192.168.31.20:10250\", job=\"kubelet\", metrics_path=\"/metrics\", namespace=\"wazuh\", node=\"k8s-worker-3\", persistentvolumeclaim=\"wazuh-manager-worker-wazuh-manager-worker-1\", service=\"prometheus-kubelet\"}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 12,
+        "x": 12,
+        "y": 51
+      },
+      "id": 39,
+      "options": {
+        "displayMode": "basic",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "(\r\n  max by (persistentvolumeclaim, namespace) (\r\n    kubelet_volume_stats_capacity_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\r\n  )\r\n  -\r\n  max by (persistentvolumeclaim, namespace) (\r\n    kubelet_volume_stats_available_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\r\n  )\r\n)\r\n/\r\nmax by (persistentvolumeclaim, namespace) (\r\n  kubelet_volume_stats_capacity_bytes{job=\"kubelet\", metrics_path=\"/metrics\"}\r\n)\r\n* 100",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{namespace}}/{{persistentvolumeclaim}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Disk space occupancy% for K8s PVCs",
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-red",
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 90,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed+area"
+            }
+          },
+          "fieldMinMax": true,
+          "mappings": [],
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-green",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 80
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 59
+      },
+      "id": 16,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "normal",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "host_and_mount",
+        "xTickLabelRotation": -45,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "label_join (\r\n    100 * (\r\n        node_filesystem_size_bytes{\r\n            job=\"node-exporter\",\r\n            host=~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        } - node_filesystem_avail_bytes{\r\n            job=\"node-exporter\",\r\n            host=~\"^(k8s.*|proxmox.*)$\",\r\n            fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n            mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n        }\r\n    ) / node_filesystem_size_bytes{\r\n        job=\"node-exporter\",\r\n        host=~\"^(k8s.*|proxmox.*)$\",\r\n        fstype!~\"^(nfs|tmpfs|vfat|fuse).*$\",\r\n        mountpoint=~\"^(/|/volume1|/srv/.*)$\"\r\n    },\r\n    \"host_and_mount\", \"@\", \"host\", \"mountpoint\"\r\n)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "label_replace(\r\n  ceph_cluster_total_used_bytes / ceph_cluster_total_bytes * 100,\r\n  \"host_and_mount\", \"Rook-Ceph\", \"\", \"\"\r\n)",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "{{label_name}}",
+          "range": false,
+          "refId": "B"
+        }
+      ],
+      "title": "Disk space occupancy% for K8s",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "fields": {},
+            "sort": [
+              {
+                "field": "host"
+              }
+            ]
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "barchart"
+    },
+    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 67
       },
       "id": 22,
       "panels": [],
@@ -1546,7 +3312,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -1567,7 +3333,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 68
       },
       "id": 7,
       "options": {
@@ -1583,11 +3349,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\",\r\n            job=\"node-exporter\", \r\n            host!~\"^(proxmox.*|k8s-.*|)$\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (host)",
+          "expr": "sum (\r\n    rate(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\",\r\n            job=\"node-exporter\", \r\n            host!~\"^(proxmox.*|k8s-.*|)$\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (host)",
           "hide": false,
           "legendFormat": "{{host}} - Rx in",
           "range": true,
@@ -1599,7 +3365,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        node_network_transmit_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\", \r\n            host!~\"^(proxmox.*|k8s-.*|)$\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (host)",
+          "expr": "sum (\r\n    rate(\r\n        node_network_transmit_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\", \r\n            host!~\"^(proxmox.*|k8s-.*|)$\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (host)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{host}} - Tx out",
@@ -1612,7 +3378,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (host)",
+          "expr": "sum (\r\n    rate(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (host)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{host}} - Rx in",
@@ -1625,7 +3391,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum (\r\n    rate(\r\n        windows_net_bytes_sent_total{\r\n            job=\"windows-exporter\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (host)",
+          "expr": "sum (\r\n    rate(\r\n        windows_net_bytes_sent_total{\r\n            job=\"windows-exporter\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (host)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{host}} - Tx out",
@@ -1694,7 +3460,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -1715,7 +3481,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 52
+        "y": 76
       },
       "id": 28,
       "options": {
@@ -1731,11 +3497,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"control\",\r\n            job=\"control-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"control\",\r\n            job=\"control-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "legendFormat": "{{name}} - Rx in",
           "range": true,
           "refId": "A"
@@ -1746,7 +3512,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"control\",\r\n            job=\"control-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"control\",\r\n            job=\"control-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{name}} - Tx out",
@@ -1815,7 +3581,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -1836,7 +3602,7 @@
         "h": 8,
         "w": 6,
         "x": 6,
-        "y": 52
+        "y": 76
       },
       "id": 29,
       "options": {
@@ -1852,11 +3618,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"htpc\",\r\n            job=\"htpc-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"htpc\",\r\n            job=\"htpc-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "legendFormat": "{{name}} - Rx in",
           "range": true,
           "refId": "A"
@@ -1867,7 +3633,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"htpc\",\r\n            job=\"htpc-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"htpc\",\r\n            job=\"htpc-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{name}} - Tx out",
@@ -1936,7 +3702,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -1957,7 +3723,7 @@
         "h": 8,
         "w": 6,
         "x": 12,
-        "y": 52
+        "y": 76
       },
       "id": 30,
       "options": {
@@ -1973,11 +3739,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"pihole\",\r\n            job=\"pihole-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"pihole\",\r\n            job=\"pihole-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "legendFormat": "{{name}} - Rx in",
           "range": true,
           "refId": "A"
@@ -1988,7 +3754,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"pihole\",\r\n            job=\"pihole-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"pihole\",\r\n            job=\"pihole-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{name}} - Tx out",
@@ -2057,7 +3823,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -2078,7 +3844,7 @@
         "h": 8,
         "w": 6,
         "x": 18,
-        "y": 52
+        "y": 76
       },
       "id": 31,
       "options": {
@@ -2086,7 +3852,7 @@
           "calcs": [],
           "displayMode": "table",
           "placement": "bottom",
-          "showLegend": true
+          "showLegend": false
         },
         "tooltip": {
           "hideZeros": false,
@@ -2094,11 +3860,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"torrents\",\r\n            job=\"torrents-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"omv\",\r\n            job=\"omv-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "legendFormat": "{{name}} - Rx in",
           "range": true,
@@ -2110,7 +3876,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"torrents\",\r\n            job=\"torrents-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"omv\",\r\n            job=\"omv-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{name}} - Tx out",
@@ -2118,7 +3884,7 @@
           "refId": "B"
         }
       ],
-      "title": "torrents",
+      "title": "omv",
       "transparent": true,
       "type": "timeseries"
     },
@@ -2179,7 +3945,7 @@
               }
             ]
           },
-          "unit": "bps"
+          "unit": "Bps"
         },
         "overrides": [
           {
@@ -2200,7 +3966,7 @@
         "h": 8,
         "w": 6,
         "x": 0,
-        "y": 60
+        "y": 84
       },
       "id": 32,
       "options": {
@@ -2216,11 +3982,11 @@
           "sort": "desc"
         }
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"synology216\",\r\n            job=\"synology216-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"synology216\",\r\n            job=\"synology216-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "legendFormat": "{{name}} - Rx in",
           "range": true,
           "refId": "A"
@@ -2231,7 +3997,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"synology216\",\r\n            job=\"synology216-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    ) * 8\r\n) by (name)",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"synology216\",\r\n            job=\"synology216-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
           "hide": false,
           "instant": false,
           "legendFormat": "{{name}} - Tx out",
@@ -2240,6 +4006,516 @@
         }
       ],
       "title": "synology216",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "out (-) / in (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*out.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": 84
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"synology224\",\r\n            job=\"synology224-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "legendFormat": "{{name}} - Rx in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"synology224\",\r\n            job=\"synology224-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{name}} - Tx out",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "synology224",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "out (-) / in (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*out.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 84
+      },
+      "id": 51,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum(\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            host=\"qotom\",\r\n            job=\"qotom-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "legendFormat": "{{name}} - Rx in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum(\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            host=\"qotom\",\r\n            job=\"qotom-metrics\",\r\n            name=~\".+\"\r\n        }[$__rate_interval]\r\n    )\r\n) by (name)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{name}} - Tx out",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Qotom",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 84
+      },
+      "id": 40,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)",
+        "mode": "markdown"
+      },
+      "pluginVersion": "12.1.1",
+      "title": "New panel",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "out (-) / in (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*out.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 92
+      },
+      "id": 34,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            job=~\"kubelet\",\r\n            namespace=~\"^(kube-system|metallb-system|rook-ceph|projectcontour|cnpg-system|monitoring|default)$\"\r\n        }[$__rate_interval]\r\n    ) * on (namespace,pod) group_left ()\r\n    topk by (namespace,pod) (\r\n      1,\r\n      max by (namespace,pod) (kube_pod_info{host_network=~\"(true|false)\"})\r\n    )\r\n)",
+          "hide": false,
+          "legendFormat": "{{namespace}} - Rx in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            job=~\"kubelet\",\r\n            namespace=~\"^(kube-system|metallb-system|rook-ceph|projectcontour|cnpg-system|monitoring|default)$\"\r\n        }[$__rate_interval]\r\n    ) * on (namespace,pod) group_left ()\r\n    topk by (namespace,pod) (\r\n      1,\r\n      max by (namespace,pod) (kube_pod_info{host_network=~\"(true|false)\"})\r\n    )\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{namespace}} - Tx out",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "K8s system networking",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "out (-) / in (+)",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 40,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Bps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/.*out.*/"
+            },
+            "properties": [
+              {
+                "id": "custom.transform",
+                "value": "negative-Y"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 92
+      },
+      "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n    rate(\r\n        container_network_receive_bytes_total{\r\n            job=~\"kubelet\",\r\n            namespace!~\"^(kube-system|metallb-system|rook-ceph|projectcontour|cnpg-system|monitoring|default)$\"\r\n        }[$__rate_interval]\r\n    ) * on (namespace,pod) group_left ()\r\n    topk by (namespace,pod) (\r\n      1,\r\n      max by (namespace,pod) (kube_pod_info{host_network=~\"(true|false)\"})\r\n    )\r\n)",
+          "legendFormat": "{{namespace}} - Rx in",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum by (namespace) (\r\n    rate(\r\n        container_network_transmit_bytes_total{\r\n            job=~\"kubelet\",\r\n            namespace!~\"^(kube-system|metallb-system|rook-ceph|projectcontour|cnpg-system|monitoring|default)$\"\r\n        }[$__rate_interval]\r\n    ) * on (namespace,pod) group_left ()\r\n    topk by (namespace,pod) (\r\n      1,\r\n      max by (namespace,pod) (kube_pod_info{host_network=~\"(true|false)\"})\r\n    )\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{namespace}} - Tx out",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "K8s app networking",
       "transparent": true,
       "type": "timeseries"
     },
@@ -2277,13 +4553,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 8,
-        "y": 60
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 100
       },
       "hideTimeOverride": true,
-      "id": 2,
+      "id": 4,
       "options": {
         "displayMode": "basic",
         "legend": {
@@ -2295,7 +4571,7 @@
         "maxVizHeight": 300,
         "minVizHeight": 16,
         "minVizWidth": 8,
-        "namePlacement": "left",
+        "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -2306,10 +4582,9 @@
         },
         "showUnfilled": true,
         "sizing": "auto",
-        "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2319,7 +4594,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\", \r\n            host!~\"^(k8s-.*|)$\"\r\n        }[$__range]\r\n    )\r\n)",
+          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_transmit_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s-.*|)$\"\r\n        }[24h]\r\n    )\r\n)",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -2335,7 +4610,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__range]\r\n    )\r\n)",
+          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_sent_total{\r\n            job=\"windows-exporter\"\r\n        }[24h]\r\n    )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -2344,7 +4619,8 @@
         }
       ],
       "timeFrom": "now/d",
-      "title": "Traffic Rx - Today",
+      "timeShift": "1d/d",
+      "title": "Traffic Tx - Yesterday",
       "transparent": true,
       "type": "bargauge"
     },
@@ -2382,10 +4658,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 12,
-        "y": 60
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 100
       },
       "hideTimeOverride": true,
       "id": 5,
@@ -2414,7 +4690,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2487,115 +4763,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 4,
+        "h": 10,
+        "w": 8,
         "x": 16,
-        "y": 60
-      },
-      "hideTimeOverride": true,
-      "id": 3,
-      "options": {
-        "displayMode": "basic",
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "maxVizHeight": 110,
-        "minVizHeight": 34,
-        "minVizWidth": 8,
-        "namePlacement": "left",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "text": {},
-        "valueMode": "color"
-      },
-      "pluginVersion": "12.1.0",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s-.*|)$\"\r\n        }[$__range]\r\n    )\r\n)",
-          "format": "time_series",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__range]\r\n    )\r\n)",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "__auto",
-          "range": true,
-          "refId": "B"
-        }
-      ],
-      "timeFrom": "1h",
-      "title": "Traffic Rx - Last hour",
-      "transparent": true,
-      "type": "bargauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "fieldMinMax": false,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              },
-              {
-                "color": "#EAB839",
-                "value": 10000000000
-              },
-              {
-                "color": "red",
-                "value": 50000000000
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 20,
-        "y": 60
+        "y": 100
       },
       "hideTimeOverride": true,
       "id": 6,
@@ -2624,7 +4795,7 @@
         "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2697,10 +4868,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 4,
+        "h": 10,
+        "w": 8,
         "x": 0,
-        "y": 68
+        "y": 110
       },
       "hideTimeOverride": true,
       "id": 1,
@@ -2728,7 +4899,7 @@
         "sizing": "auto",
         "valueMode": "text"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2802,13 +4973,13 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 4,
-        "x": 4,
-        "y": 68
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 110
       },
       "hideTimeOverride": true,
-      "id": 4,
+      "id": 2,
       "options": {
         "displayMode": "basic",
         "legend": {
@@ -2820,7 +4991,7 @@
         "maxVizHeight": 300,
         "minVizHeight": 16,
         "minVizWidth": 8,
-        "namePlacement": "auto",
+        "namePlacement": "left",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -2831,9 +5002,10 @@
         },
         "showUnfilled": true,
         "sizing": "auto",
+        "text": {},
         "valueMode": "color"
       },
-      "pluginVersion": "12.1.0",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
@@ -2843,7 +5015,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_transmit_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s-.*|)$\"\r\n        }[24h]\r\n    )\r\n)",
+          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\", \r\n            host!~\"^(k8s-.*|)$\"\r\n        }[$__range]\r\n    )\r\n)",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -2859,7 +5031,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_sent_total{\r\n            job=\"windows-exporter\"\r\n        }[24h]\r\n    )\r\n)",
+          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__range]\r\n    )\r\n)",
           "hide": false,
           "instant": false,
           "legendFormat": "__auto",
@@ -2868,8 +5040,112 @@
         }
       ],
       "timeFrom": "now/d",
-      "timeShift": "1d/d",
-      "title": "Traffic Tx - Yesterday",
+      "title": "Traffic Rx - Today",
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 10000000000
+              },
+              {
+                "color": "red",
+                "value": 50000000000
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 110
+      },
+      "hideTimeOverride": true,
+      "id": 3,
+      "options": {
+        "displayMode": "basic",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 110,
+        "minVizHeight": 34,
+        "minVizWidth": 8,
+        "namePlacement": "left",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by(host) (\r\n    increase(\r\n        node_network_receive_bytes_total{\r\n            device!~\"^(veth.*|lo|nodelocaldns|tap.*|vxlan.*|docker.*|kube.*|cali.*|br-.*)$\", \r\n            job=\"node-exporter\",\r\n            host!~\"^(k8s-.*|)$\"\r\n        }[$__range]\r\n    )\r\n)",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum by(host) (\r\n    increase(\r\n        windows_net_bytes_received_total{\r\n            job=\"windows-exporter\"\r\n        }[$__range]\r\n    )\r\n)",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "timeFrom": "1h",
+      "title": "Traffic Rx - Last hour",
       "transparent": true,
       "type": "bargauge"
     }
@@ -2889,5 +5165,5 @@
   "timezone": "browser",
   "title": "Homelab Overview",
   "uid": "91053063-758f-4656-bec8-f3aea6315d60",
-  "version": 68
+  "version": 95
 }

@@ -1,0 +1,24 @@
+- name: Save the given dashboards in Grafana to disk
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_url: "{{ grafana_hostname }}"
+        rest_api_endpoint: "/api/dashboards/uid/{{ item.uid }}"
+        rest_api_method: "GET"
+        rest_api_headers:
+          Authorization: "Bearer {{ grafana_api_token }}"
+        rest_api_fact_name: "grafana_dashboard_{{ idx }}"
+      loop: "{{ grafana_dashboards }}"
+      loop_control:
+        index_var: idx
+    - name: Write dashboards to disk
+      ansible.builtin.copy:
+        content: "{{ (vars['grafana_dashboard_' ~ idx].content | from_json).dashboard | to_nice_json(indent=2) }}"
+        dest: "{{ playbook_dir }}/grafana-dashboards/{{ item.save_name }}.json"
+        mode: '0644'
+      loop: "{{ grafana_dashboards }}"
+      loop_control:
+        index_var: idx

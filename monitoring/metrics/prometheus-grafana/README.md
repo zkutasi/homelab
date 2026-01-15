@@ -53,6 +53,10 @@ N/A
     ./deploy-k8s.sh
     ```
 
+5. Create an API token for automation
+    - Create a Service Account with `Viewer` rights at Home -> Administration -> Users and access -> Service accounts
+    - Create a new Token
+
 ## Commands
 
 ## Notable comments
@@ -64,3 +68,4 @@ N/A
   - [NUT Exporter](https://grafana.com/grafana/dashboards/19308-prometheus-nut-exporter-for-druggeri/)
   - [Jetstack version checker](https://grafana.com/grafana/dashboards/12833-version-checker/)
 - For a very cool CLI-based tool for Grafana, check out [GDG (Grafana Dash-n-Grab)](https://github.com/esnet/gdg)
+- For saving Grafana dashboards into the git repo, one can use the `save-grafana-dashboards.yaml` Ansible playbook. It requires `grafana_dashboards` structure in the `all` group vars to be set: each array element has a field `uid` (get it by looking at the dashboard URL) and `save_name` (without the .json extension).
