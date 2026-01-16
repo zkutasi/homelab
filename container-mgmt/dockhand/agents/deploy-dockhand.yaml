@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: dockhand-hawser
     requested_image_version:
-      dockhand-hawser: "0.2.17"
+      dockhand-hawser: "0.2.24"
