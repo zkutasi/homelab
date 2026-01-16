@@ -1,0 +1,6 @@
+- name: Delete Adguard-Home containers
+  hosts: dnsserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: adguard-home

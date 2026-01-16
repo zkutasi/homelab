@@ -1,0 +1,53 @@
+services:
+  adguard-home:
+    container_name: adguard-home
+    depends_on:
+      - adguard-home-unbound
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-adguard-home
+    image: adguard/adguardhome:v{{ requested_image_version['adguard-home'] }}
+    networks:
+      adguardhome_dns_network:
+        ipv4_address: {{ adguardhome_docker_network_3digit }}.2
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - {{ port_adguardhome_webui_http }}:80
+      - {{ port_adguardhome_webui_https }}:443
+      - {{ port_adguardhome_init_webui_http }}:3000
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/adguard/config:/opt/adguardhome/conf
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/adguard/work:/opt/adguardhome/work
+
+  adguard-home-unbound:
+    container_name: adguard-home-unbound
+    environment:
+      TZ: "{{ timezone }}"
+    hostname: {{ id }}-adguard-home-unbound
+    image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
+    networks:
+      adguardhome_dns_network:
+        ipv4_address: {{ adguardhome_docker_network_3digit }}.3
+    ports:
+      - "{{ port_adguardhome_unbound }}:5335/tcp"
+      - "{{ port_adguardhome_unbound }}:5335/udp"
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/unbound.conf:/usr/local/unbound/unbound.conf
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/conf.d/:/usr/local/unbound/conf.d/
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/log.d:/usr/local/unbound/log.d
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/zones.d/:/usr/local/unbound/zones.d/
+
+networks:
+  adguardhome_dns_network:
+    name: "adguardhome_dns_network"
+    ipam:
+      driver: default
+      config:
+        - subnet: {{ adguardhome_docker_network_3digit }}.0/24
+          gateway: {{ adguardhome_docker_network_3digit }}.1
+          ip_range: {{ adguardhome_docker_network_3digit }}.0/24

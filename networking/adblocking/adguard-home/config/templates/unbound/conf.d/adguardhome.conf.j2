@@ -1,8 +1,7 @@
 server:
-    access-control: {{ pihole_docker_network_3digit }}.0/24 allow
+    access-control: {{ adguardhome_docker_network_3digit }}.0/24 allow
     access-control: 0.0.0.0/0 deny
     access-control: ::0/0 deny
-
 
     # Logging
     logfile: ""

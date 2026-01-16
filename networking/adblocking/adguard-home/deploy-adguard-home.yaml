@@ -1,18 +1,18 @@
-- name: Deploy pihole & unbound as docker
+- name: Deploy Adguard-Home as docker
   hosts: dnsserver
   roles:
     - docker-compose
   vars:
-    docker_compose_projectname: pihole
+    docker_compose_projectname: adguard-home
     requested_image_version:
-      pihole: "2025.04.0"
+      adguard-home: "0.107.71"
       unbound: "1.23.0-1"
     docker_compose_create_dirs:
-      - name: pihole/etc-pihole
-      - name: pihole/etc-dnsmasqd
+      - name: adguard/config
+      - name: adguard/work
       - name: unbound/conf.d
       - name: unbound/log.d
       - name: unbound/zones.d
     docker_compose_template_files_copy:
       - name: unbound/unbound.conf
-      - name: unbound/conf.d/pihole.conf
+      - name: unbound/conf.d/adguardhome.conf

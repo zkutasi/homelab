@@ -2,10 +2,10 @@ services:
   pihole:
     container_name: pihole
     depends_on:
-      - unbound
+      - pihole-unbound
     environment:
       TZ: "{{ timezone }}"
-      FTLCONF_LOCAL_IPV4: {{ ansible_host }}
+      FTLCONF_dns_reply_host_IPv4: {{ ansible_host }}
       FTLCONF_dns_dnssec: false
       FTLCONF_dns_domain: {{ network_domain }}
       FTLCONF_dns_listeningMode: ALL
@@ -20,20 +20,19 @@ services:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.2
     ports:
-      - {{ port_pihole_pihole_dns }}:53/tcp
-      - {{ port_pihole_pihole_dns }}:53/udp
-      - {{ port_pihole_pihole_dhcp }}:67/udp
-      - {{ port_pihole_pihole_webui_http }}:80/tcp
-      - {{ port_pihole_webui_https }}:443/tcp
+      - 53:53/tcp
+      - 53:53/udp
+      - {{ port_pihole_webui_http }}:80
+      - {{ port_pihole_webui_https }}:443
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pihole/etc-pihole:/etc/pihole
 
-  unbound:
-    container_name: unbound
+  pihole-unbound:
+    container_name: pihole-unbound
     environment:
       TZ: "{{ timezone }}"
-    hostname: {{ id }}-unbound
+    hostname: {{ id }}-pihole-unbound
     image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
     networks:
       pihole_dns_network:
