@@ -18,3 +18,4 @@ N/A
 - [Web-Check](https://web-check.xyz/) - All-in-one OSINT tool for analyzing any website
 - [Mazanoke](https://mazanoke.com/) - A self-hosted local image optimizer that runs in your browser
 - [Reubah](https://github.com/dendianugerah/reubah) - A simple web-based tool for processing images and converting documents with a simple interface
+- [Vert](https://vert.sh/) - The next-generation file converter. Open source, fully local* and free forever.
