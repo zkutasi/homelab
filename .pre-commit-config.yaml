@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: sops-up-to-date
         name: Ensure SOPS-encrypted secrets are up-to-date
-        entry: security/secret-management/age-sops/sops.sh --decrypt-all
+        entry: security/secret-mgmt/age-sops/sops.sh --decrypt-all
         language: script
         always_run: true
         pass_filenames: false
