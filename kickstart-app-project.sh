@@ -134,9 +134,9 @@ if [ "${MAINTYPE}" == "docker" ]; then
 
         echo "Replacing placeholders in docker-compose.yaml.j2..."
         sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's|PLACEHOLDER_PUID|{{ puid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        sed -i 's|PLACEHOLDER_GUID|{{ guid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i "s|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_PUID|{{ docker_uid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        sed -i 's|PLACEHOLDER_GUID|{{ docker_gid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         sed -i 's|PLACEHOLDER_DOCKER_SOCK|{{ docker_socket_path }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
