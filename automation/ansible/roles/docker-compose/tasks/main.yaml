@@ -21,6 +21,8 @@
     group: "{{ docker_compose_files_group }}"
     directory_mode: "{{ item.folder_mode | default('0755') }}"
   loop: "{{ docker_compose_static_files_copy }}"
+  notify:
+    - Restart the docker service
 - name: Make sure destination dir exists for template files
   ansible.builtin.file:
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name | dirname }}"
@@ -37,6 +39,8 @@
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
   loop: "{{ docker_compose_template_files_copy }}"
+  notify:
+    - Restart the docker service
 - name: Copy docker compose file
   ansible.builtin.template:
     src: "{{ docker_compose_source_basepath }}/docker-compose.yaml.j2"
@@ -44,6 +48,8 @@
     mode: "0644"
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
+  notify:
+    - Restart the docker service
 - name: Get the version of docker compose
   check_mode: false
   environment:
@@ -61,9 +67,3 @@
     - name: Print out the docker compose version
       ansible.builtin.debug:
         var: docker_compose_installed_version
-- name: Docker compose up
-  become: "{{ docker_with_sudo }}"
-  community.docker.docker_compose_v2:
-    project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
-    docker_cli: "{{ docker_cli_path }}"
-    remove_orphans: true
