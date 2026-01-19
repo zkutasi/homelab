@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
 CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager
@@ -22,3 +23,8 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     ${EXTRA_PARAMS}
+
+kubectl create secret generic contour-internal-ca-secret \
+    --namespace cert-manager \
+    --from-file=tls.key=${CA_DIR}/ca.key \
+    --from-file=tls.crt=${CA_DIR}/ca.crt

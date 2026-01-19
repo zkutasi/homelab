@@ -38,6 +38,7 @@ N/A
 5. Generate the internal self-signed certificate, valid for 30 years
 
     ```bash
+    cd security/certificates/certs/
     ./internal-certs.sh
     ```
 
