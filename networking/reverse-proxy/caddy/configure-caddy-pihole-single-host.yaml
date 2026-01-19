@@ -1,0 +1,17 @@
+- name: Call the REST API
+  ansible.builtin.include_role:
+    name: rest-api
+  loop: "{{ hostvars[exposed_host].exposed_services | default([]) }}"
+  loop_control:
+    label: "{{ item.proxy_url_prefix }} on {{ exposed_host }}"
+  when: entry not in pihole_response.json.config.dns.cnameRecords
+  vars:
+    alias: "{{ item.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+    dest: "{{ hostvars[groups['reverseproxy'][0]].id }}.{{ network_domain }}"
+    entry: "{{ alias }},{{ dest }}"
+    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_endpoint: "/api/config/dns/cnameRecords/{{ alias }},{{ dest }}"
+    rest_api_method: "PUT"
+    rest_api_data:
+      sid: "{{ pihole_authresponse.cookies.sid }}"
+    rest_api_body_format: "json"

@@ -1,6 +1,9 @@
 services:
   caddy:
     container_name: caddy
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+      - {{ default_gateway_ip }}
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-caddy
@@ -9,6 +12,7 @@ services:
       - {{ port_reverseproxy_http }}:80
       - {{ port_reverseproxy_https }}:443
       - {{ port_reverseproxy_https }}:443/udp
+      - {{ port_caddy_api }}:2019
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/conf:/etc/caddy

@@ -10,5 +10,7 @@
       - name: conf
       - name: caddy_data
       - name: caddy_config
-    # docker_compose_template_files_copy:
-    #   - name: conf/Caddyfile
+    docker_compose_static_files_copy:
+      - name: conf
+    docker_compose_template_files_copy:
+      - name: conf/Caddyfile

@@ -1,0 +1,34 @@
+{
+  pki {
+    ca internal {
+      root {
+        cert /etc/caddy/certs/ca.crt
+        key  /etc/caddy/certs/ca.key
+      }
+    }
+  }
+}
+
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined %}
+{% for service in hostvars[host].exposed_services %}
+
+{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }} {
+{% if service.https_skip_verify is defined and service.https_skip_verify == true %}
+  reverse_proxy https://{{ hostvars[host].id }}.{{ network_domain }}:{{ service.backend_port }} {
+    transport http {
+      tls_insecure_skip_verify
+    }
+  }
+{% else %}
+  reverse_proxy http://{{ hostvars[host].id }}.{{ network_domain }}:{{ service.backend_port }}
+{% endif %}
+  tls {
+    issuer internal {
+      ca internal
+    }
+  }
+}
+{% endfor %}
+{% endif %}
+{% endfor %}
