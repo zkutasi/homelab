@@ -11,6 +11,7 @@ A reverse proxy further helps by eliminating the need to remember port numbers: 
 ## Contenders
 
 - [Caddy](https://github.com/caddyserver/caddy) - The number one modern solution, modular, simple
+  - [Caddy Manager](https://caddymanager.online) if there are multiple Caddy instances to manage, and a nice enough UI for them.
 - [Traeffik](https://github.com/traefik/traefik) - Popular proxy based on labeling and auto-discovery
 - [Nginx](https://github.com/nginx/nginx) - The world's most popular Web Server, high performance Load Balancer, Reverse Proxy, API Gateway and Content Cache.
 - [Envoy](https://github.com/envoyproxy/envoy) - A modern, CNCF backed solution
