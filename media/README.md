@@ -28,3 +28,10 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - [Steamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
   - [Fladder](https://github.com/DonutWare/Fladder) - A cross-platform Jellyfin Frontend built on top of Flutter.
 - [Kyoo](https://kyoo.zoriya.dev/) - Focused only on Video content. It aims to have a low amount of maintenance needed (no folder structure required nor manual metadata edits). Media not being scanned correctly (even with weird names) is considered a bug.
+
+### Scrobblers
+
+It is sometimes beneficial to have your listening taste analyzed, by forwarding what music you listen to. This is called scrobbling. The process can be set up in each of the music listening apps/servers. Then the online scrobbler website can list your favourites, lets you explore their catalog, or even recommend to you new similar artists.
+
+- [last.fm](http://www.last.fm) - The original that started it all
+- [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
