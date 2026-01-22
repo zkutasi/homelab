@@ -14,8 +14,8 @@
 {% for service in hostvars[host].exposed_services %}
 
 {{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }} {
-{% if service.rewrite_path is defined %}
-  rewrite * {{ service.rewrite_path }}{uri}
+{% if service.redirection_path is defined %}
+  redir / {{ service.redirection_path }}{uri}
 {% endif %}
 {% if service.https_skip_verify is defined and service.https_skip_verify == true %}
   reverse_proxy https://{{ hostvars[host].id }}.{{ network_domain }}:{{ service.backend_port }} {
