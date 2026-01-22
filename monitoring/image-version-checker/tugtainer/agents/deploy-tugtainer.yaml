@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: tugtainer
     requested_image_version:
-      tugtainer: "1.15.1"
+      tugtainer: "1.16.1"
     docker_compose_create_dirs:
       - name: data

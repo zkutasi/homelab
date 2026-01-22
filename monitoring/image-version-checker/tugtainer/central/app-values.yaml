@@ -1,6 +1,6 @@
 image:
   repository: quenary/tugtainer
-  tag: 1.15.1
+  tag: 1.16.1
   pullPolicy: IfNotPresent
 service:
   main:
