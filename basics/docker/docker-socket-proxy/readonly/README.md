@@ -23,7 +23,7 @@ This deploys a Host-wide read-only instance of the docker-socket-proxy. If anyth
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook basics/docker-socket-proxy/readonly/deploy-docker-socket-proxy-readonly.yaml --no-check
+./common-ansible-run-playbook.sh --playbook basics/docker/docker-socket-proxy/readonly/deploy-docker-socket-proxy-readonly.yaml --no-check
 ```
 
 ## Commands

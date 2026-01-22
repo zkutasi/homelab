@@ -23,18 +23,11 @@
     name: "{{ ansible_user }}"
     groups: docker
     append: true
-- name: Prepare docker for IPv6
-  block:
-    - name: Create docker daemon.json with IPv6 configuration
-      ansible.builtin.copy:
-        dest: /etc/docker/daemon.json
-        content: |
-          {
-              "ipv6": true,
-              "fixed-cidr-v6": "{{ docker_ipv6_ula_subnet }}"
-          }
-        owner: root
-        group: root
-        mode: '0644'
-      notify: Restart Docker
-  when: docker_ipv6_ula_subnet is defined
+- name: Prepare docker configuration in daemon.json
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart Docker

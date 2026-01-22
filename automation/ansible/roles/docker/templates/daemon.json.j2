@@ -1,0 +1,10 @@
+{
+    "data-root": "{{ docker_data_root }}",
+    "ipv6": true,
+    "fixed-cidr-v6": "{{ docker_ipv6_ula_subnet }}",
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "10m",
+      "max-file": "3"
+    }
+}
