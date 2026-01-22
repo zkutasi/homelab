@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NS=wazuh
-VERSION="4.13.0"
+VERSION="4.14.2"
 
 EXTRA_PARAMS=
 
@@ -21,6 +21,7 @@ else
   echo "Updating wazuh-kubernetes repo to ${VERSION}..."
   pushd wazuh-kubernetes
   git fetch origin
+  git pull --tags
   git checkout v${VERSION}
   popd
 fi

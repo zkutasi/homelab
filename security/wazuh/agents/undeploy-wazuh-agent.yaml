@@ -1,0 +1,8 @@
+- name: Delete wazuh-agent
+  hosts:
+    - standalone
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - wazuh-agent

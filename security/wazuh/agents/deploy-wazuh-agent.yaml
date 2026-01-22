@@ -9,7 +9,7 @@
     WAZUH_REGISTRATION_PASSWORD: "{{ wazuh_registration_password }}"
     WAZUH_AGENT_NAME: "{{ id }}"
   vars:
-    requested_binary_version: "4.13.0"
+    requested_binary_version: "4.14.2"
     bin_filename: wazuh-agentd
     arch_map:
       x86_64: amd64
