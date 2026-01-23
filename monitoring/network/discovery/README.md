@@ -8,10 +8,10 @@ Applications, that periodically scans the subnet of the network your hosts are d
 
 ## Contenders
 
-- [ArpWatch](https://www.tecmint.com/monitor-ethernet-activity-in-linux/) - CLI Tool too discover MAC-IP assignments and alert on them via email
+- [ArpWatch](https://www.tecmint.com/monitor-ethernet-activity-in-linux/) - CLI Tool to discover MAC-IP assignments and alert on them via email
 - [LibreNMS](https://www.librenms.org/) - SNMP-based network monitoring and discovery
 - [NetAlertX](https://netalertx.com/) - Formerly Pi-Alert, a similar look & feel to Pi-hole
-- [WatchYourLAN](https://github.com/aceberg/WatchYourLAN) - Only watches for Hosts, nothing deeper
+- [WatchYourLAN](https://github.com/aceberg/WatchYourLAN) - Lightweight network IP scanner written in Go. With notifications, history, export to Grafana
 - [RunZero](https://www.runzero.com/) - Network threat detection and exposure management. On its own it is just an asset-discovery tool, threat detection requires some integration.
 - [Portracker](https://github.com/mostafa-wahied/portracker) - Network wide port tracking and discovery, supports multi-hosts too
 - [PortNote](https://github.com/crocofied/PortNote) - Minimalist port-tracker

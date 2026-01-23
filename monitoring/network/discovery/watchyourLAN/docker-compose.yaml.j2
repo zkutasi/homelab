@@ -1,0 +1,14 @@
+services:
+  watchyourlan:
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      IFACES: {{ watchyourlan_interface }}
+      PORT: {{ port_watchyourlan }}
+    hostname: {{ id }}-watchyourlan
+    image: aceberg/watchyourlan:{{ requested_image_version['watchyourlan'] }}
+    network_mode: "host"
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data/WatchYourLAN

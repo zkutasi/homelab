@@ -1,0 +1,10 @@
+- name: Deploy WatchYourLAN as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: watchyourlan
+    requested_image_version:
+      watchyourlan: "2.1.4"
+    docker_compose_create_dirs:
+      - name: data
