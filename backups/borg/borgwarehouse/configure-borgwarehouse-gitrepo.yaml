@@ -4,6 +4,14 @@
     docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
     docker_compose_projectname: borgwarehouse
   tasks:
+    - name: Create the docker-compose directory if it does not exist
+      ansible.builtin.file:
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+        state: directory
+        mode: '0755'
+    - name: Check if docker-compose.yaml file is present
+      ansible.builtin.stat:
+        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/docker-compose.yaml"
     - name: Docker compose down
       community.docker.docker_compose_v2:
         project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
@@ -12,6 +20,7 @@
         remove_images: all
         remove_volumes: true
         remove_orphans: true
+      when: docker_compose_file_statresult.stat.exists
     - name: Delete the previously built image to force docker to rebuild it
       community.docker.docker_image:
         name: "borgwarehouse-borgwarehouse"
