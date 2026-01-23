@@ -1,0 +1,6 @@
+- name: Delete VaultWarden containers
+  hosts: controlserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: vaultwarden

@@ -1,0 +1,14 @@
+services:
+  vaultwarden:
+    container_name: vaultwarden
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-vaultwarden
+    image: vaultwarden/server:{{ requested_image_version['vaultwarden'] }}
+    ports:
+      - {{ port_vaultwarden }}:80
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data/:/data/
