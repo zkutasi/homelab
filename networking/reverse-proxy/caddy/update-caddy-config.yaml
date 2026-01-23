@@ -1,0 +1,4 @@
+- name: Configure Caddyfile
+  ansible.builtin.import_playbook: deploy-caddy.yaml
+- name: Configure PiHole
+  ansible.builtin.import_playbook: configure-caddy-pihole.yaml
