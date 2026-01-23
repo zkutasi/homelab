@@ -16,3 +16,4 @@ Whether it is only for IT equipment, computer or the entire itemlist in the Home
 - [NetBox](https://netboxlabs.com/) - NetBox functions as the source of truth for your network infrastructure. Its job is to define and validate the intended state of all network components and resources. NetBox does not interact with network nodes directly; rather, it makes this data available programmatically to purpose-built automation, monitoring, and assurance tools.
 - [Warracker](https://warracker.com/) - An open source, self-hostable warranty tracker to monitor expirations, store receipts, files.
 - [Grocy](https://grocy.info/) - Grocy is a web-based self-hosted groceries & household management solution for your home.
+- [Rackula](https://count.racku.la/) - Plan your rack layout. Drag your devices in, move them around, export it. It runs in your browser. You can close the tab whenever you want.
