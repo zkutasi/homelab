@@ -33,5 +33,6 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 
 It is sometimes beneficial to have your listening taste analyzed, by forwarding what music you listen to. This is called scrobbling. The process can be set up in each of the music listening apps/servers. Then the online scrobbler website can list your favourites, lets you explore their catalog, or even recommend to you new similar artists.
 
-- [last.fm](http://www.last.fm) - The original that started it all
+- [Last.fm](http://www.last.fm) - The original that started it all, for music
 - [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
+- [Trakt.tv](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps
