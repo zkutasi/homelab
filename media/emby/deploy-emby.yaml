@@ -8,4 +8,4 @@
       - name: config
       - name: emby-backup
     requested_image_version:
-      emby: "4.9.1.90"
+      emby: "4.9.3.0"
