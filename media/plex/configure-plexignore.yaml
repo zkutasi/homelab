@@ -1,0 +1,13 @@
+- name: Put a plexignore files in place
+  hosts: omv
+  tasks:
+    - ansible.builtin.copy:
+        dest: "{{ item.destination }}/.plexignore"
+        content: "{{ item.content }}"
+        mode: 0644
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      loop: "{{ plex_plexignores }}"
+      loop_control:
+        label: "{{ item.destination }}"
+      when: plex_plexignores is defined
