@@ -5,5 +5,5 @@
   vars:
     docker_compose_projectname: plex
     requested_image_version:
-      plex: "1.41.6.9685-d301f511a"
+      plex: "1.42.2.10156-f737b826c"
       plextraktsync: "0.34.11"
