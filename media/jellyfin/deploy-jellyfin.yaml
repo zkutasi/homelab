@@ -1,0 +1,10 @@
+- name: Deploy jellyfin as docker
+  hosts: htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: jellyfin
+    docker_compose_create_dirs:
+      - name: config
+    requested_image_version:
+      jellyfin: "10.11.6"

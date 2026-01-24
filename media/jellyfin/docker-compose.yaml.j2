@@ -1,0 +1,24 @@
+services:
+  jellyfin:
+    container_name: jellyfin
+    devices:
+      - /dev/dri:/dev/dri
+    environment:
+      - UID={{ docker_uid }}
+      - GID={{ docker_gid }}
+      - GIDLIST={{ docker_gid }}
+      - TZ={{ timezone }}
+    hostname: {{ id }}-jellyfin
+    image: jellyfin/jellyfin:{{ requested_image_version['jellyfin'] }}
+    healthcheck:
+      test: for d in /mnt/*; do mountpoint -q "$$d" || exit 1; done
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    ports:
+      - {{ port_jellyfin_http }}:8096
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - /mnt:/mnt:ro
