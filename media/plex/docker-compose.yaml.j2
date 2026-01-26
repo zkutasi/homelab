@@ -13,3 +13,16 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
       - /mnt:/mnt
+  tautulli:
+    container_name: tautulli
+    environment:
+      - PUID={{ docker_uid }}
+      - PGID={{ docker_gid }}
+      - TZ={{ timezone }}
+    hostname: {{ id }}-tautulli
+    image: ghcr.io/tautulli/tautulli:{{ requested_image_version['tautulli'] }}
+    ports:
+      - {{ port_tautulli }}:8181
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/tautulli/config:/config

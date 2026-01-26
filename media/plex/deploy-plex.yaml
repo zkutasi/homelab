@@ -6,4 +6,6 @@
     docker_compose_projectname: plex
     requested_image_version:
       plex: "1.42.2.10156-f737b826c"
-      plextraktsync: "0.34.11"
+      tautulli: "v2.16.0"
+    docker_compose_create_dirs:
+      - name: tautulli/config
