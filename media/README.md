@@ -10,8 +10,8 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 
 - [Plex](https://www.plex.tv/) - One of the best. Need something to watch? We’re on it. Plex combines free movies & TV with the best free streaming services, so there’s always more to discover. Closed source.
   - [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
-  - [PlexAmp](https://www.plex.tv/plexamp/) - A new way to rediscover your music library
-  - Plex Dash
+  - Plex Dash - A mobile application, available for iOS and Android, designed for Plex Media Server administrators to monitor and manage their servers in real-time. It requires an active Plex Pass subscription to function, offering insights into active playbacks, bandwidth usage, server resources, and DVR activity.
+  - [PlexAmp](https://www.plex.tv/plexamp/) - A new way to rediscover your music library. It is a Desktop app, or there is a Headless version to control an external Amplifier/DAC.
   - [Kometa](https://github.com/Kometa-Team/Kometa) - Elevate your library with beautifully crafted metadata - customize artwork, titles, summaries, and more to create a stunning library.
 - [Emby](https://emby.media/) - Emby Server is a personal media server with apps on just about every device.
   - [EmbyCon](https://emby.media/emby-for-kodi.html) - EmbyCon lets you easily browse and play your Emby library using Kodi.
