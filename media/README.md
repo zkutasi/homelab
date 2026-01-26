@@ -35,4 +35,6 @@ It is sometimes beneficial to have your listening taste analyzed, by forwarding 
 
 - [Last.fm](http://www.last.fm) - The original that started it all, for music
 - [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
-- [Trakt.tv](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps
+- [Trakt](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps.
+- [SIMKL](https://simkl.com/) - Track TV, Movies, Anime. Supports all services and platforms. A more modern, better alternative.
+- [Crosswatch](https://github.com/cenodude/CrossWatch) - A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
