@@ -1,0 +1,13 @@
+- name: Put ignore files in place
+  hosts: omv
+  tasks:
+    - ansible.builtin.copy:
+        dest: "{{ item.destination }}/.ignore"
+        content: "{{ item.content }}"
+        mode: 0644
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      loop: "{{ jellyfin_ignores }}"
+      loop_control:
+        label: "{{ item.destination }}"
+      when: jellyfin_ignores is defined
