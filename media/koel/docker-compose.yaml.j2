@@ -1,0 +1,37 @@
+services:
+  koel:
+    container_name: koel
+    depends_on:
+      - koel-postgresql
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+      DB_CONNECTION: pgsql
+      DB_HOST: koel-postgresql
+      DB_PORT: 5432
+      DB_USERNAME: koel
+      DB_PASSWORD: {{ koel_db_password }}
+      DB_DATABASE: koel
+      APP_KEY: {{ koel_app_key }}
+    hostname: {{ id }}-koel
+    image: phanan/koel:{{ requested_image_version['koel'] }}
+    ports:
+      - {{ port_koel }}:80
+    restart: unless-stopped
+    volumes:
+      - /mnt/Music:/music:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/image_storage:/var/www/html/public/img/storage
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/search_index:/var/www/html/storage/search-indexes
+
+  koel-postgresql:
+    container_name: koel-postgresql
+    environment:
+      POSTGRES_DB: koel
+      POSTGRES_USER: koel
+      POSTGRES_PASSWORD: {{ koel_db_password }}
+    hostname: {{ id }}-koel-postgresql
+    image: postgres:13
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/db:/var/lib/postgresql/data

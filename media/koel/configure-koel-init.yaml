@@ -1,0 +1,9 @@
+- name: Execute "php artisan koel:init --no-assets"
+  hosts: htpc
+  tasks:
+    - name: Run koel init command
+      community.docker.docker_compose_v2_exec:
+        project_src: "{{ ansible_user_dir }}/docker-compose/koel"
+        service: koel
+        user: www-data
+        command: "php artisan koel:init --no-assets"
