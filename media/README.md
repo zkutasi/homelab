@@ -5,8 +5,13 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 ## Requirements
 
 - Free and Open source, preferably 0$ cost
+- Metadata building from online sources
+- Scrobbling support
+- Extensive filtering capabilities
 
 ## Contenders
+
+### All in one solutions
 
 - [Plex](https://www.plex.tv/) - One of the best. Need something to watch? We’re on it. Plex combines free movies & TV with the best free streaming services, so there’s always more to discover. Closed source.
   - [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
@@ -27,7 +32,20 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - [Jellify](https://github.com/Jellify-Music/App) - Jellify is a free and open source music player for the Jellyfin Media Server on Android/iOS.
   - [Steamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
   - [Fladder](https://github.com/DonutWare/Fladder) - A cross-platform Jellyfin Frontend built on top of Flutter.
+
+### Video Only
+
 - [Kyoo](https://kyoo.zoriya.dev/) - Focused only on Video content. It aims to have a low amount of maintenance needed (no folder structure required nor manual metadata edits). Media not being scanned correctly (even with weird names) is considered a bug.
+
+### Music Only
+
+- [Navidrome](https://www.navidrome.org/) - An open source web-based music collection server and streamer. It gives you freedom to listen to your music collection from any browser or mobile device. It's like your personal Spotify!
+- [Koel](https://koel.dev/) - A simple web-based personal audio streaming service written in Vue on the client side and Laravel on the server side. Targeting web developers, Koel embraces some of the more modern web technologies to do its job.
+- [Swing Music](https://swingmx.com/) - A fast and beautiful, self-hosted music player for your local audio files. Like a cooler Spotify ... but bring your own music. Just run the app and enjoy your music library in a web browser.
+- [Lightweight Music Server (LMS)](https://github.com/epoupon/lms) - A self-hosted music streaming software: access your music collection from anywhere using a web interface!
+- [Gonic](https://github.com/sentriz/gonic) - Free-software subsonic server API implementation, supporting its many clients
+- [Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
+- *Sonic - A free, web-based media streamer platform with a specific API. [SubSonic](https://www.subsonic.org) was the original (this went closed source), then LibreSonic was forked, after that [Airsonic](https://github.com/airsonic/airsonic) (abandoned since 2020) and [Airsonic-advanced](https://github.com/airsonic-advanced/airsonic-advanced) (again abandoned since 2020)
 
 ### Scrobblers
 
