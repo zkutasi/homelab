@@ -1,0 +1,16 @@
+services:
+  navidrome:
+    container_name: navidrome
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-navidrome
+    image: deluan/navidrome:{{ requested_image_version['navidrome'] }}
+    ports:
+      - {{ port_navidrome }}:4533
+    restart: unless-stopped
+    user: {{ docker_uid }}:{{ docker_gid }}
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
+      - /mnt/Music:/music:ro

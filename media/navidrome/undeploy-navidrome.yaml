@@ -1,0 +1,6 @@
+- name: Delete Navidrome containers
+  hosts: htpc
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: navidrome

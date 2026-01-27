@@ -1,0 +1,10 @@
+- name: Deploy Navidrome as docker
+  hosts: htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: navidrome
+    requested_image_version:
+      navidrome: "0.59.0"
+    docker_compose_create_dirs:
+      - name: data
