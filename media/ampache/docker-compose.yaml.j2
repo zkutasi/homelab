@@ -1,0 +1,21 @@
+services:
+  ampache:
+    container_name: ampache
+    environment:
+      DB_HOST: localhost
+      DB_NAME: ampache
+      DISABLE_INOTIFYWAIT_CLEAN: 1
+      FORCE_INSTALL: 0
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-ampache
+    image: ampache/ampache:{{ requested_image_version['ampache'] }}
+    ports:
+      - {{ port_ampache }}:80
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/var/www/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/log:/var/log/ampache
+      - /mnt/Music:/media:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/mysql:/var/lib/mysql
