@@ -8,10 +8,11 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
+      permitInsecure: true
       services:
         - name: patchmon
-          port: 8443
-          protocol: tls
+          port: 3000
   virtualhost:
     fqdn: patchmon.kubernetes.home
     tls:

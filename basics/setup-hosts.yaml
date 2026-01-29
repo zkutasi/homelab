@@ -25,6 +25,7 @@
       - pulse.kubernetes.home
       - beszel.kubernetes.home
       - grafana.kubernetes.home
+      - patchmon.kubernetes.home
 - name: Set up /etc/hosts for ansible
   hosts: controlserver
   become: true

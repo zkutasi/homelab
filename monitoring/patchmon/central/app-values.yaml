@@ -35,16 +35,16 @@ persistence:
       main:
         backend:
           mountPath: /app/agents
-  node-modules:
-    enabled: true
-    accessModes: ReadWriteOnce
-    type: pvc
-    size: 1Gi
-    targetSelector:
-      main:
-        backend:
-          mountPath: /app/node_modules
+
 service:
+  backend:
+    enabled: true
+    ports:
+      backend:
+        enabled: true
+        port: 3001
+        protocol: http
+        targetPort: 3001
   main:
     enabled: true
     ports:
@@ -64,6 +64,7 @@ workload:
         backend:
           enabled: true
           env:
+            CORS_ORIGIN: https://patchmon.kubernetes.home
             DATABASE_URL:
               secretKeyRef:
                 name: cnpg-main-urls
@@ -76,6 +77,9 @@ workload:
                 name: patchmon-rediscreds
                 key: redis-password
                 expandObjectName: false
+            SERVER_HOST: patchmon.kubernetes.home
+            SERVER_PORT: 80
+            SERVER_PROTOCOL: http
           imageSelector: backend
           probes:
             liveness:
@@ -84,8 +88,14 @@ workload:
               enabled: false
             startup:
               enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsUser: 1000
+            runAsGroup: 1000
         main:
           enabled: true
+          env:
+            BACKEND_HOST: patchmon-backend.patchmon.svc.cluster.local
           imageSelector: frontend
           probes:
             liveness:
@@ -94,3 +104,7 @@ workload:
               enabled: false
             startup:
               enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsUser: 101
+            runAsGroup: 101
