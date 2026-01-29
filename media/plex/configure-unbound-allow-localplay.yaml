@@ -1,0 +1,12 @@
+- name: Put a specific setting for Unbound to allow localplay via DNS entries
+  hosts: pihole
+  vars:
+    docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
+    docker_compose_projectname: pihole
+  tasks:
+    - name: Create specific config file
+      ansible.builtin.copy:
+        dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/conf.d/plex.conf"
+        content: |
+          server:
+            private-domain: plex.direct
