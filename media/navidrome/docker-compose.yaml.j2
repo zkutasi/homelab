@@ -5,6 +5,8 @@ services:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
+      ND_SCANNER_ENABLED: false
+      ND_SCANNER_SCANONSTARTUP: false
     hostname: {{ id }}-navidrome
     image: deluan/navidrome:{{ requested_image_version['navidrome'] }}
     ports:
