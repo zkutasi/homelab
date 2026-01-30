@@ -10,3 +10,14 @@
         group: root
         mode: '0440'
         validate: '/usr/sbin/visudo -cf %s'
+- name: Passwordless sudo for rsync for Synology
+  hosts: synology
+  become: true
+  tasks:
+    - name: Allow rsync without password
+      ansible.builtin.template:
+        src: all/rsync_backup.sudoers.j2
+        dest: /etc/sudoers.d/rsync_backup
+        owner: root
+        group: root
+        mode: '0440'
