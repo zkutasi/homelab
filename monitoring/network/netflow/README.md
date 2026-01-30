@@ -2,6 +2,8 @@
 
 Analyzing all of your local subnet's traffic is a great way to get insights which hosts talk to each other using what protocol/app, or how much traffic the hosts on the network consume. Also able to show some network-level issues.
 
+**WARNING**: Such apps generate a LOT of Disk load, continuously running them is not advised as it will wear down the SSD. Either run them on HDDs, or in memory, or expect to buy a new SSD regularly.
+
 ## Requirements
 
 - Ability to either work in a mirrored port-mode (when it gets the traffic via switch-port-mirroring) or in a router mode (when the machine itself acts as a network router and therefore sees everything)
