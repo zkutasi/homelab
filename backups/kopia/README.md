@@ -85,3 +85,8 @@ For Windows clients or for clients not capable to be in automations, do the foll
 - Remote clients can only connect after the Server has established connection to its own filesystem
 - The same ENV variable means different things in the Repository Server and on a client (like the SERVER_PASSWORD), so watch out for this
 - Policy updates or any notable change require either a Server restart or a CLI server refresh
+- If you ever need to migrate the server's backup-folder, here is what I have used, between two Synology devices:
+
+    ```bash
+    rsync -ahH --numeric-ids --hard-links --progress --inplace -e "ssh -p 22222" --rsync-path="/bin/rsync" /volume1/backups/kopia/ <USER>@<HOST>:/volume1/backups/kopia/
+    ```

@@ -66,7 +66,7 @@
     - name: Print the server cert fingerprint
       ansible.builtin.debug:
         msg: "{{ kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
-- name: Configure the repository server
+- name: Connect the clients
   hosts:
     - backupclient
   tasks:
