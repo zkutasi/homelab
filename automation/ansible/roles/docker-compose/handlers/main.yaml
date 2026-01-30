@@ -1,3 +1,6 @@
+# - name: Restart the docker service
+#   ansible.builtin.debug:
+#     msg: "Handler triggered: Restarting docker-compose project {{ docker_compose_projectname }}"
 - name: Restart the docker service
   become: "{{ docker_with_sudo }}"
   community.docker.docker_compose_v2:
