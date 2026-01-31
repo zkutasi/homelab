@@ -17,7 +17,7 @@
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
-      kopia: "0.20.1"
+      kopia: "0.22.3"
     docker_compose_create_dirs:
       - name: config
       - name: cache
@@ -42,6 +42,6 @@
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
-      kopia: "0.20.1"
+      kopia: "0.22.3"
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_kopia }}"
     kopia_generate_certs: false
