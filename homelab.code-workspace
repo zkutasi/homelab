@@ -9,6 +9,54 @@
 	],
 	"settings": {
 
-		"ansible.python.interpreterPath": "/usr/bin/python3"
+		"ansible.python.interpreterPath": "/usr/bin/python3",
+		"runTerminalCommand.commands": [
+        {
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./common-ansible-run-playbook.sh --playbook ${PREFIX}{resource} --no-check; popd",
+            "name": "Run Ansible Playbook",
+						"group": "Ansible",
+						"auto": true
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./common-ansible-run-playbook.sh --playbook ${PREFIX}{resource}; popd",
+            "name": "Run Ansible Playbook with Check",
+						"group": "Ansible",
+						"auto": true
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./common-ansible-run-playbook.sh --playbook ${PREFIX}{resource} --no-check; popd",
+            "name": "Run Ansible Playbook with edits",
+						"group": "Ansible"
+        },
+				{
+            "command": "{resource}",
+            "name": "Deploy Kubernetes Resources",
+						"group": "Kubernetes",
+						"auto": true
+        },
+				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt {resource}",
+            "name": "Encrypt file",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt-all-missing",
+            "name": "Encrypt all missing files",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --reencrypt-all",
+            "name": "Re-encrypt all files",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX}; popd",
+            "name": "Kickstart a project",
+						"group": "Kickstart"
+        }
+    ]
 	}
 }
