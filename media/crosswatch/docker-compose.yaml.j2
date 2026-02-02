@@ -1,0 +1,14 @@
+services:
+  crosswatch:
+    container_name: crosswatch
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-crosswatch
+    image: ghcr.io/cenodude/crosswatch:{{ requested_image_version['crosswatch'] }}
+    ports:
+      - {{ port_crosswatch }}:8787
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

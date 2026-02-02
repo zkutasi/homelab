@@ -1,0 +1,10 @@
+- name: Deploy Crosswatch as docker
+  hosts: htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: crosswatch
+    requested_image_version:
+      crosswatch: "0.8.2"
+    docker_compose_create_dirs:
+      - name: config
