@@ -1,11 +1,5 @@
 services:
   borgwarehouse:
-    build:
-      context: borgwarehouse
-      dockerfile: Dockerfile
-      args:
-        - UID={{ docker_uid }}
-        - GID={{ backups_gid }}
     container_name: borgwarehouse
     environment:
       - UID={{ docker_uid }}
@@ -19,6 +13,7 @@ services:
       - TZ={{ timezone }}
       - "HOSTNAME=::"
     hostname: {{ id }}-borgwarehouse
+    image: borgwarehouse/borgwarehouse:v{{ requested_image_version['borgwarehouse'] }}
 {% if docker_compose_ipv6 %}
     networks:
       - borgwarehouse-network

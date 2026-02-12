@@ -125,3 +125,8 @@ docker exec -ti borgmatic borgmatic compact --progress
 - Borgmatic
   - It is mandatory to have at least 1GB of RAM on the hosts, otherwise even the repo init will be potentially OOMKilled
   - It is required for each client to have its own public key in the backupServer's `authorized_keys` and also the backupserver's host key in its own `known_hosts` file. This is handled by the playbooks
+- If you ever need to migrate the server's backup-folder, here is what I have used, between two Synology devices:
+
+    ```bash
+    rsync -ahH --numeric-ids --hard-links --progress --inplace -e "ssh -p 22222" --rsync-path="/bin/rsync" /volume1/backups/borg/ <USER>@<HOST>:/volume1/backups/borg/
+    ```

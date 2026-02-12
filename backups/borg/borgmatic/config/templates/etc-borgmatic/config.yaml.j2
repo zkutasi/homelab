@@ -3,6 +3,7 @@ source_directories:
 
 repositories:
     - path: ssh://borgwarehouse@{{ backupserver_hostname }}:{{ port_borgwarehouse_ssh }}/./{{ borgwarehouse_repo_id }}
+relocated_repo_access_is_ok: true
 
 archive_name_format: '{{ id }}-{now}'
 encryption_passphrase: "{{ borgmatic_encryption_passphrase }}"
