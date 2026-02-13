@@ -64,3 +64,28 @@ services:
     shm_size: 128mb
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/postgres/data:/var/lib/postgresql/data
+
+  power-tools:
+    container_name: immich-power-tools
+    environment:
+      PUID: {{ docker_uid }}
+      PGID: {{ docker_gid }}
+      TZ: {{ timezone }}
+      DB_PORT: 5432
+      DB_HOST: immich-postgres
+      DB_DATABASE_NAME: immich
+      DB_USERNAME: immich
+      DB_PASSWORD: {{ immich_db_password }}
+      IMMICH_API_KEY: {{ immich_api_key }}
+      IMMICH_URL: "http://immich-server:{{ port_immich }}"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    hostname: {{ id }}-immich-power-tools
+    image: ghcr.io/varun-raj/immich-power-tools:{{ requested_image_version['immich-power-tools'] }}
+    ports:
+      - {{ port_immich_power_tools }}:3000
+    restart: unless-stopped
