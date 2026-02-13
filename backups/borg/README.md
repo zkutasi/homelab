@@ -47,6 +47,8 @@ On my Synology216, I had to make some adjustments on the Dockerfile, so first to
 
 This will rollback the baseimage from Bookworm to Bullseye, to mitigate a Kernel feature missing on my NAS OS.
 
+But please note that for the custom UID:GID support, the borgwarehouse image still has to be built !
+
 Then deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI:
 
 ```bash

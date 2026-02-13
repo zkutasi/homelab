@@ -1,8 +1,10 @@
-- name: Checkout borgwarehouse git repo to handle old Synology OS issues
+- name: Checkout borgwarehouse git repo to handle custom UID:GID
   hosts: backupserver
   vars:
     docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
     docker_compose_projectname: borgwarehouse
+  environment:
+    PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
   tasks:
     - name: Create the docker-compose directory if it does not exist
       ansible.builtin.file:
@@ -12,6 +14,7 @@
     - name: Check if docker-compose.yaml file is present
       ansible.builtin.stat:
         path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/docker-compose.yaml"
+      register: docker_compose_file_statresult
     - name: Docker compose down
       community.docker.docker_compose_v2:
         project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
@@ -34,18 +37,21 @@
         repo: https://github.com/Ravinou/borgwarehouse.git
         dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse"
         version: v3.1.2
-    - name: Replace bookworm with bullseye in Dockerfile FROM clause for compatibility
-      ansible.builtin.replace:
-        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
-        regexp: 'node:22-bookworm-slim'
-        replace: 'node:22-bullseye-slim'
-    - name: Change to archive-bullseye APT repository for compatibility
-      ansible.builtin.replace:
-        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
-        regexp: 'http://deb.debian.org/debian bookworm-backports main'
-        replace: 'http://archive.debian.org/debian bullseye-backports main'
-    - name: Replace bookworm with bullseye in APT install for borgbackup for compatibility
-      ansible.builtin.replace:
-        path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
-        regexp: 'borgbackup/bookworm-backports'
-        replace: 'borgbackup/bullseye-backports'
+    - name: Apply compatibility fixes for older kernels
+      when: (ansible_kernel.split('.')[0] | int) < 4
+      block:
+        - name: Replace bookworm with bullseye in Dockerfile FROM clause for compatibility
+          ansible.builtin.replace:
+            path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+            regexp: 'node:22-bookworm-slim'
+            replace: 'node:22-bullseye-slim'
+        - name: Change to archive-bullseye APT repository for compatibility
+          ansible.builtin.replace:
+            path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+            regexp: 'http://deb.debian.org/debian bookworm-backports main'
+            replace: 'http://archive.debian.org/debian bullseye-backports main'
+        - name: Replace bookworm with bullseye in APT install for borgbackup for compatibility
+          ansible.builtin.replace:
+            path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/borgwarehouse/Dockerfile"
+            regexp: 'borgbackup/bookworm-backports'
+            replace: 'borgbackup/bullseye-backports'
