@@ -29,13 +29,13 @@
 2. Then install with:
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook media/koel/deploy-koel.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook media/music/koel/deploy-koel.yaml --no-check
     ```
 
 3. Init the DB with:
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook media/koel/configure-koel-init.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook media/music/koel/configure-koel-init.yaml --no-check
     ```
 
 4. When navigating to the UI, use the default credentials of `admin@koel.dev/KoelIsCool`

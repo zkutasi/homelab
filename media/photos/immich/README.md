@@ -29,7 +29,7 @@ browse, search and organize your photos and videos with ease, without sacrificin
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook photos/immich/deploy-immich.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/photos/immich/deploy-immich.yaml --no-check
 ```
 
 Then Navigate to the User Settings, and generate an API key and set it as well.

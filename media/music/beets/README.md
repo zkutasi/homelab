@@ -38,7 +38,7 @@ The used plugins are:
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook media/beets/deploy-beets.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/music/beets/deploy-beets.yaml --no-check
 ```
 
 ## Commands

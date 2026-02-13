@@ -1,6 +1,6 @@
-# Navidrome
+# Ampache
 
-[Navidrome](https://www.navidrome.org/) - An open source web-based music collection server and streamer. It gives you freedom to listen to your music collection from any browser or mobile device. It's like your personal Spotify!
+[Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
 
 ## The setup
 
@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook media/navidrome/deploy-navidrome.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/music/ampache/deploy-ampache.yaml --no-check
 ```
 
 ## Commands
