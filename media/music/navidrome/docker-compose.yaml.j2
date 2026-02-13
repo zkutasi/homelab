@@ -15,4 +15,4 @@ services:
     user: {{ docker_uid }}:{{ docker_gid }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
-      - /mnt/Music:/music:ro
+      - {{ music_mount }}:/music/{{ music_mount }}:ro

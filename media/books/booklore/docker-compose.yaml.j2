@@ -1,0 +1,50 @@
+services:
+  booklore:
+    container_name: booklore
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    environment:
+      DATABASE_PASSWORD: {{ booklore_db_user_password }}
+      DATABASE_URL: jdbc:mariadb://mariadb:3306/booklore
+      DATABASE_USERNAME: booklore
+      GROUP_ID: {{ docker_gid }}
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      USER_ID: {{ docker_uid }}
+    healthcheck:
+      interval: 60s
+      retries: 5
+      start_period: 60s
+      test: wget -q -O - http://localhost:6060/api/v1/healthcheck
+      timeout: 10s
+    hostname: {{ id }}-booklore
+    image: booklore/booklore:v{{ requested_image_version['booklore'] }}
+    ports:
+      - {{ port_booklore }}:6060
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/bookdrop:/bookdrop
+      - {{ books_mount }}:/books/{{ books_mount }}:ro
+  mariadb:
+    container_name: booklore-mariadb
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      MYSQL_ROOT_PASSWORD: {{ booklore_db_root_password }}
+      MYSQL_DATABASE: booklore
+      MYSQL_USER: booklore
+      MYSQL_PASSWORD: {{ booklore_db_user_password }}
+    healthcheck:
+      interval: 5s
+      retries: 10
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
+      timeout: 5s
+    hostname: {{ id }}-booklore-mariadb
+    image: lscr.io/linuxserver/mariadb:{{ requested_image_version['mariadb'] }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/mariadb/config:/config

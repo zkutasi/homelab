@@ -1,0 +1,13 @@
+- name: Deploy BookLore as docker
+  hosts: books
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: booklore
+    requested_image_version:
+      booklore: "1.18.5"
+      mariadb: "11.4.5"
+    docker_compose_create_dirs:
+      - name: data
+      - name: bookdrop
+      - name: mariadb/config

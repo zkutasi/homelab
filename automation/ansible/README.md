@@ -40,6 +40,7 @@ winrm enumerate winrm/config/Listener
 3. You can and should create groups of these hosts too
    - `backupserver` - The Backup Server that hosts all of the backups of the various hosts
    - `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
+   - `books` - The server that stores Books
    - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
    - `dnsserver` - All of the local DNS servers like PiHole
    - `docker` - All hosts that prefer dockerized apps over binaries
@@ -47,6 +48,7 @@ winrm enumerate winrm/config/Listener
    - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    - `linux` - All Linux hosts, separated from Windows ones
    - `networkmonitoring` - Host that provides Flow analysis, IDS, and various other network monitoring capabilities
+   - `photos` - The server that stores Photos
    - `proxmox` - All the Proxmox hosts
    - `proxmoxclusters` - The individual clusters, as some operations should not be done on all cluster Nodes
    - `reverseproxy` - A host used to run a reverseproxy in the whole network

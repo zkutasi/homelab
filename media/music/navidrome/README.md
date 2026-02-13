@@ -19,6 +19,7 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |music_mount|M|The folder to mount into the container for music|
 
 ### Deploy the app
 

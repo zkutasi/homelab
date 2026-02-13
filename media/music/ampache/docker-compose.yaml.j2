@@ -17,5 +17,5 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/var/www/config
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/log:/var/log/ampache
-      - /mnt/Music:/media:ro
+      - {{ music_mount }}:/media/{{ music_mount }}:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/mysql:/var/lib/mysql

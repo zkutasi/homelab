@@ -13,4 +13,4 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/library:/music
-      - {{ beets_music_folder }}:{{ beets_music_folder }}
+      - {{ music_mount }}:{{ music_mount }}

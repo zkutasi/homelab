@@ -33,7 +33,7 @@ The used plugins are:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |beets_music_folder|M|The source folder of all the Music on the host that contains them|
+    |music_mount|M|The folder to mount into the container for music|
 
 ### Deploy the app
 

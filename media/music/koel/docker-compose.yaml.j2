@@ -20,7 +20,7 @@ services:
       - {{ port_koel }}:80
     restart: unless-stopped
     volumes:
-      - /mnt/Music:/music:ro
+      - {{ music_mount }}:/music/{{ music_mount }}:ro
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/image_storage:/var/www/html/public/img/storage
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/search_index:/var/www/html/storage/search-indexes
 
