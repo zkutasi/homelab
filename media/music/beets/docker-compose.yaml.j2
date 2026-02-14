@@ -13,4 +13,6 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/library:/music
-      - {{ music_mount }}:{{ music_mount }}
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:{{ volume.to }}
+{% endfor %}

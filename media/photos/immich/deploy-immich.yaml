@@ -13,4 +13,4 @@
       - name: server/library
       - name: ml/model-cache
       - name: postgres/data
-    docker_compose_extra_volumes: "{{ photos_extra_mounts | default([]) }}"
+    docker_compose_extra_volumes: "{{ photos_mounts | default([]) }}"

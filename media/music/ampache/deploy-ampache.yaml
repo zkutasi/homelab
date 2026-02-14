@@ -12,3 +12,4 @@
       - name: log
         mode: 0775
       - name: mysql
+    docker_compose_extra_volumes: "{{ music_mounts | default([]) }}"

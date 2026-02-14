@@ -11,3 +11,4 @@
       beets: "2.3.1"
     docker_compose_template_files_copy:
       - name: config/config.yaml
+    docker_compose_extra_volumes: "{{ music_mounts | default([]) }}"

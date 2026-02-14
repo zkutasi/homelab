@@ -2,7 +2,7 @@ plugins: deezer discogs edit fromfilename info spotify unimported web
 
 art_filename: folder
 
-directory: {{ music_mount }}
+directory: {{ music_mounts[0].to }}
 
 discogs:
   user_token: {{ discogs_user_token }}

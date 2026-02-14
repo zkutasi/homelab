@@ -33,7 +33,7 @@ The used plugins are:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |music_mount|M|The folder to mount into the container for music|
+    |music_mounts|O|The folders to mount into the container for music|
 
 ### Deploy the app
 

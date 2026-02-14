@@ -10,4 +10,4 @@
     docker_compose_create_dirs:
       - name: storage
       - name: database
-    docker_compose_extra_volumes: "{{ photos_extra_mounts | default([]) }}"
+    docker_compose_extra_volumes: "{{ photos_mounts | default([]) }}"

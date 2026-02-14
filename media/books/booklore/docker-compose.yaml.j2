@@ -27,7 +27,9 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/bookdrop:/bookdrop
-      - {{ books_mount }}:/books/{{ books_mount }}:ro
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:/books/{{ volume.to }}:ro
+{% endfor %}
   mariadb:
     container_name: booklore-mariadb
     environment:

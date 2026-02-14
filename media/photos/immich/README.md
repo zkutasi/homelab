@@ -24,7 +24,7 @@ browse, search and organize your photos and videos with ease, without sacrificin
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |photos_extra_mounts|O|The input/original photos folders|
+    |photos_mounts|O|The input/original photos folders|
 
 ### Deploy the app
 
