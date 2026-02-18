@@ -1,0 +1,6 @@
+- name: Delete ShelfMark containers
+  hosts: books
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: shelfmark

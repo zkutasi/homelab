@@ -1,0 +1,22 @@
+services:
+  shelfmark:
+    container_name: shelfmark
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8084/api/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    hostname: {{ id }}-shelfmark
+    image: ghcr.io/calibrain/shelfmark:{{ requested_image_version['shelfmark'] }}
+    ports:
+      - {{ port_shelfmark }}:8084
+    restart: unless-stopped
+    volumes:
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:/books/{{ volume.to }}
+{% endfor %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

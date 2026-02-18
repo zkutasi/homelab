@@ -1,0 +1,11 @@
+- name: Deploy ShelfMark as docker
+  hosts: books
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: shelfmark
+    requested_image_version:
+      shelfmark: "1.0.4"
+    docker_compose_create_dirs:
+      - name: config
+    docker_compose_extra_volumes: "{{ books_mounts | default([]) }}"
