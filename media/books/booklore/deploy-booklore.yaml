@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: booklore
     requested_image_version:
-      booklore: "1.18.5"
+      booklore: "2.0.5"
       mariadb: "11.4.5"
     docker_compose_create_dirs:
       - name: data
