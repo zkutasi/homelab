@@ -17,3 +17,4 @@ Whether it is only for IT equipment, computer or the entire itemlist in the Home
 - [Warracker](https://warracker.com/) - An open source, self-hostable warranty tracker to monitor expirations, store receipts, files.
 - [Grocy](https://grocy.info/) - Grocy is a web-based self-hosted groceries & household management solution for your home.
 - [Rackula](https://count.racku.la/) - Plan your rack layout. Drag your devices in, move them around, export it. It runs in your browser. You can close the tab whenever you want.
+- [VoucherVault](https://github.com/l4rm4nd/VoucherVault) - Django web application to store and manage vouchers, coupons, loyalty and gift cards digitally
