@@ -1,0 +1,21 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: drydock
+  name: drydock-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: drydock
+          port: 3000
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
+  virtualhost:
+    fqdn: drydock.kubernetes.home
+    tls:
+      secretName: drydock-cert-secret
