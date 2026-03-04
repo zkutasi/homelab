@@ -91,9 +91,18 @@ Allows to show across microservices the end-to-end flow of data, and catch the r
 - [Zipkin](https://zipkin.io/) - From Twitter, [more info here](https://last9.io/blog/jaeger-vs-zipkin/)
 - [Tempo](https://grafana.com/oss/tempo/) - The Grafana Labs contender, [more info here](https://last9.io/blog/grafana-tempo-vs-jaeger/)
 
+### Updates & Patches
+
+Linux has to be up-to-date, these tools make it obvious if they are lacking behind.
+
+- [PatchMon](https://patchmon.net/) - Centralized patch management across diverse server environments.
+- [Linux Update Dashboard](https://github.com/TheDuffman85/linux-update-dashboard) - Web app for managing Linux package updates across multiple servers. Connect via SSH, check for updates, and apply them from a single dashboard in your browser. No agents are required.
+
+### Proxmox
+
+- [Pulse](https://github.com/rcourtman/Pulse) - A specific monitoring solution for Proxmox PVE servers and Docker hosts, with an agent-driven approach. Ability to check SMART data and Sensor data as well.
+
 ### Special ones
 
 - [NetAlertX](https://netalertx.com/) - Scans the network, discovers Hosts and alerts for changes (new host for example)
 - [Scrutiny](https://github.com/analogj/scrutiny/pkgs/container/scrutiny) - A S.M.A.R.T. checker, that also correlates data from BackBlaze to predict HDD issues. Project seems to be abandoned on the release-side, but the images are updated regularly. Pretty interesting metrics, although extremely unreliable.
-- [Pulse](https://github.com/rcourtman/Pulse) - A specific monitoring solution for Proxmox PVE servers and Docker hosts, with an agent-driven approach. Ability to check SMART data and Sensor data as well.
-- [PatchMon](https://patchmon.net/) - Centralized patch management across diverse server environments.
