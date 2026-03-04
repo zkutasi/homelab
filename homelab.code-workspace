@@ -29,7 +29,7 @@
 						"group": "Ansible"
         },
 				{
-            "command": "{resource}",
+            "command": "./{resource}",
             "name": "Deploy Kubernetes Resources",
 						"group": "Kubernetes",
 						"auto": true
