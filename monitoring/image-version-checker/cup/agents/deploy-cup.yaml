@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: cup
     requested_image_version:
-      cup: "3.4.3"
+      cup: "3.5.1"
     docker_compose_create_dirs:
       - name: config
     docker_compose_template_files_copy:

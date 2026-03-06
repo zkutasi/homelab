@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/sergi0g/cup
-  tag: v3.4.3
+  tag: v3.5.1
   pullPolicy: IfNotPresent
 persistence:
   config:
