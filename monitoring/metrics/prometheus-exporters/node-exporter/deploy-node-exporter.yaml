@@ -3,7 +3,7 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "1.9.1"
+    requested_binary_version: "1.10.2"
     bin_filename: node_exporter
     service_name: node-exporter
     download_url: "https://github.com/prometheus/node_exporter/releases/download/\
@@ -15,4 +15,4 @@
   vars:
     docker_compose_projectname: node-exporter
     requested_image_version:
-      node-exporter: "1.9.1"
+      node-exporter: "1.10.2"
