@@ -22,7 +22,7 @@
   vars:
     docker_compose_projectname: borgmatic
     requested_image_version:
-      borgmatic: "2.0.6"
+      borgmatic: "2.1.2"
     docker_compose_create_dirs:
       - name: cache
       - name: config
