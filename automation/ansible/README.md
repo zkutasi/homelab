@@ -47,6 +47,7 @@ winrm enumerate winrm/config/Listener
    - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
    - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    - `linux` - All Linux hosts, separated from Windows ones
+   - `music` - The server that holds music files
    - `networkmonitoring` - Host that provides Flow analysis, IDS, and various other network monitoring capabilities
    - `photos` - The server that stores Photos
    - `proxmox` - All the Proxmox hosts

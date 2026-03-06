@@ -1,5 +1,5 @@
 - name: Deploy qbittorrent as docker on Synology216
-  hosts: synology216
+  hosts: music
   roles:
     - docker-compose
   vars:
