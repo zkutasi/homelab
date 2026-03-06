@@ -82,6 +82,7 @@ It is also important to see if the metrics collection is push or pull. Prometheu
 - [GrayLog](https://graylog.org/) - A popular alternative among homelabbers, [more info here](https://last9.io/blog/graylog-vs-loki/)
 - [ELK Stack](https://www.elastic.co/elastic-stack) - The ELK stack, [more info here](https://last9.io/blog/kibana-vs-grafana/)
 - [Dozzle](https://dozzle.dev/) - A tool to help visualize all container logs in a WebUI. Supports multiple remote Hosts too.
+- [Loggifly](https://clemcer.github.io/LoggiFly/) - Get Alerts from your Docker Container Logs
 
 ### Tracing
 
