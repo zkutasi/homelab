@@ -29,10 +29,15 @@
 						"group": "Ansible"
         },
 				{
-            "command": "./{resource}",
+            "command": "bash {resource}",
             "name": "Deploy Kubernetes Resources",
 						"group": "Kubernetes",
 						"auto": true
+        },
+				{
+            "command": "bash {resource} --version",
+            "name": "Deploy Kubernetes Resources with specific version",
+						"group": "Kubernetes"
         },
 				{
             "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt {resource}",
