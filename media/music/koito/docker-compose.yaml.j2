@@ -1,0 +1,29 @@
+services:
+  koito-psql:
+    container_name: koito-psql
+    environment:
+      POSTGRES_DB: koitodb
+      POSTGRES_PASSWORD: {{ koito_postgres_password }}
+      POSTGRES_USER: postgres
+    hostname: {{ id }}-koito-psql
+    image: postgres:16
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/db-data:/var/lib/postgresql/data
+  koito:
+    container_name: koito
+    depends_on:
+      - koito-psql
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      KOITO_ALLOWED_HOSTS: "*"
+      KOITO_DATABASE_URL: postgres://postgres:{{ koito_postgres_password }}@koito-psql:5432/koitodb
+    hostname: {{ id }}-koito
+    image: gabehf/koito:v{{ requested_image_version['koito'] }}
+    ports:
+      - {{ port_koito }}:4110
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/etc/koito

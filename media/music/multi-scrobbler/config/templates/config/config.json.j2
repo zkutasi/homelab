@@ -1,0 +1,48 @@
+{
+  baseUrl: "{{ multiscrobbler_baseurl }}",
+  "sources": [
+    {
+      "name": "lastfm-source",
+      "configureAs": "source",
+      "type": "lastfm",
+      "enable": true,
+      "data": {
+        "apiKey": "{{ multiscrobbler_lastfm_api_key }}",
+        "secret": "{{ multiscrobbler_lastfm_secret }}"
+      }
+    }
+  ],
+  "clients": [
+    {
+      "name": "listenbrainz-client",
+      "configureAs": "client",
+      "type": "listenbrainz",
+      "enable": true,
+      "data": {
+        "token": "{{ listenbrainz_token }}",
+        "username": "{{ listenbrainz_username }}"
+      }
+    },
+    {
+      "name": "librefm-client",
+      "configureAs": "client",
+      "type": "librefm",
+      "enable": true,
+      "data": {
+        "apiKey": "anything",
+        "secret": "anything"
+      }
+    },
+    {
+      "name": "koito-client",
+      "configureAs": "client",
+      "type": "koito",
+      "enable": true,
+      "data": {
+        "token": "{{ koito_apikey }}",
+        "username": "admin",
+        "url": "{{ koito_endpoint_url }}"
+      }
+    }
+  ]
+}

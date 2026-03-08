@@ -1,0 +1,6 @@
+- name: Delete Multi-Scrobbler containers
+  hosts: music
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: multi-scrobbler

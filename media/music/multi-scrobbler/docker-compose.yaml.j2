@@ -1,0 +1,14 @@
+services:
+  multi-scrobbler:
+    container_name: multi-scrobbler
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-multi-scrobbler
+    image: foxxmd/multi-scrobbler:{{ requested_image_version['multi-scrobbler'] }}
+    ports:
+      - {{ port_multi_scrobbler }}:9078
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

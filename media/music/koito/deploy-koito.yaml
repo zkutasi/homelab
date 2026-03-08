@@ -1,0 +1,11 @@
+- name: Deploy Koito as docker
+  hosts: music
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: koito
+    requested_image_version:
+      koito: "0.1.7"
+    docker_compose_create_dirs:
+      - name: data
+      - name: db-data

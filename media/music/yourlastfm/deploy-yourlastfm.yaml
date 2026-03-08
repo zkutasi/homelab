@@ -1,0 +1,10 @@
+- name: Deploy YourLastFM as docker
+  hosts: music
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: yourlastfm
+    requested_image_version:
+      yourlastfm: "fb6b594ca830795d4a5913c8360ee1c36036ad87" # 1.1.1
+    docker_compose_create_dirs:
+      - name: data

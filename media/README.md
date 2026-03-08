@@ -51,8 +51,20 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 
 It is sometimes beneficial to have your listening taste analyzed, by forwarding what music you listen to. This is called scrobbling. The process can be set up in each of the music listening apps/servers. Then the online scrobbler website can list your favourites, lets you explore their catalog, or even recommend to you new similar artists.
 
+If a piece of software only supports the most popular scrobbler, you shall a tool that scross-scrobbles, below are some examples.
+
+#### Music
+
 - [Last.fm](http://www.last.fm) - The original that started it all, for music
+  - [YourLastFM](https://github.com/Gomaink/your_lastfm) - Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and serves a web dashboard.
 - [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
+- [Libre.fm](https://libre.fm/) - A more private last.fm alternative
+- [Koito](https://koito.io/) - A modern, themeable ListenBrainz-compatible scrobbler for self-hosters who want control over their data and insights into their listening habits. It supports relaying to other compatible scrobblers, so you can try it safely without replacing your current setup.
+- [Maloja](https://github.com/krateng/maloja) - Simple self-hosted music scrobble database to create personal listening statistics. No commits since early 2025, seems abandoned.
+- [MultiScrobbler](https://github.com/FoxxMD/multi-scrobbler) - A dockerized app that monitors your music listening activity from everywhere and scrobbles it anywhere.
+
+#### Movies and TV
+
 - [Trakt](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps.
 - [SIMKL](https://simkl.com/) - Track TV, Movies, Anime. Supports all services and platforms. A more modern, better alternative.
 - [Crosswatch](https://github.com/cenodude/CrossWatch) - A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
