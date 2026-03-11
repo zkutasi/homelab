@@ -1,0 +1,67 @@
+- name: Deploy OpenVAS as docker
+  hosts: networkmonitoring
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: openvas
+    requested_image_version:
+      openvas-scanner: "23.41.0"
+      redis-server: "1.1.2"
+      gvmd: "26.19.0"
+      gsa: "26.14.0"
+      gsad: "24.16.0"
+      gvm-tools: "25.4.8"
+      ospd-openvas: "22.10.1"
+      nginx: "latest"
+      pg-gvm: "22.6.15"
+      pg-gvm-migrator: "stable"
+      gvm-config: "latest"
+    docker_compose_create_dirs:
+      - name: vt_data
+        owner: 1001
+        group: 1001
+      - name: notus_data
+        owner: 1001
+        group: 1001
+      - name: scap_data
+        owner: 1001
+        group: 1001
+      - name: cert_data
+        owner: 1001
+        group: 1001
+      - name: data_objects
+        owner: 1001
+        group: 1001
+      - name: gpg_data
+        owner: 1001
+        group: 1001
+      - name: redis_socket
+        owner: 999 # redis
+        group: 999 # redis
+      - name: psql_data
+        owner: 104 # postgres
+        group: 106 # postgres
+        folder_mode: 0755
+      - name: psql_socket
+        owner: 104 # postgres
+        group: 106 # postgres
+        folder_mode: 02775
+      - name: gvmd_data
+        owner: 1001
+        group: 1001
+      - name: gvmd_data/gvmd
+        owner: 1001
+        group: 1001
+      - name: gvmd_socket
+        owner: 1001
+        group: 1001
+      - name: ospd_openvas_socket
+        owner: 1001
+        group: 1001
+      - name: gsa_data
+        owner: 1001
+        group: 1001
+      - name: nginx_config
+      - name: nginx_certificates
+      - name: openvas_data
+      - name: openvas_log_data

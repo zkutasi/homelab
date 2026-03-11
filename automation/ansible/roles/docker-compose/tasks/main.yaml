@@ -8,10 +8,11 @@
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
     state: directory
     mode: "{{ item.folder_mode | default('0755') }}"
-    owner: "{{ docker_compose_files_owner }}"
-    group: "{{ docker_compose_files_group }}"
+    owner: "{{ item.owner | default(docker_compose_files_owner) }}"
+    group: "{{ item.group | default(docker_compose_files_group) }}"
   loop: "{{ docker_compose_create_dirs }}"
   ignore_errors: true
+  become: "{{ item.owner is defined or item.group is defined }}"
 - name: Copy any static files necessary
   ansible.builtin.copy:
     src: "{{ docker_compose_source_basepath }}/config/static/{{ item.name }}/"   # Note the / at the end !
