@@ -23,4 +23,4 @@
     download_url: "https://github.com/mikefarah/{{ bin_filename }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64"
     compressed: false
-    destination_path: /usr/local/bin/yq
+    destination_path: "/usr/local/bin/{{ bin_filename }}"

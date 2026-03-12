@@ -49,7 +49,7 @@
       }}
   loop: "{{ resolved_hosts | dict2items }}"
 - name: Ensure merged /etc/hosts entries are present
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/hosts
     regexp: "^{{ item.key }}\\s"
     line: "{{ item.key }} {{ item.value | join(' ') }}"

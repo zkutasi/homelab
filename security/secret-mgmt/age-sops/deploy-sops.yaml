@@ -8,4 +8,4 @@
     download_url: "https://github.com/getsops/sops/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-v{{ requested_binary_version }}.linux.amd64"
     compressed: false
-    destination_path: /usr/local/bin/sops
+    destination_path: "/usr/local/bin/{{ bin_filename }}"
