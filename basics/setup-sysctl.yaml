@@ -1,0 +1,31 @@
+- name: Configure persistent file descriptor limits
+  hosts: htpc
+  become: true
+  vars:
+    nofile_limit_soft: 65535
+  handlers:
+    - name: Re-exec systemd
+      ansible.builtin.command: systemctl daemon-reexec
+  tasks:
+    - name: Configure PAM limits for open files
+      ansible.builtin.copy:
+        dest: /etc/security/limits.d/90-nofile.conf
+        owner: root
+        group: root
+        mode: "0644"
+        content: |
+          * soft nofile {{ nofile_limit_soft }}
+    - name: Set systemd DefaultLimitNOFILE in system.conf
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/system.conf
+        regexp: '^#?DefaultLimitNOFILE='
+        line: "DefaultLimitNOFILE={{ nofile_limit_soft }}"
+        state: present
+      notify: Re-exec systemd
+    - name: Set systemd DefaultLimitNOFILE in user.conf
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/user.conf
+        regexp: '^#?DefaultLimitNOFILE='
+        line: "DefaultLimitNOFILE={{ nofile_limit_soft }}"
+        state: present
+      notify: Re-exec systemd
