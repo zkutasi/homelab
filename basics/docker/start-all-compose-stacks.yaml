@@ -1,0 +1,18 @@
+---
+- name: Start all Docker Compose stacks
+  hosts: docker
+  tasks:
+    - name: Find all subdirectories containing docker-compose.yaml
+      ansible.builtin.find:
+        paths: "{{ ansible_user_dir }}/docker-compose"
+        patterns: "docker-compose.yaml"
+        file_type: file
+        recurse: yes
+      register: compose_files
+    - name: Start Docker Compose stack in each folder
+      community.docker.docker_compose_v2:
+        project_src: "{{ item.path | dirname }}"
+        state: present
+      loop: "{{ compose_files.files }}"
+      loop_control:
+        label: "{{ item.path | dirname }}"
