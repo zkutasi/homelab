@@ -1,0 +1,36 @@
+- name: Deploy starship
+  hosts: linux
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "1.24.2"
+    bin_filename: starship
+    arch_map:
+      x86_64: x86_64
+      aarch64: aarch64
+      arm64: aarch64
+    arch: "{{ arch_map.get(ansible_architecture, ansible_architecture) }}"
+    download_url: https://github.com/starship/starship/releases/download/v{{
+      requested_binary_version }}/starship-{{ arch }}-unknown-linux-musl.tar.gz
+    destination_path: "/usr/local/bin/{{ bin_filename }}"
+    decompression_options: []
+- name: Add the inclusion of starship in the bashrc file
+  hosts: linux
+  tasks:
+    - name: Add the inclusion of starship in the bashrc file
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bashrc"
+        line: 'eval "$(starship init bash)"'
+        state: present
+        create: true
+- name: Template the starship configuration file
+  hosts: linux
+  tasks:
+    - name: Ensure the .config directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config"
+        state: directory
+    - name: Template the starship configuration file
+      ansible.builtin.template:
+        src: "all/starship.toml.j2"
+        dest: "{{ ansible_user_dir }}/.config/starship.toml"
