@@ -1,0 +1,21 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: checkcle
+  name: checkcle-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: checkcle
+          port: 8090
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
+  virtualhost:
+    fqdn: checkcle.kubernetes.home
+    tls:
+      secretName: checkcle-cert-secret
