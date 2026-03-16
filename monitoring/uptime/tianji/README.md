@@ -42,3 +42,6 @@
 ## Commands
 
 ## Notable comments
+
+- This is a weird project. 70% of the app has something to do with websites, JavaScript injection of telemetry and the actual Uptime monitoring is quite simple looking. THe configuration though is excessive, with HTTP checks for body too... but the UI is very confusing to say the least, and full of grammatical errors.
+- The documentation is just all over the place. For me this project wants to be many things, cover a lot of bases, but falls short by not provising enough context or examples. Or this project is tailored to a very specific niche more geared towards a website-owner.
