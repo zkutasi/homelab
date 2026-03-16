@@ -133,7 +133,7 @@ resource "proxmox_virtual_environment_vm" "k8s_controller_vm" {
 
   cpu {
     cores = var.k8s_controllers[count.index]["cpu"]
-    type = "x86-64-v2-AES"
+    type = "host"
   }
 
   memory {
@@ -179,7 +179,7 @@ resource "proxmox_virtual_environment_vm" "k8s_worker_vm" {
 
   cpu {
     cores = var.k8s_workers[count.index]["cpu"]
-    type = "x86-64-v2-AES"
+    type = "host"
   }
 
   memory {
