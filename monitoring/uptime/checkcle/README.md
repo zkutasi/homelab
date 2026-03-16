@@ -23,4 +23,4 @@
 ## Notable comments
 
 - Very limited HTTP checks, not even able to set the accepted status codes
-- Not able to use an API yet, so configuration is UI only
+- Not able to use an API yet, so configuration is UI only, definitely no IaC config possible
