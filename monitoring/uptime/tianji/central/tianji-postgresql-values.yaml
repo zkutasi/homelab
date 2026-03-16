@@ -1,4 +1,9 @@
 cluster:
+  initdb:
+    database: tianji
+    owner: tianji
+    secret:
+      name: tianji-postgresql-db-password-secret
   instances: 1
   singleNode: true
   storage:
