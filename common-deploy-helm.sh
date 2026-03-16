@@ -86,7 +86,9 @@ if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
   [ -z "${RELEASE_NAME}" ] && RELEASE_NAME=${APP}
 elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
   [ -z "${CHART_NAME}" ] && echo "ERROR: Chart name must be specified for helm deployment" && exit 1
-  [ -z "${REPO_URL}" ] && echo "ERROR: Repo URL must be specified for helm deployment" && exit 1
+  if [[ "${CHART_NAME}" != "oci://"* ]]; then
+    [ -z "${REPO_URL}" ] && echo "ERROR: Repo URL must be specified for helm deployment if not OCI chart is used" && exit 1
+  fi
   [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for helm deployment" && exit 1
   [ -z "${RELEASE_NAME}" ] && echo "ERROR: Release name must be specified for helm deployment" && exit 1
   REPO_NAME=$(echo ${CHART_NAME} | cut -d'/' -f1)
@@ -99,7 +101,7 @@ else
   echo "ERROR: Invalid deployment type. Must be 'helm' or 'truecharts' or 'local'" && exit 1
 fi
 
-if [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
+if [ "${DEPLOYMENT_TYPE}" == "helm" ] && [[ "${CHART_NAME}" != "oci://"* ]]; then
   echo "Add the helm repo if not already added..."
   if helm repo list | grep -q "^${REPO_NAME}[[:space:]]"; then
     echo "Helm repo ${REPO_NAME} already added."
@@ -128,7 +130,12 @@ if [ -z "${VERSION}" ]; then
     CURL_CHART_REPO=${CURL_CHART_REPO/oci.trueforge.org/oci.trueforge.org\/v2}
     latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
   elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
-    latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
+    if [[ "${CHART_NAME}" == "oci://"* ]]; then
+      CURL_CHART_REPO=${CHART_NAME/oci/https}
+      latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
+    else
+      latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
+    fi
   elif [ "${DEPLOYMENT_TYPE}" == "local" ]; then
     latest=local
   fi
