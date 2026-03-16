@@ -1,0 +1,11 @@
+- name: Deploy Termix as docker
+  hosts: control
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: termix
+    requested_image_version:
+      termix: "release-2.0.0"
+      termix-guacd: "latest"
+    docker_compose_create_dirs:
+      - name: data

@@ -17,4 +17,4 @@ Whether it is needed to Control remote Desktops, or consolidated remote SSH sess
 - [Apache Guacamole](https://guacamole.apache.org/) - A clientless remote desktop gateway. It supports standard protocols like VNC, RDP, and SSH. A bit dated though.
 - [Termix](https://docs.termix.site/) - A clientless web-based server management platform with SSH terminal, tunneling, and file editing capabilities.
 - [XPipe](https://xpipe.io/) - A connection hub that allows you to access your entire server infrastructure from your local desktop. Supports SSH, Docker, RDP, VNC, Tailscale, Netbird and more.
-- [NexTerm](https://github.com/gnmyt/Nexterm?ref=noted.lol) - Server Management Software to connect remotely via SSH, VNC and RDP, deploy docker apps, manage Proxmox LXC and QEMU containers.
+- [NexTerm](https://github.com/gnmyt/Nexterm) - Server Management Software to connect remotely via SSH, VNC and RDP, deploy docker apps, manage Proxmox LXC and QEMU containers.

@@ -1,0 +1,36 @@
+services:
+  guacd:
+    container_name: guacd
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-termix-guacd
+    image: guacamole/guacd:{{ requested_image_version['termix-guacd'] }}
+    networks:
+      - termix-net
+    ports:
+      - {{ port_termix_guacd}}:4822
+    restart: unless-stopped
+  termix:
+    container_name: termix
+    depends_on:
+      - guacd
+    environment:
+      PGID: {{ docker_gid }}
+      PORT: 8080
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-termix
+    image: ghcr.io/lukegus/termix:{{ requested_image_version['termix'] }}
+    networks:
+      - termix-net
+    ports:
+      - {{ port_termix }}:8080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
+
+networks:
+  termix-net:
+    driver: bridge

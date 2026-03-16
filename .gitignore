@@ -22,3 +22,4 @@ Chart.lock
 common-*.tgz
 ca.key
 **/chart/charts/**
+termix_hosts.json

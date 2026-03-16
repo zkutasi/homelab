@@ -1,0 +1,26 @@
+{
+  "hosts": [
+{% for host in groups['linux'] | sort %}
+    {
+      "name": "{{ host }}",
+      "ip": "{{ hostvars[host]['ansible_host'] }}",
+      "port": {{ hostvars[host]['ansible_port'] }},
+      "username": "{{ hostvars[host]['ansible_user'] }}",
+      "password": "{{ hostvars[host]['ansible_ssh_pass'] }}",
+{% if host in groups['docker'] %}
+      "folder": "docker",
+{% elif host in groups['proxmox'] %}
+      "folder": "proxmox",
+{% elif host in groups['kubernetes'] %}
+      "folder": "kubernetes",
+{% endif %}
+      "connectionType": "ssh",
+      "authType": "password",
+      "enableTerminal" : true,
+      "enableFileManager" : true,
+      "enableDocker" : true
+    }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+  ]
+}

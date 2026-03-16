@@ -1,0 +1,10 @@
+- name: Generate Termix JSON from inventory
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Generate Termix hosts JSON
+      ansible.builtin.template:
+        src: termix_hosts.json.j2
+        dest: termix_hosts.json
+      vars:
+        all_hosts: "{{ groups['all'] }}"
