@@ -1,0 +1,71 @@
+mongodb:
+  repository: ghcr.io/bluewave-labs/checkmate-mongo
+  tag: v3.5.1
+  pullPolicy: IfNotPresent
+backend:
+  repository: ghcr.io/bluewave-labs/checkmate-backend-mono
+  tag: v3.5.1
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data/db
+    type: pvc
+    size: 2Gi
+    targetSelector:
+      main:
+        mongodb: {}
+
+service:
+  mongodb:
+    enabled: true
+    ports:
+      mongodb:
+        enabled: true
+        port: 27017
+        protocol: tcp
+        targetPort: 27017
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 52345
+        protocol: http
+        targetPort: 52345
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        mongodb:
+          enabled: true
+          imageSelector: mongodb
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+        main:
+          enabled: true
+          env:
+            DB_CONNECTION_STRING: mongodb://checkmate-mongodb:27017/uptime_db
+          imageSelector: backend
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsUser: 0
+            runAsGroup: 0
