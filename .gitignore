@@ -21,3 +21,4 @@ context
 Chart.lock
 common-*.tgz
 ca.key
+**/chart/charts/**
