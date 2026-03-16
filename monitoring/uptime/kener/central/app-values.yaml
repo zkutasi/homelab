@@ -12,12 +12,15 @@ cnpg:
     monitoring:
       enablePodMonitor: true
     user: kener
+
 redis:
   enabled: true
+
 image:
   repository: rajnandan1/kener
   tag: 4.0.17
   pullPolicy: IfNotPresent
+
 service:
   main:
     enabled: true
@@ -26,7 +29,9 @@ service:
         port: 3000
         protocol: http
         targetPort: 3000
+
 TZ: Europe/Budapest
+
 workload:
   main:
     enabled: true
@@ -40,8 +45,6 @@ workload:
               secretKeyRef:
                 name: cnpg-main-urls
                 key: std
-            ORIGIN: http://localhost:3000
-            REDIS_URL: redis://kener-redis:6379
           probes:
             liveness:
               enabled: false

@@ -29,3 +29,5 @@
 ## Commands
 
 ## Notable comments
+
+- No ICMP or DNS test yet, just HTTP, but that one is highly configurable

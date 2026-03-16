@@ -21,6 +21,13 @@ if [[ "${KENER_SECRET_KEY}" == "null" ]]; then
   yq -i ".workload.main.podSpec.containers.main.env.KENER_SECRET_KEY=\"${KENER_SECRET_KEY}\"" app-values-private.yaml
 fi
 
+REDIS_PASSWORD=$(yq '.redis.password' app-values-private.yaml)
+if [[ "${REDIS_PASSWORD}" == "null" ]]; then
+  REDIS_PASSWORD=$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)
+  yq -i ".workload.main.podSpec.containers.main.env.REDIS_URL=\"redis://:${REDIS_PASSWORD}@kener-redis:6379\"" app-values-private.yaml
+  yq -i ".redis.password=\"${REDIS_PASSWORD}\"" app-values-private.yaml
+fi
+
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name ${PWD}/chart \
     --namespace $NS \
