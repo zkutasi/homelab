@@ -1,0 +1,12 @@
+postgresql:
+  enabled: false
+
+externalDatabase:
+  host: kuvasz-postgresql
+  port: 5432
+  database: kuvasz
+  user: kuvasz
+  existingSecret: kuvasz-postgresql-db-password-secret
+  existingSecretPasswordKey: password
+
+timezone: "Europe/Budapest"

@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kuvasz-cert
+spec:
+  secretName: kuvasz-cert-secret
+  issuerRef:
+    name: contour-selfsigned-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+    - kuvasz.kubernetes.home
