@@ -8,6 +8,8 @@ TYPE=docker
 MAINTYPE=docker
 SUBTYPE=
 
+VERSION_TO_USE_REDIS="17.19.3"
+
 function usage() {
     cat <<EOF
 Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>]
@@ -158,6 +160,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             SERVICES=$(yq ".services | keys | .[]" "${TARGET_APP_DIR}/docker-compose.yaml")
             IMAGES=$(yq ".services[].image" "${TARGET_APP_DIR}/docker-compose.yaml")
             POSTGRESQL=$(yq '.services[].image | select(test("postgres"))' "${TARGET_APP_DIR}/docker-compose.yaml")
+            REDIS=$(yq '.services[].image | select(test("redis"))' "${TARGET_APP_DIR}/docker-compose.yaml")
             echo "Converting docker-compose.yaml for Truecharts values.yaml..."
             echo > "${TARGET_APP_DIR}/app-values.yaml"
             if [ -n "${POSTGRESQL}" ]; then
@@ -170,6 +173,18 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               yq -i ".cnpg.main.database = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.monitoring.enablePodMonitor = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
+            fi
+            if [ -n "${REDIS}" ]; then
+              echo "Setting up a Redis instance..."
+              yq -i ".redis.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              DEPNUM=$(yq ".dependencies | length" "${TARGET_APP_DIR}/chart/Chart.yaml")
+              yq -i ".dependencies[${DEPNUM}].name = \"redis\"" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].version = \"${VERSION_TO_USE_REDIS}\"" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].repository = \"oci://oci.trueforge.org/truecharts\"" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].condition = \"\"" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].alias = \"\"" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].tags = []" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              yq -i ".dependencies[${DEPNUM}].import-values = []" "${TARGET_APP_DIR}/chart/Chart.yaml"
             fi
             APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
             if (( ${#APP_SERVICES[@]} == 1 )); then
@@ -228,6 +243,16 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                       VALUE=${line#*=}
                       KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.main.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
                   done <<< "${ENV_ITEMS}"
+              fi
+              if [ -n "${POSTGRESQL}" ]; then
+                yq -i ".workload.main.podSpec.containers.main.env.DATABASE_URL.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.DATABASE_URL.secretKeyRef.key = \"std\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_HOST.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_HOST.secretKeyRef.key = \"host\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_USER.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_USER.secretKeyRef.key = \"username\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_PASSWORD.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_PASSWORD.secretKeyRef.key = \"password\"" "${TARGET_APP_DIR}/app-values.yaml"
               fi
 
               echo "Processing workload probes..."
