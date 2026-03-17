@@ -4,6 +4,7 @@ CHART_NAME=librenms/librenms
 NS=librenms
 RELEASE_NAME=librenms
 REPO_URL=https://librenms.github.io/helm-charts
+VERSION=7.2.0
 
 EXTRA_PARAMS="--post-renderer kustomize.sh"
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

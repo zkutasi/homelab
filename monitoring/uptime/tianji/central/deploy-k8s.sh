@@ -5,6 +5,7 @@ CHART_NAME=msgbyte/tianji
 NS=tianji
 RELEASE_NAME=tianji
 REPO_URL=https://msgbyte.github.io/charts
+VERSION=0.1.17
 
 EXTRA_PARAMS=
 
@@ -36,4 +37,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

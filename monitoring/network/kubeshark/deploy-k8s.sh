@@ -4,6 +4,7 @@ CHART_NAME=kubeshark/kubeshark
 NS=kubeshark
 RELEASE_NAME=kubeshark
 REPO_URL=https://helm.kubeshark.com
+VERSION=52.9.0
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

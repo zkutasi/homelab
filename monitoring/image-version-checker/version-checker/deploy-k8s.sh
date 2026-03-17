@@ -4,6 +4,7 @@ CHART_NAME=jetstack/version-checker
 NS=version-checker
 RELEASE_NAME=version-checker
 REPO_URL=https://charts.jetstack.io
+VERSION=v0.10.0
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}
