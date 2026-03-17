@@ -1,0 +1,13 @@
+services:
+  nexterm:
+    environment:
+      ENCRYPTION_KEY: {{ nexterm_encryption_key }}
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-nexterm
+    image: germannewsmaker/nexterm:{{ requested_image_version['nexterm'] }}
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data

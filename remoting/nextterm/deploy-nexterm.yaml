@@ -1,0 +1,10 @@
+- name: Deploy Nexterm as docker
+  hosts: control
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: nexterm
+    requested_image_version:
+      nexterm: "1.2.0-BETA"
+    docker_compose_create_dirs:
+      - name: data
