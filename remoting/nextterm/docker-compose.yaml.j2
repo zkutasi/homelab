@@ -1,5 +1,6 @@
 services:
   nexterm:
+    container_name: nexterm
     environment:
       ENCRYPTION_KEY: {{ nexterm_encryption_key }}
       PGID: {{ docker_gid }}
