@@ -1,14 +1,21 @@
 services:
   watchyourlan:
+    container_name: watchyourlan
     environment:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
       IFACES: {{ watchyourlan_interface }}
       PORT: {{ port_watchyourlan }}
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:{{ port_watchyourlan }}/api/status || exit 1"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
     hostname: {{ id }}-watchyourlan
     image: aceberg/watchyourlan:{{ requested_image_version['watchyourlan'] }}
-    network_mode: "host"
+    network_mode: host
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data/WatchYourLAN
