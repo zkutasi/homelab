@@ -9,6 +9,12 @@ services:
       DISPLAY_TIMEZONE: {{ timezone }}
       SPEEDTEST_SCHEDULE: "{{ speedtest_tracker_schedule }}"
       TZ: {{ timezone }}
+    healthcheck:
+      test: curl -fSs http://localhost/api/healthcheck | jq -r .message || exit 1
+      interval: 10s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
     hostname: {{ id }}-speedtest-tracker
     image: lscr.io/linuxserver/speedtest-tracker:{{ requested_image_version['speedtest-tracker'] }}
     ports:
