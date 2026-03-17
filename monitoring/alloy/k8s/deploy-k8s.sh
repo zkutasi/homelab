@@ -4,6 +4,7 @@ CHART_NAME=grafana/alloy
 NS=monitoring
 RELEASE_NAME=alloy
 REPO_URL=https://grafana.github.io/helm-charts
+VERSION=1.6.1
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

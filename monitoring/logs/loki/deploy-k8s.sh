@@ -4,6 +4,7 @@ CHART_NAME=grafana/loki
 NS=monitoring
 RELEASE_NAME=loki
 REPO_URL=https://grafana.github.io/helm-charts
+VERSION=6.32.0
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

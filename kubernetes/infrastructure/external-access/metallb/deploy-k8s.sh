@@ -4,6 +4,7 @@ CHART_NAME=metallb/metallb
 NS=metallb-system
 RELEASE_NAME=metallb
 REPO_URL=https://metallb.github.io/metallb
+VERSION=0.14.9
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

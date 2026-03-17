@@ -4,6 +4,7 @@ CHART_NAME=semaphoreui/semaphore
 NS=semaphore
 RELEASE_NAME=semaphore
 REPO_URL=https://semaphoreui.github.io/charts
+VERSION=16.0.2
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

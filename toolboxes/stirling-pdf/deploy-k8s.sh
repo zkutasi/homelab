@@ -4,6 +4,7 @@ CHART_NAME=stirling-pdf/stirling-pdf-chart
 NS=stirling-pdf
 RELEASE_NAME=stirling-pdf
 REPO_URL=https://stirling-tools.github.io/Stirling-PDF-chart
+VERSION=2.2.0
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP=reubah
+VERSION=2.13.5
 
 EXTRA_PARAMS=
 
@@ -16,4 +17,5 @@ done
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --app "${APP}" \
     --type truecharts \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

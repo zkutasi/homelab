@@ -4,6 +4,7 @@ CHART_NAME=bitnami/contour
 NS=projectcontour
 RELEASE_NAME=contour
 REPO_URL=https://charts.bitnami.com/bitnami
+VERSION=21.0.1
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

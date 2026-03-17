@@ -4,6 +4,7 @@ CHART_NAME=influxdata/influxdb2
 NS=monitoring
 RELEASE_NAME=influxdb2
 REPO_URL=https://helm.influxdata.com/
+VERSION=2.1.2
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

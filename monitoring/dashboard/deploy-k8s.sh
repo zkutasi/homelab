@@ -4,6 +4,7 @@ CHART_NAME=kubernetes-dashboard/kubernetes-dashboard
 NS=kubernetes-dashboard
 RELEASE_NAME=kubernetes-dashboard
 REPO_URL=https://kubernetes.github.io/dashboard/
+VERSION=7.12.0
 
 EXTRA_PARAMS=
 
@@ -21,6 +22,7 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}
 
 kubectl create sa kube-ds-viewer -n $NS

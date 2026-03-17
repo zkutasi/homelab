@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP=searxng
+VERSION=10.17.3
 
 EXTRA_PARAMS=
 
@@ -16,4 +17,5 @@ done
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --app "${APP}" \
     --type truecharts \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

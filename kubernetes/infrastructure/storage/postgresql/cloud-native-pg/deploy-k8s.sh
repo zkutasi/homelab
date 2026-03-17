@@ -4,6 +4,7 @@ CHART_NAME=cnpg/cloudnative-pg
 NS=cnpg-system
 RELEASE_NAME=cnpg
 REPO_URL=https://cloudnative-pg.github.io/charts/
+VERSION=0.23.2
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

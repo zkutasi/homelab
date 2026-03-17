@@ -4,6 +4,7 @@ CHART_NAME=pulse/pulse
 NS=pulse
 RELEASE_NAME=pulse
 REPO_URL=https://rcourtman.github.io/Pulse/
+VERSION=5.0.9
 
 EXTRA_PARAMS=
 
@@ -21,4 +22,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

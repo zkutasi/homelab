@@ -5,6 +5,7 @@ CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager
 REPO_URL=https://charts.jetstack.io
+VERSION=v1.17.2
 
 EXTRA_PARAMS=
 
@@ -22,6 +23,7 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}
 
 kubectl create secret generic contour-internal-ca-secret \
