@@ -1,24 +1,67 @@
 services:
+  mount-check:
+    command: >
+      sh -c '
+      echo "Waiting for mounts...";
+      while true; do
+        ok=1
+        for d in /mnt/*; do
+          echo "Checking mount $$d...";
+          mountpoint -q "$$d" || ok=0
+          ls "$$d" >/dev/null 2>&1 || ok=0
+        done
+        if [ "$$ok" = "1" ]; then
+          echo "All mounts OK";
+          exit 0;
+        fi
+        echo "Mounts not ready, retrying in 5s...";
+        sleep 5;
+      done
+      '
+    container_name: plex-mount-check
+    hostname: {{ id }}-plex-mount-check
+    image: alpine
+    restart: no
+    volumes:
+      - /mnt:/mnt:ro
   plex:
     container_name: plex
+    depends_on:
+      mount-check:
+        condition: service_completed_successfully
     environment:
       - UID={{ docker_uid }}
       - GID={{ docker_gid }}
       - GIDLIST={{ docker_gid }}
       - TZ={{ timezone }}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -s http://localhost:32400/identity || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
     hostname: {{ id }}-plex
     image: plexinc/pms-docker:{{ requested_image_version['plex'] }}
     network_mode: host
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
-      - /mnt:/mnt
+      - /mnt:/mnt:ro
   tautulli:
     container_name: tautulli
+    depends_on:
+      plex:
+        condition: service_healthy
     environment:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}
       - TZ={{ timezone }}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f -s http://localhost:8181/status || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
     hostname: {{ id }}-tautulli
     image: ghcr.io/tautulli/tautulli:{{ requested_image_version['tautulli'] }}
     ports:

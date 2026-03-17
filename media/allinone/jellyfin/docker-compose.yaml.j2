@@ -1,6 +1,34 @@
 services:
+  mount-check:
+    command: >
+      sh -c '
+      echo "Waiting for mounts...";
+      while true; do
+        ok=1
+        for d in /mnt/*; do
+          echo "Checking mount $$d...";
+          mountpoint -q "$$d" || ok=0
+          ls "$$d" >/dev/null 2>&1 || ok=0
+        done
+        if [ "$$ok" = "1" ]; then
+          echo "All mounts OK";
+          exit 0;
+        fi
+        echo "Mounts not ready, retrying in 5s...";
+        sleep 5;
+      done
+      '
+    container_name: jellyfin-mount-check
+    hostname: {{ id }}-jellyfin-mount-check
+    image: alpine
+    restart: no
+    volumes:
+      - /mnt:/mnt:ro
   jellyfin:
     container_name: jellyfin
+    depends_on:
+      mount-check:
+        condition: service_completed_successfully
     devices:
       - /dev/dri:/dev/dri
     environment:
@@ -11,11 +39,11 @@ services:
     hostname: {{ id }}-jellyfin
     image: jellyfin/jellyfin:{{ requested_image_version['jellyfin'] }}
     healthcheck:
-      test: for d in /mnt/*; do mountpoint -q "$$d" || exit 1; done
+      test: ["CMD-SHELL", "curl -f -s http://localhost:8096/System/Info/Public || exit 1"]
       interval: 30s
-      timeout: 10s
+      timeout: 5s
       retries: 3
-      start_period: 40s
+      start_period: 60s
     ports:
       - {{ port_jellyfin_http }}:8096
     restart: unless-stopped
