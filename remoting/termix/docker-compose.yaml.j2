@@ -5,6 +5,12 @@ services:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
+    healthcheck:
+      test: "nc -z 127.0.0.1 4822 || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
     hostname: {{ id }}-termix-guacd
     image: guacamole/guacd:{{ requested_image_version['termix-guacd'] }}
     networks:
