@@ -9,11 +9,17 @@ services:
       - -proxyport=2375
       - -stoponwatchdog
       - -shutdowngracetime=5
+      - -allowhealthcheck
     container_name: docker-socket-proxy-readonly
     environment:
       - PUID={{ docker_uid }}
       - PGID={{ docker_docker_group_id }}
       - TZ={{ timezone }}
+    healthcheck:
+      test: ["CMD", "./healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 2
     hostname: {{ id }}-docker-socket-proxy-readonly
     image: wollomatic/socket-proxy:{{ requested_image_version['wollomatic-docker-socket-proxy'] }}
     ports:
