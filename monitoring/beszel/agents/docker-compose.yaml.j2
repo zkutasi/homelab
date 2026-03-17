@@ -34,6 +34,9 @@ services:
       PUID: {{ docker_uid }}
       PGID: {{ docker_gid }}
       TZ: {{ timezone }}
+    healthcheck:
+      test: ['CMD', '/agent', 'health']
+      interval: 120s
     hostname: {{ id }}-beszel-agent
     image: henrygd/beszel-agent:{{ requested_image_version['beszel-agent'] }}
     network_mode: host
