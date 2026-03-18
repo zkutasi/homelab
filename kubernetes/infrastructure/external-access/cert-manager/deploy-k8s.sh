@@ -27,6 +27,6 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     ${EXTRA_PARAMS}
 
 kubectl create secret generic contour-internal-ca-secret \
-    --namespace cert-manager \
+    --namespace $NS \
     --from-file=tls.key=${CA_DIR}/ca.key \
     --from-file=tls.crt=${CA_DIR}/ca.crt
