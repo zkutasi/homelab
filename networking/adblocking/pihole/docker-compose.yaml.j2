@@ -32,6 +32,13 @@ services:
     container_name: pihole-unbound
     environment:
       TZ: "{{ timezone }}"
+      EXTENDED_HEALTHCHECK: true
+    healthcheck:
+      test: /usr/local/unbound/sbin/healthcheck.sh
+      interval: 60s
+      retries: 3
+      start_period: 5s
+      timeout: 15s
     hostname: {{ id }}-pihole-unbound
     image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
     networks:
