@@ -9,4 +9,13 @@ externalDatabase:
   existingSecret: kuvasz-postgresql-db-password-secret
   existingSecretPasswordKey: password
 
+extraVolumes:
+  - name: ca-certificates
+    secret:
+      secretName: ca-certificates
+extraVolumeMounts:
+  - name: ca-certificates
+    mountPath: /opt/java/openjdk/lib/security/cacerts
+    subPath: cacerts
+
 timezone: "Europe/Budapest"

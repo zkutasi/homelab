@@ -9,7 +9,7 @@ terraform.tfvars
 terraform.tfstate*
 kubespray-repo
 .ansible
-*-values-private.yaml
+*-private.yaml
 kompose-manifests
 cup.json
 *.env
@@ -23,3 +23,4 @@ common-*.tgz
 ca.key
 **/chart/charts/**
 termix_hosts.json
+cacerts

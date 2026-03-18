@@ -6,7 +6,7 @@ NS=kuvasz
 RELEASE_NAME=kuvasz
 VERSION=3.5.1
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--extra-values app-values-config-private.yaml"
 
 while [ $# -ge 1 ]; do
   case "$1" in
@@ -21,6 +21,10 @@ $(git rev-parse --show-toplevel)/common-deploy-cnpg.sh \
     --app-user ${APP} \
     --namespace $NS \
     ${EXTRA_PARAMS}
+
+kubectl create secret generic ca-certificates \
+    --namespace $NS \
+    --from-file=cacerts=config/static/cacerts \
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \

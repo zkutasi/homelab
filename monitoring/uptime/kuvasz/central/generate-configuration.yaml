@@ -1,0 +1,8 @@
+- name: Generate dynamic configuration for Kuvasz
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/app-values-config-private.yaml.j2
+        dest: "app-values-config-private.yaml"

@@ -3,12 +3,14 @@
 APP=app
 CHART_NAME=
 DEPLOYMENT_TYPE=helm
+EXTRA_VALUES_FILES=
 LATEST=0
 NS=
 POST_RENDERER=
 RELEASE_NAME=
 REPO_NAME=
 REPO_URL=
+VALUES=
 VERSION=
 
 function usage() {
@@ -17,17 +19,18 @@ Usage: $0 --app <app-name> --deployment-type <helm|truecharts> [--chart-name <ch
 
 Options:
   --app <app-name>            Name of the application (default: app)
+  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>)
+  --extra-values <file>       Additional values file to pass to helm (can be specified multiple times)
+  --latest                    Use the latest chart version (overrides --version)
+  --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)
+  --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
+  --release-name <release-name> Helm release name (default: same as app name)
+  --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
   --type <type>               Type of deployment. Can be either of the following:
                                 - helm         : for public Helm charts (default)
                                 - truecharts   : for existing Truecharts helm chart
                                 - local        : for local Truecharts helm chart
-  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>)
-  --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
-  --latest                    Use the latest chart version (overrides --version)
-  --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)
-  --release-name <release-name> Helm release name (default: same as app name)
   --version <version>         Specific chart version to deploy (default: current or latest if not installed)
-  --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
 EOF
 }
 
@@ -40,6 +43,10 @@ while [ $# -ge 1 ]; do
     --chart-name)
       shift
       CHART_NAME=$1
+      ;;
+    --extra-values)
+      shift
+      EXTRA_VALUES_FILES="${EXTRA_VALUES_FILES} $1"
       ;;
     --latest)
       LATEST=1
@@ -78,8 +85,17 @@ while [ $# -ge 1 ]; do
 done
 
 [ -z "${APP}" ] && echo "ERROR: APP must be set" && exit 1
-[ -z "${DEPLOYMENT_TYPE}" ] && echo "ERROR: Deployment type must be set" && exit 1
+VALUE_FILES=
+for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" ${EXTRA_VALUES_FILES}; do
+  if [ ! -f ${valuefile} ]; then
+    echo "WARNING: No values file ${valuefile} found"
+    echo "Creating an empty values file ${valuefile}"
+    touch ${valuefile}
+  fi
+  VALUE_FILES="${VALUE_FILES} --values ${valuefile}"
+done
 
+[ -z "${DEPLOYMENT_TYPE}" ] && echo "ERROR: Deployment type must be set" && exit 1
 if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
   [ -z "${CHART_NAME}" ] && CHART_NAME=oci://oci.trueforge.org/truecharts/${APP}
   [ -z "${NS}" ] && NS=${APP}
@@ -145,17 +161,6 @@ fi
 
 [ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
 
-if [ ! -f "${APP}-values.yaml" ]; then
-  echo "WARNING: No values file ${APP}-values.yaml found"
-  echo "Creating an empty values file ${APP}-values.yaml"
-  touch ${APP}-values.yaml
-fi
-if [ ! -f "${APP}-values-private.yaml" ]; then
-  echo "WARNING: No private values file ${APP}-values-private.yaml found"
-  echo "Creating an empty private values file ${APP}-values-private.yaml"
-  touch ${APP}-values-private.yaml
-fi
-
 if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
   echo "Running helm dependency update for local helm chart..."
   helm dependency update "${CHART_NAME}"
@@ -166,8 +171,7 @@ CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
-    --values ${APP}-values.yaml \
-    --values ${APP}-values-private.yaml \
+    ${VALUE_FILES} \
     --debug"
 
 if [ -n "${POST_RENDERER}" ]; then
