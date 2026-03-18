@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: nut-exporter
     requested_image_version:
-      nut-exporter: "3.2.1"
+      nut-exporter: "3.2.5"
