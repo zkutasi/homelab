@@ -39,3 +39,5 @@ After deployment, the Caddyfile is also templated out. But still, the local DNS 
 ## Commands
 
 ## Notable comments
+
+- For TLS certificates generated: There will be an intermediate certificate generated, that has a validity of `7d` (default, configurable), and a leaf certificate generated that has a validity of `12h` (default, configurable per route only). The renewal window is set to `33%` (default, configurable), meaning `4h` before the expiration the leaf cert will be renewed. This might be a problem to spot non-renewing certs, but makes sure that stolen certs are not valid for too long. Since all of the certs are managed by Caddy, if one goes down all goes down... so it is pointless to monitor them. Monitor Caddy instead with a single monitor.
