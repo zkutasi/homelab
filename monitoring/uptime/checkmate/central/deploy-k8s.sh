@@ -21,6 +21,10 @@ if [[ "${JWT_SECRET}" == "null" ]]; then
   yq -i ".workload.main.podSpec.containers.main.env.JWT_SECRET=\"${JWT_SECRET}\"" app-values-private.yaml
 fi
 
+kubectl create secret generic ca-certificates \
+    --namespace $NS \
+    --from-file=homelab-ca.pem=config/static/ca.crt \
+
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name ${PWD}/chart \
     --namespace $NS \

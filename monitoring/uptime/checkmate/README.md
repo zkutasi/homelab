@@ -34,3 +34,9 @@
 ## Commands
 
 ## Notable comments
+
+- Swagger API docs are available at `/api-docs`.
+- Infrastructure as code is not possible, but the API is there to automate.
+- Bulk import seems possible, though the button is missing from the UI for me.
+- No API keys are possible, only username/password auth on the API.
+- For each monitor, the settings are not as diverse as the other contenders: only the response JSON can be matched against a regex, but not the status code for example.
