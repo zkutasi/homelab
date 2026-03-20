@@ -4,6 +4,7 @@ There are a lot of components that are still required for the Kubernetes infrast
 
 - LoadBalancers
 - Ingress Controllers
+- CoreDNS and NodelocalDNS config
 - ExternalDNS handlers
 - Certificate Managers
 - StorageClasses
@@ -34,6 +35,17 @@ In Kubernetes, above the LoadBalancer layer, Ingresses allow Layer7 access to HT
 - [Nginx](https://www.nginx.com/products/nginx-ingress-controller/) - This is the original ingress shipped with Kubernetes, and compatible with many helm charts out of the box.
 - [Contour](https://projectcontour.io/) - This is what I have chosen as I work with this one, I know this one well enough.
 - [Traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) - Another popular ingress among homelabbers
+
+### CoreDNS and NodelocalDNS config
+
+Normally, the regular installation has the following configuration for CoreDNS:
+
+- Inside the Pod, the NodelocalDNS address is present in the `/etc/resolv.conf` (169.254.x.x). This is a DaemonSet and the address is non-routable, so the local instance will get it.
+- The NodelocalDNS config forwards every known K8s FQDN to the CoreDNS IP but caches the results, and every unknown IP goes to the local `/etc/resolv.conf`, which is the router-given addresses -> This was bypassed and now forwarding everything to CoreDNS instead
+- In CoreDNS config, a new forwarding logic was added for the internal addresses to reach the local DNS server, UNTIL it is not directly in the router
+
+This way NodelocalDNS still will act as a cache and will contain no logic, and CoreDNS can have additional zones defined to properly resolve.
+These tricks are required only until the router can handle internal addresses completely.
 
 ### ExternalDNS
 
