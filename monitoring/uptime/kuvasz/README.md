@@ -63,4 +63,5 @@ To check against the custom certs you might have it is a must to mount them. For
 ## Notable comments
 
 - No ICMP or DNS test yet, just HTTP, but that one is highly configurable
+- Configurable via Code as well, in this case some parts of the UI become read-only
 - For me the custom CA setup did not work, though there were everything required for the mapping of the CA in the Pod.
