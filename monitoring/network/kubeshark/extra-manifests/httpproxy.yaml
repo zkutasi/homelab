@@ -8,11 +8,13 @@ spec:
   routes:
     - conditions:
         - prefix: /
+      enableWebsockets: true
       services:
         - name: kubeshark-front
           port: 80
-      enableWebsockets: true
       timeoutPolicy:
         response: 3600s
   virtualhost:
     fqdn: kubeshark.kubernetes.home
+    tls:
+      secretName: kubeshark-cert-secret
