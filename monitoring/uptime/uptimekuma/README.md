@@ -25,13 +25,7 @@
                 AUTOKUMA__KUMA__PASSWORD: ...
     ```
 
-2. Using the ansible inventory, generate the config by running the following command
-
-    ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/uptimekuma/central/generate-configuration.yaml --no-check
-    ```
-
-3. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

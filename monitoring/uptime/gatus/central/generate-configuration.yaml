@@ -1,0 +1,8 @@
+- name: Generate dynamic configuration for Gatus
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/gatus-values-config-private.yaml.j2
+        dest: "gatus-values-config-private.yaml"

@@ -1,0 +1,30 @@
+configmap:
+  config:
+    data:
+      config.yaml: |
+        endpoints:
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined %}
+{% for service in hostvars[host].exposed_services %}
+          - name: http-{{ host }}-{{ service.name }}
+            group: {{ host }}
+            url: "https://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+            client:
+              insecure: true
+            interval: 60s
+            conditions:
+{% if service.accepted_extra_statuscodes is defined %}
+              - "[STATUS] == any({{ service.accepted_extra_statuscodes | join(',') }})"
+{% else %}
+              - "[STATUS] < 300"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor%}
+{% for host in groups['all'] %}
+          - name: ping-{{ host }}
+            group: {{ 'k8s' if host.startswith('k8s') else host }}
+            url: "icmp://{{ hostvars[host].ansible_host }}"
+            conditions:
+              - "[CONNECTED] == true"
+{% endfor%}

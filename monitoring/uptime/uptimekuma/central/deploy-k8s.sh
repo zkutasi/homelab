@@ -25,6 +25,10 @@ kubectl create secret generic ca-certificates \
     --from-file=homelab-ca.pem=config/static/ca.crt \
     --dry-run=client -o yaml | kubectl apply -f -
 
+$(git rev-parse --show-toplevel)/common-ansible-run-playbook.sh \
+    --playbook ${PWD}/generate-configuration.yaml \
+    --no-check
+
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name ${PWD}/chart \
     --namespace $NS \
