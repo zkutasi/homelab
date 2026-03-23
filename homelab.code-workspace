@@ -61,6 +61,12 @@
             "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX}; popd",
             "name": "Kickstart a project",
 						"group": "Kickstart"
+        },
+				{
+            "command": "pushd $(git rev-parse --show-toplevel)/automation/ansible; ./deploy-ansible.sh; popd",
+            "name": "Update Ansible Navigator",
+						"group": "Ansible Navigator",
+						"auto": true
         }
     ]
 	}
