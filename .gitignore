@@ -24,3 +24,4 @@ ca.key
 **/chart/charts/**
 termix_hosts.json
 cacerts
+autokuma-monitors

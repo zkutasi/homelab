@@ -1,0 +1,27 @@
+{
+    "name": "{{ monitor_name }}",
+{% if monitor_parent_name is defined %}
+    "parent_name": "{{ monitor_parent_name }}",
+{% endif %}
+    "type": "{{ monitor_type }}",
+{% if monitor_url is defined %}
+    "url": "{{ monitor_url }}",
+{% endif %}
+{% if monitor_hostname is defined %}
+    "hostname": "{{ monitor_hostname }}",
+{% endif %}
+{% if monitor_accepted_extra_statuscodes | default([]) | length > 0 %}
+    "accepted_statuscodes": [
+        "200-299",
+{% for code in monitor_accepted_extra_statuscodes %}
+        "{{ code }}"{% if not loop.last %},{% endif %}
+{% endfor %}
+
+    ],
+{% endif %}
+    "tag_names": [
+{% for tag in monitor_tag_names | default([]) %}
+      { "name": "{{ tag }}" }{% if not loop.last %},{% endif %}
+{% endfor %}
+    ]
+}

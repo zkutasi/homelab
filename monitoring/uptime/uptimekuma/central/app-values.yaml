@@ -1,18 +1,50 @@
-image:
+uptimekuma:
   repository: louislam/uptime-kuma
   tag: 2.2.1
   pullPolicy: IfNotPresent
+autokuma:
+  repository: ghcr.io/bigboot/autokuma
+  tag: 2.0.0
+  pullPolicy: IfNotPresent
+
 persistence:
-  data:
+  autokuma-data:
     enabled: true
     accessModes: ReadWriteOnce
-    mountPath: /app/data
     type: pvc
     size: 1Gi
-securityContext:
-  container:
-    runAsGroup: 1000
-    runAsUser: 1000
+    targetSelector:
+      main:
+        autokuma:
+          mountPath: /data
+  autokuma-staticmonitors:
+    enabled: true
+    type: configmap
+    objectName: autokuma-staticmonitors
+    expandObjectName: false
+    targetSelector:
+      main:
+        autokuma:
+          mountPath: /staticmonitors
+  uptimekuma-data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    type: pvc
+    size: 1Gi
+    targetSelector:
+      main:
+        main:
+          mountPath: /app/data
+  ca-certificates:
+    enabled: true
+    type: secret
+    objectName: ca-certificates
+    expandObjectName: false
+    targetSelector:
+      main:
+        main:
+          mountPath: /certs
+
 service:
   main:
     enabled: true
@@ -21,15 +53,29 @@ service:
         port: 3001
         protocol: http
         targetPort: 3001
+
 TZ: Europe/Budapest
+
 workload:
   main:
     enabled: true
     type: Deployment
     podSpec:
       containers:
-        main:
+        autokuma:
           enabled: true
+          env:
+            AUTOKUMA__STATIC_MONITORS: "/staticmonitors"
+            AUTOKUMA__ON_DELETE: "delete"
+            AUTOKUMA__KUMA__URL: "http://localhost:3001"
+            AUTOKUMA__DOCKER__ENABLED: "false"
+            AUTOKUMA__KUBERNETES__ENABLED: "false"
+            AUTOKUMA__FILES__ENABLED: "true"
+            AUTOKUMA__FILES__FOLLOW_SYMLINKS: "true"
+            AUTOKUMA__KUMA__CONNECT_TIMEOUT: "30"
+            AUTOKUMA__TAG_NAME: "Autokuma"
+            AUTOKUMA__TAG_COLOR: "#FFFFFF"
+          imageSelector: autokuma
           probes:
             liveness:
               enabled: false
@@ -37,3 +83,26 @@ workload:
               enabled: false
             startup:
               enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsGroup: 0
+            runAsUser: 0
+        main:
+          enabled: true
+          env:
+            NODE_EXTRA_CA_CERTS: /certs/homelab-ca.pem
+          imageSelector: uptimekuma
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            runAsGroup: 1000
+            runAsUser: 1000
+            allowPrivilegeEscalation: true
+            capabilities:
+              add:
+                - NET_RAW

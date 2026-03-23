@@ -1,0 +1,44 @@
+- name: Initialize expected files list
+  set_fact:
+    host_expected_files: []
+
+- name: Build expected files for host
+  set_fact:
+    host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-' ~ monitorable_host ~ '-' ~ service.name ~ '.json' ] }}"
+  loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
+  loop_control:
+    loop_var: service
+
+- name: Find existing files for host
+  delegate_to: localhost
+  ansible.builtin.find:
+    paths: "{{ monitor_base_dir }}"
+    patterns: "http-{{ monitorable_host }}-*.json"
+  register: host_found_files
+
+- name: Remove obsolete monitor files for host
+  delegate_to: localhost
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop: >-
+    {{
+      host_found_files.files
+      | map(attribute='path')
+      | difference(host_expected_files)
+    }}
+
+- name: Generate HTTP monitor configuration
+  delegate_to: localhost
+  ansible.builtin.template:
+    src: config/templates/monitor.json.j2
+    dest: "{{ monitor_base_dir }}/http-{{ monitorable_host }}-{{ service.name }}.json"
+  loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
+  loop_control:
+    loop_var: service
+  vars:
+    monitor_name: "{{ monitorable_host }}-{{ service.name }}"
+    monitor_parent_name: "{{ monitorable_host }}"
+    monitor_type: "http"
+    monitor_url: "https://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+    monitor_accepted_extra_statuscodes: "{{ service.accepted_extra_statuscodes | default([]) }}"

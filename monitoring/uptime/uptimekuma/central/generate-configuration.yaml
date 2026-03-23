@@ -1,0 +1,34 @@
+- name: Generate dynamic configuration for Uptime Kuma
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ensure output directory exists
+      run_once: true
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "config/autokuma-monitors"
+        state: directory
+    - name: Generate groups for hosts
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: config/templates/monitor.json.j2
+        dest: "config/autokuma-monitors/{{ inventory_hostname  }}.json"
+      vars:
+        monitor_name: "{{ inventory_hostname }}"
+        monitor_type: "group"
+    - name: Generate HTTP monitor configuration files from template
+      ansible.builtin.include_tasks:
+        file: create-http-monitors.yaml
+      vars:
+        monitorable_host: "{{ inventory_hostname }}"
+        monitor_base_dir: "config/autokuma-monitors"
+    - name: Generate Ping monitor configuration files from template
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: config/templates/monitor.json.j2
+        dest: "config/autokuma-monitors/ping-{{ inventory_hostname  }}.json"
+      vars:
+        monitor_name: "ping-{{ inventory_hostname }}"
+        monitor_parent_name: "{{ inventory_hostname }}"
+        monitor_type: "ping"
+        monitor_hostname: "{{ ansible_host }}"

@@ -1,6 +1,8 @@
 # UptimeKuma
 
-[UptimeKuma](https://example.com) - A short introduction of the app
+[Uptime Kuma](https://uptime.kuma.pet/) - An easy-to-use self-hosted monitoring tool
+
+[AutoKuma](https://github.com/BigBoot/AutoKuma) - With AutoKuma, you can eliminate the need for manual monitor creation in the Uptime Kuma UI.
 
 ## The setup
 
@@ -12,7 +14,24 @@
 
 1. Create a values yaml file for potential private data named `app-values-private.yaml`
 
-2. Install with the provided script
+    ```yaml
+    workloads:
+      main:
+        podSpec:
+          containers:
+            autokuma:
+              env:
+                AUTOKUMA__KUMA__USERNAME: ...
+                AUTOKUMA__KUMA__PASSWORD: ...
+    ```
+
+2. Using the ansible inventory, generate the config by running the following command
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/uptimekuma/central/generate-configuration.yaml --no-check
+    ```
+
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
