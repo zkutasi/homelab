@@ -20,43 +20,47 @@
       adminApiKey: ...
     ```
 
-2. Install with the provided script
+2. Using the ansible inventory, generate the config by running the following command
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/kuvasz/central/generate-configuration.yaml --no-check
+    ```
+
+3. To check against the custom certs you might have it is a must to mount them. For this, follow these instructions:
+
+    1. Get the `cacerts` from the image as instructed in the documentation
+
+        ```bash
+        docker run --rm \
+            --entrypoint cat \
+            eclipse-temurin:25-jre-alpine-3.23 \
+            /opt/java/openjdk/lib/security/cacerts > cacerts
+        ```
+
+    2. Add your CA into this
+
+        ```bash
+        docker run --rm \
+            -v $(readlink -f ca.crt):/tmp/certs/ca.crt \
+            -v $(pwd)/cacerts:/tmp/certs/cacerts \
+            eclipse-temurin:25-jre-alpine-3.23 \
+            sh -c 'cd /tmp/certs && keytool \
+                -keystore cacerts \
+                -storepass changeit \
+                -noprompt \
+                -trustcacerts \
+                -importcert \
+                -alias homelab-ca \
+                -file ca.crt'
+        ```
+
+    3. Now add this new `cacerts` file as an extra Secret mount to the container. This is done in the deploy.sh script.
+
+4. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
-
-#### Mount custom CA cert
-
-To check against the custom certs you might have it is a must to mount them. For this, follow these instructions:
-
-1. Get the `cacerts` from the image as instructed in the documentation
-
-    ```bash
-    docker run --rm \
-        --entrypoint cat \
-        eclipse-temurin:25-jre-alpine-3.23 \
-        /opt/java/openjdk/lib/security/cacerts > cacerts
-    ```
-
-2. Add your CA into this
-
-    ```bash
-    docker run --rm \
-        -v $(readlink -f ca.crt):/tmp/certs/ca.crt \
-        -v $(pwd)/cacerts:/tmp/certs/cacerts \
-        eclipse-temurin:25-jre-alpine-3.23 \
-        sh -c 'cd /tmp/certs && keytool \
-            -keystore cacerts \
-            -storepass changeit \
-            -noprompt \
-            -trustcacerts \
-            -importcert \
-            -alias homelab-ca \
-            -file ca.crt'
-    ```
-
-3. Now add this new `cacerts` file as an extra Secret mount to the container. This is done in the deploy.sh script.
 
 ## Commands
 

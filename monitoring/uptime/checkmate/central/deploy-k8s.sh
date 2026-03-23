@@ -24,6 +24,7 @@ fi
 kubectl create secret generic ca-certificates \
     --namespace $NS \
     --from-file=homelab-ca.pem=config/static/ca.crt \
+    --dry-run=client -o yaml | kubectl apply -f -
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name ${PWD}/chart \

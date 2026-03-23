@@ -25,6 +25,7 @@ $(git rev-parse --show-toplevel)/common-deploy-cnpg.sh \
 kubectl create secret generic ca-certificates \
     --namespace $NS \
     --from-file=cacerts=config/static/cacerts \
+    --dry-run=client -o yaml | kubectl apply -f -
 
 $(git rev-parse --show-toplevel)/common-ansible-run-playbook.sh \
     --playbook ${PWD}/generate-configuration.yaml \
