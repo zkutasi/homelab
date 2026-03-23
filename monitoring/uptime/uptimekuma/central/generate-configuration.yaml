@@ -1,5 +1,5 @@
 - name: Generate dynamic configuration for Uptime Kuma
-  hosts: all
+  hosts: localhost
   gather_facts: false
   tasks:
     - name: Ensure output directory exists
@@ -8,6 +8,17 @@
       ansible.builtin.file:
         path: "config/autokuma-monitors"
         state: directory
+    - name: Generate group for k8s
+      ansible.builtin.template:
+        src: config/templates/monitor.json.j2
+        dest: "config/autokuma-monitors/k8s.json"
+      vars:
+        monitor_name: "k8s"
+        monitor_type: "group"
+- name: Generate dynamic configuration for Uptime Kuma per host
+  hosts: all
+  gather_facts: false
+  tasks:
     - name: Generate groups for hosts
       delegate_to: localhost
       ansible.builtin.template:
@@ -16,6 +27,7 @@
       vars:
         monitor_name: "{{ inventory_hostname }}"
         monitor_type: "group"
+      when: not inventory_hostname.startswith('k8s')
     - name: Generate HTTP monitor configuration files from template
       ansible.builtin.include_tasks:
         file: create-http-monitors.yaml
@@ -29,6 +41,6 @@
         dest: "config/autokuma-monitors/ping-{{ inventory_hostname  }}.json"
       vars:
         monitor_name: "ping-{{ inventory_hostname }}"
-        monitor_parent_name: "{{ inventory_hostname }}"
+        monitor_parent_name: "{{ 'k8s' if inventory_hostname.startswith('k8s') else inventory_hostname }}"
         monitor_type: "ping"
         monitor_hostname: "{{ ansible_host }}"
