@@ -18,6 +18,7 @@ configmap:
 {% else %}
               - "[STATUS] < 300"
 {% endif %}
+              - "[CONNECTED] == true"
 {% endfor %}
 {% endif %}
 {% endfor%}
@@ -28,3 +29,14 @@ configmap:
             conditions:
               - "[CONNECTED] == true"
 {% endfor%}
+{% for fqdn in contour_fqdns %}
+          - name: http-k8s-{{ fqdn }}
+            group: k8s
+            url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}"
+            client:
+              insecure: true
+            interval: 60s
+            conditions:
+              - "[STATUS] < 300"
+              - "[CONNECTED] == true"
+{% endfor %}

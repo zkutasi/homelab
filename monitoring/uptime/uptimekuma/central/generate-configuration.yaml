@@ -44,3 +44,65 @@
         monitor_parent_name: "{{ 'k8s' if inventory_hostname.startswith('k8s') else inventory_hostname }}"
         monitor_type: "ping"
         monitor_hostname: "{{ ansible_host }}"
+- name: Generate dynamnic configuration for Uptime Kuma for K8s services
+  hosts: localhost
+  gather_facts: false
+  vars:
+    monitor_base_dir: "config/autokuma-monitors"
+  tasks:
+    - name: Gather Contour HTTPProxy resources
+      kubernetes.core.k8s_info:
+        kubeconfig: "/runner/.kube/config"
+        api_version: projectcontour.io/v1
+        kind: HTTPProxy
+      register: contour_proxies
+    - name: Extract FQDNs
+      ansible.builtin.set_fact:
+        contour_fqdns: >-
+          {{
+            contour_proxies.resources
+            | map(attribute='spec.virtualhost.fqdn')
+            | select('defined')
+            | map('split', '.')
+            | map('first')
+            | list
+          }}
+    - name: Initialize expected files list
+      set_fact:
+        host_expected_files: []
+    - name: Build expected files for host
+      set_fact:
+        host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-k8s-' ~ service ~ '.json' ] }}"
+      loop: "{{ contour_fqdns }}"
+      loop_control:
+        loop_var: service
+    - name: Find existing files for host
+      delegate_to: localhost
+      ansible.builtin.find:
+        paths: "{{ monitor_base_dir }}"
+        patterns: "http-k8s-*.json"
+      register: host_found_files
+    - name: Remove obsolete monitor files for host
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop: >-
+        {{
+          host_found_files.files
+          | map(attribute='path')
+          | difference(host_expected_files)
+        }}
+    - name: Generate HTTP monitor configuration
+      delegate_to: localhost
+      ansible.builtin.template:
+        src: config/templates/monitor.json.j2
+        dest: "{{ monitor_base_dir }}/http-k8s-{{ service }}.json"
+      loop: "{{ contour_fqdns }}"
+      loop_control:
+        loop_var: service
+      vars:
+        monitor_name: "http-k8s-{{ service }}"
+        monitor_parent_name: "k8s"
+        monitor_type: "http"
+        monitor_url: "https://{{ service }}.{{ kubernetes_internal_domain }}"
