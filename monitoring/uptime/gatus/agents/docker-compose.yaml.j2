@@ -1,0 +1,20 @@
+services:
+  gatus-agent:
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-gatus-agent
+    image: twinproduction/gatus:v{{ requested_image_version['gatus'] }}
+    networks:
+      - gatus-agent-network
+    ports:
+      - {{ port_gatus }}:8080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
+
+networks:
+  gatus-agent-network:
+    enable_ipv6: true

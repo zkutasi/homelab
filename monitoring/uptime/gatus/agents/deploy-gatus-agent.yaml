@@ -1,0 +1,13 @@
+- name: Deploy Gatus-agent as docker
+  hosts: qotom
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: gatus-agent
+    requested_image_version:
+      gatus: "5.35.0"
+    docker_compose_create_dirs:
+      - name: config
+      - name: data
+    docker_compose_template_files_copy:
+      - name: config/config.yaml

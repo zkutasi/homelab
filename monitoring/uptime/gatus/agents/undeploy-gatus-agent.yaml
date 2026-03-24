@@ -1,0 +1,6 @@
+- name: Delete Gatus-agent containers
+  hosts: qotom
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: gatus-agent

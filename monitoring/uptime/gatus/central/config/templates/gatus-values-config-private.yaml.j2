@@ -2,6 +2,10 @@ configmap:
   config:
     data:
       config.yaml: |
+        remote:
+          instances:
+            - endpoint-prefix: ""
+              url: "http://gatus-agent.internal.home/api/v1/endpoints/statuses"
         endpoints:
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}
@@ -26,6 +30,7 @@ configmap:
           - name: ping-{{ host }}
             group: {{ 'k8s' if host.startswith('k8s') else host }}
             url: "icmp://{{ hostvars[host].ansible_host }}"
+            interval: 60s
             conditions:
               - "[CONNECTED] == true"
 {% endfor%}
