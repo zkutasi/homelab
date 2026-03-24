@@ -8,6 +8,7 @@
   loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
   loop_control:
     loop_var: service
+  when: service.type == "http"
 
 - name: Find existing files for host
   delegate_to: localhost
@@ -36,6 +37,7 @@
   loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
   loop_control:
     loop_var: service
+  when: service.type == "http"
   vars:
     monitor_name: "{{ monitorable_host }}-{{ service.name }}"
     monitor_parent_name: "{{ monitorable_host }}"

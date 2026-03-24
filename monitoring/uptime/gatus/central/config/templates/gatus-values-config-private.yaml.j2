@@ -10,9 +10,10 @@ configmap:
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
           - name: http-{{ host }}-{{ service.name }}
             group: {{ host }}
-            url: "https://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+            url: "{{ 'http' if (service.insecure_only | default(false)) else 'https' }}://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
             client:
               insecure: true
             interval: 60s
@@ -23,6 +24,31 @@ configmap:
               - "[STATUS] < 300"
 {% endif %}
               - "[CONNECTED] == true"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor%}
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined %}
+{% for service in hostvars[host].exposed_services %}
+{% if service.type == "tcp" %}
+{% for port in service.backend_port.tcp | default([]) %}
+          - name: tcp-{{ host }}-{{ service.name }}-{{ port }}
+            group: {{ host }}
+            url: "tcp://{{ hostvars[host].ansible_host }}:{{ port }}"
+            interval: 60s
+            conditions:
+              - "[CONNECTED] == true"
+{% endfor %}
+{% for port in service.backend_port.udp | default([]) %}
+          - name: udp-{{ host }}-{{ service.name }}-{{ port }}
+            group: {{ host }}
+            url: "udp://{{ hostvars[host].ansible_host }}:{{ port }}"
+            interval: 60s
+            conditions:
+              - "[CONNECTED] == true"
+{% endfor %}
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endfor%}

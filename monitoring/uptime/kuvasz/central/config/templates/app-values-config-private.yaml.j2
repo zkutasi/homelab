@@ -4,12 +4,14 @@ config:
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
       - name: "{{ host }}-{{ service.name }}"
         url: "https://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
         uptime-check-interval: 60
         enabled: true
         ssl-check-enabled: false
         response-time-threshold-millis: 5000
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endfor%}

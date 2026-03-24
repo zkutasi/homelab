@@ -12,6 +12,7 @@
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
 {% set domain = service.proxy_url_prefix + '.' + reverseproxy_internal_domain %}
 {% if service.insecure_only is defined and service.insecure_only == true %}
 {% set domain = 'http://' + domain %}
@@ -36,6 +37,7 @@
     }
   }
 }
+{% endif %}
 {% endfor %}
 {% endif %}
 {% endfor %}
