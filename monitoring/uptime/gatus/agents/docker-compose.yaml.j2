@@ -1,5 +1,6 @@
 services:
   gatus-agent:
+    container_name: gatus-agent
     environment:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
