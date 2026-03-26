@@ -17,6 +17,7 @@ Cataloging either EPUB or PDF books, audiobooks and making them available, searc
 - [Kavita](https://www.kavitareader.com/) - Lightning fast and privacy-friendly, Kavita is a self‑hosted digital library for EPUB, PDF, comics and manga — with built‑in readers (single, double page, and webtoon mode), OPDS, and rich metadata. Install and share your server in minutes.
 - [Biblioteca](https://github.com/biblioverse/biblioteca)
 - [Komga](https://komga.org/) - A media server for your comics, mangas, BDs, magazines and eBooks
+- [Stump](https://www.stumpapp.dev/) - A free and open source comics, manga and digital book server with OPDS support
 
 ### Companion apps
 
