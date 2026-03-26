@@ -5,32 +5,27 @@ iface               = {{ ddns_interface }}
 period              = 300
 verify-address      = false
 
-{% if ddns_ipv6 %}
-{% set checkip_command = "ip -6 addr show " + ddns_interface + " | grep inet6 | egrep -v 'temporary|secondary|deprecated' | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80" %}
-{% else %}
-{% set checkip_command = "ip -4 addr show " + ddns_interface + " | grep inet | awk -F '[ \t]+|/' '{print $3}'" %}
-{% endif %}
-
 {% if ddns_aliases | length > 0 %}
-
 {% for alias in ddns_aliases %}
-custom dynu-{{ alias }} {
-    checkip-command = "{{ checkip_command }}"
+{% if ddns_ipv4 %}
+custom dynu-{{ alias }}-ipv4 {
+    checkip-command = "ip -4 addr show {{ ddns_interface }} | grep inet | awk -F '[ \t]+|/' '{print $3}'"
     ddns-server     = api.dynu.com
-    ddns-path       = "/nic/update?hostname=%h&alias={{ alias }}&{{ "myipv6" if ddns_ipv6 else "myip" }}=%i"
+    ddns-path       = "/nic/update?hostname=%h&alias={{alias}}&myip=%i"
     hostname        = {{ ddns_hostname }}
     password        = {{ ddns_password }}
     username        = {{ ddns_username }}
 }
+{% endif %}
+{% if ddns_ipv6 %}
+custom dynu-{{ alias }}-ipv6 {
+    checkip-command = "ip -6 addr show {{ ddns_interface }} | grep inet6 | egrep -v 'temporary|secondary|deprecated' | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80"
+    ddns-server     = api.dynu.com
+    ddns-path       = "/nic/update?hostname=%h&alias={{alias}}&myipv6=%i"
+    hostname        = {{ ddns_hostname }}
+    password        = {{ ddns_password }}
+    username        = {{ ddns_username }}
+}
+{% endif %}
 {% endfor %}
-
-{% else %}
-custom dynu {
-    checkip-command = "{{ checkip_command }}"
-    ddns-server     = api.dynu.com
-    ddns-path       = "/nic/update?hostname=%h&{{ "myipv6" if ddns_ipv6 else "myip" }}=%i"
-    hostname        = {{ ddns_hostname }}
-    password        = {{ ddns_password }}
-    username        = {{ ddns_username }}
-}
 {% endif %}
