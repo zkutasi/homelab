@@ -18,6 +18,14 @@ There are a handful of useful stuff set up:
   - [CodeSpell](https://github.com/codespell-project/codespell) - Another one for typos and spelling
   - [MarkdownLint](https://github.com/DavidAnson/markdownlint-cli2) - Lints those md files too. This one seems more up-to-date.
   - [GitLeaks](https://github.com/gitleaks/gitleaks) - For avoiding to commit secrets in plaintext
+  - [BetterLeaks](https://github.com/betterleaks/betterleaks) - A more modern and flexible secret scanner
+
+Also, if you maybe want a more modern git-hook alternative, here are a few:
+
+- [Lefthook](https://lefthook.dev/)
+- [HK](https://hk.jdx.dev/)
+- [Prek](https://prek.j178.dev/)
+- [Husky](https://typicode.github.io/husky/)
 
 ## Prerequisites
 
