@@ -1,0 +1,12 @@
+- name: Deploy PeaNUT as docker
+  hosts: nutserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: peanut
+    requested_image_version:
+      peanut: "5.22.0"
+    docker_compose_create_dirs:
+      - name: config
+    docker_compose_template_files_copy:
+      - name: config/settings.yml

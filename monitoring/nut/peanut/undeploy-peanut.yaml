@@ -1,0 +1,6 @@
+- name: Delete PeaNUT containers
+  hosts: nutserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: peanut

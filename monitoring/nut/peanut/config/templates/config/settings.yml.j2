@@ -1,0 +1,5 @@
+NUT_SERVERS:
+  - HOST: {{ hostvars[groups['nutserver'][0]].ansible_host }}
+    PORT: 3493
+    USERNAME: "{{ nut_server_synology216_username }}"
+    PASSWORD: "{{ nut_server_synology216_password }}"
