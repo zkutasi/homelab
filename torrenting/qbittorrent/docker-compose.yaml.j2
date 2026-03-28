@@ -10,6 +10,8 @@ services:
       - TZ={{ timezone }}
     hostname: {{ id }}-qbittorrent-nox
     image: qbittorrentofficial/qbittorrent-nox:{{ requested_image_version['qbittorrent-nox'] }}
+    networks:
+      - qbittorrent-nox-network
     ports:
       - {{ port_qbittorrent }}:48080
     restart: unless-stopped
@@ -18,3 +20,15 @@ services:
 {% for volume in docker_compose_extra_volumes %}
       - {{ volume.from }}:{{ volume.to }}
 {% endfor %}
+
+{% if docker_compose_ipv6 %}
+networks:
+  qbittorrent-nox-network:
+    enable_ipv6: true
+{% if docker_ipv6_ipam_subnet is defined %}
+    ipam:
+      config:
+        - subnet: {{ docker_ipv6_ipam_subnet }}
+          gateway: {{ (docker_ipv6_ipam_subnet | split('/') | first) + '1' }}
+{% endif %}
+{% endif %}
