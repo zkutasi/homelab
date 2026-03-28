@@ -29,3 +29,5 @@
 ## Commands
 
 ## Notable comments
+
+- With fail2ban's SSH jail, if it is set to `mode=aggressive`, the connectivity check trips the ban. Either turn off the connectivity check on hosts you use fail2ban with this mode, or turn back to the normal mode.

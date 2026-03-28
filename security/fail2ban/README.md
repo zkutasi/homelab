@@ -28,3 +28,4 @@ N/A
 ## Notable comments
 
 - There is a neat little Grafana dashboard and a full stack for exposing the GeoLocation of the banned IPs, see [this reddit post](https://www.reddit.com/r/selfhosted/comments/1j9w4f6/feels_good_to_know_homelab_is_one_step_safer/) for inspiration.
+- The `mode=aggressive` SSH jail might interfere with monitoring solutions, that open connections but stop at the pre-auth phase (Termix is one). Either consider switching back to the normal mode or switch off such behavior, else you will be banned a lot of times.
