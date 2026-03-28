@@ -19,3 +19,4 @@ N/A
 - [Mazanoke](https://mazanoke.com/) - A self-hosted local image optimizer that runs in your browser
 - [Reubah](https://github.com/dendianugerah/reubah) - A simple web-based tool for processing images and converting documents with a simple interface
 - [Vert](https://vert.sh/) - The next-generation file converter. Open source, fully local* and free forever.
+- [PDFCraft](https://pdfcraft.devtoolcafe.com/) - A free, privacy-focused PDF toolkit that runs entirely in your browser. With 90+ professional tools, you can edit, convert, merge, split, and secure your PDF files without ever uploading them to a server.
