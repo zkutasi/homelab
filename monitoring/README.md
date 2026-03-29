@@ -107,3 +107,7 @@ Linux has to be up-to-date, these tools make it obvious if they are lacking behi
 
 - [NetAlertX](https://netalertx.com/) - Scans the network, discovers Hosts and alerts for changes (new host for example)
 - [Scrutiny](https://github.com/analogj/scrutiny/pkgs/container/scrutiny) - A S.M.A.R.T. checker, that also correlates data from BackBlaze to predict HDD issues. Project seems to be abandoned on the release-side, but the images are updated regularly. Pretty interesting metrics, although extremely unreliable.
+
+## Notable comments
+
+- To properly have per-container cgroup reported memory, one needs to edit the file `/boot/firmware/cmdline.txt` and add `cgroup_memory=1 cgroup_enable=memory` to enable this feature.
