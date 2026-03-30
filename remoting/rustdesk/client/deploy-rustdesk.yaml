@@ -1,0 +1,62 @@
+- name: Install dependent packages
+  hosts: remotecontrolled
+  roles:
+    - package-install
+  vars:
+    packages:
+      - libxdo3
+      - gstreamer1.0-pipewire
+- name: Deploy Rustdesk client
+  hosts: remotecontrolled
+  roles:
+    - binary-install
+  become: true
+  vars:
+    requested_binary_version: "1.4.6"
+    bin_filename: rustdesk
+    bin_path: /usr/bin
+    download_url: "https://github.com/rustdesk/rustdesk/releases/download/\
+        {{ requested_binary_version }}/rustdesk-{{ requested_binary_version }}-{{ ansible_architecture }}.deb"
+    compressed: false
+    install_cmd: "dpkg --install ./\
+      rustdesk-{{ requested_binary_version }}-{{ ansible_architecture }}.deb"
+- name: Get the client ID
+  hosts: remotecontrolled
+  tasks:
+    - name: Get the client ID
+      ansible.builtin.shell:
+        cmd: rustdesk --get-id
+      register: rustdesk_client_id
+      changed_when: false
+    - name: Print the Client ID
+      debug:
+        msg: "{{ rustdesk_client_id.stdout }}"
+- name: Configure rustdesk
+  hosts: remotecontrolled
+  vars:
+    config_json:
+      host: "{{ rustdesk_server_address }}"
+      relay: ""
+      api: ""
+      key: ""
+  tasks:
+    - name: Transform JSON as required
+      ansible.builtin.set_fact:
+        rustdesk_config_transformed: >-
+          {{
+            config_json
+            | to_json(separators=(',',':'))
+            | trim
+            | b64encode
+            | reverse
+          }}
+    - name: Show config string
+      ansible.builtin.debug:
+        msg: "{{ rustdesk_config_transformed }}"
+    - name: Call --config
+      ansible.builtin.shell:
+        cmd: rustdesk --config {{ rustdesk_config_transformed }}
+      register: rustdesk_config
+    - name: Call --password
+      ansible.builtin.shell:
+        cmd: rustdesk --password {{ rustdesk_password }}

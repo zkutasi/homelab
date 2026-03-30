@@ -52,6 +52,7 @@ winrm enumerate winrm/config/Listener
    - `photos` - The server that stores Photos
    - `proxmox` - All the Proxmox hosts
    - `proxmoxclusters` - The individual clusters, as some operations should not be done on all cluster Nodes
+   - `remotecontrolled` - The hosts that have remote controlling apps (like RustDesk)
    - `reverseproxy` - A host used to run a reverseproxy in the whole network
    - `smart` - Hosts that require S.M.A.R.T. data to be collected
    - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.

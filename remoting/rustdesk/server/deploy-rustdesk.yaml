@@ -1,0 +1,8 @@
+- name: Deploy rustdesk as docker
+  hosts: external
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: rustdesk
+    requested_image_version:
+      rustdesk: "1.1.14"
