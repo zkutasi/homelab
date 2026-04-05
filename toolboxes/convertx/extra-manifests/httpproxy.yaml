@@ -12,6 +12,21 @@ spec:
         - name: convertx
           port: 3000
   virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*" # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m" # preflight requests can be cached for 10 minutes.
     fqdn: convertx.kubernetes.home
     tls:
       secretName: convertx-cert-secret

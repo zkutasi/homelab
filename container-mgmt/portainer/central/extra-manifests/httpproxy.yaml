@@ -13,6 +13,21 @@ spec:
           port: 9443
           protocol: tls
   virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*" # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m" # preflight requests can be cached for 10 minutes.
     fqdn: portainer.kubernetes.home
     tls:
       secretName: portainer-cert-secret

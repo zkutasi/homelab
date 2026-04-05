@@ -10,6 +10,21 @@ spec:
         - name: kube-prometheus-stack-grafana
           port: 80
   virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*" # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m" # preflight requests can be cached for 10 minutes.
     fqdn: grafana.kubernetes.home
     tls:
       secretName: grafana-cert-secret

@@ -12,6 +12,21 @@ spec:
         - name: reubah
           port: 8081
   virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*" # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m" # preflight requests can be cached for 10 minutes.
     fqdn: reubah.kubernetes.home
     tls:
       secretName: reubah-cert-secret

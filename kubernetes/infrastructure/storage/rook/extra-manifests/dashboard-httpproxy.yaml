@@ -11,6 +11,21 @@ spec:
           port: 8443
           protocol: tls
   virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*" # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m" # preflight requests can be cached for 10 minutes.
     fqdn: ceph.kubernetes.home
     tls:
       secretName: ceph-dashboard-cert-secret
