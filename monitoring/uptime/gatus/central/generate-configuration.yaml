@@ -1,4 +1,4 @@
-- name: Generate dynamnic configuration for Uptime Kuma for K8s services
+- name: Generate dynamic configuration for Uptime Kuma for K8s services
   hosts: localhost
   gather_facts: false
   vars:

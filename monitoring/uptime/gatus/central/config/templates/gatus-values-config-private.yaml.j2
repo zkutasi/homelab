@@ -11,9 +11,9 @@ configmap:
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
 {% if service.type == "http" %}
-          - name: http-{{ host }}-{{ service.name }}
+          - name: https-{{ host }}-{{ service.name }}
             group: {{ host }}
-            url: "{{ 'http' if (service.insecure_only | default(false)) else 'https' }}://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+            url: "https://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
             client:
               insecure: true
             interval: 60s
@@ -24,6 +24,19 @@ configmap:
               - "[STATUS] < 300"
 {% endif %}
               - "[CONNECTED] == true"
+{% if service.insecure_also | default(false) %}
+          - name: http-{{ host }}-{{ service.name }}
+            group: {{ host }}
+            url: "http://{{ service.proxy_url_prefix }}.{{ reverseproxy_internal_domain }}"
+            interval: 60s
+            conditions:
+{% if service.accepted_extra_statuscodes is defined %}
+              - "[STATUS] == any({{ service.accepted_extra_statuscodes | join(',') }})"
+{% else %}
+              - "[STATUS] < 300"
+{% endif %}
+              - "[CONNECTED] == true"
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

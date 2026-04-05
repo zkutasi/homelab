@@ -1,4 +1,5 @@
 {
+  auto_https disable_redirects
   pki {
     ca internal {
       root {
@@ -9,15 +10,37 @@
   }
 }
 
+(cors) {
+	@cors_preflight {
+    method OPTIONS
+  }
+
+	header {
+		>Access-Control-Allow-Origin "{header.origin}"
+		Vary Origin
+		Access-Control-Allow-Headers "Content-Type, Authorization"
+    Access-Control-Allow-Credentials "true"
+	}
+
+	handle @cors_preflight {
+		header {
+			Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+			Access-Control-Max-Age "3600"
+		}
+		respond "" 204
+	}
+}
+
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
 {% if service.type == "http" %}
-{% set domain = service.proxy_url_prefix + '.' + reverseproxy_internal_domain %}
-{% if service.insecure_only is defined and service.insecure_only == true %}
-{% set domain = 'http://' + domain %}
+{% set domains = [ service.proxy_url_prefix + '.' + reverseproxy_internal_domain ] %}
+{% if service.insecure_also is defined and service.insecure_also == true %}
+{% set domains = domains + [ 'http://' + service.proxy_url_prefix + '.' + reverseproxy_internal_domain ] %}
 {% endif %}
 
+{% for domain in domains %}
 {{ domain }} {
 {% if service.redirection_path is defined %}
   redir / {{ service.redirection_path }}{uri}
@@ -36,7 +59,9 @@
       ca internal
     }
   }
+  import cors {header.origin}
 }
+{% endfor %}
 {% endif %}
 {% endfor %}
 {% endif %}
