@@ -1,0 +1,10 @@
+- name: Deploy Homer as docker
+  hosts: dashboard
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: homer
+    requested_image_version:
+      homer: "25.11.1"
+    docker_compose_create_dirs:
+      - name: config

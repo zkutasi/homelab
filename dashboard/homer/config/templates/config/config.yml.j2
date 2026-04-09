@@ -1,0 +1,67 @@
+title: "App dashboard"
+subtitle: "Homer"
+
+header: true
+footer: false
+
+columns: "auto"
+connectivityCheck: true
+
+defaults:
+  layout: list
+  colorTheme: auto
+
+services:
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined %}
+  - name: "{{ host }}"
+    icon: "fas fa-network-wired"
+    items:
+{% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
+{% set domain = 'https://' + service.proxy_url_prefix + '.' + reverseproxy_internal_domain %}
+{% if service.icon is defined %}
+{% if service.icon.startswith('http') %}
+{% set service_icon_url = service.icon %}
+{% else %}
+{% set service_icon_url = 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/' + service.icon + '.png' %}
+{% endif %}
+{% else %}
+{% set service_icon_url = 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/' + service.name + '.png' %}
+{% endif %}
+      - name: "{{ service.name }}"
+        logo: "{{ service_icon_url }}"
+        url: "{{ domain }}"
+        target: "_blank"
+{% if service.name == "pihole"%}
+        type: "PiHole"
+        apiVersion: 6
+        apikey: "{{ pihole_apikey }}"
+{% elif service.name.startswith("gatus") %}
+        type: "Gatus"
+{% else%}
+        type: "Ping"
+        method: "get"
+        interval: 60
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+  - name: "Kubernetes"
+    icon: "fas fa-cloud"
+    items:
+{% for fqdn in contour_fqdns %}
+{% set service_icon_url = 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/' + fqdn + '.png' %}
+      - name: "{{ fqdn }}"
+        logo: "{{ service_icon_url }}"
+        url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}"
+        target: "_blank"
+{% if fqdn == "gatus" %}
+        type: "Gatus"
+{% else%}
+        type: "Ping"
+        method: "GET"
+        interval: 60
+{% endif %}
+{% endfor %}
