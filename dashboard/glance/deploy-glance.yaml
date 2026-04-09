@@ -1,0 +1,14 @@
+- name: Deploy Glance as docker
+  hosts: dashboard
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: glance
+    requested_image_version:
+      glance: "0.8.4"
+    docker_compose_create_dirs:
+      - name: config
+      - name: assets
+    # docker_compose_static_files_copy:
+    #   - name: assets
+    #   - name: config

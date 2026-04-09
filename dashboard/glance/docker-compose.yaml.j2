@@ -1,0 +1,15 @@
+services:
+  glance:
+    container_name: glance
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-glance
+    image: glanceapp/glance:v{{ requested_image_version['glance'] }}
+    ports:
+      - {{ port_glance }}:8080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/app/config
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/assets:/app/assets
