@@ -1,0 +1,29 @@
+- name: Generate dynamic configuration for Dashy for K8s services
+  hosts: dashboard
+  gather_facts: false
+  tasks:
+    - name: Gather Contour HTTPProxy resources
+      kubernetes.core.k8s_info:
+        kubeconfig: "/runner/.kube/config"
+        api_version: projectcontour.io/v1
+        kind: HTTPProxy
+      delegate_to: localhost
+      register: contour_proxies
+    - name: Extract FQDNs
+      ansible.builtin.set_fact:
+        contour_fqdns: >-
+          {{
+            contour_proxies.resources
+            | map(attribute='spec.virtualhost.fqdn')
+            | select('defined')
+            | map('split', '.')
+            | map('first')
+            | list
+          }}
+- name: Generate dynamic configuration for Dashy
+  hosts: dashboard
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/config/conf.yml.j2
+        dest: "{{ ansible_user_dir }}/docker-compose/dashy/config/conf.yml"

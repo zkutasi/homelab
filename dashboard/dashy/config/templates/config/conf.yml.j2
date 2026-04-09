@@ -1,0 +1,58 @@
+appConfig:
+  language: en
+  defaultOpeningMethod: newtab
+  statusCheck: true
+  statusCheckInterval: 60
+pageInfo:
+  title: HomeLab
+  description: HomeLab
+sections:
+  - name: Widgets
+    widgets:
+      - type: clock
+        options:
+          timeZone: {{ timezone }}
+          format: en-HU
+          hideDate: false
+      - type: public-ip
+        useProxy: true
+      # - type: pi-hole-stats-v6
+      #   options:
+      #     hostname: https://{{ hostvars[groups['dnsserver'][0]].ansible_host }}
+      #     apiKey: {{ pihole_apikey }}
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined %}
+  - name: {{ host }}
+    items:
+{% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
+{% set domain = 'https://' + service.proxy_url_prefix + '.' + reverseproxy_internal_domain %}
+{% if service.icon is defined %}
+{% if service.icon.startswith('http') %}
+{% set service_icon_url = service.icon %}
+{% else %}
+{% set service_icon_url = 'sh-' + service.icon %}
+{% endif %}
+{% else %}
+{% set service_icon_url = 'sh-' + service.name %}
+{% endif %}
+    - title: {{ service.name }}
+      description: {{ service.name }}
+      icon: {{ service_icon_url }}
+      url: {{ domain }}
+{% if service.accepted_extra_statuscodes is defined %}
+      statusCheckAcceptCodes: {{ service.accepted_extra_statuscodes | join(',') }}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+  - name: Kubernetes
+    items:
+{% for fqdn in contour_fqdns %}
+{% set service_icon_url = 'sh-' + fqdn %}
+    - title: {{ fqdn }}
+      description: {{ fqdn }}
+      icon: {{ service_icon_url }}
+      url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}"
+{% endfor %}

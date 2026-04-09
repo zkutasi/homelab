@@ -1,0 +1,26 @@
+services:
+  dashy:
+    container_name: dashy
+    dns:
+      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
+    environment:
+      NODE_ENV: production
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      NODE_EXTRA_CA_CERTS: /certs/homelab-ca.pem
+    healthcheck:
+      interval: 1m30s
+      retries: 3
+      start_period: 40s
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      timeout: 10s
+    hostname: {{ id }}-dashy
+    image: lissy93/dashy:{{ requested_image_version['dashy'] }}
+    ports:
+      - {{ port_dashy }}:8080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/app/user-data
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/item-icons:/app/user-data/item-icons
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/certs/ca.crt:/certs/homelab-ca.pem:ro
