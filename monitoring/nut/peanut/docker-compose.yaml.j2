@@ -11,5 +11,6 @@ services:
     image: brandawg93/peanut:{{ requested_image_version['peanut'] }}
     network_mode: host
     restart: unless-stopped
+    user: "{{ docker_uid }}:{{ docker_gid }}"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
