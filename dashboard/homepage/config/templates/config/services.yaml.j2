@@ -1,0 +1,149 @@
+{% for host in groups['all'] %}
+{% if hostvars[host].exposed_services is defined and hostvars[host].exposed_services | selectattr("type", "equalto", "http") | list | length > 0 %}
+- {{ host }}:
+{% for service in hostvars[host].exposed_services %}
+{% if service.type == "http" %}
+{% set domain = 'https://' + service.proxy_url_prefix + '.' + reverseproxy_internal_domain %}
+{% if service.icon is defined %}
+{% if service.icon.startswith('http') %}
+{% set service_icon_url = service.icon %}
+{% else %}
+{% set service_icon_url = 'sh-' + service.icon %}
+{% endif %}
+{% else %}
+{% set service_icon_url = 'sh-' + service.name %}
+{% endif %}
+  - {{ service.name }}:
+      description: {{ service.name }}
+      icon: {{ service_icon_url }}
+      href: {{ domain }}
+      siteMonitor: {{ domain }}
+{% if service.name == "booklore" %}
+      widget:
+        type: booklore
+        url: {{ domain }}
+        username: {{ booklore_username }}
+        password: {{ booklore_password }}
+{% elif service.name == "emby" %}
+      widget:
+        type: emby
+        url: {{ domain }}
+        key: {{ emby_apikey_homepage }}
+        enableBlocks: true # optional, defaults to false
+        enableNowPlaying: true # optional, defaults to true
+        enableUser: true # optional, defaults to false
+        enableMediaControl: true # optional, defaults to true
+        showEpisodeNumber: true # optional, defaults to false
+        expandOneStreamToTwoRows: true # optional, defaults to true
+{% elif service.name.startswith("gatus") %}
+      widget:
+        type: gatus
+        url: {{ domain }}
+{% elif service.name == "immich" %}
+      widget:
+        type: immich
+        url: {{ domain }}
+        key: {{ immich_api_key }}
+        version: 2
+{% elif service.name == "jellyfin" %}
+      widget:
+        type: jellyfin
+        url: {{ domain }}
+        key: {{ jellyfin_apikey_homepage }}
+        version: 2 # optional, default is 1
+        enableBlocks: true # optional, defaults to false
+        enableNowPlaying: true # optional, defaults to true
+        enableUser: true # optional, defaults to false
+        enableMediaControl: true # optional, defaults to true
+        showEpisodeNumber: true # optional, defaults to false
+        expandOneStreamToTwoRows: true # optional, defaults to true
+{% elif service.name == "kopia" %}
+      widget:
+        type: kopia
+        url: {{ domain }}
+        username: {{ kopia_server_username }}
+        password: {{ kopia_server_password }}
+{% elif service.name == "netalertx" %}
+      widget:
+        type: netalertx
+        url: {{ domain }}
+        key: {{ netalertx_api_token }}
+        version: 1
+{% elif service.name == "omv" %}
+      widgets:
+        - type: openmediavault
+          url: {{ domain }}
+          username: {{ omv_username }}
+          password: {{ omv_password }}
+          method: services.getStatus
+        - type: openmediavault
+          url: {{ domain }}
+          username: {{ omv_username }}
+          password: {{ omv_password }}
+          method: smart.getListBg
+{% elif service.name == "pihole" %}
+      widget:
+        type: pihole
+        url: https://{{ hostvars[host].ansible_host }}:{{ port_pihole_webui_https }}
+        version: 6
+        key: {{ pihole_apikey }}
+{% elif service.name == "plex" %}
+      widget:
+        type: plex
+        url: {{ domain }}
+        key: {{ plex_token }}
+{% elif service.name == "peanut" %}
+      widget:
+        type: peanut
+        url: {{ domain }}
+        key: ups
+{% elif service.name.startswith("qbittorrent") %}
+      widget:
+        type: qbittorrent
+        url: {{ domain }}
+        username: {{ qbittorent_username }}
+        password: {{ qbittorent_password }}
+        enableLeechProgress: true
+        enableLeechSize: true
+{% elif service.name == "speedtest-tracker" %}
+      widget:
+        type: speedtest
+        url: {{ domain }}
+        version: 2
+        key: {{ speedtest_tracker_api_key }}
+        bitratePrecision: 3 # optional, default is 0
+{% elif service.name == "urbackup" %}
+      widget:
+        type: urbackup
+        fields: [ "ok", "errored", "noRecent", "totalUsed" ]
+        username: {{ urbackup_username }}
+        password: {{ urbackup_password }}
+        url: {{ domain }}
+        maxDays: 2
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+- Kubernetes:
+{% for fqdn in contour_fqdns %}
+{% set service_icon_url = 'sh-' + fqdn %}
+  - {{ fqdn }}:
+      description: {{ fqdn }}
+      icon: {{ service_icon_url }}
+      href: https://{{ fqdn }}.{{ kubernetes_internal_domain }}
+      siteMonitor: https://{{ fqdn }}.{{ kubernetes_internal_domain }}
+{% if fqdn == "dockhand" %}
+      widget:
+        type: dockhand
+        url: https://{{ fqdn }}.{{ kubernetes_internal_domain }}
+{% elif fqdn == "gatus" %}
+      widget:
+        type: gatus
+        url: https://{{ fqdn }}.{{ kubernetes_internal_domain }}
+{% elif fqdn == "prometheus"%}
+      widget:
+        type: prometheus
+        url: https://{{ fqdn }}.{{ kubernetes_internal_domain }}
+{% endif %}
+{% endfor %}

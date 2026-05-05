@@ -1,0 +1,13 @@
+- name: Deploy Homepage as docker
+  hosts: dashboard
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: homepage
+    requested_image_version:
+      homepage: "1.12.3"
+    docker_compose_create_dirs:
+      - name: config
+      - name: certs
+    docker_compose_static_files_copy:
+      - name: certs

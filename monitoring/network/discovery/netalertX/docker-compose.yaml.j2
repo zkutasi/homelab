@@ -15,6 +15,7 @@ services:
     network_mode: host
     ports:
       - {{ port_netalertx }}:{{ port_netalertx }}
+      - {{ port_netalertx_graphql }}:20212
     privileged: true
     restart: unless-stopped
     volumes:

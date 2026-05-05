@@ -1,0 +1,6 @@
+- name: Delete Homepage containers
+  hosts: dashboard
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: homepage

@@ -1,0 +1,17 @@
+- datetime:
+    text_size: xl
+    locale: hu
+    format:
+      dateStyle: "long"
+      timeStyle: "long"
+      timeZone: {{ timezone }}
+
+- openmeteo:
+    label: Jaszbereny
+    timezone: {{ timezone }}
+    units: metric
+    cache: 5
+
+- search:
+    provider: google
+    target: _blank
