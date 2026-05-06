@@ -16,3 +16,5 @@ Applications, that periodically scans the subnet of the network your hosts are d
 - [Portracker](https://github.com/mostafa-wahied/portracker) - Network wide port tracking and discovery, supports multi-hosts too
 - [PortNote](https://github.com/crocofied/PortNote) - Minimalist port-tracker
 - [Scanopy](https://scanopy.net/) - Formerly Netvisor. Automatically scans the local subnet and generates a visual documentation of services and hosts
+- [LanLens](https://github.com/AlexRosbach/LanLens) - Scans your local network, identifies devices by MAC/IP, and gives you a clean web UI to document, classify, and connect to them.
+- [HomeLabInfo](https://github.com/gregluffy/HomeLabInfo) - A modern, self-hosted network discovery and visualization suite designed for homelab enthusiasts.
