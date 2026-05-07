@@ -1,8 +1,6 @@
 services:
   dashy:
     container_name: dashy
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
     environment:
       NODE_ENV: production
       PGID: {{ docker_gid }}

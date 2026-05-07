@@ -1,8 +1,6 @@
 services:
   homepage:
     container_name: homepage
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
     environment:
       HOMEPAGE_ALLOWED_HOSTS: {{ homepage_allowed_hosts }}
       PGID: {{ docker_gid }}

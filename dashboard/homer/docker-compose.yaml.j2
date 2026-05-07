@@ -1,8 +1,6 @@
 services:
   homer:
     container_name: homer
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
     environment:
       INIT_ASSETS: 1
       PGID: {{ docker_gid }}

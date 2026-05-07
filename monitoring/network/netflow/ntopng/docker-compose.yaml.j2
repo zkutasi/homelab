@@ -12,9 +12,6 @@ services:
       - --redis
       - 127.0.0.1:{{ port_ntopng_redis }}:{{ ntopng_redis_password }}
     container_name: ntopng
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
-      - {{ default_gateway_ip }}
     environment:
       - PUID={{ docker_uid }}
       - PGID={{ docker_gid }}

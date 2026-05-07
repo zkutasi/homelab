@@ -12,9 +12,6 @@ services:
       - {{ device.path }}:{{ device.path }}:ro
 {% endfor %}
 {% endif %}
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
-      - {{ default_gateway_ip }}
     environment:
       HUB_URL: {{ beszel_hub_url }}
       KEY: "{{ beszel_ssh_key }}"

@@ -1,8 +1,6 @@
 services:
   netalertx:
     container_name: netalertx
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
     environment:
       - TZ={{ timezone }}
       - PORT={{ port_netalertx }}

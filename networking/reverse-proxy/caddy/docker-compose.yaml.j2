@@ -1,9 +1,6 @@
 services:
   caddy:
     container_name: caddy
-    dns:
-      - {{ hostvars[groups['dnsserver'][0]].ansible_host }}
-      - {{ default_gateway_ip }}
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-caddy
