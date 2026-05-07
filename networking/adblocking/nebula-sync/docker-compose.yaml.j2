@@ -1,0 +1,18 @@
+services:
+  nebula-sync:
+    container_name: nebula-sync
+    environment:
+      CLIENT_SKIP_TLS_VERIFICATION: true
+      CRON: "0 * * * *"
+      FULL_SYNC: false
+      SYNC_CONFIG_DNS: true
+      SYNC_CONFIG_DNS_INCLUDE: hosts,cnameRecords
+      PGID: {{ docker_gid }}
+      PRIMARY: {{ pihole_primary_address }}|{{ pihole_password }}
+      PUID: {{ docker_uid }}
+      REPLICAS: {{ pihole_secondary_address }}|{{ pihole_password }}
+      RUN_GRAVITY: true
+      TZ: {{ timezone }}
+    hostname: {{ id }}-nebula-sync
+    image: ghcr.io/lovelaze/nebula-sync:v{{ requested_image_version['nebula-sync'] }}
+    restart: unless-stopped

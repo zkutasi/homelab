@@ -9,7 +9,7 @@
         var: pihole_authresponse.cookies.sid
   vars:
     rest_api_fact_name: "pihole_authresponse"
-    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_url: "{{ pihole_primary_address }}"
     rest_api_endpoint: "/api/auth"
     rest_api_method: "POST"
     rest_api_data:
@@ -27,7 +27,7 @@
       ansible.builtin.debug:
         var: pihole_response.json.config.dns.cnameRecords
   vars:
-    rest_api_url: "{{ pihole_api_hostname }}"
+    rest_api_url: "{{ pihole_primary_address }}"
     rest_api_endpoint: "/api/config/dns/cnameRecords"
     rest_api_method: "GET"
     rest_api_data:

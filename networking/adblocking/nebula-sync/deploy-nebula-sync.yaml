@@ -1,0 +1,8 @@
+- name: Deploy Nebula-sync as docker
+  hosts: "{{ groups['dnsserver'][0] }}"
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: nebula-sync
+    requested_image_version:
+      nebula-sync: "0.11.2"

@@ -28,6 +28,12 @@ This Unbound instance is configured in Recursive mode.
 
 ### Deploy the app
 
+Switch off the built-in Stub DNS resolver that would prevent to attach to port 53
+
+```bash
+./common-ansible-run-playbook.sh --playbook networking/adblocking/configure-dnsserver-host.yaml --no-check
+```
+
 Deploy the docker containers:
 
 ```bash
