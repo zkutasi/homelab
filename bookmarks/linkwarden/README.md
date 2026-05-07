@@ -1,6 +1,6 @@
 # Linkwarden
 
-[Linkwarden](https://example.com) - A short introduction of the app
+[Linkwarden](https://linkwarden.app/) - Self-hosted collaborative bookmark manager to collect, read, annotate, and fully preserve what matters, all in one place.
 
 ## The setup
 

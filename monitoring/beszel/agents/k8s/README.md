@@ -1,6 +1,6 @@
 # Beszel-agent
 
-[Beszel-agent](https://example.com) - A short introduction of the app
+[Beszel-agent](https://beszel.dev/) - Lightweight server monitoring with historical data, docker stats, and alerts.
 
 ## The setup
 

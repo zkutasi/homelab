@@ -1,6 +1,6 @@
 # Arcane
 
-[Arcane](https://example.com) - A short introduction of the app
+[Arcane](https://getarcane.app/) - Modern Docker Management, Designed for Everyone
 
 ## The setup
 

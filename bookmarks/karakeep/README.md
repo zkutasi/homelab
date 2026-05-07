@@ -1,6 +1,6 @@
 # Karakeep
 
-[Karakeep](https://example.com) - A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.
+[Karakeep](https://karakeep.app/) - A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.
 
 ## The setup
 

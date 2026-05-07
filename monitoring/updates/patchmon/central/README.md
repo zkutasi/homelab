@@ -1,6 +1,6 @@
 # PatchMon
 
-[PatchMon](https://example.com) - A short introduction of the app
+[PatchMon](https://patchmon.net/) - Linux Patch Management & Automation Platform
 
 ## The setup
 

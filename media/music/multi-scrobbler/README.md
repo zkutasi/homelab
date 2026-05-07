@@ -1,6 +1,6 @@
 # Multi-Scrobbler
 
-[Multi-Scrobbler](https://example.com) - A short introduction of the app
+[Multi-Scrobbler](https://github.com/foxxmd/multi-scrobbler) - Scrobble plays from multiple sources to multiple clients
 
 ## The setup
 

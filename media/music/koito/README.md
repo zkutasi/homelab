@@ -1,6 +1,6 @@
 # Koito
 
-[Koito](https://example.com) - A short introduction of the app
+[Koito](https://koito.io/) - A modern, themeable scrobbler that you can use with any program that scrobbles to a custom ListenBrainz URL
 
 ## The setup
 

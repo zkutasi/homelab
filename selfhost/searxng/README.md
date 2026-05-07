@@ -1,6 +1,6 @@
 # SearXNG
 
-[SearXNG](https://example.com) - A short introduction of the app
+[SearXNG](https://github.com/searxng/searxng) - A free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
 
 ## The setup
 
