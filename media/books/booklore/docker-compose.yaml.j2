@@ -47,6 +47,8 @@ services:
       timeout: 5s
     hostname: {{ id }}-booklore-mariadb
     image: lscr.io/linuxserver/mariadb:{{ requested_image_version['mariadb'] }}
+    ports:
+      - {{ port_booklore_mariadb }}:3306
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/mariadb/config:/config
