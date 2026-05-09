@@ -1,0 +1,43 @@
+image:
+  repository: dbgate/dbgate
+  tag: 7.1.11
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /home/node/.dbgate
+    type: pvc
+    size: 1Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3000
+        protocol: http
+        targetPort: 3000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          command:
+            - node
+          args:
+            - bundle.js
+            - --listen-api
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
