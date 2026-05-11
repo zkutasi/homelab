@@ -27,3 +27,7 @@ Often coupled with a DNS server, to not use public ones, and have full control o
 - AdGuard Home
   - [Adguard Home Sync](https://github.com/bakito/adguardhome-sync)
 - Technitium: No need to sync, as it can be installed in a clustered format, which syncs itself together
+
+### Other cool projects
+
+- [Donut Hole](https://github.com/santhoshjanan/donut-hole) - An AI-powered sidecar for Pi-hole that classifies the domains passing through your network, lets you review them, and exports a custom blocklist back to Pi-hole.
