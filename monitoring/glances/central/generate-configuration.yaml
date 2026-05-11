@@ -1,0 +1,8 @@
+- name: Generate dynamic configuration for Glances
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/glances-values-config-private.yaml.j2
+        dest: "glances-values-config-private.yaml"

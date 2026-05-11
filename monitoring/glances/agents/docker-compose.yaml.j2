@@ -1,0 +1,40 @@
+services:
+  glances:
+{% if disk_devices is defined and disk_devices | length > 0 %}
+    cap_add:
+      - SYS_RAWIO
+      - SYS_ADMIN
+    devices:
+{% for device in disk_devices %}
+      - {{ device.path }}:{{ device.path }}:ro
+{% endfor %}
+{% endif %}
+    container_name: glances
+    environment:
+      GLANCES_OPT: -C /glances/conf/glances.conf -w --enable-mcp --enable-plugin smart
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      PYTHONPYCACHEPREFIX: /tmp/py_caches
+      TZ: {{ timezone }}
+    healthcheck:
+      interval: 30s
+      retries: 3
+      start_period: 40s
+      test: ["CMD", "curl", "-f", "http://localhost:{{ port_glances }}/api/4/status"]
+      timeout: 10s
+    hostname: {{ id }}-glances
+    image: nicolargo/glances:{{ requested_image_version['glances'] }}
+    network_mode: host
+    pid: host
+    privileged: false
+    read_only: true
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/:/rootfs:ro
+      - {{ docker_socket_path }}:/var/run/docker.sock:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/glances.conf:/glances/conf/glances.conf
+{% if not id.startswith('synology') %}
+      - /etc/os-release:/etc/os-release:ro
+{% endif %}

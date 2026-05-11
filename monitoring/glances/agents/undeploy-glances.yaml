@@ -1,0 +1,6 @@
+- name: Delete Glances containers
+  hosts: docker
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: glances

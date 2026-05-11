@@ -1,0 +1,12 @@
+- name: Deploy Glances as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: glances
+    requested_image_version:
+      glances: "4.5.4"
+    docker_compose_create_dirs:
+      - name: config
+    docker_compose_static_files_copy:
+      - name: config/glances.conf

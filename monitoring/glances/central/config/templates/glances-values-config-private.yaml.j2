@@ -1,0 +1,12 @@
+configmap:
+  config:
+    enabled: true
+    data:
+      glances.conf: |
+        [serverlist]
+{% for host in groups['docker'] %}
+        server_{{ loop.index }}_name={{ hostvars[host].ansible_host }}
+        server_{{ loop.index }}_alias={{ hostvars[host].id }}
+        server_{{ loop.index }}_port={{ port_glances }}
+        server_{{ loop.index }}_protocol=rest
+{% endfor %}

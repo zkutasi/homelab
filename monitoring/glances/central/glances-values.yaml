@@ -1,0 +1,15 @@
+persistence:
+  config:
+    enabled: true
+    type: configmap
+    objectName: config
+    mountPath: /config
+    optional: false
+    readOnly: true
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            GLANCES_OPT: "-w --browser -p 61208 --disable-autodiscover --config /config/glances.conf"
