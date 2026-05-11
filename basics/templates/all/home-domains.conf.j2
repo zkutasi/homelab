@@ -1,0 +1,3 @@
+[Resolve]
+DNS={{ groups['dnsserver'] | map('extract', hostvars, ['ansible_host']) | join(' ') }}
+Domains=~{{ network_domain }}

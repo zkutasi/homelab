@@ -1,0 +1,27 @@
+- name: Set up home DNS domain
+  hosts: linux
+  become: true
+  tasks:
+    - name: Ensure systemd-resolved drop-in directory exists
+      ansible.builtin.file:
+        path: /etc/systemd/resolved.conf.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+    - name: Configure split DNS routing for .home
+      ansible.builtin.template:
+        src: all/home-domains.conf.j2
+        dest: /etc/systemd/resolved.conf.d/home-domains.conf
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - Restart systemd-resolved
+
+  handlers:
+    - name: Restart systemd-resolved
+      ansible.builtin.systemd:
+        name: systemd-resolved
+        state: restarted
+        daemon_reload: true
