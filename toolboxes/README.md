@@ -21,3 +21,4 @@ N/A
 - [Vert](https://vert.sh/) - The next-generation file converter. Open source, fully local* and free forever.
 - [PDFCraft](https://pdfcraft.devtoolcafe.com/) - A free, privacy-focused PDF toolkit that runs entirely in your browser. With 90+ professional tools, you can edit, convert, merge, split, and secure your PDF files without ever uploading them to a server.
 - [SnapOtter](https://snapotter.com/) - The open-source image suite that makes paid tools nervous. Every image tool you need. Your images stay yours.
+- [Transmute](https://transmute.sh/) - Self hosted file converter for images, video, audio, json, excel and more. Supports over 2,000 conversions!
