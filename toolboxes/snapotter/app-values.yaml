@@ -1,0 +1,43 @@
+image:
+  repository: snapotter/snapotter
+  tag: 1.16.0
+  pullPolicy: IfNotPresent
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /data
+    type: pvc
+    size: 1Gi
+  workspace:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /tmp/workspace
+    type: pvc
+    size: 1Gi
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 1349
+        protocol: http
+        targetPort: 1349
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            AUTH_ENABLED: false
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
