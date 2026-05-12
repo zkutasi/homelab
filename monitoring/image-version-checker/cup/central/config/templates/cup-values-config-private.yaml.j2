@@ -1,0 +1,13 @@
+configmap:
+  config:
+    enabled: true
+    data:
+      cup.json: |
+        {
+            "servers": {
+{% for host in groups['docker'] %}
+                "{{ hostvars[host].id }}": "http://{{ hostvars[host].ansible_host }}:{{ port_cup }}"{{ "," if not loop.last else "" }}
+{% endfor %}
+            },
+            "socket": "none"
+        }

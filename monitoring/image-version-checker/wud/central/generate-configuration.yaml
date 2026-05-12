@@ -1,0 +1,8 @@
+- name: Generate dynamic configuration for Wud
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/wud-values-config-private.yaml.j2
+        dest: "wud-values-config-private.yaml"

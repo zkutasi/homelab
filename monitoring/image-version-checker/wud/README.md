@@ -10,18 +10,10 @@
 
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workload:
-        main:
-            podSpec:
-            containers:
-                main:
-                env:
-                    WUD_WATCHER_XXX_HOST: <IP>
-                    WUD_WATCHER_XXX_PORT: <PORT>
-                    ...
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/wud/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

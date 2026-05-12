@@ -4,7 +4,7 @@ APP=cup
 NS=cup
 RELEASE_NAME=cup
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--extra-values cup-values-config-private.yaml"
 
 while [ $# -ge 1 ]; do
   case "$1" in

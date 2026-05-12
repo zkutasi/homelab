@@ -4,7 +4,7 @@ APP=wud
 NS=wud
 RELEASE_NAME=wud
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--extra-values wud-values-config-private.yaml"
 
 while [ $# -ge 1 ]; do
   case "$1" in

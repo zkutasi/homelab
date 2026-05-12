@@ -4,7 +4,7 @@ APP=dockpeek
 NS=dockpeek
 RELEASE_NAME=dockpeek
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--extra-values dockpeek-values-config-private.yaml"
 
 while [ $# -ge 1 ]; do
   case "$1" in

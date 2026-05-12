@@ -21,18 +21,22 @@
             env:
                 USERNAME: <USERNAME>
                 PASSWORD: <PASSWORD>
-                DOCKER_HOST_1_URL: tcp://<IP>:<PORT>
-                DOCKER_HOST_2_URL: tcp://<IP>:<PORT>
                 ...
     ```
 
-2. Install with the provided script
+2. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/dockpeek/central/generate-configuration.yaml --no-check
+    ```
+
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-3. Deploy a docker socket proxy for each remote host, no agents required/possible
+4. Deploy a docker socket proxy for each remote host, no agents required/possible
 
 ## Commands
 

@@ -1,0 +1,10 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+{% for host in groups['docker'] %}
+            DD_WATCHER_{{ hostvars[host].id | upper }}_HOST: {{ hostvars[host].ansible_host }}
+            DD_WATCHER_{{ hostvars[host].id | upper }}_PORT: {{ port_drydock }}
+{% endfor %}

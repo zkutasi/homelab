@@ -30,16 +30,10 @@ N/A
 
 ### Deploy the central component
 
-1. Create a `cup.json` file in an `app-values-private.yaml` file with the config you want. If no such file is present, the deployer will create one for you with empty data.
+1. Generate configuration from the Ansible inventory
 
     ```bash
-    configmap:
-      config:
-        enabled: true
-        data:
-          cup.json: |
-            ...
-
+    ./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

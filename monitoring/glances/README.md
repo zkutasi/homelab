@@ -30,7 +30,13 @@
 
 2. Create a values yaml file for potential private data named `app-values-private.yaml`
 
-3. Install with the provided script
+3. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/glances/central/generate-configuration.yaml --no-check
+    ```
+
+4. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
@@ -39,7 +45,7 @@
 ### Deploy the agents
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/glances/agents//deploy-glances.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/glances/agents/deploy-glances.yaml --no-check
 ```
 
 ## Commands
