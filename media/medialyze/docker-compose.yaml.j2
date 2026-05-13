@@ -1,0 +1,19 @@
+services:
+  medialyze:
+    container_name: medialyze
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-medialyze
+    image: ghcr.io/frederikemmer/medialyze:{{ requested_image_version['medialyze'] }}
+    ports:
+      - {{ port_medialyze }}:8080
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
+{% if fstab_entries %}
+{% for entry in fstab_entries %}
+      - {{ entry.path }}:/media{{ entry.path }}:ro
+{% endfor %}
+{% endif %}
