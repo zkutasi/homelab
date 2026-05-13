@@ -1,0 +1,87 @@
+backend:
+  repository: ghcr.io/pouzor/homelable-backend
+  tag: 2.0.3
+  pullPolicy: IfNotPresent
+frontend:
+  repository: ghcr.io/pouzor/homelable-frontend
+  tag: 2.0.3
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    type: pvc
+    size: 1Gi
+    targetSelector:
+      main:
+        backend:
+          mountPath: /app/data
+  nginx-cache:
+    enabled: true
+    type: emptyDir
+    targetSelector:
+      main:
+        main:
+          mountPath: /var/cache/nginx
+service:
+  backend:
+    enabled: true
+    expandObjectName: false
+    ports:
+      backend:
+        enabled: true
+        port: 8000
+        protocol: http
+        targetPort: 8000
+        targetSelector: backend
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 80
+        protocol: http
+        targetPort: 80
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        backend:
+          enabled: true
+          env:
+            SQLITE_PATH: /app/data/homelab.db
+          imageSelector: backend
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+            runAsGroup: 0
+            allowPrivilegeEscalation: true
+            capabilities:
+              add:
+                - NET_RAW
+        main:
+          enabled: true
+          imageSelector: frontend
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            runAsGroup: 1000
+            runAsUser: 1000
+            readOnlyRootFilesystem: false
