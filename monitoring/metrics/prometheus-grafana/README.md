@@ -40,20 +40,22 @@ N/A
     grafana:
       adminUser: ...
       adminPassword: ...
-
-    prometheus:
-      prometheusSpec:
-        additionalScrapeConfigs:
           ...
     ```
 
-4. Install with the provided script
+4. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metricsprometheus-grafana/generate-configuration.yaml --no-check
+    ```
+
+5. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-5. Create an API token for automation
+6. Create an API token for automation
     - Create a Service Account with `Viewer` rights at Home -> Administration -> Users and access -> Service accounts
     - Create a new Token
 

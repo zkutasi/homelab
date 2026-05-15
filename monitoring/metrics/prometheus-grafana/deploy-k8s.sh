@@ -6,7 +6,7 @@ RELEASE_NAME=kube-prometheus-stack
 REPO_URL=https://prometheus-community.github.io/helm-charts
 VERSION=77.10.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--extra-values prometheus-values-config-private.yaml"
 
 while [ $# -ge 1 ]; do
   case "$1" in
