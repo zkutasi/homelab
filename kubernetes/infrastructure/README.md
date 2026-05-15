@@ -42,10 +42,31 @@ Normally, the regular installation has the following configuration for CoreDNS:
 
 - Inside the Pod, the NodelocalDNS address is present in the `/etc/resolv.conf` (169.254.x.x). This is a DaemonSet and the address is non-routable, so the local instance will get it.
 - The NodelocalDNS config forwards every known K8s FQDN to the CoreDNS IP but caches the results, and every unknown IP goes to the local `/etc/resolv.conf`, which is the router-given addresses -> This was bypassed and now forwarding everything to CoreDNS instead
+
+    ```conf
+        #forward . /etc/resolv.conf   # Replace this
+        forward . 10.233.0.3 {        # With these lines
+            force_tcp
+        }
+    ```
+
 - In CoreDNS config, a new forwarding logic was added for the internal addresses to reach the local DNS server, UNTIL it is not directly in the router
 
+    ```conf
+        #forward . /etc/resolv.conf {   # Replace these lines
+        #  prefer_udp
+        #  max_concurrent 1000
+        #}
+        forward . 192.168.31.2 192.168.31.4 {   # With these lines
+          policy random
+          health_check 5s
+          max_fails 3
+          prefer_udp
+          max_concurrent 1000
+        }
+    ```
+
 This way NodelocalDNS still will act as a cache and will contain no logic, and CoreDNS can have additional zones defined to properly resolve.
-These tricks are required only until the router can handle internal addresses completely.
 
 ### ExternalDNS
 
