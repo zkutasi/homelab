@@ -12,6 +12,7 @@
     - name: Start Docker Compose stack in each folder
       community.docker.docker_compose_v2:
         project_src: "{{ item.path | dirname }}"
+        docker_cli: "{{ docker_cli_path }}"
         state: present
       loop: "{{ compose_files.files }}"
       loop_control:
