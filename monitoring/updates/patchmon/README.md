@@ -18,6 +18,8 @@
     ./deploy-k8s.sh
     ```
 
+3. Add the agents from the UI, it is just one copy-paste command per host.
+
 ## Commands
 
 ## Notable comments
