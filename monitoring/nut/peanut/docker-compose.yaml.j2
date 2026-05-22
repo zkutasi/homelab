@@ -3,6 +3,7 @@ services:
     container_name: peanut
     environment:
       API_PASSWORD: {{ peanut_api_password }}
+      AUTH_DISABLED: true
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
