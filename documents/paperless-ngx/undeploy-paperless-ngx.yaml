@@ -1,0 +1,6 @@
+- name: Delete Paperless-NGX containers
+  hosts: documents
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: paperless-ngx

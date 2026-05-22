@@ -44,6 +44,7 @@ winrm enumerate winrm/config/Listener
    - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
    - `dnsserver` - All of the local DNS servers like PiHole
    - `docker` - All hosts that prefer dockerized apps over binaries
+   - `documents` - The server that holds documents
    - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
    - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    - `linux` - All Linux hosts, separated from Windows ones

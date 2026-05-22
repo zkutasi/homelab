@@ -1,0 +1,55 @@
+services:
+  broker:
+    container_name: paperless-ngx-redis
+    environment:
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-paperless-ngx-redis
+    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redisdata:/data
+  db:
+    container_name: paperless-ngx-postgres
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_PASSWORD: paperless
+      POSTGRES_USER: paperless
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-paperless-ngx-postgres
+    image: docker.io/library/postgres:{{ requested_image_version['postgres'] }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pgdata:/var/lib/postgresql
+  paperless-ngx:
+    container_name: paperless-ngx
+    depends_on:
+      - db
+      - broker
+    environment:
+      PAPERLESS_DATE_ORDER: YMD
+      PAPERLESS_DBHOST: db
+      PAPERLESS_OCR_LANGUAGE: hun
+      PAPERLESS_OCR_LANGUAGES: eng hun
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_SECRET_KEY: {{ paperless_ngx_secret_key }}
+      PAPERLESS_TIME_ZONE: {{ timezone }}
+      PAPERLESS_URL: {{ paperless_ngx_url }}
+      PGID: {{ docker_gid }}
+      PUID: {{ docker_uid }}
+      TZ: {{ timezone }}
+      USERMAP_UID: {{ docker_uid }}
+      USERMAP_GID: {{ docker_gid }}
+    hostname: {{ id }}-paperless-ngx
+    image: ghcr.io/paperless-ngx/paperless-ngx:{{ requested_image_version['paperless-ngx'] }}
+    ports:
+      - {{ port_paperless_ngx }}:8000
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/usr/src/paperless/data
+      - /volume1/documents/paperless-ngx:/usr/src/paperless/media
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/export:/usr/src/paperless/export
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/consume:/usr/src/paperless/consume
