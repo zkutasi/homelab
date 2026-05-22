@@ -23,3 +23,4 @@ These apps provide application level monitoring, usually per app the UP/DOWN sta
 - [HealthChecks](https://healthchecks.io/) - Healthchecks.io listens for HTTP requests ("pings") from your cron jobs and scheduled tasks. It keeps silent as long as pings arrive on time. It raises an alert as soon as a ping does not arrive on time.
 - [Cachet](https://cachethq.io/) - Cachet, the open-source self-hosted status page system. Abandoned since 2023.
 - [Kener](https://kener.ing/) - Stunning status pages, batteries included!
+- [Maintenant](https://maintenant.dev/) - Monitor everything. Manage nothing. Drop a single container. Your entire stack is monitored in seconds.
