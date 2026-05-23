@@ -1,35 +1,63 @@
 #!/bin/bash
 
+REPO_ROOT="."
+if command -v git >/dev/null 2>&1; then
+  REPO_ROOT=$(git rev-parse --show-toplevel)
+fi
+ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
+INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
+
 CHECK=1
 DIFF=1
+EXTRA_ARGS=""
 LIMIT=
 PLAYBOOK=
 
 function usage() {
-    echo "Usage: $0 --playbook <playbook> [--limit <limit>] [--no-diff] [--no-check]"
+    echo "Usage: $0 --playbook <playbook> [--inventory <inventory>] [limit <limit>] [--no-diff] [--no-check] [--extra-args <args>]"
     echo ""
     echo "Options:"
-    echo "  --playbook <playbook>   Specify the Ansible playbook to run (required)"
-    echo "  --limit <limit>         Limit execution to the specified hosts or groups"
-    echo "  --no-diff               Disable diff mode"
-    echo "  --no-check              Disable check mode"
+    echo "  --ansible-navigator-config <config>   Specify the ansible-navigator configuration file"
+    echo "  --extra-args <args>                   Specify additional arguments for the Ansible command"
+    echo "  --help                                Display this help message"
+    echo "  --inventory <inventory>               Specify the Ansible inventory to use"
+    echo "  --limit <limit>                       Limit execution to the specified hosts or groups"
+    echo "  --no-diff                             Disable diff mode"
+    echo "  --no-check                            Disable check mode"
+    echo "  --playbook <playbook>                 Specify the Ansible playbook to run (required)"
 }
 
 while [ $# -ge 1 ]; do
   case "$1" in
-    --playbook)
+    --ansible-navigator-config)
       shift
-      PLAYBOOK=$1
+      ANSIBLE_NAVIGATOR_CONFIG="$1"
+      ;;
+    --extra-args)
+      shift
+      EXTRA_ARGS="$EXTRA_ARGS $1"
+      ;;
+    --help)
+      usage
+      exit 0
+      ;;
+    --inventory)
+      shift
+      INVENTORY=$1
       ;;
     --limit)
       shift
       LIMIT=$1
       ;;
+    --no-check)
+      CHECK=0
+      ;;
     --no-diff)
       DIFF=0
       ;;
-    --no-check)
-      CHECK=0
+    --playbook)
+      shift
+      PLAYBOOK=$1
       ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
@@ -42,20 +70,14 @@ done
 
 [ -z "${PLAYBOOK}" ] && echo "ERROR: No playbook specified" && exit 1
 
-REPO_ROOT="."
-if command -v git >/dev/null 2>&1; then
-  REPO_ROOT=$(git rev-parse --show-toplevel)
-fi
-
-INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
-
 if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
-  export ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
-  CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY}"
+  export ANSIBLE_NAVIGATOR_CONFIG
+  echo "ANSIBLE_NAVIGATOR_CONFIG=${ANSIBLE_NAVIGATOR_CONFIG}"
+  CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY} ${EXTRA_ARGS}"
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."
-  CMD="ansible-playbook --inventory ${INVENTORY} ${PLAYBOOK}"
+  CMD="ansible-playbook --inventory ${INVENTORY} ${PLAYBOOK} ${EXTRA_ARGS}"
 else
   echo "ERROR: neither ansible-navigator nor ansible-playbook is available"
   exit 1

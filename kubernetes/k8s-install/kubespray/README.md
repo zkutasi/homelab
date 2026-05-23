@@ -17,6 +17,8 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
 
 ## Usage
 
+### Install
+
 1. First clone the kubespray git repo
 
     `git clone https://github.com/kubernetes-sigs/kubespray.git kubespray-repo`
@@ -47,6 +49,31 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
 
     `./run-install.sh`
 
+### Upgrade
+
+You upgrade via checking out a new version of Kubespray first. So lets say, you installed via kubespray 2.29.0. Then you check out the N+1 version first (2.30.0), and upgrade, then the next one. Never jump between versions, it is not supported. Also jump only one Kubernetes major version at a time.
+
+1. Check your version you installed with
+
+    `git describe`
+
+2. Checkout the next version
+
+    `git tag`
+    `git checkout <VERSION>`
+
+3. Edit `run-upgrade.sh` and add the desired version to upgrade to. Make sure to jump only 1 major version at a time!
+
+4. Run the upgrade with
+
+    `./run-upgrade.sh`
+
+5. Repeat if necessary
+
 ## Commands
 
 ## Notable comments
+
+- Unfortunately Kubespray is very conservative with Ansible versions... a too new one is just as bad as an old one. Make sure that you have the exact same version. A Navigator build is best to handle this, pinning the Ansible-core version.
+- Make sure to also jump only 1 major version of Kubernetes at once, to avoid a failed upgrade.
+- Make sure there is no PodDisruptionBudget blocking the Node draining, otherwise it won't get done.
