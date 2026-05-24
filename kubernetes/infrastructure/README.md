@@ -68,6 +68,8 @@ Normally, the regular installation has the following configuration for CoreDNS:
 
 This way NodelocalDNS still will act as a cache and will contain no logic, and CoreDNS can have additional zones defined to properly resolve.
 
+This can be easily reflected in the Kubespray config, so the changes will be kept even after upgrades.
+
 ### ExternalDNS
 
 When it comes to Ingresses and FQDNs, managing them by hand is a little bit cumbersome: One needs to set them up in the cluster, then after that register the FQDN-IP mapping in the local DNS Server too. This second step is automated using the [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) project.
