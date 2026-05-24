@@ -62,7 +62,7 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
     `git tag`
     `git checkout <VERSION>`
 
-3. Edit `run-upgrade.sh` and add the desired version to upgrade to. Make sure to jump only 1 major version at a time!
+3. Edit `run-upgrade.sh` and add the desired version to upgrade to. Make sure to jump only 1 major version at a time! Check the file `kubernetes/k8s-install/kubespray/kubespray-repo/extra_playbooks/roles/kubespray_defaults/vars/main/checksums.yml` for the supported versions.
 
 4. Run the upgrade with
 

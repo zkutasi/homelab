@@ -12,6 +12,6 @@ ${REPO_ROOT}/common-ansible-run-playbook.sh \
     --no-check \
     --extra-args "--become" \
     --extra-args "-e system_upgrade=true" \
-    --extra-args "-e kube_version=1.33.7"
+    --extra-args "-e kube_version=1.34.3"
 
 popd
