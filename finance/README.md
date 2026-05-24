@@ -38,7 +38,7 @@ When it comes to money, finances, or investments, there are a few apps to help o
 
 ### Recurring subscription tracking
 
-- [Wallos](https://github.com/ellite/Wallos)
+- [Wallos](https://wallosapp.com/)
 - [MonetR](https://monetr.app/)
 - [Subtrackr](https://github.com/bscott/subtrackr)
 - [Billmanager](https://github.com/brdweb/billmanager)
