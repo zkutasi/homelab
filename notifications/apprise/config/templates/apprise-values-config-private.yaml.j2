@@ -1,0 +1,20 @@
+urls:
+- ntfy://ntfy.ntfy.svc.cluster.local:10222/homelab?verify=no:
+    tag:
+{% for host in groups['all'] %}
+{% if hostvars[host].id is defined %}
+      - {{ hostvars[host].id }}
+{% endif %}
+{% endfor %}
+{% for host in groups['all'] %}
+{% if hostvars[host].gotify_token is defined %}
+- gotify://gotify.gotify.svc.cluster.local:8080/{{ hostvars[host].gotify_token }}?verify=no:
+    tag: {{ hostvars[host].id }}
+{% endif %}
+{% endfor %}
+{% for host in groups['all'] %}
+{% if hostvars[host].pushover_token is defined %}
+- pover://{{ pushover_user }}@{{ hostvars[host].pushover_token }}:
+    tag: {{ hostvars[host].id }}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,56 @@
+image:
+  repository: caronc/apprise
+  tag: 1.4.1
+  pullPolicy: IfNotPresent
+persistence:
+  config:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /config
+    type: pvc
+    size: 1Gi
+  plugin:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /plugin
+    type: pvc
+    size: 1Gi
+  attach:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /attach
+    type: pvc
+    size: 1Gi
+  tmp:
+    enabled: true
+    type: emptyDir
+    mountPath: /tmp
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8000
+        protocol: http
+        targetPort: 8000
+TZ: Europe/Budapest
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            APPRISE_ADMIN: y
+            APPRISE_DEFAULT_THEME: dark
+            APPRISE_STATEFUL_MODE: simple
+            APPRISE_WORKER_COUNT: 1
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

@@ -1,0 +1,21 @@
+- name: Generate dynamic configuration for Apprise
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/apprise-values-config-private.yaml.j2
+        dest: "apprise-values-config-private.yaml"
+- name: Load in the generated configuration file
+  hosts: localhost
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+  vars:
+    rest_api_url: "{{ apprise_api_hostname }}"
+    rest_api_endpoint: "/add/homelab"
+    rest_api_method: "POST"
+    rest_api_data:
+      format: "yaml"
+      config: "{{ lookup('file', 'apprise-values-config-private.yaml') }}"
