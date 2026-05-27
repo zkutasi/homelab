@@ -41,6 +41,7 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
     |group_vars/k8s_cluster/k8s-cluster.yml|kubeconfig_localhost: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|auto_renew_certificates: true|
     |group_vars/k8s_cluster/k8s-cluster.yml|coredns_external_zones|
+    |group_vars/k8s_cluster/k8s-cluster.yml|nodelocaldns_external_zones|
 
 4. Run the ping-check to see if the inventory data is correct
 
