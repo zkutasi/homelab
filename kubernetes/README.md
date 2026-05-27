@@ -75,3 +75,8 @@ A lot of tools should be used with Kubernetes:
 
 - The inotify kernel settings were not high enough and the root user (id 0) had already used 128 instances which is the max number per user by default. Setting this a little bit higher avoids having for example log-tailing to error with "failed to create fsnotify watcher: too many open files", or in Loki, all of the Containers logged this error too.
   - To figure this out, one great tool is the [inotify-info](https://github.com/mikesart/inotify-info), which helps you understand the limits and the actual uses. Just check out the git repo, build the tool and then copy the binary to the target host.
+- To troubleshoot network issues, often the problematic microservice is not good as it might be stripped down, without the necessary tools (nslookup, ping, etc...), so here comes `netshoot`, a network troubleshooter swiss-army-knife container. Simply start up an ephemeral one with this command, and test what you want:
+
+    ```bash
+    kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- bash
+    ```
