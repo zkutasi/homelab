@@ -1,0 +1,20 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        autokuma:
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+        main:
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 50Mi

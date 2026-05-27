@@ -86,7 +86,7 @@ done
 
 [ -z "${APP}" ] && echo "ERROR: APP must be set" && exit 1
 VALUE_FILES=
-for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" ${EXTRA_VALUES_FILES}; do
+for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" "${APP}-values-dimensioning.yaml" ${EXTRA_VALUES_FILES}; do
   if [ ! -f ${valuefile} ]; then
     echo "WARNING: No values file ${valuefile} found"
     echo "Creating an empty values file ${valuefile}"

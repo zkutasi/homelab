@@ -260,6 +260,12 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+
+              echo "Processing workload resources..."
+              yq -i ".workload.main.podSpec.containers.main.resources.requests.cpu = \"10m\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".workload.main.podSpec.containers.main.resources.requests.memory = \"50Mi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".workload.main.podSpec.containers.main.resources.limits.cpu = \"1\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".workload.main.podSpec.containers.main.resources.limits.memory = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
             else
               echo "UNIMPLEMENTED: More than one application service found. Skipping image configuration."
             fi
