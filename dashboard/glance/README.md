@@ -4,6 +4,8 @@
 
 ## The setup
 
+Use it as a news outlet: RSS feeds, videos, github repo checks, subreddits, markets, etc... No need to watch host metrics or check for services and docker stats, other tools do them much better.
+
 ## Prerequisites
 
 ## Usage

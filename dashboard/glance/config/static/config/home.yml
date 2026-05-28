@@ -1,0 +1,186 @@
+- name: Home
+  # Optionally, if you only have a single page you can hide the desktop navigation for a cleaner look
+  # hide-desktop-navigation: true
+  columns:
+    - size: small
+      widgets:
+        - type: clock
+          hour-format: 24h
+        - type: calendar
+          first-day-of-week: monday
+
+    - size: full
+      widgets:
+        - type: videos
+          style: grid-cards
+          collapse-after-rows: 3
+          channels:
+            - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
+            - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
+            - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
+            - UCVy16RS5eEDh8anP8j94G2A # DB Tech
+            - UCgdTVe88YVSrOZ9qKumhULQ # Hardware Haven
+            - UCHkYOD-3fZbuGhwsADBd9ZQ # Lawrence Systems
+            - UCrxcWtpd1IGHG9RbD_9380A # VirtualizationHowTo
+            - UC9x0AN7BWHpCDHSm9NiJFJQ # NetworkChuck
+            - UCwFpzG5MK5Shg_ncAhrgr9g # Awesome Opensource
+            - UCUUTdohVElFLSP4NBnlPEwA # Jim's Garage
+            - UCsBjURrPoezykLs9EqgamOA # Fireship
+            - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+            - UCKtix2xNNXdcEfEFnoOnvMw # Aliensrock
+            - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
+            - UCmtyQOKKmrMVaKuRXz02jbQ # Sebastian Lague
+            - UC3ltptWa0xfrDweghW94Acg # Karl Jobst
+
+        - type: group
+          widgets:
+            - type: reddit
+              subreddit: technology
+              show-thumbnails: true
+            - type: reddit
+              subreddit: selfhosted
+              show-thumbnails: true
+            - type: reddit
+              subreddit: homelab
+              show-thumbnails: true
+            - type: reddit
+              subreddit: cybersecurity
+              show-thumbnails: true
+            - type: reddit
+              subreddit: interestingasfuck
+              show-thumbnails: true
+            - type: reddit
+              subreddit: nextfuckinglevel
+              show-thumbnails: true
+            - type: reddit
+              subreddit: Mywalletisready
+              show-thumbnails: true
+
+    - size: small
+      widgets:
+        - type: weather
+          location: Jászberény, Hungary
+          units: metric
+          hour-format: 24h
+
+        - type: markets
+          markets:
+            - symbol: SPY
+              name: S&P 500
+            - symbol: BTC-USD
+              name: Bitcoin
+            - symbol: NVDA
+              name: NVIDIA
+            - symbol: AMZN
+              name: Amazon
+            - symbol: META
+              name: Meta
+            - symbol: GOOGL
+              name: Alphabet
+            - symbol: AAPL
+              name: Apple
+            - symbol: TSLA
+              name: Tesla
+            - symbol: MSFT
+              name: Microsoft
+            - symbol: AMD
+              name: AMD
+            - symbol: INTC
+              name: Intel
+            - symbol: ERIC-B
+              name: Ericsson
+
+        - type: releases
+          cache: 1d
+          # Without authentication the Github API allows for up to 60 requests per hour. You can create a
+          # read-only token from your Github account settings and use it here to increase the limit.
+          # token: ...
+          repositories:
+            - alam00000/bentopdf
+            - alexjustesen/speedtest-tracker
+            - AlexGustafsson/cupdate
+            - autobrr/qui
+            - binwiederhier/ntfy
+            - borgmatic-collective/borgmatic
+            - Brandawg93/PeaNUT
+            - butialabs/yadnsb
+            - C4illin/ConvertX
+            - caddyserver/caddy
+            - calibrain/shelfmark
+            - caronc/apprise
+            - cenodude/CrossWatch
+            - cert-manager/cert-manager
+            - civilblur/mazanoke
+            - cloudnative-pg/cloudnative-pg
+            - CorentinTh/it-tools
+            - dani-garcia/vaultwarden
+            - DartSteven/Nutify
+            - dendianugerah/reubah
+            - eitchtee/WYGIWYH
+            - ellite/Wallos
+            - fail2ban/fail2ban
+            - FiloSottile/age
+            - Finsys/dockhand
+            - FoxxMD/multi-scrobbler
+            - frederikemmer/MediaLyze
+            - gchq/CyberChef
+            - getsops/sops
+            - getwud/wud
+            - glanceapp/glance
+            - google/cadvisor
+            - gotify/server
+            - grafana/alloy
+            - grafana/grafana
+            - grafana/loki
+            - grimmory-tools/grimmory
+            - henrygd/beszel
+            - iib0011/omni-tools
+            - immich-app/immich
+            - karanhudia/borg-ui
+            - kopia/kopia
+            - kubernetes-sigs/external-dns
+            - lissy93/networking-toolbox
+            - lissy93/web-check
+            - lovelaze/nebula-sync
+            - madnuttah/unbound-docker
+            - metallb/metallb
+            - navidrome/navidrome
+            - paperless-ngx/paperless-ngx
+            - PatchMon/PatchMon
+            - portainer/portainer
+            - projectcontour/contour
+            - prometheus/node_exporter
+            - prometheus-community/helm-charts
+            - prometheus-community/smartctl_exporter
+            - PDFCraftTool/pdfcraft
+            - pi-hole/pi-hole
+            - Ravinou/borgwarehouse
+            - rook/rook
+            - rustdesk/rustdesk
+            - searxng/searxng
+            - semaphoreui/semaphore
+            - sergi0g/cup
+            - sharevb/it-tools
+            - snapotter-hq/SnapOtter
+            - starship/starship
+            - Termix-SSH/Termix
+            - transmute-app/transmute
+            - TwiN/gatus
+            - uroni/urbackup-server-docker
+            - wazuh/wazuh
+            - wollomatic/socket-proxy
+
+  # Add more pages here:
+  # - name: Your page name
+  #   columns:
+  #     - size: small
+  #       widgets:
+  #         # Add widgets here
+
+  #     - size: full
+  #       widgets:
+  #         # Add widgets here
+
+  #     - size: small
+  #       widgets:
+  #         # Add widgets here
