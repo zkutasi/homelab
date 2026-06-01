@@ -1,0 +1,19 @@
+allInOne:
+  enabled: true
+  s3:
+    enabled: true
+  data:
+    type: "persistentVolumeClaim"
+    size: 50Gi
+
+admin:
+  enabled: true
+  masters: seaweedfs-all-in-one:9333
+master:
+  enabled: false
+volume:
+  enabled: false
+filer:
+  enabled: false
+worker:
+  enabled: false
