@@ -12,7 +12,6 @@ persistence:
     enabled: true
     accessModes: ReadWriteOnce
     type: pvc
-    size: 1Gi
     targetSelector:
       main:
         autokuma:
@@ -30,7 +29,6 @@ persistence:
     enabled: true
     accessModes: ReadWriteOnce
     type: pvc
-    size: 1Gi
     targetSelector:
       main:
         main:

@@ -8,7 +8,6 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /app/data
     type: pvc
-    size: 5Gi
 service:
   main:
     enabled: true

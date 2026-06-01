@@ -1,0 +1,13 @@
+cnpg:
+  main:
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 1Gi
+      walStorage:
+        size: 1Gi
+
+persistence:
+  data:
+    size: 1Gi

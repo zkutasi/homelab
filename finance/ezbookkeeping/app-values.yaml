@@ -1,13 +1,6 @@
 cnpg:
   main:
     enabled: true
-    cluster:
-      instances: 1
-      singleNode: true
-      storage:
-        size: 2Gi
-      walStorage:
-        size: 2Gi
     database: ezbookkeeping
     monitoring:
       enablePodMonitor: true
@@ -23,7 +16,6 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /ezbookkeeping/storage
     type: pvc
-    size: 1Gi
 service:
   main:
     enabled: true

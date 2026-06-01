@@ -1,3 +1,6 @@
+persistence:
+  data:
+    size: 5Gi
 workload:
   main:
     podSpec:

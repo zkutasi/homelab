@@ -1,3 +1,15 @@
+persistence:
+  agents:
+    size: 1Gi
+cnpg:
+  main:
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 2Gi
+      walStorage:
+        size: 2Gi
 workload:
   main:
     podSpec:

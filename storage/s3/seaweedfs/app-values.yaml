@@ -4,7 +4,6 @@ allInOne:
     enabled: true
   data:
     type: "persistentVolumeClaim"
-    size: 50Gi
 
 admin:
   enabled: true

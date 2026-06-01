@@ -167,10 +167,10 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             if [ -n "${POSTGRESQL}" ]; then
               echo "Setting up a CNPG instance..."
               yq -i ".cnpg.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".cnpg.main.cluster.instances = 1" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".cnpg.main.cluster.singleNode = true" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".cnpg.main.cluster.storage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".cnpg.main.cluster.walStorage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".cnpg.main.cluster.instances = 1" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".cnpg.main.cluster.singleNode = true" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".cnpg.main.cluster.storage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              yq -i ".cnpg.main.cluster.walStorage.size = \"2Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
               yq -i ".cnpg.main.database = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.monitoring.enablePodMonitor = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
@@ -209,7 +209,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                       yq -i ".persistence.data.accessModes = \"ReadWriteOnce\"" "${TARGET_APP_DIR}/app-values.yaml"
                       CONTAINER_PATH="${CONTAINER_PATH}" yq -i ".persistence.data.mountPath = env(CONTAINER_PATH)" "${TARGET_APP_DIR}/app-values.yaml"
                       yq -i ".persistence.data.type = \"pvc\"" "${TARGET_APP_DIR}/app-values.yaml"
-                      yq -i ".persistence.data.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values.yaml"
+                      yq -i ".persistence.data.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
                   done <<< "${VOLUME_ITEMS}"
               fi
 

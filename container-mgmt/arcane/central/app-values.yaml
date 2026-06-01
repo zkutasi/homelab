@@ -18,7 +18,6 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /app/data
     type: pvc
-    size: 1Gi
 
 TZ: Europe/Budapest
 

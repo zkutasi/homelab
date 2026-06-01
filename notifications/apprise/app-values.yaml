@@ -8,19 +8,16 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /config
     type: pvc
-    size: 1Gi
   plugin:
     enabled: true
     accessModes: ReadWriteOnce
     mountPath: /plugin
     type: pvc
-    size: 1Gi
   attach:
     enabled: true
     accessModes: ReadWriteOnce
     mountPath: /attach
     type: pvc
-    size: 1Gi
   tmp:
     enabled: true
     type: emptyDir

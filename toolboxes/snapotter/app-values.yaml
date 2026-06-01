@@ -8,13 +8,11 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /data
     type: pvc
-    size: 1Gi
   workspace:
     enabled: true
     accessModes: ReadWriteOnce
     mountPath: /tmp/workspace
     type: pvc
-    size: 1Gi
 service:
   main:
     enabled: true

@@ -4,4 +4,3 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /data
     type: pvc
-    size: 1Gi

@@ -1,8 +1,6 @@
 global:
   dnsService: coredns
 loki:
-  commonConfig:
-    replication_factor: 1
   compactor:
     delete_request_store: s3
     retention_enabled: true
@@ -10,7 +8,6 @@ loki:
   limits_config:
     allow_structured_metadata: true
     volume_enabled: true
-    retention_period: 336h  # 14 days
   pattern_ingester:
     enabled: true
   ruler:
@@ -25,20 +22,10 @@ loki:
           prefix: loki_index_
           period: 24h
 
-chunksCache:
-  allocatedMemory: 1024
-
 minio:
   enabled: true
-  persistence:
-    size: 25Gi
 
 deploymentMode: Monolithic
-
-singleBinary:
-  replicas: 1
-  persistence:
-    size: 25Gi
 
 # Zero out replica counts of other deployment modes
 backend:

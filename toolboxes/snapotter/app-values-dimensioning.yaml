@@ -1,3 +1,8 @@
+persistence:
+  data:
+    size: 1Gi
+  workspace:
+    size: 1Gi
 workload:
   main:
     podSpec:

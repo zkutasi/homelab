@@ -1,0 +1,24 @@
+cnpg:
+  main:
+    cluster:
+      instances: 1
+      singleNode: true
+      storage:
+        size: 1Gi
+      walStorage:
+        size: 1Gi
+persistence:
+  data:
+    size: 1Gi
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: 10m
+              memory: 50Mi

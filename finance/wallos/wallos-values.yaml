@@ -1,5 +1,0 @@
-persistence:
-  database:
-    size: 1Gi
-  logos:
-    size: 1Gi

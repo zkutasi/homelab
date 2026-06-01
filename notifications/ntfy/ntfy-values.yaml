@@ -1,5 +1,0 @@
-persistence:
-  config:
-    size: 1Gi
-  cache:
-    size: 1Gi

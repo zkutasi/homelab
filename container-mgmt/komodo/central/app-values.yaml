@@ -8,7 +8,6 @@ cnpg:
           - CREATE EXTENSION IF NOT EXISTS documentdb CASCADE;
           - grant set on parameter documentdb.maxuserlimit to komodo;
           - grant documentdb_admin_role to komodo;
-      instances: 1
       postgresql:
         cron.database_name: 'komodo'
       postgresUID: 999
@@ -17,11 +16,6 @@ cnpg:
         - pg_cron
         - pg_documentdb_core
         - pg_documentdb
-      singleNode: true
-      storage:
-        size: 2Gi
-      walStorage:
-        size: 2Gi
     database: komodo
     monitoring:
       enablePodMonitor: true

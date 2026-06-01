@@ -1,18 +1,8 @@
-alertmanager:
-  alertmanagerSpec:
-    storage:
-      volumeClaimTemplate:
-        spec:
-          resources:
-            requests:
-              storage: 50Gi
-
 grafana:
   deploymentStrategy:
     type: Recreate
   persistence:
     enabled: true
-    size: 20Gi
   additionalDataSources:
     - name: Loki
       access: proxy
@@ -32,12 +22,6 @@ prometheus:
     probeSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          resources:
-            requests:
-              storage: 50Gi
 
 prometheus-node-exporter:
   prometheus:

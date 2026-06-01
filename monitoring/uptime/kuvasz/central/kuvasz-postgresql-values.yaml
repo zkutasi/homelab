@@ -4,12 +4,6 @@ cluster:
     owner: kuvasz
     secret:
       name: kuvasz-postgresql-db-password-secret
-  instances: 1
-  singleNode: true
-  storage:
-    size: 2Gi
-  walStorage:
-    size: 2Gi
   monitoring:
     enabled: true
     prometheusRule:

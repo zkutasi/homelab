@@ -2,16 +2,10 @@ cnpg:
   main:
     enabled: true
     cluster:
-      instances: 1
       postgresql:
         tcp_keepalives_idle: "300"
         tcp_keepalives_interval: "10"
         tcp_keepalives_count: "5"
-      singleNode: true
-      storage:
-        size: 2Gi
-      walStorage:
-        size: 2Gi
     database: wygiwyh
     monitoring:
       enablePodMonitor: true

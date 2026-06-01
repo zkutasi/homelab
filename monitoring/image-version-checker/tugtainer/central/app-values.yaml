@@ -17,7 +17,6 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /tugtainer
     type: pvc
-    size: 1Gi
   nging-lib:
     enabled: true
     type: emptyDir

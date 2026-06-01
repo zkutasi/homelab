@@ -2,8 +2,6 @@ agent:
   enabled: false
 ingress:
   enabled: false
-persistence:
-  size: 2Gi
 server:
   env:
     - name: TZ

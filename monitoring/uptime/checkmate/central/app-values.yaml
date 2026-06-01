@@ -13,7 +13,6 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /data/db
     type: pvc
-    size: 2Gi
     targetSelector:
       main:
         mongodb: {}

@@ -10,13 +10,6 @@ backend:
 cnpg:
   main:
     enabled: true
-    cluster:
-      instances: 1
-      singleNode: true
-      storage:
-        size: 2Gi
-      walStorage:
-        size: 2Gi
     database: patchmon
     user: patchmon
     monitoring:
@@ -30,7 +23,6 @@ persistence:
     enabled: true
     accessModes: ReadWriteOnce
     type: pvc
-    size: 1Gi
     targetSelector:
       main:
         backend:

@@ -4,4 +4,3 @@ persistence:
     accessModes: ReadWriteOnce
     mountPath: /etc/linkding/data
     type: pvc
-    size: 1Gi

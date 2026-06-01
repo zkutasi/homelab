@@ -1,3 +1,8 @@
+persistence:
+  autokuma-data:
+    size: 1Gi
+  uptimekuma-data:
+    size: 1Gi
 workload:
   main:
     podSpec:

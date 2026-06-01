@@ -1,0 +1,13 @@
+cnpg:
+  main:
+    cluster:
+      storage:
+        size: 1Gi
+      walStorage:
+        size: 1Gi
+
+persistence:
+  drive:
+    size: 1Gi
+  recordings:
+    size: 1Gi

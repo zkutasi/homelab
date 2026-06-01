@@ -1,0 +1,17 @@
+loki:
+  commonConfig:
+    replication_factor: 1
+  limits_config:
+    retention_period: 336h  # 14 days
+
+chunksCache:
+  allocatedMemory: 1024
+
+minio:
+  persistence:
+    size: 25Gi
+
+singleBinary:
+  replicas: 1
+  persistence:
+    size: 25Gi
