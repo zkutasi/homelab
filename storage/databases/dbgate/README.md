@@ -1,6 +1,6 @@
 # dbgate
 
-[dbgate](https://example.com) - A short introduction of the app
+[dbgate](https://www.dbgate.io/) - Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others. Runs under Windows, Linux, Mac or as web application
 
 ## The setup
 
