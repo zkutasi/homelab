@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: glance
     requested_image_version:
-      glance: "0.8.4"
+      glance: "0.8.5"
     docker_compose_create_dirs:
       - name: config
       - name: assets
