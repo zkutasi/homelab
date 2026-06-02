@@ -5,6 +5,7 @@ services:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
+      GITHUB_TOKEN: {{ github_access_token }}
     hostname: {{ id }}-glance
     image: glanceapp/glance:v{{ requested_image_version['glance'] }}
     ports:

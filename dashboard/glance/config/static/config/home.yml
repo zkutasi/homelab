@@ -12,6 +12,7 @@
     - size: full
       widgets:
         - type: videos
+          cache: 1h
           style: grid-cards
           collapse-after-rows: 3
           channels:
@@ -33,6 +34,7 @@
             - UC3ltptWa0xfrDweghW94Acg # Karl Jobst
 
         - type: group
+          cache: 1h
           widgets:
             - type: reddit
               subreddit: technology
@@ -87,14 +89,14 @@
               name: AMD
             - symbol: INTC
               name: Intel
-            - symbol: ERIC-B
+            - symbol: ERIC-B.ST
               name: Ericsson
 
         - type: releases
           cache: 1d
           # Without authentication the Github API allows for up to 60 requests per hour. You can create a
           # read-only token from your Github account settings and use it here to increase the limit.
-          # token: ...
+          token: ${GITHUB_TOKEN}
           repositories:
             - alam00000/bentopdf
             - alexjustesen/speedtest-tracker
@@ -114,8 +116,6 @@
             - cloudnative-pg/cloudnative-pg
             - CorentinTh/it-tools
             - dani-garcia/vaultwarden
-            - DartSteven/Nutify
-            - dendianugerah/reubah
             - eitchtee/WYGIWYH
             - ellite/Wallos
             - fail2ban/fail2ban
@@ -157,7 +157,6 @@
             - Ravinou/borgwarehouse
             - rook/rook
             - rustdesk/rustdesk
-            - searxng/searxng
             - semaphoreui/semaphore
             - sergi0g/cup
             - sharevb/it-tools
@@ -166,21 +165,5 @@
             - Termix-SSH/Termix
             - transmute-app/transmute
             - TwiN/gatus
-            - uroni/urbackup-server-docker
             - wazuh/wazuh
             - wollomatic/socket-proxy
-
-  # Add more pages here:
-  # - name: Your page name
-  #   columns:
-  #     - size: small
-  #       widgets:
-  #         # Add widgets here
-
-  #     - size: full
-  #       widgets:
-  #         # Add widgets here
-
-  #     - size: small
-  #       widgets:
-  #         # Add widgets here
