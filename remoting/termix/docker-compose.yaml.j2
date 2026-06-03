@@ -1,4 +1,5 @@
 services:
+{% if termix_rdp | default(false) %}
   guacd:
     container_name: termix-guacd
     environment:
@@ -16,12 +17,15 @@ services:
     networks:
       - termix-net
     ports:
-      - {{ port_termix_guacd}}:4822
+      - {{ port_termix_guacd }}:4822
     restart: unless-stopped
+{% endif %}
   termix:
     container_name: termix
+{% if termix_rdp | default(false) %}
     depends_on:
       - guacd
+{% endif %}
     environment:
       PGID: {{ docker_gid }}
       PORT: 8080

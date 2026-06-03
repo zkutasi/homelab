@@ -14,6 +14,7 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |termix_rdp|O|If Guacd is required as well to support RDP. Default is False|
 
 2. For each Ansible host, the following variables can be set
 
