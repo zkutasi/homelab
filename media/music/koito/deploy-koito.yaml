@@ -5,7 +5,6 @@
   vars:
     docker_compose_projectname: koito
     requested_image_version:
-      koito: "0.1.7"
+      koito: "0.3.2"
     docker_compose_create_dirs:
       - name: data
-      - name: db-data
