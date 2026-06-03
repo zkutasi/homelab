@@ -21,6 +21,8 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-paperless-ngx-postgres
     image: docker.io/library/postgres:{{ requested_image_version['postgres'] }}
+    ports:
+      - {{ port_paperless_ngx_postgres }}:5432
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/pgdata:/var/lib/postgresql
