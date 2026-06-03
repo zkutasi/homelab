@@ -1,11 +1,11 @@
 services:
-  booklore:
-    container_name: booklore
+  grimmory:
+    container_name: grimmory
     depends_on:
       mariadb:
         condition: service_healthy
     environment:
-      DATABASE_PASSWORD: {{ booklore_db_user_password }}
+      DATABASE_PASSWORD: {{ grimmory_db_user_password }}
       DATABASE_URL: jdbc:mariadb://mariadb:3306/booklore
       DATABASE_USERNAME: booklore
       GROUP_ID: {{ docker_gid }}
@@ -19,10 +19,10 @@ services:
       start_period: 60s
       test: wget -q -O - http://localhost:6060/api/v1/healthcheck
       timeout: 10s
-    hostname: {{ id }}-booklore
-    image: booklore/booklore:v{{ requested_image_version['booklore'] }}
+    hostname: {{ id }}-grimmory
+    image: grimmory/grimmory:v{{ requested_image_version['grimmory'] }}
     ports:
-      - {{ port_booklore }}:6060
+      - {{ port_grimmory }}:6060
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data
@@ -31,24 +31,24 @@ services:
       - {{ volume.from }}:/books/{{ volume.to }}:ro
 {% endfor %}
   mariadb:
-    container_name: booklore-mariadb
+    container_name: grimmory-mariadb
     environment:
       PGID: {{ docker_gid }}
       PUID: {{ docker_uid }}
       TZ: {{ timezone }}
-      MYSQL_ROOT_PASSWORD: {{ booklore_db_root_password }}
+      MYSQL_ROOT_PASSWORD: {{ grimmory_db_root_password }}
       MYSQL_DATABASE: booklore
       MYSQL_USER: booklore
-      MYSQL_PASSWORD: {{ booklore_db_user_password }}
+      MYSQL_PASSWORD: {{ grimmory_db_user_password }}
     healthcheck:
       interval: 5s
       retries: 10
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       timeout: 5s
-    hostname: {{ id }}-booklore-mariadb
+    hostname: {{ id }}-grimmory-mariadb
     image: lscr.io/linuxserver/mariadb:{{ requested_image_version['mariadb'] }}
     ports:
-      - {{ port_booklore_mariadb }}:3306
+      - {{ port_grimmory_mariadb }}:3306
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/mariadb/config:/config

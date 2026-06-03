@@ -1,11 +1,11 @@
-- name: Deploy BookLore as docker
+- name: Deploy Grimmory as docker
   hosts: books
   roles:
     - docker-compose
   vars:
-    docker_compose_projectname: booklore
+    docker_compose_projectname: grimmory
     requested_image_version:
-      booklore: "2.0.5"
+      grimmory: "3.1.0"
       mariadb: "11.4.5"
     docker_compose_create_dirs:
       - name: data
