@@ -3,7 +3,7 @@
 CHART_NAME=oci://ghcr.io/grafana-community/helm-charts/loki
 NS=monitoring
 RELEASE_NAME=loki
-VERSION=16.1.1
+VERSION=17.1.6
 
 EXTRA_PARAMS=
 

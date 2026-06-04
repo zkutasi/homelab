@@ -7,10 +7,6 @@ loki:
 chunksCache:
   allocatedMemory: 1024
 
-minio:
-  persistence:
-    size: 25Gi
-
 singleBinary:
   replicas: 1
   persistence:
