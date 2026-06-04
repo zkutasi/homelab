@@ -6,6 +6,7 @@ urls:
       - {{ hostvars[host].id }}
 {% endif %}
 {% endfor %}
+      - kubernetes
 {% for host in groups['all'] %}
 {% if hostvars[host].gotify_token is defined %}
 - gotify://gotify.gotify.svc.cluster.local:8080/{{ hostvars[host].gotify_token }}?verify=no:
@@ -18,3 +19,11 @@ urls:
     tag: {{ hostvars[host].id }}
 {% endif %}
 {% endfor %}
+{% if kubernetes.gotify_token is defined %}
+- gotify://gotify.gotify.svc.cluster.local:8080/{{ kubernetes.gotify_token }}?verify=no:
+    tag: kubernetes
+{% endif %}
+{% if kubernetes.pushover_token is defined %}
+- pover://{{ pushover_user }}@{{ kubernetes.pushover_token }}:
+    tag: kubernetes
+{% endif %}
