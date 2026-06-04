@@ -1,9 +1,15 @@
+global:
+  seaweedfs:
+    enableSecurity: true
+
 allInOne:
   enabled: true
-  s3:
-    enabled: true
   data:
     type: "persistentVolumeClaim"
+  s3:
+    enabled: true
+    enableAuth: true
+    httpsPort: 8334
 
 admin:
   enabled: true
