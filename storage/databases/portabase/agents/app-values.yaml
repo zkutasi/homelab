@@ -1,0 +1,59 @@
+image:
+  repository: portabase/agent
+  tag: 1.11.1
+  pullPolicy: IfNotPresent
+
+persistence:
+  config:
+    enabled: true
+    type: configmap
+    objectName: config
+    mountPath: /data/config.json
+    subPath: config.json
+    optional: false
+    readOnly: true
+  ca-certificates:
+    enabled: true
+    type: secret
+    objectName: ca-certificates
+    expandObjectName: false
+    targetSelector:
+      main:
+        main:
+          mountPath: /usr/local/share/ca-certificates
+
+service:
+  main:
+    enabled: false
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - update-ca-certificates && exec /entrypoint.sh
+          env:
+            POLLING: 5
+            APP_ENV: production
+            DATA_PATH: /data
+            LOG: info
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 0

@@ -1,0 +1,7 @@
+image:
+  tag: 1.17.4
+
+timezone: Europe/Budapest
+
+updateStrategy:
+  type: Recreate
