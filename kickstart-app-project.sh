@@ -164,6 +164,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             REDIS=$(yq '.services[].image | select(test("redis"))' "${TARGET_APP_DIR}/docker-compose.yaml")
             echo "Converting docker-compose.yaml for Truecharts values.yaml..."
             echo > "${TARGET_APP_DIR}/app-values.yaml"
+            echo > "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
             if [ -n "${POSTGRESQL}" ]; then
               echo "Setting up a CNPG instance..."
               yq -i ".cnpg.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
