@@ -14,3 +14,5 @@
   ansible.builtin.import_playbook: deploy-oras.yaml
 - name: Deploy kor
   ansible.builtin.import_playbook: deploy-kor.yaml
+- name: Deploy kubetail
+  ansible.builtin.import_playbook: deploy-kubetail.yaml

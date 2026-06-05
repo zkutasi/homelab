@@ -13,6 +13,7 @@
         - kubeconform
         - oras
         - kor
+        - kubetail
       loop_control:
         loop_var: bin_filename
 - name: Delete krew and all plugins
