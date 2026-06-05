@@ -16,3 +16,5 @@
   ansible.builtin.import_playbook: deploy-kor.yaml
 - name: Deploy kubetail
   ansible.builtin.import_playbook: deploy-kubetail.yaml
+- name: Deploy pluto
+  ansible.builtin.import_playbook: deploy-pluto.yaml

@@ -65,6 +65,10 @@ A lot of tools should be used with Kubernetes:
 - [Kompose](https://kompose.io/) - Convert existing Docker-compose YAML files into Kubernetes manifests. Perfect for converting any project into Kubernetes-native
 - [Kubeconform](https://github.com/yannh/kubeconform) - Kubernetes Manifest validation
 - [Krew](https://github.com/kubernetes-sigs/krew) - Extend kubectl with plugins
+- [Oras](https://oras.land/) - OCI registry client - managing content like artifacts, images, packages
+- [Kor](https://github.com/yonahd/kor) - A Golang Tool to discover unused Kubernetes Resources
+- [Kubetail](https://www.kubetail.com/) - Real-time logging dashboard for Kubernetes. View logs in a terminal or a browser. Run anywhere - desktop, cluster, docker.
+- [Pluto](https://github.com/FairwindsOps/pluto) - A cli tool to help discover deprecated apiVersions in Kubernetes
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook kubernetes/deploy-k8s-tools.yaml --no-check

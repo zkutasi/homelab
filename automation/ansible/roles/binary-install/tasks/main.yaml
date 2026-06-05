@@ -14,7 +14,7 @@
     - name: Extract exact version
       ansible.builtin.set_fact:
         binary_installed_version: "{{ (binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines) | join('\n')
-          | regex_search('(^|\\s)v?([0-9]+(\\.[0-9]+)+)(\\s|\\+.*|$)', '\\2') | first }}"
+          | regex_search('v?([0-9]+(?:\\.[0-9]+)+)', '\\1') | first }}"
     - name: Print out the binary version
       ansible.builtin.debug:
         var: binary_installed_version
