@@ -1,0 +1,13 @@
+- name: Deploy kubeconform
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.7.0"
+    bin_filename: kubeconform
+    download_url: "https://github.com/yannh/{{ bin_filename }}/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
+    version_flag: "-v"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}"

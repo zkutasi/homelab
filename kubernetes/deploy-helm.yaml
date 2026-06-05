@@ -1,0 +1,9 @@
+- name: Deploy helm
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "3.17.3"
+    bin_filename: helm
+    download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_binary_version }}-linux-amd64.tar.gz"
+    version_flag: "version --short"
