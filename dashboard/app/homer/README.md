@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook dashboard/homer/deploy-homer.yaml --no-check
+./common-ansible-run-playbook.sh --playbook dashboard/app/homer/deploy-homer.yaml --no-check
 ```
 
 ## Commands

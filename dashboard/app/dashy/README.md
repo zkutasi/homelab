@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook dashboard/dashy/deploy-dashy.yaml --no-check
+./common-ansible-run-playbook.sh --playbook dashboard/app/dashy/deploy-dashy.yaml --no-check
 ```
 
 ## Commands

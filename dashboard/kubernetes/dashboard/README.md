@@ -4,8 +4,6 @@
 
 ## The setup
 
-The default shipped dashboard to observer the Kubernetes cluster.
-
 ## Prerequisites
 
 N/A

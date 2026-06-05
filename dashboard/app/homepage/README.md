@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook dashboard/homepage/deploy-homepage.yaml --no-check
+./common-ansible-run-playbook.sh --playbook dashboard/app/homepage/deploy-homepage.yaml --no-check
 ```
 
 ## Commands

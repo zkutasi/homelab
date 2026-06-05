@@ -1,4 +1,4 @@
-# Dashboard
+# App Dashboard
 
 A dashboard for all the apps running, having an easy interface to navigate to these apps, check basic info like health and app-specifics alike. Additionally useful features like weather, news, stockmarket, etc... widgetable, extendable.
 
