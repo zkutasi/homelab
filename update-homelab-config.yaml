@@ -1,0 +1,8 @@
+- name: Configure Caddy
+  ansible.builtin.import_playbook: networking/reverse-proxy/caddy/deploy-caddy.yaml
+- name: Configure PiHole for Caddy
+  ansible.builtin.import_playbook: networking/reverse-proxy/caddy/configure-caddy-pihole.yaml
+- name: Configure PiHole for custom DNS entries
+  ansible.builtin.import_playbook: networking/adblocking/pihole/configure-pihole.yaml
+- name: Configure Homepage
+  ansible.builtin.import_playbook: dashboard/homepage/configure-homepage.yaml
