@@ -1,0 +1,23 @@
+# Kite
+
+[Kite](https://github.com/kite-org/kite) - A lightweight, modern Kubernetes dashboard that unifies multi-cluster and resource management, enterprise-grade user governance (OAuth, RBAC, and audit logs), and AI agents in one workspace. Not just a tool, but more like a platform.
+
+## The setup
+
+## Prerequisites
+
+## Usage
+
+### Deploy the app
+
+1. Create a values yaml file for potential private data named `app-values-private.yaml`
+
+2. Install with the provided script
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
+## Commands
+
+## Notable comments

@@ -1,10 +1,9 @@
 #!/bin/bash
 
-CHART_NAME=<APP_NAME_LOWERCASE>/<APP_NAME_LOWERCASE>
-NS=<APP_NAME_LOWERCASE>
-RELEASE_NAME=<APP_NAME_LOWERCASE>
-REPO_URL=XXX
-VERSION=<APP_VERSION>
+CHART_NAME=oci://ghcr.io/kite-org/charts/kite
+NS=kite
+RELEASE_NAME=kite
+VERSION=0.12.2
 
 EXTRA_PARAMS=
 
@@ -21,6 +20,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
-    --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
     ${EXTRA_PARAMS}

@@ -6,12 +6,14 @@ Manage Kubernetes clusters via a UI, not from the CLI. Observability, notificati
 
 - Free and Open source, preferably 0$ cost
 - Possibility to deploy inside Kubernetes or use on the local machine via kubeconfig files
+  - In cluster deployment is good if one wants to manage one cluster from multiple locations/machines
+  - Desktop app is good if one wants to manage many clusters from a single location/machine
 
 ## Contenders
 
 ### Desktop Apps
 
-- [Lens](https://lenshq.io/) - The way the world runs Kubernetes. $$$
+- [Lens](https://lenshq.io/) - The way the world runs Kubernetes. The core is free, but there are a lot of $$$ features.
   - [OpenLens](https://github.com/MuhammedKalkan/OpenLens) - Fork of Lens after Lens closed its source. Unmaintained as of 2025.
   - [FreeLens](https://freelensapp.github.io/) - Fork of OpenLens
 - [Aptakube](https://aptakube.com/) - Modern, lightweight and multi-cluster Kubernetes GUI. Available on Windows, macOS and Linux. $$$
