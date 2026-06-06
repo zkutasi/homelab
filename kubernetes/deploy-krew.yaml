@@ -21,6 +21,7 @@
       loop:
         - cnpg
         - deprecations
+        - ktop
         - neat
         - resource-capacity
         - starboard
