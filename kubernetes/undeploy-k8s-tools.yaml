@@ -12,6 +12,7 @@
         - kompose
         - kubeconform
         - oras
+        - k9s
         - kor
         - kubetail
         - pluto

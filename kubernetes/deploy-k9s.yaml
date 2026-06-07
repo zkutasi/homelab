@@ -1,0 +1,13 @@
+- name: Deploy k9s
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.51.0"
+    bin_filename: k9s
+    download_url: "https://github.com/derailed/k9s/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_Linux_amd64.tar.gz"
+    version_flag: "version"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}*"

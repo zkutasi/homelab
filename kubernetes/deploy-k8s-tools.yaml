@@ -18,3 +18,5 @@
   ansible.builtin.import_playbook: deploy-kubetail.yaml
 - name: Deploy pluto
   ansible.builtin.import_playbook: deploy-pluto.yaml
+- name: Deploy k9s
+  ansible.builtin.import_playbook: deploy-k9s.yaml
