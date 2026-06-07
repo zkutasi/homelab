@@ -4,7 +4,7 @@ CHART_NAME=kubeshark/kubeshark
 NS=kubeshark
 RELEASE_NAME=kubeshark
 REPO_URL=https://helm.kubeshark.com
-VERSION=52.9.0
+VERSION=53.3.0
 
 EXTRA_PARAMS=
 
