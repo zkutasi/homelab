@@ -1,0 +1,40 @@
+config:
+  enableHelm: true
+  inCluster: false
+  extraArgs:
+    - "-kubeconfig=/etc/headlamp/kubeconfig"
+volumes:
+  - name: kubeconfig
+    configMap:
+      name: headlamp-kubeconfig
+volumeMounts:
+  - name: kubeconfig
+    mountPath: /etc/headlamp/kubeconfig
+    subPath: kubeconfig
+    readOnly: true
+
+extraManifests:
+  - |
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: headlamp-kubeconfig
+    data:
+      kubeconfig: |
+        apiVersion: v1
+        kind: Config
+        clusters:
+        - cluster:
+            certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            server: https://kubernetes.default.svc
+          name: in-cluster
+        contexts:
+        - context:
+            cluster: in-cluster
+            user: headlamp-sa
+          name: in-cluster
+        current-context: in-cluster
+        users:
+        - name: headlamp-sa
+          user:
+            tokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
