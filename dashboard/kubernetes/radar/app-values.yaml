@@ -1,0 +1,6 @@
+rbac:
+  secrets: true
+  podExec: true
+  podLogs: true
+  portForward: false
+  helm: false
