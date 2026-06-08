@@ -1,4 +1,16 @@
 - name: Setup pushover
   hosts: linux
-  roles:
-    - pushover
+  tasks:
+    - name: Set up pushover if a token is defined
+      when: pushover_token is defined
+      block:
+        - name: Copy and set up send_push script
+          ansible.builtin.template:
+            src: send_push.sh.j2
+            dest: "{{ ansible_user_dir }}/send_push.sh"
+            mode: "0755"
+        - name: Copy and set up pushover.info file
+          ansible.builtin.template:
+            src: pushover.info.j2
+            dest: "{{ ansible_user_dir }}/pushover.info"
+            mode: "0644"

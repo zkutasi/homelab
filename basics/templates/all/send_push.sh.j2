@@ -11,7 +11,7 @@
 source {{ ansible_user_dir }}/pushover.info
 
 message="$1"
-CURL={{ pushover_curl_path }}
+CURL={{ pushover_curl_path | default("/usr/bin/curl") }}
 
 ${CURL} -s \
   --form-string "token=${token}" \

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/sbin/ethtool -K {{ interface }} gso off gro off tso off tx off rx off rxvlan off txvlan off sg off
+ExecStart=/sbin/ethtool -K {{ network_interface }} gso off gro off tso off tx off rx off rxvlan off txvlan off sg off
 RemainAfterExit=true
 
 [Install]

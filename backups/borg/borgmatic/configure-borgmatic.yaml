@@ -1,10 +1,27 @@
 - name: Set up the known hosts
   hosts: backupclient
-  roles:
-    - ssh-known-hosts
-  vars:
-    ssh_host: "{{ backupserver_hostname }}"
-    ssh_port: "{{ port_borgwarehouse_ssh }}"
+  tasks:
+    - name: Get remote server ssh fingerprints
+      ansible.builtin.command: "ssh-keyscan -p {{ port_borgwarehouse_ssh }} {{ backupserver_hostname }}"
+      changed_when: true
+      environment:
+        PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
+      register: ssh_fingerprints
+      until: ssh_fingerprints.rc == 0
+      retries: 5
+      delay: 3
+    - name: All known_hosts are registered
+      ansible.builtin.known_hosts:
+        name: "{{ item_host }}"
+        key: "{{ item }}"
+        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
+      loop: "{{ ssh_fingerprints.stdout_lines }}"
+      when: item is not regex('^#.*')
+      vars:
+        item_host: "{{ item.split(' ').0 }}"
+        item_type: "{{ item.split(' ').1 }}"
+      loop_control:
+        label: "{{ item_host }} {{ item_type }}"
 - name: Initialize the repository
   environment:
     PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
