@@ -19,6 +19,7 @@
       environment:
         PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.krew/bin"
       loop:
+        - ai
         - cnpg
         - deprecations
         - ktop
