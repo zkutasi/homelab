@@ -73,6 +73,7 @@ A lot of tools should be used with Kubernetes:
 - [Popeye](https://popeyecli.io/) - A Kubernetes cluster resource sanitizer
 - [kube-linter](https://github.com/stackrox/kube-linter) - A static analysis tool that checks Kubernetes YAML files and Helm charts to ensure the applications represented in them adhere to best practices.
 - [kubectx](https://kubectx.dev/) - Faster way to switch between clusters and namespaces in kubectl
+- [kube-score](https://kube-score.com/) - Kubernetes object analysis with recommendations for improved reliability and security. kube-score actively prevents downtime and bugs in your Kubernetes YAML and Charts. Static code analysis for Kubernetes.
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook kubernetes/deploy-k8s-tools.yaml --no-check

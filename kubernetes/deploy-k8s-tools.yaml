@@ -30,3 +30,5 @@
   ansible.builtin.import_playbook: deploy-kubectx.yaml
 - name: Deploy kubens
   ansible.builtin.import_playbook: deploy-kubens.yaml
+- name: Deploy kube-score
+  ansible.builtin.import_playbook: deploy-kube-score.yaml
