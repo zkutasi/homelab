@@ -1,0 +1,13 @@
+- name: Deploy popeye
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.22.1"
+    bin_filename: popeye
+    download_url: "https://github.com/derailed/popeye/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64.tar.gz"
+    version_flag: "version"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}*"

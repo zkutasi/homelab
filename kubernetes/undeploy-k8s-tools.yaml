@@ -17,6 +17,7 @@
         - kubescape
         - kubetail
         - pluto
+        - popeye
       loop_control:
         loop_var: bin_filename
 - name: Delete krew and all plugins
