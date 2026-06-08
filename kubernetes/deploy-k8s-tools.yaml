@@ -20,3 +20,9 @@
   ansible.builtin.import_playbook: deploy-pluto.yaml
 - name: Deploy k9s
   ansible.builtin.import_playbook: deploy-k9s.yaml
+- name: Deploy kubescape
+  ansible.builtin.import_playbook: deploy-kubescape.yaml
+- name: Deploy popeye
+  ansible.builtin.import_playbook: deploy-popeye.yaml
+- name: Deploy kube-linter
+  ansible.builtin.import_playbook: deploy-kube-linter.yaml
