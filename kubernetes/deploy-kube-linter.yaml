@@ -1,0 +1,13 @@
+- name: Deploy kube-linter
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.8.3"
+    bin_filename: kube-linter
+    download_url: "https://github.com/stackrox/kube-linter/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}-linux.tar.gz"
+    version_flag: "version"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}*"
