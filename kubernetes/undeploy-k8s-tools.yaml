@@ -14,6 +14,7 @@
         - oras
         - k9s
         - kor
+        - kubescape
         - kubetail
         - pluto
       loop_control:
