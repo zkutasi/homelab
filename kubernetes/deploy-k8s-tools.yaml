@@ -26,3 +26,7 @@
   ansible.builtin.import_playbook: deploy-popeye.yaml
 - name: Deploy kube-linter
   ansible.builtin.import_playbook: deploy-kube-linter.yaml
+- name: Deploy kubectx
+  ansible.builtin.import_playbook: deploy-kubectx.yaml
+- name: Deploy kubens
+  ansible.builtin.import_playbook: deploy-kubens.yaml

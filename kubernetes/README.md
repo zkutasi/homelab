@@ -72,6 +72,7 @@ A lot of tools should be used with Kubernetes:
 - [kubescape](https://kubescape.io/) - An open-source Kubernetes security platform for your IDE, CI/CD pipelines, and clusters. It includes risk analysis, security, compliance, and misconfiguration scanning, saving Kubernetes users and administrators precious time, effort, and resources.
 - [Popeye](https://popeyecli.io/) - A Kubernetes cluster resource sanitizer
 - [kube-linter](https://github.com/stackrox/kube-linter) - A static analysis tool that checks Kubernetes YAML files and Helm charts to ensure the applications represented in them adhere to best practices.
+- [kubectx](https://kubectx.dev/) - Faster way to switch between clusters and namespaces in kubectl
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook kubernetes/deploy-k8s-tools.yaml --no-check

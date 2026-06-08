@@ -1,0 +1,12 @@
+- name: Deploy kubens
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.11.0"
+    bin_filename: kubens
+    download_url: "https://github.com/ahmetb/kubectx/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_v{{ requested_binary_version }}_linux_x86_64.tar.gz"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}*"
