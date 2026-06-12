@@ -1,8 +1,8 @@
-mongodb:
+mongodbImage:
   repository: ghcr.io/bluewave-labs/checkmate-mongo
   tag: v3.5.1
   pullPolicy: IfNotPresent
-backend:
+backendImage:
   repository: ghcr.io/bluewave-labs/checkmate-backend-mono
   tag: v3.5.1
   pullPolicy: IfNotPresent
@@ -50,7 +50,7 @@ workload:
       containers:
         mongodb:
           enabled: true
-          imageSelector: mongodb
+          imageSelector: mongodbImage
           probes:
             liveness:
               enabled: false
@@ -63,7 +63,7 @@ workload:
           env:
             DB_CONNECTION_STRING: mongodb://checkmate-mongodb:27017/uptime_db
             NODE_EXTRA_CA_CERTS: /certs/homelab-ca.pem
-          imageSelector: backend
+          imageSelector: backendImage
           probes:
             liveness:
               enabled: false

@@ -1,8 +1,8 @@
-backend:
+backendImage:
   repository: ghcr.io/pouzor/homelable-backend
   tag: 2.0.3
   pullPolicy: IfNotPresent
-frontend:
+frontendImage:
   repository: ghcr.io/pouzor/homelable-frontend
   tag: 2.0.3
   pullPolicy: IfNotPresent
@@ -54,7 +54,7 @@ workload:
           enabled: true
           env:
             SQLITE_PATH: /app/data/homelab.db
-          imageSelector: backend
+          imageSelector: backendImage
           probes:
             liveness:
               enabled: false
@@ -72,7 +72,7 @@ workload:
                 - NET_RAW
         main:
           enabled: true
-          imageSelector: frontend
+          imageSelector: frontendImage
           probes:
             liveness:
               enabled: false

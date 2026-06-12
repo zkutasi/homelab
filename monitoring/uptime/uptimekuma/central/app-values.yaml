@@ -1,8 +1,8 @@
-uptimekuma:
+uptimekumaImage:
   repository: louislam/uptime-kuma
   tag: 2.2.1
   pullPolicy: IfNotPresent
-autokuma:
+autokumaImage:
   repository: ghcr.io/bigboot/autokuma
   tag: 2.0.0
   pullPolicy: IfNotPresent
@@ -73,7 +73,7 @@ workload:
             AUTOKUMA__KUMA__CONNECT_TIMEOUT: "30"
             AUTOKUMA__TAG_NAME: "Autokuma"
             AUTOKUMA__TAG_COLOR: "#FFFFFF"
-          imageSelector: autokuma
+          imageSelector: autokumaImage
           probes:
             liveness:
               enabled: false
@@ -89,7 +89,7 @@ workload:
           enabled: true
           env:
             NODE_EXTRA_CA_CERTS: /certs/homelab-ca.pem
-          imageSelector: uptimekuma
+          imageSelector: uptimekumaImage
           probes:
             liveness:
               enabled: false

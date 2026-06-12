@@ -1,8 +1,8 @@
-frontend:
+frontendImage:
   repository: ghcr.io/patchmon/patchmon-frontend
   tag: 1.4.2
   pullPolicy: IfNotPresent
-backend:
+backendImage:
   repository: ghcr.io/patchmon/patchmon-backend
   tag: 1.4.2
   pullPolicy: IfNotPresent
@@ -72,7 +72,7 @@ workload:
             SERVER_HOST: patchmon.kubernetes.home
             SERVER_PORT: 80
             SERVER_PROTOCOL: http
-          imageSelector: backend
+          imageSelector: backendImage
           probes:
             liveness:
               enabled: false
@@ -88,7 +88,7 @@ workload:
           enabled: true
           env:
             BACKEND_HOST: patchmon-backend.patchmon.svc.cluster.local
-          imageSelector: frontend
+          imageSelector: frontendImage
           probes:
             liveness:
               enabled: false

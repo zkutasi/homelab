@@ -6,11 +6,11 @@ cnpg:
       enablePodMonitor: true
     user: budgetboard
 
-server:
+serverImage:
   repository: ghcr.io/teelur/budget-board/server
   tag: v3.0.0
   pullPolicy: IfNotPresent
-client:
+clientImage:
   repository: ghcr.io/teelur/budget-board/client
   tag: v3.0.0
   pullPolicy: IfNotPresent
@@ -68,7 +68,7 @@ workload:
               secretKeyRef:
                 name: cnpg-main-user
                 key: password
-          imageSelector: server
+          imageSelector: serverImage
           probes:
             liveness:
               enabled: false
@@ -82,7 +82,7 @@ workload:
             PORT: 6253
             VITE_SERVER_ADDRESS: budgetboard-server
             VITE_BUDGET_BOARD_DOMAIN: budgetboard.kubernetes.home
-          imageSelector: client
+          imageSelector: clientImage
           probes:
             liveness:
               enabled: false
