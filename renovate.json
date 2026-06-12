@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "additionalBranchPrefix": "{{packageFileDir}}-",
+  "commitMessagePrefix": "[{{packageFileDir}}] ",
+  "enabledManagers": [
+    "helmv3",
+    "helm-values"
+  ],
+  "helm-values": {
+    "managerFilePatterns": [
+      "/(^|/).*values.*\\.ya?ml$/"
+    ]
+  },
+  "includePaths": [
+    "container-mgmt/**"
+  ]
+}
