@@ -1,0 +1,4 @@
+renovate:
+  persistence:
+    cache:
+      storageSize: 1Gi

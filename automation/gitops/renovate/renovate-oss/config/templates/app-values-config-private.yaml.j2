@@ -1,0 +1,42 @@
+renovate:
+  config: |
+    {
+      "platform": "github",
+      "token": "{{ github_pat_renovate }}",
+      "repositories": [
+        "{{ github_homelab_repo }}",
+      ],
+
+      "dependencyDashboard": true,
+
+      "enabledManagers": [
+        "helmv3",
+        "helm-values"
+      ],
+
+      "onboardingConfig": {
+        "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+{% raw %}
+        "additionalBranchPrefix": "{{packageFileDir}}-",
+        "commitMessagePrefix": "[{{packageFileDir}}] ",
+{% endraw %}
+
+        "enabledManagers": [
+          "helmv3",
+          "helm-values"
+        ],
+
+        "helm-values": {
+          "managerFilePatterns": [
+            "/(^|/).*values.*\\.ya?ml$/"
+          ]
+        },
+
+        "includePaths": [
+          "container-mgmt/**"
+        ]
+      },
+
+      "timezone": "{{ timezone }}"
+    }
