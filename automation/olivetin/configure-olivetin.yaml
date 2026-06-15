@@ -1,0 +1,7 @@
+- name: Generate dynamic configuration for OliveTin
+  hosts: controlserver
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/config/config.yaml.j2
+        dest: "{{ ansible_user_dir }}/docker-compose/olivetin/config/config.yaml"

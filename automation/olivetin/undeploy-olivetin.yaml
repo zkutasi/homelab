@@ -1,0 +1,6 @@
+- name: Delete OliveTin containers
+  hosts: controlserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: olivetin

@@ -30,3 +30,7 @@ If one needs to have a WebUI, to manage the workflows, create and run repeated p
   - Red Hat upstream project is [AWX](https://github.com/ansible/awx) - WebUI REST API and Task Engine on top of Ansible. On hold in 2024 due to a major refactor. Also a very complex setup is required and to keep up-to-date.
 - [Rundeck](https://www.rundeck.com/) - Often comes up as an alternative to the above UIs
 - [Kestra](https://kestra.io/) - Open Source, declarative Orchestration Platform, capable to many more things, like data-pipelines too, but also can run Ansible playbooks.
+
+### Other
+
+- [OliveTin](https://olivetin.app/) - OliveTin gives safe and simple access to predefined shell commands from a web interface.
