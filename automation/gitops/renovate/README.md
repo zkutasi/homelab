@@ -63,8 +63,8 @@ docker run --rm -it \
     --env LOG_LEVEL=debug \
     renovate/renovate:43.220 \
     renovate \
-    --platform local \
-    --dry-run full \
+    --platform=local \
+    --dry-run=full \
     --print-config
     ```
 
