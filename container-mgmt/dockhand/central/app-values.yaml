@@ -8,7 +8,7 @@ cnpg:
 
 image:
   repository: fnsys/dockhand
-  tag: v1.0.20
+  tag: v1.0.33
   pullPolicy: IfNotPresent
 
 persistence:
