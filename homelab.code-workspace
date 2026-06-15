@@ -29,17 +29,6 @@
 						"group": "Ansible"
         },
 				{
-            "command": "bash {resource}",
-            "name": "Deploy Kubernetes Resources",
-						"group": "Kubernetes",
-						"auto": true
-        },
-				{
-            "command": "bash {resource} --version",
-            "name": "Deploy Kubernetes Resources with specific version",
-						"group": "Kubernetes"
-        },
-				{
             "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt {resource}",
             "name": "Encrypt file",
 						"group": "SOPS",
@@ -58,14 +47,35 @@
 						"auto": true
         },
 				{
-            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX}; popd",
-            "name": "Kickstart a project",
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX} --appname XXX; popd",
+            "name": "Kickstart a docker project",
+						"group": "Kickstart"
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.helm --foldername ${PREFIX} --appname XXX; popd",
+            "name": "Kickstart a k8s.helm project",
+						"group": "Kickstart"
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.truecharts --foldername ${PREFIX} --appname XXX; popd",
+            "name": "Kickstart a k8s.truecharts project",
+						"group": "Kickstart"
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.truecharts-local --foldername ${PREFIX} --appname XXX; popd",
+            "name": "Kickstart a k8s.truecharts-local project",
 						"group": "Kickstart"
         },
 				{
             "command": "pushd $(git rev-parse --show-toplevel)/automation/ansible; ./deploy-ansible.sh; popd",
             "name": "Update Ansible Navigator",
 						"group": "Ansible Navigator",
+						"auto": true
+        },
+				{
+            "command": "bash {resource}",
+            "name": "Run the given script",
+						"group": "Scripts",
 						"auto": true
         }
     ]
