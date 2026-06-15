@@ -4,14 +4,14 @@ services:
     environment:
       API_PASSWORD: {{ peanut_api_password }}
       AUTH_DISABLED: true
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       WEB_PORT: {{ port_peanut }}
     hostname: {{ id }}-peanut
     image: brandawg93/peanut:{{ requested_image_version['peanut'] }}
     network_mode: host
     restart: unless-stopped
-    user: "{{ docker_uid }}:{{ docker_gid }}"
+    user: "{{ ansible_user_uid }}:{{ ansible_user_gid }}"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

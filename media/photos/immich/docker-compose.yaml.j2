@@ -6,8 +6,8 @@ services:
       - redis
       - database
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
       - DB_PASSWORD={{ immich_db_password }}
       - DB_USERNAME=immich
@@ -26,8 +26,8 @@ services:
   immich-machine-learning:
     container_name: immich-machine-learning
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-immich-machine-learning
     image: ghcr.io/immich-app/immich-machine-learning:{{ requested_image_version['immich'] }}
@@ -38,8 +38,8 @@ services:
   redis:
     container_name: immich-redis
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     healthcheck:
       test: redis-cli ping || exit 1
@@ -50,8 +50,8 @@ services:
   database:
     container_name: immich-postgres
     environment:
-      PUID: {{ docker_uid }}
-      PGID: {{ docker_gid }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
       POSTGRES_PASSWORD: {{ immich_db_password }}
       POSTGRES_USER: immich
@@ -68,8 +68,8 @@ services:
   power-tools:
     container_name: immich-power-tools
     environment:
-      PUID: {{ docker_uid }}
-      PGID: {{ docker_gid }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
       DB_PORT: 5432
       DB_HOST: immich-postgres

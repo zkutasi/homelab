@@ -2,8 +2,8 @@ services:
   medialyze:
     container_name: medialyze
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-medialyze
     image: ghcr.io/frederikemmer/medialyze:{{ requested_image_version['medialyze'] }}

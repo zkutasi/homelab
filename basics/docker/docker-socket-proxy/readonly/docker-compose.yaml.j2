@@ -12,7 +12,7 @@ services:
       - -allowhealthcheck
     container_name: docker-socket-proxy-readonly
     environment:
-      - PUID={{ docker_uid }}
+      - PUID={{ ansible_user_uid }}
       - PGID={{ docker_docker_group_id }}
       - TZ={{ timezone }}
     healthcheck:
@@ -25,6 +25,6 @@ services:
     ports:
       - {{ port_docker_socket_proxy }}:2375
     restart: unless-stopped
-    user: {{ docker_uid }}:{{ docker_docker_group_id }}
+    user: {{ ansible_user_uid }}:{{ docker_docker_group_id }}
     volumes:
       - {{ docker_socket_path }}:/var/run/docker.sock

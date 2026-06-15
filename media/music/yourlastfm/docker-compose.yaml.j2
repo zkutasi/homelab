@@ -2,8 +2,8 @@ services:
   yourlastfm:
     container_name: yourlastfm
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       LASTFM_API_KEY: {{ yourlastfm_lastfm_api_key }}
       LASTFM_USERNAME: {{ lastfm_username }}

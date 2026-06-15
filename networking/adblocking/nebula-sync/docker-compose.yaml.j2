@@ -7,9 +7,9 @@ services:
       FULL_SYNC: false
       SYNC_CONFIG_DNS: true
       SYNC_CONFIG_DNS_INCLUDE: hosts,cnameRecords
-      PGID: {{ docker_gid }}
+      PGID: {{ ansible_user_gid }}
       PRIMARY: {{ pihole_primary_address }}|{{ pihole_password }}
-      PUID: {{ docker_uid }}
+      PUID: {{ ansible_user_uid }}
       REPLICAS: {{ pihole_secondary_address }}|{{ pihole_password }}
       RUN_GRAVITY: true
       TZ: {{ timezone }}

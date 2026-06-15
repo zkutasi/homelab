@@ -4,8 +4,8 @@ services:
     depends_on:
       - adguard-home-unbound
     environment:
-      PUID: {{ docker_uid }}
-      PGID: {{ docker_gid }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-adguard-home
     image: adguard/adguardhome:v{{ requested_image_version['adguard-home'] }}

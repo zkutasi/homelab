@@ -2,8 +2,8 @@ services:
   crosswatch:
     container_name: crosswatch
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-crosswatch
     image: ghcr.io/cenodude/crosswatch:{{ requested_image_version['crosswatch'] }}

@@ -4,8 +4,8 @@ services:
     environment:
       - TZ={{ timezone }}
       - PORT={{ port_netalertx }}
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - APP_CONF_OVERRIDE={"SCAN_SUBNETS":"['{{ netalertx_subnet }} --interface={{ netalertx_interface }}']"}
       - PIHOLE_RUN=schedule
     hostname: {{ id }}-netalertx

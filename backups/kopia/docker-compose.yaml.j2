@@ -44,7 +44,7 @@ services:
     security_opt:
       - apparmor:unconfined
 {% if kopia_generate_certs %}
-    user: "{{ docker_uid }}:{{ docker_gid }}"
+    user: "{{ ansible_user_uid }}:{{ ansible_user_gid }}"
 {% else %}
     user: "0:0"
 {% endif %}

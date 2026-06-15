@@ -2,8 +2,8 @@ services:
   smokeping:
     container_name: smokeping
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     healthcheck:
       test: timeout 10s bash -c ':> /dev/tcp/127.0.0.1/80' || exit 1

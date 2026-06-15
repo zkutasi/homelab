@@ -6,8 +6,8 @@ services:
     depends_on:
       - photoprism-mariadb
     environment:
-      PUID: {{ docker_uid }}
-      PGID: {{ docker_gid }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
       PHOTOPRISM_ADMIN_USER: admin
       PHOTOPRISM_ADMIN_PASSWORD: {{ photoprism_admin_password }}
@@ -21,14 +21,14 @@ services:
       PHOTOPRISM_DEFAULT_TLS: "true"
       PHOTOPRISM_DISABLE_TLS: "false"
       PHOTOPRISM_HTTP_COMPRESSION: "gzip"
-      PHOTOPRISM_UID: {{ docker_uid }}
-      PHOTOPRISM_GID: {{ docker_gid }}
+      PHOTOPRISM_UID: {{ ansible_user_uid }}
+      PHOTOPRISM_GID: {{ ansible_user_gid }}
     hostname: {{ id }}-photoprism
     image: photoprism/photoprism:{{ requested_image_version['photoprism'] }}
     ports:
       - {{ port_photoprism }}:2342
     restart: unless-stopped
-    user: "{{ docker_uid }}:{{ docker_gid }}"
+    user: "{{ ansible_user_uid }}:{{ ansible_user_gid }}"
     volumes:
 {% for volume in docker_compose_extra_volumes %}
       - {{ volume.from }}:/photoprism/originals/{{ volume.to }}:ro

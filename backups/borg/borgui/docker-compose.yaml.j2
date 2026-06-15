@@ -2,8 +2,8 @@ services:
   borgui:
     container_name: borgui
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-borgui
     image: ainullcode/borg-ui:{{ requested_image_version['borgui'] }}

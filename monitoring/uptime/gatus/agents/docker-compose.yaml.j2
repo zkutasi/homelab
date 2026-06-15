@@ -2,8 +2,8 @@ services:
   gatus-agent:
     container_name: gatus-agent
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-gatus-agent
     image: twinproduction/gatus:v{{ requested_image_version['gatus'] }}

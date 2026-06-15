@@ -12,8 +12,8 @@ services:
     container_name: glances
     environment:
       GLANCES_OPT: -C /glances/conf/glances.conf -w --enable-mcp --enable-plugin smart
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       PYTHONPYCACHEPREFIX: /tmp/py_caches
       TZ: {{ timezone }}
     healthcheck:

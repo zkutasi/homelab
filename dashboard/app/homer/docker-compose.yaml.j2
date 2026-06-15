@@ -3,14 +3,14 @@ services:
     container_name: homer
     environment:
       INIT_ASSETS: 1
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-homer
     image: b4bz/homer:v{{ requested_image_version['homer'] }}
     ports:
       - {{ port_homer }}:8080
     restart: unless-stopped
-    user: {{ docker_uid }}:{{ docker_gid }}
+    user: {{ ansible_user_uid }}:{{ ansible_user_gid }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/www/assets

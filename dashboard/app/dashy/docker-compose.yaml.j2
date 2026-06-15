@@ -3,8 +3,8 @@ services:
     container_name: dashy
     environment:
       NODE_ENV: production
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       NODE_EXTRA_CA_CERTS: /certs/homelab-ca.pem
     healthcheck:

@@ -2,14 +2,14 @@ services:
   olivetin:
     container_name: olivetin
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-olivetin
     image: jamesread/olivetin:{{ requested_image_version['olivetin'] }}
     ports:
       - {{ port_olivetin }}:1337
     restart: unless-stopped
-    user: {{ docker_uid }}:{{ docker_gid }}
+    user: {{ ansible_user_uid }}:{{ ansible_user_gid }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config

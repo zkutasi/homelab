@@ -6,8 +6,8 @@ services:
       DB_NAME: ampache
       DISABLE_INOTIFYWAIT_CLEAN: 1
       FORCE_INSTALL: 0
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-ampache
     image: ampache/ampache:{{ requested_image_version['ampache'] }}

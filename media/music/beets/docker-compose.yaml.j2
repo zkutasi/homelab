@@ -2,8 +2,8 @@ services:
   beets:
     container_name: beets
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-beets
     image: lscr.io/linuxserver/beets:{{ requested_image_version['beets'] }}

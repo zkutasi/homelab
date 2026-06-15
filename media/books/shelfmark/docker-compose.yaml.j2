@@ -2,8 +2,8 @@ services:
   shelfmark:
     container_name: shelfmark
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost:8084/api/health"]

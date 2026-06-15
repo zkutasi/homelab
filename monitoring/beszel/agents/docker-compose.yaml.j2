@@ -28,8 +28,8 @@ services:
       SMART_DEVICES: {{ smartctl_args | join(',') }}
 {% endif %}
       TOKEN: {{ beszel_universal_token }}
-      PUID: {{ docker_uid }}
-      PGID: {{ docker_gid }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
     healthcheck:
       test: ['CMD', '/agent', 'health']

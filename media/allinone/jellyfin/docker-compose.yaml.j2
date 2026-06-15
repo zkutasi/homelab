@@ -32,9 +32,9 @@ services:
     devices:
       - /dev/dri:/dev/dri
     environment:
-      - UID={{ docker_uid }}
-      - GID={{ docker_gid }}
-      - GIDLIST={{ docker_gid }}
+      - UID={{ ansible_user_uid }}
+      - GID={{ ansible_user_gid }}
+      - GIDLIST={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-jellyfin
     image: jellyfin/jellyfin:{{ requested_image_version['jellyfin'] }}

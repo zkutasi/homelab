@@ -30,9 +30,9 @@ services:
       mount-check:
         condition: service_completed_successfully
     environment:
-      - UID={{ docker_uid }}
-      - GID={{ docker_gid }}
-      - GIDLIST={{ docker_gid }}
+      - UID={{ ansible_user_uid }}
+      - GID={{ ansible_user_gid }}
+      - GIDLIST={{ ansible_user_gid }}
       - TZ={{ timezone }}
     healthcheck:
       test: ["CMD-SHELL", "curl -f -s http://localhost:32400/identity || exit 1"]
@@ -53,8 +53,8 @@ services:
       plex:
         condition: service_healthy
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     healthcheck:
       test: ["CMD-SHELL", "curl -f -s http://localhost:8181/status || exit 1"]

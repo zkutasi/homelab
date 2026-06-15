@@ -2,8 +2,8 @@ services:
   dockhand-hawser:
     container_name: dockhand-hawser
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
       - AGENT_NAME={{ id }}
       - TOKEN={{ dockhand_agent_token }}

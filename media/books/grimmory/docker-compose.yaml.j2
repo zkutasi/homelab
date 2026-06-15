@@ -8,11 +8,11 @@ services:
       DATABASE_PASSWORD: {{ grimmory_db_user_password }}
       DATABASE_URL: jdbc:mariadb://mariadb:3306/booklore
       DATABASE_USERNAME: booklore
-      GROUP_ID: {{ docker_gid }}
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      GROUP_ID: {{ ansible_user_gid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
-      USER_ID: {{ docker_uid }}
+      USER_ID: {{ ansible_user_uid }}
     healthcheck:
       interval: 60s
       retries: 5
@@ -33,8 +33,8 @@ services:
   mariadb:
     container_name: grimmory-mariadb
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       MYSQL_ROOT_PASSWORD: {{ grimmory_db_root_password }}
       MYSQL_DATABASE: booklore

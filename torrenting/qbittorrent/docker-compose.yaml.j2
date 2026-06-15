@@ -5,8 +5,8 @@ services:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       - QBT_LEGAL_NOTICE=confirm
       - QBT_WEBUI_PORT=48080
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-qbittorrent-nox
     image: qbittorrentofficial/qbittorrent-nox:{{ requested_image_version['qbittorrent-nox'] }}

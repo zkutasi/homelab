@@ -4,11 +4,11 @@ services:
       context: borgwarehouse
       dockerfile: Dockerfile
       args:
-        - UID={{ docker_uid }}
+        - UID={{ ansible_user_uid }}
         - GID={{ backups_gid }}
     container_name: borgwarehouse
     environment:
-      - UID={{ docker_uid }}
+      - UID={{ ansible_user_uid }}
       - GID={{ backups_gid }}
       - FQDN={{ hostvars[groups['backupserver'][0]].id }}.home
       - FQDN_LAN={{ hostvars[groups['backupserver'][0]].ansible_host }}
@@ -28,7 +28,7 @@ services:
       - {{ port_borgwarehouse }}:3000
       - {{ port_borgwarehouse_ssh }}:{{ port_borgwarehouse_ssh }}
     restart: unless-stopped
-    user: "{{ docker_uid }}:{{ backups_gid }}"
+    user: "{{ ansible_user_uid }}:{{ backups_gid }}"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/home/borgwarehouse/app/config
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ssh:/home/borgwarehouse/.ssh

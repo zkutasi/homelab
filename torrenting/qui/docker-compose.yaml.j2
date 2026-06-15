@@ -2,8 +2,8 @@ services:
   qui:
     container_name: qui
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-qui
     image: ghcr.io/autobrr/qui:v{{ requested_image_version['qui'] }}

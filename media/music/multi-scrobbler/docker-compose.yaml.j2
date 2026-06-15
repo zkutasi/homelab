@@ -2,8 +2,8 @@ services:
   multi-scrobbler:
     container_name: multi-scrobbler
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-multi-scrobbler
     image: foxxmd/multi-scrobbler:{{ requested_image_version['multi-scrobbler'] }}

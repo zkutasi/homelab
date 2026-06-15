@@ -2,8 +2,8 @@ services:
   watchyourlan:
     container_name: watchyourlan
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       IFACES: {{ watchyourlan_interface }}
       PORT: {{ port_watchyourlan }}

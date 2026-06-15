@@ -2,8 +2,8 @@ services:
   urbackup-server:
     container_name: urbackup-server
     environment:
-      - PUID={{ docker_uid }}
-      - PGID={{ docker_gid }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-urbackup-server
     image: uroni/urbackup-server:{{ requested_image_version['urbackup-server'] }}

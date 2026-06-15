@@ -2,8 +2,8 @@ services:
   koito:
     container_name: koito
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-koito
     image: gabehf/koito:v{{ requested_image_version['koito'] }}

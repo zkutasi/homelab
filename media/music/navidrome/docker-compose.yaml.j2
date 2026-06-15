@@ -2,8 +2,8 @@ services:
   navidrome:
     container_name: navidrome
     environment:
-      PGID: {{ docker_gid }}
-      PUID: {{ docker_uid }}
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
       ND_SCANNER_ENABLED: false
       ND_SCANNER_SCANONSTARTUP: false
@@ -12,7 +12,7 @@ services:
     ports:
       - {{ port_navidrome }}:4533
     restart: unless-stopped
-    user: {{ docker_uid }}:{{ docker_gid }}
+    user: {{ ansible_user_uid }}:{{ ansible_user_gid }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
 {% for volume in docker_compose_extra_volumes %}
