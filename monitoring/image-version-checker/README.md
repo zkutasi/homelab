@@ -2,6 +2,13 @@
 
 It is best to keep track of the image versions of containers and helm charts in order to update them regularly, even automatically.
 
+However, a Renovate + GitOps way is the better way instead:
+
+- It can watch not only images, but helm charts and more
+- It can be extensible with custom managers for custom files
+- It is based also on a human review, but also possible to auto-merge minor changes
+- It requires everything to be in git, but that is already the case here
+
 ## Requirements
 
 - Possibility to just show the required updated but not necessarily auto-update the images
