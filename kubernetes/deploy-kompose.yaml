@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "1.36.0"
     bin_filename: kompose
-    download_url: "https://github.com/kubernetes/{{ bin_filename }}/releases/download/\
+    binary_repository: "kubernetes/kompose"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"

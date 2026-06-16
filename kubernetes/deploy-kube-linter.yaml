@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "0.8.3"
     bin_filename: kube-linter
-    download_url: "https://github.com/stackrox/kube-linter/releases/download/\
+    binary_repository: "stackrox/kube-linter"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux.tar.gz"
     version_flag: "version"
     decompression_options:

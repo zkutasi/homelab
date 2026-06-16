@@ -20,7 +20,8 @@
   vars:
     requested_binary_version: "4.47.2"
     bin_filename: yq
-    download_url: "https://github.com/mikefarah/{{ bin_filename }}/releases/download/\
+    binary_repository: "mikefarah/yq"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"

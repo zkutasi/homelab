@@ -6,11 +6,24 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["(^|/)Chart\\.yaml$"],
+      "managerFilePatterns": [
+        "(^|/)Chart\\.ya?ml$/"
+      ],
       "matchStrings": [
         "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
       ],
       "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/).*\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "binary_repository:\\s*\"?(?<depName>[^\\\"\\s]+)\"?\\s*[\\s\\S]*?requested_binary_version:\\s*\"?(?<currentValue>[^\\\"\\s]+)\"?",
+        "requested_binary_version:\\s*\"?(?<currentValue>[^\\\"\\s]+)\"?\\s*[\\s\\S]*?binary_repository:\\s*\"?(?<depName>[^\\\"\\s]+)\"?"
+      ],
+      "datasourceTemplate": "github-releases"
     }
   ],
 
@@ -27,7 +40,8 @@
   },
 
   "includePaths": [
-    "container-mgmt/**"
+    "container-mgmt/**",
+    "kubernetes/**"
   ],
 
   "prHourlyLimit": 10

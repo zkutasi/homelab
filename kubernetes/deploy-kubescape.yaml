@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "4.0.9"
     bin_filename: kubescape
-    download_url: "https://github.com/kubescape/{{ bin_filename }}/releases/download/\
+    binary_repository: "kubescape/kubescape"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"
     decompression_options:

@@ -5,8 +5,9 @@
   vars:
     requested_binary_version: "1.10.2"
     bin_filename: node_exporter
+    binary_repository: "prometheus/node_exporter"
     service_name: node-exporter
-    download_url: "https://github.com/prometheus/node_exporter/releases/download/\
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
 - name: Deploy node-exporter as docker
   hosts: docker

@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "5.7.1"
     bin_filename: kustomize
-    download_url: "https://github.com/kubernetes-sigs/{{ bin_filename }}/releases/download/{{ bin_filename }}/\
+    binary_repository: "kubernetes-sigs/kustomize"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/{{ bin_filename }}/\
           v{{ requested_binary_version }}/{{ bin_filename }}_v{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"
     decompression_options:

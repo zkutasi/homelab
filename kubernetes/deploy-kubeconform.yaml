@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "0.7.0"
     bin_filename: kubeconform
-    download_url: "https://github.com/yannh/{{ bin_filename }}/releases/download/\
+    binary_repository: "yannh/kubeconform"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
     version_flag: "-v"
     decompression_options:

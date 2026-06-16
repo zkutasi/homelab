@@ -57,10 +57,13 @@ This token has to have the following accesses:
 It is worth to know how to test newer renovate.json files without actually committing the changes, as Renovate by default clones the repo and works from there. This can be done by executing the Renovate tool in `local` mode, which will use the `renovate.json` from the local filesystem:
 
 ```bash
+RENOVATE_TOKEN=XXXX
 docker run --rm -it \
     --volume "${PWD}:/repo" \
     --workdir /repo \
     --env LOG_LEVEL=debug \
+    --env RENOVATE_TOKEN=${RENOVATE_TOKEN}$ \
+    --env RENOVATE_GITHUB_COM_TOKEN=${RENOVATE_TOKEN} \
     renovate/renovate:43.220 \
     renovate \
     --platform=local \

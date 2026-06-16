@@ -1,3 +1,5 @@
+env:
+  RENOVATE_GITHUB_COM_TOKEN: "{{ github_pat_renovate }}"
 renovate:
   config: |
     {
@@ -8,11 +10,6 @@ renovate:
       ],
 
       "dependencyDashboard": true,
-
-      "enabledManagers": [
-        "helmv3",
-        "helm-values"
-      ],
 
       "timezone": "{{ timezone }}"
     }

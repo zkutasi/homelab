@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "1.20.0"
     bin_filename: kube-score
-    download_url: "https://github.com/zegl/kube-score/releases/download/\
+    binary_repository: "zegl/kube-score"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"
     decompression_options:

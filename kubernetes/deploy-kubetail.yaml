@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "0.17.0"
     bin_filename: kubetail
-    download_url: "https://github.com/kubetail-org/kubetail/releases/download/cli/\
+    binary_repository: "kubetail-org/kubetail"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/cli/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
     decompression_options:
       - "--wildcards"

@@ -14,8 +14,9 @@
   vars:
     requested_binary_version: "1.4.6"
     bin_filename: rustdesk
+    binary_repository: "rustdesk/rustdesk"
     bin_path: /usr/bin
-    download_url: "https://github.com/rustdesk/rustdesk/releases/download/\
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
         {{ requested_binary_version }}/rustdesk-{{ requested_binary_version }}-{{ ansible_architecture }}.deb"
     compressed: false
     install_cmd: "dpkg --install ./\

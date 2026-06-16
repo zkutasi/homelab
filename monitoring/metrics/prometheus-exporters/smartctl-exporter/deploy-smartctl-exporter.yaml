@@ -5,8 +5,9 @@
   vars:
     requested_binary_version: "0.14.0"
     bin_filename: smartctl_exporter
+    binary_repository: "prometheus-community/smartctl_exporter"
     service_name: smartctl-exporter
-    download_url: "https://github.com/prometheus-community/smartctl_exporter/releases/download/\
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
 - name: Deploy smartctl-exporter as docker
   hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"

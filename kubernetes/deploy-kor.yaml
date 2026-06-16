@@ -5,7 +5,8 @@
   vars:
     requested_binary_version: "0.6.8"
     bin_filename: kor
-    download_url: "https://github.com/yonahd/kor/releases/download/\
+    binary_repository: "yonahd/kor"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_Linux_x86_64.tar.gz"
     version_flag: "version"
     decompression_options:

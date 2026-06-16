@@ -79,11 +79,12 @@
   vars:
     requested_binary_version: "0.18.1"
     bin_filename: beszel-agent
+    binary_repository: "henrygd/beszel"
     service_name: beszel-agent
     decompression_options:
       - "--wildcards"
       - "{{ bin_filename }}"
-    download_url: "https://github.com/henrygd/beszel/releases/download/\
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64.tar.gz"
     version_flag: "version"
     environment_vars:
