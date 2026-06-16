@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: homer
     requested_image_version:
-      homer: "b4bz/homer:v25.11.1"
+      homer: "b4bz/homer:v26.4.2"
     docker_compose_create_dirs:
       - name: config
