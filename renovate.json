@@ -50,10 +50,5 @@
     ]
   },
 
-  "includePaths": [
-    "container-mgmt/**",
-    "kubernetes/**"
-  ],
-
   "prHourlyLimit": 10
 }
