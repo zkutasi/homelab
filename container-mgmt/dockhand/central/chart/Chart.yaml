@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=fnsys/dockhand
-appVersion: v1.0.20
+appVersion: v1.0.33
 dependencies:
   - name: common
     version: 28.26.3
