@@ -13,7 +13,7 @@ services:
       - DB_USERNAME=immich
       - DB_DATABASE_NAME=immich
     hostname: {{ id }}-immich-server
-    image: ghcr.io/immich-app/immich-server:{{ requested_image_version['immich'] }}
+    image: {{ requested_image_version['immich-server'] }}
     ports:
       - {{ port_immich }}:2283
     restart: unless-stopped
@@ -30,7 +30,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-immich-machine-learning
-    image: ghcr.io/immich-app/immich-machine-learning:{{ requested_image_version['immich'] }}
+    image: {{ requested_image_version['immich-ml'] }}
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ml/model-cache:/cache
@@ -44,7 +44,7 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
     hostname: {{ id }}-immich-redis
-    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    image: {{ requested_image_version['valkey'] }}
     restart: unless-stopped
 
   database:
@@ -59,7 +59,7 @@ services:
       POSTGRES_INITDB_ARGS: '--data-checksums'
       DB_STORAGE_TYPE: HDD
     hostname: {{ id }}-immich-postgres
-    image: ghcr.io/immich-app/postgres:{{ requested_image_version['immich-postgres'] }}
+    image: {{ requested_image_version['immich-postgres'] }}
     restart: unless-stopped
     shm_size: 128mb
     volumes:
@@ -85,7 +85,7 @@ services:
       retries: 3
       start_period: 40s
     hostname: {{ id }}-immich-power-tools
-    image: ghcr.io/varun-raj/immich-power-tools:{{ requested_image_version['immich-power-tools'] }}
+    image: {{ requested_image_version['immich-power-tools'] }}
     ports:
       - {{ port_immich_power_tools }}:3000
     restart: unless-stopped

@@ -11,7 +11,7 @@ services:
       timeout: 30s
       retries: 3
     hostname: {{ id }}-shelfmark
-    image: ghcr.io/calibrain/shelfmark:{{ requested_image_version['shelfmark'] }}
+    image: {{ requested_image_version['shelfmark'] }}
     ports:
       - {{ port_shelfmark }}:8084
     restart: unless-stopped

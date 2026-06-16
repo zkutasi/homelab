@@ -7,4 +7,4 @@
   vars:
     docker_compose_projectname: conntrack-exporter
     requested_image_version:
-      conntrack-exporter: "0.3.1"
+      conntrack-exporter: "hiveco/conntrack_exporter:0.3.1"

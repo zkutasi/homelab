@@ -17,7 +17,7 @@
   vars:
     docker_compose_projectname: kopia
     requested_image_version:
-      kopia: "0.22.3"
+      kopia: "kopia/kopia:0.22.3"
     docker_compose_create_dirs:
       - name: config
       - name: cache

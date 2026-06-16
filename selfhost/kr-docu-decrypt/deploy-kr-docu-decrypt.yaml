@@ -5,8 +5,8 @@
   vars:
     docker_compose_projectname: kr-docu-decrypt
     requested_image_version:
-      python: "3.11"
-      selenium: "125.0-20250707"
+      python: "python:3.11"
+      selenium: "selenium/standalone-chrome:125.0-20250707"
     docker_compose_create_dirs:
       - name: app
       - name: downloads

@@ -5,8 +5,8 @@
   vars:
     docker_compose_projectname: photoprism
     requested_image_version:
-      photoprism: 251130
-      mariadb: 11
+      photoprism: "photoprism/photoprism:251130"
+      mariadb: "mariadb:11"
     docker_compose_create_dirs:
       - name: storage
       - name: database

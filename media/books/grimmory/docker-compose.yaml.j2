@@ -20,7 +20,7 @@ services:
       test: wget -q -O - http://localhost:6060/api/v1/healthcheck
       timeout: 10s
     hostname: {{ id }}-grimmory
-    image: grimmory/grimmory:v{{ requested_image_version['grimmory'] }}
+    image: {{ requested_image_version['grimmory'] }}
     ports:
       - {{ port_grimmory }}:6060
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
       test: ["CMD", "mariadb-admin", "ping", "-h", "localhost"]
       timeout: 5s
     hostname: {{ id }}-grimmory-mariadb
-    image: lscr.io/linuxserver/mariadb:{{ requested_image_version['mariadb'] }}
+    image: {{ requested_image_version['mariadb'] }}
     ports:
       - {{ port_grimmory_mariadb }}:3306
     restart: unless-stopped

@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-olivetin
-    image: jamesread/olivetin:{{ requested_image_version['olivetin'] }}
+    image: {{ requested_image_version['olivetin'] }}
     ports:
       - {{ port_olivetin }}:1337
     restart: unless-stopped

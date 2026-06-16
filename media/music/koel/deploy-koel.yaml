@@ -5,7 +5,8 @@
   vars:
     docker_compose_projectname: koel
     requested_image_version:
-      koel: "8.3.0"
+      koel: "phanan/koel:8.3.0"
+      postgresql: "postgres:13"
     docker_compose_create_dirs:
       - name: image_storage
       - name: search_index

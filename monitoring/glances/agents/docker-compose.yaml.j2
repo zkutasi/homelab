@@ -23,7 +23,7 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:{{ port_glances }}/api/4/status"]
       timeout: 10s
     hostname: {{ id }}-glances
-    image: nicolargo/glances:{{ requested_image_version['glances'] }}
+    image: {{ requested_image_version['glances'] }}
     network_mode: host
     pid: host
     privileged: false

@@ -85,9 +85,12 @@ if [ "${MAINTYPE}" == "docker" ]; then
         echo "Processing existing docker-compose.yaml for templating..."
         cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
 
+        APP_IMAGE=$(yq -r ".services.${APP_NAME_LOWERCASE}.image" "${TARGET_APP_DIR}/docker-compose.yaml.j2")
+        APP_IMAGE_REPO=${APP_IMAGE%%:*}
+        APP_IMAGE_TAG=${APP_IMAGE##*:}
         yq -i ".services.${APP_NAME_LOWERCASE}.container_name = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         yq -i ".services.${APP_NAME_LOWERCASE}.hostname = \"PLACEHOLDER_ID-${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-        yq -i ".services.${APP_NAME_LOWERCASE}.image |= sub(\":.*$\", \":PLACEHOLDER_IMAGE_VERSION\")" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
+        yq -i ".services.${APP_NAME_LOWERCASE}.image = \"PLACEHOLDER_IMAGE_VERSION\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
         yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
         echo "Processing environment variables..."

@@ -9,6 +9,6 @@ services:
       - NUT_EXPORTER_PASSWORD={{ nut_server_password }}
       - TZ={{ timezone }}
     hostname: {{ id }}-nut-exporter
-    image: druggeri/nut_exporter:{{ requested_image_version['nut-exporter'] }}
+    image: {{ requested_image_version['nut-exporter'] }}
     network_mode: host
     restart: unless-stopped

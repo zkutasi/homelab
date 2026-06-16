@@ -6,7 +6,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-urbackup-server
-    image: uroni/urbackup-server:{{ requested_image_version['urbackup-server'] }}
+    image: {{ requested_image_version['urbackup-server'] }}
 {% if docker_compose_ipv6 %}
     networks:
       - urbackup-server-network

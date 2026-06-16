@@ -15,7 +15,7 @@ services:
       DB_DATABASE: koel
       APP_KEY: {{ koel_app_key }}
     hostname: {{ id }}-koel
-    image: phanan/koel:{{ requested_image_version['koel'] }}
+    image: {{ requested_image_version['koel'] }}
     ports:
       - {{ port_koel }}:80
     restart: unless-stopped
@@ -33,7 +33,7 @@ services:
       POSTGRES_USER: koel
       POSTGRES_PASSWORD: {{ koel_db_password }}
     hostname: {{ id }}-koel-postgresql
-    image: postgres:13
+    image: {{ requested_image_version['postgresql'] }}
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/db:/var/lib/postgresql/data

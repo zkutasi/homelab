@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-koito
-    image: gabehf/koito:v{{ requested_image_version['koito'] }}
+    image: {{ requested_image_version['koito'] }}
     ports:
       - {{ port_koito }}:4110
     restart: unless-stopped

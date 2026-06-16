@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-crosswatch
-    image: ghcr.io/cenodude/crosswatch:{{ requested_image_version['crosswatch'] }}
+    image: {{ requested_image_version['crosswatch'] }}
     ports:
       - {{ port_crosswatch }}:8787
     restart: unless-stopped

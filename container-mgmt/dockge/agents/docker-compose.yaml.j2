@@ -5,7 +5,7 @@ services:
       - DOCKGE_STACKS_DIR=/opt/stacks
       - TZ={{ timezone }}
     hostname: {{ id }}-dockge
-    image: louislam/dockge:{{ requested_image_version['dockge'] }}
+    image: {{ requested_image_version['dockge'] }}
     ports:
       - {{ port_dockge }}:5001
     restart: unless-stopped

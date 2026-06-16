@@ -7,7 +7,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-rustdesk-hbbs
-    image: rustdesk/rustdesk-server:{{ requested_image_version['rustdesk'] }}
+    image: {{ requested_image_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped
     volumes:
@@ -19,7 +19,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-rustdesk-hbbr
-    image: rustdesk/rustdesk-server:{{ requested_image_version['rustdesk'] }}
+    image: {{ requested_image_version['rustdesk'] }}
     network_mode: "host"
     restart: unless-stopped
     volumes:

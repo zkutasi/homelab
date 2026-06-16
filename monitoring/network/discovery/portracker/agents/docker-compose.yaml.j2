@@ -6,7 +6,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-portracker-agent
-    image: mostafawahied/portracker:{{ requested_image_version['portracker'] }}
+    image: {{ requested_image_version['portracker'] }}
     pid: "host"  # Required for port detection
     ports:
       - {{ port_portracker }}:4999

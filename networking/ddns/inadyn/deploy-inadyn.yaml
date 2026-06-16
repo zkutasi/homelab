@@ -8,6 +8,6 @@
   vars:
     docker_compose_projectname: inadyn
     requested_image_version:
-      inadyn: "2.13.0"
+      inadyn: "troglobit/inadyn:v2.13.0"
     docker_compose_template_files_copy:
       - name: config/inadyn.conf

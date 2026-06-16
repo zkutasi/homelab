@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-gatus-agent
-    image: twinproduction/gatus:v{{ requested_image_version['gatus'] }}
+    image: {{ requested_image_version['gatus'] }}
     networks:
       - gatus-agent-network
     ports:

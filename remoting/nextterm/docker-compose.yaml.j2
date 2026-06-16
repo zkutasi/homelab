@@ -7,7 +7,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-nexterm
-    image: germannewsmaker/nexterm:{{ requested_image_version['nexterm'] }}
+    image: {{ requested_image_version['nexterm'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

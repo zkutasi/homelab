@@ -4,7 +4,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-portainer-agent
-    image: portainer/agent:{{ requested_image_version['portainer-agent'] }}
+    image: {{ requested_image_version['portainer-agent'] }}
     ports:
       - {{ port_portainer_agent }}:9001
     restart: unless-stopped

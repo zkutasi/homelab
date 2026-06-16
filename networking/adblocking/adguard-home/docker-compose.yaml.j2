@@ -8,7 +8,7 @@ services:
       PGID: {{ ansible_user_gid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-adguard-home
-    image: adguard/adguardhome:v{{ requested_image_version['adguard-home'] }}
+    image: {{ requested_image_version['adguard-home'] }}
     networks:
       adguardhome_dns_network:
         ipv4_address: {{ adguardhome_docker_network_3digit }}.2
@@ -28,7 +28,7 @@ services:
     environment:
       TZ: "{{ timezone }}"
     hostname: {{ id }}-adguard-home-unbound
-    image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
+    image: {{ requested_image_version['unbound'] }}
     networks:
       adguardhome_dns_network:
         ipv4_address: {{ adguardhome_docker_network_3digit }}.3

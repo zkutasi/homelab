@@ -7,7 +7,7 @@ services:
       - TZ={{ timezone }}
       - AGENT_SECRET={{ tugtainer_agent_secret }}
     hostname: {{ id }}-tugtainer
-    image: quenary/tugtainer:{{ requested_image_version['tugtainer'] }}
+    image: {{ requested_image_version['tugtainer'] }}
     ports:
       - {{ port_tugtainer_agent }}:8001
     restart: unless-stopped

@@ -20,7 +20,7 @@ services:
       '
     container_name: emby-mount-check
     hostname: {{ id }}-emby-mount-check
-    image: alpine
+    image: {{ requested_image_version['alpine'] }}
     restart: no
     volumes:
       - /mnt:/mnt:ro
@@ -37,7 +37,7 @@ services:
       - GIDLIST={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-emby
-    image: emby/embyserver:{{ requested_image_version['emby'] }}
+    image: {{ requested_image_version['emby'] }}
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://localhost:8096/emby/System/Ping || exit 1"]
       interval: 30s

@@ -5,7 +5,7 @@ services:
       MODE: standalone
       TZ: {{ timezone }}
     hostname: {{ id }}-librespeed
-    image: ghcr.io/librespeed/speedtest:{{ requested_image_version['librespeed'] }}
+    image: {{ requested_image_version['librespeed'] }}
     ports:
       - {{ port_librespeed }}:80
     restart: unless-stopped

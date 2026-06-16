@@ -19,7 +19,7 @@ services:
       - TZ={{ timezone }}
       - "HOSTNAME=::"
     hostname: {{ id }}-borgwarehouse
-    # image: borgwarehouse/borgwarehouse:v{{ requested_image_version['borgwarehouse'] }}
+    # image: {{ requested_image_version['borgwarehouse'] }}
 {% if docker_compose_ipv6 %}
     networks:
       - borgwarehouse-network

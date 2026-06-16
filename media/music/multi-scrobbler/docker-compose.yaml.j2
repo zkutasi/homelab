@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-multi-scrobbler
-    image: foxxmd/multi-scrobbler:{{ requested_image_version['multi-scrobbler'] }}
+    image: {{ requested_image_version['multi-scrobbler'] }}
     ports:
       - {{ port_multi_scrobbler }}:9078
     restart: unless-stopped

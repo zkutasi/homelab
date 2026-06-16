@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: dashy
     requested_image_version:
-      dashy: "3.2.0"
+      dashy: "lissy93/dashy:3.2.0"
     docker_compose_create_dirs:
       - name: config
       - name: item-icons

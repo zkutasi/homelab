@@ -5,17 +5,25 @@
   vars:
     docker_compose_projectname: openvas
     requested_image_version:
-      openvas-scanner: "23.41.0"
-      redis-server: "1.1.2"
-      gvmd: "26.19.0"
-      gsa: "26.14.0"
-      gsad: "24.16.0"
-      gvm-tools: "25.4.8"
-      ospd-openvas: "22.10.1"
-      nginx: "latest"
-      pg-gvm: "22.6.15"
-      pg-gvm-migrator: "stable"
-      gvm-config: "latest"
+      vulnerability-tests: "registry.community.greenbone.net/community/vulnerability-tests"
+      notus-data: "registry.community.greenbone.net/community/notus-data"
+      scap-data: "registry.community.greenbone.net/community/scap-data"
+      cert-bund-data: "registry.community.greenbone.net/community/cert-bund-data"
+      dfn-cert-data: "registry.community.greenbone.net/community/dfn-cert-data"
+      data-objects: "registry.community.greenbone.net/community/data-objects"
+      report-formats: "registry.community.greenbone.net/community/report-formats"
+      gpg-data: "registry.community.greenbone.net/community/gpg-data"
+      openvas-scanner: "registry.community.greenbone.net/community/openvas-scanner:23.41.0"
+      redis-server: "registry.community.greenbone.net/community/redis-server:1.1.2"
+      gvmd: "registry.community.greenbone.net/community/gvmd:26.19.0"
+      gsa: "registry.community.greenbone.net/community/gsa:26.14.0"
+      gsad: "registry.community.greenbone.net/community/gsad:24.16.0"
+      gvm-tools: "registry.community.greenbone.net/community/gvm-tools:25.4.8"
+      ospd-openvas: "registry.community.greenbone.net/community/ospd-openvas:22.10.1"
+      nginx: "registry.community.greenbone.net/community/nginx:latest"
+      pg-gvm: "registry.community.greenbone.net/community/pg-gvm:22.6.15"
+      pg-gvm-migrator: "registry.community.greenbone.net/community/pg-gvm-migrator:stable"
+      gvm-config: "registry.community.greenbone.net/community/gvm-config:latest"
     docker_compose_create_dirs:
       - name: vt_data
         owner: 1001

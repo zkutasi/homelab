@@ -1,4 +1,4 @@
-FROM python:{{ requested_image_version['python'] }}
+FROM {{ requested_image_version['python'] }}
 
 ARG DOCKER_GID=988
 # Create group with same GID as host's docker group

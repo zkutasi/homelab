@@ -17,7 +17,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-ntopng
-    image: ntop/ntopng:{{ requested_image_version['ntopng'] }}
+    image: {{ requested_image_version['ntopng'] }}
     network_mode: host
     restart: unless-stopped
     volumes:
@@ -33,7 +33,7 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
     hostname: {{ id }}-ntopng-redis
-    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    image: {{ requested_image_version['valkey'] }}
     ports:
     - "127.0.0.1:{{ port_ntopng_redis }}:6379"
     restart: unless-stopped

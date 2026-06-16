@@ -10,7 +10,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-ampache
-    image: ampache/ampache:{{ requested_image_version['ampache'] }}
+    image: {{ requested_image_version['ampache'] }}
     ports:
       - {{ port_ampache }}:80
     restart: unless-stopped

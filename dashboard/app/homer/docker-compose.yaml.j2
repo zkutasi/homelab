@@ -7,7 +7,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-homer
-    image: b4bz/homer:v{{ requested_image_version['homer'] }}
+    image: {{ requested_image_version['homer'] }}
     ports:
       - {{ port_homer }}:8080
     restart: unless-stopped

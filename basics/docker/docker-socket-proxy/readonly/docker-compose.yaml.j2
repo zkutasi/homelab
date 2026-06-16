@@ -21,7 +21,7 @@ services:
       timeout: 5s
       retries: 2
     hostname: {{ id }}-docker-socket-proxy-readonly
-    image: wollomatic/socket-proxy:{{ requested_image_version['wollomatic-docker-socket-proxy'] }}
+    image: {{ requested_image_version['wollomatic-docker-socket-proxy'] }}
     ports:
       - {{ port_docker_socket_proxy }}:2375
     restart: unless-stopped

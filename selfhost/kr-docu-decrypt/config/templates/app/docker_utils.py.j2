@@ -7,7 +7,7 @@ import time
 
 logger = logging.getLogger(__name__)
 
-SELENIUM_IMAGE = "selenium/standalone-chrome:{{ requested_image_version['selenium'] }}"
+SELENIUM_IMAGE = "{{ requested_image_version['selenium'] }}"
 SELENIUM_CONTAINER_NAME = "selenium"
 DOWNLOADS_HOST_DIR = "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/downloads"
 TIMEZONE = "{{ timezone }}"

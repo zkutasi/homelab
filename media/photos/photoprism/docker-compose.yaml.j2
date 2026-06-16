@@ -24,7 +24,7 @@ services:
       PHOTOPRISM_UID: {{ ansible_user_uid }}
       PHOTOPRISM_GID: {{ ansible_user_gid }}
     hostname: {{ id }}-photoprism
-    image: photoprism/photoprism:{{ requested_image_version['photoprism'] }}
+    image: {{ requested_image_version['photoprism'] }}
     ports:
       - {{ port_photoprism }}:2342
     restart: unless-stopped
@@ -47,7 +47,7 @@ services:
       MARIADB_PASSWORD: {{ photoprism_db_password }}
       MARIADB_ROOT_PASSWORD: {{ photoprism_db_root_password }}
     hostname: {{ id }}-photoprism-mariadb
-    image: mariadb:{{ requested_image_version['mariadb'] }}
+    image: {{ requested_image_version['mariadb'] }}
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/database:/var/lib/mysql

@@ -7,7 +7,7 @@ services:
       TZ: {{ timezone }}
       GITHUB_TOKEN: {{ github_access_token }}
     hostname: {{ id }}-glance
-    image: glanceapp/glance:v{{ requested_image_version['glance'] }}
+    image: {{ requested_image_version['glance'] }}
     ports:
       - {{ port_glance }}:8080
     restart: unless-stopped

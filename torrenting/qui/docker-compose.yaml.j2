@@ -6,7 +6,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-qui
-    image: ghcr.io/autobrr/qui:v{{ requested_image_version['qui'] }}
+    image: {{ requested_image_version['qui'] }}
     ports:
       - {{ port_qui }}:7476
     restart: unless-stopped

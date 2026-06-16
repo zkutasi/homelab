@@ -13,7 +13,7 @@ services:
       retries: 3
       start_period: 30s
     hostname: {{ id }}-termix-guacd
-    image: guacamole/guacd:{{ requested_image_version['termix-guacd'] }}
+    image: {{ requested_image_version['termix-guacd'] }}
     networks:
       - termix-net
     ports:
@@ -32,7 +32,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-termix
-    image: ghcr.io/lukegus/termix:{{ requested_image_version['termix'] }}
+    image: {{ requested_image_version['termix'] }}
     networks:
       - termix-net
     ports:

@@ -12,7 +12,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-node-exporter
-    image: quay.io/prometheus/node-exporter:v{{ requested_image_version['node-exporter'] }}
+    image: {{ requested_image_version['node-exporter'] }}
     network_mode: host
     pid: host
     restart: unless-stopped

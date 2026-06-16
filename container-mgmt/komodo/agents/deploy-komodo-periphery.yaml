@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: komodo-periphery
     requested_image_version:
-      komodo-periphery: "1.19.3"
+      komodo-periphery: "ghcr.io/moghtech/komodo-periphery:1.19.3"
     docker_compose_create_dirs:
       - name: config

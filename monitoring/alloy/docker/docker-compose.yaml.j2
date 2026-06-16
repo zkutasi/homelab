@@ -12,7 +12,7 @@ services:
       - "prometheus.kubernetes.home:{{ kubernetes_ingress_ip }}"
       - "loki.kubernetes.home:{{ kubernetes_ingress_ip }}"
     hostname: {{ id }}-alloy
-    image: grafana/alloy:v{{ requested_image_version['alloy'] }}
+    image: {{ requested_image_version['alloy'] }}
     ports:
       - {{ port_alloy }}:12345
     restart: unless-stopped

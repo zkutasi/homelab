@@ -16,4 +16,4 @@
   vars:
     docker_compose_projectname: smartctl-exporter
     requested_image_version:
-      smartctl-exporter: "0.14.0"
+      smartctl-exporter: "prometheuscommunity/smartctl-exporter:v0.14.0"

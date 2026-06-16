@@ -12,7 +12,7 @@ services:
       retries: 3
       start_period: 90s
     hostname: {{ id }}-smokeping
-    image: lscr.io/linuxserver/smokeping:{{ requested_image_version['smokeping'] }}
+    image: {{ requested_image_version['smokeping'] }}
     ports:
       - {{ port_smokeping }}:80
     restart: unless-stopped

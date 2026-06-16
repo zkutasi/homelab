@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: multi-scrobbler
     requested_image_version:
-      multi-scrobbler: "0.11.4"
+      multi-scrobbler: "foxxmd/multi-scrobbler:0.11.4"
     docker_compose_create_dirs:
       - name: config
     docker_compose_template_files_copy:

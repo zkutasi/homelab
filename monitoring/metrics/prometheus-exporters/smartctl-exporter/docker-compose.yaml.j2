@@ -21,7 +21,7 @@ services:
       retries: 3
       start_period: 40s
     hostname: {{ id }}-smartctl-exporter
-    image: prometheuscommunity/smartctl-exporter:v{{ requested_image_version['smartctl-exporter'] }}
+    image: {{ requested_image_version['smartctl-exporter'] }}
     ports:
       - {{ port_smartctl_exporter }}:9633
     privileged: true

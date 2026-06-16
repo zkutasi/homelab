@@ -8,7 +8,7 @@ services:
       LASTFM_API_KEY: {{ yourlastfm_lastfm_api_key }}
       LASTFM_USERNAME: {{ lastfm_username }}
     hostname: {{ id }}-yourlastfm
-    image: gomaink/your-lastfm:{{ requested_image_version['yourlastfm'] }}
+    image: {{ requested_image_version['yourlastfm'] }}
     ports:
       - {{ port_yourlastfm }}:1533
     restart: unless-stopped

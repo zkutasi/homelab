@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-paperless-ngx-redis
-    image: docker.io/valkey/valkey:{{ requested_image_version['valkey'] }}
+    image: {{ requested_image_version['valkey'] }}
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redisdata:/data
@@ -20,7 +20,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-paperless-ngx-postgres
-    image: docker.io/library/postgres:{{ requested_image_version['postgres'] }}
+    image: {{ requested_image_version['postgres'] }}
     ports:
       - {{ port_paperless_ngx_postgres }}:5432
     restart: unless-stopped
@@ -46,7 +46,7 @@ services:
       USERMAP_UID: {{ ansible_user_uid }}
       USERMAP_GID: {{ ansible_user_gid }}
     hostname: {{ id }}-paperless-ngx
-    image: ghcr.io/paperless-ngx/paperless-ngx:{{ requested_image_version['paperless-ngx'] }}
+    image: {{ requested_image_version['paperless-ngx'] }}
     ports:
       - {{ port_paperless_ngx }}:8000
     restart: unless-stopped

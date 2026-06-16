@@ -20,7 +20,7 @@ services:
       '
     container_name: plex-mount-check
     hostname: {{ id }}-plex-mount-check
-    image: alpine
+    image: {{ requested_image_version['alpine'] }}
     restart: no
     volumes:
       - /mnt:/mnt:ro
@@ -41,7 +41,7 @@ services:
       retries: 3
       start_period: 60s
     hostname: {{ id }}-plex
-    image: plexinc/pms-docker:{{ requested_image_version['plex'] }}
+    image: {{ requested_image_version['plex'] }}
     network_mode: host
     restart: unless-stopped
     volumes:
@@ -63,7 +63,7 @@ services:
       retries: 3
       start_period: 40s
     hostname: {{ id }}-tautulli
-    image: ghcr.io/tautulli/tautulli:{{ requested_image_version['tautulli'] }}
+    image: {{ requested_image_version['tautulli'] }}
     ports:
       - {{ port_tautulli }}:8181
     restart: unless-stopped

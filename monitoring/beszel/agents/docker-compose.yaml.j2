@@ -35,7 +35,7 @@ services:
       test: ['CMD', '/agent', 'health']
       interval: 120s
     hostname: {{ id }}-beszel-agent
-    image: henrygd/beszel-agent:{{ requested_image_version['beszel-agent'] }}
+    image: {{ requested_image_version['beszel-agent'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

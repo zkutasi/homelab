@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: nebula-sync
     requested_image_version:
-      nebula-sync: "0.11.2"
+      nebula-sync: "ghcr.io/lovelaze/nebula-sync:v0.11.2"

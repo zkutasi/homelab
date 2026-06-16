@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: gatus-agent
     requested_image_version:
-      gatus: "5.35.0"
+      gatus: "twinproduction/gatus:v5.35.0"
     docker_compose_create_dirs:
       - name: config
       - name: data

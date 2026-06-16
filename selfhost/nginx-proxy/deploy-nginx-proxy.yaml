@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: nginx
     requested_image_version:
-      nginx: "1.28.0-perl"
+      nginx: "nginx:1.28.0-perl"
     docker_compose_static_files_copy:
       - name: nginx-conf

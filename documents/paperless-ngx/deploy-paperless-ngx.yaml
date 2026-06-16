@@ -5,9 +5,9 @@
   vars:
     docker_compose_projectname: paperless-ngx
     requested_image_version:
-      paperless-ngx: "2.20.15"
-      valkey: "9.0.0"
-      postgres: "18"
+      paperless-ngx: "ghcr.io/paperless-ngx/paperless-ngx:2.20.15"
+      valkey: "docker.io/valkey/valkey:9.0.0"
+      postgres: "docker.io/library/postgres:18"
     docker_compose_create_dirs:
       - name: redisdata
       - name: pgdata

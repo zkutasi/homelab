@@ -10,7 +10,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-borgitory
-    image: mlapaglia/borgitory:{{ requested_image_version['borgitory'] }}
+    image: {{ requested_image_version['borgitory'] }}
     ports:
       - {{ port_borgitory }}:8000
     restart: unless-stopped

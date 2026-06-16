@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: caddy
     requested_image_version:
-      caddy: "2.10.2"
+      caddy: "caddy:2.10.2"
     docker_compose_create_dirs:
       - name: conf
       - name: caddy_data

@@ -6,10 +6,10 @@
   vars:
     docker_compose_projectname: fail2ban
     requested_image_version:
-      geoipupdate: "7.1.1"
-      fail2ban: "1.1.0"
-      f2b-geoexporter: "0.3.2"
-      f2b-exporter: "0.10.3"
+      geoipupdate: "maxmindinc/geoipupdate:v7.1.1"
+      fail2ban: "crazymax/fail2ban:1.1.0"
+      f2b-geoexporter: "vdcloudcraft/fail2ban-geo-exporter:0.3.2"
+      f2b-exporter: "registry.gitlab.com/hctrdev/fail2ban-prometheus-exporter:0.10.3"
     docker_compose_create_dirs:
       - name: fail2ban
       - name: f2b-geoexporter

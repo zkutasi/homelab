@@ -6,7 +6,7 @@ services:
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-beets
-    image: lscr.io/linuxserver/beets:{{ requested_image_version['beets'] }}
+    image: {{ requested_image_version['beets'] }}
     ports:
       - {{ port_beets }}:8337
     restart: unless-stopped

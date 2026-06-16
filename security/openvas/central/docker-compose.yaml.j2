@@ -8,7 +8,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-vulnerability-tests
-    image: registry.community.greenbone.net/community/vulnerability-tests
+    image: {{ requested_image_version['vulnerability-tests'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/vt_data:/mnt
 
@@ -18,7 +18,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-notus-data
-    image: registry.community.greenbone.net/community/notus-data
+    image: {{ requested_image_version['notus-data'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/notus_data:/mnt
 
@@ -28,7 +28,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-scap-data
-    image: registry.community.greenbone.net/community/scap-data
+    image: {{ requested_image_version['scap-data'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/scap_data:/mnt
 
@@ -38,7 +38,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-cert-bund-data
-    image: registry.community.greenbone.net/community/cert-bund-data
+    image: {{ requested_image_version['cert-bund-data'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cert_data:/mnt
 
@@ -51,7 +51,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-dfn-cert-data
-    image: registry.community.greenbone.net/community/dfn-cert-data
+    image: {{ requested_image_version['dfn-cert-data'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cert_data:/mnt
 
@@ -62,7 +62,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-data-objects
-    image: registry.community.greenbone.net/community/data-objects
+    image: {{ requested_image_version['data-objects'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data_objects:/mnt
 
@@ -76,7 +76,7 @@ services:
       KEEP_ALIVE: 1
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-report-formats
-    image: registry.community.greenbone.net/community/report-formats
+    image: {{ requested_image_version['report-formats'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data_objects:/mnt
 
@@ -85,7 +85,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-gpg-data
-    image: registry.community.greenbone.net/community/gpg-data
+    image: {{ requested_image_version['gpg-data'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gpg_data:/mnt
 
@@ -94,7 +94,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-redis-server
-    image: registry.community.greenbone.net/community/redis-server:{{ requested_image_version['redis-server'] }}
+    image: {{ requested_image_version['redis-server'] }}
     restart: on-failure
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/redis_socket:/run/redis/
@@ -107,7 +107,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-pg-gvm
-    image: registry.community.greenbone.net/community/pg-gvm:{{ requested_image_version['pg-gvm'] }}
+    image: {{ requested_image_version['pg-gvm'] }}
     restart: on-failure:10
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/psql_data:/var/lib/postgresql
@@ -118,7 +118,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-pg-gvm-migrator
-    image: registry.community.greenbone.net/community/pg-gvm-migrator:{{ requested_image_version['pg-gvm-migrator'] }}
+    image: {{ requested_image_version['pg-gvm-migrator'] }}
     restart: no
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/psql_data:/var/lib/postgresql
@@ -142,7 +142,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-gvmd
-    image: registry.community.greenbone.net/community/gvmd:{{ requested_image_version['gvmd'] }}
+    image: {{ requested_image_version['gvmd'] }}
     restart: on-failure
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gvmd_data:/var/lib/gvm
@@ -165,7 +165,7 @@ services:
       test: ["CMD-SHELL", "test -e /run/gsa/copying.done"]
       start_period: 5s
     hostname: {{ id }}-greenbone-gsa
-    image: registry.community.greenbone.net/community/gsa:{{ requested_image_version['gsa'] }}
+    image: {{ requested_image_version['gsa'] }}
     tmpfs:
       - /run/gsa
     volumes:
@@ -180,7 +180,7 @@ services:
       GSAD_ARGS: "--listen=0.0.0.0 --http-only --api-only -f"
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-gsad
-    image: registry.community.greenbone.net/community/gsad:{{ requested_image_version['gsad'] }}
+    image: {{ requested_image_version['gsad'] }}
     restart: on-failure
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gvmd_socket:/run/gvmd
@@ -194,7 +194,7 @@ services:
       NGINX_ENABLE_HTTP: true
       NGINX_HTTPS_PORT: {{ port_openvas_https }}
     hostname: {{ id }}-greenbone-gvm-config
-    image: registry.community.greenbone.net/community/gvm-config:{{ requested_image_version['gvm-config'] }}
+    image: {{ requested_image_version['gvm-config'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/nginx_config:/mnt/nginx/configs
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/nginx_certificates:/mnt/nginx/certs
@@ -211,7 +211,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-nginx
-    image: registry.community.greenbone.net/community/nginx:{{ requested_image_version['nginx'] }}
+    image: {{ requested_image_version['nginx'] }}
     ports:
       - {{ port_openvas_http }}:9392
       - {{ port_openvas_https }}:443
@@ -238,7 +238,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-configure-openvas
-    image: registry.community.greenbone.net/community/openvas-scanner:{{ requested_image_version['openvas-scanner'] }}
+    image: {{ requested_image_version['openvas-scanner'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/openvas_data:/mnt
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/openvas_log_data:/var/log/openvas
@@ -258,7 +258,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-openvas
-    image: registry.community.greenbone.net/community/openvas-scanner:{{ requested_image_version['openvas-scanner'] }}
+    image: {{ requested_image_version['openvas-scanner'] }}
     restart: on-failure
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/openvas_data:/etc/openvas
@@ -283,7 +283,7 @@ services:
       LISTENING: 0.0.0.0:80
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-openvasd
-    image: registry.community.greenbone.net/community/openvas-scanner:{{ requested_image_version['openvas-scanner'] }}
+    image: {{ requested_image_version['openvas-scanner'] }}
     networks:
       default:
         aliases:
@@ -328,7 +328,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-ospd-openvas
-    image: registry.community.greenbone.net/community/ospd-openvas:{{ requested_image_version['ospd-openvas'] }}
+    image: {{ requested_image_version['ospd-openvas'] }}
     restart: on-failure
     security_opt:
       - seccomp=unconfined
@@ -350,7 +350,7 @@ services:
     environment:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-gvm-tools
-    image: registry.community.greenbone.net/community/gvm-tools:{{ requested_image_version['gvm-tools'] }}
+    image: {{ requested_image_version['gvm-tools'] }}
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gvmd_socket:/run/gvmd
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/ospd_openvas_socket:/run/ospd

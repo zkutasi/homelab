@@ -15,7 +15,7 @@ services:
       VIRTUAL_HOST: pihole.{{ network_domain }}
       WEB_BIND_ADDR: {{ ansible_host }}
     hostname: {{ id }}-pihole
-    image: pihole/pihole:{{ requested_image_version['pihole'] }}
+    image: {{ requested_image_version['pihole'] }}
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.2
@@ -40,7 +40,7 @@ services:
       start_period: 5s
       timeout: 15s
     hostname: {{ id }}-pihole-unbound
-    image: madnuttah/unbound:{{ requested_image_version['unbound'] }}
+    image: {{ requested_image_version['unbound'] }}
     networks:
       pihole_dns_network:
         ipv4_address: {{ pihole_docker_network_3digit }}.3

@@ -14,7 +14,7 @@ services:
       retries: 3
       start_period: 40s
     hostname: {{ id }}-watchyourlan
-    image: aceberg/watchyourlan:{{ requested_image_version['watchyourlan'] }}
+    image: {{ requested_image_version['watchyourlan'] }}
     network_mode: host
     restart: unless-stopped
     volumes:

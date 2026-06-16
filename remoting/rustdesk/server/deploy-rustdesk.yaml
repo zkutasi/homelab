@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: rustdesk
     requested_image_version:
-      rustdesk: "1.1.14"
+      rustdesk: "rustdesk/rustdesk-server:1.1.14"

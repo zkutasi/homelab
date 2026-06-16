@@ -3,7 +3,7 @@ services:
     container_name: nginx
     environment:
       - TZ={{ timezone }}
-    image: nginx:{{ requested_image_version['nginx'] }}
+    image: {{ requested_image_version['nginx'] }}
     hostname: {{ id }}-nginx
     networks:
       - nginx-network

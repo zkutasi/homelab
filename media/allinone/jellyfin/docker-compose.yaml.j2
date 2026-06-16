@@ -20,7 +20,7 @@ services:
       '
     container_name: jellyfin-mount-check
     hostname: {{ id }}-jellyfin-mount-check
-    image: alpine
+    image: {{ requested_image_version['alpine'] }}
     restart: no
     volumes:
       - /mnt:/mnt:ro
@@ -37,7 +37,7 @@ services:
       - GIDLIST={{ ansible_user_gid }}
       - TZ={{ timezone }}
     hostname: {{ id }}-jellyfin
-    image: jellyfin/jellyfin:{{ requested_image_version['jellyfin'] }}
+    image: {{ requested_image_version['jellyfin'] }}
     healthcheck:
       test: ["CMD-SHELL", "curl -f -s http://localhost:8096/System/Info/Public || exit 1"]
       interval: 30s

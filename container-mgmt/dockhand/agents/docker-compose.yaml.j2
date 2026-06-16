@@ -8,7 +8,7 @@ services:
       - AGENT_NAME={{ id }}
       - TOKEN={{ dockhand_agent_token }}
     hostname: {{ id }}-dockhand-hawser
-    image: ghcr.io/finsys/hawser:{{ requested_image_version['dockhand-hawser'] }}
+    image: {{ requested_image_version['dockhand-hawser'] }}
     ports:
       - {{ port_dockhand }}:2376
     restart: unless-stopped

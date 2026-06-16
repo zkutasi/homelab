@@ -7,7 +7,7 @@ services:
       - GEOIPUPDATE_EDITION_IDS=GeoLite2-City
       - TZ={{ timezone }}
     hostname: {{ id }}-geoipupdate
-    image: maxmindinc/geoipupdate:v{{ requested_image_version['geoipupdate'] }}
+    image: {{ requested_image_version['geoipupdate'] }}
     restart: "no"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/geoipupdate/data:/usr/share/GeoIP
@@ -21,7 +21,7 @@ services:
       - F2B_DB_PURGE_AGE=14d
       - TZ={{ timezone }}
     hostname: {{ id }}-fail2ban
-    image: crazymax/fail2ban:{{ requested_image_version['fail2ban'] }}
+    image: {{ requested_image_version['fail2ban'] }}
     network_mode: "host"
     restart: always
     volumes:
@@ -40,7 +40,7 @@ services:
       retries: 3
       start_period: 40s
     hostname: {{ id }}-f2b-geoexporter
-    image: vdcloudcraft/fail2ban-geo-exporter:{{ requested_image_version['f2b-geoexporter'] }}
+    image: {{ requested_image_version['f2b-geoexporter'] }}
     ports:
       - {{ port_fail2ban_geoexporter }}:8007
     restart: unless-stopped
@@ -55,7 +55,7 @@ services:
     environment:
       - TZ={{ timezone }}
     hostname: {{ id }}-f2b-exporter
-    image: registry.gitlab.com/hctrdev/fail2ban-prometheus-exporter:{{ requested_image_version['f2b-exporter'] }}
+    image: {{ requested_image_version['f2b-exporter'] }}
     ports:
       - {{ port_fail2ban_exporter }}:9191
     restart: unless-stopped

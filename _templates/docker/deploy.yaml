@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: <APP_NAME_LOWERCASE>
     requested_image_version:
-      <APP_NAME_LOWERCASE>: "<IMAGE_VERSION>"
+      <APP_NAME_LOWERCASE>: "<APP_IMAGE_REPO>:<APP_IMAGE_TAG>"
     docker_compose_create_dirs:
       - name: config
       - name: data

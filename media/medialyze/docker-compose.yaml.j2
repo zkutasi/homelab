@@ -6,7 +6,7 @@ services:
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
     hostname: {{ id }}-medialyze
-    image: ghcr.io/frederikemmer/medialyze:{{ requested_image_version['medialyze'] }}
+    image: {{ requested_image_version['medialyze'] }}
     ports:
       - {{ port_medialyze }}:8080
     restart: unless-stopped

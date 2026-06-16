@@ -16,7 +16,7 @@ services:
       start_period: 30s
       timeout: 10s
     hostname: {{ id }}-speedtest-tracker
-    image: lscr.io/linuxserver/speedtest-tracker:{{ requested_image_version['speedtest-tracker'] }}
+    image: {{ requested_image_version['speedtest-tracker'] }}
     ports:
       - {{ port_speedtest_tracker_http }}:80
       - {{ port_speedtest_tracker_https }}:443

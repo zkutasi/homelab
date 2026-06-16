@@ -14,7 +14,7 @@ services:
       test: ['CMD', 'node', '/app/services/healthcheck']
       timeout: 10s
     hostname: {{ id }}-dashy
-    image: lissy93/dashy:{{ requested_image_version['dashy'] }}
+    image: {{ requested_image_version['dashy'] }}
     ports:
       - {{ port_dashy }}:8080
     restart: unless-stopped
