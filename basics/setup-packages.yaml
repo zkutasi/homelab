@@ -18,9 +18,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "4.47.2"
+    requested_binary_repo_version: "mikefarah/yq:4.47.2"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: yq
-    binary_repository: "mikefarah/yq"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64"
     compressed: false

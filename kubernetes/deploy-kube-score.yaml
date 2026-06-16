@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "1.20.0"
+    requested_binary_repo_version: "zegl/kube-score:1.20.0"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kube-score
-    binary_repository: "zegl/kube-score"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"

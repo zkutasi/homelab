@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.4.5"
+    requested_binary_repo_version: "kubernetes-sigs/krew:0.4.5"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kubectl-krew
-    binary_repository: "kubernetes-sigs/krew"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/krew-linux_amd64.tar.gz"
     bin_path: "{{ ansible_user_dir }}/.krew/bin"

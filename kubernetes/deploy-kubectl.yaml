@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "1.32.4"
+    requested_binary_repo_version: "kubernetes/kubernetes:1.32.4"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kubectl
-    binary_repository: "kubernetes/kubernetes"
     download_url: "https://dl.k8s.io/release/v{{ requested_binary_version }}/bin/linux/amd64/{{ bin_filename }}"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"

@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.14.0"
+    requested_binary_repo_version: "prometheus-community/smartctl_exporter:0.14.0"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: smartctl_exporter
-    binary_repository: "prometheus-community/smartctl_exporter"
     service_name: smartctl-exporter
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"

@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.6.8"
+    requested_binary_repo_version: "yonahd/kor:0.6.8"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kor
-    binary_repository: "yonahd/kor"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_Linux_x86_64.tar.gz"
     version_flag: "version"

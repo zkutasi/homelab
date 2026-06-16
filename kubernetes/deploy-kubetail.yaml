@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.17.0"
+    requested_binary_repo_version: "kubetail-org/kubetail:0.17.0"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kubetail
-    binary_repository: "kubetail-org/kubetail"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/cli/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux-amd64.tar.gz"
     decompression_options:

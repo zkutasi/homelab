@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.51.0"
+    requested_binary_repo_version: "derailed/k9s:0.51.0"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: k9s
-    binary_repository: "derailed/k9s"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_Linux_amd64.tar.gz"
     version_flag: "version"

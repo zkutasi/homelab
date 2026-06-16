@@ -3,8 +3,9 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "3.17.3"
+    requested_binary_repo_version: "helm/helm:3.17.3"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: helm
-    binary_repository: "helm/helm"
     download_url: "https://get.helm.sh/{{ bin_filename }}-v{{ requested_binary_version }}-linux-amd64.tar.gz"
     version_flag: "version --short"

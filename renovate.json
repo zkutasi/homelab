@@ -20,8 +20,7 @@
         "/(^|/).*\\.ya?ml$/"
       ],
       "matchStrings": [
-        "binary_repository:\\s*\"?(?<depName>[^\\\"\\s]+)\"?\\s*[\\s\\S]*?requested_binary_version:\\s*\"?(?<currentValue>[^\\\"\\s]+)\"?",
-        "requested_binary_version:\\s*\"?(?<currentValue>[^\\\"\\s]+)\"?\\s*[\\s\\S]*?binary_repository:\\s*\"?(?<depName>[^\\\"\\s]+)\"?"
+        "requested_binary_repo_version:\\s*\"?(?<depName>[^:\"]+?):(?<currentValue>[^\"\r\n]+)\"?"
       ],
       "datasourceTemplate": "github-releases"
     }

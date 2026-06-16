@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "0.8.3"
+    requested_binary_repo_version: "stackrox/kube-linter:v0.8.3"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kube-linter
-    binary_repository: "stackrox/kube-linter"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-linux.tar.gz"
     version_flag: "version"

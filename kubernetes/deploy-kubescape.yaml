@@ -3,9 +3,10 @@
   roles:
     - binary-install
   vars:
-    requested_binary_version: "4.0.9"
+    requested_binary_repo_version: "kubescape/kubescape:4.0.9"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kubescape
-    binary_repository: "kubescape/kubescape"
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_linux_amd64.tar.gz"
     version_flag: "version"
