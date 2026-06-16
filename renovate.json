@@ -2,6 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "additionalBranchPrefix": "{{packageFileDir}}-",
   "commitMessagePrefix": "[{{packageFileDir}}] ",
+
   "customManagers": [
     {
       "customType": "regex",
@@ -12,17 +13,22 @@
       "datasourceTemplate": "docker"
     }
   ],
+
   "enabledManagers": [
     "custom.regex",
     "helmv3",
     "helm-values"
   ],
+
   "helm-values": {
     "managerFilePatterns": [
       "/(^|/).*values.*\\.ya?ml$/"
     ]
   },
+
   "includePaths": [
     "container-mgmt/**"
-  ]
+  ],
+
+  "prHourlyLimit": 10
 }
