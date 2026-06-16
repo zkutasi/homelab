@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/getarcaneapp/arcane
 appVersion: v1.11.3
 dependencies:
   - name: common

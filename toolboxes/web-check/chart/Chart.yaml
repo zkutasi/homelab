@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=lissy93/web-check
 appVersion: 1.0.0
 dependencies:
   - name: common

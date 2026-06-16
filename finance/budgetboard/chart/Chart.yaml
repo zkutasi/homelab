@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/teelur/budget-board/server
 appVersion: v3.0.0
 dependencies:
   - name: common

@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/pouzor/homelable-backend
 appVersion: 1.0.0
 dependencies:
   - name: common

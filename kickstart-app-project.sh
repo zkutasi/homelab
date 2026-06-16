@@ -194,8 +194,10 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               echo "Configuring application service '${SINGLE_APP_SERVICE}'..."
               echo "Processing image..."
               APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
-              yq -i ".image.repository = \"${APP_IMAGE%%:*}\"" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".image.tag = \"${APP_IMAGE##*:}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              APP_IMAGE_REPO=${APP_IMAGE%%:*}
+              APP_IMAGE_TAG=${APP_IMAGE##*:*}
+              yq -i ".image.repository = \"${APP_IMAGE_REPO}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".image.tag = \"${APP_IMAGE_TAG}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
 
               echo "Processing volume mounts..."
@@ -277,6 +279,8 @@ fi
 echo "Swap out templates..."
 while read -r line; do
   sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" ${line}
+  sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" ${line}
+  sed -i "s|<APP_IMAGE_TAG>|${APP_IMAGE_TAG}|g" ${line}
   sed -i "s|<APP_NAME>|${APP_NAME}|g" ${line}
   sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" ${line}
   if [ -n "${ANSIBLE_HOST}" ]; then

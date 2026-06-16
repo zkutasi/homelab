@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=louislam/uptime-kuma
 appVersion: 2.2.1
 dependencies:
   - name: common

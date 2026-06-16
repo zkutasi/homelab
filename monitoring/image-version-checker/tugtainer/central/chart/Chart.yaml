@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=quenary/tugtainer
 appVersion: 1.16.1
 dependencies:
   - name: common

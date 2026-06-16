@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/wasi-master/13ft
 appVersion: 0.3.4
 dependencies:
   - name: common

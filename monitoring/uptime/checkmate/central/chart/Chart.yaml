@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/bluewave-labs/checkmate-mongo
 appVersion: v3.5.1
 dependencies:
   - name: common

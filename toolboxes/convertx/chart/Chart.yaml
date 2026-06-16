@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/c4illin/convertx
 appVersion: v0.14.1
 dependencies:
   - name: common

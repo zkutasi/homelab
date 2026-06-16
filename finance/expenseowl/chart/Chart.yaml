@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=tanq16/expenseowl
 appVersion: v4.1
 dependencies:
   - name: common

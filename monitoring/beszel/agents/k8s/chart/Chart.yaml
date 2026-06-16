@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=henrygd/beszel-agent
 appVersion: 0.18.1
 dependencies:
   - name: common

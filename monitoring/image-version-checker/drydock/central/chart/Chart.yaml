@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=codeswhat/drydock
 appVersion: 1.3.9
 dependencies:
   - name: common

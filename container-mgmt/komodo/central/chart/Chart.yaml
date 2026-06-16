@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/moghtech/komodo-core
 appVersion: 1.19.3
 dependencies:
   - name: common

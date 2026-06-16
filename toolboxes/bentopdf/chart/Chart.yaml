@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=bentopdf/bentopdf-simple
 appVersion: 1.15.4
 dependencies:
   - name: common

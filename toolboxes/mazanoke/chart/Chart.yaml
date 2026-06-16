@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=ghcr.io/civilblur/mazanoke
 appVersion: v1.1.5
 dependencies:
   - name: common

@@ -2,7 +2,18 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "additionalBranchPrefix": "{{packageFileDir}}-",
   "commitMessagePrefix": "[{{packageFileDir}}] ",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)Chart\\.yaml$"],
+      "matchStrings": [
+        "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
+      ],
+      "datasourceTemplate": "docker"
+    }
+  ],
   "enabledManagers": [
+    "custom.regex",
     "helmv3",
     "helm-values"
   ],

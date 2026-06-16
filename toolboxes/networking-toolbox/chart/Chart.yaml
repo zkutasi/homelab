@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=lissy93/networking-toolbox
 appVersion: 1.6.0
 dependencies:
   - name: common

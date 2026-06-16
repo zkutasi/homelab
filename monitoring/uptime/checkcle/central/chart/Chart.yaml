@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=operacle/checkcle
 appVersion: v1.6.0
 dependencies:
   - name: common

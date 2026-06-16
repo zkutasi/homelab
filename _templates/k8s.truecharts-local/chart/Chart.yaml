@@ -1,5 +1,6 @@
 apiVersion: v2
-appVersion: <APP_VERSION>
+# renovate: image=<APP_IMAGE_REPO>
+appVersion: <APP_IMAGE_TAG>
 dependencies:
   - name: common
     version: 28.26.3

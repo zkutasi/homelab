@@ -1,4 +1,5 @@
 apiVersion: v2
+# renovate: image=rajnandan1/kener
 appVersion: 4.0.17
 dependencies:
   - name: common
