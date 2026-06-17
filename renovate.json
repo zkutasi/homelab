@@ -41,13 +41,18 @@
     "custom.regex",
     "custom.jsonata",
     "helmv3",
-    "helm-values"
+    "helm-values",
+    "pre-commit"
   ],
 
   "helm-values": {
     "managerFilePatterns": [
       "/(^|/).*values.*\\.ya?ml$/"
     ]
+  },
+
+  "pre-commit": {
+    "enabled": true
   },
 
   "prHourlyLimit": 10
