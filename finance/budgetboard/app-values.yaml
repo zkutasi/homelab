@@ -8,7 +8,7 @@ cnpg:
 
 serverImage:
   repository: ghcr.io/teelur/budget-board/server
-  tag: v3.0.0
+  tag: v3.6.1
   pullPolicy: IfNotPresent
 clientImage:
   repository: ghcr.io/teelur/budget-board/client
