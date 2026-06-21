@@ -3,7 +3,7 @@
   roles:
     - binary-install
   vars:
-    requested_binary_repo_version: "getsops/sops:3.10.2"
+    requested_binary_repo_version: "getsops/sops:3.13.1"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: sops
