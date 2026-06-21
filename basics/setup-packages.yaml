@@ -10,6 +10,7 @@
       - dnsutils
       - gpg
       - jq
+      - qemu-guest-agent
       - sudo
       - ufw
       - vim
