@@ -35,14 +35,26 @@
 						"auto": true
         },
 				{
-            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt-all-missing",
-            "name": "Encrypt all missing files",
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --decrypt {resource}",
+            "name": "Decrypt file",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --encrypt-all",
+            "name": "Encrypt all files",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --decrypt-all",
+            "name": "Decrypt all files",
 						"group": "SOPS",
 						"auto": true
         },
 				{
             "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --reencrypt-all",
-            "name": "Re-encrypt all files",
+            "name": "Re-encrypt all files (to avoid divergence)",
 						"group": "SOPS",
 						"auto": true
         },
