@@ -1,0 +1,11 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        backend:
+          env:
+            AUTH_USERNAME: {{ homelable_auth_username }}
+            AUTH_PASSWORD_HASH: '{{ homelable_auth_password_hash }}'
+            CORS_ORIGINS: "[\"{{ homelable_url }}\"]"
+            SCANNER_RANGES: "[\"{{ network_subnet }}\"]"
+            SECRET_KEY: "{{ homelable_secret_key }}"

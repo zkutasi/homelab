@@ -12,6 +12,16 @@ Deploy SNMP on each monitored host.
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |snmp_auth_pass|M||
+    |snmp_priv_pass|M||
+    |librenms_appkey|M|Generate a Laravel App-key with this [Laravel Key Generator](https://generate-random.org/laravel-key-generator)|
+
 ### Deploy the app
 
 1. Add the helm repository
@@ -27,14 +37,10 @@ Deploy SNMP on each monitored host.
     helm search repo librenms -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-   1. Generate a Laravel App-key with this [Laravel Key Generator](https://generate-random.org/laravel-key-generator).
+3. Generate configuration from the Ansible inventory
 
-    ```yaml
-    librenms:
-        appkey: <LARAVEL_API_KEY>
-        configuration: |
-            <EXTRA_PHP_CONFIG>
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/librenms/generate-configuration.yaml --no-check
     ```
 
 4. Install with the provided script

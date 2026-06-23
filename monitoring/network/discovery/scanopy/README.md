@@ -19,6 +19,7 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
     |scanopy_network_id|M|The Network ID the agents will report against|
     |scanopy_api_key|M|An API key for daemons to communicate with Scanopy Server|
     |scanopy_server_host|M|The host and port of the Scanopy server|
+    |scanopy_database_password|M||
 
 2. For each Ansible host, the following variables can be set
 

@@ -8,22 +8,23 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |homelable_auth_username|M||
+    |homelable_auth_password_hash|M||
+    |homelable_secret_key|M||
+    |homelable_url|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workload:
-      main:
-        podSpec:
-          containers:
-            backend:
-              env:
-                AUTH_USERNAME: ...
-                AUTH_PASSWORD_HASH: ...
-                CORS_ORIGINS: ...
-                SCANNER_RANGES: ...
-                SECRET_KEY: ...
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook xxx --no-check
     ```
 
 2. Install with the provided script

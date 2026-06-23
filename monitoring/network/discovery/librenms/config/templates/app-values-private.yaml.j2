@@ -1,0 +1,19 @@
+librenms:
+  appkey: {{ librenms_appkey }}
+  configuration: |
+    $config['distributed_poller_group']          = '0';
+    $config['distributed_poller']                = true;
+    $config['nets']                              = ['{{ network_subnet }}'];
+    $config['snmp']['v3'] = [];
+    $config['snmp']['v3'][0]['authlevel']        = 'authPriv';
+    $config['snmp']['v3'][0]['authname']         = 'readonly';
+    $config['snmp']['v3'][0]['authpass']         = '{{ snmp_auth_pass }}';
+    $config['snmp']['v3'][0]['authalgo']         = 'SHA-512';
+    $config['snmp']['v3'][0]['cryptopass']       = '{{ snmp_priv_pass }}';
+    $config['snmp']['v3'][0]['cryptoalgo']       = 'AES';
+    $config['snmp']['v3'][1]['authlevel']        = 'authPriv';
+    $config['snmp']['v3'][1]['authname']         = 'readonly';
+    $config['snmp']['v3'][1]['authpass']         = '{{ snmp_auth_pass }}';
+    $config['snmp']['v3'][1]['authalgo']         = 'SHA';
+    $config['snmp']['v3'][1]['cryptopass']       = '{{ snmp_priv_pass }}';
+    $config['snmp']['v3'][1]['cryptoalgo']       = 'AES';

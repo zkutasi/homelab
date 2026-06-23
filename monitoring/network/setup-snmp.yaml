@@ -3,9 +3,7 @@
   hosts:
     - standalone
   vars:
-    snmp_auth_pass: "authPass"
     snmp_auth_type: "SHA-512"
-    snmp_priv_pass: "privPass"
     snmp_priv_type: "AES"
     snmp_username: "readonly"
   tasks:
