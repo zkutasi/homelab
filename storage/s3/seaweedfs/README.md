@@ -24,7 +24,7 @@
 1. Add the helm repository
 
     ```bash
-    helm repo add seaweedfs XXX
+    helm repo add seaweedfs https://seaweedfs.github.io/seaweedfs/helm
     helm repo update
     ```
 

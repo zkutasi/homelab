@@ -24,7 +24,7 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook xxx --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/homelable/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
