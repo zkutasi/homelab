@@ -1,0 +1,71 @@
+services:
+  bookorbit:
+    cap_add:
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cap_drop:
+      - ALL
+    container_name: bookorbit
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
+      APP_URL: {{ bookorbit_app_url }}
+      JWT_SECRET: {{ bookorbit_jwt_secret }}
+      POSTGRES_DB: bookorbit
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: {{ bookorbit_postgres_password }}
+      POSTGRES_USER: bookorbit
+      SETUP_BOOTSTRAP_TOKEN: {{ bookorbit_bootstrap_token }}
+    healthcheck:
+      interval: 30s
+      retries: 3
+      start_period: 20s
+      test: ["CMD", "node", "-e", "const p=process.env.PORT||3000;fetch('http://127.0.0.1:'+p+'/api/v1/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      timeout: 5s
+    hostname: {{ id }}-bookorbit
+    image: {{ requested_image_version['bookorbit'] }}
+    init: true
+    ports:
+      - {{ port_bookorbit }}:3000
+    read_only: true
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+    tmpfs:
+      - /tmp
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
+{% for volume in docker_compose_extra_volumes %}
+      - {{ volume.from }}:/books/{{ volume.to }}:ro
+{% endfor %}
+  postgres:
+    container_name: bookorbit-postgres
+    environment:
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
+      TZ: {{ timezone }}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: bookorbit
+      POSTGRES_PASSWORD: {{ bookorbit_postgres_password }}
+      POSTGRES_USER: bookorbit
+    healthcheck:
+      interval: 10s
+      retries: 10
+      start_period: 20s
+      test: ["CMD-SHELL", 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      timeout: 5s
+    hostname: {{ id }}-bookorbit-postgres
+    image: {{ requested_image_version['postgres'] }}
+    ports:
+      - {{ port_bookorbit_postgres }}:5432
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/postgres:/var/lib/postgresql/data

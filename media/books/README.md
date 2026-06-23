@@ -19,6 +19,7 @@ Cataloging either EPUB or PDF books, audiobooks and making them available, searc
 - [Biblioteca](https://github.com/biblioverse/biblioteca)
 - [Komga](https://komga.org/) - A media server for your comics, mangas, BDs, magazines and eBooks
 - [Stump](https://www.stumpapp.dev/) - A free and open source comics, manga and digital book server with OPDS support
+- [BookOrbit](https://bookorbit.app/) - A self-hosted library management and reading platform for ebooks, PDFs, audiobooks, and comics.
 
 ### Companion apps
 

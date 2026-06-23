@@ -1,0 +1,13 @@
+- name: Deploy BookOrbit as docker
+  hosts: books
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: bookorbit
+    requested_image_version:
+      bookorbit: "ghcr.io/bookorbit/bookorbit:1.11.0"
+      postgres: pgvector/pgvector:pg16@sha256:7d400e340efb42f4d8c9c12c6427adb253f726881a9985d2a471bf0eed824dff
+    docker_compose_create_dirs:
+      - name: data
+      - name: postgres
+    docker_compose_extra_volumes: "{{ books_mounts | default([]) }}"

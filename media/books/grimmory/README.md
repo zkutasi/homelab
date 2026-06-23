@@ -35,3 +35,5 @@ Wait patiently for the database init/migration script to finish. It could take m
 ## Commands
 
 ## Notable comments
+
+- Since it is written in Java, the memory footprint is a bit higher than usual.
