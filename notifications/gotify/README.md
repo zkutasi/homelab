@@ -8,9 +8,21 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |gotify_default_user_pass|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook notifications/gotify/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 

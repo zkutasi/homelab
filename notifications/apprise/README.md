@@ -36,18 +36,16 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
 
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate the configuration and upload it to the API
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook notifications/apprise/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
-    ```
-
-3. Generate the configuration and upload it to the API
-
-    ```bash
-    ./common-ansible-run-playbook.sh --playbook notifications/apprise/generate-configuration.yaml --no-check
     ```
 
 ## Commands
