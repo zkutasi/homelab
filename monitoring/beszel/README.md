@@ -17,7 +17,8 @@
     |beszel_hub_url|M|The Beszel Hub URL for the agents|
     |beszel_username|M|Beszel username (email)|
     |beszel_password|M|Beszel password|
-    |beszel_token|M|The universal token to use for the agents|
+    |beszel_universal_token|M|The universal token to use for the agents|
+    |beszel_ssh_key|M|SSH key for the agent|
 
 2. For each Ansible host, the following variables can be set
 

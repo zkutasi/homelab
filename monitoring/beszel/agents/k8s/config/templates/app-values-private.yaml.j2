@@ -1,0 +1,8 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            KEY: "{{ beszel_ssh_key }}"
+            TOKEN: "{{ beszel_universal_token }}"
