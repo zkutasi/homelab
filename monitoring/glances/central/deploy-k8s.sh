@@ -3,7 +3,7 @@
 APP=glances
 VERSION=3.1.0 # Later version require more recent Kubernetes cluster
 
-EXTRA_PARAMS="--extra-values glances-values-config-private.yaml"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in

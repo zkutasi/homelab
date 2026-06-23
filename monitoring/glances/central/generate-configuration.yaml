@@ -4,5 +4,5 @@
   tasks:
     - name: Generate configuration file from template
       ansible.builtin.template:
-        src: config/templates/glances-values-config-private.yaml.j2
-        dest: "glances-values-config-private.yaml"
+        src: config/templates/glances-values-private.yaml.j2
+        dest: "glances-values-private.yaml"
