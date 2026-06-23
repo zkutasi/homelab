@@ -1,14 +1,10 @@
 # Kubeshark
 
-[Kubeshark](https://www.kubeshark.co/) is the Wireshark for Kubernetes. Capture traffic, filter and analyze. Write custom Agents in a programming language even.
+[Kubeshark](https://kubeshark.com/) - eBPF-powered network observability for Kubernetes. Indexes L4/L7 traffic with full K8s context, decrypts TLS without keys. Queryable by AI agents via MCP and humans via dashboard.
 
 ## The setup
 
-N/A
-
 ## Prerequisites
-
-N/A
 
 ## Usage
 
