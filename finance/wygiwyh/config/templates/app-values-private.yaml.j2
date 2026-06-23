@@ -1,0 +1,12 @@
+cnpg:
+  main:
+    password: {{ wygiwyh_database_password }}
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            DJANGO_ALLOWED_HOSTS: {{ wygiwyh_url }}
+            SECRET_KEY: {{ wygiwyh_secret_key }}
+            URL: https://{{ wygiwyh_url }}

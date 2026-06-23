@@ -8,14 +8,23 @@
 
 ## Usage
 
-### Deploy the app
+### Ansible inventory setup
 
-1. Add the following values into the `app-values-private.yaml` file
+1. Add the following variables into the `all` group_vars file:
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |.workload.main.podSpec.containers.main.env.URL|M|The full used URL in the browser, for CSRF protection|
-    |.workload.main.podSpec.containers.main.env.DJANGO_ALLOWED_HOSTS|M|The URL's hostname part|
+    |wygiwyh_database_password|M||
+    |wygiwyh_secret_key|M||
+    |wygiwyh_url|M|The full used URL in the browser, for CSRF protection, hostname part only|
+
+### Deploy the app
+
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook finance/wygiwyh/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 
