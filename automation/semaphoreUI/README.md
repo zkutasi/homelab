@@ -15,6 +15,15 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |semaphore_username|M||
+    |semaphore_password|M||
+
 ### Deploy the app
 
 1. Add the helm repository
@@ -30,7 +39,11 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
     helm search repo semaphoreui/semaphore -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
+3. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook automation/semaphoreUI/generate-configuration.yaml --no-check
+    ```
 
 4. Install with the provided script
 

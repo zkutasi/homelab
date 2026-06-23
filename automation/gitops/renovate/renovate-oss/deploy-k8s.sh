@@ -5,7 +5,7 @@ NS=renovate
 RELEASE_NAME=renovate
 VERSION=46.187.0
 
-EXTRA_PARAMS="--extra-values app-values-config-private.yaml"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in

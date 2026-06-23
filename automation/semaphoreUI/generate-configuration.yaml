@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Renovate
+- name: Generate dynamic configuration for Semaphore UI
   hosts: localhost
   gather_facts: false
   tasks:

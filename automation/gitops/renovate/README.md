@@ -44,7 +44,11 @@ This token has to have the following accesses:
 
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook automation/gitops/renovate/renovate-oss/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 
