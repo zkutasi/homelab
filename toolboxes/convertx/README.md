@@ -10,16 +10,20 @@ Just run the image in a cluster, and access the tools in a browser.
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |convertx_jwt_secret|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```env
-    secret:
-        jwt-secret:
-            enabled: true
-            data:
-            jwt-secret: <A_RANDOM_SECRET_STRING>
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook toolboxes/convertx/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
