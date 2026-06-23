@@ -12,7 +12,7 @@
     - binary-install
   become: true
   vars:
-    requested_binary_repo_version: "rustdesk/rustdesk:1.4.6"
+    requested_binary_repo_version: "rustdesk/rustdesk:1.4.8"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: rustdesk
