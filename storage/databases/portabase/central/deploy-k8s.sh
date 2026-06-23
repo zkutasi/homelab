@@ -16,12 +16,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-PROJECT_SECRET=$(yq '.project.secret' app-values-private.yaml)
-if [[ "${PROJECT_SECRET}" == "null" ]]; then
-    PROJECT_SECRET=$(openssl rand -base64 36)
-    yq -i ".project.secret=\"${PROJECT_SECRET}\"" app-values-private.yaml
-fi
-
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \

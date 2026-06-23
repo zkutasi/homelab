@@ -11,14 +11,22 @@ Since I already want to expose relevant databases to be able to browse them, the
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |portabase_url|M|The URL to access Portabase on|
+    |portabase_secret|M||
+    |portabase_edge_key|M|The central server's key for the agents|
+
 ### Deploy the central UI
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    project:
-      url: ...
-      secret: ...
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook storage/databases/portabase/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
@@ -31,17 +39,10 @@ Since I already want to expose relevant databases to be able to browse them, the
 
 1. Create a new Agent on the UI, and note the edge key of it
 
-2. Create a values yaml file for potential private data named `app-values-private.yaml`
+2. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                EDGE_KEY: ...
-
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook storage/databases/portabase/agents/generate-configuration.yaml --no-check
     ```
 
 3. Create a values yaml file for config data named `app-values-config-private.yaml`
