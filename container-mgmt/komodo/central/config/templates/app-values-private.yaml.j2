@@ -1,0 +1,12 @@
+cnpg:
+  main:
+    password: {{ komodo_database_password }}
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            KOMODO_DATABASE_URI: mongodb://komodo:{{ komodo_database_password }}@komodo-ferretdb:27017/komodo
+            KOMODO_DATABASE_PASSWORD: {{ komodo_database_password }}
+            KOMODO_PASSKEY: {{ komodo_periphery_passkey }}

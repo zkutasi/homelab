@@ -8,9 +8,22 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |arcane_encryption_key|M||
+    |arcane_jwt_secret|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/arcane/central/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 

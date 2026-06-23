@@ -15,6 +15,7 @@
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |dockhand_agent_token|M|The token to securely communicate with the Agent|
+    |dockhand_database_password|M|The Database password to use|
 
 2. For each Ansible host, the following variables can be set
 
@@ -23,7 +24,11 @@
 
 ### Deploy the central component
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/dockhand/central/generate-configuration.yaml --no-check
+    ```
 
 2. Install with the provided script
 

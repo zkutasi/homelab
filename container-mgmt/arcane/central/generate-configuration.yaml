@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Dockpeek
+- name: Generate dynamic configuration for Arcane
   hosts: localhost
   gather_facts: false
   tasks:

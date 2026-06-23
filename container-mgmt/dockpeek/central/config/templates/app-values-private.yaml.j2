@@ -4,6 +4,9 @@ workload:
       containers:
         main:
           env:
+            SECRET_KEY: {{ dockpeek_secret_key }}
+            USERNAME: {{ dockpeek_username }}
+            PASSWORD: {{ dockpeek_password }}
 {% for host in groups['docker'] %}
             DOCKER_HOST_{{ loop.index }}_URL: tcp://{{ hostvars[host].ansible_host }}:{{ port_dockpeek }}
 {% endfor %}

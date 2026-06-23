@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Dockpeek
+- name: Generate dynamic configuration for Komodo
   hosts: localhost
   gather_facts: false
   tasks:
