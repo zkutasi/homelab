@@ -14,3 +14,7 @@ There are a vast amount of different exporters for different purposes, common or
 - [Windows exporter](https://github.com/prometheus-community/windows_exporter) - A specific exporter for Windows systems, just like Node exporter, but for Windows
 - [PVE Prometheus Exporter](https://github.com/prometheus-pve/prometheus-pve-exporter) - Either install it on each PVE Host or in a docker remotely and specify the PVE targets. Not ideal though as PVE has built-in metrics solutions, but only for Graphite and InfluxDB targets.
 - [Conntrack-exporter](https://github.com/hiveco/conntrack_exporter) - Exports the Linux conntrack network data as Prometheus metrics
+- [Blackbox exporter](https://github.com/prometheus/blackbox_exporter) - Allows blackbox probing of endpoints over HTTP, HTTPS, DNS, TCP, ICMP and gRPC.
+- [Network Exporter](https://github.com/syepes/network_exporter) - ICMP / Ping & MTR & TCP Port & HTTP Get - Network Prometheus exporter
+- [Texporter](https://github.com/kasd/texporter) - A lightweight, high-performance eBPF-based network traffic exporter for Prometheus.
+- [Cloudflare eBPF exporter](https://github.com/cloudflare/ebpf_exporter) - Prometheus exporter for custom eBPF metrics
