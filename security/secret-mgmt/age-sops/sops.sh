@@ -153,7 +153,7 @@ elif [ "${MODE}" == "encrypt-all" ]; then
                 --output "${encrypted_filename}" \
                 "${line}"
         fi
-    done < <(find $(git rev-parse --show-toplevel) -type f -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
+    done < <(find $(git rev-parse --show-toplevel) -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1
