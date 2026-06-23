@@ -23,7 +23,7 @@ cnpg:
 
 komodoImage:
   repository: ghcr.io/moghtech/komodo-core
-  tag: 1.19.3
+  tag: 1.19.5
   pullPolicy: IfNotPresent
 
 ferretdbImage:
