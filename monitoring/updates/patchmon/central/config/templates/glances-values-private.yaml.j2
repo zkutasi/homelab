@@ -1,0 +1,14 @@
+cnpg:
+  main:
+    password: {{ patchmon_database_password }}
+redis:
+  password: {{ patchmon_redis_password }}
+workload:
+  main:
+    podSpec:
+      containers:
+        backend:
+          env:
+            REDIS_PASSWORD: {{ patchmon_redis_password }}
+            DB_PASSWORD: {{ patchmon_database_password }}
+            JWT_SECRET: {{ patchmon_jwt_secret }}
