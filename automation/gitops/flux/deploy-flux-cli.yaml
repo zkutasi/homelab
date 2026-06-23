@@ -1,0 +1,14 @@
+- name: Deploy Flux CLI
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_repo_version: "fluxcd/flux2:2.8.8"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    bin_filename: flux
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_linux_amd64.tar.gz"
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}*"

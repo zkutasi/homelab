@@ -25,6 +25,7 @@ An end-to-end automatic GitOps workflow might look like this:
 
 ### Version control (self-hosted ones)
 
+- [Gogs](https://gogs.io/) - The painless way to host your own Git service
 - [GitLab](https://about.gitlab.com/)
 - [Gitea](https://gitea.com/) - Git with a cup of tea! Painless self-hosted all-in-one software development service, including Git hosting, code review, team collaboration, package registry and CI/CD
 - [Forgejo](https://forgejo.org/)
