@@ -4,7 +4,7 @@ APP=portabase-agent
 NS=portabase
 RELEASE_NAME=portabase-agent
 
-EXTRA_PARAMS="--extra-values app-values-config-private.yaml"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in

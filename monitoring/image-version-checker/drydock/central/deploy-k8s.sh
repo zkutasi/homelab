@@ -4,7 +4,7 @@ APP=drydock
 NS=drydock
 RELEASE_NAME=drydock
 
-EXTRA_PARAMS="--extra-values drydock-values-config-private.yaml"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in

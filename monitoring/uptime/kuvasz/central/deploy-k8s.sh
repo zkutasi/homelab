@@ -6,7 +6,7 @@ NS=kuvasz
 RELEASE_NAME=kuvasz
 VERSION=3.5.1
 
-EXTRA_PARAMS="--extra-values app-values-config-private.yaml"
+EXTRA_PARAMS=""
 
 while [ $# -ge 1 ]; do
   case "$1" in
