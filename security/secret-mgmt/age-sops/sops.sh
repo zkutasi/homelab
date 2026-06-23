@@ -126,23 +126,25 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
     done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
 elif [ "${MODE}" == "encrypt-all" ]; then
     while read -r line; do
-        echo "Encrypting file: ${line}..."
         encrypted_filename=${line}_encrypted
         if [ -f "${encrypted_filename}" ]; then
-            diff -u <(sops --encrypt \
+            echo "Checking for changes in ${line} to re-encrypt..."
+            diff -u <(sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
                 "${line}") \
-                "${decrypted_filename}"
+                "${line}" >/dev/null
             res=$?
-            if [ $res -eq 1 ]; then
-                echo "Differences found between encrypted content and existing file. Re-encrypting..."
+            if [ $res -eq 0 ]; then
+                echo "No differences found. Skipping re-encryption for ${line}."
+            elif [ $res -eq 1 ]; then
+                echo "Differences found. Re-encrypting ${line} to ${encrypted_filename}..."
                 sops --encrypt \
                     --input-type ${FILE_TYPE} \
                     --output-type ${FILE_TYPE} \
                     --age ${AGE_KEY} \
-                    --output "${encrypted_filename}" \
+                    --output "${line}" \
                     "${line}"
             fi
         else
