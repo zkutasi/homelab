@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: medialyze
     requested_image_version:
-      medialyze: "ghcr.io/frederikemmer/medialyze:0.10.4"
+      medialyze: "ghcr.io/frederikemmer/medialyze:0.16.0"
     docker_compose_create_dirs:
       - name: config
