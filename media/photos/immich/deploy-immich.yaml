@@ -6,7 +6,7 @@
     docker_compose_projectname: immich
     requested_image_version:
       immich-server: "ghcr.io/immich-app/immich-server:v2.3.1"
-      immich-ml: "ghcr.io/immich-app/immich-machine-learning:v2.3.1"
+      immich-ml: "ghcr.io/immich-app/immich-machine-learning:v2.7.5"
       valkey: "docker.io/valkey/valkey:9.0.0"
       immich-postgres: "ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23"
       immich-power-tools: "ghcr.io/varun-raj/immich-power-tools:0.19.1"
