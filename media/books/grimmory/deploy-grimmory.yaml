@@ -6,7 +6,7 @@
     docker_compose_projectname: grimmory
     requested_image_version:
       grimmory: "grimmory/grimmory:v3.1.0"
-      mariadb: "lscr.io/linuxserver/mariadb:11.4.5"
+      mariadb: "lscr.io/linuxserver/mariadb:11.4.12"
     docker_compose_create_dirs:
       - name: data
       - name: bookdrop
