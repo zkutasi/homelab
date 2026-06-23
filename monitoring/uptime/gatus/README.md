@@ -8,6 +8,14 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |gatus_database_password|M||
+
 ### Deploy the app
 
 1. Check which version you want to install, or leave empty to take the latest available version
@@ -16,7 +24,11 @@
     curl -s https://oci.trueforge.org/v2/truecharts/gatus/tags/list | jq
     ```
 
-2. Create a values yaml file for potential private data named `app-values-private.yaml`
+2. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/gatus/central/generate-configuration.yaml --no-check
+    ```
 
 3. Install with the provided script
 

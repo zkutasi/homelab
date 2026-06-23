@@ -1,7 +1,13 @@
+cnpg:
+  main:
+    password: {{ gatus_database_password }}
 configmap:
   config:
     data:
       config.yaml: |
+        storage:
+          type: postgres
+          path: postgresql://gatus:{{ gatus_database_password }}@gatus-cnpg-main-rw:5432/gatus?client_encoding=utf8
         remote:
           instances:
             - endpoint-prefix: ""

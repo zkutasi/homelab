@@ -8,25 +8,25 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |kuvasz_admin_username|M||
+    |kuvasz_admin_password|M||
+    |kuvasz_admin_apikey|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-    ```yaml
-    auth:
-      enabled: true
-      adminUser: ...
-      adminPassword: ...
-      adminApiKey: ...
-    ```
-
-2. Using the ansible inventory, generate the config by running the following command
+1. Using the ansible inventory, generate the config by running the following command
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/uptime/kuvasz/central/generate-configuration.yaml --no-check
     ```
 
-3. To check against the custom certs you might have it is a must to mount them. For this, follow these instructions:
+2. To check against the custom certs you might have it is a must to mount them. For this, follow these instructions:
 
     1. Get the `cacerts` from the image as instructed in the documentation
 
@@ -56,7 +56,7 @@
 
     3. Now add this new `cacerts` file as an extra Secret mount to the container. This is done in the deploy.sh script.
 
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

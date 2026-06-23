@@ -27,5 +27,5 @@
   tasks:
     - name: Generate configuration file from template
       ansible.builtin.template:
-        src: config/templates/gatus-values-config-private.yaml.j2
-        dest: "gatus-values-config-private.yaml"
+        src: config/templates/gatus-values-private.yaml.j2
+        dest: "gatus-values-private.yaml"

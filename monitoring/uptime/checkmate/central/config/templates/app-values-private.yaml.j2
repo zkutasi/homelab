@@ -1,0 +1,10 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            CLIENT_HOST: {{ checkmate_url }}
+            JWT_SECRET: {{ checkmate_jwt_secret }}
+            UPTIME_APP_API_BASE_URL: {{ checkmate_url }}/api/v1
+            UPTIME_APP_CLIENT_HOST: {{ checkmate_url }}

@@ -1,0 +1,8 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        autokuma:
+          env:
+            AUTOKUMA__KUMA__USERNAME: {{ uptimekuma_username }}
+            AUTOKUMA__KUMA__PASSWORD: {{ uptimekuma_password }}

@@ -8,21 +8,21 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |checkmate_jwt_secret|M||
+    |checkmate_url|M||
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workload:
-      main:
-        podSpec:
-        containers:
-          main:
-          env:
-            CLIENT_HOST: ...
-            JWT_SECRET: ...
-            UPTIME_APP_API_BASE_URL: ...
-            UPTIME_APP_CLIENT_HOST: ...
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/checkmate/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

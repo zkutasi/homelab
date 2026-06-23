@@ -1,0 +1,12 @@
+redis:
+  password: {{ kener_redis_password }}
+
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            KENER_SECRET_KEY: {{ kener_secret_key }}
+            ORIGIN: {{ kener_url }}
+            REDIS_URL: redis://:{{ kener_redis_password }}@kener-redis:6379

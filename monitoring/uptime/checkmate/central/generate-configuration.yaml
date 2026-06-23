@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Kuvasz
+- name: Generate dynamic configuration for Checkmate
   hosts: localhost
   gather_facts: false
   tasks:

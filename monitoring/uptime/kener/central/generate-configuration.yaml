@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Kuvasz
+- name: Generate dynamic configuration for Homelable
   hosts: localhost
   gather_facts: false
   tasks:
