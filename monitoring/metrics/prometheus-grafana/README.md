@@ -19,6 +19,15 @@ N/A
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |grafana_admin_user|M||
+    |grafana_admin_password|M||
+
 ### Deploy the app
 
 1. Add the helm repository
@@ -34,28 +43,19 @@ N/A
     helm search repo prometheus-community/kube-prometheus-stack -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-    ```yaml
-    grafana:
-      adminUser: ...
-      adminPassword: ...
-          ...
-    ```
-
-4. Generate configuration from the Ansible inventory
+3. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metricsprometheus-grafana/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-grafana/generate-configuration.yaml --no-check
     ```
 
-5. Install with the provided script
+4. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-6. Create an API token for automation
+5. Create an API token for automation
     - Create a Service Account with `Viewer` rights at Home -> Administration -> Users and access -> Service accounts
     - Create a new Token
 
