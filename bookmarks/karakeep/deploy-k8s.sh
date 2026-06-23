@@ -15,16 +15,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-if [ ! -f app-values-private.yaml ]; then
-    touch app-values-private.yaml
-fi
-
-NEXTAUTH_SECRET=$(yq '.workload.main.podSpec.containers.main.env.NEXTAUTH_SECRET' app-values-private.yaml)
-if [[ "${NEXTAUTH_SECRET}" == "null" ]]; then
-    NEXTAUTH_SECRET=$(openssl rand -base64 36)
-    yq -i ".workload.main.podSpec.containers.main.env.NEXTAUTH_SECRET=\"${NEXTAUTH_SECRET}\"" app-values-private.yaml
-fi
-
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name ${PWD}/chart \
     --namespace $NS \
