@@ -25,9 +25,7 @@ Installing it into the Kubernetes cluster next to the other tools.
     helm search repo stirling-pdf/stirling-pdf -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

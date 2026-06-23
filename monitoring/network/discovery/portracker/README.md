@@ -25,9 +25,7 @@ Deploy the central GUI in the Kubernetes cluster and deploy to each Peer Host th
 
 ### Deploy the central UI
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-2. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

@@ -32,9 +32,7 @@ Rook can provide the following:
     helm search repo rook-release/rook-ceph -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
@@ -55,15 +53,13 @@ Rook can provide the following:
     helm search repo rook-release/rook-ceph -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-5. Create a dashboard user via the toolbox Pod
+4. Create a dashboard user via the toolbox Pod
 
     ```bash
     echo "<PASSWORD>" | kubectl -n rook-ceph exec -ti deployments/rook-ceph-tools -- ceph dashboard ac-user-create <USERNAME> -i /dev/stdin administrator

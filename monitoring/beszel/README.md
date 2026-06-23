@@ -28,15 +28,13 @@
 
 ### Deploy the central hub
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-2. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-3. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_token`
+2. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_token`
 
 ### Deploy the agents on the Docker hosts
 
@@ -48,17 +46,10 @@
 
 When the regular Agents are deployed, the required Env variables are fetched from the Hub and printed.
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workload:
-        main:
-            podSpec:
-            containers:
-                main:
-                env:
-                    KEY: "<KEY>"
-                    TOKEN: "<TOKEN>"
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/k8s/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

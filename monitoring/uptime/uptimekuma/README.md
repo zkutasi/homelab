@@ -10,19 +10,21 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+    |uptimekuma_username|M|For Autokuma|
+    |uptimekuma_password|M|For Autokuma|
+
 ### Deploy the app
 
-1. Create a values yaml file for potential private data named `app-values-private.yaml`
+1. Generate configuration from the Ansible inventory
 
-    ```yaml
-    workloads:
-      main:
-        podSpec:
-          containers:
-            autokuma:
-              env:
-                AUTOKUMA__KUMA__USERNAME: ...
-                AUTOKUMA__KUMA__PASSWORD: ...
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/uptimekuma/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

@@ -25,17 +25,15 @@ Deploy the central component in the Kubernetes cluster and put down agents every
     helm search repo pulse/pulse -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-5. In the logs you will find the bootstrap token, use that when going to the UI to set up.
+4. In the logs you will find the bootstrap token, use that when going to the UI to set up.
 
-6. Set your Network range in the settings to speed up auto discovery.
+5. Set your Network range in the settings to speed up auto discovery.
 
 ### Deploy the unified agents
 

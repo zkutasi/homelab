@@ -28,15 +28,13 @@
     curl -s https://oci.trueforge.org/v2/truecharts/glances/tags/list | jq
     ```
 
-2. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-3. Generate configuration from the Ansible inventory
+2. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/glances/central/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

@@ -16,15 +16,13 @@
     curl -s https://oci.trueforge.org/v2/truecharts/shiori/tags/list | jq
     ```
 
-2. Create a values yaml file for potential private data named `app-values-private.yaml`
-
-3. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-4. Use the default user/password of `shiori/gopher` to log in first
+3. Use the default user/password of `shiori/gopher` to log in first
 
 ## Commands
 
