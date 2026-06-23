@@ -28,14 +28,10 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
     helm search repo external-dns -l
     ```
 
-3. Create a values yaml file for potential private data named `app-values-private.yaml`
+3. Generate configuration from the Ansible inventory
 
-    ```yaml
-    extraArgs:
-     - "--pihole-api-version=6"
-     - "--pihole-server=..."
-     - "--pihole-password=..."
-     - "--pihole-tls-skip-verify"
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook kubernetes/infrastructure/external-access/external-dns/generate-configuration.yaml --no-check
     ```
 
 4. Install with the provided script
