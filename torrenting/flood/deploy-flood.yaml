@@ -5,6 +5,6 @@
   vars:
     docker_compose_projectname: flood
     requested_image_version:
-      flood: "jesec/flood:4.11.0"
+      flood: "jesec/flood:4.14.3"
     docker_compose_create_dirs:
       - name: config
