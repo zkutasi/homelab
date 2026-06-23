@@ -1,4 +1,4 @@
-- name: Generate dynamic configuration for Cup
+- name: Generate dynamic configuration for Keel
   hosts: localhost
   gather_facts: false
   tasks:
