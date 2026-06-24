@@ -6,11 +6,9 @@
 
 ## Prerequisites
 
-For Searching, meiliSearch is required as a separate container.
-
-For proper web-crawling, a Chrome container is also required (for example to accept the EU cookie consents)
-
-For AI tagging, Ollama or a public AI API is required.
+- For Searching, MeiliSearch is required as a separate container.
+- For proper web-crawling, a Chrome container is also required (for example to accept the EU cookie consents)
+- For AI tagging, Ollama or a public AI API is required.
 
 ## Usage
 
@@ -21,6 +19,11 @@ For AI tagging, Ollama or a public AI API is required.
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |karakeep_nextauth_secret|M||
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the app
 
@@ -35,6 +38,8 @@ For AI tagging, Ollama or a public AI API is required.
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

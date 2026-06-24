@@ -24,9 +24,13 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook backups/borg/borgitory/deploy-borgitory.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook backups/borg/borgitory/deploy-borgitory.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

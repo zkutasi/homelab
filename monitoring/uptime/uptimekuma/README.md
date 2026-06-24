@@ -19,6 +19,11 @@
     |uptimekuma_username|M|For Autokuma|
     |uptimekuma_password|M|For Autokuma|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate configuration from the Ansible inventory
@@ -32,6 +37,8 @@
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

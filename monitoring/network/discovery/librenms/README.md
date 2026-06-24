@@ -8,7 +8,7 @@ In this tool, one needs to either add the monitored hosts manually or there is a
 
 ## Prerequisites
 
-Deploy SNMP on each monitored host.
+1. Deploy SNMP on each monitored host.
 
 ## Usage
 
@@ -22,32 +22,26 @@ Deploy SNMP on each monitored host.
     |snmp_priv_pass|M||
     |librenms_appkey|M|Generate a Laravel App-key with this [Laravel Key Generator](https://generate-random.org/laravel-key-generator)|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add librenms https://www.librenms.org/helm-charts
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo librenms -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/librenms/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

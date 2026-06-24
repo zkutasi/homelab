@@ -61,6 +61,8 @@ For Windows clients or for clients not capable to be in automations, do the foll
 4. Right click on the icon to get into the Settings, and configure an Internet backup Server, be sure to set the auth key also.
 5. Wait a few minutes, it shall start working
 
+### Post deployment
+
 ## Commands
 
 This solution seems entirely UI based, which makes it very simple to handle.

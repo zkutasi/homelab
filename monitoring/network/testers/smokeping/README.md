@@ -4,8 +4,6 @@
 
 ## The setup
 
-Place it onto the Network monitoring appliance Host.
-
 ## Prerequisites
 
 ## Usage
@@ -24,9 +22,13 @@ Place it onto the Network monitoring appliance Host.
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/testers/smokeping/deploy-smokeping.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/smokeping/deploy-smokeping.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

@@ -16,25 +16,26 @@
     |------|--------------------|---------|
     |gatus_database_password|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    curl -s https://oci.trueforge.org/v2/truecharts/gatus/tags/list | jq
-    ```
-
-2. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/uptime/gatus/central/generate-configuration.yaml --no-check
     ```
 
-3. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

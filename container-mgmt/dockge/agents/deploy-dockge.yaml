@@ -1,8 +1,0 @@
-- name: Deploy dockge as docker
-  hosts: docker
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: dockge
-    requested_image_version:
-      dockge: "louislam/dockge:1.5.0"

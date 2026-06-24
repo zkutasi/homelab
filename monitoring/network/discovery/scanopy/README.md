@@ -28,23 +28,28 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
 
 ### Deploy the central server
 
-First deploy the app into the Kubernetes cluster:
+1. Install with the provided script
 
-```bash
-./deploy-k8s.sh
-```
+    ```bash
+    ./deploy-k8s.sh
+    ```
 
-Then go to the UI:
+### Post deployment of the central server
 
-1. Register and log in
-2. Go to `Networks` where you shall see one called `My Network`, note its ID and add it to the Ansible inventory as `scanopy_network_id`.
-3. Generate a new API key for the daemons and add it to the Ansible inventory as `scanopy_api_key`.
+1. Go to the UI:
+    1. Register and log in
+    2. Go to `Networks` where you shall see one called `My Network`, note its ID and add it to the Ansible inventory as `scanopy_network_id`.
+    3. Generate a new API key for the daemons and add it to the Ansible inventory as `scanopy_api_key`.
 
 ### Deploy the agents
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/scanopy/agents/deploy-scanopy-agent.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/scanopy/agents/deploy-scanopy-agent.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

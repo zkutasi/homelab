@@ -4,8 +4,6 @@
 
 ## The setup
 
-Just run the image in a cluster, and access the tools in a browser.
-
 ## Prerequisites
 
 ## Usage
@@ -17,6 +15,11 @@ Just run the image in a cluster, and access the tools in a browser.
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |convertx_jwt_secret|M||
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the app
 
@@ -31,6 +34,8 @@ Just run the image in a cluster, and access the tools in a browser.
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

@@ -17,22 +17,21 @@ Rook can provide the following:
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the Operator
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add rook-release https://charts.rook.io/release
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo rook-release/rook-ceph -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
@@ -40,26 +39,15 @@ Rook can provide the following:
 
 ### Deploy Rook
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add rook-release https://charts.rook.io/release
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo rook-release/rook-ceph -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-4. Create a dashboard user via the toolbox Pod
+### Post deployment
+
+1. Create a dashboard user via the toolbox Pod
 
     ```bash
     echo "<PASSWORD>" | kubectl -n rook-ceph exec -ti deployments/rook-ceph-tools -- ceph dashboard ac-user-create <USERNAME> -i /dev/stdin administrator

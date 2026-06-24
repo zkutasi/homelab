@@ -24,9 +24,13 @@ To use this tool, one really needs remote servers to test against, the frontend 
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/librespeed/deploy-librespeed.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/librespeed/deploy-librespeed.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

@@ -4,32 +4,31 @@
 
 ## The setup
 
-Installing it into the Kubernetes cluster next to the other tools.
-
 ## Prerequisites
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add stirling-pdf https://stirling-tools.github.io/Stirling-PDF-chart
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo stirling-pdf/stirling-pdf -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

@@ -22,9 +22,13 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook torrenting/qui/deploy-qui.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook torrenting/qui/deploy-qui.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

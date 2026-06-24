@@ -35,33 +35,25 @@ Since I already want to expose relevant databases to be able to browse them, the
     ./deploy-k8s.sh
     ```
 
-### Deploy the agent next to the central UI
+### Post deployment of the central UI
 
 1. Create a new Agent on the UI, and note the edge key of it
 
-2. Generate configuration from the Ansible inventory
+### Deploy the agent next to the central UI
+
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook storage/databases/portabase/agents/generate-configuration.yaml --no-check
     ```
 
-3. Create a values yaml file for config data named `app-values-config-private.yaml`
-
-    ```yaml
-    configmap:
-      config:
-        enabled: true
-        data:
-          config.json:
-    ```
-
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-### Post installation setup
+### Post deployment
 
 - Create an Organization
 - Connect the Created Agent into your Organization

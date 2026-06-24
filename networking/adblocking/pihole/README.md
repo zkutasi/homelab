@@ -26,21 +26,28 @@ This Unbound instance is configured in Recursive mode.
     |pihole_password|M|The password set up for pihole|
     |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-Switch off the built-in Stub DNS resolver that would prevent to attach to port 53
+1. Switch off the built-in Stub DNS resolver that would prevent to attach to port 53
 
-```bash
-./common-ansible-run-playbook.sh --playbook networking/adblocking/configure-dnsserver-host.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/adblocking/configure-dnsserver-host.yaml --no-check
+    ```
 
-Deploy the docker containers:
+2. Install with the provided script
 
-```bash
-./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole/deploy-pihole-unbound.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole/deploy-pihole-unbound.yaml --no-check
+    ```
 
-To set up some local DNS entries, run this playbook too after:
+### Post deployment
+
+1. To set up some local DNS entries, run this playbook too after:
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole/configure-pihole.yaml --no-check

@@ -11,11 +11,11 @@ Opted for a 3master + 3worker setup, virtualized under Proxmox. This gives me HA
 - A few VMs or Hosts for Nodes
 - Ansible installed
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
 
 Kubespray requires an inventory to identify what to do with the Nodes, which roles they are intended to be running. The inventory is best to be created from the sample inventory from the git repo (see later).
-
-## Usage
 
 ### Install
 

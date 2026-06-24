@@ -8,8 +8,6 @@ Run InfluxDB 2.x although 3.x is out there, because of simplicity: 3.x requires 
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -22,34 +20,28 @@ N/A
     |influxdb_password|M||
     |influxdb_admin_token|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add influxdata https://helm.influxdata.com/
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo influxdata/influxdb2 -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/metrics/influxdb/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-5. On the GUI create an Organization and in it the required buckets.
+### Post deployment
+
+1. On the GUI create an Organization and in it the required buckets.
     1. For Organization, for example use `home`
     2. For Bucket, create one for `proxmox`
 

@@ -22,21 +22,25 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook security/openvas/central/deploy-openvas.yaml --no-check
-```
+1. Install with the provided script
 
-For some reason the DB is not initialized at all in this scenario. Initialize it with the following command for the `pg-gvm` container to come up properly:
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook security/openvas/central/deploy-openvas.yaml --no-check
+    ```
 
-```bash
-docker run --rm -it \
-  --user root \
-  --entrypoint /bin/bash \
-  -v psql_data:/var/lib/postgresql \
-  -v psql_socket:/var/run/postgresql \
-  registry.community.greenbone.net/community/pg-gvm:22.6.15 \
-  gosu postgres /usr/lib/postgresql/17/bin/initdb -D /var/lib/postgresql/17/main
-```
+### Post deployment
+
+1. For some reason the DB is not initialized at all in this scenario. Initialize it with the following command for the `pg-gvm` container to come up properly:
+
+    ```bash
+    docker run --rm -it \
+    --user root \
+    --entrypoint /bin/bash \
+    -v psql_data:/var/lib/postgresql \
+    -v psql_socket:/var/run/postgresql \
+    registry.community.greenbone.net/community/pg-gvm:22.6.15 \
+        gosu postgres /usr/lib/postgresql/17/bin/initdb -D /var/lib/postgresql/17/main
+    ```
 
 ## Commands
 

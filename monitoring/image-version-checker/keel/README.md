@@ -17,32 +17,26 @@
     |keel_username|M||
     |keel_password|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add keel https://keel-hq.github.io/keel/
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo keel/keel -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/keel/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

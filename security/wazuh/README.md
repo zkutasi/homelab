@@ -8,8 +8,6 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -20,6 +18,11 @@ N/A
     |------|--------------------|---------|
     |wazuh_manager_hostname|M|The manager IP or hostname that the agents use to communicate with|
     |wazuh_registration_password|M|This is the enrollment password that the Agents use to enroll|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the central component
 
@@ -38,11 +41,11 @@ N/A
 
 ### Deploy the Agents
 
-Deploy the agents to every host required
+1. Deploy the agents to every host required
 
-```bash
-./common-ansible-run-playbook.sh --playbook security/wazuh/agents/deploy-wazuh-agent.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook security/wazuh/agents/deploy-wazuh-agent.yaml --no-check
+    ```
 
 ## Commands
 

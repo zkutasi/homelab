@@ -22,9 +22,15 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/nut/peanut/deploy-peanut.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/nut/peanut/deploy-peanut.yaml --no-check
+    ```
+
+### Post deployment
+
+1. Go to the Web UI and complete the Setup with the Wizard.
 
 ## Commands
 

@@ -24,7 +24,12 @@ Since this is an OS in itself, just a fresh empty host is required.
 
 ### Ansible inventory setup
 
-1. For each Ansible host, the following variables can be set
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
@@ -34,7 +39,11 @@ Since this is an OS in itself, just a fresh empty host is required.
 
 ### Deploy the app
 
-Install it into a Host or a VM as the OS and then configure it on the UI. Can be a bit slow if you have a lot of things you want to do.
+Install the OMV as the OS.
+
+### Post deployment
+
+Configure it on the UI. Can be a bit slow if you have a lot of things you want to do.
 
 On the UI, you shall add a user. Use the following groups to be part of:
 

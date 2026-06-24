@@ -18,6 +18,11 @@
     |kuvasz_admin_password|M||
     |kuvasz_admin_apikey|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Using the ansible inventory, generate the config by running the following command
@@ -61,6 +66,8 @@
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

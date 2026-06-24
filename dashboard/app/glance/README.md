@@ -24,9 +24,13 @@ Use it as a news outlet: RSS feeds, videos, github repo checks, subreddits, mark
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook dashboard/app/glance/deploy-glance.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook dashboard/app/glance/deploy-glance.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

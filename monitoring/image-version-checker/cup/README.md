@@ -8,8 +8,6 @@ Run this in my Kubernetes cluster and configured so that it watches all of the r
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -22,11 +20,18 @@ N/A
     |cup_registries|O|A map of registries and their access tokens if a rate-limit is reached and the app starts behaving erratic due to the Unauthorized issues.|
     |cup_servers|O|A list of Servers the control-server shall handle as remotes. Since the control-server runs in Kubernetes, this is not needed here.|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the agents
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/agents/deploy-cup.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/cup/agents/deploy-cup.yaml --no-check
+    ```
 
 ### Deploy the central component
 
@@ -41,6 +46,8 @@ N/A
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

@@ -8,8 +8,6 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -20,38 +18,49 @@ N/A
     |------|--------------------|---------|
     |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the central component
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/central/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-2. After going to the URL, enter your wanted credentials and hit the "Sign Up" button
+### Post deployment of the central component
+
+1. After going to the URL, enter your wanted credentials and hit the "Sign Up" button
+2. Generate an access token to access the REST API:
+    1. Log into the UI
+    2. Go to Settings -> Profile -> API Keys, and add a new one, two things will be generated an API Key and a Secret
+    3. Place this API Key & Secret into the inventory as `komodo_api_key` and `komodo_api_secret` into the `all` group_vars file
+    4. Place a generated into the `all` group_vars file as `komodo_periphery_passkey`
 
 ### Deploy the agents
 
-Generate an access token to access the REST API:
+1. Install with the provided script
 
-1. Log into the UI
-2. Go to Settings -> Profile -> API Keys, and add a new one, two things will be generated an API Key and a Secret
-3. Place this API Key & Secret into the inventory as `komodo_api_key` and `komodo_api_secret` into the `all` group_vars file
-4. Place a generated into the `all` group_vars file as `komodo_periphery_passkey`
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/agents/deploy-komodo-periphery.yaml --no-check
+    ```
 
-Then deploy the periphery agents to every host required
+### Post deployment
 
-```bash
-./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/agents/deploy-komodo-periphery.yaml --no-check
-```
+1. Register all of the hosts and existing stacks on the REST API
 
-### Configure Komodo server
-
-This will register all of the hosts and existing stacks on the REST API
-
-```bash
-./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/configure-komodo.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/configure-komodo.yaml --no-check
+    ```
 
 ## Commands
 

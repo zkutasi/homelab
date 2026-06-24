@@ -12,6 +12,7 @@ This folder contains fundamental settings applied to hosts, including
 - `setup-pushover.yaml` - Set up push-notifications via Pushover
 - `setup-python.yaml` - Set up the python environment on each host
 - `setup-scripts.yaml` - Some hosts have developed bash scripts. Distribute them.
+- `setup-snmp` - Set up SNMP on each host for monitoring
 - `setup-ssh.yaml` - Set up on each host a public-private SSH key for the default (hopefully non-root) user
 - `setup-sudoers.yaml` - Allow some commands to run with sudo
 - `setup-sysctl.yaml` - Set some kernel parameters

@@ -4,34 +4,31 @@
 
 ## The setup
 
-N/A
-
 ## Prerequisites
-
-N/A
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add jetstack https://charts.jetstack.io
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo jetstack/version-checker -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

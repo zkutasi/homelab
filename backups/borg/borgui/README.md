@@ -24,11 +24,15 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook backups/borg/borgui/deploy-borgui.yaml --no-check
-```
+1. Install with the provided script
 
-Then login with `admin/admin123` default password and change it when prompted.
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook backups/borg/borgui/deploy-borgui.yaml --no-check
+    ```
+
+### Post deployment
+
+Login with `admin/admin123` default password and change it when prompted.
 
 ## Commands
 

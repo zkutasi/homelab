@@ -4,8 +4,6 @@
 
 ## The setup
 
-N/A
-
 ## Prerequisites
 
 - A NUT Server is up and running
@@ -22,13 +20,22 @@ N/A
     |nut_server_username|M||
     |nut_server_password|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-Deploy with:
+1. Install with the provided script
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/nut/nut-exporter/deploy-nut-exporter.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/nut/nut-exporter/deploy-nut-exporter.yaml --no-check
+    ```
+
+### Post deployment
+
+## Commands
 
 ## Notable comments
 

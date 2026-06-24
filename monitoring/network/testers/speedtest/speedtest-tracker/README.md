@@ -19,6 +19,11 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
     |speedtest_tracker_schedule|M|A cron-expression to specify how many times a test should be scheduled|
     |speedtest_tracker_app_key|M|A generated App-Key|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate an APP_KEY for encryption with the following command
@@ -32,6 +37,8 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/speedtest-tracker/deploy-speedtest-tracker.yaml --no-check
     ```
+
+### Post deployment
 
 ## Commands
 

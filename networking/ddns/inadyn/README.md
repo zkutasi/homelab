@@ -6,8 +6,6 @@
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -31,9 +29,13 @@ N/A
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook networking/ddns/inadyn/deploy-inadyn.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/ddns/inadyn/deploy-inadyn.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

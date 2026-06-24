@@ -12,6 +12,8 @@ I really wanted a unified UI, so I have placed Borgwarehouse on the backupServer
 
 Then all client hosts need a Borgmatic docker container as well, even the backup server too. The Borgmatic container will also contain Borg itself. All clients will back up to the remote backupServer only, not locally.
 
+## Prerequisites
+
 ## Usage
 
 ### Ansible inventory setup

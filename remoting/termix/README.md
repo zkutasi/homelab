@@ -23,9 +23,13 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook remoting/termix/deploy-termix.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook remoting/termix/deploy-termix.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

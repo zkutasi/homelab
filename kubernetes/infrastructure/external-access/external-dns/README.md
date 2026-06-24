@@ -13,32 +13,33 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo external-dns -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook kubernetes/infrastructure/external-access/external-dns/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

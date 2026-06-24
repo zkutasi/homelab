@@ -16,6 +16,11 @@
     |------|--------------------|---------|
     |gotify_default_user_pass|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate configuration from the Ansible inventory
@@ -30,7 +35,9 @@
     ./deploy-k8s.sh
     ```
 
-3. On the App UI, generate Apps for each host, and put the tokens into the inventory for those hosts, as `gotify_token`
+### Post deployment
+
+1. On the App UI, generate Apps for each host, and put the tokens into the inventory for those hosts, as `gotify_token`
 
 ## Commands
 

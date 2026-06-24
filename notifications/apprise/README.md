@@ -48,6 +48,8 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
     ./deploy-k8s.sh
     ```
 
+### Post deployment
+
 ## Commands
 
 ## Notable comments

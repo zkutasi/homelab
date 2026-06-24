@@ -18,6 +18,11 @@
     |patchmon_database_password|M||
     |patchmon_jwt_secret|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate configuration from the Ansible inventory
@@ -32,7 +37,9 @@
     ./deploy-k8s.sh
     ```
 
-3. Add the agents from the UI, it is just one copy-paste command per host.
+### Post deployment
+
+1. Add the agents from the UI, it is just one copy-paste command per host.
 
 ## Commands
 

@@ -24,32 +24,26 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
     |semaphore_username|M||
     |semaphore_password|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add semaphoreui https://semaphoreui.github.io/charts
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo semaphoreui/semaphore -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook automation/semaphoreUI/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 On the GUI, set up the required things: Repositories, Inventories, Task Templates, etc....
 

@@ -10,34 +10,36 @@ Deploy the central component in the Kubernetes cluster and put down agents every
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the central component
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add pulse https://rcourtman.github.io/Pulse/
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo pulse/pulse -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-4. In the logs you will find the bootstrap token, use that when going to the UI to set up.
+### Post deployment of the central component
 
-5. Set your Network range in the settings to speed up auto discovery.
+1. In the logs you will find the bootstrap token, use that when going to the UI to set up.
+2. Set your Network range in the settings to speed up auto discovery.
 
 ### Deploy the unified agents
 
 Agents are deployable from the UI, as it provides a very comprehensive step-by-step tutorial with many alternatives.
+
+### Post deployment
 
 ## Commands
 

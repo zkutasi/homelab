@@ -6,8 +6,6 @@
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -26,15 +24,19 @@ N/A
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check
-```
+1. Install with the provided script
 
-After deployment, the Caddyfile is also templated out. But still, the local DNS has to be set up. It can be done with the following playbook:
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check
+    ```
 
-```bash
-./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/configure-caddy-pihole.yaml --no-check
-```
+### Post deployment
+
+1. After deployment, the Caddyfile is also templated out. But still, the local DNS has to be set up. It can be done with the following playbook:
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/configure-caddy-pihole.yaml --no-check
+    ```
 
 ## Commands
 

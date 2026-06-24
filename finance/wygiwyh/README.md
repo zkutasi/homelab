@@ -18,6 +18,11 @@
     |wygiwyh_secret_key|M||
     |wygiwyh_url|M|The full used URL in the browser, for CSRF protection, hostname part only|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate configuration from the Ansible inventory
@@ -32,13 +37,15 @@
     ./deploy-k8s.sh
     ```
 
-3. Create the superuser account:
+### Post deployment
+
+1. Create the superuser account:
 
     ```bash
     kubectl -n wygiwyh exec -ti deployment/wygiwyh -c wygiwyh -- python manage.py createsuperuser
     ```
 
-4. On the UI, create some things before any Import could happen:
+2. On the UI, create some things before any Import could happen:
 
     1. Categories to put transactions into
     2. Currencies for the Accounts

@@ -1,6 +1,6 @@
-# SearXNG
+# Jellyfin
 
-[SearXNG](https://github.com/searxng/searxng) - A free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
+[Jellyfin](https://jellyfin.org/) - The Free Software Media System - Server Backend & API
 
 ## The setup
 
@@ -25,10 +25,16 @@
 1. Install with the provided script
 
     ```bash
-    ./deploy-k8s.sh
+    ./common-ansible-run-playbook.sh --playbook media/allinone/jellyfin/deploy-jellyfin.yaml --no-check
     ```
 
 ### Post deployment
+
+1. Configure ignored files
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/allinone/jellyfin/configure-ignore.yaml --no-check
+    ```
 
 ## Commands
 

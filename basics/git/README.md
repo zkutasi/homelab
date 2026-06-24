@@ -29,11 +29,13 @@ Also, if you maybe want a more modern git-hook alternative, here are a few:
 
 ## Prerequisites
 
-## Ansible inventory setup
-
-N/A
-
 ## Usage
+
+### Ansible inventory setup
+
+### Deploy the app
+
+### Post deployment
 
 ## Commands
 

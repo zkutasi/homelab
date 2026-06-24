@@ -13,15 +13,29 @@ I have deployed a full stack of some tools to help me visualize the banned IPs:
 
 ## Prerequisites
 
-N/A
-
 ## Usage
+
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
-```
+1. Install with the provided script
+
+  ```bash
+  ./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
+  ```
+
+### Post deployment
 
 ## Commands
 

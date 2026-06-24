@@ -31,17 +31,23 @@ Deploy the central GUI in the Kubernetes cluster and deploy to each Peer Host th
     ./deploy-k8s.sh
     ```
 
+### Post deployment of the central UI
+
 ### Deploy the peer hosts
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/agents/deploy-portracker.yaml --no-check
-```
+1. Install with the provided script
 
-### Configure the peers into the central UI
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/agents/deploy-portracker.yaml --no-check
+    ```
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/configure-portracker.yaml --no-check
-```
+### Post deployment
+
+1. Register the agents
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/configure-portracker.yaml --no-check
+    ```
 
 ## Commands
 

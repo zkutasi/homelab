@@ -22,9 +22,11 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook documents/paperless-ngx/deploy-paperless-ngx.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook documents/paperless-ngx/deploy-paperless-ngx.yaml --no-check
+    ```
 
 ## Commands
 

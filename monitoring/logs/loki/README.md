@@ -8,9 +8,19 @@ Loki integrated beautifully into Grafana itself and acts as an endpoint to strea
 
 ## Prerequisites
 
-N/A
-
 ## Usage
+
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the app
 
@@ -19,6 +29,8 @@ N/A
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Commands
 

@@ -24,6 +24,26 @@
 
 ### Deploy the app
 
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/allinone/plex/deploy-plex.yaml --no-check
+    ```
+
+### Post deployment
+
+1. Configure ignored files
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/allinone/plex/configure-plexignore.yaml --no-check
+    ```
+
+2. Block plex.direct to enable localplay properly
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/allinone/plex/configure-unbound-allow-localplay.yaml --no-check
+    ```
+
 ## Commands
 
 ## Notable comments

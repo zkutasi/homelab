@@ -20,15 +20,24 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
     |------|--------------------|---------|
     |nutify_secret_key|M|A string to encrypt the database with|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-Deploy with:
+1. Install with the provided script
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/nut/nutify/deploy-nutify.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/nut/nutify/deploy-nutify.yaml --no-check
+    ```
 
-Then go to the Web UI and complete the Setup with the Wizard.
+### Post deployment
+
+1. Go to the Web UI and complete the Setup with the Wizard.
+
+## Commands
 
 ## Notable comments
 

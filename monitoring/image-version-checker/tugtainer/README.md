@@ -32,9 +32,13 @@ Deploy the central component in Kubernetes and handle all other Hosts with agent
 
 ### Deploy the agents
 
-```bash
-./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/tugtainer/agents/deploy-tugtainer.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/image-version-checker/tugtainer/agents/deploy-tugtainer.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

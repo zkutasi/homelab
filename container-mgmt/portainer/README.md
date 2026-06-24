@@ -8,8 +8,6 @@ The central management server is deployed on the Kubernetes cluster, and it mana
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -20,48 +18,41 @@ N/A
     |------|--------------------|---------|
     |portainer_hostname|M|The FQDN hostname of the portainer service|
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the central component
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add portainer https://portainer.github.io/k8s/
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo portainer/portainer -l
-    ```
-
-3. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
+### Post deployment of the central component
+
+1. Generate an access token to access the REST API:
+    1. Log into the UI
+    2. Go to My Account (top right corner) -> Access token, and add a new one
+    3. Place this access token into the inventory (preferably in group_vars/all.yaml) as `portainer_access_token` into the `all` group_vars file
+
 ### Deploy the agents
 
-Generate an access token to access the REST API:
+1. Install with the provided script
 
-1. Log into the UI
-2. Go to My Account (top right corner) -> Access token, and add a new one
-3. Place this access token into the inventory (preferably in group_vars/all.yaml) as `portainer_access_token` into the `all` group_vars file
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/portainer/agents/deploy-portainer-agent.yaml --no-check
+    ```
 
-Then deploy the portainer agents to every host required
+### Post deployment
 
-```bash
-./common-ansible-run-playbook.sh --playbook container-mgmt/portainer/agents/deploy-portainer-agent.yaml --no-check
-```
+1. Register all of the hosts on the REST API
 
-### Configure Portainer server
-
-Register all of the hosts on the REST API
-
-```bash
-./common-ansible-run-playbook.sh --playbook container-mgmt/portainer/configure-portainer.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/portainer/configure-portainer.yaml --no-check
+    ```
 
 ## Commands
 

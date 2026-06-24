@@ -8,21 +8,29 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    curl -s https://oci.trueforge.org/v2/truecharts/linkding/tags/list | jq
-    ```
-
-2. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-3. Create a superuser account
+### Post deployment
+
+1. Create a superuser account
 
     ```bash
     kubectl -n linkding exec -ti deployment/linkding -- python manage.py createsuperuser --username=XXX --email=XXX

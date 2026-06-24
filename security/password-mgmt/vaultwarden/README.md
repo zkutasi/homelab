@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-- A reverse proxy with HTTPS and a domain to serve for VaultWarden
+1. A reverse proxy with HTTPS and a domain to serve for VaultWarden
 
 ## Usage
 
@@ -24,9 +24,13 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook security/password-mgmt/vaultwarden/deploy-vaultwarden.yaml --no-check
-```
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook security/password-mgmt/vaultwarden/deploy-vaultwarden.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

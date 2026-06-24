@@ -15,8 +15,6 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
 
 ## Prerequisites
 
-N/A
-
 ## Usage
 
 ### Ansible inventory setup
@@ -28,34 +26,28 @@ N/A
     |grafana_admin_user|M||
     |grafana_admin_password|M||
 
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
-1. Add the helm repository
-
-    ```bash
-    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-    helm repo update
-    ```
-
-2. Check which version you want to install, or leave empty to take the latest available version
-
-    ```bash
-    helm search repo prometheus-community/kube-prometheus-stack -l
-    ```
-
-3. Generate configuration from the Ansible inventory
+1. Generate configuration from the Ansible inventory
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-grafana/generate-configuration.yaml --no-check
     ```
 
-4. Install with the provided script
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-5. Create an API token for automation
+### Post deployment
+
+1. Create an API token for automation
     - Create a Service Account with `Viewer` rights at Home -> Administration -> Users and access -> Service accounts
     - Create a new Token
 

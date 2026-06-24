@@ -22,9 +22,19 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook <APP_FOLDERNAME>/deploy-<APP_NAME_LOWERCASE>.yaml --no-check
-```
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook <APP_FOLDERNAME>/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook <APP_FOLDERNAME>/deploy-<APP_NAME_LOWERCASE>.yaml --no-check
+    ```
+
+### Post deployment
 
 ## Commands
 

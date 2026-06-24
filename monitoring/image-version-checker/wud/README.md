@@ -8,6 +8,18 @@
 
 ## Usage
 
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
 ### Deploy the app
 
 1. Generate configuration from the Ansible inventory
@@ -22,7 +34,9 @@
     ./deploy-k8s.sh
     ```
 
-3. Deploy a docker socket proxy for each remote host, no agents required/possible
+### Post deployment
+
+1. Deploy a docker socket proxy for each remote host, no agents required/possible
 
 ## Commands
 

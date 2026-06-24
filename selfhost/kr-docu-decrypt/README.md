@@ -10,19 +10,31 @@ An idea how to use it: Create a Google App Script to catch such emails, extract 
 
 ## Prerequisites
 
-None.
-
 ## Usage
+
+### Ansible inventory setup
+
+1. Add the following variables into the `all` group_vars file:
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
+
+2. For each Ansible host, the following variables can be set
+
+    | Name | Mandatory/Optional | Details |
+    |------|--------------------|---------|
 
 ### Deploy the app
 
-1. Deploy the service
+1. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook selfhosting/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml --no-check
     ```
 
-2. Prepare a Google App script to handle the emails with the encrypted XML automatically.
+### Post deployment
+
+1. Prepare a Google App script to handle the emails with the encrypted XML automatically.
 
 ## Commands
 
