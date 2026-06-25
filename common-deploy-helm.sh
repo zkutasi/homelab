@@ -123,9 +123,9 @@ if [ "${DEPLOYMENT_TYPE}" == "helm" ] && [[ "${CHART_NAME}" != "oci://"* ]]; the
     echo "Helm repo ${REPO_NAME} already added."
   else
     helm repo add ${REPO_NAME} ${REPO_URL}
-    echo "Update helm repos..."
-    helm repo update
   fi
+  echo "Update the added helm repo..."
+  helm repo update ${REPO_NAME}
 fi
 
 if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
