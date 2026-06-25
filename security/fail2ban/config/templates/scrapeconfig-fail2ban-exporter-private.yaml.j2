@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: fail2ban-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: fail2ban-exporter
+  staticConfigs:
+{% for host in groups['external'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_fail2ban_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

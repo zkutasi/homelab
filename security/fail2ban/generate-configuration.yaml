@@ -1,0 +1,16 @@
+- name: Generate dynamic configuration for Fail2ban
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/scrapeconfig-fail2ban-geoexporter-private.yaml.j2
+        dest: "extra-manifests/scrapeconfig-fail2ban-geoexporter-private.yaml"
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/scrapeconfig-fail2ban-exporter-private.yaml.j2
+        dest: "extra-manifests/scrapeconfig-fail2ban-exporter-private.yaml"

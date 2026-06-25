@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: smartctl-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: smartctl-exporter
+  staticConfigs:
+{% for host in groups['smart'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_smartctl_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

@@ -1,0 +1,12 @@
+- name: Generate dynamic configuration for Windows-exporter
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/scrapeconfig-windows-exporter-private.yaml.j2
+        dest: "extra-manifests/scrapeconfig-windows-exporter-private.yaml"

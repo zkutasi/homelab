@@ -1,12 +1,10 @@
-# NUT Exporter
+# Node-exporter
 
-[NUT Exporter](https://github.com/DRuggeri/nut_exporter) is a Prometheus compatible NUT metrics exporter.
+[Node-exporter](https://github.com/prometheus/node_exporter) - Exporter for machine metrics
 
 ## The setup
 
 ## Prerequisites
-
-- A NUT Server is up and running
 
 ## Usage
 
@@ -16,9 +14,6 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
-    |nut_server_hostname|M|The NUT Server to scrape info from|
-    |nut_server_username|M||
-    |nut_server_password|M||
 
 2. For each Ansible host, the following variables can be set
 
@@ -30,13 +25,13 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/nut/nut-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/nut/nut-exporter/deploy-nut-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/deploy-node-exporter.yaml --no-check
     ```
 
 ### Post deployment
@@ -50,5 +45,3 @@
 ## Commands
 
 ## Notable comments
-
-- I have chosen `network_mode=host`, because otherwise I would need to give a very specific IP address to the Synology NUT Server as allowed remote hosts.

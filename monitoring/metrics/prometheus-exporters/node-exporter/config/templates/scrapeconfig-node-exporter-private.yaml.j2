@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: node-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: node-exporter
+  staticConfigs:
+{% for host in groups['proxmox'] + groups['docker'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_node_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

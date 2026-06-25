@@ -26,13 +26,25 @@ I use it on my VPS, where the VPS is not yet able to reach the central monitorin
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/cadvisor/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
   ```bash
   ./common-ansible-run-playbook.sh --playbook monitoring/metrics/cadvisor/deploy-cadvisor.yaml --no-check
   ```
 
 ### Post deployment
+
+1. Deploy the Prometheus ScrapeConfigs locally
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
 
 ## Commands
 

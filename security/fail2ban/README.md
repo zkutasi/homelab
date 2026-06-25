@@ -29,13 +29,25 @@ I have deployed a full stack of some tools to help me visualize the banned IPs:
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
 
-  ```bash
-  ./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
-  ```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook security/fail2ban/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook security/fail2ban/deploy-fail2ban.yaml --no-check
+    ```
 
 ### Post deployment
+
+1. Deploy the Prometheus ScrapeConfigs locally
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
 
 ## Commands
 

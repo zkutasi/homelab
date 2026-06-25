@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: cadvisor
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: cadvisor
+  staticConfigs:
+{% for host in groups['external'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_cadvisor }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

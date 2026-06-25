@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: windows-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: windows-exporter
+  staticConfigs:
+{% for host in groups['windows'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_windows_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}
