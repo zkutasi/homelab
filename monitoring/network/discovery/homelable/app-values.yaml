@@ -1,6 +1,6 @@
 backendImage:
   repository: ghcr.io/pouzor/homelable-backend
-  tag: 2.0.3
+  tag: 2.5.1
   pullPolicy: IfNotPresent
 frontendImage:
   repository: ghcr.io/pouzor/homelable-frontend
