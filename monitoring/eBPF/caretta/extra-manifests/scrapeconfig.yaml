@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: caretta
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: caretta
+
+  scrapeInterval: 5s
+  metricsPath: /metrics
+
+  kubernetesSDConfigs:
+    - role: Pod
+      namespaces:
+        names:
+          - caretta
+
+  relabelings:
+    - sourceLabels:
+        - __meta_kubernetes_pod_label_app
+      regex: caretta
+      action: keep
+
+    - action: labelmap
+      regex: __meta_kubernetes_pod_label_(.+)
+
+    - sourceLabels:
+        - __meta_kubernetes_pod_name
+      targetLabel: caretta_pod
+      action: replace
+
+    - sourceLabels:
+        - __meta_kubernetes_pod_node_name
+      targetLabel: caretta_node
+      action: replace
