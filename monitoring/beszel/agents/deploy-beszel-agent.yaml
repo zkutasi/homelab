@@ -77,7 +77,7 @@
   roles:
     - binary-install
   vars:
-    requested_binary_repo_version: "henrygd/beszel:0.18.1"
+    requested_binary_repo_version: "henrygd/beszel:0.18.7"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: beszel-agent
