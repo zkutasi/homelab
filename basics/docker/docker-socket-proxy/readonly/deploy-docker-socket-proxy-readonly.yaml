@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: docker-socket-proxy-readonly
     requested_image_version:
-      wollomatic-docker-socket-proxy: "wollomatic/socket-proxy:1.11.3"
+      wollomatic-docker-socket-proxy: "wollomatic/socket-proxy:1.12.2"
