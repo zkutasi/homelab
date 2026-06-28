@@ -4,7 +4,7 @@ mongodbImage:
   pullPolicy: IfNotPresent
 backendImage:
   repository: ghcr.io/bluewave-labs/checkmate-backend-mono
-  tag: v3.5.1
+  tag: v3.8.1
   pullPolicy: IfNotPresent
 
 persistence:
