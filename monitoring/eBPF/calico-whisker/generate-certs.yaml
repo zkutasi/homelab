@@ -1,0 +1,69 @@
+---
+- name: Generate Goldmane + Whisker backend TLS certs using Kubernetes CA
+  hosts: k8s-controller-1
+  become: yes
+  vars:
+    cert_dir: /etc/calico/certs
+    ca_cert: /etc/kubernetes/ssl/ca.crt
+    ca_key: /etc/kubernetes/ssl/ca.key
+    cert_validity_days: 3650
+    key_size: 2048
+    services:
+      - name: goldmane
+        cn: goldmane
+        san:
+          - "DNS:goldmane"
+          - "DNS:goldmane.kube-system"
+          - "DNS:goldmane.kube-system.svc"
+          - "DNS:goldmane.kube-system.svc.cluster.local"
+      - name: whisker-backend
+        cn: whisker-backend
+        san:
+          - "DNS:whisker-backend"
+          - "DNS:whisker-backend.kube-system"
+          - "DNS:whisker-backend.kube-system.svc"
+          - "DNS:whisker-backend.kube-system.svc.cluster.local"
+  tasks:
+    - name: Ensure cert directory exists
+      file:
+        path: "{{ cert_dir }}"
+        state: directory
+        mode: "0755"
+    - name: Generate private keys
+      community.crypto.openssl_privatekey:
+        path: "{{ cert_dir }}/{{ item.name }}.key"
+        size: "{{ key_size }}"
+        type: RSA
+      loop: "{{ services }}"
+    - name: Generate CSRs
+      community.crypto.openssl_csr:
+        path: "{{ cert_dir }}/{{ item.name }}.csr"
+        privatekey_path: "{{ cert_dir }}/{{ item.name }}.key"
+        common_name: "{{ item.cn }}"
+        subject_alt_name: "{{ item.san }}"
+        key_usage:
+          - digitalSignature
+          - keyEncipherment
+        extended_key_usage:
+          - serverAuth
+          - clientAuth
+      loop: "{{ services }}"
+    - name: Sign certificates with Kubernetes CA
+      community.crypto.x509_certificate:
+        path: "{{ cert_dir }}/{{ item.name }}.crt"
+        csr_path: "{{ cert_dir }}/{{ item.name }}.csr"
+        provider: ownca
+        ownca_path: "{{ ca_cert }}"
+        ownca_privatekey_path: "{{ ca_key }}"
+        ownca_not_after: "+{{ cert_validity_days }}d"
+      loop: "{{ services }}"
+    - name: Set secure permissions on private keys
+      file:
+        path: "{{ cert_dir }}/{{ item.name }}.key"
+        mode: "0600"
+      loop: "{{ services }}"
+    - name: Clean up CSRs
+      file:
+        path: "{{ cert_dir }}/{{ item.name }}.csr"
+        state: absent
+      loop: "{{ services }}"

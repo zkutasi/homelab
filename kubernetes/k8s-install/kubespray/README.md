@@ -30,18 +30,22 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
 3. Edit the inventory file itself... I used a YAML format instead of INI
    1. Also edit the settings if needed. These are my changes:
 
-    | File | Setting |
-    |------|---------|
-    |group_vars/all/all.yml|ntp_enabled: true|
-    |group_vars/k8s_cluster/addons.yml|helm_enabled: true|
-    |group_vars/k8s_cluster/addons.yml|metrics_server_enabled: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|kube_proxy_strict_arp: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|kube_encrypt_secret_data: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|kubernetes_audit: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|kubeconfig_localhost: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|auto_renew_certificates: true|
-    |group_vars/k8s_cluster/k8s-cluster.yml|coredns_external_zones|
-    |group_vars/k8s_cluster/k8s-cluster.yml|nodelocaldns_external_zones|
+    | File | Setting | Comment |
+    |------|---------|---------|
+    |group_vars/all/all.yml|ntp_enabled: true||
+    |group_vars/k8s_cluster/addons.yml|helm_enabled: true||
+    |group_vars/k8s_cluster/addons.yml|metrics_server_enabled: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|kube_proxy_strict_arp: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|kube_encrypt_secret_data: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|kubernetes_audit: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|kubeconfig_localhost: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|auto_renew_certificates: true||
+    |group_vars/k8s_cluster/k8s-cluster.yml|coredns_external_zones: ...|Set up the private DNS servers for the `home` network domain|
+    |group_vars/k8s_cluster/k8s-cluster.yml|nodelocaldns_external_zones: ...|Set up the private DNS servers for the `home` network domain|
+    |group_vars/k8s_cluster/k8s-net-calico.yml|typha_enabled: true|For Whisker this is required|
+    |group_vars/k8s_cluster/k8s-net-calico.yml|typha_secure: true|For Whisker this is required|
+    |group_vars/k8s_cluster/k8s-net-calico.yml|typha_replicas: 1||
+    |group_vars/k8s_cluster/k8s-net-calico.yml|calico_node_extra_envs: ...|Enable Flow logs generation towards Goldmane|
 
 4. Run the ping-check to see if the inventory data is correct
 
@@ -73,6 +77,9 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
 5. Repeat if necessary
 
 ## Commands
+
+- If modifying CoreDNS/NodeLocalDNS, specify the `--extra-args "--tags coredns,nodelocaldns"` also, to execute only the needed updates in the install script
+- If modifying Calico settings, specify the `--extra-args "--tags download,calico"` also, to execute only the needed updates in the install script
 
 ## Notable comments
 
