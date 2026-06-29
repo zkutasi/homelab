@@ -6,6 +6,8 @@
 
 Alloy is deployed everywhere, on the Kubernetes cluster as well as on standalone hosts. It collects logs and forward them to Loki and metrics are forwarded to Prometheus. Then Grafana has access to both.
 
+Also Alloy bundles Beyla, for no-code instrumentation eBPF application observability.
+
 ## Prerequisites
 
 ## Usage
@@ -21,6 +23,7 @@ Alloy is deployed everywhere, on the Kubernetes cluster as well as on standalone
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |alloy_monitor_containers|O|Whether to monitor docker containers or not. Default is True|
 
 ### Deploy the kubernetes deployment
 

@@ -3,7 +3,7 @@
   tasks:
     - name: Create config.alloy from template
       ansible.builtin.template:
-        src: config.alloy-proxmox.j2
+        src: ../config/config.alloy.j2
         dest: "/etc/alloy/config.alloy"
         mode: '0644'
         owner: root
