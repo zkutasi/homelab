@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: yadnsb
     requested_image_version:
-      yadnsb: "ghcr.io/butialabs/yadnsb:0.0.10"
+      yadnsb: "ghcr.io/butialabs/yadnsb:0.2.1"
