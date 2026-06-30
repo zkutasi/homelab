@@ -9,4 +9,4 @@
       - name: emby-backup
     requested_image_version:
       alpine: "alpine"
-      emby: "emby/embyserver:4.9.3.0"
+      emby: "emby/embyserver:4.10.0.17"
