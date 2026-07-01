@@ -1,6 +1,6 @@
 image:
   repository: sharevb/it-tools
-  tag: 2025.10.12
+  tag: 2026.1.4
   pullPolicy: IfNotPresent
 persistence:
   nginx-cache:
