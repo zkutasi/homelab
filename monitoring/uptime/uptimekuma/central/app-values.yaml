@@ -1,6 +1,6 @@
 uptimekumaImage:
   repository: louislam/uptime-kuma
-  tag: 2.2.1
+  tag: 2.4.0
   pullPolicy: IfNotPresent
 autokumaImage:
   repository: ghcr.io/bigboot/autokuma
