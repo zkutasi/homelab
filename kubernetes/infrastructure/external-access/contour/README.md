@@ -48,3 +48,5 @@ kubectl delete deployments.apps kuard
 ```
 
 ## Notable comments
+
+- Contour & Envoy certs are valid only for a year! Contour expects upgrades once a year at least as the certs are regenerated in each helm upgrade.

@@ -1,10 +1,10 @@
 #!/bin/bash
 
-CHART_NAME=bitnami/contour
+CHART_NAME=contour/contour
 NS=projectcontour
 RELEASE_NAME=contour
-REPO_URL=https://charts.bitnami.com/bitnami
-VERSION=21.0.1
+REPO_URL=https://projectcontour.github.io/helm-charts/
+VERSION=0.6.0
 
 EXTRA_PARAMS=
 
