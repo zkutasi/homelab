@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: alloy
     requested_image_version:
-      alloy: "grafana/alloy:v1.14.2"
+      alloy: "grafana/alloy:v1.17.1"
     docker_compose_create_dirs:
       - name: config
       - name: data
