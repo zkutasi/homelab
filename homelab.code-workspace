@@ -59,6 +59,11 @@
 						"auto": true
         },
 				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type binary --foldername ${PREFIX} --appname ${APPNAME}; popd",
+            "name": "Kickstart a binary project",
+						"group": "Kickstart"
+        },
+				{
             "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX} --appname ${APPNAME}; popd",
             "name": "Kickstart a docker project",
 						"group": "Kickstart"

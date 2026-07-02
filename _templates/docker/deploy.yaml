@@ -1,5 +1,5 @@
 - name: Deploy <APP_NAME> as docker
-  hosts: XXX
+  hosts: <ANSIBLE_HOST>
   roles:
     - docker-compose
   vars:

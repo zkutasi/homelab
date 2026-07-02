@@ -1,0 +1,6 @@
+- name: Delete <APP_NAME> as a service
+  hosts: <ANSIBLE_HOST>
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: <APP_NAME>

@@ -1,0 +1,11 @@
+- name: Deploy <APP_NAME> as binary
+  hosts: <ANSIBLE_HOST>
+  roles:
+    - binary-install
+  vars:
+    requested_binary_repo_version: "<REPO_AND_VERSION>"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    bin_filename: <APP_NAME>
+    download_url: "https://<URL>/{{ bin_filename }}-v{{ requested_binary_version }}-linux-amd64.tar.gz"
+    version_flag: "version"

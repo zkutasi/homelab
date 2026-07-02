@@ -1,5 +1,5 @@
 - name: Delete <APP_NAME> containers
-  hosts: XXX
+  hosts: <ANSIBLE_HOST>
   roles:
     - docker-compose-remove
   vars:

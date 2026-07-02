@@ -18,6 +18,7 @@ Options:
   --host <ansible_host>       Specify the Ansible host for deployment
   --type <type>               Specify the template type. Default: docker
                               can be either of the following:
+                              - binary               : for binary and service based deployments
                               - docker               : for Docker Compose based deployments
                               - k8s.helm             : for Kubernetes based deployments with Helm charts
                               - k8s.kompose          : for Kubernetes based deployments with Kompose files
@@ -60,8 +61,8 @@ done
 [ -z "${APP_FOLDERNAME}" ] && echo "ERROR: No foldername specified" && usage && exit 1
 [ -z "${APP_NAME}" ] && echo "ERROR: No appname specified" && usage && exit 1
 
-if [[ "${MAINTYPE}" != "docker" && "${MAINTYPE}" != "k8s" ]]; then
-    echo "ERROR: Invalid type specified. Allowed values are 'docker' or 'k8s'."
+if [[ "${MAINTYPE}" != "binary" && "${MAINTYPE}" != "docker" && "${MAINTYPE}" != "k8s" ]]; then
+    echo "ERROR: Invalid type specified. Allowed values are 'binary', 'docker' or 'k8s'."
     usage
     exit 1
 fi
@@ -78,7 +79,9 @@ echo "Copy files..."
 mkdir -p "${TARGET_APP_DIR}"
 cp -r ${REPO_ROOT}/_templates/${MAINTYPE}/* "${TARGET_APP_DIR}"
 
-if [ "${MAINTYPE}" == "docker" ]; then
+if [ "${MAINTYPE}" == "binary" ]; then
+  echo
+elif [ "${MAINTYPE}" == "docker" ]; then
     if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
         echo "Processing existing docker-compose.yaml for templating..."
         cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
@@ -280,7 +283,7 @@ while read -r line; do
 done < <(find ${TARGET_APP_DIR} -type f)
 
 echo "Renaming..."
-if [ "${TYPE}" == "docker" ]; then
+if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
     mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
     mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
 fi
