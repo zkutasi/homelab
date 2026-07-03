@@ -1,0 +1,19 @@
+global:
+  timezone: Europe/Budapest
+
+configmap:
+  server.yaml:
+    ingester:
+      ckdb:
+        time-zone: Europe/Budapest
+
+deepflow-agent:
+  clusterNAME: k8s
+  timezone: Europe/Budapest
+
+grafana:
+  enabled: true
+  env:
+    TZ: Europe/Budapest
+  service:
+    type: ClusterIP

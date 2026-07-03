@@ -1,0 +1,23 @@
+clickhouse:
+  storageConfig:
+    persistence:
+      - name: clickhouse-path
+        accessModes:
+          - ReadWriteOnce
+        size: 10Gi
+        annotations:
+        storageClass: ""
+      - name: clickhouse-storage-path
+        accessModes:
+          - ReadWriteOnce
+        size: 20Gi
+        annotations:
+        storageClass: ""
+deepflow-agent:
+  resources:
+    requests:
+      cpu: 10m
+mysql:
+  storageConfig:
+    persistence:
+      size: 5Gi

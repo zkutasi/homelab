@@ -1,0 +1,6 @@
+- name: Delete deepflow-ctl as a service
+  hosts: controlserver
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: deepflow-ctl

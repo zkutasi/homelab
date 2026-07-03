@@ -1,0 +1,11 @@
+- name: Deploy deepflow-ctl as binary
+  hosts: controlserver
+  roles:
+    - binary-install
+  vars:
+    requested_binary_repo_version: ":7.1"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    bin_filename: deepflow-ctl
+    download_url: "https://deepflow-ce.oss-cn-beijing.aliyuncs.com/bin/ctl/v{{ requested_binary_version }}/linux/amd64/{{ bin_filename }}"
+    compressed: false
