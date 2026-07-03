@@ -42,6 +42,8 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
     |group_vars/k8s_cluster/k8s-cluster.yml|auto_renew_certificates: true||
     |group_vars/k8s_cluster/k8s-cluster.yml|coredns_external_zones: ...|Set up the private DNS servers for the `home` network domain|
     |group_vars/k8s_cluster/k8s-cluster.yml|nodelocaldns_external_zones: ...|Set up the private DNS servers for the `home` network domain|
+    |group_vars/k8s_cluster/k8s-cluster.yml|searchdomains: ...|At least one searchdomain is required if removing the defaults|
+    |group_vars/k8s_cluster/k8s-cluster.yml|remove_default_searchdomains: true|Do not add default.svc.cluster.local & svc.cluster.local as search domains|
     |group_vars/k8s_cluster/k8s-net-calico.yml|typha_enabled: true|For Whisker this is required|
     |group_vars/k8s_cluster/k8s-net-calico.yml|typha_secure: true|For Whisker this is required|
     |group_vars/k8s_cluster/k8s-net-calico.yml|typha_replicas: 1||
@@ -78,8 +80,15 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
 
 ## Commands
 
-- If modifying CoreDNS/NodeLocalDNS, specify the `--extra-args "--tags coredns,nodelocaldns"` also, to execute only the needed updates in the install script
-- If modifying Calico settings, specify the `--extra-args "--tags download,calico"` also, to execute only the needed updates in the install script
+- Special tags can be used to run a subset of activities only. Use the `--extra-args "--tags <TAGS>"` extra argument in the `run-install.sh` script
+  - `coredns,nodelocaldns` - If modifying CoreDNS/NodeLocalDNS
+  - `download,calico` - If modifying Calico settings
+  - `resolvconf` - If modifying /etc/resolv.conf in any way
+
+- To enable a feature-gate, follow [this Wikipage](https://oneuptime.com/blog/post/2026-02-09-kubernetes-feature-gates-api-kubelet/view). For example for API Server:
+  - First, query the available feature-gates: `kubectl -n kube-system exec -ti kube-apiserver-k8s-controller-1 -- kube-apiserver -h | grep -A 50 "feature-gates`
+  - Edit the file `/etc/kubernetes/manifests/kube-apiserver.yaml` and add the `--feature-gates` flag with the feature you want
+  - The system will redeploy the new API Servers automatically
 
 ## Notable comments
 
