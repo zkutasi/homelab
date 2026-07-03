@@ -14,7 +14,7 @@ services:
     container_name: paperless-ngx-postgres
     environment:
       POSTGRES_DB: paperless
-      POSTGRES_PASSWORD: paperless
+      POSTGRES_PASSWORD: {{ paperless_ngx_db_password }}
       POSTGRES_USER: paperless
       PGID: {{ ansible_user_gid }}
       PUID: {{ ansible_user_uid }}
