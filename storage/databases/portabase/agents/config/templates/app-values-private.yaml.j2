@@ -1,3 +1,42 @@
+configmap:
+  config:
+    enabled: true
+    data:
+      config.json: |
+        {
+          "databases": [
+            {
+              "name": "grimmory",
+              "database": "booklore",
+              "type": "mariadb",
+              "host": "{{ hostvars[groups['books'][0]].ansible_host }}",
+              "port": 33306,
+              "username": "booklore",
+              "password": "{{ grimmory_db_user_password }}",
+              "generated_id": "019e91f5-bc09-74df-8e9c-b71507e5452f"
+            },
+            {
+              "name": "paperless",
+              "database": "paperless",
+              "type": "postgresql",
+              "host": "{{ hostvars[groups['documents'][0]].ansible_host }}",
+              "port": 55432,
+              "username": "paperless",
+              "password": "{{ paperless_ngx_db_password }}",
+              "generated_id": "019e91f5-d4ba-7856-a12d-57b53e244c77"
+            },
+            {
+              "name": "wygiwyh",
+              "database": "wygiwyh",
+              "type": "postgresql",
+              "host": "wygiwyh-cnpg-main-r.wygiwyh.svc.cluster.local",
+              "port": 5432,
+              "username": "wygiwyh",
+              "password": "{{ wygiwyh_database_password }}",
+              "generated_id": "019e9357-0423-763b-882a-721d82dcf884"
+            }
+          ]
+        }
 workload:
   main:
     podSpec:
