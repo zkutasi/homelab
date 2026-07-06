@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
 APP=uptimekuma
 NS=uptimekuma
 RELEASE_NAME=uptimekuma
@@ -22,7 +23,7 @@ kubectl create configmap autokuma-staticmonitors \
 
 kubectl create secret generic ca-certificates \
     --namespace $NS \
-    --from-file=homelab-ca.pem=config/static/ca.crt \
+    --from-file=homelab-ca.pem=${CA_DIR}/ca.crt \
     --dry-run=client -o yaml | kubectl apply -f -
 
 $(git rev-parse --show-toplevel)/common-ansible-run-playbook.sh \
