@@ -45,9 +45,10 @@
     2. Add your CA into this
 
         ```bash
+        CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
         docker run --rm \
-            -v $(readlink -f ca.crt):/tmp/certs/ca.crt \
-            -v $(pwd)/cacerts:/tmp/certs/cacerts \
+            -v ${CA_DIR}:/tmp/certs/ca.crt \
+            -v ${PWD}/cacerts:/tmp/certs/cacerts \
             eclipse-temurin:25-jre-alpine-3.23 \
             sh -c 'cd /tmp/certs && keytool \
                 -keystore cacerts \
