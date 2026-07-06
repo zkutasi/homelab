@@ -6,7 +6,7 @@ RELEASE_NAME=contour
 REPO_URL=https://projectcontour.github.io/helm-charts/
 VERSION=0.6.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--post-renderer ${PWD}/kustomize.sh"
 
 while [ $# -ge 1 ]; do
   case "$1" in
