@@ -10,6 +10,7 @@ POST_RENDERER=
 RELEASE_NAME=
 REPO_NAME=
 REPO_URL=
+TEMPLATE=0
 VALUES=
 VERSION=
 
@@ -26,6 +27,7 @@ Options:
   --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
   --release-name <release-name> Helm release name (default: same as app name)
   --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
+  --template                  Template out the results for testing, do not deploy
   --type <type>               Type of deployment. Can be either of the following:
                                 - helm         : for public Helm charts (default)
                                 - truecharts   : for existing Truecharts helm chart
@@ -66,6 +68,9 @@ while [ $# -ge 1 ]; do
     --repo-url)
       shift
       REPO_URL=$1
+      ;;
+    --template)
+      TEMPLATE=1
       ;;
     --type)
       shift
@@ -166,8 +171,8 @@ if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
   helm dependency update "${CHART_NAME}"
 fi
 
-echo "Install helm chart..."
-CMD="helm upgrade --install ${RELEASE_NAME} ${CHART_NAME} \
+pwd
+CMD="${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
@@ -178,12 +183,21 @@ if [ -n "${POST_RENDERER}" ]; then
   CMD="${CMD} --post-renderer ${POST_RENDERER}"
 fi
 
+if [ "${TEMPLATE}" -eq 0 ]; then
+  echo "Install helm chart..."
+  CMD="helm upgrade --install ${CMD}"
+else
+  echo "Template out the result..."
+  CMD="helm template ${CMD}"
+fi
 echo "Executing command: ${CMD}"
 ${CMD}
 
-echo "Apply additional manifests, if any..."
-if [ -d "./extra-manifests" ]; then
-  while read -r line; do
-    kubectl apply -f "$line" -n $NS
-  done < <(find ./extra-manifests -type f -name "*.yaml")
+if [ "${TEMPLATE}" -eq 0 ]; then
+  echo "Apply additional manifests, if any..."
+  if [ -d "./extra-manifests" ]; then
+    while read -r line; do
+      kubectl apply -f "$line" -n $NS
+    done < <(find ./extra-manifests -type f -name "*.yaml")
+  fi
 fi
