@@ -6,7 +6,7 @@ RELEASE_NAME=librenms
 REPO_URL=https://librenms.github.io/helm-charts
 VERSION=7.2.0
 
-EXTRA_PARAMS="--post-renderer kustomize.sh"
+EXTRA_PARAMS="--post-renderer ${PWD}/kustomize.sh"
 
 while [ $# -ge 1 ]; do
   case "$1" in
