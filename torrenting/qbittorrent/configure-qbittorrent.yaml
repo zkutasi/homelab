@@ -26,4 +26,4 @@
     rest_api_headers:
       Cookie: "{{ rest_api_response.cookies_string }}"
       Referer: "http://{{ ansible_host }}:{{ port_qbittorrent }}"
-    rest_api_data: 'json={"autorun_enabled": true, "autorun_program": "/bin/bash {{ ansible_user_dir }}/torrent_completed.sh \"%N\""}'
+    rest_api_data: 'json={"autorun_enabled": true, "autorun_program": "/bin/bash {{ ansible_user_dir }}/torrent_completed.sh \"%N\" \"%L\" \"%G\" \"%F\" \"%R\" \"%D\" \"%C\" \"%Z\" \"%T\" \"%I\" \"%J\" \"%K\""}'

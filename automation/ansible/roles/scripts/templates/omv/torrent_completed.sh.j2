@@ -1,6 +1,20 @@
 #!/bin/bash
 
 TORRENT_NAME=$1
+TORRENT_CATEGORY=$2
+TORRENT_TAGS=$3
+TORRENT_CONTENT_PATH=$4
+TORRENT_ROOT_PATH=$5
+TORRENT_SAVE_PATH=$6
+TORRENT_NO_FILES=$7
+TORRENT_SIZE=$8
+TORRENT_TRACKER=$9
+TORRENT_INFO_HASH_V1=${10}
+TORRENT_INFO_HASH_V2=${11}
+TORRENT_ID=${12}
 
 # Send a Push message
 {{ ansible_user_dir }}/send_push.sh "${TORRENT_NAME} Completed!"
+
+# Execute hasher.sh
+{{ ansible_user_dir }}/hasher.sh "${TORRENT_CONTENT_PATH}"
