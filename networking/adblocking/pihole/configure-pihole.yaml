@@ -33,17 +33,17 @@
     rest_api_data:
       sid: "{{ pihole_authresponse.cookies.sid }}"
     rest_api_body_format: "json"
-- name: Update the custom DNS entries
+- name: Update the custom DNS entries for the hosts themselves
   hosts: controlserver
   tasks:
     - name: Call the REST API
       ansible.builtin.include_role:
         name: rest-api
-      loop: "{{ groups['standalone'] + groups['synology'] + groups['kubernetes'] + groups['proxmox'] }}"
+      loop: "{{ groups['home'] }}"
       when: entry not in pihole_response.json.config.dns.hosts
       vars:
         ip: "{{ hostvars[item].ansible_host }}"
-        fqdn: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.{{ network_domain }}"
+        fqdn: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.host.{{ network_domain }}"
         entry: "{{ ip }} {{ fqdn }}"
         rest_api_fact_name: "pihole_response"
         rest_api_url: "{{ pihole_primary_address }}"

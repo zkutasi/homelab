@@ -46,6 +46,7 @@ winrm enumerate winrm/config/Listener
    - `docker` - All hosts that prefer dockerized apps over binaries
    - `documents` - The server that holds documents
    - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
+   - `home` - Represent machines that are fully internal, on the home network.
    - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
    - `linux` - All Linux hosts, separated from Windows ones
    - `music` - The server that holds music files
