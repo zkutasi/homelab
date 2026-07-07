@@ -175,3 +175,62 @@ loki.source.docker "default" {
   forward_to = [loki.write.default.receiver]
 }
 {% endif %}
+
+{% if alloy_beyla_enabled | default(false) %}
+// **************************
+// ** SECTION: BEYLA EBPF  **
+// **************************
+
+beyla.ebpf "default" {
+  attributes {
+    kubernetes {
+      enable = "false"
+    }
+    select {
+      attr = "beyla_network_*"
+      include = ["*"]
+      exclude = ["k8s*"]
+    }
+  }
+  discovery {
+    instrument {
+      name = "*"
+      exe_path = "*"
+      containers_only = false
+      exports = ["metrics"]
+    }
+  }
+  metrics {
+    features = [
+      "application",
+      "application_process",
+      "application_host",
+      "network",
+      "stats",
+    ]
+
+    network {
+      cidrs = []
+      direction = "both"
+      exclude_interfaces = ["lo"]
+//      geo_ip {
+//        maxmind {
+//          asn_path = "/geoip/GeoLite2-ASN.mmdb"
+//          country_path = "/geoip/GeoLite2-Country.mmdb"
+//        }
+//      }
+      source = "socket_filter"
+    }
+  }
+
+  stats {
+
+  }
+}
+
+prometheus.scrape "beyla" {
+	targets      = beyla.ebpf.default.targets
+	honor_labels = true
+	forward_to   = [prometheus.remote_write.default.receiver]
+}
+{% endif %}

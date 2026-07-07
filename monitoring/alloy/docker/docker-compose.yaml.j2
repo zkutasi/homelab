@@ -1,4 +1,18 @@
 services:
+{% if alloy_beyla_enabled | default(false) %}
+  geoipupdate:
+    container_name: alloy-geoipupdate
+    environment:
+      GEOIPUPDATE_ACCOUNT_ID: {{ geoip_account_id }}
+      GEOIPUPDATE_LICENSE_KEY: {{ geoip_license_key }}
+      GEOIPUPDATE_EDITION_IDS: "GeoLite2-City GeoLite2-Country GeoLite2-ASN"
+      TZ: {{ timezone }}
+    hostname: {{ id }}-alloy-geoipupdate
+    image: {{ requested_image_version['geoipupdate'] }}
+    restart: "no"
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/geoipupdate/data:/usr/share/GeoIP
+{% endif %}
   alloy:
     command:
       - run
@@ -7,18 +21,34 @@ services:
       - /etc/alloy/config.alloy
     container_name: alloy
     environment:
-      - TZ={{ timezone }}
+      TZ: {{ timezone }}
+{% if alloy_beyla_enabled | default(false) %}
+      BEYLA_LOG_LEVEL: DEBUG
+      BEYLA_GEOIP_CACHE_LEN: 512
+      BEYLA_GEOIP_CACHE_TTL: "1h"
+      BEYLA_GEOIP_MAXMIND_ASN_PATH: "/geoip/GeoLite2-ASN.mmdb"
+      BEYLA_GEOIP_MAXMIND_COUNTRY_PATH: "/geoip/GeoLite2-Country.mmdb"
+{% endif %}
     extra_hosts:
       - "prometheus.kubernetes.home:{{ kubernetes_ingress_ip }}"
       - "loki.kubernetes.home:{{ kubernetes_ingress_ip }}"
     hostname: {{ id }}-alloy
     image: {{ requested_image_version['alloy'] }}
+{% if alloy_beyla_enabled | default(false) %}
+    pid: host
+    network_mode: host
+    privileged: true
+{% else %}
     ports:
       - {{ port_alloy }}:12345
+{% endif %}
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/config.alloy:/etc/alloy/config.alloy
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/var/lib/alloy/data
+{% if alloy_beyla_enabled | default(false) %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/geoipupdate/data/:/geoip:ro
+{% endif %}
       - /:/rootfs:ro
       - /run:/run:ro
       - /var/log:/var/log:ro

@@ -18,6 +18,7 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |alloy_beyla_enabled|O|Whether to enable Beyla's eBPF collector. Default is False|
 
 2. For each Ansible host, the following variables can be set
 
@@ -54,3 +55,5 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
 ## Commands
 
 ## Notable comments
+
+- Beyla in Alloy seems to be lacking some features, and is generally not on par to the separate Beyla instance, but requires much less configuration (albeit the config is Alloy-esque). It could provide a little better footprint and more unified pipelines.
