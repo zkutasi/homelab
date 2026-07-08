@@ -1,6 +1,7 @@
 - name: Remove binaries
+  become: true
   ansible.builtin.file:
-    path: "{{ bin_path }}{{ bin_filename }}"
+    path: "{{ bin_path }}/{{ bin_filename }}"
     state: absent
 - name: Remove Service for the binary if requested
   when: service_name | length > 0
