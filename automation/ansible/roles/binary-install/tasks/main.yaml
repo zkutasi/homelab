@@ -2,8 +2,11 @@
   ansible.builtin.stat:
     path: "{{ bin_path }}/{{ bin_filename }}"
   register: binary_filestat
+- name: Set a default for the installed version
+  ansible.builtin.set_fact:
+    binary_installed_version: ""
 - name: Check the version of the binary if present
-  when: binary_filestat.stat.exists and not binary_filestat.stat.isdir
+  when: binary_filestat.stat.exists and not binary_filestat.stat.isdir and version_flag
   check_mode: false
   block:
     - name: Check the version of the binary if present
