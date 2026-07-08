@@ -1,0 +1,6 @@
+- name: Delete node-exporter
+  hosts: docker
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: node-exporter

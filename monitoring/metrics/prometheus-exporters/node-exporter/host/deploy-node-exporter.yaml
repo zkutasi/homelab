@@ -10,11 +10,3 @@
     service_name: node-exporter
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
-- name: Deploy node-exporter as docker
-  hosts: docker
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: node-exporter
-    requested_image_version:
-      node-exporter: "quay.io/prometheus/node-exporter:v1.10.2"
