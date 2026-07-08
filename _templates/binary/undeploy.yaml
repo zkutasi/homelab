@@ -3,4 +3,4 @@
   roles:
     - binary-remove
   vars:
-    bin_filename: <APP_NAME>
+    bin_filename: <APP_NAME_LOWERCASE>

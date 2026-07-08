@@ -6,6 +6,7 @@
     requested_binary_repo_version: "<REPO_AND_VERSION>"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
-    bin_filename: <APP_NAME>
-    download_url: "https://<URL>/{{ bin_filename }}-v{{ requested_binary_version }}-linux-amd64.tar.gz"
+    bin_filename: <APP_NAME_LOWERCASE>
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_{{ requested_binary_version }}_Linux_x86_64.tar.gz"
     version_flag: "version"
