@@ -20,18 +20,34 @@
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
 
-### Deploy the app
+### Deploy on the Kubernetes cluster
 
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/k8s/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/deploy-smartctl-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/k8s/deploy-smartctl-exporter.yaml --no-check
+    ```
+
+### Deploy on the Docker hosts
+
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/docker/deploy-smartctl-exporter.yaml --no-check
+    ```
+
+### Deploy on the Dockerless hosts
+
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/host/deploy-smartctl-exporter.yaml --no-check
     ```
 
 ### Post deployment

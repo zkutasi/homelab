@@ -10,11 +10,3 @@
     service_name: smartctl-exporter
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
-- name: Deploy smartctl-exporter as docker
-  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
-  roles:
-    - docker-compose
-  vars:
-    docker_compose_projectname: smartctl-exporter
-    requested_image_version:
-      smartctl-exporter: "prometheuscommunity/smartctl-exporter:v0.14.0"

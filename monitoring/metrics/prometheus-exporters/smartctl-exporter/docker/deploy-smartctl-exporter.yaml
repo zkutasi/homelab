@@ -1,0 +1,8 @@
+- name: Deploy smartctl-exporter as docker
+  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: smartctl-exporter
+    requested_image_version:
+      smartctl-exporter: "prometheuscommunity/smartctl-exporter:v0.14.0"
