@@ -1,0 +1,14 @@
+- name: Authenticate to the Beszel central Hub
+  ansible.builtin.import_playbook: ../auth-to-central.yaml
+- name: Deploy Beszel-agent as docker
+  hosts: docker
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: beszel-agent
+    requested_image_version:
+      beszel-agent: "henrygd/beszel-agent:0.18.1"
+    docker_compose_create_dirs:
+      - name: data
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"

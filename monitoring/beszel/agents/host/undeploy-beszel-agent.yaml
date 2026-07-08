@@ -1,0 +1,7 @@
+- name: Delete beszel-agent as a service
+  hosts: proxmox
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: beszel-agent
+    service_name: beszel-agent

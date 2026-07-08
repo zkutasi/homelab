@@ -43,7 +43,15 @@
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/deploy-beszel-agent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/docker/deploy-beszel-agent.yaml --no-check
+    ```
+
+### Deploy the agents on Dockerless hosts
+
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/host/deploy-beszel-agent.yaml --no-check
     ```
 
 ### Deploy the agents on the Kubernetes hosts

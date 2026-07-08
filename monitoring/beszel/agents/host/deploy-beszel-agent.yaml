@@ -1,0 +1,25 @@
+- name: Authenticate to the Beszel central Hub
+  ansible.builtin.import_playbook: ../auth-to-central.yaml
+- name: Deploy Beszel-agent as a service
+  hosts: proxmox
+  roles:
+    - binary-install
+  vars:
+    requested_binary_repo_version: "henrygd/beszel:0.18.1"
+    binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    bin_filename: beszel-agent
+    service_name: beszel-agent
+    decompression_options:
+      - "--wildcards"
+      - "{{ bin_filename }}"
+    download_url: "https://github.com/{{ binary_repository }}/releases/download/\
+          v{{ requested_binary_version }}/{{ bin_filename }}_linux_amd64.tar.gz"
+    version_flag: "version"
+    environment_vars:
+      HUB_URL: "{{ beszel_hub_url }}"
+      KEY: "{{ beszel_ssh_key }}"
+      LISTEN: "{{ port_beszel }}"
+      TOKEN: "{{ beszel_universal_token }}"
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"
