@@ -20,13 +20,25 @@
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
 
-### Deploy the app
+### Deploy the central component
 
 1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Deploy the agent CLI
+
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/eBPF/deepflow/agents/deploy-deepflow-ctl.yaml --no-check
+    ```
+
+### Deploy additional agents
+
+This is documented well and requires the `deepflow-cli` command, but not automated here.
 
 ### Post deployment
 
