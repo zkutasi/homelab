@@ -1,5 +1,7 @@
 bin_filename: "{{ undef(hint='You must specify the Binary filename') }}"
+bin_exec_start_pre: ""
 bin_path: /usr/local/bin
+bin_serviceparams: ""
 compressed: true
 decompression_options:
   - "--wildcards"

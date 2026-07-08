@@ -8,7 +8,14 @@ Type=simple
 Restart=always
 RestartSec=1
 User={{ run_as_user }}
+{% if bin_exec_start_pre %}
+ExecStartPre={{ bin_exec_start_pre }}
+{% endif %}
+{% if bin_serviceparams %}
+ExecStart={{ bin_path }}/{{ bin_filename }} {{ bin_serviceparams }}
+{% else %}
 ExecStart={{ bin_path }}/{{ bin_filename }}
+{% endif %}
 {% for env in environment_vars | dict2items %}
 Environment="{{ env.key }}={{ env.value }}"
 {% endfor %}
