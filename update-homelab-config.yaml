@@ -6,3 +6,5 @@
   ansible.builtin.import_playbook: networking/adblocking/pihole/configure-pihole.yaml
 - name: Configure Homepage
   ansible.builtin.import_playbook: dashboard/app/homepage/configure-homepage.yaml
+- name: Configure Gatus
+  ansible.builtin.import_playbook: monitoring/uptime/gatus/central/generate-configuration.yaml
