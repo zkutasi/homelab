@@ -58,6 +58,8 @@
     ./deploy-k8s.sh
     ```
 
+2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
+
 ## Commands
 
 ## Notable comments

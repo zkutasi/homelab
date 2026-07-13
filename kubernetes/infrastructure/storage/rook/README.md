@@ -53,6 +53,8 @@ Rook can provide the following:
     echo "<PASSWORD>" | kubectl -n rook-ceph exec -ti deployments/rook-ceph-tools -- ceph dashboard ac-user-create <USERNAME> -i /dev/stdin administrator
     ```
 
+2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/2842-ceph-cluster/)
+
 ## Commands
 
 ### Uninstall Rook

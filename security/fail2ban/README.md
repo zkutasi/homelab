@@ -49,6 +49,8 @@ I have deployed a full stack of some tools to help me visualize the banned IPs:
     ./deploy-k8s.sh
     ```
 
+2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/19691-fail2ban-banned-locations/)
+
 ## Commands
 
 ## Notable comments

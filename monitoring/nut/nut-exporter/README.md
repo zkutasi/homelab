@@ -47,6 +47,8 @@
     ./deploy-k8s.sh
     ```
 
+2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/19308-prometheus-nut-exporter-for-druggeri/)
+
 ## Commands
 
 ## Notable comments
