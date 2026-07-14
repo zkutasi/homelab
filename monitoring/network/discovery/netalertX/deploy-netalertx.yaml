@@ -1,5 +1,5 @@
 - name: Deploy netalertx as docker
-  hosts: pihole
+  hosts: "{{ groups['dnsserver'][0] }}"
   roles:
     - docker-compose
   vars:

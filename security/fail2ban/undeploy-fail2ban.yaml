@@ -1,6 +1,5 @@
 - name: Delete fail2ban
-  hosts:
-    - external
+  hosts: external
   roles:
     - docker-compose-remove
   vars:

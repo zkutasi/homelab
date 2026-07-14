@@ -1,7 +1,5 @@
 - name: Docker Prune
-  hosts:
-    - standalone
-    - external
+  hosts: docker
   tasks:
     - name: Docker prune
       community.docker.docker_prune:

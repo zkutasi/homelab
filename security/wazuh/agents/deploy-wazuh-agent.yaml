@@ -1,6 +1,5 @@
 - name: Deploy wazuh-agent as binary
-  hosts:
-    - standalone
+  hosts: standalone
   roles:
     - binary-install
   become: true
@@ -22,8 +21,7 @@
       wazuh-agent_{{ requested_binary_version }}-1_{{ arch }}.deb"
     version_flag: "-V"
 - name: Start the service
-  hosts:
-    - standalone
+  hosts: standalone
   become: true
   tasks:
     - name: Start the wazuh-agent service

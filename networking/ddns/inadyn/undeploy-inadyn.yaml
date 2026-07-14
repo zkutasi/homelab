@@ -1,7 +1,7 @@
 - name: Delete inadyn
   hosts:
-    - standalone
     - external
+    - backupserver
   roles:
     - docker-compose-remove
   vars:

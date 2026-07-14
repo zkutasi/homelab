@@ -1,5 +1,5 @@
 - name: Deploy Gatus-agent as docker
-  hosts: qotom
+  hosts: "{{ groups['networkmonitoring'][0] }}"
   roles:
     - docker-compose
   vars:

@@ -1,6 +1,5 @@
 - name: Configure the repository server
-  hosts:
-    - backupserver
+  hosts: backupserver
   tasks:
     - name: Check if Kopia repository is initialized
       become: "{{ docker_with_sudo }}"
@@ -67,8 +66,7 @@
       ansible.builtin.debug:
         msg: "{{ kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
 - name: Connect the clients
-  hosts:
-    - backupclient
+  hosts: backupclient
   tasks:
     - name: Connect kopia clients
       become: "{{ docker_with_sudo }}"
@@ -83,8 +81,7 @@
           --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
       when: inventory_hostname != groups['backupserver'][0]
 - name: Configure the policies
-  hosts:
-    - backupserver
+  hosts: backupserver
   tasks:
     - name: Create the policies
       ansible.builtin.include_tasks:

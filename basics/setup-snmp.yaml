@@ -1,7 +1,6 @@
 - name: Set up SNMP
   become: true
-  hosts:
-    - standalone
+  hosts: standalone
   vars:
     snmp_auth_type: "SHA-512"
     snmp_priv_type: "AES"
