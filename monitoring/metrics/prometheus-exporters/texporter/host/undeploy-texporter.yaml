@@ -1,0 +1,6 @@
+- name: Delete Texporter as a service
+  hosts: linux
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: texporter

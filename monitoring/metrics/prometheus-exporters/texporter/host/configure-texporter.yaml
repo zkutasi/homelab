@@ -1,0 +1,22 @@
+- name: Configure Texporter
+  hosts: linux
+  become: true
+  tasks:
+    - block:
+        - name: Make sure /etc/texporter directory exists
+          ansible.builtin.file:
+            path: "/etc/texporter"
+            state: directory
+        - name: Create config.json from template
+          ansible.builtin.template:
+            src: ../config/config.json.j2
+            dest: "/etc/texporter/config.json"
+            mode: '0644'
+            owner: root
+            group: root
+        - name: Restart the service
+          ansible.builtin.systemd_service:
+            name: "texporter"
+            state: restarted
+            enabled: true
+      when: texporter_interface | default("") | length > 0

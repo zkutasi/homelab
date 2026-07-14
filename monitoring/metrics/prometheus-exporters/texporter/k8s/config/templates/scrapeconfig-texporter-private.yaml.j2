@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: texporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: texporter
+  staticConfigs:
+{% for host in groups['all'] %}
+{% if hostvars[host].texporter_interface | default("") %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_texporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endif %}
+{% endfor %}
