@@ -19,6 +19,7 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
     |alloy_beyla_enabled|O|Whether to enable Beyla's eBPF collector. Default is False|
+    |alloy_beyla_geoip_enabled|O|Whether to enable Beyla's GeoIP features. Default is False|
 
 2. For each Ansible host, the following variables can be set
 

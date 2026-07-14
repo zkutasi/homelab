@@ -1,5 +1,5 @@
 services:
-{% if alloy_beyla_enabled | default(false) %}
+{% if alloy_beyla_geoip_enabled | default(false) %}
   geoipupdate:
     container_name: alloy-geoipupdate
     environment:
@@ -22,7 +22,7 @@ services:
     container_name: alloy
     environment:
       TZ: {{ timezone }}
-{% if alloy_beyla_enabled | default(false) %}
+{% if alloy_beyla_geoip_enabled | default(false) %}
       BEYLA_LOG_LEVEL: DEBUG
       BEYLA_GEOIP_CACHE_LEN: 512
       BEYLA_GEOIP_CACHE_TTL: "1h"
@@ -46,7 +46,7 @@ services:
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/config.alloy:/etc/alloy/config.alloy
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/var/lib/alloy/data
-{% if alloy_beyla_enabled | default(false) %}
+{% if alloy_beyla_geoip_enabled | default(false) %}
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/geoipupdate/data/:/geoip:ro
 {% endif %}
       - /:/rootfs:ro
