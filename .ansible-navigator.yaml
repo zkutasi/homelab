@@ -8,11 +8,13 @@ ansible-navigator:
       - src: /etc/hosts
         dest: /etc/hosts
         options: Z
-      - src: $HOME/.ssh
+      - src: ${HOME}/.ssh
         dest: /runner/.ssh
-      - src: $HOME/.kube
+      - src: ${HOME}/.kube
         dest: /runner/.kube
   logging:
+    append: true
+    file: /tmp/ansible-navigator.log
     level: debug
   playbook-artifact:
     enable: false

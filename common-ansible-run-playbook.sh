@@ -4,6 +4,7 @@ REPO_ROOT="."
 if command -v git >/dev/null 2>&1; then
   REPO_ROOT=$(git rev-parse --show-toplevel)
 fi
+ANSIBLE_CONFIG="${REPO_ROOT}/ansible.cfg"
 ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
 INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
 
@@ -74,6 +75,11 @@ if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
   export ANSIBLE_NAVIGATOR_CONFIG
   echo "ANSIBLE_NAVIGATOR_CONFIG=${ANSIBLE_NAVIGATOR_CONFIG}"
+  stdout_callback=$(grep stdout_callback ${ANSIBLE_CONFIG} | awk -F= '{print $2}' | tr -d ' ')
+  if [ -n "${stdout_callback}" ]; then
+    echo "Setting ANSIBLE_STDOUT_CALLBACK=${stdout_callback}..."
+    export ANSIBLE_STDOUT_CALLBACK="${stdout_callback}"
+  fi
   CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY} ${EXTRA_ARGS}"
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."
@@ -87,5 +93,6 @@ fi
 [ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
 [ -n "${LIMIT}" ] && CMD="${CMD} --limit ${LIMIT}"
 
+# CMD="ansible-navigator exec -- ansible-config dump --only-change"
 echo "Executing command: ${CMD}"
 ${CMD}

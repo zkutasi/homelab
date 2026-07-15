@@ -86,5 +86,8 @@ Some helper scripts are placed in the repo to ease the execution of the playbook
 - `run-ping.sh` - The very first thing to do is to check your inventory setup, whether the IPs work or not
 - `run-fact-gathering.sh` - Useful to get all the magic variables and facts Ansible would get automatically.
 - `common-ansible-run-playbook.sh` - A wrapper script to execute a playbook. By default it runs with check-mode and diff-mode. Check the usage of it if needed.
+- To check whether the config files are applied or not, one can run for example `ansible-navigator exec -- ansible-config dump --only-change`, to list the non-default configurations
 
 ## Notable comments
+
+- Beware, as some of the community EE images hardcode certain configs via ENV variables, and those are higher precedence than some other written config file. Make sure to reset those ENV variables to make the changes applied.
