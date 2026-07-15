@@ -18,6 +18,7 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - Plex Dash - A mobile application, available for iOS and Android, designed for Plex Media Server administrators to monitor and manage their servers in real-time. It requires an active Plex Pass subscription to function, offering insights into active playbacks, bandwidth usage, server resources, and DVR activity.
   - [PlexAmp](https://www.plex.tv/plexamp/) - A new way to rediscover your music library. It is a Desktop app, or there is a Headless version to control an external Amplifier/DAC.
   - [Kometa](https://github.com/Kometa-Team/Kometa) - Elevate your library with beautifully crafted metadata - customize artwork, titles, summaries, and more to create a stunning library.
+  - [Plezy](https://plezy.app/) - A beautiful client for Plex & Jellyfin. Stream your media library with HDR, Dolby Vision, offline downloads, and an experience built for every screen.
 - [Emby](https://emby.media/) - Emby Server is a personal media server with apps on just about every device.
   - [EmbyCon](https://emby.media/emby-for-kodi.html) - EmbyCon lets you easily browse and play your Emby library using Kodi.
   - [Emby Music Player (EMU)](https://emby.media/community/index.php?/topic/139893-emu-emby-music-player/) - In development now.
