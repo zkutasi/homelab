@@ -1,0 +1,13 @@
+- name: Deploy Tracearr as docker
+  hosts: htpc
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: tracearr
+    requested_image_version:
+      tracearr: "ghcr.io/connorgallopo/tracearr:supervised-1.5.0"
+    docker_compose_create_dirs:
+      - name: tracearr_postgres
+      - name: tracearr_redis
+      - name: tracearr_data
+      - name: tracearr_backups

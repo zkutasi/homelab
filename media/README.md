@@ -14,7 +14,6 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 ### All in one solutions
 
 - [Plex](https://www.plex.tv/) - One of the best. Need something to watch? We’re on it. Plex combines free movies & TV with the best free streaming services, so there’s always more to discover. Closed source.
-  - [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
   - Plex Dash - A mobile application, available for iOS and Android, designed for Plex Media Server administrators to monitor and manage their servers in real-time. It requires an active Plex Pass subscription to function, offering insights into active playbacks, bandwidth usage, server resources, and DVR activity.
   - [PlexAmp](https://www.plex.tv/plexamp/) - A new way to rediscover your music library. It is a Desktop app, or there is a Headless version to control an external Amplifier/DAC.
   - [Kometa](https://github.com/Kometa-Team/Kometa) - Elevate your library with beautifully crafted metadata - customize artwork, titles, summaries, and more to create a stunning library.
@@ -33,6 +32,11 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - [Jellify](https://github.com/Jellify-Music/App) - Jellify is a free and open source music player for the Jellyfin Media Server on Android/iOS.
   - [Steamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
   - [Fladder](https://github.com/DonutWare/Fladder) - A cross-platform Jellyfin Frontend built on top of Flutter.
+
+### Monitoring Dashboards
+
+- [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
+- [Tracearr](https://www.tracearr.com/) - Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
 
 ### Video Only
 

@@ -23,7 +23,7 @@
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook media/crosswatch/deploy-crosswatch.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/monitoring/crosswatch/deploy-crosswatch.yaml --no-check
 ```
 
 ## Commands
