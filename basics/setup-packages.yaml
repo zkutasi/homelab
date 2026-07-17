@@ -12,7 +12,6 @@
       - jq
       - sudo
       - ufw
-      - vim
 - name: Deploy yq
   hosts: controlserver
   roles:

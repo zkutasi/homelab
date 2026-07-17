@@ -1,3 +1,11 @@
+- name: Install vim everywhere
+  hosts: linux
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - vim
 - name: Set up vim
   hosts: linux
   tasks:
