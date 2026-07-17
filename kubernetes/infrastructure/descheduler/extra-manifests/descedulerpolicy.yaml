@@ -1,0 +1,63 @@
+# descheduler-lownodeutilization.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: descheduler
+data:
+  policy.yaml: |
+    apiVersion: descheduler/v1alpha2
+    kind: DeschedulerPolicy
+    profiles:
+      - name: production-profile
+        pluginConfig:
+          - name: DefaultEvictor
+            args:
+              podProtections:
+                defaultDisabled:
+                  - PodsWithLocalStorage
+          - name: RemovePodsHavingTooManyRestarts
+            args:
+              podRestartThreshold: 100
+              includingInitContainers: true
+          - name: LowNodeUtilization
+            args:
+              thresholds:
+                cpu: 70
+                memory: 70
+                # pods: 70
+              targetThresholds:
+                cpu: 95
+                memory: 95
+                # pods: 95
+              useDeviationThresholds: false
+              evictableNamespaces:
+                exclude:
+                  - kube-system
+                  - metallb-system
+                  - monitoring
+                  - rook-ceph
+                  - projectcontour
+          - name: RemoveDuplicates
+            args:
+              excludeOwnerKinds:
+                - DaemonSet
+          - name: RemovePodsViolatingNodeAffinity
+            args:
+              nodeAffinityType:
+                - requiredDuringSchedulingIgnoredDuringExecution
+          - name: RemovePodsViolatingInterPodAntiAffinity
+          - name: RemovePodsViolatingTopologySpreadConstraint
+          - name: RemovePodsViolatingNodeTaints
+
+        plugins:
+          balance:
+            enabled:
+              - LowNodeUtilization
+              - RemovePodsViolatingTopologySpreadConstraint
+          deschedule:
+            enabled:
+              - RemovePodsHavingTooManyRestarts
+              - RemovePodsViolatingInterPodAntiAffinity
+              - RemovePodsViolatingNodeAffinity
+              - RemovePodsViolatingNodeTaints

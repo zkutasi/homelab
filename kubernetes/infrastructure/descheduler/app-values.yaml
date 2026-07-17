@@ -1,0 +1,8 @@
+deschedulerPolicy: {}
+deschedulingInterval: 5m
+kind: Deployment
+service:
+  enabled: true
+serviceMonitor:
+  enabled: true
+timezone: Europe/Budapest
