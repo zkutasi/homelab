@@ -44,6 +44,7 @@ winrm enumerate winrm/config/Listener
         - `home` - Represent machines that are fully internal, on the home network.
         - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
         - `linux` - All Linux hosts, separated from Windows ones
+        - `linux-selfmanaged` - All Linux hosts that are self-managed, so Linux machines except Synology for example
         - `proxmox` - All the Proxmox hosts
         - `proxmoxclusters` - The individual clusters, as some operations should not be done on all cluster Nodes
         - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
