@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: cadvisor
     requested_image_version:
-      cadvisor: "ghcr.io/google/cadvisor:v0.53.0"
+      cadvisor: "ghcr.io/google/cadvisor:v0.60.5"
