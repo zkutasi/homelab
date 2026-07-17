@@ -10,6 +10,7 @@
       - dnsutils
       - gpg
       - jq
+      - logrotate
       - sudo
       - ufw
 - name: Deploy yq
