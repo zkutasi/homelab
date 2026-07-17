@@ -1,27 +1,58 @@
 - name: Set up NTP
   hosts: linux
   become: true
+  gather_facts: false
   tasks:
     - name: Populate service facts
       ansible.builtin.service_facts:
-    - name: Make sure NTP service is running (systemd-timesyncd)
-      ansible.builtin.systemd_service:
-        name: systemd-timesyncd
-        enabled: true
-        state: started
-      when: ansible_facts['services']['systemd-timesyncd.service']['status'] | default('not-found') != 'not-found'
-    - name: Make sure NTP service is running (crony)
-      ansible.builtin.systemd_service:
-        name: chronyd
-        enabled: true
-        state: started
-      when: ansible_facts['services']['chronyd.service']['status'] | default('not-found') != 'not-found'
-    - name: Make sure NTP service is running (ntpd)
-      ansible.builtin.systemd_service:
-        name: ntpd
-        enabled: true
-        state: started
-      when: ansible_facts['services']['ntpd.service']['status'] | default('not-found') != 'not-found'
+    - name: Set which NTP service to use
+      ansible.builtin.set_fact:
+        chrony_present: "{{ ansible_facts['services']['chronyd.service']['status'] | default('not-found') != 'not-found' }}"
+        timesyncd_present: "{{ ansible_facts['services']['systemd-timesyncd.service']['status'] | default('not-found') != 'not-found' }}"
+        ntpd_present: "{{ ansible_facts['services']['ntpd.service']['status'] | default('not-found') != 'not-found' }}"
+    - name: Make sure NTP service is running
+      block:
+        - name: Make sure NTP service is running (crony)
+          ansible.builtin.systemd_service:
+            name: chronyd
+            enabled: true
+            state: started
+          when: chrony_present
+        - name: Make sure NTP service is running (systemd-timesyncd)
+          ansible.builtin.systemd_service:
+            name: systemd-timesyncd
+            enabled: true
+            state: started
+          when: timesyncd_present and not chrony_present
+        - name: Make sure NTP service is running (ntpd)
+          ansible.builtin.systemd_service:
+            name: ntpd
+            enabled: true
+            state: started
+          when: ntpd_present
     - name: Set timezone
       community.general.timezone:
         name: "{{ timezone }}"
+    - name: Get current timezone
+      ansible.builtin.slurp:
+        src: /etc/timezone
+      register: current_tz
+      failed_when: false
+    - name: Check if timedatectl exists
+      ansible.builtin.stat:
+        path: /usr/bin/timedatectl
+      register: timedatectl_bin
+    - name: Get timedatectl output
+      ansible.builtin.command: timedatectl show --property=Timezone --value
+      when: timedatectl_bin.stat.exists
+      register: timedatectl_tz
+      changed_when: false
+    - name: Check system date and time
+      ansible.builtin.command: date '+%Z %Y-%m-%d %H:%M:%S'
+      register: current_datetime
+      changed_when: false
+    - name: Report timezone status
+      ansible.builtin.debug:
+        msg: >
+          Timezone={{ timedatectl_tz.stdout | default('Not found') }}
+          DateTime={{ current_datetime.stdout }}
