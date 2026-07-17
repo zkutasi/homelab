@@ -1,5 +1,5 @@
 - name: Install some generic packages everywhere
-  hosts: linux
+  hosts: linux-selfmanaged
   become: true
   roles:
     - package-install
@@ -10,7 +10,6 @@
       - dnsutils
       - gpg
       - jq
-      - qemu-guest-agent
       - sudo
       - ufw
       - vim

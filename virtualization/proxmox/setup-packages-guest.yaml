@@ -1,0 +1,8 @@
+- name: Install the qemu-guest-agent package
+  hosts: vms
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - qemu-guest-agent

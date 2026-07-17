@@ -49,6 +49,7 @@ winrm enumerate winrm/config/Listener
         - `proxmoxclusters` - The individual clusters, as some operations should not be done on all cluster Nodes
         - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
         - `synology` - All the Synology NAS-es, which require special care
+        - `vms` - All VMs among the hosts
         - `windows` - All Windows hosts, they require a completely different set of roles
     2. Certain groups are to select a role to deploy some specific Apps
         - `backupserver` - The Backup Server that hosts all of the backups of the various hosts
