@@ -11,6 +11,7 @@
       - gpg
       - jq
       - logrotate
+      - needrestart
       - sudo
       - ufw
 - name: Deploy yq
