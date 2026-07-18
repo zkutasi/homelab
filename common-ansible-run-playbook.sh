@@ -75,11 +75,6 @@ if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
   export ANSIBLE_NAVIGATOR_CONFIG
   echo "ANSIBLE_NAVIGATOR_CONFIG=${ANSIBLE_NAVIGATOR_CONFIG}"
-  stdout_callback=$(grep stdout_callback ${ANSIBLE_CONFIG} | awk -F= '{print $2}' | tr -d ' ')
-  if [ -n "${stdout_callback}" ]; then
-    echo "Setting ANSIBLE_STDOUT_CALLBACK=${stdout_callback}..."
-    export ANSIBLE_STDOUT_CALLBACK="${stdout_callback}"
-  fi
   CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY} ${EXTRA_ARGS}"
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."

@@ -1,5 +1,7 @@
 ansible-navigator:
   execution-environment:
+    container-options:
+      - "--env=ANSIBLE_STDOUT_CALLBACK=ansible.builtin.default"
     enabled: true
     image: ansible-execution-environment:latest
     pull:

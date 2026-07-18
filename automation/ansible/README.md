@@ -92,4 +92,4 @@ Some helper scripts are placed in the repo to ease the execution of the playbook
 
 ## Notable comments
 
-- Beware, as some of the community EE images hardcode certain configs via ENV variables, and those are higher precedence than some other written config file. Make sure to reset those ENV variables to make the changes applied.
+- It seems ansible-runner via the ansible-navigator ecosystem by default injects `awx_display` into the default output callback, and this wraps the original settings in other places, however this one does not 100% support everything, for example the YAML output feature. To turn this off, and return to the original default, one needs to inject back via ENV variables, I found no other way.
