@@ -16,6 +16,6 @@ This folder contains fundamental settings applied to hosts, including
 - `setup-snmp` - Set up SNMP on each host for monitoring
 - `setup-ssh.yaml` - Set up on each host a public-private SSH key for the default (hopefully non-root) user
 - `setup-starship.yaml` - Set up the [starship](https://starship.rs/) command prompt module
-- `setup-sudoers.yaml` - Allow some commands to run with sudo
+- `setup-sudoers.yaml` - Allow some commands to run with sudo but without password
 - `setup-sysctl.yaml` - Set some kernel parameters
 - `setup-vim.yaml` - Install & configure vim with defaults

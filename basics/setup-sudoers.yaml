@@ -21,3 +21,15 @@
         owner: root
         group: root
         mode: '0440'
+- name: Passwordless sudo for reboot
+  hosts: linux-selfmanaged
+  become: true
+  tasks:
+    - name: Allow reboot without password
+      ansible.builtin.template:
+        src: all/reboot.sudoers.j2
+        dest: /etc/sudoers.d/reboot
+        owner: root
+        group: root
+        mode: '0440'
+        validate: '/usr/sbin/visudo -cf %s'
