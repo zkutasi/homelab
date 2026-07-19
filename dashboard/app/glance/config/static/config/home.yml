@@ -16,22 +16,22 @@
           style: grid-cards
           collapse-after-rows: 3
           channels:
-            - UCOk-gHyjcWZNj3Br4oxwh0A # Techno Tim
-            - UCZNhwA1B5YqiY1nLzmM0ZRg # Christian Lempa
-            - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
-            - UCVy16RS5eEDh8anP8j94G2A # DB Tech
-            - UCgdTVe88YVSrOZ9qKumhULQ # Hardware Haven
-            - UCHkYOD-3fZbuGhwsADBd9ZQ # Lawrence Systems
-            - UCrxcWtpd1IGHG9RbD_9380A # VirtualizationHowTo
-            - UC9x0AN7BWHpCDHSm9NiJFJQ # NetworkChuck
-            - UCwFpzG5MK5Shg_ncAhrgr9g # Awesome Opensource
-            - UCUUTdohVElFLSP4NBnlPEwA # Jim's Garage
-            - UCsBjURrPoezykLs9EqgamOA # Fireship
-            - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
-            - UCKtix2xNNXdcEfEFnoOnvMw # Aliensrock
-            - UCYO_jab_esuFRV4b17AJtAw # 3Blue1Brown
-            - UCmtyQOKKmrMVaKuRXz02jbQ # Sebastian Lague
-            - UC3ltptWa0xfrDweghW94Acg # Karl Jobst
+            - UCOk-gHyjcWZNj3Br4oxwh0A  # Techno Tim
+            - UCZNhwA1B5YqiY1nLzmM0ZRg  # Christian Lempa
+            - UCR-DXc1voovS8nhAvccRZhg  # Jeff Geerling
+            - UCVy16RS5eEDh8anP8j94G2A  # DB Tech
+            - UCgdTVe88YVSrOZ9qKumhULQ  # Hardware Haven
+            - UCHkYOD-3fZbuGhwsADBd9ZQ  # Lawrence Systems
+            - UCrxcWtpd1IGHG9RbD_9380A  # VirtualizationHowTo
+            - UC9x0AN7BWHpCDHSm9NiJFJQ  # NetworkChuck
+            - UCwFpzG5MK5Shg_ncAhrgr9g  # Awesome Opensource
+            - UCUUTdohVElFLSP4NBnlPEwA  # Jim's Garage
+            - UCsBjURrPoezykLs9EqgamOA  # Fireship
+            - UCHnyfMqiRRG1u-2MsSQLbXA  # Veritasium
+            - UCKtix2xNNXdcEfEFnoOnvMw  # Aliensrock
+            - UCYO_jab_esuFRV4b17AJtAw  # 3Blue1Brown
+            - UCmtyQOKKmrMVaKuRXz02jbQ  # Sebastian Lague
+            - UC3ltptWa0xfrDweghW94Acg  # Karl Jobst
 
         - type: group
           cache: 1h

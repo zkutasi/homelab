@@ -1,6 +1,6 @@
 - name: Generate Termix JSON from inventory
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
   tasks:
     - name: Generate Termix hosts JSON
       ansible.builtin.template:

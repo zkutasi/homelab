@@ -2,10 +2,10 @@
   hosts:
     - proxmox
     - standalone
-  become: yes
+  become: true
   tasks:
     - name: Restart patchmon-agent service
       ansible.builtin.systemd:
         name: patchmon-agent
         state: restarted
-        enabled: yes
+        enabled: true

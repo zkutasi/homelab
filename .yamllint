@@ -1,9 +1,33 @@
 extends: default
 
 ignore: |
+  _build
   chart
+  kubespray-repo
+  **/kubespray/inventory
+  wazuh-kubernetes
 
 rules:
+  braces:
+    min-spaces-inside: 1
+    min-spaces-inside-empty: 0
+    max-spaces-inside: 1
+    max-spaces-inside-empty: 0
+  comments:
+    min-spaces-from-content: 2
+    require-starting-space: true
+  document-start: disable
+  document-end: disable
+  empty-lines:
+    max: 2
+    max-start: 0
+    max-end: 0
+  indentation:
+    spaces: 2
+    indent-sequences: true
   line-length:
-    max: 120
+    max: 160
     level: warning
+  truthy:
+    allowed-values: ["true", "false"]
+    check-keys: false

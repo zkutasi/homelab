@@ -1,7 +1,7 @@
 ---
 - name: Generate Goldmane + Whisker backend TLS certs using Kubernetes CA
   hosts: k8s-controller-1
-  become: yes
+  become: true
   vars:
     cert_dir: /etc/calico/certs
     ca_cert: /etc/kubernetes/ssl/ca.crt

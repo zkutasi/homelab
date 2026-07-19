@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/pdfcrafttool/pdfcraft
-  tag: sha-93fe3ca # v2026.03.25
+  tag: sha-93fe3ca  # v2026.03.25
   pullPolicy: IfNotPresent
 persistence:
   nginx-cache:

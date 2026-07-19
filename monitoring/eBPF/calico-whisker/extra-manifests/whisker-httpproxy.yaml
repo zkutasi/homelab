@@ -18,7 +18,7 @@ spec:
     corsPolicy:
       allowCredentials: true
       allowOrigin:
-        - "*" # allows any origin
+        - "*"  # allows any origin
       allowMethods:
         - GET
         - POST
@@ -29,7 +29,7 @@ spec:
       exposeHeaders:
         - Content-Length
         - Content-Range
-      maxAge: "10m" # preflight requests can be cached for 10 minutes.
+      maxAge: "10m"  # preflight requests can be cached for 10 minutes.
     fqdn: whisker.kubernetes.home
     tls:
       secretName: whisker-cert-secret

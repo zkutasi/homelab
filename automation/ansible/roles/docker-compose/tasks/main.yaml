@@ -39,7 +39,7 @@
     mode: "{{ item.file_mode | default('0644') }}"
     owner: "{{ item.owner | default(docker_compose_files_owner) }}"
     group: "{{ item.group | default(docker_compose_files_group) }}"
-    follow: yes
+    follow: true
   loop: "{{ docker_compose_template_files_copy }}"
   notify:
     - Restart the docker service
