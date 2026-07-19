@@ -1,8 +1,50 @@
 - name: Setup docker
   hosts: "{{ groups['docker'] | difference(groups['synology']) }}"
   become: true
-  roles:
-    - docker
+  tasks:
+    - name: Install some packages
+      ansible.builtin.include_role:
+        name: package-install
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - apparmor
+          - apparmor-utils
+    - name: Install docker
+      ansible.builtin.include_role:
+        name: package-install
+      vars:
+        gpg_dearmor: true
+        gpg_project_name: docker-archive-keyring
+        gpg_key_url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+        gpg_signed_repo: "https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_lsb.codename }} stable"
+        packages:
+          - docker-ce
+    - name: Add user to docker group
+      ansible.builtin.user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: true
+    - name: Create Docker config directory
+      ansible.builtin.file:
+        path: /etc/docker
+        state: directory
+        mode: '0755'
+    - name: Prepare docker configuration in daemon.json
+      ansible.builtin.template:
+        src: templates/daemon.json.j2
+        dest: /etc/docker/daemon.json
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Docker
+  handlers:
+    - name: Restart Docker
+      ansible.builtin.service:
+        name: docker
+        state: restarted
+
 - name: Set up Docker Compose on Synology
   hosts: synology216
   become: true

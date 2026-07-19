@@ -1,0 +1,20 @@
+{
+    "bip": "172.17.0.1/16",
+    "data-root": "{{ docker_data_root | default('/var/lib/docker') }}",
+    "default-address-pools" : [
+      {
+        "base" : "172.30.0.0/16",
+        "size" : 24
+      }
+    ],
+    "fixed-cidr-v6": "{{ docker_ipv6_ula_subnet }}",
+    "ipv6": true,
+    "live-restore": true,
+    "log-driver": "json-file",
+    "log-opts": {
+      "max-size": "10m",
+      "max-file": "5",
+      "compress": "true"
+    },
+    "metrics-addr": "0.0.0.0:{{ port_docker_daemon_metrics }}"
+}

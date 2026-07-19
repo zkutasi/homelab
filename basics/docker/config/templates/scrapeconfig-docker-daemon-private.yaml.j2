@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: docker-daemon
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: docker-daemon
+  staticConfigs:
+{% for host in groups['docker'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_docker_daemon_metrics }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}
