@@ -37,3 +37,10 @@ repos:
     rev: v8.28.0
     hooks:
       - id: gitleaks-docker
+# Disable ansible-lint for now, as it does not pass the staged files in due to context requirements, making it extremely slow.
+# - repo: https://github.com/ansible/ansible-lint
+#   rev: v26.4.0
+#   hooks:
+#     - id: ansible-lint
+#       files: \.(yaml|yml)$
+#       language_version: python3

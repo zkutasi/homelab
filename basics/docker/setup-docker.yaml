@@ -1,5 +1,5 @@
 - name: Setup docker
-  hosts: "{{ groups['docker'] | difference(groups['synology']) }}"
+  hosts: "{{ groups['docker'] | default([]) | difference(groups['synology'] | default([])) }}"
   become: true
   tasks:
     - name: Install some packages

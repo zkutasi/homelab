@@ -1,5 +1,5 @@
 - name: Delete smartctl
-  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
+  hosts: "{{ groups['smart'] | default([]) | intersect(groups['docker'] | default([])) }}"
   roles:
     - docker-compose-remove
   vars:

@@ -1,5 +1,5 @@
 - name: Deploy Scanopy agent as docker
-  hosts: "{{ groups['docker'] | difference(groups['external']) }}"
+  hosts: "{{ groups['docker'] | default([]) | difference(groups['external'] | default([])) }}"
   roles:
     - docker-compose
   vars:

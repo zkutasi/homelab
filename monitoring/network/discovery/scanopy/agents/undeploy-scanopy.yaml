@@ -1,5 +1,5 @@
 - name: Delete Scanopy agent containers
-  hosts: "{{ groups['docker'] | difference(groups['external']) }}"
+  hosts: "{{ groups['docker'] | default([]) | difference(groups['external'] | default([])) }}"
   roles:
     - docker-compose-remove
   vars:

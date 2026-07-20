@@ -1,5 +1,5 @@
 - name: Deploy smartctl-exporter as docker
-  hosts: "{{ groups['smart'] | intersect(groups['docker']) }}"
+  hosts: "{{ groups['smart'] | default([]) | intersect(groups['docker'] | default([])) }}"
   roles:
     - docker-compose
   vars:

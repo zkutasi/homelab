@@ -1,5 +1,5 @@
 - name: Deploy smartctl-exporter as a service
-  hosts: "{{ groups['smart'] | difference(groups['docker']) }}"
+  hosts: "{{ groups['smart'] | default([]) | difference(groups['docker'] | default([])) }}"
   roles:
     - binary-install
   vars:

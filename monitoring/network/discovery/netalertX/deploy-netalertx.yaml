@@ -1,5 +1,5 @@
 - name: Deploy netalertx as docker
-  hosts: "{{ groups['dnsserver'][0] }}"
+  hosts: "{{ groups['dnsserver'][0] | default([]) }}"
   roles:
     - docker-compose
   vars:

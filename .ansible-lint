@@ -1,2 +1,5 @@
+exclude_paths:
+  - kubernetes/k8s-install/kubespray/kubespray-repo
+  - security/wazuh/central/wazuh-kubernetes
 skip_list:
   - yaml

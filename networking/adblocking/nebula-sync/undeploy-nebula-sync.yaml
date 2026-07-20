@@ -1,5 +1,5 @@
 - name: Delete Nebula-sync containers
-  hosts: "{{ groups['dnsserver'][0] }}"
+  hosts: "{{ groups['dnsserver'][0] | default([]) }}"
   roles:
     - docker-compose-remove
   vars:
