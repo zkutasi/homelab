@@ -21,17 +21,47 @@
       environment:
         PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.krew/bin"
       loop:
+        - access-matrix
         - ai
+        - aperf
         - cnpg
+        - cond
         - deprecations
+        - df-pv
+        - doctor
+        - exec-as
+        - flame
+        - gadget
+        - grep
+        - ice
+        - images
+        - klock
+        - kor
         - ktop
+        - kubetail
+        - kurt
         - neat
+        - node-resource
+        - ns
+        - popeye
+        - preq
+        - pvu
+        - rbac-tool
         - resource-capacity
+        - rolesum
+        - rook-ceph
+        - score
         - starboard
+        - status
         - stern
         - tail
         - trace
         - tree
+        - view-allocations
         - view-cert
+        - view-quotas
         - view-secret
+        - whoami
+        - whoami-enhanced
         - who-can
+        - why-pending
