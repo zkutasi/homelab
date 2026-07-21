@@ -1,0 +1,21 @@
+- name: Install locales everywhere
+  hosts: linux-selfmanaged
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - locales
+      - locales-all
+- name: Configure System Locale
+  hosts: linux-selfmanaged
+  become: true
+  tasks:
+    - name: Get current system locale
+      ansible.builtin.command:
+        cmd: localectl status
+      register: localectl_status
+      changed_when: false
+    - name: Print current system locale
+      ansible.builtin.debug:
+        msg: "Current system locale: {{ localectl_status.stdout }}"
