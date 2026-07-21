@@ -1,4 +1,4 @@
-- name: Install some generic packages everywhere
+- name: Install some generic packages
   hosts: linux-selfmanaged
   become: true
   roles:

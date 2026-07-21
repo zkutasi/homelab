@@ -1,4 +1,4 @@
-- name: Install locales everywhere
+- name: Install locales
   hosts: linux-selfmanaged
   become: true
   roles:

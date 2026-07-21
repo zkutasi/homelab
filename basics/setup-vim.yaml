@@ -1,4 +1,4 @@
-- name: Install vim everywhere
+- name: Install vim
   hosts: linux
   become: true
   roles:
