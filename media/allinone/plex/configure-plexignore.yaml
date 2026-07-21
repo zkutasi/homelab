@@ -1,7 +1,8 @@
 - name: Put a plexignore files in place
   hosts: omv
   tasks:
-    - ansible.builtin.copy:
+    - name: Create .plexignore files
+      ansible.builtin.copy:
         dest: "{{ item.destination }}/.plexignore"
         content: "{{ item.content }}"
         mode: 0644

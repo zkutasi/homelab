@@ -1,3 +1,4 @@
 - name: Upgrade all pipx packages via shell
-  ansible.builtin.shell: |
-    pipx upgrade-all --include-injected
+  ansible.builtin.command:
+    cmd: pipx upgrade-all --include-injected
+  changed_when: true

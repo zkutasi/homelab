@@ -4,7 +4,7 @@
     influxdb_id: influxdb
   tasks:
     - name: Check if metrics server exists
-      command: pvesh get /cluster/metrics/server --output json
+      ansible.builtin.command: pvesh get /cluster/metrics/server --output json
       register: metrics_servers_raw
       changed_when: false
     - name: Parse metrics servers JSON
@@ -25,4 +25,5 @@
           --token {{ influxdb_admin_token }} \
           --influxdbproto https \
           --verify-certificate 0
-      when: metrics_servers_json | selectattr('id','equalto', influxdb_id) | list | length == 0
+      when: metrics_servers_json | selectattr('id', 'equalto', influxdb_id) | list | length == 0
+      changed_when: true

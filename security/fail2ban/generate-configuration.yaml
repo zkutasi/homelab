@@ -6,11 +6,11 @@
       ansible.builtin.file:
         path: extra-manifests
         state: directory
-    - name: Generate configuration file from template
+    - name: Generate geoexporter configuration file from template
       ansible.builtin.template:
         src: config/templates/scrapeconfig-fail2ban-geoexporter-private.yaml.j2
         dest: "extra-manifests/scrapeconfig-fail2ban-geoexporter-private.yaml"
-    - name: Generate configuration file from template
+    - name: Generate exporter configuration file from template
       ansible.builtin.template:
         src: config/templates/scrapeconfig-fail2ban-exporter-private.yaml.j2
         dest: "extra-manifests/scrapeconfig-fail2ban-exporter-private.yaml"

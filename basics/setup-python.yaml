@@ -8,3 +8,11 @@
       - python3-pip
       - python3.12-venv
       - pipx
+- name: Install some pip packages
+  hosts: controlserver
+  become: true
+  roles:
+    - package-update-pipx
+  vars:
+    pipx_packages:
+      - ansible-dev-tools

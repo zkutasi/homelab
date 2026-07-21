@@ -25,7 +25,7 @@
           - "DNS:whisker-backend.kube-system.svc.cluster.local"
   tasks:
     - name: Ensure cert directory exists
-      file:
+      ansible.builtin.file:
         path: "{{ cert_dir }}"
         state: directory
         mode: "0755"
@@ -58,12 +58,12 @@
         ownca_not_after: "+{{ cert_validity_days }}d"
       loop: "{{ services }}"
     - name: Set secure permissions on private keys
-      file:
+      ansible.builtin.file:
         path: "{{ cert_dir }}/{{ item.name }}.key"
         mode: "0600"
       loop: "{{ services }}"
     - name: Clean up CSRs
-      file:
+      ansible.builtin.file:
         path: "{{ cert_dir }}/{{ item.name }}.csr"
         state: absent
       loop: "{{ services }}"

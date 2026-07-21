@@ -1,5 +1,12 @@
 exclude_paths:
+  - kubernetes/k8s-install/kubespray/inventory
   - kubernetes/k8s-install/kubespray/kubespray-repo
   - security/wazuh/central/wazuh-kubernetes
+  - automation/ansible/roles/simoncaron.pve_permissions
+  - _build
 skip_list:
   - yaml
+  - risky-file-permissions
+  - role-name
+  - var-naming[no-jinja]
+  - var-naming[no-role-prefix]

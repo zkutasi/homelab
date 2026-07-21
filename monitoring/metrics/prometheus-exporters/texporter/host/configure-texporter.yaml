@@ -2,7 +2,9 @@
   hosts: linux
   become: true
   tasks:
-    - block:
+    - name: Configure Texporter
+      when: texporter_interface | default("") | length > 0
+      block:
         - name: Make sure /etc/texporter directory exists
           ansible.builtin.file:
             path: "/etc/texporter"
@@ -19,4 +21,3 @@
             name: "texporter"
             state: restarted
             enabled: true
-      when: texporter_interface | default("") | length > 0

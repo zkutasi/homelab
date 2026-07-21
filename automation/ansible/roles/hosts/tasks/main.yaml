@@ -32,13 +32,13 @@
     existing_hosts: {}
 - name: Add parsed /etc/hosts entries to existing_hosts
   ansible.builtin.set_fact:
-    existing_hosts: "{{ existing_hosts | combine({ item[0]: item[1:] }) }}"
+    existing_hosts: "{{ existing_hosts | combine({item[0]: item[1:]}) }}"
   loop: "{{ hosts_lines }}"
 - name: Initialize merged_hosts
-  set_fact:
+  ansible.builtin.set_fact:
     merged_hosts: {}
 - name: Merge resolved and existing hostnames
-  set_fact:
+  ansible.builtin.set_fact:
     merged_hosts: >-
       {{
         merged_hosts | combine({

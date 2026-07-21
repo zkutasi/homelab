@@ -26,12 +26,12 @@
   hosts: remotecontrolled
   tasks:
     - name: Get the client ID
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: rustdesk --get-id
       register: rustdesk_client_id
       changed_when: false
     - name: Print the Client ID
-      debug:
+      ansible.builtin.debug:
         msg: "{{ rustdesk_client_id.stdout }}"
 - name: Configure rustdesk
   hosts: remotecontrolled
@@ -56,9 +56,10 @@
       ansible.builtin.debug:
         msg: "{{ rustdesk_config_transformed }}"
     - name: Call --config
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: rustdesk --config {{ rustdesk_config_transformed }}
-      register: rustdesk_config
+      changed_when: true
     - name: Call --password
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: rustdesk --password {{ rustdesk_password }}
+      changed_when: true

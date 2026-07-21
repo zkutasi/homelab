@@ -18,10 +18,14 @@ dependencies:
       - name: simoncaron.pve_permissions
         type: galaxy
   python:
+    - ansible-lint
     - dnspython
     - jmespath
     - passlib
     - pypsrp
+  python_interpreter:
+    package_system: "python312"
+    python_path: "/usr/bin/python3.12"
 
 images:
   base_image:

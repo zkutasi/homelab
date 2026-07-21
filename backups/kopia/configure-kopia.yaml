@@ -52,7 +52,7 @@
           --user-password={{ kopia_client_password }}"
       loop: "{{ groups['backupclient'] }}"
       when: hostvars[item].ansible_user + '@' + hostvars[item].id not in kopia_repo_users.stdout
-    - name: Print the current users
+    - name: Print the current users again
       ansible.builtin.debug:
         msg: "{{ kopia_repo_users.stdout | split('\n') }}"
     - name: Get the server cert fingerprint

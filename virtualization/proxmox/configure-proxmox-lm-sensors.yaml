@@ -9,3 +9,4 @@
           - lm-sensors
     - name: Run sensors-detect in non-interactive mode
       ansible.builtin.command: "sensors-detect --auto"
+      changed_when: true

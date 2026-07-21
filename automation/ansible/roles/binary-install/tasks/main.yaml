@@ -31,7 +31,7 @@
     - name: Download and execute installer
       when: install_cmd | length > 0
       block:
-        - name: Create temporary directory for {{ bin_filename }} installer
+        - name: Create temporary directory for installer {{ bin_filename }}
           ansible.builtin.tempfile:
             state: directory
             suffix: "{{ bin_filename }}"
@@ -52,10 +52,11 @@
                 owner: root
                 group: root
               when: not compressed
-        - name: Run {{ bin_filename }} installer
+        - name: Run installer {{ bin_filename }}
           ansible.builtin.command:
             cmd: "{{ install_cmd }}"
             chdir: "{{ installer_tmpdir.path }}"
+          changed_when: true
         - name: Clean up temp directory
           ansible.builtin.file:
             path: "{{ installer_tmpdir.path }}"

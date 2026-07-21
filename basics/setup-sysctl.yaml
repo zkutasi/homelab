@@ -3,9 +3,6 @@
   become: true
   vars:
     nofile_limit_soft: 65535
-  handlers:
-    - name: Re-exec systemd
-      ansible.builtin.command: systemctl daemon-reexec
   tasks:
     - name: Configure PAM limits for open files
       ansible.builtin.copy:
@@ -29,3 +26,7 @@
         line: "DefaultLimitNOFILE={{ nofile_limit_soft }}"
         state: present
       notify: Re-exec systemd
+  handlers:
+    - name: Re-exec systemd
+      ansible.builtin.systemd_service:
+        daemon_reexec: true

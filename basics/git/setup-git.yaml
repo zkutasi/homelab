@@ -42,10 +42,10 @@
         name: alias.lsig
         scope: global
         value: "ls-files --others --ignored --exclude-standard"
-- name: install pre-commit package
+- name: Install pre-commit package
   hosts: controlserver
   tasks:
-    - name: install pre-commit via pipx
+    - name: Install pre-commit via pipx
       community.general.pipx:
         name: pre-commit
         state: present

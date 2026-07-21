@@ -4,3 +4,4 @@
     - name: Update krew
       ansible.builtin.command:
         cmd: "kubectl krew upgrade"
+      changed_when: true

@@ -52,7 +52,7 @@
         state: started
 
   handlers:
-    - name: Make sure snmpd service is running
+    - name: Restart snmpd
       ansible.builtin.systemd_service:
         name: snmpd
         enabled: true

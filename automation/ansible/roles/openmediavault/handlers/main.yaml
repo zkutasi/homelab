@@ -1,3 +1,4 @@
 - name: Run omv-salt deploy run fstab
   ansible.builtin.command:
     cmd: omv-salt deploy run fstab
+  changed_when: true

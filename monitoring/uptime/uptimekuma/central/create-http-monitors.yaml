@@ -1,9 +1,9 @@
 - name: Initialize expected files list
-  set_fact:
+  ansible.builtin.set_fact:
     host_expected_files: []
 
 - name: Build expected files for host
-  set_fact:
+  ansible.builtin.set_fact:
     host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-' ~ monitorable_host ~ '-' ~ service.name ~ '.json' ] }}"
   loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
   loop_control:

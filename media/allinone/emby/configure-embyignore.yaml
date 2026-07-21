@@ -1,7 +1,8 @@
 - name: Put a embyignore files in place
   hosts: omv
   tasks:
-    - ansible.builtin.copy:
+    - name: Create .embyignore files
+      ansible.builtin.copy:
         dest: "{{ item.destination }}/.embyignore"
         content: "{{ item.content }}"
         mode: 0644

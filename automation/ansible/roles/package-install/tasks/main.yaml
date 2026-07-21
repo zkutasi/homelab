@@ -22,6 +22,7 @@
           ansible.builtin.command:
             cmd: "gpg --dearmor -o {{ gpg_key_path }} /tmp/{{ gpg_project_name }}-keyring.asc"
             creates: "{{ gpg_key_path }}"
+          changed_when: true
         - name: Add repository
           ansible.builtin.apt_repository:
             repo: "deb [signed-by={{ gpg_key_path }}] {{ gpg_signed_repo }}"

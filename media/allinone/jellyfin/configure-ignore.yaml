@@ -1,7 +1,8 @@
 - name: Put ignore files in place
   hosts: omv
   tasks:
-    - ansible.builtin.copy:
+    - name: Create .ignore files
+      ansible.builtin.copy:
         dest: "{{ item.destination }}/.ignore"
         content: "{{ item.content }}"
         mode: 0644

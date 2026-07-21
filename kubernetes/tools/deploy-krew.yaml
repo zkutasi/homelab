@@ -18,6 +18,7 @@
     - name: Ensure krew plugins are installed
       ansible.builtin.command:
         cmd: "kubectl krew install {{ item }}"
+      changed_when: true
       environment:
         PATH: "{{ ansible_env.PATH }}:{{ ansible_env.HOME }}/.krew/bin"
       loop:

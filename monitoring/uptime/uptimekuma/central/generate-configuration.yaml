@@ -7,7 +7,6 @@
         src: config/templates/app-values-private.yaml.j2
         dest: "app-values-private.yaml"
     - name: Ensure output directory exists
-      run_once: true
       delegate_to: localhost
       ansible.builtin.file:
         path: "config/autokuma-monitors"
@@ -27,7 +26,7 @@
       delegate_to: localhost
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
-        dest: "config/autokuma-monitors/{{ inventory_hostname  }}.json"
+        dest: "config/autokuma-monitors/{{ inventory_hostname }}.json"
       vars:
         monitor_name: "{{ inventory_hostname }}"
         monitor_type: "group"
@@ -42,7 +41,7 @@
       delegate_to: localhost
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
-        dest: "config/autokuma-monitors/ping-{{ inventory_hostname  }}.json"
+        dest: "config/autokuma-monitors/ping-{{ inventory_hostname }}.json"
       vars:
         monitor_name: "ping-{{ inventory_hostname }}"
         monitor_parent_name: "{{ 'k8s' if inventory_hostname.startswith('k8s') else inventory_hostname }}"
@@ -72,10 +71,10 @@
             | list
           }}
     - name: Initialize expected files list
-      set_fact:
+      ansible.builtin.set_fact:
         host_expected_files: []
     - name: Build expected files for host
-      set_fact:
+      ansible.builtin.set_fact:
         host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-k8s-' ~ service ~ '.json' ] }}"
       loop: "{{ contour_fqdns }}"
       loop_control:
