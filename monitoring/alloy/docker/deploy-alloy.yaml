@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: alloy
     requested_image_version:
-      alloy: "grafana/alloy:v1.17.0"
+      alloy: "grafana/alloy:v1.18.0"
       geoipupdate: "maxmindinc/geoipupdate:v7.1.1"
     docker_compose_create_dirs:
       - name: config
