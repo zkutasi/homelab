@@ -4,7 +4,7 @@ CHART_NAME=pulse/pulse
 NS=pulse
 RELEASE_NAME=pulse
 REPO_URL=https://rcourtman.github.io/Pulse/
-VERSION=5.0.9
+VERSION=6.0.5
 
 EXTRA_PARAMS=
 

@@ -2,7 +2,14 @@ agent:
   enabled: false
 ingress:
   enabled: false
+monitoring:
+  serviceMonitor:
+    enabled: true
 server:
   env:
     - name: TZ
       value: Europe/Budapest
+    - name: PULSE_PUBLIC_URL
+      value: http://pulse.kubernetes.home
+strategy:
+  type: Recreate

@@ -48,3 +48,4 @@ Agents are deployable from the UI, as it provides a very comprehensive step-by-s
 - For temperature monitoring, one needs to install `lm-sensors` package and set it up. V5 and onwards does not need the `sensor-proxy` component anymore.
 - For the Admin password, it would not let me through until it was strong enough... be sure to use lower and uppercase characters as well as numbers and at least a special character too.
 - The `--insecure` option might be needed to avoid certificate validation issues while installing the Agents. Also use the `-k` switch for the CURL command to avoid this.
+- For some reason, I get 100% CPU on both on my cluster (Pulse using like 5-6 CPU) and in my Browser when adding a bunch of Agents. Actually debugging the issue seems to be very hard on itself.
