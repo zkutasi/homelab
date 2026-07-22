@@ -3,7 +3,7 @@
 CHART_NAME=oci://ghcr.io/portabase/charts/portabase
 NS=portabase
 RELEASE_NAME=portabase
-VERSION=1.22.2
+VERSION=1.25.2
 
 EXTRA_PARAMS=
 
