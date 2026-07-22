@@ -30,6 +30,12 @@
 
 ### Post deployment
 
+1. Configure mail with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/arpwatch/setup-mail.yaml --no-check
+    ```
+
 ## Commands
 
 ## Notable comments

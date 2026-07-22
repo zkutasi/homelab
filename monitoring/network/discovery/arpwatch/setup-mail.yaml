@@ -1,0 +1,11 @@
+- name: Configure mail sending for arpwatch
+  hosts: networkmonitoring
+  become: true
+  tasks:
+    - name: Copy templated out arpwatch config
+      ansible.builtin.template:
+        src: iface.j2
+        dest: /etc/arpwatch/{{ arpwatch_interface }}.iface
+        owner: root
+        group: root
+        mode: 0644
