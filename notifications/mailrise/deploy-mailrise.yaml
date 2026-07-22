@@ -1,0 +1,10 @@
+- name: Deploy Mailrise as docker
+  hosts: emailnotifiers
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: mailrise
+    requested_image_version:
+      mailrise: "yoryan/mailrise:latest@sha256:89abce9fdd550c6070107fd5ba3c6cc3d962f088a1336a8937408a271bef1110"
+    docker_compose_template_files_copy:
+      - name: config/mailrise.conf

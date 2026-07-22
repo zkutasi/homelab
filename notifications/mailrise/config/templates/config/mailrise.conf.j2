@@ -1,0 +1,4 @@
+configs:
+  {{ inventory_hostname }}:
+    urls:
+      - apprises://apprise.kubernetes.home/homelab?tags={{ inventory_hostname }}&verify=no

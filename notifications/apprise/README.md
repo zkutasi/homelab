@@ -52,4 +52,11 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
 
 ## Commands
 
+- To send notifications, use some of these options (where `<TOKEN>` is the created configuration (`homelab` by default) and `<TAGNAME>` is the tag that defines the sending host):
+  - `curl -k -X POST -d "body=Test Message" -d "type=info" -d "title=AAA" --tags=<TAGNAME> https://apprise.kubernetes.home/notify/<TOKEN>`
+  - `apprises://apprise.kubernetes.home/<TOKEN>?tags=<TAGNAME>&verify=no`
+
 ## Notable comments
+
+- I used tags to identify the sending host, as I have set up separate identifiers for each of them in the sub-push services, like Pushover
+- Since I use a self-signed CA and certificates, I need to add `verify=no` or add this CA in the Mailrise container... I chose the former for now.

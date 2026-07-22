@@ -58,6 +58,7 @@ winrm enumerate winrm/config/Listener
         - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
         - `dnsserver` - All of the local DNS servers like PiHole
         - `documents` - The server that holds documents
+        - `emailnotifiers` - Hosts that can send emails
         - `music` - The server that holds music files
         - `networkmonitoring` - Host that provides Flow analysis, IDS, and various other network monitoring capabilities
         - `photos` - The server that stores Photos

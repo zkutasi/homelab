@@ -1,0 +1,9 @@
+defaults
+  auth off
+  tls off
+  syslog LOG_MAIL
+
+  account default
+  host 127.0.0.1
+  port {{ port_mailrise }}
+  from mail@{{ inventory_hostname }}.host.{{ network_domain }}

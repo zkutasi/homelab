@@ -1,0 +1,15 @@
+services:
+  mailrise:
+    command:
+    container_name: mailrise
+    environment:
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-mailrise
+    image: {{ requested_image_version['mailrise'] }}
+    ports:
+      - {{ port_mailrise }}:8025
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config/mailrise.conf:/etc/mailrise.conf:ro

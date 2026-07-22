@@ -1,0 +1,21 @@
+- name: Install email packages
+  hosts: emailnotifiers
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - bsd-mailx
+      - msmtp
+      - mailutils
+- name: Copy templated out msmtprc config
+  hosts: emailnotifiers
+  become: true
+  tasks:
+    - name: Copy templated out msmtprc config
+      ansible.builtin.template:
+        src: all/msmtprc.j2
+        dest: /etc/msmtprc
+        owner: root
+        group: root
+        mode: 0644
