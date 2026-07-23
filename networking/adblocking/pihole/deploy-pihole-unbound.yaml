@@ -6,7 +6,7 @@
     docker_compose_projectname: pihole
     requested_image_version:
       pihole: "pihole/pihole:2025.04.0"
-      unbound: "madnuttah/unbound:1.23.0-1"
+      unbound: "madnuttah/unbound:1.25.1-1"
     docker_compose_create_dirs:
       - name: pihole/etc-pihole
       - name: pihole/etc-dnsmasqd
