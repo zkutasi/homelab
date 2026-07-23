@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: optiplex-cpu-frequency-alerts
+spec:
+  groups:
+    - name: optiplex.rules
+      rules:
+        - alert: CPUFrequencyThrottled
+          expr: |
+            min by (instance) (
+              node_cpu_frequency_max_hertz
+            ) < 1000000000
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "CPU throttling detected on {{ $labels.instance }}"
+            description: |
+              The minimum reported CPU frequency is below 1GHz.
+              This commonly indicates power-limit throttling.
+              Check PSU compatibility and BIOS power warnings.
