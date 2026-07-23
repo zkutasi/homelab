@@ -48,6 +48,7 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
     |group_vars/k8s_cluster/k8s-net-calico.yml|typha_secure: true|For Whisker this is required|
     |group_vars/k8s_cluster/k8s-net-calico.yml|typha_replicas: 1||
     |group_vars/k8s_cluster/k8s-net-calico.yml|calico_node_extra_envs: ...|Enable Flow logs generation towards Goldmane|
+    |group_vars/k8s_cluster/k8s-cluster.yml|kube_proxy_metrics_bind_address: 0.0.0.0:10249|Required for Prometheus to be able to scrape these addresses|
 
 4. Run the ping-check to see if the inventory data is correct
 

@@ -1,3 +1,7 @@
+defaultRules:
+  node:
+    fsSelector: 'fstype!~"^(nfs|fuse.mergerfs)$", mountpoint!~"^(/srv/dev-disk-by-uuid.*|/export/.*)"'
+
 grafana:
   deploymentStrategy:
     type: Recreate
