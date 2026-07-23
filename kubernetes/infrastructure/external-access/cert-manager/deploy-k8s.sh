@@ -5,7 +5,7 @@ CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager
 REPO_URL=https://charts.jetstack.io
-VERSION=v1.17.2
+VERSION=v1.21.0
 
 EXTRA_PARAMS=
 
