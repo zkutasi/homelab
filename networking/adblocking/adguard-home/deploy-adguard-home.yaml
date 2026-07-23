@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: adguard-home
     requested_image_version:
-      adguard-home: "adguard/adguardhome:v0.107.71"
+      adguard-home: "adguard/adguardhome:v0.107.78"
       unbound: "madnuttah/unbound:1.23.0-1"
     docker_compose_create_dirs:
       - name: adguard/config
