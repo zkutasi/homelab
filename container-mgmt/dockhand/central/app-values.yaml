@@ -42,6 +42,7 @@ workload:
               secretKeyRef:
                 name: cnpg-main-urls
                 key: std
+            EXPORT_METRICS: true
           probes:
             liveness:
               enabled: false
