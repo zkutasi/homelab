@@ -12,6 +12,7 @@ configmap:
           instances:
             - endpoint-prefix: ""
               url: "http://gatus-agent.internal.home/api/v1/endpoints/statuses"
+        metrics: true
         endpoints:
 {% for host in groups['all'] %}
 {% if hostvars[host].exposed_services is defined %}

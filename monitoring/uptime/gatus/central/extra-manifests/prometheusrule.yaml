@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gatus-alerts
+spec:
+  groups:
+    - name: gatus
+      rules:
+        - alert: GatusEndpointUnhealthy
+          expr: gatus_results_endpoint_success == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Endpoint {{ $labels.endpoint }} is unhealthy"
