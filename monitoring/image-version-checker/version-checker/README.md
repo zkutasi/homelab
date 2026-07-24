@@ -28,11 +28,11 @@
     ./deploy-k8s.sh
     ```
 
-2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/12833-version-checker/)
-
 ### Post deployment
 
 ## Metrics, Alerts, Notifications
+
+1. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/12833-version-checker/)
 
 ## Commands
 

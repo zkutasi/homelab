@@ -40,13 +40,13 @@ I use it on my VPS, where the VPS is not yet able to reach the central monitorin
 
 ### Post deployment
 
-1. Deploy the Prometheus ScrapeConfigs locally
+## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
     ```
-
-## Metrics, Alerts, Notifications
 
 ## Commands
 

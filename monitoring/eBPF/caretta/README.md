@@ -38,9 +38,9 @@
 
 ### Post deployment
 
-1. Load in the Special Grafana dashboard [from here](https://github.com/groundcover-com/caretta/raw/refs/heads/main/chart/dashboard.json)
-
 ## Metrics, Alerts, Notifications
+
+1. Load in the Special Grafana dashboard [from here](https://github.com/groundcover-com/caretta/raw/refs/heads/main/chart/dashboard.json)
 
 ## Commands
 

@@ -52,13 +52,13 @@
 
 ### Post deployment
 
-1. Deploy the Prometheus ScrapeConfigs locally
+## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
     ```
-
-## Metrics, Alerts, Notifications
 
 ## Commands
 

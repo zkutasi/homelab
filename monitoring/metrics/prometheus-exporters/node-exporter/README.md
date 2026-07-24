@@ -52,15 +52,15 @@
 
 ### Post deployment
 
-1. Deploy the Prometheus ScrapeConfigs locally
+## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
     ```
 
 2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
-
-## Metrics, Alerts, Notifications
 
 ## Commands
 

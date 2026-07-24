@@ -43,15 +43,15 @@ I have deployed a full stack of some tools to help me visualize the banned IPs:
 
 ### Post deployment
 
-1. Deploy the Prometheus ScrapeConfigs locally
+## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
     ```
 
 2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/19691-fail2ban-banned-locations/)
-
-## Metrics, Alerts, Notifications
 
 ## Commands
 
