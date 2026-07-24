@@ -30,6 +30,8 @@ The chosen ingress controller. Will provide access to HTTP endpoints.
     ./deploy-k8s.sh
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 To test if MetalLB and Contour works, you can use this small test

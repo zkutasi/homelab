@@ -34,6 +34,8 @@ This is only the CNPG operator. For each service, that requires a Database, a se
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

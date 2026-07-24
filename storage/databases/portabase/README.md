@@ -65,6 +65,8 @@ Since I already want to expose relevant databases to be able to browse them, the
   - Backup method (cron schedule)
   - Storage Policy (connect to your Storage Channel)
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

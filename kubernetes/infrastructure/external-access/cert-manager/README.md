@@ -41,6 +41,8 @@ Cert-manager will provide the self-signed certificates from a self-signed rootCA
 
 2. Load the generated CA also into the Browser as trusted CA
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -41,6 +41,8 @@ The used plugins are:
 ./common-ansible-run-playbook.sh --playbook media/music/beets/deploy-beets.yaml --no-check
 ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 Import some new music:

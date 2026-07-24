@@ -38,6 +38,8 @@
     ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/configure-caddy-pihole.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

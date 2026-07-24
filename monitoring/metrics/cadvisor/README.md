@@ -46,6 +46,8 @@ I use it on my VPS, where the VPS is not yet able to reach the central monitorin
     ./deploy-k8s.sh
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

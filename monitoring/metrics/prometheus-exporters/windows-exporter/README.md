@@ -32,6 +32,8 @@ Deploy it manually.
     ./deploy-k8s.sh
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

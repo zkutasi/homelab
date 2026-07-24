@@ -51,6 +51,8 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
     - Create a Service Account with `Viewer` rights at Home -> Administration -> Users and access -> Service accounts
     - Create a new Token
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

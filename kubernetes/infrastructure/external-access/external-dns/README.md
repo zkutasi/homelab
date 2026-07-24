@@ -41,6 +41,8 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

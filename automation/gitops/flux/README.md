@@ -34,6 +34,8 @@ To bootstrap a cluster, there are multiple options:
   ./common-ansible-run-playbook.sh --playbook automation/gitops/flux/deploy-flux-cli.yaml --no-check
   ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

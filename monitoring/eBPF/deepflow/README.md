@@ -44,6 +44,8 @@ This is documented well and requires the `deepflow-cli` command, but not automat
 
 1. Log into the separate Grafana with credentials `admin/deepflow`
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

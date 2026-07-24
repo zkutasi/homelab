@@ -32,6 +32,8 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
    ./common-ansible-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check
    ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 1. Enable the API in the [App Scripts User Settings](https://script.google.com/home/usersettings).

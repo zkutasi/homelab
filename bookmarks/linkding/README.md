@@ -36,6 +36,8 @@
     kubectl -n linkding exec -ti deployment/linkding -- python manage.py createsuperuser --username=XXX --email=XXX
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

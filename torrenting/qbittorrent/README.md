@@ -43,6 +43,8 @@ This does the following:
 
 - Sets a completion-script that runs every time a torrent Completes.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

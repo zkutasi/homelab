@@ -41,6 +41,8 @@
 
 4. When navigating to the UI, use the default credentials of `admin@koel.dev/KoelIsCool`
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 - Scan the Music folder with this command:

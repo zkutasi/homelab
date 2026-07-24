@@ -55,6 +55,8 @@ Rook can provide the following:
 
 2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/2842-ceph-cluster/)
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ### Uninstall Rook

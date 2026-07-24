@@ -36,6 +36,8 @@ I deployed it besides a PiHole to integrate it with.
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

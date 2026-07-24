@@ -39,6 +39,8 @@
 
 1. On the App UI, generate Apps for each host, and put the tokens into the inventory for those hosts, as `gotify_token`
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

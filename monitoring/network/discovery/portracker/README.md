@@ -49,6 +49,8 @@ Deploy the central GUI in the Kubernetes cluster and deploy to each Peer Host th
     ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/configure-portracker.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

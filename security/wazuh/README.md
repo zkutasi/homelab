@@ -47,6 +47,8 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
     ./common-ansible-run-playbook.sh --playbook security/wazuh/agents/deploy-wazuh-agent.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 - To remove an agent or handle them in any way, from the CLI, use the following command

@@ -47,6 +47,8 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
 On the GUI, set up the required things: Repositories, Inventories, Task Templates, etc....
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

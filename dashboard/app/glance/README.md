@@ -32,6 +32,8 @@ Use it as a news outlet: RSS feeds, videos, github repo checks, subreddits, mark
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

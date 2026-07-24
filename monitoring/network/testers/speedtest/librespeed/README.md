@@ -32,6 +32,8 @@ To use this tool, one really needs remote servers to test against, the frontend 
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

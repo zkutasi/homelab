@@ -64,6 +64,8 @@ Also, if anything goes south, on the UI you can delete, investigate and modify a
 
 Be sure to finish with an UI Apply, as it seems it is also required to properly finish some steps. If any setting does not work, just make sure you have it correctly in the DB (on the UI), and issue a small change on the UI for that component, then Apply. Most of the time, this will redo everything for that specific component and clean things up.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 OMV is based on [SaltStack](https://saltproject.io/), an Automation platform like Ansible. So everything is config-driven and snapshotted, it has to be applied after configuring, and therefore can be abandoned too.

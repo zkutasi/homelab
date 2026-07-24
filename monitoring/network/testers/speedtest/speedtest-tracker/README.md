@@ -40,6 +40,8 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -49,6 +49,8 @@ The `vars.tf` file holds the schema for the config you need to pass in (see late
     ./run-apply.sh
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ### Destroy things to start over

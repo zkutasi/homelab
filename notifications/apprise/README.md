@@ -50,6 +50,8 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 - To send notifications, use some of these options (where `<TOKEN>` is the created configuration (`homelab` by default) and `<TAGNAME>` is the tag that defines the sending host):

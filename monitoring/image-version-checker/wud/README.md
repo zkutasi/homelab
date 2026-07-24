@@ -38,6 +38,8 @@
 
 1. Deploy a docker socket proxy for each remote host, no agents required/possible
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

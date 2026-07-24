@@ -32,6 +32,8 @@
 
 1. Use the default user/password of `shiori/gopher` to log in first
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

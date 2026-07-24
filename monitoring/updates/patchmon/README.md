@@ -41,6 +41,8 @@
 
 1. Add the agents from the UI, it is just one copy-paste command per host.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

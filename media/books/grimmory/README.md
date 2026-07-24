@@ -32,6 +32,8 @@
 
 Wait patiently for the database init/migration script to finish. It could take minutes.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

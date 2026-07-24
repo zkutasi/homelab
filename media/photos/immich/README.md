@@ -34,6 +34,8 @@ browse, search and organize your photos and videos with ease, without sacrificin
 
 Then Navigate to the User Settings, and generate an API key and set it as well.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -51,6 +51,8 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -58,6 +58,8 @@ Each remote controllable machine needs the RustDesk client as well as the machin
 
 The client IDs will be printed to the output, for the setup of the controlling client.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 Get the ID of a client from the CLI:

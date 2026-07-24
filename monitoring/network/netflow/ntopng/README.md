@@ -36,6 +36,8 @@ On the router-side that transfers all ingress and egress traffic into the local 
 
 1. After logging in with `admin/admin`, you can change these credentials.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

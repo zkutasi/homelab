@@ -37,6 +37,8 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
 
 1. Go to the Web UI and complete the Setup with the Wizard.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

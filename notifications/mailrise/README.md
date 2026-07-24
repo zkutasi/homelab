@@ -35,6 +35,8 @@ Legacy apps using sendmail for example should send the messages into this SMTP p
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -58,6 +58,8 @@ This token has to have the following accesses:
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 It is worth to know how to test newer renovate.json files without actually committing the changes, as Renovate by default clones the repo and works from there. This can be done by executing the Renovate tool in `local` mode, which will use the `renovate.json` from the local filesystem:

@@ -36,6 +36,8 @@ An idea how to use it: Create a Google App Script to catch such emails, extract 
 
 1. Prepare a Google App script to handle the emails with the encrypted XML automatically.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

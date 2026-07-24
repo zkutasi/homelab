@@ -41,6 +41,8 @@ Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whis
     ./deploy-k8s.sh
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

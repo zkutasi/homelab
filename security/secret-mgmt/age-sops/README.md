@@ -39,6 +39,8 @@ The Host that is used to handle the git repo has SOPS and age installed.
     ./common-ansible-run-playbook.sh --playbook security/age-sops/configure-age.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 To encrypt or decrypt, use the helper script `sops.sh`

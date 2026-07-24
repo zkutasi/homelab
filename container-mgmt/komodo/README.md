@@ -62,6 +62,8 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
     ./common-ansible-run-playbook.sh --playbook container-mgmt/komodo/configure-komodo.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

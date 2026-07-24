@@ -32,6 +32,8 @@
 
 1. Go to the Web UI and complete the Setup with the Wizard.
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

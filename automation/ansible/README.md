@@ -82,6 +82,8 @@ winrm enumerate winrm/config/Listener
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|
     |timezone|M|The timezone to be set in all containers and on the host as well|
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 Some helper scripts are placed in the repo to ease the execution of the playbooks.

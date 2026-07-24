@@ -53,6 +53,8 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -40,6 +40,8 @@ Deploy the central component in Kubernetes and handle all other Hosts with agent
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -42,6 +42,8 @@
         gosu postgres /usr/lib/postgresql/17/bin/initdb -D /var/lib/postgresql/17/main
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

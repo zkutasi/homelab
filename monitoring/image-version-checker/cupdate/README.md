@@ -32,6 +32,8 @@ I run this in my Kubernetes cluster and configured so that it watches all of the
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

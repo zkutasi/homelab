@@ -34,6 +34,8 @@ The external access of the services inside the cluster will be provided on the I
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

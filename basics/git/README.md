@@ -37,6 +37,8 @@ Also, if you maybe want a more modern git-hook alternative, here are a few:
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

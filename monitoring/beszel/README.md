@@ -72,6 +72,8 @@ When the regular Agents are deployed, the required Env variables are fetched fro
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

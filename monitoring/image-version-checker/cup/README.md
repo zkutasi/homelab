@@ -49,6 +49,8 @@ Run this in my Kubernetes cluster and configured so that it watches all of the r
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

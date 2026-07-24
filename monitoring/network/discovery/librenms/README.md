@@ -43,6 +43,8 @@ In this tool, one needs to either add the monitored hosts manually or there is a
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

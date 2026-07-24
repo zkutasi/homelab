@@ -28,6 +28,8 @@
     ./common-ansible-run-playbook.sh --playbook documents/paperless-ngx/deploy-paperless-ngx.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 When retagging or any change is required due to some fine-tuning, run this command:

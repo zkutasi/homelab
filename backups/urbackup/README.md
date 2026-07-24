@@ -63,6 +63,8 @@ For Windows clients or for clients not capable to be in automations, do the foll
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 This solution seems entirely UI based, which makes it very simple to handle.

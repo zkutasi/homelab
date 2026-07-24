@@ -99,6 +99,8 @@ When finished go to the Borgwarehouse UI and
 1. Add the backupserver's SSH key to each client's known_host file
 2. Init the borg repo from the client side, which requires proper SSH connection to the server
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 Dry-run a test backup exposing the filenames that would be backed up, tests the used filters:

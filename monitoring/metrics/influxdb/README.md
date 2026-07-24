@@ -45,6 +45,8 @@ Run InfluxDB 2.x although 3.x is out there, because of simplicity: 3.x requires 
     1. For Organization, for example use `home`
     2. For Bucket, create one for `proxmox`
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments
