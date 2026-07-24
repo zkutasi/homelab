@@ -1,0 +1,6 @@
+repositories:
+{% for host in groups['backupclient'] %}
+    - path: {{ backups_folder }}/borg/{{ hostvars[host].id }}
+{% endfor %}
+
+encryption_passphrase: "{{ borgmatic_encryption_passphrase }}"

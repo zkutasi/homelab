@@ -101,6 +101,21 @@ When finished go to the Borgwarehouse UI and
 
 ## Metrics, Alerts, Notifications
 
+For exporting metrics, there are several ways:
+
+  |Project|How|Metrics|Multi-repo support|Other|
+  |-------|---|-------|------------------|-----|
+  |[borg-exporter by mmakowski](https://codeberg.org/mmakowski/borg-exporter)|Borg repo based|Only exposes the last-backup-timestamp metric|Yes||
+  |[borgmatic-exporter by fishgrimsby](https://github.com/fishgrimsby/borgmatic-exporter)|Borgmatic based|Exposes many metrics|Yes|Configured via Borgmatic config file(s)|
+  |[borg-exporter by Dani Hodovic](https://github.com/danihodovic/borg-exporter)|Borgmatic based|Exports two metrics: backups-total & last-backup-timestamp|No?|Non-dockerized, single binary, intended to be used as a systemd service|
+  |[prometheus-borg-exporter by Tim Trense](https://gitlab.timtrense.com/tim/prometheus-borg-exporter)|Borg based|Exposes many metrics|Yes|Also supports remote borg repos via SSH|
+  |[borg-exporter by k0ral](https://codeberg.org/k0ral/borg-exporter)|Borg based|Exposes many metrics|Single repo only|Also supports remote borg repos via SSH|
+  |[borgmatic-exporter by Maxim Mityutko](https://github.com/maxim-mityutko/borgmatic-exporter)|Borgmatic based|Exposes many metrics|Yes|Extends Dani Hodovic's version|
+
+One distinction is whether the exporter shall be placed on the client or next to the Borg repo (One or Many deployments). Another is the method used: borg directly or borgmatic or something else. Multi-repo support is also required if placed next to a Borg repo, but not if paced on the client.
+
+Or just use Borg-UI, that exposes the required metrics itself.
+
 ## Commands
 
 Dry-run a test backup exposing the filenames that would be backed up, tests the used filters:

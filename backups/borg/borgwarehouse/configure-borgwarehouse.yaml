@@ -8,7 +8,10 @@
         rest_api_fact_name: "borgwarehouse_repos"
     - name: Debug URLs
       ansible.builtin.debug:
-        msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
+        msg: "{{ item.alias }} => {{ item.repositoryName }}"
+      loop: "{{ borgwarehouse_repos.json.repoList }}"
+      loop_control:
+        label: "{{ item.alias }}"
   vars:
     rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
     rest_api_endpoint: "/api/v1/repositories"
@@ -50,10 +53,28 @@
         rest_api_fact_name: "borgwarehouse_repos"
     - name: Debug URLs
       ansible.builtin.debug:
-        msg: "{{ borgwarehouse_repos.json | community.general.json_query('repoList[*].alias') }}"
+        msg: "{{ item.alias }} => {{ item.repositoryName }}"
+      loop: "{{ borgwarehouse_repos.json.repoList }}"
+      loop_control:
+        label: "{{ item.alias }}"
   vars:
     rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgwarehouse }}"
     rest_api_endpoint: "/api/v1/repositories"
     rest_api_method: "GET"
     rest_api_headers:
       Authorization: "Bearer {{ borgwarehouse_api_key }}"
+- name: Create Borg repository symlinks
+  hosts: backupserver
+  tasks:
+    - name: Create symlinks
+      ansible.builtin.file:
+        src: "{{ backups_folder }}/borg/{{ item.repositoryName }}"
+        dest: "{{ backups_folder }}/borg/{{ item.alias }}"
+        state: link
+        force: true
+        owner: "{{ ansible_user_id }}"
+        group: "{{ backups_gid }}"
+        follow: false
+      loop: "{{ borgwarehouse_repos.json.repoList }}"
+      loop_control:
+        label: "{{ item.alias }}"

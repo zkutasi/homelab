@@ -1,0 +1,10 @@
+- name: Deploy Borgmatic-exporter as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: borgmatic-exporter
+    requested_image_version:
+      borgmatic-exporter: "ghcr.io/maxim-mityutko/borgmatic-exporter:v0.6.1"
+    docker_compose_template_files_copy:
+      - name: etc-borgmatic/config.yml

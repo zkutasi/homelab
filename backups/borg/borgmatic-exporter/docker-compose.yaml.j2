@@ -1,0 +1,13 @@
+services:
+  borgmatic-exporter:
+    container_name: borgmatic-exporter
+    environment:
+      TZ: {{ timezone }}
+    hostname: {{ id }}-borgmatic-exporter
+    image: {{ requested_image_version['borgmatic-exporter'] }}
+    ports:
+      - {{ port_borgmatic_exporter }}:9996
+    restart: unless-stopped
+    volumes:
+      - {{ backups_folder }}/borg:{{ backups_folder }}/borg:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/etc-borgmatic:/etc/borgmatic.d/:ro
