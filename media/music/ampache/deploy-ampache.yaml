@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: ampache
     requested_image_version:
-      ampache: "ampache/ampache:7.8.0"
+      ampache: "ampache/ampache:7.10.0"
     docker_compose_create_dirs:
       - name: config
         mode: 0775
