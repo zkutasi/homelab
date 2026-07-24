@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: borgwarehouse
     requested_image_version:
-      borgwarehouse: "borgwarehouse/borgwarehouse:v3.1.2"
+      borgwarehouse: "borgwarehouse/borgwarehouse:v3.6.0"
     docker_compose_create_dirs:
       - name: config
       - name: logs
