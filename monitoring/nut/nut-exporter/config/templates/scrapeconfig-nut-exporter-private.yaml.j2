@@ -12,4 +12,5 @@ spec:
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_nutserver }}"]
       labels:
         host: "{{ hostvars[host].id }}"
+        ups: "{{ hostvars[host].ups_name | default('UPS') }}"
 {% endfor %}

@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ups-alerts
+spec:
+  groups:
+    - name: ups.rules
+      rules:
+        - alert: UPSNotOnline
+          expr: |
+            (
+              network_ups_tools_ups_status{flag="OL"} == 0
+            )
+            * on (ups) group_left(flag)
+            (
+              network_ups_tools_ups_status == 1
+            )
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "UPS {{ $labels.ups }} is not on mains power"
+            description: |
+              UPS {{ $labels.ups }} has not been in OL state for more than 1 minute.
+              Current UPS state: {{ $labels.flag }}.

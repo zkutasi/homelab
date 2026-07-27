@@ -24,6 +24,7 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |ups_name|O|If having more than one UPS, name them. Default is 'UPS'|
 
 ### Deploy the app
 
