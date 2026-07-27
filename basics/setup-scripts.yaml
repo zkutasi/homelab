@@ -1,4 +1,0 @@
-- name: Copy all required scripts
-  hosts: linux
-  roles:
-    - scripts

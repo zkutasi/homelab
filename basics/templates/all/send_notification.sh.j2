@@ -1,0 +1,11 @@
+#!/bin/bash
+
+message="$1"
+CURL="/usr/bin/curl"
+
+${CURL} -s -k \
+  -X POST \
+  -d "body=${message}" \
+  -d "type=info" \
+  -d "tags={{ hostvars[inventory_hostname].id }}" \
+  {{ apprise_api_hostname }}/notify/{{ apprise_target_key }}

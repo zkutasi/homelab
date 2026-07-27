@@ -14,7 +14,7 @@ TORRENT_INFO_HASH_V2=${11}
 TORRENT_ID=${12}
 
 # Send a Push message
-{{ ansible_user_dir }}/send_push.sh "${TORRENT_NAME} Completed!"
+{{ ansible_user_dir }}/send_notification.sh "${TORRENT_NAME} Completed!"
 
 # Execute hasher.sh
 {{ ansible_user_dir }}/hasher.sh "${TORRENT_CONTENT_PATH}"

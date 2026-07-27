@@ -1,0 +1,8 @@
+- name: Setup notifications via Apprise
+  hosts: linux
+  tasks:
+    - name: Copy and set up send_notification script
+      ansible.builtin.template:
+        src: all/send_notification.sh.j2
+        dest: "{{ ansible_user_dir }}/send_notification.sh"
+        mode: "0755"

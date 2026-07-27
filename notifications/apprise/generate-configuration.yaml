@@ -14,7 +14,7 @@
         name: rest-api
   vars:
     rest_api_url: "{{ apprise_api_hostname }}"
-    rest_api_endpoint: "/add/homelab"
+    rest_api_endpoint: "/add/{{ apprise_target_key }}"
     rest_api_method: "POST"
     rest_api_data:
       format: "yaml"
