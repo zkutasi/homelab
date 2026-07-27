@@ -1,0 +1,46 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: smart-alerts-ssd
+spec:
+  groups:
+    - name: smart-ssd
+      rules:
+        - alert: SmartSSDLifeLeft
+          expr: |
+            smartctl_device_attribute{
+              attribute_value_type="raw",
+              attribute_name="SSD_Life_Left"
+            } < 30
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: SSD has low life left
+            description: |
+              Host {{ $labels.host }} SSD {{ $labels.device }} has less than {{ $value }}% life left.
+
+        - alert: SmartSSDWearLevelingCount
+          expr: |
+            smartctl_device_attribute{
+              attribute_value_type="value",
+              attribute_name="Wear_Leveling_Count"
+            } < 30
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: SSD has low life left
+            description: |
+              Host {{ $labels.host }} SSD {{ $labels.device }} has less than {{ $value }}% life left.
+
+        - alert: SmartSSDDevicePercentageUsed
+          expr: |
+            100 - smartctl_device_percentage_used{} < 30
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: SSD has low life left
+            description: |
+              Host {{ $labels.host }} SSD {{ $labels.device }} has less than {{ $value }}% life left.

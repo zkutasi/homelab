@@ -1,0 +1,49 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: smart-alerts-hdd
+spec:
+  groups:
+    - name: smart-hdd
+      rules:
+        - alert: SmartCurrentPendingSector
+          expr: |
+            smartctl_device_attribute{
+              attribute_value_type="raw",
+              attribute_name="Current_Pending_Sector"
+            } > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: HDD has pending sectors
+            description: |
+              Host {{ $labels.host }} HDD {{ $labels.device }} has {{ $value }} current pending sectors.
+
+        - alert: SmartReallocatedSectors
+          expr: |
+            smartctl_device_attribute{
+              attribute_value_type="raw",
+              attribute_name="Reallocated_Sector_Ct"
+            } > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: HDD has reallocated sectors
+            description: |
+              Host {{ $labels.host }} HDD {{ $labels.device }} has {{ $value }} reallocated sectors.
+
+        - alert: SmartOfflineUncorrectable
+          expr: |
+            smartctl_device_attribute{
+              attribute_value_type="raw",
+              attribute_name="Offline_Uncorrectable"
+            } > 0
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: HDD has uncorrectable sectors
+            description: |
+              Host {{ $labels.host }} HDD {{ $labels.device }} reports {{ $value }} offline uncorrectable sectors.
