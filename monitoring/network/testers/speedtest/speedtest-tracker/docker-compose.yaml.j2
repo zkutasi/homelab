@@ -4,11 +4,14 @@ services:
     environment:
       PUID: {{ ansible_user_uid }}
       PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
       APP_KEY: {{ speedtest_tracker_app_key }}
+      APP_URL: {{ speedtest_tracker_app_url }}
+      ASSET_URL: {{ speedtest_tracker_app_url }}
       DB_CONNECTION: sqlite
       DISPLAY_TIMEZONE: {{ timezone }}
+      PRUNE_RESULTS_OLDER_THAN: 7
       SPEEDTEST_SCHEDULE: "{{ speedtest_tracker_schedule }}"
-      TZ: {{ timezone }}
     healthcheck:
       test: curl -fSs http://localhost/api/healthcheck | jq -r .message || exit 1
       interval: 10s
