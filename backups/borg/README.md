@@ -41,17 +41,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
 
 ### Deploy Borgwarehouse (GUI)
 
-On my Synology216, I had to make some adjustments on the Dockerfile, so first to that with this helper Ansible playbook:
-
-```bash
-./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/configure-borgwarehouse-gitrepo.yaml --no-check
-```
-
-This will rollback the baseimage from Bookworm to Bullseye, to mitigate a Kernel feature missing on my NAS OS.
-
-But please note that for the custom UID:GID support, the borgwarehouse image still has to be built !
-
-Then deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI:
+Deploy Borgwarehouse, because we need to create an API token for the REST API usage on the GUI:
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook backups/borg/borgwarehouse/deploy-borgwarehouse.yaml --no-check
@@ -62,8 +52,6 @@ This will do the following
 1. Deploy borgwarehouse to the backupserver host
    1. Deploy the docker compose file, folders and start the container
    2. Edit the auto-generated sshd_conf file, and replace the SSH port from 22 to the desired one, then restart
-
-Since the mentioned workaround for older Kernels is needed, this process could be extremely slow as a completely new docker image has to be built.
 
 When finished go to the Borgwarehouse UI and
 
