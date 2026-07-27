@@ -5,5 +5,5 @@
   vars:
     docker_compose_projectname: netalertx
     requested_image_version:
-      netalertx: "ghcr.io/jokob-sk/netalertx:25.5.24"
+      netalertx: "ghcr.io/jokob-sk/netalertx:26.7.1"
     netalertx_subnet: "{{ network_subnet }}"
