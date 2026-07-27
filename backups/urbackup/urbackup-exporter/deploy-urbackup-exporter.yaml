@@ -1,0 +1,8 @@
+- name: Deploy Urbackup-exporter as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: urbackup-exporter
+    requested_image_version:
+      urbackup-exporter: "ghcr.io/ngosang/urbackup-exporter:1.2.0"

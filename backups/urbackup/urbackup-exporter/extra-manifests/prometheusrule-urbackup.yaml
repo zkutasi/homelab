@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: urbackup
+spec:
+  groups:
+    - name: urbackup
+      rules:
+        - alert: UrBackupOutdated
+          expr: (time() - urbackup_backup_lasttime{backup_type="file"}) / 3600 > 25
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: UrBackup {{ $labels.client_name }} backup is outdated
+            description: UrBackup backup is outdated\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}
+
+        - alert: UrBackupFailure
+          expr: urbackup_backup_ok{backup_type="file"} == 0
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: UrBackup {{ $labels.client_name }} backup failed
+            description: UrBackup backup failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}

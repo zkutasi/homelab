@@ -65,6 +65,8 @@ For Windows clients or for clients not capable to be in automations, do the foll
 
 ## Metrics, Alerts, Notifications
 
+Use [urbackup-exporter](https://github.com/ngosang/urbackup-exporter).
+
 ## Commands
 
 This solution seems entirely UI based, which makes it very simple to handle.

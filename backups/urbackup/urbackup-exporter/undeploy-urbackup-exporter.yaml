@@ -1,0 +1,6 @@
+- name: Delete Urbackup-exporter containers
+  hosts: backupserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: urbackup-exporter

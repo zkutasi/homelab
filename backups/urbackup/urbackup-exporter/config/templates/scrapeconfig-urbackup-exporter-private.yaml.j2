@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: urbackup-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: urbackup-exporter
+  staticConfigs:
+{% for host in groups['backupserver'] | default([]) %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_urbackup_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

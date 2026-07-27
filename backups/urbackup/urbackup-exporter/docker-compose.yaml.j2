@@ -1,0 +1,14 @@
+services:
+  urbackup-exporter:
+    container_name: urbackup-exporter
+    environment:
+      TZ: {{ timezone }}
+      URBACKUP_SERVER_URL: http://{{ backupserver_hostname }}:{{ port_urbackup_server_http }}/x
+      URBACKUP_SERVER_USERNAME: {{ urbackup_username }}
+      URBACKUP_SERVER_PASSWORD: {{ urbackup_password }}
+      EXPORT_CLIENT_BACKUPS: false
+    hostname: {{ id }}-urbackup-exporter
+    image: {{ requested_image_version['urbackup-exporter'] }}
+    ports:
+      - {{ port_urbackup_exporter }}:9554
+    restart: unless-stopped
