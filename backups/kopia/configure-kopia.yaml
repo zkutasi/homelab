@@ -62,9 +62,10 @@
     - name: Set the certs in a fact for later use
       ansible.builtin.set_fact:
         kopia_server_certs: "{{ server_certs }}"
+        kopia_server_fingerprint: "{{ server_certs.fingerprints['sha256'] | replace(':', '') }}"
     - name: Print the server cert fingerprint
       ansible.builtin.debug:
-        msg: "{{ kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
+        msg: "{{ kopia_server_fingerprint }}"
 - name: Connect the clients
   hosts: backupclient
   tasks:
@@ -78,7 +79,7 @@
           --url https://{{ backupserver_hostname }}:{{ port_kopia }}
           --override-username={{ ansible_user }}
           --override-hostname={{ id }}
-          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}"
+          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_fingerprint }}"
       when: inventory_hostname != groups['backupserver'][0]
 - name: Configure the policies
   hosts: backupserver
@@ -102,6 +103,6 @@
         service: kopia
         command: "kopia server refresh
           --address https://{{ backupserver_hostname }}:{{ port_kopia }}
-          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_certs.fingerprints['sha256'] | replace(':', '') }}
+          --server-cert-fingerprint {{ hostvars[groups['backupserver'][0]].kopia_server_fingerprint }}
           --server-control-username {{ kopia_server_username }}
           --server-control-password {{ kopia_server_password }}"

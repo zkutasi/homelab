@@ -1,0 +1,16 @@
+exporter:
+  port: {{ port_kopia_exporter }}
+  metrics:
+    prefix: "kopia_go_exporter"
+  interval: 300
+
+kopia:
+  password: "{{ kopia_client_password }}"
+  apiserver:
+    repositoryURL: "https://{{ backupserver_hostname }}:{{ port_kopia }}"
+    hostname: "control"
+    username: "{{ ansible_user }}"
+    fingerprint: "{{ kopia_server_fingerprint }}"
+
+logger:
+  log_level: "info"

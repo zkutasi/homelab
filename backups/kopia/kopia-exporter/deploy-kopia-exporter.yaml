@@ -1,0 +1,24 @@
+- name: Get the server cert fingerprint
+  hosts: backupserver
+  tasks:
+    - name: Get the server cert fingerprint
+      community.crypto.x509_certificate_info:
+        path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+      register: server_certs
+    - name: Set the certs in a fact for later use
+      ansible.builtin.set_fact:
+        kopia_server_certs: "{{ server_certs }}"
+        kopia_server_fingerprint: "{{ server_certs.fingerprints['sha256'] | replace(':', '') }}"
+    - name: Print the server cert fingerprint
+      ansible.builtin.debug:
+        msg: "{{ kopia_server_fingerprint }}"
+- name: Deploy Kopia-exporter as docker
+  hosts: backupserver
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: kopia-exporter
+    requested_image_version:
+      kopia-exporter: "ghcr.io/ymettier/kopia_go_exporter:0.2.0 "
+    docker_compose_template_files_copy:
+      - name: config.yaml

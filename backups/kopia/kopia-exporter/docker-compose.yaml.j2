@@ -1,0 +1,14 @@
+services:
+  kopia-exporter:
+    command:
+      - --config=/config.yaml
+    container_name: kopia-exporter
+    environment:
+      TZ: {{ timezone }}
+    hostname: {{ id }}-kopia-exporter
+    image: {{ requested_image_version['kopia-exporter'] }}
+    ports:
+      - {{ port_kopia_exporter }}:{{ port_kopia_exporter }}
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config.yaml:/config.yaml:ro
