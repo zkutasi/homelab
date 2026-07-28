@@ -1,2 +1,9 @@
 crds:
   validationFailurePolicy: Ignore
+
+prometheus:
+  rbacPrometheus: false
+  prometheusRule:
+    enabled: true
+  serviceMonitor:
+    enabled: true
