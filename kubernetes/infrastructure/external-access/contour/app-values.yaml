@@ -4,9 +4,18 @@ contour:
       enabled: false
   networkPolicy:
     enabled: false
+
 defaultBackend:
   networkPolicy:
     enabled: false
+
 envoy:
   networkPolicy:
     enabled: false
+
+metrics:
+  serviceMonitor:
+    enabled: true
+    honorLabels: true
+  prometheusRule:
+    enabled: true
