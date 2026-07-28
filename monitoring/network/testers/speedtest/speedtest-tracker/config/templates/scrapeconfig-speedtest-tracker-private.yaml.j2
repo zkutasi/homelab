@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: speedtest-tracker
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: speedtest-tracker
+  metricsPath: /prometheus
+  staticConfigs:
+{% for host in groups['networkmonitoring'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_speedtest_tracker_http }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}
