@@ -1,0 +1,38 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: caddy-health
+spec:
+  groups:
+    - name: caddy
+      rules:
+        - alert: CaddyUpstreamDown
+          expr: caddy_reverse_proxy_upstreams_healthy == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: Caddy upstream unhealthy
+            description: |
+              Upstream {{ $labels.upstream }} is unhealthy.
+        - alert: CaddyHigh5xxErrorRate
+          expr: |
+            (
+              sum by (exported_host) (
+                rate(caddy_http_request_duration_seconds_count{code=~"5.."}[5m])
+              )
+            )
+            /
+            (
+              sum by (exported_host) (
+                rate(caddy_http_request_duration_seconds_count[5m])
+              )
+            )
+            > 0.20
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: High 5xx error rate
+            description: |
+              Host {{ $labels.exported_host }} has returned more than 20% HTTP 5xx responses over the last 5 minutes.

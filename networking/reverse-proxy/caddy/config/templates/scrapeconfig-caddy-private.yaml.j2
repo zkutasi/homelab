@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: caddy
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: caddy
+  staticConfigs:
+{% for host in groups['reverseproxy'] | default([]) %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_caddy_api }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

@@ -1,4 +1,6 @@
 {
+  admin :2019
+
   auto_https disable_redirects
   pki {
     ca internal {
@@ -8,27 +10,32 @@
       }
     }
   }
+
+  metrics {
+    per_host
+    observe_catchall_hosts
+  }
 }
 
 (cors) {
-	@cors_preflight {
+  @cors_preflight {
     method OPTIONS
   }
 
-	header {
-		>Access-Control-Allow-Origin "{header.origin}"
-		Vary Origin
-		Access-Control-Allow-Headers "Content-Type, Authorization"
+  header {
+    >Access-Control-Allow-Origin "{header.origin}"
+    Vary Origin
+    Access-Control-Allow-Headers "Content-Type, Authorization"
     Access-Control-Allow-Credentials "true"
 	}
 
-	handle @cors_preflight {
-		header {
-			Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-			Access-Control-Max-Age "3600"
-		}
-		respond "" 204
-	}
+  handle @cors_preflight {
+    header {
+      Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+      Access-Control-Max-Age "3600"
+    }
+    respond "" 204
+  }
 }
 
 {% for host in groups['all'] %}
