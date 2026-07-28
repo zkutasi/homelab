@@ -4,7 +4,7 @@ CHART_NAME=metallb/metallb
 NS=metallb-system
 RELEASE_NAME=metallb
 REPO_URL=https://metallb.github.io/metallb
-VERSION=0.14.9
+VERSION=0.16.1
 
 EXTRA_PARAMS=
 
