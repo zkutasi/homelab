@@ -1,6 +1,8 @@
 global:
   seaweedfs:
     enableSecurity: true
+    monitoring:
+      enabled: true
 
 allInOne:
   enabled: true

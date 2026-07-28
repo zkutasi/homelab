@@ -6,7 +6,7 @@ RELEASE_NAME=seaweedfs
 REPO_URL=https://seaweedfs.github.io/seaweedfs/helm
 VERSION=4.29.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS="--post-renderer ${PWD}/all-in-one-replacements.sh"
 
 while [ $# -ge 1 ]; do
   case "$1" in

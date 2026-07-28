@@ -42,6 +42,8 @@
 
 ## Metrics, Alerts, Notifications
 
+1. The [matching Grafana dashboard](https://github.com/seaweedfs/seaweedfs/blob/master/k8s/charts/seaweedfs/dashboards/seaweedfs-grafana-dashboard.json) will be auto-provisioned.
+
 ## Commands
 
 ## Notable comments
