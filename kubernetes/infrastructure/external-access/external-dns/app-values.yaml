@@ -1,5 +1,3 @@
-image:
-  tag: v0.17.0
 policy: upsert-only
 provider:
   name: pihole
