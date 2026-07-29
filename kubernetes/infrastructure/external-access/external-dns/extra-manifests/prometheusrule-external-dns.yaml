@@ -1,0 +1,35 @@
+# external-dns-alerts.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: external-dns-alerts
+spec:
+  groups:
+    - name: external-dns
+      rules:
+        - alert: ExternalDNSSourceErrors
+          expr: increase(external_dns_source_errors_total[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "External DNS source errors"
+            description: "External DNS is having trouble reading Kubernetes resources"
+
+        - alert: ExternalDNSRegistryErrors
+          expr: increase(external_dns_registry_errors_total[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "External DNS registry errors"
+            description: "External DNS is having trouble updating DNS provider"
+
+        - alert: ExternalDNSNotSyncing
+          expr: time() - external_dns_controller_last_sync_timestamp_seconds > 300
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "External DNS not syncing"
+            description: "External DNS has not synced in over 5 minutes"

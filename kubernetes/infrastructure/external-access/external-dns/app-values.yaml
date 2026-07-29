@@ -1,7 +1,13 @@
 policy: upsert-only
+
 provider:
   name: pihole
+
 registry: noop
+
+serviceMonitor:
+  enabled: true
+
 sources:
   - service
   - contour-httpproxy
