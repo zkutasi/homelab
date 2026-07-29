@@ -43,6 +43,12 @@ Cert-manager will provide the self-signed certificates from a self-signed rootCA
 
 ## Metrics, Alerts, Notifications
 
+1. Load in any of the matching Grafana dashboards:
+
+    - [22184](https://grafana.com/grafana/dashboards/22184-cert-manager2/)
+    - [20842](https://grafana.com/grafana/dashboards/20842-cert-manager-kubernetes/)
+    - [20340](https://grafana.com/grafana/dashboards/20340-cert-manager/)
+
 ## Commands
 
 ## Notable comments
