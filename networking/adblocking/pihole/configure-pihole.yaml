@@ -22,10 +22,10 @@
       ansible.builtin.include_role:
         name: rest-api
       vars:
-        rest_api_fact_name: "pihole_response"
+        rest_api_fact_name: "pihole_dns_response"
     - name: Debug custom DNS entries
       ansible.builtin.debug:
-        var: pihole_response.json.config.dns.hosts
+        var: pihole_dns_response.json.config.dns.hosts
   vars:
     rest_api_url: "{{ pihole_primary_address }}"
     rest_api_endpoint: "/api/config/dns/hosts"
@@ -40,10 +40,29 @@
       ansible.builtin.include_role:
         name: rest-api
       loop: "{{ groups['home'] }}"
-      when: entry not in pihole_response.json.config.dns.hosts
+      when: entry not in pihole_dns_response.json.config.dns.hosts
       vars:
         ip: "{{ hostvars[item].ansible_host }}"
         fqdn: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.{{ network_domain }}"
+        entry: "{{ ip }} {{ fqdn }}"
+        rest_api_fact_name: "pihole_response"
+        rest_api_url: "{{ pihole_primary_address }}"
+        rest_api_endpoint: "/api/config/dns/hosts/{{ ip }}%20{{ fqdn }}"
+        rest_api_method: "PUT"
+        rest_api_data:
+          sid: "{{ pihole_authresponse.cookies.sid }}"
+        rest_api_body_format: "json"
+- name: Update the extra DNS entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      loop: "{{ localdns_extra_entries | dict2items }}"
+      when: entry not in pihole_dns_response.json.config.dns.hosts
+      vars:
+        ip: "{{ item.value }}"
+        fqdn: "{{ item.key }}.{{ network_domain }}"
         entry: "{{ ip }} {{ fqdn }}"
         rest_api_fact_name: "pihole_response"
         rest_api_url: "{{ pihole_primary_address }}"
@@ -59,10 +78,10 @@
       ansible.builtin.include_role:
         name: rest-api
       vars:
-        rest_api_fact_name: "pihole_response"
+        rest_api_fact_name: "pihole_cname_response"
     - name: Debug custom DNS entries
       ansible.builtin.debug:
-        var: pihole_response.json.config.dns.cnameRecords
+        var: pihole_cname_response.json.config.dns.cnameRecords
   vars:
     rest_api_url: "{{ pihole_primary_address }}"
     rest_api_endpoint: "/api/config/dns/cnameRecords"
@@ -70,17 +89,36 @@
     rest_api_data:
       sid: "{{ pihole_authresponse.cookies.sid }}"
     rest_api_body_format: "json"
-- name: Update the CNAME entries with the host entries
+- name: Update the CNAME entries with .host. entries
   hosts: controlserver
   tasks:
     - name: Call the REST API
       ansible.builtin.include_role:
         name: rest-api
       loop: "{{ groups['home'] }}"
-      when: entry not in pihole_response.json.config.dns.cnameRecords
+      when: entry not in pihole_cname_response.json.config.dns.cnameRecords
       vars:
         alias: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.host.{{ network_domain }}"
         dest: "{{ hostvars[item].id | default(hostvars[item].inventory_hostname) }}.{{ network_domain }}"
+        entry: "{{ alias }},{{ dest }}"
+        rest_api_fact_name: "pihole_response"
+        rest_api_url: "{{ pihole_primary_address }}"
+        rest_api_endpoint: "/api/config/dns/cnameRecords/{{ alias }},{{ dest }}"
+        rest_api_method: "PUT"
+        rest_api_data:
+          sid: "{{ pihole_authresponse.cookies.sid }}"
+        rest_api_body_format: "json"
+- name: Update the extra entries with .host. CNAME entries
+  hosts: controlserver
+  tasks:
+    - name: Call the REST API
+      ansible.builtin.include_role:
+        name: rest-api
+      loop: "{{ localdns_extra_entries | dict2items }}"
+      when: entry not in pihole_cname_response.json.config.dns.cnameRecords
+      vars:
+        alias: "{{ item.key }}.host.{{ network_domain }}"
+        dest: "{{ item.key }}.{{ network_domain }}"
         entry: "{{ alias }},{{ dest }}"
         rest_api_fact_name: "pihole_response"
         rest_api_url: "{{ pihole_primary_address }}"
@@ -95,11 +133,11 @@
     - name: Call the REST API
       ansible.builtin.include_role:
         name: rest-api
-      loop: "{{ localdns_cname_entries | dict2items }}"
-      when: entry not in pihole_response.json.config.dns.cnameRecords
+      loop: "{{ localdns_extra_cname_entries | dict2items }}"
+      when: entry not in pihole_cname_response.json.config.dns.cnameRecords
       vars:
-        alias: "{{ item.key }}"
-        dest: "{{ item.value }}"
+        alias: "{{ item.key }}.{{ network_domain }}"
+        dest: "{{ item.value }}.{{ network_domain }}"
         entry: "{{ alias }},{{ dest }}"
         rest_api_fact_name: "pihole_response"
         rest_api_url: "{{ pihole_primary_address }}"
