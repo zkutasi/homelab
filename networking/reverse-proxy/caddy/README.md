@@ -46,7 +46,9 @@
     ./deploy-k8s.sh
     ```
 
-2. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/22870-caddy/)
+2. Load in any of the matching Grafana dashboards
+
+    - [22870](https://grafana.com/grafana/dashboards/22870-caddy/)
 
 ## Commands
 

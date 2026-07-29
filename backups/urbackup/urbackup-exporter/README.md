@@ -44,7 +44,9 @@
     ./deploy-k8s.sh
     ```
 
-2. Load in the [matching Grafana dashboard](https://github.com/ngosang/urbackup-exporter/blob/master/grafana/grafana_dashboard.json)
+2. Load in any of the matching Grafana dashboards
+
+    - [Official](https://github.com/ngosang/urbackup-exporter/blob/master/grafana/grafana_dashboard.json)
 
 ## Commands
 

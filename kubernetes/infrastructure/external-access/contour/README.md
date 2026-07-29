@@ -32,7 +32,10 @@ The chosen ingress controller. Will provide access to HTTP endpoints.
 
 ## Metrics, Alerts, Notifications
 
-1. Load in the matching Grafana dashboards for [ingress metrics](https://grafana.com/grafana/dashboards/21396-contour-ingress-metrics/) and [global metrics](https://grafana.com/grafana/dashboards/21402-contour-global-metrics/).
+1. Load in any of the matching Grafana dashboards
+
+    - [ingress metrics](https://grafana.com/grafana/dashboards/21396-contour-ingress-metrics/)
+    - [global metrics](https://grafana.com/grafana/dashboards/21402-contour-global-metrics/).
 
 ## Commands
 

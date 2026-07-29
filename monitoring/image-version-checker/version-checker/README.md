@@ -32,7 +32,9 @@
 
 ## Metrics, Alerts, Notifications
 
-1. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/12833-version-checker/)
+1. Load in any of the matching Grafana dashboards
+
+    - [12833](https://grafana.com/grafana/dashboards/12833-version-checker/)
 
 ## Commands
 

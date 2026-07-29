@@ -24,6 +24,14 @@
 
 ## Metrics, Alerts, Notifications
 
+1. Deploy the Prometheus configs locally
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
+2. Load in any of the matching Grafana dashboards
+
 ## Commands
 
 ## Notable comments

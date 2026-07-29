@@ -46,7 +46,9 @@ Placed next to the Borg repos, and providing it with the repo structure only.
     ./deploy-k8s.sh
     ```
 
-2. Load in the [matching Grafana dashboard](https://github.com/maxim-mityutko/borgmatic-exporter/blob/master/observability/grafana-dashboard.json)
+2. Load in any of the matching Grafana dashboards
+
+    - [Official](https://github.com/maxim-mityutko/borgmatic-exporter/blob/master/observability/grafana-dashboard.json)
 
 ## Commands
 

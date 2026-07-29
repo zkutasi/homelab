@@ -36,7 +36,10 @@ The external access of the services inside the cluster will be provided on the I
 
 ## Metrics, Alerts, Notifications
 
-1. Load in this [matching Grafana dashboard](https://grafana.com/grafana/dashboards/25519-metallb-l2-mode/) or [this one](https://grafana.com/grafana/dashboards/20162-metallb/).
+1. Load in any of the matching Grafana dashboards
+
+    - [25519](https://grafana.com/grafana/dashboards/25519-metallb-l2-mode/)
+    - [20162](https://grafana.com/grafana/dashboards/20162-metallb/)
 
 ## Commands
 

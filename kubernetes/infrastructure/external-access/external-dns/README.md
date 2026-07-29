@@ -43,7 +43,10 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 
 ## Metrics, Alerts, Notifications
 
-1. Load in the matching Grafana dashboards either [this one](https://grafana.com/grafana/dashboards/15038-external-dns/) or [this one](https://grafana.com/grafana/dashboards/23969-external-dns/).
+1. Load in any of the matching Grafana dashboards
+
+    - [15038](https://grafana.com/grafana/dashboards/15038-external-dns/)
+    - [23969](https://grafana.com/grafana/dashboards/23969-external-dns/)
 
 ## Commands
 

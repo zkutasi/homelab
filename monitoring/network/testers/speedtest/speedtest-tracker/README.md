@@ -51,7 +51,9 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
     ./deploy-k8s.sh
     ```
 
-3. Load in the [matching Grafana dashboard](https://grafana.com/grafana/dashboards/24608-speedtest-tracker/)
+3. Load in any of the matching Grafana dashboards
+
+    - [24608](https://grafana.com/grafana/dashboards/24608-speedtest-tracker/)
 
 ## Commands
 

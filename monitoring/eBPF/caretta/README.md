@@ -40,7 +40,9 @@
 
 ## Metrics, Alerts, Notifications
 
-1. Load in the Special Grafana dashboard [from here](https://github.com/groundcover-com/caretta/raw/refs/heads/main/chart/dashboard.json)
+1. Load in any of the matching Grafana dashboards
+
+    - [Official](https://github.com/groundcover-com/caretta/raw/refs/heads/main/chart/dashboard.json)
 
 ## Commands
 
