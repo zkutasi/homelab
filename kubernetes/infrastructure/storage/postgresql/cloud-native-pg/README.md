@@ -36,6 +36,8 @@ This is only the CNPG operator. For each service, that requires a Database, a se
 
 ## Metrics, Alerts, Notifications
 
+1. The [matching Grafana dashboard](https://github.com/cloudnative-pg/grafana-dashboards/blob/main/charts/cluster/grafana-dashboard.json) will be auto-provisioned.
+
 ## Commands
 
 ## Notable comments

@@ -2,3 +2,4 @@ monitoring:
   grafanaDashboard:
     create: true
     namespace: monitoring
+  podMonitorEnabled: true
