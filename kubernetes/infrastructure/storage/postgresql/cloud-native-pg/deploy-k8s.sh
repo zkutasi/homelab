@@ -4,7 +4,7 @@ CHART_NAME=cnpg/cloudnative-pg
 NS=cnpg-system
 RELEASE_NAME=cnpg
 REPO_URL=https://cloudnative-pg.github.io/charts/
-VERSION=0.23.2
+VERSION=0.29.0
 
 EXTRA_PARAMS=
 
