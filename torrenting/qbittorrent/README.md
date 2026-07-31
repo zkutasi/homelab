@@ -55,3 +55,8 @@ There are various other cool projects to help manage things in a different way:
 - [QbitWebUI](https://github.com/Maciejonos/qbitwebui) - Similar to Qui, but less feature-rich. Also communicates via the QbitTorrent REST API, but currently with only one instance.
 - [QbitController](https://github.com/Bartuzen/qBitController) - An Android App to control the torrent client.
 - [Qbit Manage](https://github.com/StuffAnThings/qbit_manage) - A python tool to interact with the QbitTorrent API and do categorization, tagging and various other tedious things. Pretty opinionated.
+
+### Prometheus exporters
+
+- [qbittorrent-exporter by martabal](https://github.com/martabal/qbittorrent-exporter)
+- [prometheus-qbittorrent-exporter by Esteban Sanchez](https://github.com/esanchezm/prometheus-qbittorrent-exporter)

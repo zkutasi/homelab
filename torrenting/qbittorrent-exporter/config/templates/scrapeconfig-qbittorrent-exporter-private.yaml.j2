@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: qbittorrent-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: qbittorrent-exporter
+  staticConfigs:
+{% for host in groups['torrent'] | default([]) %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_qbittorrent_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

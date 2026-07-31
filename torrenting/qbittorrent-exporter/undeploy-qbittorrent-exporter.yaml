@@ -1,0 +1,6 @@
+- name: Delete qbittorrent-exporter containers
+  hosts: torrent
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: qbittorrent-exporter

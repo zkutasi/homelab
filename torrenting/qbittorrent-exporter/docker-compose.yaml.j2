@@ -1,0 +1,21 @@
+services:
+  qbittorrent-exporter:
+    container_name: qbittorrent-exporter
+    environment:
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
+      QBITTORRENT_BASE_URL: http://qbittorrent-nox:{{ port_qbittorrent }}
+      QBITTORRENT_PASSWORD: {{ qbittorent_password }}
+      QBITTORRENT_USERNAME: {{ qbittorent_username }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-qbittorrent-exporter
+    image: {{ requested_image_version['qbittorrent-exporter'] }}
+    networks:
+      - qbittorrent-nox_qbittorrent-nox-network
+    ports:
+      - {{ port_qbittorrent_exporter }}:8090
+    restart: unless-stopped
+
+networks:
+  qbittorrent-nox_qbittorrent-nox-network:
+    external: true

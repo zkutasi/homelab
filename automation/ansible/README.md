@@ -65,6 +65,7 @@ winrm enumerate winrm/config/Listener
         - `remotecontrolled` - The hosts that have remote controlling apps (like RustDesk)
         - `reverseproxy` - A host used to run a reverseproxy in the whole network
         - `smart` - Hosts that require S.M.A.R.T. data to be collected
+        - `torrent` - Hosts that run torrent clients
 4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX.yaml` where XXX is a valid group name
 5. The following variables can be set on a host (uniquely or on a group):
 

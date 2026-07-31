@@ -1,0 +1,8 @@
+- name: Deploy qbittorrent-exporter as docker
+  hosts: torrent
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: qbittorrent-exporter
+    requested_image_version:
+      qbittorrent-exporter: "ghcr.io/martabal/qbittorrent-exporter:v2.0.1"
