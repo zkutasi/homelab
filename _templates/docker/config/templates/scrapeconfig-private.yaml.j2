@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: <APP_NAME_LOWERCASE>
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: <APP_NAME_LOWERCASE>
+  staticConfigs:
+{% for host in groups['<ANSIBLE_HOST>'] | default([]) %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_<APP_NAME_LOWERCASE> }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}

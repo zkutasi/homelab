@@ -286,6 +286,7 @@ echo "Renaming..."
 if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
     mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
     mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
+    mv "${TARGET_APP_DIR}/config/templates/scrapeconfig-private.yaml.j2" "${TARGET_APP_DIR}/config/templates/scrapeconfig-${APP_NAME_LOWERCASE}-private.yaml.j2"
 fi
 
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."
