@@ -18,6 +18,7 @@ I deployed it besides a PiHole to integrate it with.
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |netalertx_api_token|M|API token for interacting with the service from other Apps|
     |netalertx_interface|M|The interface to scan for devices from.|
     |netalertx_subnet|M|The subnet to scan for devices.|
 
@@ -36,7 +37,20 @@ I deployed it besides a PiHole to integrate it with.
 
 ### Post deployment
 
+1. Go to the UI, and in `Settings -> Core`, note your API token, and place it into `netalertx_api_token`.
+2. Go to the UI and mark all known Devices as "not New"
+
 ## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
+2. Load in any of the matching Grafana dashboards
+
+    - [Official](https://docs.netalertx.com/samples/API/Grafana_Dashboard.json)
 
 ## Commands
 

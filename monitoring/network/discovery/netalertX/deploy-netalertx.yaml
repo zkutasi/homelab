@@ -5,5 +5,11 @@
   vars:
     docker_compose_projectname: netalertx
     requested_image_version:
-      netalertx: "ghcr.io/jokob-sk/netalertx:25.5.24"
+      netalertx: "ghcr.io/netalertx/netalertx:26.7.1"
+    docker_compose_create_dirs:
+      - name: data
     netalertx_subnet: "{{ network_subnet }}"
+    app_conf_override:
+      GRAPHQL_PORT: "{{ port_netalertx_graphql }}"
+      SCAN_SUBNETS: "['{{ netalertx_subnet }} --interface={{ netalertx_interface }}']"
+      TIMEZONE: "{{ timezone }}"

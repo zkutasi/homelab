@@ -1,24 +1,30 @@
 services:
   netalertx:
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+      - NET_ADMIN
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETUID
+      - SETGID
     container_name: netalertx
     environment:
-      - TZ={{ timezone }}
-      - PORT={{ port_netalertx }}
-      - PUID={{ ansible_user_uid }}
-      - PGID={{ ansible_user_gid }}
-      - APP_CONF_OVERRIDE={"SCAN_SUBNETS":"['{{ netalertx_subnet }} --interface={{ netalertx_interface }}']"}
-      - PIHOLE_RUN=schedule
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
+      APP_CONF_OVERRIDE: {{ app_conf_override | to_json(separators=[",", ":"]) | quote }}
+      PIHOLE_DB_PATH: /etc/pihole/pihole-FTL.db
+      PIHOLE_RUN: schedule
+      PORT: {{ port_netalertx }}
     hostname: {{ id }}-netalertx
     image: {{ requested_image_version['netalertx'] }}
     network_mode: host
-    ports:
-      - {{ port_netalertx }}:{{ port_netalertx }}
-      - {{ port_netalertx_graphql }}:20212
-    privileged: true
+    read_only: true
     restart: unless-stopped
+    tmpfs:
+      - "/tmp:uid={{ ansible_user_uid }},gid={{ ansible_user_gid }},mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime"
     volumes:
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/app/config
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/db:/app/db
-      - type: tmpfs
-        target: /app/api
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/../pihole/etc-pihole/pihole-FTL.db:/etc/pihole/pihole-FTL.db:ro

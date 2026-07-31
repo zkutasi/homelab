@@ -1,0 +1,16 @@
+- name: Generate dynamic configuration for NetalertX
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/scrapeconfig-netalertx-private.yaml.j2
+        dest: "extra-manifests/scrapeconfig-netalertx-private.yaml"
+    - name: Generate token secret from template
+      ansible.builtin.template:
+        src: config/templates/secret-netalertx-api-token-private.yaml.j2
+        dest: "extra-manifests/secret-netalertx-api-token-private.yaml"
