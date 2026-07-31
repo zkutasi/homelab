@@ -1,0 +1,22 @@
+services:
+  pihole-exporter:
+    container_name: pihole-exporter
+    environment:
+      PGID: {{ ansible_user_gid }}
+      PUID: {{ ansible_user_uid }}
+      TZ: {{ timezone }}
+      PIHOLE_PROTOCOL: https
+      PIHOLE_PORT: {{ port_pihole_webui_https }}
+{% if pihole_secondary_hostname and pihole_secondary_apikey %}
+      PIHOLE_HOSTNAME: {{ pihole_hostname }},{{ pihole_secondary_hostname }}
+      PIHOLE_PASSWORD: {{ pihole_apikey }},{{ pihole_secondary_apikey }}
+{% else %}
+      PIHOLE_HOSTNAME: {{ pihole_hostname }}
+      PIHOLE_PASSWORD: {{ pihole_apikey }}
+{% endif %}
+      SKIP_TLS_VERIFICATION: true
+    hostname: {{ id }}-pihole-exporter
+    image: {{ requested_image_version['pihole-exporter'] }}
+    ports:
+      - {{ port_pihole_exporter }}:9617
+    restart: unless-stopped

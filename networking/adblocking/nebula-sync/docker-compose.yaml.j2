@@ -8,7 +8,7 @@ services:
       SYNC_CONFIG_DNS: true
       SYNC_CONFIG_DNS_INCLUDE: hosts,cnameRecords
       PGID: {{ ansible_user_gid }}
-      PRIMARY: {{ pihole_primary_address }}|{{ pihole_password }}
+      PRIMARY: {{ pihole_address }}|{{ pihole_password }}
       PUID: {{ ansible_user_uid }}
       REPLICAS: {{ pihole_secondary_address }}|{{ pihole_password }}
       RUN_GRAVITY: true

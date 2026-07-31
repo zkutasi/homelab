@@ -1,0 +1,6 @@
+- name: Delete pihole-exporter containers
+  hosts: "{{ groups['dnsserver'][0] | default([]) }}"
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: pihole-exporter

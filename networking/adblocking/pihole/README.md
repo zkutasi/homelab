@@ -25,6 +25,8 @@ This Unbound instance is configured in Recursive mode.
     |------|--------------------|---------|
     |pihole_password|M|The password set up for pihole|
     |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
+    |pihole_address|M|The full URL to the Primary PiHole instance in order to call its API|
+    |pihole_secondary_address|O|The full URL to the Secondary PiHole instance in order to call its API|
 
 2. For each Ansible host, the following variables can be set
 

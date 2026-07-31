@@ -1,0 +1,8 @@
+- name: Deploy pihole-exporter as docker
+  hosts: "{{ groups['dnsserver'][0] | default([]) }}"
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: pihole-exporter
+    requested_image_version:
+      pihole-exporter: "ekofr/pihole-exporter:v1.2.0"

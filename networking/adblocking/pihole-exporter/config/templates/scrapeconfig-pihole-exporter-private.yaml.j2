@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pihole-exporter
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: pihole-exporter
+  staticConfigs:
+{% for host in groups['dnsserver'] | default([]) %}
+{% if loop.first %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_pihole_exporter }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endif %}
+{% endfor %}
