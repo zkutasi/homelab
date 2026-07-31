@@ -72,6 +72,19 @@ configmap:
 {% endfor %}
 {% endif %}
 {% endfor%}
+{% for host in groups['all'] | difference(groups['windows'] | default([])) %}
+          - name: ssh-{{ host }}
+            group: {{ 'k8s' if host.startswith('k8s') else host }}
+            url: "ssh://{{ hostvars[host].ansible_host }}:{{ hostvars[host].ansible_port }}"
+            interval: 60s
+            ssh:
+              username: ""
+              password: ""
+              private-key: ""
+            conditions:
+              - "[CONNECTED] == true"
+              - "[STATUS] == 0"
+{% endfor %}
 {% for host in groups['all'] %}
           - name: ping-{{ host }}
             group: {{ 'k8s' if host.startswith('k8s') else host }}
