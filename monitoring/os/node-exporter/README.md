@@ -25,13 +25,13 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/k8s/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/k8s/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/k8s/deploy-node-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/k8s/deploy-node-exporter.yaml --no-check
     ```
 
 ### Deploy on the Docker hosts
@@ -39,7 +39,7 @@
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/docker/deploy-node-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/docker/deploy-node-exporter.yaml --no-check
     ```
 
 ### Deploy on the Dockerless hosts
@@ -47,7 +47,7 @@
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/host/deploy-node-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/host/deploy-node-exporter.yaml --no-check
     ```
 
 ### Post deployment

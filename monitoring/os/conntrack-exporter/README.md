@@ -25,7 +25,7 @@
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/conntrack-exporter/host/deploy-conntrack-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/conntrack-exporter/host/deploy-conntrack-exporter.yaml --no-check
     ```
 
 ### Post deployment
