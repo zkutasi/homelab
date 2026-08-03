@@ -5,12 +5,16 @@ exporter:
   interval: 300
 
 kopia:
-  password: "{{ kopia_client_password }}"
   apiserver:
     repositoryURL: "https://{{ backupserver_hostname }}:{{ port_kopia }}"
-    hostname: "control"
-    username: "{{ ansible_user }}"
     fingerprint: "{{ kopia_server_fingerprint }}"
+  clients:
+{% for host in groups['backupclient'] %}
+    {{ hostvars[host].inventory_hostname }}:
+      hostname: "{{ hostvars[host].inventory_hostname }}"
+      username: "{{ ansible_user }}"
+      password: "{{ kopia_client_password }}"
+{% endfor %}
 
 logger:
   log_level: "info"

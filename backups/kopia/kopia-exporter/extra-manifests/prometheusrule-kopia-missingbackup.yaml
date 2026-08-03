@@ -1,17 +1,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: borgmatic-missingbackup
+  name: kopia-missingbackup
 spec:
   groups:
-    - name: borgmatic
+    - name: kopia
       rules:
-        - alert: BorgmaticMissingBackup
+        - alert: KopiaMissingBackup
           annotations:
             description: |
-              Borg has not created a backup of {{ $labels.repository }} in the last {{ printf "%.0f" $value }} hours.
-            summary: Borg missing backup.
-          expr: (time() - max by (instance, repository) (borg_last_backup_timestamp)) / 3600 > 25
+              Kopia has not created a backup of {{ $labels.exported_host }} in the last {{ printf "%.0f" $value }} hours.
+            summary: Kopia missing backup.
+          expr: (time() - max by (repository) (kopia_go_exporter_backup_end_time)) / 3600 > 25
           for: 1m
           labels:
             severity: warning
