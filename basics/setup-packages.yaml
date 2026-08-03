@@ -6,6 +6,7 @@
   vars:
     packages:
       - bash-completion
+      - cron
       - curl
       - dnsutils
       - gpg
