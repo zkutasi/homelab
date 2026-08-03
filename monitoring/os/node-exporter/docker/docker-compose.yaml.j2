@@ -8,6 +8,7 @@ services:
       - --path.sysfs=/host/sys
       - --path.rootfs=/rootfs
 {% endif %}
+      - --collector.textfile.directory=/textfiles
     container_name: node-exporter
     environment:
       - TZ={{ timezone }}
@@ -24,3 +25,4 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
 {% endif %}
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/textfiles:/textfiles

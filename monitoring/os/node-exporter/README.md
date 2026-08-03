@@ -19,6 +19,7 @@
 
     | Name | Mandatory/Optional | Details |
     |------|--------------------|---------|
+    |node_exporter_textfiles_dir|M|The directory where node-exporter read the texfiles from|
 
 ### Deploy on the Kubernetes cluster
 
@@ -28,7 +29,13 @@
     ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/k8s/generate-configuration.yaml --no-check
     ```
 
-2. Install with the provided script
+2. Prepare the hosts for the Node-exporter textfile exporter
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/k8s/configure-node-exporter.yaml --no-check
+    ```
+
+3. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/metrics/os/node-exporter/k8s/deploy-node-exporter.yaml --no-check

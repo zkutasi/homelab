@@ -1,3 +1,10 @@
+- name: Preparations
+  hosts: proxmox
+  tasks:
+    - name: Ensure textfile directory exists
+      ansible.builtin.file:
+        path: "{{ node_exporter_textfiles_dir }}"
+        state: directory
 - name: Deploy node-exporter as a service
   hosts: proxmox
   roles:
@@ -10,3 +17,4 @@
     service_name: node-exporter
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
           v{{ requested_binary_version }}/{{ bin_filename }}-{{ requested_binary_version }}.linux-amd64.tar.gz"
+    bin_serviceparams: "--collector.textfile.directory={{ node_exporter_textfiles_dir }}"

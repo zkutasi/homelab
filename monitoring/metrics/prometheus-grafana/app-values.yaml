@@ -28,6 +28,14 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
 
 prometheus-node-exporter:
+  extraArgs:
+    - --collector.textfile.directory=/textfiles
+  extraHostVolumeMounts:
+    - name: textfile-collector
+      hostPath: /var/lib/node-exporter/textfiles
+      type: DirectoryOrCreate
+      mountPath: /textfiles
+      readOnly: true
   prometheus:
     monitor:
       relabelings:

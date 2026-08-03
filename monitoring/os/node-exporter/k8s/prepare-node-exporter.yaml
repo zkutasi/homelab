@@ -1,0 +1,10 @@
+- name: Preparations
+  hosts: kubernetes
+  tasks:
+    - name: Ensure textfile directory exists
+      become: true
+      ansible.builtin.file:
+        path: "{{ node_exporter_textfiles_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"

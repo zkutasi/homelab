@@ -6,3 +6,5 @@
     docker_compose_projectname: node-exporter
     requested_image_version:
       node-exporter: "quay.io/prometheus/node-exporter:v1.10.2"
+    docker_compose_create_dirs:
+      - name: textfiles
