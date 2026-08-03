@@ -1,18 +1,32 @@
 - name: Install some python-related packages
-  hosts: controlserver
+  hosts: linux-selfmanaged
   become: true
   roles:
     - package-install
   vars:
     packages:
       - python3-pip
-      - python3.12-venv
       - pipx
-- name: Install some pip packages
+- name: Update pipx by installing pipx in pipx
+  hosts: linux-selfmanaged
+  tasks:
+    - name: Check if pipx is installed locally
+      ansible.builtin.stat:
+        path: "{{ ansible_facts['user_dir'] }}/.local/bin/pipx"
+      register: pipx_stat
+    - name: Bootstrap pipx
+      ansible.builtin.shell: |
+        python3 -m venv /tmp/bootstrap
+        /tmp/bootstrap/bin/pip install pipx
+        /tmp/bootstrap/bin/pipx install pipx
+        rm -rf /tmp/bootstrap
+        .local/bin/pipx ensurepath
+      when: not pipx_stat.stat.exists
+- name: Install some pipx packages on controlserver
   hosts: controlserver
-  become: true
   roles:
-    - package-update-pipx
+    - package-install-pipx
   vars:
     pipx_packages:
       - ansible-dev-tools
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

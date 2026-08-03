@@ -1,4 +1,4 @@
-- name: Update and upgrade pip packages on Control Server
-  hosts: controlserver
+- name: Update and upgrade pipx packages
+  hosts: linux-selfmanaged
   roles:
     - package-update-pipx

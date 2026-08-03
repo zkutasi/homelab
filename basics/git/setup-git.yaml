@@ -44,8 +44,8 @@
         value: "ls-files --others --ignored --exclude-standard"
 - name: Install pre-commit package
   hosts: controlserver
-  tasks:
-    - name: Install pre-commit via pipx
-      community.general.pipx:
-        name: pre-commit
-        state: present
+  roles:
+    - package-install
+  vars:
+    pipx_packages:
+      - pre-commit

@@ -1,8 +1,5 @@
 - name: Update and upgrade packages
-  hosts:
-    - standalone
-    - external
-    - proxmox
+  hosts: "{{ groups['linux-selfmanaged'] | default([]) | difference(groups['kubernetes'] | default([])) }} "
   become: true
   roles:
     - package-update

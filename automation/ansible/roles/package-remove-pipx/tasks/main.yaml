@@ -1,0 +1,5 @@
+- name: Remove multiple packages from list
+  community.general.pipx:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ pipx_packages }}"

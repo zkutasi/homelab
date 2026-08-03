@@ -1,0 +1,14 @@
+- name: Install multiple packages from list
+  community.general.pipx:
+    name: "{{ item }}"
+    state: latest
+    executable: "{{ pipx_executable | default(omit) }}"
+    system_site_packages: "{{ pipx_system_site_packages | default(false) }}"
+  with_items: "{{ pipx_packages }}"
+- name: Inject multiple packages from dict
+  community.general.pipx:
+    name: "{{ item.key }}"
+    state: inject
+    inject_packages: "{{ item.value }}"
+    executable: "{{ pipx_executable | default(omit) }}"
+  with_items: "{{ pipx_inject_packages | dict2items }}"
