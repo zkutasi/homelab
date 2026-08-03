@@ -1,0 +1,7 @@
+- name: Install pkg-exporter package
+  hosts: linux-selfmanaged
+  roles:
+    - package-remove-pipx
+  vars:
+    pipx_packages:
+      - pkg-exporter

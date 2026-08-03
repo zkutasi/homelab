@@ -1,0 +1,3 @@
+APT::Update::Pre-Invoke {"touch /tmp/pkg-exporter-apt-update-pre"; };
+APT::Update::Post-Invoke {"touch /tmp/pkg-exporter-apt-update-post"; };
+APT::Periodic::Update-Package-Lists "1";

@@ -1,0 +1,17 @@
+- name: Install some python-related packages
+  hosts: linux-selfmanaged
+  become: true
+  roles:
+    - package-install
+  vars:
+    packages:
+      - python3-apt
+- name: Install pkg-exporter package
+  hosts: linux-selfmanaged
+  roles:
+    - package-install-pipx
+  vars:
+    pipx_packages:
+      - pkg-exporter
+    pipx_system_site_packages: true
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

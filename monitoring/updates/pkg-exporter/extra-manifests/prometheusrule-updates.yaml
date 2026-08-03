@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pkg-exporter-updates
+spec:
+  groups:
+    - name: updates
+      rules:
+        - alert: RebootRequired
+          expr: pkg_reboot_required{host!~"k8s.*"} > 0
+          labels:
+            severity: warning
+          annotations:
+            description: 'The host requires a reboot'
+            summary: 'Host {{ $labels.host }} running an outdated kernel'
+        - alert: UpdatesPending
+          expr: min_over_time(pkg_upgradable{host!~"k8s.*"}[7d]) > 0
+          labels:
+            severity: warning
+          annotations:
+            description: 'The host has updates pending'
+            summary: 'Host {{ $labels.host }} has {{ $value }} updates pending'
+        - alert: UpdatesPendingCritical
+          expr: min_over_time(pkg_upgradable{host!~"k8s.*",label=~".*Security.*"}[3d]) > 0
+          labels:
+            severity: critical
+          annotations:
+            description: 'The host has critical updates pending'
+            summary: 'Host {{ $labels.host }} has {{ $value }} critical updates pending'

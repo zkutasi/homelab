@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pkg-exporter-staletextfile
+spec:
+  groups:
+    - name: updates
+      rules:
+        - alert: NodeExporterTextfileStale
+          expr: time() - node_textfile_mtime_seconds >= 24*60*60
+          labels:
+            severity: warning
+          annotations:
+            description: Node exporter textfile has gone stale.
+            summary: "Node exporter textfile {{ $labels.file }} has gone stale on {{ $labels.host }}."

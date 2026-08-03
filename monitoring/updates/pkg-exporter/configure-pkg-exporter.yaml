@@ -1,0 +1,19 @@
+- name: Configure pkg-exporter
+  hosts: linux-selfmanaged
+  tasks:
+    - name: Configure apt
+      become: true
+      ansible.builtin.copy:
+        src: config/static/apt-conf-d/00-pkg-exporter
+        dest: /etc/apt/apt.conf.d/00-pkg-exporter
+        owner: root
+        group: root
+        mode: 0644
+    - name: Configure cron
+      become: true
+      ansible.builtin.template:
+        src: config/templates/cron-d/pkg-exporter.j2
+        dest: /etc/cron.d/pkg-exporter
+        mode: 0644
+        owner: root
+        group: root
