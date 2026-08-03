@@ -23,11 +23,30 @@
 
 ### Deploy the app
 
-```bash
-./common-ansible-run-playbook.sh --playbook media/music/navidrome/deploy-navidrome.yaml --no-check
-```
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/music/navidrome/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/music/navidrome/deploy-navidrome.yaml --no-check
+    ```
 
 ## Metrics, Alerts, Notifications
+
+1. Deploy the Prometheus configs locally
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
+2. Load in any of the matching Grafana dashboards
+
+    - [18038](https://grafana.com/grafana/dashboards/18038-navidrome/)
+    - [24397](https://grafana.com/grafana/dashboards/24397-navidrome-observability/)
 
 ## Commands
 

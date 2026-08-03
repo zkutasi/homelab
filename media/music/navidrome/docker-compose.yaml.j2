@@ -5,6 +5,7 @@ services:
       PGID: {{ ansible_user_gid }}
       PUID: {{ ansible_user_uid }}
       TZ: {{ timezone }}
+      ND_PROMETHEUS_ENABLED: true
       ND_SCANNER_ENABLED: false
       ND_SCANNER_SCANONSTARTUP: false
     hostname: {{ id }}-navidrome

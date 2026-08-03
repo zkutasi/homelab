@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: navidrome
+  labels:
+    release: kube-prometheus-stack
+spec:
+  jobName: navidrome
+  staticConfigs:
+{% for host in ['htpc'] %}
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_navidrome }}"]
+      labels:
+        host: "{{ hostvars[host].id }}"
+{% endfor %}
