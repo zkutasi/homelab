@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pve-nodedown
+spec:
+  groups:
+    - name: pve
+      rules:
+        - alert: PVENodeDown
+          expr: pve_up{id=~"node/.*"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: PVE node down (instance {{ $labels.host }})
+            description: "Proxmox VE node {{ $labels.id }} is down."

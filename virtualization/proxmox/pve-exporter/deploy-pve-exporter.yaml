@@ -1,0 +1,20 @@
+- name: Install pve-exporter package
+  hosts: proxmox
+  roles:
+    - package-install-pipx
+  vars:
+    pipx_packages:
+      - prometheus-pve-exporter
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"
+- name: Create a service for pve-exporter
+  hosts: proxmox
+  roles:
+    - binary-install
+  vars:
+    bin_filename: pve_exporter
+    bin_path: /root/.local/bin
+    service_name: pve-exporter
+    environment_vars:
+      PVE_USER: pve-exporter@pve
+      PVE_PASSWORD: pve-exporter
+      PVE_VERIFY_SSL: false

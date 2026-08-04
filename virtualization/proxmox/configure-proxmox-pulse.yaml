@@ -1,4 +1,4 @@
-- name: Get the major Proxmox version
+- name: Set up a pulse-monitor role
   hosts: proxmoxclusters
   tasks:
     - name: Get Proxmox version

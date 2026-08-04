@@ -1,0 +1,7 @@
+- name: Remove pve-exporter package
+  hosts: proxmox
+  roles:
+    - package-remove-pipx
+  vars:
+    pipx_packages:
+      - prometheus-pve-exporter

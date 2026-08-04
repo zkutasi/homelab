@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pve-vm-ct-down
+spec:
+  groups:
+    - name: pve
+      rules:
+        - alert: PVEVM/CTDown
+          expr: pve_up{id=~"(qemu|lxc)/.*"} == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: PVE VM/CT down (instance {{ $labels.host }})
+            description: "Proxmox VE guest {{ $labels.id }} is not running."

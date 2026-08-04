@@ -1,0 +1,14 @@
+- name: Set up a pve-exporter role
+  hosts: proxmoxclusters
+  tasks:
+    - name: Create a pve-exporter role & user in PVE
+      ansible.builtin.include_role:
+        name: simoncaron.pve_permissions
+      vars:
+        pve_permissions_users:
+          - name: pve-exporter
+            realm: pve
+            password: "pve-exporter"
+            acls:
+              - path: /
+                role: PVEAuditor
