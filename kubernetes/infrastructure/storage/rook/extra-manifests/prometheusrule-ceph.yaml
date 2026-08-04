@@ -1,0 +1,192 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: ceph
+spec:
+  groups:
+    - name: ceph
+      rules:
+        - alert: CephOSDDown
+          expr: ceph_osd_up == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph OSD {{ $labels.ceph_daemon }} Down
+            description: "Ceph Object Storage Daemon {{ $labels.ceph_daemon }} Down"
+        - alert: CephPGDown
+          expr: ceph_pg_down > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph PG down
+            description: "Some Ceph placement groups are down. Please ensure that all the data are available."
+        - alert: CephMonitorDown
+          expr: count(ceph_mon_quorum_status == 0) <= (count(ceph_mon_metadata) - floor(count(ceph_mon_metadata) / 2 + 1))
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph monitor down
+            description: "One or more Ceph monitors are down while quorum is still intact; losing an additional monitor would make the cluster inoperable."
+        - alert: CephOSDNearFull
+          expr: ceph_health_detail{name="OSD_NEARFULL"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph OSD near full
+            description: "A Ceph OSD is dangerously full. Please add more disks."
+        - alert: CephOSDReweighted
+          expr: ceph_osd_weight < 1
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph OSD {{ $labels.ceph_daemon }} reweighted
+            description: "Ceph Object Storage Daemon takes too much time to resize."
+        - alert: CephPGBackfillFull
+          expr: ceph_pg_backfill_toofull > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph PG backfill full
+            description: "Some Ceph placement groups are located on full Object Storage Daemon on cluster. Those PGs can be unavailable shortly. Please check OSDs, change weight or reconfigure CRUSH rules."
+        - alert: CephMonitorClockSkew
+          expr: ceph_health_detail{name="MON_CLOCK_SKEW"} == 1
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph monitor clock skew
+            description: "Ceph monitor clock skew detected. Please check ntp and hardware clock settings"
+        - alert: CephHealthError
+          expr: ceph_health_status == 2
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph health error
+            description: "Ceph cluster is in HEALTH_ERR state"
+        - alert: CephPGIncomplete
+          expr: ceph_pg_incomplete > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph PG incomplete
+            description: "Some Ceph placement groups are incomplete. Please ensure that all the data are available."
+        - alert: CephPGUnavailable
+          expr: ceph_pg_total - ceph_pg_active > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph PG unavailable
+            description: "Some Ceph placement groups are unavailable."
+        - alert: CephOSDFull
+          expr: ceph_health_detail{name="OSD_FULL"} == 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph OSD full
+            description: "One or more Ceph OSDs have reached the full ratio; writes to the affected pools are blocked until space is freed or OSDs are added."
+        - alert: CephDaemonCrashDetected
+          expr: ceph_health_detail{name="RECENT_CRASH"} == 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph daemon crash detected
+            description: "One or more Ceph daemons (OSD, mon, mgr, mds...) have crashed recently and the crash has not been acknowledged. Investigate and archive with 'ceph crash archive <id>'."
+        - alert: CephMDSUnhealthy
+          expr: ceph_health_detail{name=~"MDS_DAMAGE|MDS_ALL_DOWN|FS_DEGRADED|FS_WITH_FAILED_MDS|MDS_HEALTH_READ_ONLY"} == 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph MDS unhealthy
+            description: "The CephFS filesystem is damaged, fully offline, degraded, has a failed MDS rank with no standby, or has switched to read-only mode. Data may be partially or fully inaccessible; check 'ceph fs status' for details."
+        - alert: CephHealthWarning
+          expr: ceph_health_status == 1
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph health warning
+            description: "Ceph cluster is in HEALTH_WARN state"
+        - alert: CephHighOSDLatency
+          expr: ceph_osd_apply_latency_ms > 5000
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph high OSD latency
+            description: "Ceph Object Storage Daemon latency is high. Please check if it doesn't stuck in weird state."
+        - alert: CephPGInconsistent
+          expr: ceph_pg_inconsistent > 0
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph PG inconsistent
+            description: "Some Ceph placement groups are inconsistent. Data is available but inconsistent across nodes."
+        - alert: CephPGActivationLong
+          expr: ceph_pg_activating > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph PG activation long
+            description: "Some Ceph placement groups are too long to activate."
+        - alert: CephPoolNearFull
+          expr: ceph_health_detail{name="POOL_NEAR_FULL"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph pool near full
+            description: "A Ceph pool has exceeded its near-full threshold. Writes may still succeed, but the pool risks going read-only if more capacity isn't made available soon."
+        - alert: CephPoolBackfillFull
+          expr: ceph_health_detail{name="POOL_BACKFILLFULL"} == 1
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph pool backfill full
+            description: "A Ceph pool is approaching its near-full threshold, which will prevent recovery/backfill operations from completing until more capacity is added."
+        - alert: CephPGNotScrubbed
+          expr: ceph_health_detail{name="PG_NOT_SCRUBBED"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph PG not scrubbed
+            description: "One or more placement groups have missed their scrub interval, which checks metadata integrity and consistency across replicas. Run 'ceph pg scrub <pgid>' to trigger manually."
+        - alert: CephPGNotDeepScrubbed
+          expr: ceph_health_detail{name="PG_NOT_DEEP_SCRUBBED"} == 1
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph PG not deep scrubbed
+            description: "One or more placement groups have missed their deep scrub interval, which compares data replicas to protect against silent bit-rot."
+        - alert: CephSlowOps
+          expr: ceph_healthcheck_slow_ops > 0
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: Ceph slow ops (instance
+            description: "{{ $value }} OSD/mon requests are taking longer than the configured complaint time to complete, an early symptom of client-facing latency and cluster degradation."
+        - alert: CephPoolFull
+          expr: ceph_health_detail{name="POOL_FULL"} == 1
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Ceph pool full
+            description: "A Ceph pool has reached its quota, or the OSDs backing it have reached the full threshold; writes to the pool are blocked until quota is increased or capacity is added."
