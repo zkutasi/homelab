@@ -19,6 +19,6 @@
   vars:
     docker_compose_projectname: kopia-exporter
     requested_image_version:
-      kopia-exporter: "ghcr.io/ymettier/kopia_go_exporter:0.3.0-rc1"
+      kopia-exporter: "ghcr.io/ymettier/kopia_go_exporter:0.3.0"
     docker_compose_template_files_copy:
       - name: config.yaml
