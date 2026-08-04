@@ -1,0 +1,44 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: node-exporter-disk
+spec:
+  groups:
+    - name: disk
+      rules:
+        - alert: HostOutOfDiskSpace
+          expr: |
+              node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)",mountpoint!~"(/export/.*|/srv/dev-disk-by-uuid-.*)"}
+              /
+              node_filesystem_size_bytes < .10
+              and on (instance, device, mountpoint) node_filesystem_readonly == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: Host {{ $labels.host }} out of disk space
+            description: "Disk is almost full (< 10% left)"
+        - alert: HostOutOfInodes
+          expr: (node_filesystem_files_free / node_filesystem_files < .10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) and node_filesystem_files > 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: Host {{ $labels.host }} out of inodes
+            description: "Disk is almost running out of available inodes (< 10% left)"
+        - alert: HostFileDescriptorsLimitCritical
+          expr: node_filefd_allocated * 100 / node_filefd_maximum > 90
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: Host {{ $labels.host }} file descriptors limit critical
+            description: "Kernel file descriptor usage on {{ $labels.host }} is {{ $value }}%, and file descriptor exhaustion is imminent."
+        - alert: HostSwapIsFillingUp
+          expr: ((1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80) and node_memory_SwapTotal_bytes > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} swap is filling up
+            description: "Swap is filling up ({{ $value }}% used)."

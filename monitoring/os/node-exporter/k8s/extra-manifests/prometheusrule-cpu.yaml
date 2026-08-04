@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: node-exporter-cpu
+spec:
+  groups:
+    - name: cpu
+      rules:
+        - alert: HostHighCPULoad
+          expr: 1 - (avg without (cpu) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > .80
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} high CPU load
+            description: "CPU load is {{ $value }}"
+        - alert: HostCPUStealNoisyNeighbor
+          expr: avg without (cpu) (rate(node_cpu_seconds_total{mode="steal"}[5m])) * 100 > 10
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} CPU steal noisy neighbor
+            description: "CPU steal is {{ $value }}. A noisy neighbor is killing VM performances."
+        - alert: HostCPUHighIowait
+          expr: avg without (cpu) (rate(node_cpu_seconds_total{mode="iowait"}[5m])) > .10
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} CPU high iowait
+            description: "CPU iowait {{ $value }}. Your CPU is idling waiting for storage to respond."
+        - alert: HostCPULoadSaturation
+          expr: node_load1 / count without (cpu, mode) (node_cpu_seconds_total{mode="idle"}) > 2
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} CPU load saturation
+            description: "Load average (1m) per CPU core on {{ $labels.host }} is more than double the number of idle cores, meaning processes are queued waiting for CPU even if raw CPU utilization looks normal."

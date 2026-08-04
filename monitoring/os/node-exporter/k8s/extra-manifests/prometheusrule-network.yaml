@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: node-exporter-network
+spec:
+  groups:
+    - name: network
+      rules:
+        - alert: HostNetworkReceiveErrors
+          expr: (rate(node_network_receive_errs_total[2m]) / rate(node_network_receive_packets_total[2m]) > 0.01) and rate(node_network_receive_packets_total[2m]) > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} Network Receive Errors
+            description: "Host {{ $labels.host }} interface {{ $labels.device }} has encountered {{ printf \"%.0f\" $value }} receive errors in the last two minutes."
+        - alert: HostNetworkTransmitErrors
+          expr: (rate(node_network_transmit_errs_total[2m]) / rate(node_network_transmit_packets_total[2m]) > 0.01) and rate(node_network_transmit_packets_total[2m]) > 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} Network Transmit Errors
+            description: "Host {{ $labels.host }} interface {{ $labels.device }} has encountered {{ printf \"%.0f\" $value }} transmit errors in the last two minutes."
+        - alert: HostConntrackLimit
+          expr: (node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8) and node_nf_conntrack_entries_limit > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} conntrack limit
+            description: "The number of conntrack is approaching limit"

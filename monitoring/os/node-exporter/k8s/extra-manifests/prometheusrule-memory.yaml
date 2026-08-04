@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: node-exporter-memory
+spec:
+  groups:
+    - name: memory
+      rules:
+        - alert: HostOutOfMemory
+          expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < .10)
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} out of memory
+            description: "Node memory is filling up (< 10% left)"
+        - alert: HostMemoryUnderMemoryPressure
+          expr: (rate(node_vmstat_pgmajfault[5m]) > 1000)
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} memory under memory pressure
+            description: "The node is under heavy memory pressure. High rate of major page faults ({{ $value }}/s)."
+        - alert: HostOOMKillDetected
+          expr: (increase(node_vmstat_oom_kill[30m]) > 0)
+          for: 0m
+          labels:
+            severity: warning
+          annotations:
+            summary: Host {{ $labels.host }} OOM kill detected
+            description: "OOM kill detected"
