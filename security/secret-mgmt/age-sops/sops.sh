@@ -83,7 +83,7 @@ elif [ "${MODE}" == "encrypt-all" ]; then
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
-                "${decrypted_filename}") \
+                "${encrypted_filename}") \
                 "${decrypted_filename}" >/dev/null
             res=$?
             if [ $res -eq 0 ]; then
