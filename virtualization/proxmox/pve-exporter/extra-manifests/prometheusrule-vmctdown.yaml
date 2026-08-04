@@ -12,5 +12,5 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: PVE VM/CT down (instance {{ $labels.host }})
+            summary: PVE host {{ $labels.host }} has VM/CT down
             description: "Proxmox VE guest {{ $labels.id }} is not running."

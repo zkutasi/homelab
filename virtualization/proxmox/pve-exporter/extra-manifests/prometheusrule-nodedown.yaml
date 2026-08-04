@@ -12,5 +12,5 @@ spec:
           labels:
             severity: critical
           annotations:
-            summary: PVE node down (instance {{ $labels.host }})
+            summary: PVE node {{ $labels.host }} is down
             description: "Proxmox VE node {{ $labels.id }} is down."
