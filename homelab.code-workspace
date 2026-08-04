@@ -59,6 +59,12 @@
 						"auto": true
         },
 				{
+            "command": "$(git rev-parse --show-toplevel)/security/secret-mgmt/age-sops/sops.sh --redecrypt-all",
+            "name": "Re-decrypt all files (forcibly, to resync them all)",
+						"group": "SOPS",
+						"auto": true
+        },
+				{
             "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type binary --foldername ${PREFIX} --appname ${APPNAME}; popd",
             "name": "Kickstart a binary project",
 						"group": "Kickstart"

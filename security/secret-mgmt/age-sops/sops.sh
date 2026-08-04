@@ -14,6 +14,7 @@ function usage() {
     echo "  --decrypt <file>      Decrypt the specified file (which should end with '_encrypted') and save it as '<file>'"
     echo "  --decrypt-all         Decrypt all files ending with '_encrypted' in the repository (default)"
     echo "  --reencrypt-all       Re-encrypt all encrypted files from their non-encrypted counterparts"
+    echo "  --redecrypt-all       Re-decrypt all non-encrypted files from their encrypted counterparts"
     echo ""
     echo "Environment Variables:"
     echo "  SOPS_AGE_KEY_FILE     Path to the file containing the age public key (required)"
@@ -39,6 +40,9 @@ while [ $# -ge 1 ]; do
         ;;
     --reencrypt-all)
         MODE=reencrypt-all
+        ;;
+    --redecrypt-all)
+        MODE=redecrypt-all
         ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
@@ -69,9 +73,43 @@ elif [ "${MODE}" == "decrypt" ]; then
         --age ${AGE_KEY} \
         --output "${DECRYPT_FILE%_encrypted}" \
         "${DECRYPT_FILE}"
+elif [ "${MODE}" == "encrypt-all" ]; then
+    while read -r line; do
+        decrypted_filename=${line}
+        encrypted_filename=${line}_encrypted
+        if [ -f "${encrypted_filename}" ]; then
+            echo "Checking for changes in ${decrypted_filename} to re-encrypt..."
+            diff -u <(sops --decrypt \
+                --input-type ${FILE_TYPE} \
+                --output-type ${FILE_TYPE} \
+                --age ${AGE_KEY} \
+                "${decrypted_filename}") \
+                "${decrypted_filename}" >/dev/null
+            res=$?
+            if [ $res -eq 0 ]; then
+                echo "No differences found. Skipping re-encryption for ${decrypted_filename}."
+            elif [ $res -eq 1 ]; then
+                echo "Differences found. Re-encrypting ${decrypted_filename} to ${encrypted_filename}..."
+                sops --encrypt \
+                    --input-type ${FILE_TYPE} \
+                    --output-type ${FILE_TYPE} \
+                    --age ${AGE_KEY} \
+                    --output "${decrypted_filename}" \
+                    "${decrypted_filename}"
+            fi
+        else
+            echo "Encrypting file: ${decrypted_filename}..."
+            sops --encrypt \
+                --input-type ${FILE_TYPE} \
+                --output-type ${FILE_TYPE} \
+                --age ${AGE_KEY} \
+                --output "${encrypted_filename}" \
+                "${decrypted_filename}"
+        fi
+    done < <(find $(git rev-parse --show-toplevel) -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
 elif [ "${MODE}" == "decrypt-all" ]; then
     while read -r line; do
-        echo "Decrypting file: ${line}..."
+        encrypted_filename=${line}
         decrypted_filename=${line%_encrypted}
         if [ -f "${decrypted_filename}" ]; then
             echo "WARNING: Decrypted file ${decrypted_filename} already exists. Skipping decryption, but check the diff..."
@@ -79,7 +117,7 @@ elif [ "${MODE}" == "decrypt-all" ]; then
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
-                "${line}") \
+                "${encrypted_filename}") \
                 "${decrypted_filename}"
             res=$?
             if [ $res -eq 0 ]; then
@@ -89,16 +127,18 @@ elif [ "${MODE}" == "decrypt-all" ]; then
                 exit 1
             fi
         else
+            echo "Decrypting file: ${encrypted_filename}..."
             sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
                 --output "${decrypted_filename}" \
-                "${line}"
+                "${encrypted_filename}"
         fi
     done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
 elif [ "${MODE}" == "reencrypt-all" ]; then
     while read -r line; do
+        encrypted_filename=${line}
         decrypted_filename=${line%_encrypted}
         if [ -f "${decrypted_filename}" ]; then
             echo "Checking for changes in ${decrypted_filename} to re-encrypt..."
@@ -106,56 +146,36 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
                 --age ${AGE_KEY} \
-                "${line}") \
+                "${encrypted_filename}") \
                 "${decrypted_filename}" >/dev/null
             res=$?
             if [ $res -eq 0 ]; then
-                echo "No differences found. Skipping re-encryption for ${line}."
+                echo "No differences found. Skipping re-encryption for ${encrypted_filename}."
             elif [ $res -eq 1 ]; then
-                echo "Differences found. Re-encrypting ${decrypted_filename} to ${line}..."
+                echo "Differences found. Re-encrypting ${decrypted_filename} to ${encrypted_filename}..."
                 sops --encrypt \
                     --input-type ${FILE_TYPE} \
                     --output-type ${FILE_TYPE} \
                     --age ${AGE_KEY} \
-                    --output "${line}" \
+                    --output "${encrypted_filename}" \
                     "${decrypted_filename}"
             fi
         else
-            echo "WARNING: Unencrypted file ${decrypted_filename} not found. Skipping re-encryption for ${line}."
+            echo "WARNING: Unencrypted file ${decrypted_filename} not found. Skipping re-encryption for ${encrypted_filename}."
         fi
     done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
-elif [ "${MODE}" == "encrypt-all" ]; then
+elif [ "${MODE}" == "redecrypt-all" ]; then
     while read -r line; do
-        encrypted_filename=${line}_encrypted
-        if [ -f "${encrypted_filename}" ]; then
-            echo "Checking for changes in ${line} to re-encrypt..."
-            diff -u <(sops --decrypt \
-                --input-type ${FILE_TYPE} \
-                --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
-                "${line}") \
-                "${line}" >/dev/null
-            res=$?
-            if [ $res -eq 0 ]; then
-                echo "No differences found. Skipping re-encryption for ${line}."
-            elif [ $res -eq 1 ]; then
-                echo "Differences found. Re-encrypting ${line} to ${encrypted_filename}..."
-                sops --encrypt \
-                    --input-type ${FILE_TYPE} \
-                    --output-type ${FILE_TYPE} \
-                    --age ${AGE_KEY} \
-                    --output "${line}" \
-                    "${line}"
-            fi
-        else
-            sops --encrypt \
-                --input-type ${FILE_TYPE} \
-                --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
-                --output "${encrypted_filename}" \
-                "${line}"
-        fi
-    done < <(find $(git rev-parse --show-toplevel) -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
+        encrypted_filename=${line}
+        decrypted_filename=${line%_encrypted}
+        echo "Decrypting file: ${encrypted_filename}..."
+        sops --decrypt \
+            --input-type ${FILE_TYPE} \
+            --output-type ${FILE_TYPE} \
+            --age ${AGE_KEY} \
+            --output "${decrypted_filename}" \
+            "${encrypted_filename}"
+    done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1
