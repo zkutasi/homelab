@@ -4,7 +4,7 @@ CHART_NAME=prometheus-community/kube-prometheus-stack
 NS=monitoring
 RELEASE_NAME=kube-prometheus-stack
 REPO_URL=https://prometheus-community.github.io/helm-charts
-VERSION=77.10.0
+VERSION=88.1.5
 
 EXTRA_PARAMS=""
 
