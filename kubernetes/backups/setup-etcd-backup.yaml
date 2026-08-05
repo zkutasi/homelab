@@ -1,0 +1,31 @@
+- name: Configure etcd backups
+  hosts:
+    - k8s-controller-1
+    - k8s-controller-2
+    - k8s-controller-3
+  vars:
+    backup_dir: "{{ ansible_user_dir }}/etcd-backups"
+    backup_hour: 2
+    backup_minute: 15
+  tasks:
+    - name: Create backup directory
+      ansible.builtin.file:
+        path: "{{ backup_dir }}"
+        state: directory
+        mode: "0700"
+    - name: Install backup script
+      become: true
+      ansible.builtin.template:
+        src: templates/etcd-backup.sh.j2
+        dest: /usr/local/bin/etcd-backup.sh
+        owner: root
+        group: root
+        mode: "0750"
+    - name: Install cron job
+      become: true
+      ansible.builtin.template:
+        src: templates/etcd-backup.cron.j2
+        dest: /etc/cron.d/etcd-backup
+        owner: root
+        group: root
+        mode: "0644"

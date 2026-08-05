@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export ETCDCTL_API=3
+
+# Configuration
+BACKUP_DIR="{{ backup_dir }}"
+RETENTION_DAYS="7"
+
+ETCDCTL="/usr/local/bin/etcdctl"
+ENDPOINT="https://127.0.0.1:2379"
+CA_CERT="/etc/ssl/etcd/ssl/ca.pem"
+CLIENT_CERT="/etc/ssl/etcd/ssl/admin-{{ inventory_hostname }}.pem"
+CLIENT_KEY="/etc/ssl/etcd/ssl/admin-{{ inventory_hostname }}-key.pem"
+
+STAMP="$(date +%F-%H%M%S)"
+BACKUP_FILE="${BACKUP_DIR}/etcd-${STAMP}.db"
+
+mkdir -p "${BACKUP_DIR}"
+
+"${ETCDCTL}" \
+    --endpoints="${ENDPOINT}" \
+    --cacert="${CA_CERT}" \
+    --cert="${CLIENT_CERT}" \
+    --key="${CLIENT_KEY}" \
+    snapshot save "${BACKUP_FILE}"
+
+chown {{ ansible_user }}:root "${BACKUP_FILE}"
+
+"${ETCDCTL}" \
+    --cacert="${CA_CERT}" \
+    --cert="${CLIENT_CERT}" \
+    --key="${CLIENT_KEY}" \
+    snapshot status "${BACKUP_FILE}" >/dev/null
+
+find "${BACKUP_DIR}" \
+    -type f \
+    -name 'etcd-*.db' \
+    -mtime +"${RETENTION_DAYS}" \
+    -delete
