@@ -47,13 +47,15 @@ Rook can provide the following:
 
 ### Post deployment
 
-## Metrics, Alerts, Notifications
-
 1. Create a dashboard user via the toolbox Pod
 
     ```bash
     echo "<PASSWORD>" | kubectl -n rook-ceph exec -ti deployments/rook-ceph-tools -- ceph dashboard ac-user-create <USERNAME> -i /dev/stdin administrator
     ```
+
+## Metrics, Alerts, Notifications
+
+1. Some PrometheusAlerts are delivered by the chart itself
 
 2. Load in any of the matching Grafana dashboards
 

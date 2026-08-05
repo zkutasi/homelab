@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: urbackup
+  name: urbackup-missingbackup
 spec:
   groups:
     - name: urbackup
