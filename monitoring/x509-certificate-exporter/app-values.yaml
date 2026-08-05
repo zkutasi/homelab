@@ -9,6 +9,9 @@ hostPathsExporter:
         - key: node-role.kubernetes.io/control-plane
           operator: Exists
           effect: NoSchedule
+      watchDirectories:
+        # etcd
+        - /etc/ssl/etcd/ssl
       watchFiles:
         # apiserver
         - /etc/kubernetes/pki/apiserver.crt
@@ -18,11 +21,6 @@ hostPathsExporter:
         # CAs
         - /etc/kubernetes/pki/ca.crt
         - /etc/kubernetes/pki/front-proxy-ca.crt
-        - /etc/kubernetes/pki/etcd/ca.crt
-        # etcd
-        - /etc/kubernetes/pki/etcd/server.crt
-        - /etc/kubernetes/pki/etcd/peer.crt
-        - /etc/kubernetes/pki/etcd/healthcheck-client.crt
         # kubelet client (rotated symlink)
         - /var/lib/kubelet/pki/kubelet-client-current.pem
       watchKubeconfFiles:
