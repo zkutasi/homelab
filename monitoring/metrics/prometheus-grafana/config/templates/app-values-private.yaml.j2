@@ -1,3 +1,11 @@
 grafana:
   adminUser: {{ grafana_admin_user }}
   adminPassword: {{ grafana_admin_password }}
+kubeEtcd:
+  enabled: true
+  endpoints:
+{% for host in groups['kubernetes'] | default([]) %}
+{% if 'controller' in host %}
+    - {{ hostvars[host].ansible_host }}
+{% endif %}
+{% endfor %}

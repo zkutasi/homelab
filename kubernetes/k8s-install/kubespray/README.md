@@ -33,6 +33,7 @@ Kubespray requires an inventory to identify what to do with the Nodes, which rol
     | File | Setting | Comment |
     |------|---------|---------|
     |group_vars/all/all.yml|ntp_enabled: true||
+    |group_vars/etcd.yml|etcd_metrics_port: 2381|Enable ETCD metrics|
     |group_vars/k8s_cluster/addons.yml|helm_enabled: true||
     |group_vars/k8s_cluster/addons.yml|metrics_server_enabled: true||
     |group_vars/k8s_cluster/k8s-cluster.yml|kube_proxy_strict_arp: true||
