@@ -1,6 +1,6 @@
 # Paperless-NGX
 
-[Paperless-NGX](https://example.com) - A short introduction of the app
+[Paperless-NGX](http://docs.paperless-ngx.com/) - A community-supported supercharged document management system: scan, index and archive all your documents
 
 ## The setup
 
