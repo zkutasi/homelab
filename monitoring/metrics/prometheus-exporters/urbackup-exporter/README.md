@@ -1,6 +1,6 @@
-# Kopia-exporter
+# Urbackup-exporter
 
-[Kopia-exporter](https://github.com/ymettier/kopia_go_exporter/) - A Prometheus exporter for Kopia backup repositories.
+[Urbackup-exporter](https://github.com/ngosang/urbackup-exporter) - Prometheus exporter for the UrBackup backup system
 
 ## The setup
 
@@ -25,13 +25,13 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/kopia/kopia-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/urbackup-exporter/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/kopia/kopia-exporter/deploy-kopia-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/urbackup-exporter/deploy-urbackup-exporter.yaml --no-check
     ```
 
 ### Post deployment
@@ -43,6 +43,10 @@
     ```bash
     ./deploy-k8s.sh
     ```
+
+2. Load in any of the matching Grafana dashboards
+
+    - [Official](https://github.com/ngosang/urbackup-exporter/blob/master/grafana/grafana_dashboard.json)
 
 ## Commands
 

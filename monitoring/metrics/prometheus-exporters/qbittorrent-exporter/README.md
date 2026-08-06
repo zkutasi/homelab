@@ -1,10 +1,8 @@
-# Borgmatic-exporter
+# Qbittorrent-exporter
 
-[Borgmatic-exporter](https://github.com/maxim-mityutko/borgmatic-exporter/) - Prometheus exporter for Borgmatic seamlessly integrated into official Borgmatic docker image
+[Qbittorrent-exporter](https://github.com/martabal/qbittorrent-exporter) - A fast and lightweight prometheus exporter for qBittorrent
 
 ## The setup
-
-Placed next to the Borg repos, and providing it with the repo structure only.
 
 ## Prerequisites
 
@@ -27,13 +25,13 @@ Placed next to the Borg repos, and providing it with the repo structure only.
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/borg/borgmatic-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/qbittorrent-exporter/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/borg/borgmatic-exporter/deploy-borgmatic-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/qbittorrent-exporter/deploy-qbittorrent-exporter.yaml --no-check
     ```
 
 ### Post deployment
@@ -48,8 +46,10 @@ Placed next to the Borg repos, and providing it with the repo structure only.
 
 2. Load in any of the matching Grafana dashboards
 
-    - [Official](https://github.com/maxim-mityutko/borgmatic-exporter/blob/master/observability/grafana-dashboard.json)
+    - [23784](https://grafana.com/grafana/dashboards/23784-qbittorrent/)
 
 ## Commands
 
 ## Notable comments
+
+- Warning: if you run thousands of torrents, even not switching on the high cardinality metrics would generate a LOT of metrics, several per torrent.

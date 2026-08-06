@@ -1,6 +1,6 @@
-# Qbittorrent-exporter
+# Kopia-exporter
 
-[Qbittorrent-exporter](https://github.com/martabal/qbittorrent-exporter) - A fast and lightweight prometheus exporter for qBittorrent
+[Kopia-exporter](https://github.com/ymettier/kopia_go_exporter/) - A Prometheus exporter for Kopia backup repositories.
 
 ## The setup
 
@@ -25,13 +25,13 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook torrenting/qbittorrent-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/kopia-exporter/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook torrenting/qbittorrent-exporter/deploy-qbittorrent-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/kopia-exporter/deploy-kopia-exporter.yaml --no-check
     ```
 
 ### Post deployment
@@ -44,12 +44,6 @@
     ./deploy-k8s.sh
     ```
 
-2. Load in any of the matching Grafana dashboards
-
-    - [23784](https://grafana.com/grafana/dashboards/23784-qbittorrent/)
-
 ## Commands
 
 ## Notable comments
-
-- Warning: if you run thousands of torrents, even not switching on the high cardinality metrics would generate a LOT of metrics, several per torrent.

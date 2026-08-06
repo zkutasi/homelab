@@ -1,10 +1,16 @@
-# Urbackup-exporter
+# pve-exporter
 
-[Urbackup-exporter](https://github.com/ngosang/urbackup-exporter) - Prometheus exporter for the UrBackup backup system
+[pve-exporter](https://github.com/prometheus-pve/prometheus-pve-exporter) - Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system
 
 ## The setup
 
 ## Prerequisites
+
+1. Generate a Proxmox VE user with specific readonly roles
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pve-exporter/configure-pve-exporter-role.yaml --no-check
+    ```
 
 ## Usage
 
@@ -25,16 +31,14 @@
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/urbackup/urbackup-exporter/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pve-exporter/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook backups/urbackup/urbackup-exporter/deploy-urbackup-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pve-exporter/deploy-pve-exporter.yaml --no-check
     ```
-
-### Post deployment
 
 ## Metrics, Alerts, Notifications
 
@@ -45,8 +49,6 @@
     ```
 
 2. Load in any of the matching Grafana dashboards
-
-    - [Official](https://github.com/ngosang/urbackup-exporter/blob/master/grafana/grafana_dashboard.json)
 
 ## Commands
 

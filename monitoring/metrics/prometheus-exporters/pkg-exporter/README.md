@@ -30,13 +30,13 @@ The setup was based on [this blogpost](https://margau.net/posts/2021-06-26-prome
 1. Configure with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/updates/pkg-exporter/configure-pkg-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pkg-exporter/configure-pkg-exporter.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/updates/pkg-exporter/deploy-pkg-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pkg-exporter/deploy-pkg-exporter.yaml --no-check
     ```
 
 ### Post deployment

@@ -27,7 +27,7 @@
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook networking/adblocking/pihole-exporter/deploy-pihole-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pihole-exporter/deploy-pihole-exporter.yaml --no-check
     ```
 
 ### Post deployment
