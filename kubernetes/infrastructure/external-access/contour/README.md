@@ -34,8 +34,9 @@ The chosen ingress controller. Will provide access to HTTP endpoints.
 
 1. Load in any of the matching Grafana dashboards
 
-    - [ingress metrics](https://grafana.com/grafana/dashboards/21396-contour-ingress-metrics/)
-    - [global metrics](https://grafana.com/grafana/dashboards/21402-contour-global-metrics/).
+    - [21396](https://grafana.com/grafana/dashboards/21396-contour-ingress-metrics/)
+    - [21402](https://grafana.com/grafana/dashboards/21402-contour-global-metrics/).
+    - [23239](https://grafana.com/grafana/dashboards/23239-envoy-proxy-monitoring/)
 
 ## Commands
 
