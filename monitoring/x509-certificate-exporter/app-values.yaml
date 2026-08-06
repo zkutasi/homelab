@@ -34,3 +34,6 @@ hostPathsExporter:
       watchFiles:
         - /etc/kubernetes/pki/ca.crt
         - /var/lib/kubelet/pki/kubelet-client-current.pem
+prometheusRules:
+  warningDaysLeft: 5
+  criticalDaysLeft: 1
