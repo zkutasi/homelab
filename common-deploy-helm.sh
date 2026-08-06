@@ -1,5 +1,7 @@
 #!/bin/bash
 
+CNPG_CLUSTER_CHART_VERSION=0.8.1
+
 APP=app
 CHART_NAME=
 DEPLOYMENT_TYPE=helm
@@ -192,6 +194,22 @@ else
 fi
 echo "Executing command: ${CMD}"
 ${CMD}
+
+if [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; then
+  cnpg_enabled=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg.*.enabled')
+  if [ "${cnpg_enabled}" == "true" ]; then
+    cnpg_clustername=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg | keys | .0')
+    echo "Deploying Prometheus rules for monitoring..."
+    helm template \
+      --release-name ${RELEASE_NAME}-cnpg \
+      --namespace ${NS} \
+      --set nameOverride=${cnpg_clustername} \
+      --set cluster.monitoring.enabled=true \
+      --show-only templates/prometheus-rule.yaml \
+      --version ${CNPG_CLUSTER_CHART_VERSION} \
+      cnpg/cluster | kubectl apply -f -
+  fi
+fi
 
 if [ "${TEMPLATE}" -eq 0 ]; then
   echo "Apply additional manifests, if any..."
