@@ -1,0 +1,9 @@
+grafanaDashboard:
+  enabled: true
+historyMetric: true
+intervalDuration: 5m
+latestChartVersion: false
+logLevel: info
+serviceMonitor:
+  create: true
+statusInMetric: true

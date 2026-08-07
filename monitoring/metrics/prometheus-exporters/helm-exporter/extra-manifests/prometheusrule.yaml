@@ -1,0 +1,32 @@
+# helm-alerts.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: helm-release-alerts
+spec:
+  groups:
+    - name: helm-releases
+      rules:
+        - alert: HelmReleaseFailed
+          expr: helm_chart_info{status="failed"} == -1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Helm release {{ $labels.release }} failed"
+            description: "Release {{ $labels.release }} in namespace {{ $labels.namespace }} is in failed state"
+        - alert: HelmReleasePending
+          expr: helm_chart_info{status=~"pending-.*"} > 0
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Helm release {{ $labels.release }} stuck pending"
+            description: "Release {{ $labels.release }} has been in pending state for more than 10 minutes"
+        - alert: HelmRollbackDetected
+          expr: increase(helm_rollback_total[5m]) > 0
+          labels:
+            severity: warning
+          annotations:
+            summary: "Helm rollback detected for {{ $labels.release }}"
+            description: "Release {{ $labels.release }} emitted a rollback hook metric"
