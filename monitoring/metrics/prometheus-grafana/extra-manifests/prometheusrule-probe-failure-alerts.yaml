@@ -1,0 +1,39 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: probe-failure-alerts
+spec:
+  groups:
+    - name: probe_failures
+      interval: 30s
+      rules:
+        - alert: PodReadinessProbeFailure
+          expr: |
+            rate(prober_probe_total{probe_type="Readiness",result="failed"}[5m]) > 0
+          for: 5m
+          labels:
+            severity: warning
+            component: health-check
+          annotations:
+            summary: "Pod readiness probe failing"
+            description: "Readiness probe failures detected for pod {{ $labels.namespace }}/{{ $labels.pod }}"
+        - alert: PodLivenessProbeFailure
+          expr: |
+            rate(prober_probe_total{probe_type="Liveness",result="failed"}[5m]) > 0
+          for: 5m
+          labels:
+            severity: critical
+            component: health-check
+          annotations:
+            summary: "Pod restarting due to liveness probe failures"
+            description: "Liveness probe failures detected for container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }}"
+        - alert: HighPodRestartRate
+          expr: |
+            rate(kube_pod_container_status_restarts_total[1h]) > 0.1
+          for: 10m
+          labels:
+            severity: critical
+            component: health-check
+          annotations:
+            summary: "Pod restarting frequently"
+            description: "Container {{ $labels.container }} in {{ $labels.namespace }}/{{ $labels.pod }} restarting frequently ({{ $value }} restarts/sec)"
