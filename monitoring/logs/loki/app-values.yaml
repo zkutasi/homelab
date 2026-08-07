@@ -45,3 +45,13 @@ bloomCompactor:
   replicas: 0
 bloomGateway:
   replicas: 0
+
+monitoring:
+  dashboards:
+    enabled: true
+  rules:
+    enabled: true
+  alerts:
+    enabled: true
+  serviceMonitor:
+    enabled: true
