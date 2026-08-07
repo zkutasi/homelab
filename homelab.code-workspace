@@ -96,6 +96,11 @@
 						"auto": true
         },
 				{
+            "command": "kubectl -n XXX apply -f {resource}",
+            "name": "Apply the given Kubernetes manifest (with editing the namespace interactively)",
+						"group": "Kubernetes"
+        },
+				{
             "command": "bash {resource}",
             "name": "Run the given script",
 						"group": "Scripts",
