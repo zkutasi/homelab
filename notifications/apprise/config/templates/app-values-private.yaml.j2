@@ -1,29 +1,38 @@
 urls:
   - ntfy://ntfy.ntfy.svc.cluster.local:10222/homelab?verify=no:
       tag:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | difference(groups['proxmox']) | difference(groups['kubernetes']) %}
 {% if hostvars[host].id is defined %}
         - {{ hostvars[host].id }}
 {% endif %}
 {% endfor %}
+        - proxmox
         - kubernetes
-{% for host in groups['all'] %}
+{% for host in groups['all'] | difference(groups['proxmox']) | difference(groups['kubernetes']) %}
 {% if hostvars[host].gotify_token is defined %}
   - gotify://gotify.gotify.svc.cluster.local:8080/{{ hostvars[host].gotify_token }}?verify=no:
       tag: {{ hostvars[host].id }}
 {% endif %}
 {% endfor %}
-{% for host in groups['all'] %}
+{% for host in groups['all'] | difference(groups['proxmox']) | difference(groups['kubernetes']) %}
 {% if hostvars[host].pushover_token is defined %}
   - pover://{{ pushover_user }}@{{ hostvars[host].pushover_token }}:
       tag: {{ hostvars[host].id }}
 {% endif %}
 {% endfor %}
-{% if kubernetes.gotify_token is defined %}
-  - gotify://gotify.gotify.svc.cluster.local:8080/{{ kubernetes.gotify_token }}?verify=no:
+{% for host in groups['proxmox'] %}
+{% if loop.first %}
+  - gotify://gotify.gotify.svc.cluster.local:8080/{{ hostvars[host].gotify_token }}?verify=no:
+      tag: proxmox
+  - pover://{{ pushover_user }}@{{ hostvars[host].pushover_token }}:
+      tag: proxmox
+{% endif %}
+{% endfor %}
+{% for host in groups['kubernetes'] %}
+{% if loop.first %}
+  - gotify://gotify.gotify.svc.cluster.local:8080/{{ hostvars[host].gotify_token }}?verify=no:
+      tag: kubernetes
+  - pover://{{ pushover_user }}@{{ hostvars[host].pushover_token }}:
       tag: kubernetes
 {% endif %}
-{% if kubernetes.pushover_token is defined %}
-  - pover://{{ pushover_user }}@{{ kubernetes.pushover_token }}:
-      tag: kubernetes
-{% endif %}
+{% endfor %}

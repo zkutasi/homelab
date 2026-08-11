@@ -18,4 +18,4 @@
     rest_api_method: "POST"
     rest_api_data:
       format: "yaml"
-      config: "{{ lookup('file', 'apprise-values-config-private.yaml') }}"
+      config: "{{ lookup('file', 'app-values-private.yaml') }}"
