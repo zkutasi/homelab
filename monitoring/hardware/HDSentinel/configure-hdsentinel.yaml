@@ -1,0 +1,58 @@
+- name: Configure Samba guest share on Proxmox
+  hosts: proxmox-nas
+  become: true
+  tasks:
+    - name: Install some packages for mounting
+      ansible.builtin.include_role:
+        name: package-install
+      vars:
+        packages:
+          - samba
+    - name: Ensure HDSentinel base directory exists
+      become: true
+      ansible.builtin.file:
+        path: "{{ hdsentinel_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: Configure Samba
+      ansible.builtin.blockinfile:
+        path: /etc/samba/smb.conf
+        block: |
+          [global]
+              workgroup = WORKGROUP
+              map to guest = Bad User
+              guest account = nobody
+              server min protocol = SMB2
+          [hdsentinel]
+              path = {{ hdsentinel_dir }}
+              browseable = yes
+              read only = yes
+              guest ok = yes
+              guest only = yes
+              force user = nobody
+              hosts allow = {{ network_subnet }}
+              hosts deny = ALL
+    - name: Validate Samba configuration
+      ansible.builtin.command:
+        cmd: testparm -s
+      changed_when: false
+    - name: Enable and restart Samba
+      ansible.builtin.systemd:
+        name: smbd
+        enabled: true
+        state: restarted
+- name: Deploy HDSentinel configuration
+  hosts:
+    - synology
+    - proxmox-nas
+  tasks:
+    - name: Install HDSentinel cron job
+      become: true
+      ansible.builtin.template:
+        src: config/templates/hdsentinel.cron.j2
+        dest: /etc/cron.d/hdsentinel
+        owner: root
+        group: root
+        mode: '0644'
