@@ -200,14 +200,18 @@ if [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local"
   if [ "${cnpg_enabled}" == "true" ]; then
     cnpg_clustername=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg | keys | .0')
     echo "Deploying Prometheus rules for monitoring..."
-    helm template \
+    CMD="helm template \
       --release-name ${RELEASE_NAME}-cnpg \
       --namespace ${NS} \
       --set nameOverride=${cnpg_clustername} \
       --set cluster.monitoring.enabled=true \
+      --set cluster.monitoring.prometheusRule.excludeRules[0]=CNPGClusterHAWarning \
+      --set cluster.monitoring.prometheusRule.excludeRules[1]=CNPGClusterHACritical \
       --show-only templates/prometheus-rule.yaml \
       --version ${CNPG_CLUSTER_CHART_VERSION} \
-      cnpg/cluster | kubectl apply -f -
+      cnpg/cluster"
+      echo "Executing command: ${CMD}"
+      ${CMD} | kubectl apply -f -
   fi
 fi
 
