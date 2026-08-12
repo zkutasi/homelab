@@ -1,0 +1,15 @@
+services:
+  autopulse:
+    container_name: autopulse
+    environment:
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
+    hostname: {{ id }}-autopulse
+    image: {{ requested_image_version['autopulse'] }}
+    ports:
+      - {{ port_autopulse }}:2875
+    restart: unless-stopped
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config.yaml:/app/config.yaml:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/app/data

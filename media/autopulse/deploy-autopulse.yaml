@@ -1,0 +1,12 @@
+- name: Deploy Autopulse as docker
+  hosts: omv
+  roles:
+    - docker-compose
+  vars:
+    docker_compose_projectname: autopulse
+    requested_image_version:
+      autopulse: "ghcr.io/dan-online/autopulse:v2.0.0"
+    docker_compose_create_dirs:
+      - name: data
+    docker_compose_template_files_copy:
+      - name: config.yaml

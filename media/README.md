@@ -33,11 +33,6 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - [Steamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
   - [Fladder](https://github.com/DonutWare/Fladder) - A cross-platform Jellyfin Frontend built on top of Flutter.
 
-### Monitoring Dashboards
-
-- [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
-- [Tracearr](https://www.tracearr.com/) - Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
-
 ### Video Only
 
 - [Kyoo](https://kyoo.zoriya.dev/) - Focused only on Video content. It aims to have a low amount of maintenance needed (no folder structure required nor manual metadata edits). Media not being scanned correctly (even with weird names) is considered a bug.
@@ -51,6 +46,12 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 - [Gonic](https://github.com/sentriz/gonic) - Free-software subsonic server API implementation, supporting its many clients
 - [Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
 - *Sonic - A free, web-based media streamer platform with a specific API. [SubSonic](https://www.subsonic.org) was the original (this went closed source), then LibreSonic was forked, after that [Airsonic](https://github.com/airsonic/airsonic) (abandoned since 2020) and [Airsonic-advanced](https://github.com/airsonic-advanced/airsonic-advanced) (again abandoned since 2020)
+
+### Companion apps
+
+- [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
+- [Tracearr](https://www.tracearr.com/) - Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
+- [Autopulse](https://autopulse.dancodes.online/autopulse/) - Automated scanning tool that integrates widely-used media management services with various media servers for seamless media organization
 
 ### Scrobblers
 

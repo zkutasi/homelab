@@ -1,0 +1,33 @@
+app:
+  api_logging: true
+
+targets:
+  my_plex:
+    type: "plex"
+    url: "https://plex.{{ reverseproxy_internal_domain }}:443"
+    token: "{{ plex_token }}"
+    request:
+      insecure: true
+    rewrite:
+      - from: "-hdd0[1-8]"
+        to: ""
+
+  my_emby:
+    type: "emby"
+    url: "https://emby.{{ reverseproxy_internal_domain }}:443"
+    token: "{{ emby_apikey_autopulse }}"
+    request:
+      insecure: true
+    rewrite:
+      - from: "-hdd0[1-8]"
+        to: ""
+
+  my_jellyfin:
+    type: "jellyfin"
+    url: "https://jellyfin.{{ reverseproxy_internal_domain }}:443"
+    token: "{{ jellyfin_apikey_autopulse }}"
+    request:
+      insecure: true
+    rewrite:
+      - from: "-hdd0[1-8]"
+        to: ""

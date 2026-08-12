@@ -18,3 +18,10 @@ TORRENT_ID=${12}
 
 # Execute hasher.sh
 {{ ansible_user_dir }}/hasher.sh "${TORRENT_CONTENT_PATH}"
+
+# Trigger updates via AutoPulse
+curl -k \
+  -u {{ autopulse_username }}:{{ autopulse_password }} \
+  -G \
+  --data-urlencode "path=${TORRENT_CONTENT_PATH}" \
+  "https://autopulse.{{ reverseproxy_internal_domain }}/triggers/manual"
