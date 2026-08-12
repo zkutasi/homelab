@@ -1,0 +1,2 @@
+alertmanagerAddress: http://kube-prometheus-stack-alertmanager.monitoring.svc.cluster.local:9093
+alertmanagerAuthentication: true
