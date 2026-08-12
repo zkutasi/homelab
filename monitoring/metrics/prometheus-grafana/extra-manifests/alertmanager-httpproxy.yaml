@@ -1,0 +1,30 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: alertmanager-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: kube-prometheus-stack-alertmanager
+          port: 9093
+  virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*"  # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m"  # preflight requests can be cached for 10 minutes.
+    fqdn: alertmanager.kubernetes.home
+    tls:
+      secretName: alertmanager-cert-secret
