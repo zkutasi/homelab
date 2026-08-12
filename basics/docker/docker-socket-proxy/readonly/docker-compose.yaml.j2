@@ -3,7 +3,7 @@ services:
     command:
       - -loglevel=info
       - -listenip=0.0.0.0
-      - -allowfrom=192.168.31.0/24
+      - -allowfrom={{ network_subnet }}
       - -allowGET=.*
       - -watchdoginterval=3600
       - -proxyport=2375
