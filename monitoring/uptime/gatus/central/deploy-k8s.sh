@@ -1,7 +1,7 @@
 #!/bin/bash
 
 APP=gatus
-VERSION=3.6.2
+VERSION=4.12.0
 
 EXTRA_PARAMS=""
 
