@@ -6,12 +6,12 @@ services:
       - redis
       - database
     environment:
-      - PUID={{ ansible_user_uid }}
-      - PGID={{ ansible_user_gid }}
-      - TZ={{ timezone }}
-      - DB_PASSWORD={{ immich_db_password }}
-      - DB_USERNAME=immich
-      - DB_DATABASE_NAME=immich
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
+      DB_PASSWORD: {{ immich_db_password }}
+      DB_USERNAME: immich
+      DB_DATABASE_NAME: immich
     hostname: {{ id }}-immich-server
     image: {{ requested_image_version['immich-server'] }}
     ports:
@@ -26,9 +26,9 @@ services:
   immich-machine-learning:
     container_name: immich-machine-learning
     environment:
-      - PUID={{ ansible_user_uid }}
-      - PGID={{ ansible_user_gid }}
-      - TZ={{ timezone }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
     hostname: {{ id }}-immich-machine-learning
     image: {{ requested_image_version['immich-ml'] }}
     restart: unless-stopped
@@ -38,9 +38,9 @@ services:
   redis:
     container_name: immich-redis
     environment:
-      - PUID={{ ansible_user_uid }}
-      - PGID={{ ansible_user_gid }}
-      - TZ={{ timezone }}
+      PUID: {{ ansible_user_uid }}
+      PGID: {{ ansible_user_gid }}
+      TZ: {{ timezone }}
     healthcheck:
       test: redis-cli ping || exit 1
     hostname: {{ id }}-immich-redis
