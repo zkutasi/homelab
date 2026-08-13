@@ -35,3 +35,5 @@
 ## Commands
 
 ## Notable comments
+
+- Unfortunately Grafana's built in `Alert List` is not supporting Alertmanager, and there is no way to filter out Silenced alerts. So this operator only works if one uses AlertManager's UI or creates a custom one in Grafana with querying AlertManager.
