@@ -1,6 +1,6 @@
 # Networking Toolbox
 
-[Networking Toolbox](https://github.com/lissy93/networking-toolbox)
+[Networking Toolbox](https://github.com/lissy93/networking-toolbox) - 100+ offline-first networking tools and utilities
 
 ## The setup
 
