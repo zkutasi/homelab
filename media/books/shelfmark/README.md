@@ -1,6 +1,12 @@
 # ShelfMark
 
-[Shelfmark](https://github.com/calibrain/shelfmark) - A unified web interface for searching and aggregating books and audiobook downloads from multiple sources - all in one place. Works out of the box with popular web sources, no configuration required. Add metadata providers, additional release sources, and download clients to create a single hub for building your digital library.
+Shelfmark is a self-hosted web interface for searching and requesting books and audiobooks across multiple sources.
+
+- Official site: NA
+- Source repository: <https://github.com/calibrain/shelfmark>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

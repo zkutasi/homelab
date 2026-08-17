@@ -1,6 +1,12 @@
 # SmokePing
 
-[SmokePing](https://oss.oetiker.ch/smokeping/) is a tool to periodically check ping stats for multiple remote hosts, continuously.
+SmokePing is a deluxe latency measurement tool. It can measure, store and display latency, latency distribution and packet loss. SmokePing uses RRDtool to maintain a longterm data-store and to draw pretty graphs, giving up to the minute information on the state of each network connection.
+
+- Official site: <https://oss.oetiker.ch/smokeping/>
+- Source repository: NA
+- Documentation: <https://oss.oetiker.ch/smokeping/doc/index.en.html>
+- Image repo: <https://hub.docker.com/r/linuxserver/smokeping>
+- Other sites: NA
 
 ## The setup
 

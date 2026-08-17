@@ -1,6 +1,12 @@
 # Calico WHisker
 
-[Calico Whisker](https://docs.tigera.io/calico/latest/observability/view-flow-logs) - You can observe network traffic in your cluster by viewing flow logs in the Calico Whisker web console.
+You can observe network traffic in your cluster by viewing flow logs in the Calico Whisker web console.
+
+- Official site: <https://docs.tigera.io/calico/latest/observability/view-flow-logs>
+- Source repository: NA
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

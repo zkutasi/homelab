@@ -1,6 +1,12 @@
 # Cup
 
-[Cup](https://github.com/sergi0g/cup) is a lightweight check-only docker image version checker.
+Cup is the easiest way to check for container image updates.
+
+- Official site: <https://cup.sergi0g.dev/>
+- Source repository: <https://github.com/sergi0g/cup>
+- Documentation: <https://cup.sergi0g.dev/docs>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

@@ -1,6 +1,12 @@
 # PeaNUT
 
-[PeaNUT](https://github.com/Brandawg93/PeaNUT) - A tiny dashboard for the NUT Server
+A tiny dashboard for Network UPS Tools
+
+- Official site: NA
+- Source repository: <https://github.com/Brandawg93/PeaNUT>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/brandawg93/peanut>
+- Other sites: NA
 
 ## The setup
 

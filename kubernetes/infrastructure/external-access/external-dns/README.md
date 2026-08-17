@@ -1,6 +1,12 @@
 # External DNS
 
-[External DNS](https://github.com/kubernetes-sigs/external-dns) is a convenience tool to register the given FQDN-IP pairs into a DNS Service automatically and keep them up-to-date.
+Configure external DNS servers dynamically from Kubernetes resources
+
+- Official site: <https://kubernetes-sigs.github.io/external-dns/latest/>
+- Source repository: <https://github.com/kubernetes-sigs/external-dns>
+- Documentation: <https://kubernetes-sigs.github.io/external-dns/latest/>
+- Helm Chart: <https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns>
+- Other sites: NA
 
 ## The setup
 

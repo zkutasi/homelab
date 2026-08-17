@@ -1,9 +1,20 @@
 # Immich
 
-[Immich](https://immich.app/) - Easily back up, organize, and manage your photos on your own server. Immich helps you
-browse, search and organize your photos and videos with ease, without sacrificing your privacy.
+High performance self-hosted photo and video management solution.
 
-[Immich Power Tools](https://github.com/varun-raj/immich-power-tools) - A unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
+- Official site: <https://immich.app/>
+- Source repository: <https://github.com/immich-app/immich>
+- Documentation: <https://docs.immich.app/overview/quick-start/>
+- Image repo: NA
+- Other sites: NA
+
+Immich Power Tools - A unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
+
+- Official site: NA
+- Source repository: <https://github.com/immich-power-tools/immich-power-tools>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

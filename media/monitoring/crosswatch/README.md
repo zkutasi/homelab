@@ -1,6 +1,12 @@
 # Crosswatch
 
-[Crosswatch](https://github.com/cenodude/CrossWatch) - A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
+A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
+
+- Official site: <https://wiki.crosswatch.app/>
+- Source repository: <https://github.com/cenodude/CrossWatch>
+- Documentation: <https://wiki.crosswatch.app/>
+- Image repo: <https://hub.docker.com/r/cenodude/crosswatch>
+- Other sites: NA
 
 ## The setup
 

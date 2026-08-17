@@ -1,6 +1,12 @@
 # Arpwatch
 
-[Arpwatch](https://www.kali.org/tools/arpwatch/) maintains a database of Ethernet MAC addresses seen on the network, with their associated IP pairs. Alerts the system administrator via e-mail if any change happens.
+Arpwatch maintains a database of Ethernet MAC addresses seen on the network, with their associated IP pairs. Alerts the system administrator via e-mail if any change happens, such as new station/activity, flip-flops, changed and reused old addresses.
+
+- Official site: <https://www.kali.org/tools/arpwatch/>
+- Source repository: NA
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

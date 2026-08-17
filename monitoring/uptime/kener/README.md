@@ -1,6 +1,12 @@
 # Kener
 
-[Kener](https://kener.ing/) - Stunning status pages, batteries included!
+Stunning status pages, batteries included!
+
+- Official site: <https://kener.ing/>
+- Source repository: <https://github.com/rajnandan1/kener>
+- Documentation: <https://kener.ing/docs>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

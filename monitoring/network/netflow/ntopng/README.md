@@ -1,6 +1,12 @@
 # NtopNG
 
-[NtopNG](https://www.ntop.org/) - A revamped, modern reincarnation of the original ntop. Web-based network monitoring.
+Web-based Traffic and Cybersecurity Network Traffic Monitoring
+
+- Official site: <https://www.ntop.org/products/traffic-analysis/ntopng/>
+- Source repository: <https://github.com/ntop/ntopng/>
+- Documentation: <https://www.ntop.org/guides/ntopng/>
+- Image repo: <https://hub.docker.com/r/ntop/ntopng>
+- Other sites: NA
 
 ## The setup
 

@@ -1,6 +1,12 @@
 # QBitTorrent
 
-[QBitTorrent](https://www.qbittorrent.org/) - One of the best Torrent clients: cross-platform, actively developed, modern architecture.
+qBittorrent is a BitTorrent client programmed in C++ / Qt that uses libtorrent (sometimes called libtorrent-rasterbar) by Arvid Norberg.
+
+- Official site: <https://www.qbittorrent.org/>
+- Source repository: <https://github.com/qbittorrent/qBittorrent>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

@@ -1,6 +1,12 @@
 # Texporter
 
-[Texporter](https://github.com/kasd/texporter) - A lightweight, high-performance eBPF-based network traffic exporter for Prometheus.
+A lightweight, high-performance eBPF-based network traffic exporter for Prometheus.
+
+- Official site: NA
+- Source repository: <https://github.com/kasd/texporter>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

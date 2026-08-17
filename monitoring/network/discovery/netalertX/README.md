@@ -1,6 +1,12 @@
 # NetAlertX
 
-[NetAlertX](https://netalertx.com/) is a network presence and alerting framework.
+Centralized network visibility and continuous asset discovery. Monitor devices, detect change, and stay aware across distributed networks.
+
+- Official site: <https://netalertx.com/>
+- Source repository: <https://github.com/netalertx/NetAlertX>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/jokobsk/netalertx>
+- Other sites: NA
 
 ## The setup
 

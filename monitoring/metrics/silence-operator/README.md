@@ -1,6 +1,12 @@
 # Silence-operator
 
-[Silence-operator](https://github.com/giantswarm/silence-operator) - silence-operator manages Alertmanager silences via custom resources
+silence-operator manages Alertmanager silences via custom resources
+
+- Official site: NA
+- Source repository: <https://github.com/giantswarm/silence-operator>
+- Documentation: NA
+- Helm Chart: <https://github.com/giantswarm/silence-operator/tree/main/helm/silence-operator>
+- Other sites: NA
 
 ## The setup
 

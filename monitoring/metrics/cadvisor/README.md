@@ -1,6 +1,12 @@
 # CAdvisor
 
-[Container Advisor](https://github.com/google/cadvisor) is Google's initial container metrics collector daemon.
+Analyzes resource usage and performance characteristics of running containers.
+
+- Official site: NA
+- Source repository: <https://github.com/google/cadvisor>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

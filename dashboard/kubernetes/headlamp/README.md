@@ -1,6 +1,12 @@
 # Headlamp
 
-[Headlamp](https://headlamp.dev/) - A Kubernetes web UI that is fully-featured, user-friendly and extensible
+A Kubernetes web UI that is fully-featured, user-friendly and extensible
+
+- Official site: <https://headlamp.dev/>
+- Source repository: <https://github.com/kubernetes-sigs/headlamp>
+- Documentation: <https://headlamp.dev/docs/latest/>
+- Helm Chart: <https://github.com/kubernetes-sigs/headlamp/tree/main/charts/headlamp>
+- Other sites: NA
 
 ## The setup
 

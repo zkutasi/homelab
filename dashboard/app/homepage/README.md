@@ -1,6 +1,12 @@
 # Homepage
 
-[Homepage](https://gethomepage.dev/) - A highly customizable homepage (or startpage / application dashboard) with Docker and service API integrations.
+A highly customizable homepage (or startpage / application dashboard) with Docker and service API integrations.
+
+- Official site: <https://gethomepage.dev/>
+- Source repository: <https://github.com/gethomepage/homepage>
+- Documentation: <https://gethomepage.dev/configs/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

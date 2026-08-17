@@ -1,6 +1,12 @@
 # Mailrise
 
-[Mailrise](https://mailrise.xyz/) - An SMTP gateway for Apprise notifications.
+An SMTP gateway for Apprise notifications.
+
+- Official site: <https://mailrise.xyz/>
+- Source repository: NA
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/yoryan/mailrise>
+- Other sites: NA
 
 ## The setup
 

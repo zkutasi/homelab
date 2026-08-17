@@ -1,6 +1,12 @@
 # Komodo
 
-[Komodo](https://komo.do/) is an emerging alternative for Portainer, but focusing more in a full build system not only just a container management webUI.
+A tool to build and deploy software on many servers
+
+- Official site: <https://komo.do/>
+- Source repository: <https://github.com/moghtech/komodo>
+- Documentation: <https://komo.do/docs/intro>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

@@ -1,6 +1,12 @@
 # Networking Toolbox
 
-[Networking Toolbox](https://github.com/lissy93/networking-toolbox) - 100+ offline-first networking tools and utilities
+100+ offline-first networking tools and utilities
+
+- Official site: <https://networkingtoolbox.net/>
+- Source repository: <https://github.com/lissy93/networking-toolbox>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/lissy93/networking-toolbox>
+- Other sites: NA
 
 ## The setup
 

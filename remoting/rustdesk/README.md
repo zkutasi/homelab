@@ -1,6 +1,12 @@
 # Rustdesk
 
-[RustDesk](https://rustdesk.com/) is a remote access software, capable of using its own Relay server, connecting two even CGNAT-ed or double-NAT-ed machines.
+An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.
+
+- Official site: <https://rustdesk.com/>
+- Source repository: <https://github.com/rustdesk/rustdesk>
+- Documentation: <https://rustdesk.com/docs/en/>
+- Image repo: <https://hub.docker.com/r/rustdesk/rustdesk-server>
+- Other sites: NA
 
 ## The setup
 

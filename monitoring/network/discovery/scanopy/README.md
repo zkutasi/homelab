@@ -1,6 +1,12 @@
 # Scanopy
 
-[Scanopy](https://scanopy.net/) - Scans your network, identifies hosts and services, and generates an interactive visualization showing how everything connects, letting you easily create and maintain network documentation.
+Network diagrams that update themselves
+
+- Official site: <https://scanopy.net/>
+- Source repository: <https://github.com/scanopy/scanopy>
+- Documentation: <https://scanopy.net/docs/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

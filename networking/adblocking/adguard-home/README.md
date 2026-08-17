@@ -1,6 +1,12 @@
 # Adguard Home
 
-[Adguard Home](https://adguard.com/adguard-home/overview.html) - AdGuard Home is a network-wide software for blocking ads and tracking.
+AdGuard Home is a network-wide software for blocking ads and tracking.
+
+- Official site: <https://adguard.com/adguard-home/overview.html>
+- Source repository: <https://github.com/AdguardTeam/AdguardHome>
+- Documentation: <https://github.com/AdguardTeam/AdGuardHome/wiki>
+- Image repo: <https://hub.docker.com/r/adguard/adguardhome>
+- Other sites: NA
 
 ## The setup
 

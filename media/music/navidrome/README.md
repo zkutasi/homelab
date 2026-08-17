@@ -1,6 +1,12 @@
 # Navidrome
 
-[Navidrome](https://www.navidrome.org/) - An open source web-based music collection server and streamer. It gives you freedom to listen to your music collection from any browser or mobile device. It's like your personal Spotify!
+An open source web-based music collection server and streamer. It gives you freedom to listen to your music collection from any browser or mobile device. It's like your personal Spotify!
+
+- Official site: <https://www.navidrome.org/>
+- Source repository: <https://github.com/navidrome/navidrome/>
+- Documentation: <https://www.navidrome.org/docs/>
+- Image repo: <https://hub.docker.com/r/deluan/navidrome>
+- Other sites: NA
 
 ## The setup
 

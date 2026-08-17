@@ -1,6 +1,12 @@
 # PhotoPrism
 
-[PhotoPrism](https://www.photoprism.app/) - An AI-Powered Photos App for the Decentralized Web.
+An AI-Powered Photos App for the Decentralized Web.
+
+- Official site: <https://www.photoprism.app/>
+- Source repository: <https://github.com/photoprism/photoprism>
+- Documentation: <https://docs.photoprism.app/>
+- Image repo: <https://hub.docker.com/r/photoprism/photoprism>
+- Other sites: NA
 
 ## The setup
 

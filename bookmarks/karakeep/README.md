@@ -1,6 +1,12 @@
 # Karakeep
 
-[Karakeep](https://karakeep.app/) - A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search.
+A self-hostable bookmark-everything app (links, notes and images) with AI-based automatic tagging and full text search
+
+- Official site: <https://karakeep.app/>
+- Source repository: <https://github.com/karakeep-app/karakeep>
+- Documentation: <https://docs.karakeep.app/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

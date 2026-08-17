@@ -1,6 +1,12 @@
 # BentoPDF
 
-[BentoPDF](https://www.bentopdf.com) - A powerful, privacy-first, client-side PDF toolkit that is self hostable and allows you to manipulate, edit, merge, and process PDF files directly in your browser.
+A powerful, privacy-first, client-side PDF toolkit that is self hostable and allows you to manipulate, edit, merge, and process PDF files directly in your browser.
+
+- Official site: <https://www.bentopdf.com>
+- Source repository: <https://github.com/alam00000/bentopdf/>
+- Documentation: <https://www.bentopdf.com/docs/>
+- Helm Chart: <https://github.com/alam00000/bentopdf/tree/main/chart>
+- Other sites: NA
 
 ## The setup
 

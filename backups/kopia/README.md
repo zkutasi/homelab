@@ -1,6 +1,12 @@
 # Kopia
 
-[Kopia](https://kopia.io/) is a relative new contender, with cool features like supporting multiple hosts, has a great webUI.
+Cross-platform backup tool for Windows, macOS & Linux with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication. CLI and GUI included.
+
+- Official site: <https://kopia.io/>
+- Source repository: <https://github.com/kopia/kopia/>
+- Documentation: <https://kopia.io/docs/>
+- Image repo: <https://hub.docker.com/r/kopia/kopia>
+- Other sites: NA
 
 ## The setup
 

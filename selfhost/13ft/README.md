@@ -1,6 +1,12 @@
 # 13 Feet Ladder
 
-[13 Feet Ladder](https://github.com/wasi-master/13ft) - A local hostable service to remove paywalls from sites
+This is a simple self hosted server that has a simple but powerful interface to block ads, paywalls, and other nonsense. Specially for sites like medium, new york times which have paid articles that you normally cannot read. Now I do want you to support the creators you benefit from but if you just wanna see one single article and move on with your day then this might be helpful
+
+- Official site: NA
+- Source repository: <https://github.com/wasi-master/13ft>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/wasimaster/13ft>
+- Other sites: NA
 
 ## The setup
 

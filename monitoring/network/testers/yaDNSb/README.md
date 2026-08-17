@@ -1,6 +1,12 @@
 # YaDNSb
 
-[YaDNSb](https://github.com/butialabs/yadnsb) - A DNS tester app, that runs various tests to various well-known DNS servers.
+A DNS performance testing IPv4, IPv6, DNS over HTTPS (DoH), DNS over TLS (DoT), and DNS over QUIC (DoQ).
+
+- Official site: <https://yadnsb.butialabs.com/>
+- Source repository: <https://github.com/butialabs/yadnsb>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

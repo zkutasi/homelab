@@ -1,6 +1,12 @@
 # Semaphore UI
 
-[Semaphore UI](https://semaphoreui.com/) is a GUI for automating Ansible, Terraform, OpenTofu and even scripts in Bash & Python.
+Modern UI and powerful API for Ansible, Terraform/OpenTofu/Terragrunt, PowerShell and other DevOps tools.
+
+- Official site: <https://semaphoreui.com/>
+- Source repository: <https://github.com/semaphoreui/semaphore>
+- Documentation: <https://semaphoreui.com/docs>
+- Image repo: <https://hub.docker.com/r/semaphoreui/semaphore>
+- Other sites: NA
 
 ## The setup
 

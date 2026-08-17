@@ -1,6 +1,12 @@
 # Stirling PDF
 
-[Stirling PDF](https://www.stirlingpdf.com/) is a free alternative to the Adobe PDF suite with helpful tools to manipulate and read PDF files.
+No1 PDF Application on GitHub that lets you edit PDFs on any device anywhere
+
+- Official site: <https://www.stirling.com/>
+- Source repository: <https://github.com/Stirling-Tools/Stirling-PDF>
+- Documentation: <https://docs.stirlingpdf.com/>
+- Helm Chart: <https://github.com/Stirling-Tools/Stirling-PDF-chart>
+- Other sites: NA
 
 ## The setup
 

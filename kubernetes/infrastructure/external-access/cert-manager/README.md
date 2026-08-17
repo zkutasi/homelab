@@ -1,6 +1,12 @@
 # Cert-manager
 
-[Cert Manager](https://cert-manager.io/) is a convenient tool to create, renew and store certificates.
+Automatically provision and manage TLS certificates in Kubernetes
+
+- Official site: <https://cert-manager.io/>
+- Source repository: <https://github.com/cert-manager/cert-manager>
+- Documentation: <https://cert-manager.io/docs/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

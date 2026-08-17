@@ -1,6 +1,12 @@
 # OliveTin
 
-[OliveTin](https://olivetin.app/) - OliveTin gives safe and simple access to predefined shell commands from a web interface.
+OliveTin gives safe and simple access to predefined shell commands from a web interface.
+
+- Official site: <https://olivetin.app/>
+- Source repository: <https://github.com/OliveTin/OliveTin>
+- Documentation: <https://docs.olivetin.app/>
+- Image repo: <https://hub.docker.com/r/jamesread/olivetin>
+- Other sites: NA
 
 ## The setup
 

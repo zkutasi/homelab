@@ -1,6 +1,12 @@
 # Portracker
 
-[Portracker](https://github.com/mostafa-wahied/portracker) - A small app to discover used ports and services. Also handles multi-server environments with Peer connections.
+An open source, self-hosted, real-time port monitoring and discovery tool.
+
+- Official site: NA
+- Source repository: <https://github.com/mostafa-wahied/portracker>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/mostafawahied/portracker>
+- Other sites: NA
 
 ## The setup
 

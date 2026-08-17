@@ -1,6 +1,12 @@
 # OpenMediaVault
 
-[OpenMediaVault](https://www.openmediavault.org/) is a very lightweight NAS OS based on Debian Linux, and supports a few main NAS functionalities via plugins like NFS, Samba, Snapraid or even MergerFS.
+openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, DAAP media server, RSync, Kubernetes and many more ready to use.
+
+- Official site: <https://www.openmediavault.org/>
+- Source repository: NA
+- Documentation: <https://docs.openmediavault.org>
+- Image repo: NA
+- Other sites: NA
 
 The extra plugins are decoupled into [OMVExtras](https://wiki.omv-extras.org/) which has to be installed separately to function.
 

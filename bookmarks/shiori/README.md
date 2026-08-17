@@ -1,6 +1,12 @@
 # Shiori
 
-[Shiori](https://github.com/go-shiori/shiori) - Intended as a simple clone of Pocket.
+Simple bookmark manager built with Go
+
+- Official site: NA
+- Source repository: <https://github.com/go-shiori/shiori>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

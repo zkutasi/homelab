@@ -1,6 +1,12 @@
 # Keel
 
-[Keel](https://keel.sh/) - Kubernetes Operator to automate Helm, DaemonSet, StatefulSet & Deployment updates
+Kubernetes Operator to automate Helm, DaemonSet, StatefulSet & Deployment updates
+
+- Official site: <https://keel.sh/>
+- Source repository: <https://github.com/keel-hq/keel>
+- Documentation: <https://keel.sh/docs/>
+- Helm Chart: <https://github.com/keel-hq/keel/tree/master/chart/keel>
+- Other sites: NA
 
 ## The setup
 

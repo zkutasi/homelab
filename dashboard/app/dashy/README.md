@@ -1,6 +1,12 @@
 # Dashy
 
-[Dashy](https://dashy.to/) - A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!
+A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!
+
+- Official site: <https://dashy.to/>
+- Source repository: <https://github.com/lissy93/dashy>
+- Documentation: <https://dashy.to/docs/>
+- Image repo: <https://hub.docker.com/r/lissy93/dashy>
+- Other sites: NA
 
 ## The setup
 

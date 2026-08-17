@@ -1,6 +1,20 @@
 # PiHole
 
-[PiHole](https://pi-hole.net/) is a popular DNS-based Network-wide Ad-blocking solution.
+A black hole for Internet advertisements
+
+- Official site: <https://pi-hole.net/>
+- Source repository: <https://github.com/pi-hole/docker-pi-hole>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/pihole/pihole>
+- Other sites: NA
+
+Unbound - Unbound is a validating, recursive, caching DNS resolver. It is designed to be fast and lean and incorporates modern features based on open standards.
+
+- Official site: <https://unbound.docs.nlnetlabs.nl/en/latest/>
+- Source repository: <https://github.com/NLnetLabs/unbound>
+- Documentation: <https://unbound.docs.nlnetlabs.nl/en/latest/>
+- Image repo: <https://hub.docker.com/r/madnuttah/unbound>
+- Other sites: NA
 
 ## The setup
 

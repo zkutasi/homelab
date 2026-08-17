@@ -1,6 +1,12 @@
 # OpenVAS
 
-[OpenVAS](https://www.openvas.org/) - A full-featured vulnerability scanner. Its capabilities include unauthenticated and authenticated testing, various high-level and low-level internet and industrial protocols, performance tuning for large-scale scans and a powerful internal programming language to implement any type of vulnerability test.
+A full-featured vulnerability scanner. Its capabilities include unauthenticated and authenticated testing, various high-level and low-level internet and industrial protocols, performance tuning for large-scale scans and a powerful internal programming language to implement any type of vulnerability test.
+
+- Official site: <https://www.openvas.org/>
+- Source repository: <https://github.com/greenbone/>
+- Documentation: <https://www.greenbone.net/en/documents/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

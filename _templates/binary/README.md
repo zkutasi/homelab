@@ -1,6 +1,12 @@
 # <APP_NAME>
 
-[<APP_NAME>](https://example.com) - A short introduction of the app
+A short introduction of the app
+
+- Official site: NA
+- Source repository: NA
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

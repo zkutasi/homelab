@@ -1,6 +1,12 @@
 # dbgate
 
-[dbgate](https://www.dbgate.io/) - Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others. Runs under Windows, Linux, Mac or as web application
+Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others. Runs under Windows, Linux, Mac or as web application
+
+- Official site: <https://www.dbgate.io/>
+- Source repository: <https://github.com/dbgate/dbgate>
+- Documentation: <https://docs.dbgate.io/>
+- Image repo: <https://hub.docker.com/r/dbgate/dbgate>
+- Other sites: NA
 
 ## The setup
 

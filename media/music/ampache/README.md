@@ -1,6 +1,12 @@
 # Ampache
 
-[Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
+A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
+
+- Official site: NA
+- Source repository: <https://github.com/ampache/ampache>
+- Documentation: <https://ampache.org/docs>
+- Image repo: <https://hub.docker.com/r/ampache/ampache>
+- Other sites: NA
 
 ## The setup
 

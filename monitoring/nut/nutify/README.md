@@ -1,6 +1,12 @@
 # Nutify
 
-[Nutify](https://github.com/DartSteven/Nutify) is an all in one solution with a NUT Server and a dashboard, with additional functionality as well.
+Modern web-based UPS monitoring system with real-time data visualization, alerts, and comprehensive reporting. Docker-ready with multi-architecture support.
+
+- Official site: NA
+- Source repository: <https://github.com/DartSteven/Nutify>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/dartsteven/nutify>
+- Other sites: NA
 
 ## The setup
 

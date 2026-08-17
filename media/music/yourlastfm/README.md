@@ -1,6 +1,12 @@
 # YourLastFM
 
-[YourLastFM](https://github.com/Gomaink/your_lastfm) - Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and serves a web dashboard.
+Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and serves a web dashboard.
+
+- Official site: NA
+- Source repository: <https://github.com/Gomaink/your_lastfm>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/gomaink/your-lastfm>
+- Other sites: NA
 
 ## The setup
 

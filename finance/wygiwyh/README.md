@@ -1,6 +1,12 @@
 # What You Get is What You Have (WYGIWYH)
 
-[WYGIWYH](https://github.com/eitchtee/WYGIWYH) - A no-budget approach to expense tracking. Just (periodically) import your CSVs (do not forget to pre-create most things you need) and glance at the Sankey diagram.
+A simple but powerful self-hosted finance tracker
+
+- Official site: <https://wygiwyh-demo.herculino.com/>
+- Source repository: <https://github.com/eitchtee/WYGIWYH>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/eitchtee/wygiwyh>
+- Other sites: NA
 
 ## The setup
 

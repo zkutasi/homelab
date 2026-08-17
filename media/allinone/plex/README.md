@@ -1,8 +1,20 @@
 # Plex
 
-[Plex](https://www.plex.tv/) - Plex combines free movies & TV with the best free streaming services, so there’s always more to discover. Also supports local movies and streaming those towards endpoints.
+Don’t just store your movies and music—experience it like never before. Plex personal media server magically scans and organizes your files, sorting your media intuitively and beautifully.
 
-[Tautulli](https://tautulli.com/) - The best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
+- Official site: <https://www.plex.tv/personal-media-server/>
+- Source repository: NA
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/plexinc/pms-docker>
+- Other sites: NA
+
+Tautulli - The best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
+
+- Official site: <https://tautulli.com/>
+- Source repository: <https://github.com/Tautulli/Tautulli>
+- Documentation: <https://github.com/Tautulli/Tautulli/wiki>
+- Image repo: <https://hub.docker.com/r/tautulli/tautulli>
+- Other sites: NA
 
 ## The setup
 

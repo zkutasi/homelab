@@ -1,6 +1,12 @@
 # Autopulse
 
-[Autopulse](https://autopulse.dancodes.online/autopulse/) - Automated scanning tool that integrates widely-used media management services with various media servers for seamless media organization
+Automated scanning tool that integrates widely-used media management services with various media servers for seamless media organization
+
+- Official site: <https://autopulse.dancodes.online/autopulse/>
+- Source repository: <https://github.com/dan-online/autopulse>
+- Documentation: <https://autopulse.dancodes.online/autopulse/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

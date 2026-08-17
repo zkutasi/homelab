@@ -1,6 +1,12 @@
 # Ansible
 
-[Ansible](https://docs.ansible.com/) is a vast automation framework written in Python, that is able to provision nearly anything after it has an OS and SSH access and python on the remote hosts. It can install software, configure them, and even deploy dockerized containers and so much more.
+Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems.
+
+- Official site: <https://www.ansible.com/>
+- Source repository: <https://github.com/ansible/ansible>
+- Documentation: <https://docs.ansible.com/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

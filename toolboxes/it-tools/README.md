@@ -1,6 +1,12 @@
 # IT-Tools
 
-[IT-Tools](https://github.com/CorentinTh/it-tools) is a useful set of tools specifically for Developers and IT Professionals.
+Collection of handy online tools for developers, with great UX.
+
+- Official site: <https://sharevb-it-tools.vercel.app/>
+- Source repository: <https://github.com/sharevb/it-tools>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/sharevb/it-tools>
+- Other sites: NA
 
 ## The setup
 

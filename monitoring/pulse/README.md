@@ -1,6 +1,12 @@
 # Pulse
 
-[Pulse](https://github.com/rcourtman/Pulse) - A dashboard for Proxmox servers and docker hosts, with an agent-driven approach.
+The primary goal of the Network UPS Tools (NUT) project is to provide support for Power Devices, such as Uninterruptible Power Supplies, Power Distribution Units, Automatic Transfer Switches, Power Supply Units and Solar Controllers. NUT provides a common protocol and set of tools to monitor and manage such devices, and to consistently name equivalent features and data points, across a vast range of vendor-specific protocols and connection media types.
+
+- Official site: <https://pulserelay.pro/>
+- Source repository: <https://github.com/rcourtman/Pulse>
+- Documentation: <https://github.com/rcourtman/Pulse/blob/main/docs/README.md>
+- Image repo: <https://hub.docker.com/r/rcourtman/pulse>
+- Other sites: NA
 
 ## The setup
 

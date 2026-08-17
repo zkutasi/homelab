@@ -1,6 +1,12 @@
 # Cupdate
 
-[Cupdate](https://github.com/AlexGustafsson/cupdate) is a very lightweight solution with Vulnerability scanning included.
+A service to keep container images secure and up-to-date. Made for Kubernetes and Docker.
+
+- Official site: NA
+- Source repository: <https://github.com/AlexGustafsson/cupdate>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

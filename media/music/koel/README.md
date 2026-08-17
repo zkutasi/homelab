@@ -1,6 +1,14 @@
 # Koel
 
-[Koel](https://koel.dev/) - A simple web-based personal audio streaming service written in Vue on the client side and Laravel on the server side. Targeting web developers, Koel embraces some of the more modern web technologies to do its job.
+A simple web-based personal audio streaming service written in Vue on the client side and Laravel on the server side. Targeting web developers, Koel embraces some of the more modern web technologies to do its job.
+
+- Official site: <https://koel.dev/>
+- Source repository:
+  - Source code: <https://github.com/koel/koel>
+  - Docker image: <https://github.com/koel/docker>
+- Documentation: <https://docs.koel.dev>
+- Image repo: <https://hub.docker.com/r/phanan/koel>
+- Other sites: NA
 
 ## The setup
 

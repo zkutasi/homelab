@@ -1,6 +1,12 @@
 # BookOrbit
 
-[BookOrbit](https://bookorbit.app/) - A self-hosted library management and reading platform for ebooks, PDFs, audiobooks, and comics.
+A self-hosted library management and reading platform for ebooks, PDFs, audiobooks, and comics.
+
+- Official site: <https://bookorbit.app/>
+- Source repository: <https://github.com/bookorbit/bookorbit>
+- Documentation: <https://bookorbit.app/what-is-bookorbit>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

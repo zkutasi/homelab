@@ -1,6 +1,12 @@
 # CheckCle
 
-[CheckCle](https://checkcle.io/) - CheckCle is a self-hosted, open-source monitoring platform for seamless, real-time full-stack systems, applications, and infrastructure. It provides real-time uptime monitoring, distributed checks, incident tracking, and alerts. All deployable anywhere.
+CheckCle is a self-hosted, open-source monitoring platform for seamless, real-time full-stack systems, applications, and infrastructure. It provides real-time uptime monitoring, distributed checks, incident tracking, and alerts. All deployable anywhere.
+
+- Official site: <https://checkcle.io/>
+- Source repository: <https://github.com/operacle/checkcle>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/operacle/checkcle>
+- Other sites: NA
 
 ## The setup
 

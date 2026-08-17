@@ -1,7 +1,21 @@
-# Prometheus & Grafana
+# kube-prometheus-stack
 
-[Grafana](https://grafana.com/): The de-facto visualizer layer for logs, metrics and all kinds of dashboards.
-[Prometheus](https://prometheus.io/): A metrics collection server and time-series database to store these metrics and query them.
+Prometheus - The Prometheus monitoring system and time series database.
+
+- Official site: <https://prometheus.io>
+- Source repository: <https://github.com/prometheus-operator/kube-prometheus>
+- Documentation: <https://prometheus.io/docs/introduction/overview/>
+- Helm Chart: <https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack>
+- Other sites: NA
+
+Grafana - Grafana Open Source Software (OSS) enables you to query, visualize, alert on, and explore your metrics, logs, and traces wherever they’re stored. Grafana data source plugins enable you to query data sources including time series databases like Prometheus and CloudWatch, logging tools like Loki and Elasticsearch, NoSQL/SQL databases like Postgres, CI/CD tooling like GitHub, and many more. Grafana OSS provides you with tools to display that data on live dashboards with insightful graphs and visualizations.
+
+- Official site: <https://grafana.com/oss/grafana/>
+- Source repository: <https://github.com/prometheus-operator/kube-prometheus>
+- Documentation: <https://grafana.com/docs/grafana/latest/>
+- Helm Chart: <https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack>
+- Other sites:
+  - Dashboards: <https://grafana.com/grafana/dashboards/>
 
 ## The setup
 

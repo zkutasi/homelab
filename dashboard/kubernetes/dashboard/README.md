@@ -1,6 +1,12 @@
 # Kubernetes Dashboard
 
-[Kubernetes Dashboard](https://github.com/kubernetes/dashboard) is the default simple dashboard to observe a Kubernetes cluster and its various workloads and manifests.
+General-purpose web UI for Kubernetes clusters
+
+- Official site: NA
+- Source repository: <https://github.com/kubernetes/dashboard>
+- Documentation: NA
+- Helm Chart: <https://github.com/kubernetes-retired/dashboard/tree/master/charts/kubernetes-dashboard>
+- Other sites: NA
 
 ## The setup
 

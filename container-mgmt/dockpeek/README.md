@@ -1,6 +1,12 @@
 # DockPeek
 
-[DockPeek](https://github.com/dockpeek/dockpeek) - A lightweight, self-hosted Docker dashboard for quick access to your containers. Open web interfaces, view logs, monitor ports, and update images — all from one clean, intuitive interface. It automatically detects Traefik labels and works out of the box with zero configuration.
+Easily access your Docker container web interfaces and keep them up to date — across all your hosts.
+
+- Official site: NA
+- Source repository: <https://github.com/dockpeek/dockpeek>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/dockpeek/dockpeek>
+- Other sites: NA
 
 ## The setup
 

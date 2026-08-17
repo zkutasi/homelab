@@ -1,6 +1,12 @@
 # Proxmox
 
-[Proxmox Virtual Environment](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview) is a complete, open-source server management platform for enterprise virtualization. It tightly integrates the KVM hypervisor and Linux Containers (LXC), software-defined storage and networking functionality, on a single platform. With the integrated web-based user interface you can manage VMs and containers, high availability for clusters, or the integrated disaster recovery tools with ease.
+Proxmox Virtual Environment is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools using a single solution.
+
+- Official site: <https://www.proxmox.com/en/products/proxmox-virtual-environment/overview>
+- Source repository: <https://git.proxmox.com/>
+- Documentation: <https://pve.proxmox.com/pve-docs/>
+- Image repo: NA
+- Other sites: NA
 
 ## Requirements
 

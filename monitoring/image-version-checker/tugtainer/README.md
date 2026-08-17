@@ -1,6 +1,12 @@
 # Tugtainer
 
-[Tugtainer](https://github.com/Quenary/tugtainer) - A relative newcomer to the field. Supports multiple hosts, automation or only notifications.
+An application for automated Docker container updates with a web UI
+
+- Official site: NA
+- Source repository: <https://github.com/Quenary/tugtainer>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/quenary/tugtainer>
+- Other sites: NA
 
 ## The setup
 

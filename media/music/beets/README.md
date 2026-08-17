@@ -1,6 +1,12 @@
 # Beets
 
-[Beets](https://beets.io/) is a music metadata tool, to download, fix and rewrite tags in music files, download coverart and more.
+music library manager and MusicBrainz tagger
+
+- Official site: <https://beets.io>
+- Source repository: <https://github.com/beetbox/beets>
+- Documentation: <https://beets.readthedocs.io/en/stable/>
+- Image repo: <https://hub.docker.com/r/linuxserver/beets>
+- Other sites: NA
 
 ## The setup
 

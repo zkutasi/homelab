@@ -1,6 +1,12 @@
 # PatchMon
 
-[PatchMon](https://patchmon.net/) - Linux Patch Management & Automation Platform
+Linux Patch Management & Automation Platform
+
+- Official site: <https://patchmon.net/>
+- Source repository: <https://github.com/PatchMon/PatchMon>
+- Documentation: <https://patchmon.net/docs>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

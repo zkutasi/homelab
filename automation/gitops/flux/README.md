@@ -1,6 +1,12 @@
 # Flux
 
-[Flux](https://fluxcd.io/) - Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.
+Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.
+
+- Official site: <https://fluxcd.io/>
+- Source repository: <https://github.com/fluxcd/flux2>
+- Documentation: <https://fluxcd.io/flux/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

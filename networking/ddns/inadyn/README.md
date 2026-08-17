@@ -1,6 +1,12 @@
 # Inadyn
 
-[Inadyn](https://github.com/troglobit/inadyn) - A more modern take on DDNS.
+In-a-Dyn is a dynamic DNS client with multiple SSL/TLS library support
+
+- Official site: NA
+- Source repository: <https://github.com/troglobit/inadyn>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

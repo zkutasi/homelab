@@ -1,6 +1,12 @@
 # DockHand
 
-[DockHand](https://dockhand.pro) - A modern take on docker management, for homelabs mostly. Low footprint.
+Dockhand - Docker management you will like.
+
+- Official site: <https://dockhand.pro>
+- Source repository: <https://github.com/Finsys/dockhand>
+- Documentation: <https://dockhand.pro/manual/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

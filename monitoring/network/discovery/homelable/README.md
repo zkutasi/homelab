@@ -1,6 +1,12 @@
 # Homelable
 
-[Homelable](https://homelable.net/) - Self-hosted homelab infrastructure visualizer — interactive network diagram with live status monitoring
+Self-hosted homelab infrastructure visualizer — interactive network diagram with live status monitoring
+
+- Official site: <https://homelable.net/>
+- Source repository: <https://github.com/Pouzor/homelable>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

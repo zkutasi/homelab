@@ -1,6 +1,12 @@
 # MetalLB
 
-[MetalLB](https://metallb.io/) is a LoadBalancer implementation for Bare-metal, non-cloud Kubernetes clusters.
+A network load-balancer implementation for Kubernetes using standard routing protocols
+
+- Official site: <https://metallb.io/>
+- Source repository: <https://github.com/metallb/metallb>
+- Documentation: <https://metallb.io/>
+- Helm Chart: <https://github.com/metallb/metallb/tree/main/charts/metallb>
+- Other sites: NA
 
 ## The setup
 

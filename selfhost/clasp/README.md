@@ -1,6 +1,12 @@
 # Clasp
 
-[Clasp](https://github.com/google/clasp) is a CLI interface towards your Google App Scripts (GAS). Handle them git-like.
+Command Line Apps Script Projects
+
+- Official site: <https://developers.google.com/apps-script/guides/clasp>
+- Source repository: <https://github.com/google/clasp>
+- Documentation: <https://developers.google.com/apps-script/guides/clasp>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

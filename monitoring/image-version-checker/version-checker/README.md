@@ -1,6 +1,12 @@
 # Version-checker
 
-[Jetstack Version-checker](https://github.com/jetstack/version-checker) is a metrics-exposing service to check for image versions.
+Kubernetes utility for exposing image versions in use, compared to latest available upstream, as metrics.
+
+- Official site: NA
+- Source repository: <https://github.com/jetstack/version-checker>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

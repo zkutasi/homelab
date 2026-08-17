@@ -1,6 +1,12 @@
 # ConvertX
 
-[ConvertX](https://github.com/C4illin/ConvertX) is a useful set of file conversions in one package.
+Self-hosted online file converter. Supports 1000+ formats
+
+- Official site: NA
+- Source repository: <https://github.com/C4illin/ConvertX>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/c4illin/convertx>
+- Other sites: NA
 
 ## The setup
 

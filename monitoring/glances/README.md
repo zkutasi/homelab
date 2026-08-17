@@ -1,6 +1,12 @@
 # Glances
 
-[Glances](https://github.com/nicolargo/glances) - An Eye on your system. A top/htop alternative for GNU/Linux, BSD, Mac OS and Windows operating systems.
+Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS and Windows operating systems.
+
+- Official site: <https://nicolargo.github.io/glances/>
+- Source repository: <https://github.com/nicolargo/glances>
+- Documentation: <https://glances.readthedocs.io/en/latest/>
+- Image repo: <https://hub.docker.com/r/nicolargo/glances>
+- Other sites: NA
 
 ## The setup
 

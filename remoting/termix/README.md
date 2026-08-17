@@ -1,6 +1,12 @@
 # Termix
 
-[Termix](https://docs.termix.site/) - A clientless web-based server management platform with SSH terminal, tunneling, and file editing capabilities.
+A clientless web-based server management platform with SSH terminal, tunneling, and file editing capabilities.
+
+- Official site: <https://termix.site/>
+- Source repository: <https://github.com/Termix-SSH/Termix>
+- Documentation: <https://docs.termix.site/>
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

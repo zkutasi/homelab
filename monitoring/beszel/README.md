@@ -1,6 +1,12 @@
 # Beszel
 
-[Beszel](https://beszel.dev/) - A lightweight server monitoring platform that includes Docker statistics, historical data, and alert functions. It supports automatic backup, multi-user, OAuth authentication, and API access.
+Lightweight server monitoring with historical data, docker stats, and alerts.
+
+- Official site: <https://beszel.dev/>
+- Source repository: <https://github.com/henrygd/beszel>
+- Documentation: <https://beszel.dev/guide/getting-started>
+- Image repo: <https://hub.docker.com/r/henrygd/beszel>
+- Other sites: NA
 
 ## The setup
 

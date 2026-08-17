@@ -1,6 +1,14 @@
 # Cloud Native PostgreSQL (CNPG)
 
-[Cloud Native PostgreSQL](https://cloudnative-pg.io/) is a Kubernetes native way to run PSQL instances.
+The open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes
+
+- Official site: <https://cloudnative-pg.io>
+- Source repository: <https://github.com/cloudnative-pg/>
+- Documentation: <https://cloudnative-pg.io/docs>
+- Helm Chart:
+  - Operator: <https://github.com/cloudnative-pg/charts/tree/main/charts/cloudnative-pg>
+  - Cluster: <https://github.com/cloudnative-pg/charts/tree/main/charts/cluster>
+- Other sites: NA
 
 ## The setup
 

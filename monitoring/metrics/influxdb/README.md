@@ -1,6 +1,12 @@
 # InfluxDB
 
-[InfluxDB](https://www.influxdata.com/) is a Time Series database from InfluxData.
+Scalable datastore for metrics, events, and real-time analytics
+
+- Official site: <https://www.influxdata.com/>
+- Source repository: <https://github.com/influxdata/influxdb>
+- Documentation: <https://docs.influxdata.com/influxdb/v2/>
+- Helm Chart: <https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2>
+- Other sites: NA
 
 ## The setup
 

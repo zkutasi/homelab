@@ -1,6 +1,12 @@
 # Cyberchef
 
-[Cyberchef](https://github.com/gchq/CyberChef) - CyberChef is a simple, intuitive web app for carrying out all manner of "cyber" operations within a web browser.
+The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis
+
+- Official site: <https://gchq.github.io/CyberChef/>
+- Source repository: <https://github.com/gchq/CyberChef>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/mpepping/cyberchef>
+- Other sites: NA
 
 ## The setup
 

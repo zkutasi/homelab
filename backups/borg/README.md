@@ -1,10 +1,28 @@
-# Borg, Borgmatic, Borwarehouse
+# Borg
 
-[Borg](https://www.borgbackup.org/) is a Linux backup tool one can use to backup individual folders, encrypt, deduplicate and manage.
+Deduplicating archiver with compression and authenticated encryption.
 
-[Borgmatic](https://torsion.org/borgmatic/) is a wrapper around Borg to provide a better, YAML-based configuration format to help prevent the excessive usage of the Borg CLI.
+- Official site: <https://www.borgbackup.org/>
+- Source repository: <https://github.com/borgbackup/borg>
+- Documentation: <https://borgbackup.readthedocs.io/en/stable/>
+- Image repo: NA
+- Other sites: NA
 
-[Borgwarehouse](https://borgwarehouse.com/) is an aggregator WebUI for those who use Borg on various hosts, to have a unified view.
+Borgmatic - Simple, configuration-driven backup software for servers and workstations
+
+- Official site: <https://torsion.org/borgmatic/>
+- Source repository: <https://github.com/borgmatic-collective/borgmatic>
+- Documentation: <https://torsion.org/borgmatic/>
+- Image repo: <https://github.com/borgmatic-collective/docker-borgmatic>
+- Other sites: NA
+
+Borgwarehouse - A fast and modern WebUI for a BorgBackup's central repository server.
+
+- Official site: <https://borgwarehouse.com/>
+- Source repository: <https://github.com/ravinou/borgwarehouse>
+- Documentation: <https://borgwarehouse.com/docs/prologue/introduction/>
+- Image repo: <https://hub.docker.com/r/borgwarehouse/borgwarehouse>
+- Other sites: NA
 
 ## The setup
 

@@ -1,6 +1,12 @@
 # What's Up Docker (WUD)
 
-[WUD](https://getwud.github.io/wud/) - Keep your containers up-to-date! Able to just notify.
+Keep your containers up-to-date! Able to just notify.
+
+- Official site: <https://getwud.github.io/wud>
+- Source repository: <https://github.com/getwud/wud>
+- Documentation: <https://getwud.github.io/wud/#/?id=introduction>
+- Image repo: <https://hub.docker.com/r/getwud/wud>
+- Other sites: NA
 
 ## The setup
 

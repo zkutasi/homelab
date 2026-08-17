@@ -1,6 +1,12 @@
 # Nebula-sync
 
-[Nebula-sync](https://github.com/lovelaze/nebula-sync) - Synchronize configuration of multiple Pi-hole v6.x instances.
+Synchronize configuration of multiple Pi-hole v6.x instances.
+
+- Official site: NA
+- Source repository: <https://github.com/lovelaze/nebula-sync>
+- Documentation: NA
+- Image repo: NA
+- Other sites: NA
 
 ## The setup
 

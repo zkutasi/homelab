@@ -1,6 +1,14 @@
 # Portainer
 
-[Portainer](https://www.portainer.io/) is the de facto standard in container management user interfaces. It supports a wide range of architectures including Kubernetes, multi-host compatible and the containers can be observed, managed and configured even.
+Making Docker and Kubernetes management easy.
+
+- Official site: <https://www.portainer.io/>
+- Source repository: <https://github.com/portainer/portainer>
+- Documentation: <https://docs.portainer.io/>
+- Image repo:
+  - Central: <https://hub.docker.com/r/portainer/portainer-ce>
+  - Agent: <https://hub.docker.com/r/portainer/agent>
+- Other sites: NA
 
 ## The setup
 

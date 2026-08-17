@@ -2,6 +2,12 @@
 
 [WatchYourLAN](https://github.com/aceberg/WatchYourLAN) - Lightweight network IP scanner written in Go. With notifications, history, export to Grafana
 
+- Official site: NA
+- Source repository: <https://github.com/aceberg/WatchYourLAN>
+- Documentation: NA
+- Image repo: <https://hub.docker.com/r/aceberg/watchyourlan>
+- Other sites: NA
+
 ## The setup
 
 ## Prerequisites
