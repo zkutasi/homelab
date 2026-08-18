@@ -1,0 +1,8 @@
+- name: Generate dynamic configuration for MetalLB
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/ipaddresspool-private.yaml.j2
+        dest: "extra-manifests/ipaddresspool-private.yaml"

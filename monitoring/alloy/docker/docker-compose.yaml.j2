@@ -29,9 +29,6 @@ services:
       BEYLA_GEOIP_MAXMIND_ASN_PATH: "/geoip/GeoLite2-ASN.mmdb"
       BEYLA_GEOIP_MAXMIND_COUNTRY_PATH: "/geoip/GeoLite2-Country.mmdb"
 {% endif %}
-    extra_hosts:
-      - "prometheus.kubernetes.home:{{ kubernetes_ingress_ip }}"
-      - "loki.kubernetes.home:{{ kubernetes_ingress_ip }}"
     hostname: {{ id }}-alloy
     image: {{ requested_image_version['alloy'] }}
 {% if alloy_beyla_enabled | default(false) %}
