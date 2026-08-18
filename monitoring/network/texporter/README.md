@@ -18,13 +18,13 @@ A lightweight, high-performance eBPF-based network traffic exporter for Promethe
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |texporter_interface|O|The interface to listen on. If not defined, that host will not have texporter installed.|
 
 ### Deploy on the hosts

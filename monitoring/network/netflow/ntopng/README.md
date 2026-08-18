@@ -20,13 +20,13 @@ On the router-side that transfers all ingress and egress traffic into the local 
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |ntopng_interface|M|The interface to listen on|
     |network_subnet|M|The network subnet that defines all of the machines' IP addresses, CIDR notation|
 

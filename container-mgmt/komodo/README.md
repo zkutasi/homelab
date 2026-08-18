@@ -20,14 +20,14 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the central component
 

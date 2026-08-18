@@ -75,8 +75,8 @@ winrm enumerate winrm/config/Listener
 4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX.yaml` where XXX is a valid group name
 5. The following variables can be set on a host (uniquely or on a group):
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |ansible_connection|O|If you set up the local ansible host as well, set this to local on that inventory host|
     |ansible_host|M|The IP address of the machine|
     |ansible_port|O|If the port of the SSH access is different than 22, set it here. Default is 22|

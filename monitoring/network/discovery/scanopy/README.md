@@ -20,8 +20,8 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |scanopy_network_id|M|The Network ID the agents will report against|
     |scanopy_api_key|M|An API key for daemons to communicate with Scanopy Server|
     |scanopy_server_host|M|The host and port of the Scanopy server|
@@ -29,8 +29,8 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the central server
 

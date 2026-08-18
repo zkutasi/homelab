@@ -20,13 +20,13 @@ Multiple clients (in docker) run on multiple hosts independently.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |qbittorrent_extra_mounts|O|Any mounts that should be attached to, to transfer data from/to|
 
 ### Deploy the app

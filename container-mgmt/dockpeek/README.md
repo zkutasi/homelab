@@ -18,16 +18,16 @@ Easily access your Docker container web interfaces and keep them up to date — 
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |dockpeek_secret_key|M||
     |dockpeek_username|M||
     |dockpeek_password|M||
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the central component
 

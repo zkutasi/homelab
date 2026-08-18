@@ -18,16 +18,16 @@ An open-source uptime and SSL monitoring service, with multiple notification cha
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |kuvasz_admin_username|M||
     |kuvasz_admin_password|M||
     |kuvasz_admin_apikey|M||
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

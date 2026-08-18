@@ -20,14 +20,14 @@ Each remote controllable machine needs the RustDesk client as well as the machin
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |rustdesk_server_address|M|To generate the config, this has to be set|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |rustdesk_password|M|The host's password to login remotely after|
 
 ### Deploy the server

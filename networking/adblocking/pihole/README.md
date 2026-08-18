@@ -35,8 +35,8 @@ This Unbound instance is configured in Recursive mode.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |pihole_password|M|The password set up for pihole|
     |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
     |pihole_address|M|The full URL to the Primary PiHole instance in order to call its API|
@@ -44,8 +44,8 @@ This Unbound instance is configured in Recursive mode.
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

@@ -18,15 +18,15 @@ Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |yourlastfm_lastfm_api_key|M|A read-only last.fm API account key|
     |lastfm_username|M|The LastFM username|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

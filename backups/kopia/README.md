@@ -30,8 +30,8 @@ If you have a Synology and the backup server is going to be there, these items h
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |kopia_client_password|M|The password on the client side|
     |kopia_repo_password|M|The Repository password|
     |kopia_server_username|M|The Kopia central server username, also acts as the control-server username|
@@ -40,8 +40,8 @@ If you have a Synology and the backup server is going to be there, these items h
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy Kopia Server and clients
 

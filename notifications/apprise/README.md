@@ -29,15 +29,15 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |apprise_api_hostname|M|The Apprise API hostname to configure the notification architecture with|
     |apprise_target_key|M|The apprise endpoint that identifies the configuration to use for the whole notification pipeline|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |gotify_token|O|The app token for Gotify to identify the host in the notifications|
     |pushover_token|O|The app token for Pushover to identify the host in the notifications|
 

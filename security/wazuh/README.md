@@ -20,15 +20,15 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |wazuh_manager_hostname|M|The manager IP or hostname that the agents use to communicate with|
     |wazuh_registration_password|M|This is the enrollment password that the Agents use to enroll|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the central component
 

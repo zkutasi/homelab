@@ -18,14 +18,14 @@ Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |reverseproxy_internal_domain|M|The common suffix of the reverseproxy domain|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |exposed_services|O|A list of the services to get exposed on the given host. Each element is a map, with keys `proxy_url_prefix` and `backend_port`|
 
 ### Deploy the app

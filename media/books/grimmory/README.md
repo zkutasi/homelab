@@ -18,15 +18,15 @@ A self-hosted library for your ebooks, comics, and audiobooks. Grimmory is an in
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |grimmory_db_root_password|M|The DB root password|
     |grimmory_db_user_password|M|The DB user password|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |books_mount|M|The folder to mount into the container for books|
 
 ### Deploy the app

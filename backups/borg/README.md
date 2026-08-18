@@ -38,23 +38,23 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |borgwarehouse_cronjob_key|M|A Secret key generated via `openssl rand -base64 32` for example|
     |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on on the backupServer host|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |borgwarehouse_alert|O|The amount of minutes borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
-    |borgwarehouse_storage_size|O| The size of the storage quota. Default is 10 GB.|
+    |borgwarehouse_storage_size|O|The size of the storage quota. Default is 10 GB.|
     |borgmatic_encryption_passphrase|M|The encryption passphrase|
 
 3. For the `backupserver` group set up the following variables:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |backups_gid|M|The Group ID Synology created for the backup group|
 
 ### Deploy Borgwarehouse (GUI)

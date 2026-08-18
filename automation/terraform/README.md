@@ -33,8 +33,8 @@ The `vars.tf` file holds the schema for the config you need to pass in (see late
 
 1. Create the configuration files: Create file `terraform.tfvars`, with the following required content
 
-    | Variable | Description |
-    |----------|-------------|
+    |Variable|Description|
+    |--------|-----------|
     |pves|A list of Proxmox Virtual Environments (PVE), with `name` and `address` (IP) fields|
     |endpoint|The PVE system's entry HTTP address|
     |api_token|The Terraform user's Proxmox API token, created beforehand|

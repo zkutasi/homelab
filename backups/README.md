@@ -173,19 +173,19 @@ Cons:
 2. Create a group called `backupclient` and list all the hosts you want to take backup from, these will host the client agents
 3. Add the following variables into the `group_vars/all` file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 4. Create a `group_vars/backupserver` file and set up the following variables:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |backups_folder|M|The volume created on the backup server to store backups in|
 
 5. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |backupserver_hostname|M|The hostname or IP address of the backupserver from the point of client. This can be different if the backupserver is on your LAN or external, from the point of the corresponding client|
     |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
     |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|

@@ -12,8 +12,8 @@
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |seaweedfs_admin_accessKey|M||
     |seaweedfs_admin_secretKey|M||
     |seaweedfs_read_accessKey|M||
@@ -21,8 +21,8 @@
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

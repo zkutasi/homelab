@@ -21,8 +21,8 @@ Since I already want to expose relevant databases to be able to browse them, the
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |portabase_url|M|The URL to access Portabase on|
     |portabase_secret|M||
     |portabase_edge_key|M|The central server's key for the agents|

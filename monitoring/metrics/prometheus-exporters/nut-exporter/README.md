@@ -14,16 +14,16 @@
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |nut_server_hostname|M|The NUT Server to scrape info from|
     |nut_server_username|M||
     |nut_server_password|M||
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |ups_name|O|If having more than one UPS, name them. Default is 'UPS'|
 
 ### Deploy the app

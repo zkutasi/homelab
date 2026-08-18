@@ -23,16 +23,16 @@ In this tool, one needs to either add the monitored hosts manually or there is a
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |snmp_auth_pass|M||
     |snmp_priv_pass|M||
     |librenms_appkey|M|Generate a Laravel App-key with this [Laravel Key Generator](https://generate-random.org/laravel-key-generator)|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

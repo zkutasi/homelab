@@ -30,13 +30,13 @@ If you have a Synology and the backup server is going to be there, these items h
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |urbackup_authkey|M|This is the client auth-key the server expects in case of manual internet-client setup. This is a unique key per client and can be acquired by trying to add a named client on the UI, then on the next page where the client download links are, copy the generated new key and set it in the inventory.|
 
 ### Deploy the server

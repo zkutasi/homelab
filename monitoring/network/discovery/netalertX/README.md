@@ -22,16 +22,16 @@ I deployed it besides a PiHole to integrate it with.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |netalertx_api_token|M|API token for interacting with the service from other Apps|
     |netalertx_interface|M|The interface to scan for devices from.|
     |netalertx_subnet|M|The subnet to scan for devices.|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

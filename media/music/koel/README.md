@@ -20,15 +20,15 @@ A simple web-based personal audio streaming service written in Vue on the client
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |koel_db_password|M|The DB password|
     |koel_app_key|M|A Laravel encryption key|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |music_mounts|O|The folders to mount into the container for music|
 
 ### Deploy the app

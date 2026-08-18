@@ -18,14 +18,14 @@ AdGuard Home is a network-wide software for blocking ads and tracking.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |adguardhome_docker_network_3digit|M|The used docker network between AdguardHome and Unbound. Only give the first 3 digits, the last digit is not needed.|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

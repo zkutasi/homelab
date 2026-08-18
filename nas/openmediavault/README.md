@@ -32,13 +32,13 @@ Since this is an OS in itself, just a fresh empty host is required.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |omv_input_disks|M|The disk dictionary you have, everything is based on this. Shall have as keys disk-labels, and under them the list of the shared folders with their name and path.|
     |omv_mergerfs_pools|M|The dictionary of mergerFS pools, where keys are the pool-names and under them the shared folders.|
     |omv_nfs_allowed_clients|M|A mandatory parameter for the NFS shares.|

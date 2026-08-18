@@ -18,16 +18,16 @@ A simple but powerful self-hosted finance tracker
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |wygiwyh_database_password|M||
     |wygiwyh_secret_key|M||
     |wygiwyh_url|M|The full used URL in the browser, for CSRF protection, hostname part only|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

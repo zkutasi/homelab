@@ -18,16 +18,16 @@ In-a-Dyn is a dynamic DNS client with multiple SSL/TLS library support
 
 1. Add the following variables into the `group_vars/all` file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |ddns_hostname|M|The Dynamic DNS hostname to be updated with the correct IP|
     |ddns_password|M|The password to connect towards the DDNS service|
     |ddns_username|M|The username to connect towards the DDNS service|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |ddns_interface|M|The network interface to check for the IP address on|
     |ddns_aliases|O|The alias to set the IP on. Can be multiple for DDclient, can only be a single element list for Inadyn|
     |ddns_ipv4|O|Specify whether IPv4 IPs are needed. Defaults to true.|

@@ -18,8 +18,8 @@ Lightweight server monitoring with historical data, docker stats, and alerts.
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |beszel_hub_url|M|The Beszel Hub URL for the agents|
     |beszel_username|M|Beszel username (email)|
     |beszel_password|M|Beszel password|
@@ -28,8 +28,8 @@ Lightweight server monitoring with historical data, docker stats, and alerts.
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |disk_devices|O|A list with the /dev devices to map into the agent container|
 
 ### Deploy the central hub

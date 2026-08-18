@@ -18,8 +18,8 @@ Scrobble plays from multiple sources to multiple clients
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |multiscrobbler_baseurl|M|The Callback URL used by interactive login sites|
     |multiscrobbler_lastfm_api_key|M|The LastFM API KEY for MultiScrobbler|
     |multiscrobbler_lastfm_secret|M|The LastFM API secret for MultiScrobbler|
@@ -29,8 +29,8 @@ Scrobble plays from multiple sources to multiple clients
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

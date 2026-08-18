@@ -18,16 +18,16 @@ A self-hosted library management and reading platform for ebooks, PDFs, audioboo
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |bookorbit_bootstrap_token|M||
     |bookorbit_jwt_secret|M||
     |bookorbit_postgres_password|M|The DB password|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |books_mount|M|The folder to mount into the container for books|
 
 ### Deploy the app

@@ -26,15 +26,15 @@ Immich Power Tools - A unofficial immich client to provide better tools to organ
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |immich_db_password|M|The postgres database password|
     |immich_api_key|M|API key for external apps to access Immich|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |photos_mounts|O|The input/original photos folders|
 
 ### Deploy the app

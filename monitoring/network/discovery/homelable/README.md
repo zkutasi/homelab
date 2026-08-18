@@ -18,8 +18,8 @@ Self-hosted homelab infrastructure visualizer — interactive network diagram wi
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |homelable_auth_username|M||
     |homelable_auth_password_hash|M||
     |homelable_secret_key|M||
@@ -27,8 +27,8 @@ Self-hosted homelab infrastructure visualizer — interactive network diagram wi
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 

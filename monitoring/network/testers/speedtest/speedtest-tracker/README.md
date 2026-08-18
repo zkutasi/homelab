@@ -20,16 +20,16 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
 
 1. Add the following variables into the `all` group_vars file:
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
     |speedtest_tracker_schedule|M|A cron-expression to specify how many times a test should be scheduled|
     |speedtest_tracker_app_key|M|A generated App-Key|
     |speedtest_tracker_app_url|M|The App URL used in notifications and emails|
 
 2. For each Ansible host, the following variables can be set
 
-    | Name | Mandatory/Optional | Details |
-    |------|--------------------|---------|
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the app
 
