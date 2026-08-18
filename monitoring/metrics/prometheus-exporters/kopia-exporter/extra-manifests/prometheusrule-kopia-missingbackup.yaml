@@ -11,7 +11,7 @@ spec:
             description: |
               Kopia has not created a backup of {{ $labels.exported_host }} in the last {{ printf "%.0f" $value }} hours.
             summary: Kopia missing backup.
-          expr: (time() - max by (repository) (kopia_go_exporter_backup_end_time)) / 3600 > 25
+          expr: (time() - max by (repository) (kopia_go_exporter_backup_end_time)) / 3600 > 3*24
           for: 1m
           labels:
             severity: warning

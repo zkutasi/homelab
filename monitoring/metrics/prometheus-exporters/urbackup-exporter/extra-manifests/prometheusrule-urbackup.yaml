@@ -7,7 +7,7 @@ spec:
     - name: urbackup
       rules:
         - alert: UrBackupOutdated
-          expr: (time() - urbackup_backup_lasttime{backup_type="file"}) / 3600 > 25
+          expr: (time() - urbackup_backup_lasttime{backup_type="file"}) / 3600 > 3*24
           for: 0m
           labels:
             severity: warning
