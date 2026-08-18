@@ -2,11 +2,11 @@
 
 A service to keep container images secure and up-to-date. Made for Kubernetes and Docker.
 
-- Official site: NA
-- Source repository: <https://github.com/AlexGustafsson/cupdate>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/AlexGustafsson/cupdate)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

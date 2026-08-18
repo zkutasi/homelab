@@ -2,11 +2,11 @@
 
 Single-Binary Kubernetes Dashboard with Multi-Cluster Management & AI Integration. (OpenAI / Claude 4 / Gemini / DeepSeek / OpenRouter / Ollama / Qwen / LMStudio)
 
-- Official site: NA
-- Source repository: <https://github.com/kubewall/kubewall>
-- Documentation: NA
-- Helm Chart: <https://github.com/kubewall/kubewall/tree/main/charts/kubewall>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/kubewall/kubewall)
+- ~~Documentation~~
+- [Helm Chart](https://github.com/kubewall/kubewall/tree/main/charts/kubewall)
+- ~~Other sites~~
 
 ## The setup
 

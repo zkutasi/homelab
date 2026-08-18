@@ -2,11 +2,11 @@
 
 Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
 
-- Official site: <https://www.tracearr.com/>
-- Source repository: <https://github.com/connorgallopo/tracearr>
-- Documentation: <https://docs.tracearr.com/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.tracearr.com/)
+- [Source repository](https://github.com/connorgallopo/tracearr)
+- [Documentation](https://docs.tracearr.com/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

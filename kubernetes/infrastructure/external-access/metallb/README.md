@@ -2,11 +2,11 @@
 
 A network load-balancer implementation for Kubernetes using standard routing protocols
 
-- Official site: <https://metallb.io/>
-- Source repository: <https://github.com/metallb/metallb>
-- Documentation: <https://metallb.io/>
-- Helm Chart: <https://github.com/metallb/metallb/tree/main/charts/metallb>
-- Other sites: NA
+- [Official site](https://metallb.io/)
+- [Source repository](https://github.com/metallb/metallb)
+- [Documentation](https://metallb.io/)
+- [Helm Chart](https://github.com/metallb/metallb/tree/main/charts/metallb)
+- ~~Other sites~~
 
 ## The setup
 

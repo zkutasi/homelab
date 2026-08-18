@@ -2,11 +2,11 @@
 
 eBPF-powered network observability for Kubernetes. Indexes L4/L7 traffic with full K8s context, decrypts TLS without keys. Queryable by AI agents via MCP and humans via dashboard.
 
-- Official site: <https://kubeshark.com/>
-- Source repository: <https://github.com/kubeshark/kubeshark>
-- Documentation: <https://docs.kubeshark.com/en/introduction>
-- Helm Chart: <https://github.com/kubeshark/kubeshark/tree/master/helm-chart>
-- Other sites: NA
+- [Official site](https://kubeshark.com/)
+- [Source repository](https://github.com/kubeshark/kubeshark)
+- [Documentation](https://docs.kubeshark.com/en/introduction)
+- [Helm Chart](https://github.com/kubeshark/kubeshark/tree/master/helm-chart)
+- ~~Other sites~~
 
 ## The setup
 

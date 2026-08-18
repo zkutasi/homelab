@@ -2,11 +2,11 @@
 
 An alternative server implementation of the Bitwarden Client API, written in Rust and compatible with official Bitwarden clients, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
 
-- Official site: NA
-- Source repository: <https://github.com/dani-garcia/vaultwarden>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/vaultwarden/server>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/dani-garcia/vaultwarden)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/vaultwarden/server)
+- ~~Other sites~~
 
 ## The setup
 

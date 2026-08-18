@@ -2,11 +2,11 @@
 
 Collection of handy online tools for developers, with great UX.
 
-- Official site: <https://sharevb-it-tools.vercel.app/>
-- Source repository: <https://github.com/sharevb/it-tools>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/sharevb/it-tools>
-- Other sites: NA
+- [Official site](https://sharevb-it-tools.vercel.app/)
+- [Source repository](https://github.com/sharevb/it-tools)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/sharevb/it-tools)
+- ~~Other sites~~
 
 ## The setup
 

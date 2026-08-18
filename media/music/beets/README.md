@@ -2,11 +2,11 @@
 
 music library manager and MusicBrainz tagger
 
-- Official site: <https://beets.io>
-- Source repository: <https://github.com/beetbox/beets>
-- Documentation: <https://beets.readthedocs.io/en/stable/>
-- Image repo: <https://hub.docker.com/r/linuxserver/beets>
-- Other sites: NA
+- [Official site](https://beets.io)
+- [Source repository](https://github.com/beetbox/beets)
+- [Documentation](https://beets.readthedocs.io/en/stable/)
+- [Image repo](https://hub.docker.com/r/linuxserver/beets)
+- ~~Other sites~~
 
 ## The setup
 

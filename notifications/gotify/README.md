@@ -2,11 +2,11 @@
 
 A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui)
 
-- Official site: <https://gotify.net/>
-- Source repository: <https://github.com/gotify/server>
-- Documentation: <https://gotify.net/docs/>
-- Image repo: <https://hub.docker.com/r/gotify/server>
-- Other sites: NA
+- [Official site](https://gotify.net/)
+- [Source repository](https://github.com/gotify/server)
+- [Documentation](https://gotify.net/docs/)
+- [Image repo](https://hub.docker.com/r/gotify/server)
+- ~~Other sites~~
 
 ## The setup
 

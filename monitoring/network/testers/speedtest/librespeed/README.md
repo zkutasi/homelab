@@ -2,11 +2,11 @@
 
 Self-hosted Speed Test for HTML5 and more. Easy setup, examples, configurable, mobile friendly. Supports PHP, Node, Multiple servers, and more
 
-- Official site: <https://librespeed.org/>
-- Source repository: <https://github.com/librespeed/speedtest>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://librespeed.org/)
+- [Source repository](https://github.com/librespeed/speedtest)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

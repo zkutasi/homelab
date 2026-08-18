@@ -2,11 +2,11 @@
 
 The Free Software Media System - Server Backend & API
 
-- Official site: <https://jellyfin.org/>
-- Source repository: <https://github.com/jellyfin/jellyfin>
-- Documentation: <https://jellyfin.org/docs/>
-- Image repo: <https://hub.docker.com/r/jellyfin/jellyfin>
-- Other sites: NA
+- [Official site](https://jellyfin.org/)
+- [Source repository](https://github.com/jellyfin/jellyfin)
+- [Documentation](https://jellyfin.org/docs/)
+- [Image repo](https://hub.docker.com/r/jellyfin/jellyfin)
+- ~~Other sites~~
 
 ## The setup
 

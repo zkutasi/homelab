@@ -2,11 +2,11 @@
 
 A self-hosted dashboard that puts all your feeds in one place
 
-- Official site: NA
-- Source repository: <https://github.com/glanceapp/glance>
-- Documentation: <https://github.com/glanceapp/glance/blob/main/docs/configuration.md>
-- Image repo: <https://hub.docker.com/r/glanceapp/glance>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/glanceapp/glance)
+- [Documentation](https://github.com/glanceapp/glance/blob/main/docs/configuration.md)
+- [Image repo](https://hub.docker.com/r/glanceapp/glance)
+- ~~Other sites~~
 
 ## The setup
 

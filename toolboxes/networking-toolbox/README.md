@@ -2,11 +2,11 @@
 
 100+ offline-first networking tools and utilities
 
-- Official site: <https://networkingtoolbox.net/>
-- Source repository: <https://github.com/lissy93/networking-toolbox>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/lissy93/networking-toolbox>
-- Other sites: NA
+- [Official site](https://networkingtoolbox.net/)
+- [Source repository](https://github.com/lissy93/networking-toolbox)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/lissy93/networking-toolbox)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 PostgreSQL backup tool with Point-In-Time-Recovery and restore verification
 
-- Official site: <https://databasus.com/>
-- Source repository: <https://github.com/databasus/databasus>
-- Documentation: <https://databasus.com/installation>
-- Helm Chart: <https://github.com/databasus/databasus/tree/main/deploy/helm>
-- Other sites: NA
+- [Official site](https://databasus.com/)
+- [Source repository](https://github.com/databasus/databasus)
+- [Documentation](https://databasus.com/installation)
+- [Helm Chart](https://github.com/databasus/databasus/tree/main/deploy/helm)
+- ~~Other sites~~
 
 ## The setup
 

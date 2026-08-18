@@ -2,11 +2,11 @@
 
 Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems.
 
-- Official site: <https://www.ansible.com/>
-- Source repository: <https://github.com/ansible/ansible>
-- Documentation: <https://docs.ansible.com/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.ansible.com/)
+- [Source repository](https://github.com/ansible/ansible)
+- [Documentation](https://docs.ansible.com/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

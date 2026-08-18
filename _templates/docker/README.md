@@ -2,11 +2,11 @@
 
 A short introduction of the app
 
-- Official site: NA
-- Source repository: NA
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- ~~Source repository~~
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

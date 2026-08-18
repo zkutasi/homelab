@@ -2,11 +2,11 @@
 
 An open-source, self-hosted tool designed to track and monitor server hardware, uptime, response times, and incidents in real-time with beautiful visualizations.
 
-- Official site: <https://checkmate.so/>
-- Source repository: <https://github.com/bluewave-labs/checkmate>
-- Documentation: <https://checkmate.so/docs>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://checkmate.so/)
+- [Source repository](https://github.com/bluewave-labs/checkmate)
+- [Documentation](https://checkmate.so/docs)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

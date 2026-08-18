@@ -2,11 +2,11 @@
 
 Send push notifications to your phone or desktop using PUT/POST
 
-- Official site: <https://ntfy.sh/>
-- Source repository: <https://github.com/binwiederhier/ntfy>
-- Documentation: <https://docs.ntfy.sh/>
-- Image repo: <https://hub.docker.com/r/binwiederhier/ntfy>
-- Other sites: NA
+- [Official site](https://ntfy.sh/)
+- [Source repository](https://github.com/binwiederhier/ntfy)
+- [Documentation](https://docs.ntfy.sh/)
+- [Image repo](https://hub.docker.com/r/binwiederhier/ntfy)
+- ~~Other sites~~
 
 ## The setup
 

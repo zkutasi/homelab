@@ -2,11 +2,11 @@
 
 Analyzes resource usage and performance characteristics of running containers.
 
-- Official site: NA
-- Source repository: <https://github.com/google/cadvisor>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/google/cadvisor)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

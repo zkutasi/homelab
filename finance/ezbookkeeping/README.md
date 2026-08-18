@@ -2,11 +2,11 @@
 
 A lightweight, self-hosted personal finance app with a user-friendly interface and powerful bookkeeping features.
 
-- Official site: <https://ezbookkeeping.mayswind.net/>
-- Source repository: <https://github.com/mayswind/ezbookkeeping>
-- Documentation: <https://ezbookkeeping.mayswind.net/installation/>
-- Image repo: <https://hub.docker.com/r/mayswind/ezbookkeeping>
-- Other sites: NA
+- [Official site](https://ezbookkeeping.mayswind.net/)
+- [Source repository](https://github.com/mayswind/ezbookkeeping)
+- [Documentation](https://ezbookkeeping.mayswind.net/installation/)
+- [Image repo](https://hub.docker.com/r/mayswind/ezbookkeeping)
+- ~~Other sites~~
 
 ## The setup
 

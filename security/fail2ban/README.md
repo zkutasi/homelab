@@ -2,11 +2,11 @@
 
 Daemon to ban hosts that cause multiple authentication errors
 
-- Official site: NA
-- Source repository: <https://github.com/fail2ban/fail2ban>
-- Documentation: <https://github.com/fail2ban/fail2ban/wiki>
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/fail2ban/fail2ban)
+- [Documentation](https://github.com/fail2ban/fail2ban/wiki)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

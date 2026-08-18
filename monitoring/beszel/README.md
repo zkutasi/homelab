@@ -2,11 +2,11 @@
 
 Lightweight server monitoring with historical data, docker stats, and alerts.
 
-- Official site: <https://beszel.dev/>
-- Source repository: <https://github.com/henrygd/beszel>
-- Documentation: <https://beszel.dev/guide/getting-started>
-- Image repo: <https://hub.docker.com/r/henrygd/beszel>
-- Other sites: NA
+- [Official site](https://beszel.dev/)
+- [Source repository](https://github.com/henrygd/beszel)
+- [Documentation](https://beszel.dev/guide/getting-started)
+- [Image repo](https://hub.docker.com/r/henrygd/beszel)
+- ~~Other sites~~
 
 ## The setup
 

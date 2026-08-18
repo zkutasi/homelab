@@ -2,11 +2,11 @@
 
 Server Management Software to connect remotely via SSH, VNC and RDP, deploy docker apps, manage Proxmox LXC and QEMU containers.
 
-- Official site: <https://nexterm.dev/>
-- Source repository: <https://github.com/gnmyt/Nexterm>
-- Documentation: <https://docs.nexterm.dev/>
-- Image repo: <https://hub.docker.com/r/germannewsmaker/nexterm>
-- Other sites: NA
+- [Official site](https://nexterm.dev/)
+- [Source repository](https://github.com/gnmyt/Nexterm)
+- [Documentation](https://docs.nexterm.dev/)
+- [Image repo](https://hub.docker.com/r/germannewsmaker/nexterm)
+- ~~Other sites~~
 
 ## The setup
 

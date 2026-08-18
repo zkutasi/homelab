@@ -2,11 +2,11 @@
 
 Self-hosted collection of powerful web-based tools for everyday tasks. No ads, no tracking, just fast, accessible utilities right from your browser!
 
-- Official site: <https://omnitools.app/>
-- Source repository: <https://github.com/iib0011/omni-tools>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/iib0011/omni-tools>
-- Other sites: NA
+- [Official site](https://omnitools.app/)
+- [Source repository](https://github.com/iib0011/omni-tools)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/iib0011/omni-tools)
+- ~~Other sites~~
 
 ## The setup
 

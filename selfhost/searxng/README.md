@@ -2,11 +2,11 @@
 
 SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.
 
-- Official site: <https://docs.searxng.org/>
-- Source repository: <https://github.com/searxng/searxng>
-- Documentation: <https://docs.searxng.org/>
-- Image repo: <https://hub.docker.com/r/searxng/searxng>
-- Other sites: NA
+- [Official site](https://docs.searxng.org/)
+- [Source repository](https://github.com/searxng/searxng)
+- [Documentation](https://docs.searxng.org/)
+- [Image repo](https://hub.docker.com/r/searxng/searxng)
+- ~~Other sites~~
 
 ## The setup
 

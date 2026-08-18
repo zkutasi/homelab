@@ -2,11 +2,11 @@
 
 Apprise - Push Notifications that work with just about every platform!
 
-- Official site: <https://appriseit.com/>
-- Source repository: <https://github.com/caronc/apprise>
-- Documentation: <https://appriseit.com/>
-- Image repo: <https://hub.docker.com/r/caronc/apprise>
-- Other sites: NA
+- [Official site](https://appriseit.com/)
+- [Source repository](https://github.com/caronc/apprise)
+- [Documentation](https://appriseit.com/)
+- [Image repo](https://hub.docker.com/r/caronc/apprise)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 Portabase - Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB, Firebird SQL, SQLite, MongoDB, Redis and Docker Volume
 
-- Official site: <https://portabase.io/>
-- Source repository: <https://github.com/Portabase/portabase>
-- Documentation: <https://portabase.io/docs>
-- Helm Chart: <https://github.com/Portabase/portabase/tree/main/helm>
-- Other sites: NA
+- [Official site](https://portabase.io/)
+- [Source repository](https://github.com/Portabase/portabase)
+- [Documentation](https://portabase.io/docs)
+- [Helm Chart](https://github.com/Portabase/portabase/tree/main/helm)
+- ~~Other sites~~
 
 ## The setup
 

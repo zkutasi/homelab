@@ -2,11 +2,11 @@
 
 A simple app for tracking monthly spending and working towards financial goals.
 
-- Official site: <https://budgetboard.net/>
-- Source repository: <https://github.com/teelur/budget-board>
-- Documentation: <https://budgetboard.net/docs/quick-start-guide>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://budgetboard.net/)
+- [Source repository](https://github.com/teelur/budget-board)
+- [Documentation](https://budgetboard.net/docs/quick-start-guide)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

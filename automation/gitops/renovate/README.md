@@ -1,10 +1,10 @@
 # Renovate
 
-- Official site: <https://www.mend.io/renovate/>
-- Source repository: <https://github.com/renovatebot/renovate>
-- Documentation: <https://docs.renovatebot.com/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.mend.io/renovate/)
+- [Source repository](https://github.com/renovatebot/renovate)
+- [Documentation](https://docs.renovatebot.com/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

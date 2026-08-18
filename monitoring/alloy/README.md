@@ -2,13 +2,13 @@
 
 Grafana Alloy combines the strengths of the leading collectors into one place. Whether observing applications, infrastructure, or both, Grafana Alloy can collect, process, and export telemetry signals to scale and future-proof your observability approach.
 
-- Official site: <https://grafana.com/oss/alloy-opentelemetry-collector/>
-- Source repository: <https://github.com/grafana/alloy>
-- Documentation: <https://grafana.com/docs/alloy/latest/>
+- [Official site](https://grafana.com/oss/alloy-opentelemetry-collector/)
+- [Source repository](https://github.com/grafana/alloy)
+- [Documentation](https://grafana.com/docs/alloy/latest/)
 - Image repo:
-  - Docker image: <https://hub.docker.com/r/grafana/alloy>
-  - Helm chart: <https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy>
-- Other sites: NA
+  - [Docker image](https://hub.docker.com/r/grafana/alloy)
+  - [Helm chart](https://github.com/grafana/alloy/tree/main/operations/helm/charts/alloy)
+- ~~Other sites~~
 
 ## The setup
 

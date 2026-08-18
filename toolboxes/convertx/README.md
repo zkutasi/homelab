@@ -2,11 +2,11 @@
 
 Self-hosted online file converter. Supports 1000+ formats
 
-- Official site: NA
-- Source repository: <https://github.com/C4illin/ConvertX>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/c4illin/convertx>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/C4illin/ConvertX)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/c4illin/convertx)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 A community-supported supercharged document management system: scan, index and archive all your documents
 
-- Official site: <https://docs.paperless-ngx.com/>
-- Source repository: <https://github.com/paperless-ngx/paperless-ngx>
-- Documentation: <http://docs.paperless-ngx.com/>
-- Image repo: <https://hub.docker.com/r/paperlessngx/paperless-ngx>
-- Other sites: NA
+- [Official site](https://docs.paperless-ngx.com/)
+- [Source repository](https://github.com/paperless-ngx/paperless-ngx)
+- [Documentation](http://docs.paperless-ngx.com/)
+- [Image repo](https://hub.docker.com/r/paperlessngx/paperless-ngx)
+- ~~Other sites~~
 
 ## The setup
 

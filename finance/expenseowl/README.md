@@ -2,11 +2,11 @@
 
 Extremely simple, self-hosted expense tracker with a beautiful UI.
 
-- Official site: NA
-- Source repository: <https://github.com/Tanq16/ExpenseOwl>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/tanq16/expenseowl>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/Tanq16/ExpenseOwl)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/tanq16/expenseowl)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 An SMTP gateway for Apprise notifications.
 
-- Official site: <https://mailrise.xyz/>
-- Source repository: NA
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/yoryan/mailrise>
-- Other sites: NA
+- [Official site](https://mailrise.xyz/)
+- ~~Source repository~~
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/yoryan/mailrise)
+- ~~Other sites~~
 
 ## The setup
 

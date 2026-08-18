@@ -2,11 +2,11 @@
 
 Kubernetes utility for exposing image versions in use, compared to latest available upstream, as metrics.
 
-- Official site: NA
-- Source repository: <https://github.com/jetstack/version-checker>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/jetstack/version-checker)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

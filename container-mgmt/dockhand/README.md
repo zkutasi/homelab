@@ -2,11 +2,11 @@
 
 Dockhand - Docker management you will like.
 
-- Official site: <https://dockhand.pro>
-- Source repository: <https://github.com/Finsys/dockhand>
-- Documentation: <https://dockhand.pro/manual/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://dockhand.pro)
+- [Source repository](https://github.com/Finsys/dockhand)
+- [Documentation](https://dockhand.pro/manual/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

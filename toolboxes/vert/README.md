@@ -2,11 +2,11 @@
 
 The next-generation file converter. Open source, fully local* and free forever.
 
-- Official site: <https://vert.sh/>
-- Source repository: <https://github.com/VERT-sh/VERT>
-- Documentation: NA
+- [Official site](https://vert.sh/)
+- [Source repository](https://github.com/VERT-sh/VERT)
+- ~~Documentation~~
 - Image repo:
-- Other sites: NA
+- ~~Other sites~~
 
 ## The setup
 

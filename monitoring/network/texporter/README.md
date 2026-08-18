@@ -2,11 +2,11 @@
 
 A lightweight, high-performance eBPF-based network traffic exporter for Prometheus.
 
-- Official site: NA
-- Source repository: <https://github.com/kasd/texporter>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/kasd/texporter)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

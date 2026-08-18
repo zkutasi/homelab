@@ -2,19 +2,19 @@
 
 Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available tool that codifies APIs into declarative configuration files that can be shared amongst team members, treated as code, edited, reviewed, and versioned.
 
-- Official site: <https://developer.hashicorp.com/terraform>
-- Source repository: <https://github.com/hashicorp/terraform>
-- Documentation: <https://developer.hashicorp.com/terraform/docs>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://developer.hashicorp.com/terraform)
+- [Source repository](https://github.com/hashicorp/terraform)
+- [Documentation](https://developer.hashicorp.com/terraform/docs)
+- ~~Image repo~~
+- ~~Other sites~~
 
 Recently in 2025 there was a big shift in the license const of this tool, so if you still want to use it in the future, probably a good way to go is to look into [OpenTofu](https://opentofu.org/). It still uses the same language to write the IaC, and is completely still open source.
 
-- Official site: <https://opentofu.org/>
-- Source repository: <https://github.com/opentofu/opentofu>
-- Documentation: <https://opentofu.org/docs/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://opentofu.org/)
+- [Source repository](https://github.com/opentofu/opentofu)
+- [Documentation](https://opentofu.org/docs/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

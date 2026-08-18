@@ -2,11 +2,11 @@
 
 A lightweight, modern Kubernetes dashboard that unifies multi-cluster and resource management, enterprise-grade user governance (OAuth, RBAC, and audit logs), and AI agents in one workspace. Not just a tool, but more like a platform.
 
-- Official site: <https://kite.zzde.me/>
-- Source repository: <https://github.com/kite-org/kite>
-- Documentation: <https://kite.zzde.me/config/>
-- Helm Chart: <https://github.com/kite-org/kite/tree/main/charts/kite>
-- Other sites: NA
+- [Official site](https://kite.zzde.me/)
+- [Source repository](https://github.com/kite-org/kite)
+- [Documentation](https://kite.zzde.me/config/)
+- [Helm Chart](https://github.com/kite-org/kite/tree/main/charts/kite)
+- ~~Other sites~~
 
 ## The setup
 

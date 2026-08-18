@@ -2,11 +2,11 @@
 
 Network diagrams that update themselves
 
-- Official site: <https://scanopy.net/>
-- Source repository: <https://github.com/scanopy/scanopy>
-- Documentation: <https://scanopy.net/docs/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://scanopy.net/)
+- [Source repository](https://github.com/scanopy/scanopy)
+- [Documentation](https://scanopy.net/docs/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

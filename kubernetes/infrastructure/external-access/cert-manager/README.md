@@ -2,11 +2,11 @@
 
 Automatically provision and manage TLS certificates in Kubernetes
 
-- Official site: <https://cert-manager.io/>
-- Source repository: <https://github.com/cert-manager/cert-manager>
-- Documentation: <https://cert-manager.io/docs/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://cert-manager.io/)
+- [Source repository](https://github.com/cert-manager/cert-manager)
+- [Documentation](https://cert-manager.io/docs/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

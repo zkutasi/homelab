@@ -2,11 +2,11 @@
 
 A simple but powerful self-hosted finance tracker
 
-- Official site: <https://wygiwyh-demo.herculino.com/>
-- Source repository: <https://github.com/eitchtee/WYGIWYH>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/eitchtee/wygiwyh>
-- Other sites: NA
+- [Official site](https://wygiwyh-demo.herculino.com/)
+- [Source repository](https://github.com/eitchtee/WYGIWYH)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/eitchtee/wygiwyh)
+- ~~Other sites~~
 
 ## The setup
 

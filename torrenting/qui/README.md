@@ -2,11 +2,11 @@
 
 Supports multiple QBitTorrent instances in one UI
 
-- Official site: <https://getqui.com/>
-- Source repository: <https://github.com/autobrr/qui>
-- Documentation: <https://getqui.com/docs/intro/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://getqui.com/)
+- [Source repository](https://github.com/autobrr/qui)
+- [Documentation](https://getqui.com/docs/intro/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

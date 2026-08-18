@@ -2,11 +2,11 @@
 
 The open-source image suite that makes paid tools nervous. Every image tool you need. Your images stay yours.
 
-- Official site: <https://snapotter.com/>
-- Source repository: <https://github.com/snapotter-hq/snapotter>
-- Documentation: <https://docs.snapotter.com/>
-- Image repo: <https://hub.docker.com/r/snapotter/snapotter>
-- Other sites: NA
+- [Official site](https://snapotter.com/)
+- [Source repository](https://github.com/snapotter-hq/snapotter)
+- [Documentation](https://docs.snapotter.com/)
+- [Image repo](https://hub.docker.com/r/snapotter/snapotter)
+- ~~Other sites~~
 
 ## The setup
 

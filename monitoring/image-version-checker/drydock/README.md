@@ -2,11 +2,11 @@
 
 Open source container update monitoring — 23 registries, 20 notification triggers, audit log, OIDC auth, Prometheus metrics, and a modern dashboard.
 
-- Official site: <https://drydock.codeswhat.com/>
-- Source repository: <https://github.com/CodesWhat/drydock>
+- [Official site](https://drydock.codeswhat.com/)
+- [Source repository](https://github.com/CodesWhat/drydock)
 - Documentation: getdrydock.com/docs
-- Image repo: <https://hub.docker.com/r/codeswhat/drydock>
-- Other sites: NA
+- [Image repo](https://hub.docker.com/r/codeswhat/drydock)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 Simple bookmark manager built with Go
 
-- Official site: NA
-- Source repository: <https://github.com/go-shiori/shiori>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/go-shiori/shiori)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

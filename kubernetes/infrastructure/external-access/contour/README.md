@@ -2,11 +2,11 @@
 
 Contour is a Kubernetes ingress controller using Envoy proxy.
 
-- Official site: <https://projectcontour.io/>
-- Source repository: <https://github.com/projectcontour/contour>
-- Documentation: <https://projectcontour.io/docs/>
-- Helm Chart: <https://github.com/projectcontour/helm-charts/tree/main/charts/contour>
-- Other sites: NA
+- [Official site](https://projectcontour.io/)
+- [Source repository](https://github.com/projectcontour/contour)
+- [Documentation](https://projectcontour.io/docs/)
+- [Helm Chart](https://github.com/projectcontour/helm-charts/tree/main/charts/contour)
+- ~~Other sites~~
 
 ## The setup
 

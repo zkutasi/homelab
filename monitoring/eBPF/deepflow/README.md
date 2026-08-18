@@ -2,13 +2,13 @@
 
 eBPF Observability - Distributed Tracing and Profiling
 
-- Official site: <https://deepflow.io/>
-- Source repository: <https://github.com/deepflowio/deepflow>
-- Documentation: <https://deepflow.io/docs/>
+- [Official site](https://deepflow.io/)
+- [Source repository](https://github.com/deepflowio/deepflow)
+- [Documentation](https://deepflow.io/docs/)
 - Helm Chart:
-  - Central: <https://github.com/deepflowio/deepflow-charts/tree/main/charts/deepflow>
-  - Agent: <https://github.com/deepflowio/deepflow-charts/tree/main/charts/deepflow-agent>
-- Other sites: NA
+  - [Central](https://github.com/deepflowio/deepflow-charts/tree/main/charts/deepflow)
+  - [Agent](https://github.com/deepflowio/deepflow-charts/tree/main/charts/deepflow-agent)
+- ~~Other sites~~
 
 ## The setup
 

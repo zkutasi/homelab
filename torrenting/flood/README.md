@@ -2,11 +2,11 @@
 
 A monitoring service for multiple Torrent clients.
 
-- Official site: <https://flood.js.org/>
-- Source repository: <https://github.com/jesec/flood>
-- Documentation: <https://github.com/jesec/flood/wiki>
-- Image repo: <https://hub.docker.com/r/jesec/flood>
-- Other sites: NA
+- [Official site](https://flood.js.org/)
+- [Source repository](https://github.com/jesec/flood)
+- [Documentation](https://github.com/jesec/flood/wiki)
+- [Image repo](https://hub.docker.com/r/jesec/flood)
+- ~~Other sites~~
 
 ## The setup
 

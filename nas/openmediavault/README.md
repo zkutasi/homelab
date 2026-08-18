@@ -2,11 +2,11 @@
 
 openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, DAAP media server, RSync, Kubernetes and many more ready to use.
 
-- Official site: <https://www.openmediavault.org/>
-- Source repository: NA
-- Documentation: <https://docs.openmediavault.org>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.openmediavault.org/)
+- ~~Source repository~~
+- [Documentation](https://docs.openmediavault.org)
+- ~~Image repo~~
+- ~~Other sites~~
 
 The extra plugins are decoupled into [OMVExtras](https://wiki.omv-extras.org/) which has to be installed separately to function.
 

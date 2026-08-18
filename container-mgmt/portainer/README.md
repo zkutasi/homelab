@@ -2,13 +2,13 @@
 
 Making Docker and Kubernetes management easy.
 
-- Official site: <https://www.portainer.io/>
-- Source repository: <https://github.com/portainer/portainer>
-- Documentation: <https://docs.portainer.io/>
+- [Official site](https://www.portainer.io/)
+- [Source repository](https://github.com/portainer/portainer)
+- [Documentation](https://docs.portainer.io/)
 - Image repo:
-  - Central: <https://hub.docker.com/r/portainer/portainer-ce>
-  - Agent: <https://hub.docker.com/r/portainer/agent>
-- Other sites: NA
+  - [Central](https://hub.docker.com/r/portainer/portainer-ce)
+  - [Agent](https://hub.docker.com/r/portainer/agent)
+- ~~Other sites~~
 
 ## The setup
 

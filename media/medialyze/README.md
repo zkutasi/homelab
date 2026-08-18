@@ -2,11 +2,11 @@
 
 Self-hosted media library analysis for large video collections
 
-- Official site: <https://www.medialyze.app/>
-- Source repository: <https://github.com/frederikemmer/MediaLyze>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.medialyze.app/)
+- [Source repository](https://github.com/frederikemmer/MediaLyze)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

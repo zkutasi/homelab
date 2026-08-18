@@ -2,11 +2,11 @@
 
 Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
 
-- Official site: <https://caddyserver.com/>
-- Source repository: <https://github.com/caddyserver/caddy>
-- Documentation: <https://caddyserver.com/docs/>
-- Image repo: <https://hub.docker.com/_/caddy>
-- Other sites: NA
+- [Official site](https://caddyserver.com/)
+- [Source repository](https://github.com/caddyserver/caddy)
+- [Documentation](https://caddyserver.com/docs/)
+- [Image repo](https://hub.docker.com/_/caddy)
+- ~~Other sites~~
 
 ## The setup
 

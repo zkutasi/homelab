@@ -2,11 +2,11 @@
 
 As Kubernetes clusters are very dynamic and their state changes over time, there may be desire to move already running pods to some other nodes for various reasons.
 
-- Official site: NA
-- Source repository: <https://github.com/kubernetes-sigs/descheduler>
-- Documentation: NA
-- Helm Chart: <https://github.com/kubernetes-sigs/descheduler/tree/master/charts/descheduler>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/kubernetes-sigs/descheduler)
+- ~~Documentation~~
+- [Helm Chart](https://github.com/kubernetes-sigs/descheduler/tree/master/charts/descheduler)
+- ~~Other sites~~
 
 ## The setup
 

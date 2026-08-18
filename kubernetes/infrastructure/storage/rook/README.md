@@ -2,13 +2,13 @@
 
 Storage Orchestration for Kubernetes
 
-- Official site: <https://rook.io/>
-- Source repository: <https://github.com/rook/rook>
-- Documentation: <https://rook.io/docs/rook/latest-release>
+- [Official site](https://rook.io/)
+- [Source repository](https://github.com/rook/rook)
+- [Documentation](https://rook.io/docs/rook/latest-release)
 - Helm Chart:
-  - Operator: <https://github.com/rook/rook/tree/master/deploy/charts/rook-ceph>
-  - Cluster: <https://github.com/rook/rook/tree/master/deploy/charts/rook-ceph-cluster>
-- Other sites: NA
+  - [Operator](https://github.com/rook/rook/tree/master/deploy/charts/rook-ceph)
+  - [Cluster](https://github.com/rook/rook/tree/master/deploy/charts/rook-ceph-cluster)
+- ~~Other sites~~
 
 ## The setup
 

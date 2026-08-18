@@ -2,11 +2,11 @@
 
 Modern UI and powerful API for Ansible, Terraform/OpenTofu/Terragrunt, PowerShell and other DevOps tools.
 
-- Official site: <https://semaphoreui.com/>
-- Source repository: <https://github.com/semaphoreui/semaphore>
-- Documentation: <https://semaphoreui.com/docs>
-- Image repo: <https://hub.docker.com/r/semaphoreui/semaphore>
-- Other sites: NA
+- [Official site](https://semaphoreui.com/)
+- [Source repository](https://github.com/semaphoreui/semaphore)
+- [Documentation](https://semaphoreui.com/docs)
+- [Image repo](https://hub.docker.com/r/semaphoreui/semaphore)
+- ~~Other sites~~
 
 ## The setup
 

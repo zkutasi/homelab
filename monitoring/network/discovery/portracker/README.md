@@ -2,11 +2,11 @@
 
 An open source, self-hosted, real-time port monitoring and discovery tool.
 
-- Official site: NA
-- Source repository: <https://github.com/mostafa-wahied/portracker>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/mostafawahied/portracker>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/mostafa-wahied/portracker)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/mostafawahied/portracker)
+- ~~Other sites~~
 
 ## The setup
 

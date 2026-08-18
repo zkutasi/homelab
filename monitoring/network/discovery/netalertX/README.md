@@ -2,11 +2,11 @@
 
 Centralized network visibility and continuous asset discovery. Monitor devices, detect change, and stay aware across distributed networks.
 
-- Official site: <https://netalertx.com/>
-- Source repository: <https://github.com/netalertx/NetAlertX>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/jokobsk/netalertx>
-- Other sites: NA
+- [Official site](https://netalertx.com/)
+- [Source repository](https://github.com/netalertx/NetAlertX)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/jokobsk/netalertx)
+- ~~Other sites~~
 
 ## The setup
 

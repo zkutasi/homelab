@@ -2,11 +2,11 @@
 
 A free, privacy-focused PDF toolkit that runs entirely in your browser. With 90+ professional tools, you can edit, convert, merge, split, and secure your PDF files without ever uploading them to a server.
 
-- Official site: <https://pdfcraft.devtoolcafe.com/>
-- Source repository: <https://github.com/PDFCraftTool/pdfcraft>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://pdfcraft.devtoolcafe.com/)
+- [Source repository](https://github.com/PDFCraftTool/pdfcraft)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 OliveTin gives safe and simple access to predefined shell commands from a web interface.
 
-- Official site: <https://olivetin.app/>
-- Source repository: <https://github.com/OliveTin/OliveTin>
-- Documentation: <https://docs.olivetin.app/>
-- Image repo: <https://hub.docker.com/r/jamesread/olivetin>
-- Other sites: NA
+- [Official site](https://olivetin.app/)
+- [Source repository](https://github.com/OliveTin/OliveTin)
+- [Documentation](https://docs.olivetin.app/)
+- [Image repo](https://hub.docker.com/r/jamesread/olivetin)
+- ~~Other sites~~
 
 ## The setup
 

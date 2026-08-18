@@ -2,11 +2,11 @@
 
 A local-first personal finance app
 
-- Official site: <https://actualbudget.org/>
-- Source repository: <https://github.com/actualbudget/actual>
-- Documentation: <https://actualbudget.org/docs/>
-- Image repo: <https://hub.docker.com/r/actualbudget/actual-server>
-- Other sites: NA
+- [Official site](https://actualbudget.org/)
+- [Source repository](https://github.com/actualbudget/actual)
+- [Documentation](https://actualbudget.org/docs/)
+- [Image repo](https://hub.docker.com/r/actualbudget/actual-server)
+- ~~Other sites~~
 
 ## The setup
 

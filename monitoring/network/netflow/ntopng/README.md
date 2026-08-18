@@ -2,11 +2,11 @@
 
 Web-based Traffic and Cybersecurity Network Traffic Monitoring
 
-- Official site: <https://www.ntop.org/products/traffic-analysis/ntopng/>
-- Source repository: <https://github.com/ntop/ntopng/>
-- Documentation: <https://www.ntop.org/guides/ntopng/>
-- Image repo: <https://hub.docker.com/r/ntop/ntopng>
-- Other sites: NA
+- [Official site](https://www.ntop.org/products/traffic-analysis/ntopng/)
+- [Source repository](https://github.com/ntop/ntopng/)
+- [Documentation](https://www.ntop.org/guides/ntopng/)
+- [Image repo](https://hub.docker.com/r/ntop/ntopng)
+- ~~Other sites~~
 
 ## The setup
 

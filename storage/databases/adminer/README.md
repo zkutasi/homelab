@@ -2,11 +2,11 @@
 
 Database management in a single PHP file
 
-- Official site: <https://www.adminer.org/>
-- Source repository: <https://github.com/TimWolla/docker-adminer>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/_/adminer>
-- Other sites: NA
+- [Official site](https://www.adminer.org/)
+- [Source repository](https://github.com/TimWolla/docker-adminer)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/_/adminer)
+- ~~Other sites~~
 
 ## The setup
 

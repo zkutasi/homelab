@@ -2,11 +2,11 @@
 
 Easily access your Docker container web interfaces and keep them up to date — across all your hosts.
 
-- Official site: NA
-- Source repository: <https://github.com/dockpeek/dockpeek>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/dockpeek/dockpeek>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/dockpeek/dockpeek)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/dockpeek/dockpeek)
+- ~~Other sites~~
 
 ## The setup
 

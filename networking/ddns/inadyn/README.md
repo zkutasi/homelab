@@ -2,11 +2,11 @@
 
 In-a-Dyn is a dynamic DNS client with multiple SSL/TLS library support
 
-- Official site: NA
-- Source repository: <https://github.com/troglobit/inadyn>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/troglobit/inadyn)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

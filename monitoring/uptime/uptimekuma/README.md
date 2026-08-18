@@ -2,19 +2,19 @@
 
 A fancy self-hosted monitoring tool
 
-- Official site: <https://uptime.kuma.pet/>
-- Source repository: <https://github.com/louislam/uptime-kuma>
-- Documentation: <https://github.com/louislam/uptime-kuma/wiki>
-- Image repo: <https://hub.docker.com/r/louislam/uptime-kuma>
-- Other sites: NA
+- [Official site](https://uptime.kuma.pet/)
+- [Source repository](https://github.com/louislam/uptime-kuma)
+- [Documentation](https://github.com/louislam/uptime-kuma/wiki)
+- [Image repo](https://hub.docker.com/r/louislam/uptime-kuma)
+- ~~Other sites~~
 
 AutoKuma - AutoKuma is a utility that automates the creation of Uptime Kuma monitors based on Docker container labels. With AutoKuma, you can eliminate the need for manual monitor creation in the Uptime Kuma UI.
 
-- Official site: <https://autokuma.bigboot.dev/dev/>
-- Source repository: <https://github.com/BigBoot/AutoKuma>
-- Documentation: <https://autokuma.bigboot.dev/dev/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://autokuma.bigboot.dev/dev/)
+- [Source repository](https://github.com/BigBoot/AutoKuma)
+- [Documentation](https://autokuma.bigboot.dev/dev/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

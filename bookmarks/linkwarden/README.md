@@ -2,11 +2,11 @@
 
 Self-hosted collaborative bookmark manager to collect, read, annotate, and fully preserve what matters, all in one place.
 
-- Official site: <https://linkwarden.app/>
-- Source repository: <https://github.com/linkwarden/linkwarden>
-- Documentation: <https://docs.linkwarden.app/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://linkwarden.app/)
+- [Source repository](https://github.com/linkwarden/linkwarden)
+- [Documentation](https://docs.linkwarden.app/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 All-in-one OSINT tool for analysing any website
 
-- Official site: <https://web-check.xyz/>
-- Source repository: <https://github.com/lissy93/web-check>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://web-check.xyz/)
+- [Source repository](https://github.com/lissy93/web-check)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

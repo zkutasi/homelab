@@ -2,11 +2,11 @@
 
 Open and extensible continuous delivery solution for Kubernetes. Powered by GitOps Toolkit.
 
-- Official site: <https://fluxcd.io/>
-- Source repository: <https://github.com/fluxcd/flux2>
-- Documentation: <https://fluxcd.io/flux/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://fluxcd.io/)
+- [Source repository](https://github.com/fluxcd/flux2)
+- [Documentation](https://fluxcd.io/flux/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 An application for automated Docker container updates with a web UI
 
-- Official site: NA
-- Source repository: <https://github.com/Quenary/tugtainer>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/quenary/tugtainer>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/Quenary/tugtainer)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/quenary/tugtainer)
+- ~~Other sites~~
 
 ## The setup
 

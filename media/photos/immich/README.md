@@ -2,19 +2,19 @@
 
 High performance self-hosted photo and video management solution.
 
-- Official site: <https://immich.app/>
-- Source repository: <https://github.com/immich-app/immich>
-- Documentation: <https://docs.immich.app/overview/quick-start/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://immich.app/)
+- [Source repository](https://github.com/immich-app/immich)
+- [Documentation](https://docs.immich.app/overview/quick-start/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 Immich Power Tools - A unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
 
-- Official site: NA
-- Source repository: <https://github.com/immich-power-tools/immich-power-tools>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/immich-power-tools/immich-power-tools)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

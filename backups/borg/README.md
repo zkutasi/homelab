@@ -2,27 +2,27 @@
 
 Deduplicating archiver with compression and authenticated encryption.
 
-- Official site: <https://www.borgbackup.org/>
-- Source repository: <https://github.com/borgbackup/borg>
-- Documentation: <https://borgbackup.readthedocs.io/en/stable/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.borgbackup.org/)
+- [Source repository](https://github.com/borgbackup/borg)
+- [Documentation](https://borgbackup.readthedocs.io/en/stable/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 Borgmatic - Simple, configuration-driven backup software for servers and workstations
 
-- Official site: <https://torsion.org/borgmatic/>
-- Source repository: <https://github.com/borgmatic-collective/borgmatic>
-- Documentation: <https://torsion.org/borgmatic/>
-- Image repo: <https://github.com/borgmatic-collective/docker-borgmatic>
-- Other sites: NA
+- [Official site](https://torsion.org/borgmatic/)
+- [Source repository](https://github.com/borgmatic-collective/borgmatic)
+- [Documentation](https://torsion.org/borgmatic/)
+- [Image repo](https://github.com/borgmatic-collective/docker-borgmatic)
+- ~~Other sites~~
 
 Borgwarehouse - A fast and modern WebUI for a BorgBackup's central repository server.
 
-- Official site: <https://borgwarehouse.com/>
-- Source repository: <https://github.com/ravinou/borgwarehouse>
-- Documentation: <https://borgwarehouse.com/docs/prologue/introduction/>
-- Image repo: <https://hub.docker.com/r/borgwarehouse/borgwarehouse>
-- Other sites: NA
+- [Official site](https://borgwarehouse.com/)
+- [Source repository](https://github.com/ravinou/borgwarehouse)
+- [Documentation](https://borgwarehouse.com/docs/prologue/introduction/)
+- [Image repo](https://hub.docker.com/r/borgwarehouse/borgwarehouse)
+- ~~Other sites~~
 
 ## The setup
 

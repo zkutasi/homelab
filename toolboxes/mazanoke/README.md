@@ -2,11 +2,11 @@
 
 A self-hosted local image optimizer that runs in your browser
 
-- Official site: <https://mazanoke.com/>
-- Source repository: <https://github.com/civilblur/mazanoke>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://mazanoke.com/)
+- [Source repository](https://github.com/civilblur/mazanoke)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

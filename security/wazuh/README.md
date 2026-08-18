@@ -2,11 +2,11 @@
 
 Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.
 
-- Official site: <https://wazuh.com/>
-- Source repository: <https://github.com/wazuh/wazuh>
-- Documentation: <https://documentation.wazuh.com/current/index.html>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://wazuh.com/)
+- [Source repository](https://github.com/wazuh/wazuh)
+- [Documentation](https://documentation.wazuh.com/current/index.html)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

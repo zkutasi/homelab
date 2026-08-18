@@ -2,11 +2,11 @@
 
 A simple web-based tool for processing images and converting documents with a simple interface
 
-- Official site: NA
-- Source repository: <https://github.com/dendianugerah/reubah>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/dendianugerah/reubah)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

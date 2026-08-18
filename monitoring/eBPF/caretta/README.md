@@ -2,11 +2,11 @@
 
 Instant K8s service dependency map, right to your Grafana.
 
-- Official site: NA
-- Source repository: <https://github.com/groundcover-com/caretta>
-- Documentation: NA
-- Helm Chart: <https://github.com/groundcover-com/caretta/tree/main/chart>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/groundcover-com/caretta)
+- ~~Documentation~~
+- [Helm Chart](https://github.com/groundcover-com/caretta/tree/main/chart)
+- ~~Other sites~~
 
 ## The setup
 

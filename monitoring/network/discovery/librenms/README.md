@@ -2,12 +2,12 @@
 
 Community-based GPL-licensed network monitoring system
 
-- Official site: <https://www.librenms.org/>
-- Source repository: <https://github.com/librenms/librenms>
-- Documentation: <https://docs.librenms.org/>
-- Image repo: <https://hub.docker.com/r/librenms/librenms>
-- Helm Chart: <https://github.com/librenms/helm-charts/tree/develop/charts/librenms>
-- Other sites: NA
+- [Official site](https://www.librenms.org/)
+- [Source repository](https://github.com/librenms/librenms)
+- [Documentation](https://docs.librenms.org/)
+- [Image repo](https://hub.docker.com/r/librenms/librenms)
+- [Helm Chart](https://github.com/librenms/helm-charts/tree/develop/charts/librenms)
+- ~~Other sites~~
 
 ## The setup
 

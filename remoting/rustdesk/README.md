@@ -2,11 +2,11 @@
 
 An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer.
 
-- Official site: <https://rustdesk.com/>
-- Source repository: <https://github.com/rustdesk/rustdesk>
-- Documentation: <https://rustdesk.com/docs/en/>
-- Image repo: <https://hub.docker.com/r/rustdesk/rustdesk-server>
-- Other sites: NA
+- [Official site](https://rustdesk.com/)
+- [Source repository](https://github.com/rustdesk/rustdesk)
+- [Documentation](https://rustdesk.com/docs/en/)
+- [Image repo](https://hub.docker.com/r/rustdesk/rustdesk-server)
+- ~~Other sites~~
 
 ## The setup
 

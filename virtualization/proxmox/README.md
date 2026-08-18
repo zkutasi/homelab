@@ -2,11 +2,11 @@
 
 Proxmox Virtual Environment is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools using a single solution.
 
-- Official site: <https://www.proxmox.com/en/products/proxmox-virtual-environment/overview>
-- Source repository: <https://git.proxmox.com/>
-- Documentation: <https://pve.proxmox.com/pve-docs/>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview)
+- [Source repository](https://git.proxmox.com/)
+- [Documentation](https://pve.proxmox.com/pve-docs/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## Requirements
 

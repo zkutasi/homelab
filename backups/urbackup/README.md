@@ -2,13 +2,13 @@
 
 UrBackup is an easy to setup Open Source client/server backup system, that through a combination of image and file backups accomplishes both data safety and a fast restoration time.
 
-- Official site: <https://www.urbackup.org/>
-- Source repository: NA
-- Documentation: <https://www.urbackup.org/documentation.html>
+- [Official site](https://www.urbackup.org/)
+- ~~Source repository~~
+- [Documentation](https://www.urbackup.org/documentation.html)
 - Image repo:
-  - Client: <https://github.com/uroni/urbackup-client-docker>
-  - Server: <https://github.com/uroni/urbackup-server-docker>
-- Other sites: NA
+  - [Client](https://github.com/uroni/urbackup-client-docker)
+  - [Server](https://github.com/uroni/urbackup-server-docker)
+- ~~Other sites~~
 
 ## The setup
 

@@ -2,11 +2,11 @@
 
 Open-source, self-hostable personal subscription tracker. Visualize your recurring expenses, manage your budget, and save money.
 
-- Official site: <https://wallosapp.com/>
-- Source repository: <https://github.com/ellite/wallos>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/bellamy/wallos>
-- Other sites: NA
+- [Official site](https://wallosapp.com/)
+- [Source repository](https://github.com/ellite/wallos)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/bellamy/wallos)
+- ~~Other sites~~
 
 ## The setup
 

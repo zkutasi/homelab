@@ -2,11 +2,11 @@
 
 Modern web-based UPS monitoring system with real-time data visualization, alerts, and comprehensive reporting. Docker-ready with multi-architecture support.
 
-- Official site: NA
-- Source repository: <https://github.com/DartSteven/Nutify>
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/dartsteven/nutify>
-- Other sites: NA
+- ~~Official site~~
+- [Source repository](https://github.com/DartSteven/Nutify)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/dartsteven/nutify)
+- ~~Other sites~~
 
 ## The setup
 

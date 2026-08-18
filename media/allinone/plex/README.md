@@ -2,19 +2,19 @@
 
 Don’t just store your movies and music—experience it like never before. Plex personal media server magically scans and organizes your files, sorting your media intuitively and beautifully.
 
-- Official site: <https://www.plex.tv/personal-media-server/>
-- Source repository: NA
-- Documentation: NA
-- Image repo: <https://hub.docker.com/r/plexinc/pms-docker>
-- Other sites: NA
+- [Official site](https://www.plex.tv/personal-media-server/)
+- ~~Source repository~~
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/plexinc/pms-docker)
+- ~~Other sites~~
 
 Tautulli - The best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
 
-- Official site: <https://tautulli.com/>
-- Source repository: <https://github.com/Tautulli/Tautulli>
-- Documentation: <https://github.com/Tautulli/Tautulli/wiki>
-- Image repo: <https://hub.docker.com/r/tautulli/tautulli>
-- Other sites: NA
+- [Official site](https://tautulli.com/)
+- [Source repository](https://github.com/Tautulli/Tautulli)
+- [Documentation](https://github.com/Tautulli/Tautulli/wiki)
+- [Image repo](https://hub.docker.com/r/tautulli/tautulli)
+- ~~Other sites~~
 
 ## The setup
 

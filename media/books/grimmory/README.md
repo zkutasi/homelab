@@ -2,11 +2,11 @@
 
 A self-hosted library for your ebooks, comics, and audiobooks. Grimmory is an independent community fork of [BookLore](https://github.com/booklore-app/booklore).
 
-- Official site: <https://grimmory.org/>
-- Source repository: <https://github.com/grimmory-tools/grimmory>
-- Documentation: <https://grimmory.org/docs/getting-started/>
-- Image repo: <https://hub.docker.com/r/grimmory/grimmory>
-- Other sites: NA
+- [Official site](https://grimmory.org/)
+- [Source repository](https://github.com/grimmory-tools/grimmory)
+- [Documentation](https://grimmory.org/docs/getting-started/)
+- [Image repo](https://hub.docker.com/r/grimmory/grimmory)
+- ~~Other sites~~
 
 ## The setup
 

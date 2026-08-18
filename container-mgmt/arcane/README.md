@@ -2,11 +2,11 @@
 
 Modern Docker Management, Designed for Everyone
 
-- Official site: <https://getarcane.app/>
-- Source repository: <https://github.com/getarcaneapp/arcane>
-- Documentation: <https://getarcane.app/docs>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://getarcane.app/)
+- [Source repository](https://github.com/getarcaneapp/arcane)
+- [Documentation](https://getarcane.app/docs)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

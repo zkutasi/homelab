@@ -2,11 +2,11 @@
 
 Self hosted file converter for images, video, audio, json, excel and more. Supports over 2,000 conversions!
 
-- Official site: <https://transmute.sh/>
-- Source repository: <https://github.com/transmute-app/transmute>
-- Documentation: <https://transmute.sh/docs>
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://transmute.sh/)
+- [Source repository](https://github.com/transmute-app/transmute)
+- [Documentation](https://transmute.sh/docs)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

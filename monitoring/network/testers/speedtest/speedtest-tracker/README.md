@@ -2,11 +2,11 @@
 
 Speedtest Tracker is a self-hosted application that monitors the performance and uptime of your internet connection.
 
-- Official site: <https://docs.speedtest-tracker.dev/>
-- Source repository: <https://github.com/alexjustesen/speedtest-tracker>
-- Documentation: <https://docs.speedtest-tracker.dev/>
-- Image repo: <https://hub.docker.com/r/linuxserver/speedtest-tracker>
-- Other sites: NA
+- [Official site](https://docs.speedtest-tracker.dev/)
+- [Source repository](https://github.com/alexjustesen/speedtest-tracker)
+- [Documentation](https://docs.speedtest-tracker.dev/)
+- [Image repo](https://hub.docker.com/r/linuxserver/speedtest-tracker)
+- ~~Other sites~~
 
 ## The setup
 

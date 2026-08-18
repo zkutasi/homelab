@@ -2,11 +2,11 @@
 
 Homer is a dead simple static HOMepage for your servER (or anything else) to keep your services and favorite links on hand, based on a simple yaml configuration file.
 
-- Official site: <https://homer-demo.netlify.app/>
-- Source repository: <https://github.com/bastienwirtz/homer>
-- Documentation: NA
-- Image repo: NA
-- Other sites: NA
+- [Official site](https://homer-demo.netlify.app/)
+- [Source repository](https://github.com/bastienwirtz/homer)
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

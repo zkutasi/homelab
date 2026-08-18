@@ -2,11 +2,11 @@
 
 Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS and Windows operating systems.
 
-- Official site: <https://nicolargo.github.io/glances/>
-- Source repository: <https://github.com/nicolargo/glances>
-- Documentation: <https://glances.readthedocs.io/en/latest/>
-- Image repo: <https://hub.docker.com/r/nicolargo/glances>
-- Other sites: NA
+- [Official site](https://nicolargo.github.io/glances/)
+- [Source repository](https://github.com/nicolargo/glances)
+- [Documentation](https://glances.readthedocs.io/en/latest/)
+- [Image repo](https://hub.docker.com/r/nicolargo/glances)
+- ~~Other sites~~
 
 ## The setup
 

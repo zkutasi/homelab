@@ -2,11 +2,11 @@
 
 A self-hosted bookmark manager designed to be minimal, fast, and easy to set up. Tag manually, import/export. Browser extension to add, REST API and RSS feed support.
 
-- Official site: <https://linkding.link/>
-- Source repository: <https://github.com/sissbruecker/linkding>
-- Documentation: <https://linkding.link/installation/>
-- Image repo: <https://hub.docker.com/r/sissbruecker/linkding>
-- Other sites: NA
+- [Official site](https://linkding.link/)
+- [Source repository](https://github.com/sissbruecker/linkding)
+- [Documentation](https://linkding.link/installation/)
+- [Image repo](https://hub.docker.com/r/sissbruecker/linkding)
+- ~~Other sites~~
 
 ## The setup
 

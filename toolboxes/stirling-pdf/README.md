@@ -2,11 +2,11 @@
 
 No1 PDF Application on GitHub that lets you edit PDFs on any device anywhere
 
-- Official site: <https://www.stirling.com/>
-- Source repository: <https://github.com/Stirling-Tools/Stirling-PDF>
-- Documentation: <https://docs.stirlingpdf.com/>
-- Helm Chart: <https://github.com/Stirling-Tools/Stirling-PDF-chart>
-- Other sites: NA
+- [Official site](https://www.stirling.com/)
+- [Source repository](https://github.com/Stirling-Tools/Stirling-PDF)
+- [Documentation](https://docs.stirlingpdf.com/)
+- [Helm Chart](https://github.com/Stirling-Tools/Stirling-PDF-chart)
+- ~~Other sites~~
 
 ## The setup
 
