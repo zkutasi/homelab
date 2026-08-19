@@ -1,4 +1,4 @@
-- name: Configure mail sending for arpwatch
+- name: Configure arpwatch
   hosts: networkmonitoring
   become: true
   tasks:

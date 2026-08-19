@@ -36,10 +36,10 @@ Arpwatch maintains a database of Ethernet MAC addresses seen on the network, wit
 
 ### Post deployment
 
-1. Configure mail with the provided script
+1. Configure with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/arpwatch/setup-mail.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/arpwatch/configure-arpwatch.yaml --no-check
     ```
 
 ## Metrics, Alerts, Notifications

@@ -1,1 +1,1 @@
-IFACE_ARGS="-m {{ inventory_hostname }}@mailrise.xyz"
+IFACE_ARGS="{% for ip in kubernetes_ingress_ips %}-z {{ ip }}/255.255.255.255 {% endfor %} -m {{ inventory_hostname }}@mailrise.xyz"
