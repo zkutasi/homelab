@@ -8,4 +8,4 @@
       - name: config
     requested_image_version:
       alpine: "alpine"
-      jellyfin: "jellyfin/jellyfin:10.11.6"
+      jellyfin: "jellyfin/jellyfin:10.11.11"
