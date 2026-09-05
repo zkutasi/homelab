@@ -1,6 +1,6 @@
 image:
   repository: mostafawahied/portracker
-  tag: 1.1.1
+  tag: 1.3.10
   pullPolicy: IfNotPresent
 persistence:
   data:
