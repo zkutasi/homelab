@@ -14,14 +14,20 @@ spec:
             description: 'The host requires a reboot'
             summary: 'Host {{ $labels.host }} running an outdated kernel'
         - alert: UpdatesPending
-          expr: min_over_time(pkg_upgradable{host!~"k8s.*"}[7d]) > 0
+          expr: |
+            sum by (host) (
+              pkg_upgradable{host!~"k8s.*"}
+            ) > 10
           labels:
             severity: warning
           annotations:
-            description: 'The host has updates pending'
+            description: 'The host has at least 10 updates pending'
             summary: 'Host {{ $labels.host }} has {{ $value }} updates pending'
         - alert: UpdatesPendingCritical
-          expr: min_over_time(pkg_upgradable{host!~"k8s.*",label=~".*Security.*"}[3d]) > 0
+          expr: |
+            sum by (host) (
+              pkg_upgradable{host!~"k8s.*",label=~".*Security.*"}
+            ) > 0
           labels:
             severity: critical
           annotations:
