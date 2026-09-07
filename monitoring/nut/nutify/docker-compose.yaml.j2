@@ -1,14 +1,6 @@
 services:
   nutify:
-    # cap_add:
-    #   - SYS_ADMIN
-    #   - SYS_RAWIO
-    #   - MKNOD
     container_name: nutify
-    # devices:
-    #   - /dev/bus/usb:/dev/bus/usb:rwm
-    # device_cgroup_rules:
-    #   - 'c 189:* rwm'
     environment:
       - ENABLE_LOG_STARTUP=Y
       - LOG=true
@@ -20,10 +12,6 @@ services:
     hostname: {{ id }}-nutify
     image: {{ requested_image_version['nutify'] }}
     network_mode: host
-    # ports:
-    #   - {{ port_nutify_nut_server }}:3493
-    #   - {{ port_nutify_web }}:5050
-    # privileged: true
     restart: unless-stopped
     user: root
     volumes:

@@ -16,3 +16,4 @@ The UPS will be plugged into a single Host via USB.
 - [PeaNUT](https://github.com/Brandawg93/PeaNUT) - A tiny dashboard for the NUT Server
 - [WebNUT](https://github.com/rshipp/webNUT) - A simple dashboard for the NUT Server. Pretty abandoned, last commit is in 2020.
 - [NutAlert](https://github.com/rmfatemi/nutalert) - UPS monitoring and alering system
+- [NUT WebGUI](https://github.com/SuperioOne/nut_webgui) - Web interface for Network UPS Tools

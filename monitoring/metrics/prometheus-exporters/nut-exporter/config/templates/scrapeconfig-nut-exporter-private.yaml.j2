@@ -9,8 +9,8 @@ spec:
   metricsPath: /ups_metrics
   staticConfigs:
 {% for host in groups['nutserver'] %}
-    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_nutserver }}"]
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_nut_exporter }}"]
       labels:
         host: "{{ hostvars[host].id }}"
-        ups: "{{ hostvars[host].ups_name | default('UPS') }}"
+        ups: "{{ hostvars[host].ups.desc | default('UPS') }}"
 {% endfor %}

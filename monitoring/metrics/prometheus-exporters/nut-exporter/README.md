@@ -16,15 +16,15 @@
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |nut_server_hostname|M|The NUT Server to scrape info from|
-    |nut_server_username|M||
-    |nut_server_password|M||
 
 2. For each Ansible host, the following variables can be set
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |ups_name|O|If having more than one UPS, name them. Default is 'UPS'|
+    |ups|O|If the host has a UPS attached, create this mapping|
+    |ups.desc|M|The UPS description|
+    |nut_server_monitoring_username|M|The monuser username|
+    |nut_server_monitoring_password|M|The monuser password|
 
 ### Deploy the app
 

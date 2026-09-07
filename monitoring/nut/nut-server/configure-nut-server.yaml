@@ -1,0 +1,71 @@
+- name: Configure Nut-server
+  hosts: "{{ groups['nutserver'] | default([]) | intersect(groups['linux-selfmanaged'] | default([])) }}"
+  become: true
+  tasks:
+    - name: Prepare ups.conf file
+      ansible.builtin.template:
+        src: config/templates/ups.conf.j2
+        dest: /etc/nut/ups.conf
+        owner: root
+        group: nut
+        mode: '0644'
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+    - name: Prepare upsd.conf file
+      ansible.builtin.template:
+        src: config/templates/upsd.conf.j2
+        dest: /etc/nut/upsd.conf
+        owner: root
+        group: nut
+        mode: '0644'
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+    - name: Prepare upsd.users file
+      ansible.builtin.template:
+        src: config/templates/upsd.users.j2
+        dest: /etc/nut/upsd.users
+        owner: root
+        group: nut
+        mode: '0644'
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+    - name: Edit upsmon.conf file's MONITOR directive
+      ansible.builtin.lineinfile:
+        path: /etc/nut/upsmon.conf
+        regexp: '^MONITOR'
+        line: "MONITOR {{ ups.name }}@localhost 1 {{ nut_server_monitoring_username }} {{ nut_server_monitoring_password }} secondary"
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+    - name: Edit nut.conf file's MODE directive
+      ansible.builtin.lineinfile:
+        path: /etc/nut/nut.conf
+        regexp: '^MODE'
+        line: "MODE=netserver"
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+    - name: Add an udev rule to grant permission for the nut group to access the UPS device
+      ansible.builtin.template:
+        src: config/templates/nut-ups.rules.j2
+        dest: /etc/udev/rules.d/99-nut-ups.rules
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Restart nut-server
+        - Restart nut-monitor
+  handlers:
+    - name: Restart nut-server
+      ansible.builtin.systemd:
+        name: nut-server
+        state: restarted
+        enabled: true
+    - name: Restart nut-monitor
+      ansible.builtin.systemd:
+        name: nut-monitor
+        state: restarted
+        enabled: true

@@ -1,0 +1,8 @@
+- name: Deploy Nut-server as service
+  hosts: "{{ groups['nutserver'] | default([]) | intersect(groups['linux-selfmanaged'] | default([])) }}"
+  roles:
+    - package-install
+  vars:
+    packages:
+      - libusb-1.0-0-dev
+      - nut
