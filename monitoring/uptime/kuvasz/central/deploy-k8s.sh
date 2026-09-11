@@ -18,7 +18,9 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-cnpg.sh \
-    --app-user ${APP} \
+    --app ${APP}-postgresql \
+    --db-database ${APP} \
+    --db-username ${APP} \
     --namespace $NS \
     ${EXTRA_PARAMS}
 

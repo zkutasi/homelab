@@ -2,10 +2,9 @@
 
 REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
 
-APP_USER=app
-APP=${APP_USER}-postgresql
-DB_DATABASE=${APP_USER}
-DB_USERNAME=${APP_USER}
+APP=app-postgresql
+DB_DATABASE=app
+DB_USERNAME=app
 DB_PASSWORD=
 NS=${APP}
 RELEASE_NAME=postgresql
@@ -18,13 +17,6 @@ while [ $# -ge 1 ]; do
       shift
       APP=$1
       NS=${APP}
-      ;;
-    --app-user)
-      shift
-      APP_USER=$1
-      APP=${APP_USER}-postgresql
-      DB_DATABASE=${APP_USER}
-      DB_USERNAME=${APP_USER}
       ;;
     --db-database)
       shift
@@ -67,9 +59,9 @@ if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
       --type=kubernetes.io/basic-auth \
       --namespace=$NS
 
-  yq -i ".cluster.initdb.database=\"${DB_DATABASE}\"" ${APP}-values-private.yaml
-  yq -i ".cluster.initdb.owner=\"${DB_USERNAME}\"" ${APP}-values-private.yaml
-  yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" ${APP}-values-private.yaml
+  yq -i ".cluster.initdb.database=\"${DB_DATABASE}\"" app-postgresql-values-private.yaml
+  yq -i ".cluster.initdb.owner=\"${DB_USERNAME}\"" app-postgresql-values-private.yaml
+  yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" app-postgresql-values-private.yaml
 fi
 
 echo "Deploying the PostgreSQL database..."
@@ -78,5 +70,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --release-name ${RELEASE_NAME} \
     --namespace $NS \
     --repo-url ${REPO_URL_CNPG} \
-    --app ${APP} \
+    --app app-postgresql \
     ${EXTRA_PARAMS}
