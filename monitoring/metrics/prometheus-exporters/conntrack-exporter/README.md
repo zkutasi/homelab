@@ -1,4 +1,4 @@
-# Texporter
+# conntrack-exporter
 
 [conntrack-exporter](https://github.com/hiveco/conntrack_exporter) - Prometheus exporter for tracking network connections
 
