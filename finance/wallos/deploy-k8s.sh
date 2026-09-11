@@ -1,6 +1,8 @@
 #!/bin/bash
 
-APP=wallos
+CHART_NAME=oci://oci.trueforge.org/truecharts/wallos
+NS=wallos
+RELEASE_NAME=wallos
 VERSION=10.5.0
 
 EXTRA_PARAMS=
@@ -15,6 +17,9 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --app "${APP}" \
+    --chart-name "${CHART_NAME}" \
+    --namespace "${NS}" \
+    --release-name "${RELEASE_NAME}" \
     --type truecharts \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

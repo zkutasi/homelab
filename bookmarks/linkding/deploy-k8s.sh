@@ -1,6 +1,8 @@
 #!/bin/bash
 
-APP=linkding
+CHART_NAME=oci://oci.trueforge.org/truecharts/linkding
+NS=linkding
+RELEASE_NAME=linkding
 VERSION=12.6.1
 
 EXTRA_PARAMS=
@@ -15,7 +17,9 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --app "${APP}" \
+    --chart-name "${CHART_NAME}" \
+    --namespace "${NS}" \
+    --release-name "${RELEASE_NAME}" \
     --type truecharts \
     --version "${VERSION}" \
     ${EXTRA_PARAMS}

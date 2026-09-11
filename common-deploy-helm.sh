@@ -104,9 +104,9 @@ done
 
 [ -z "${DEPLOYMENT_TYPE}" ] && echo "ERROR: Deployment type must be set" && exit 1
 if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
-  [ -z "${CHART_NAME}" ] && CHART_NAME=oci://oci.trueforge.org/truecharts/${APP}
-  [ -z "${NS}" ] && NS=${APP}
-  [ -z "${RELEASE_NAME}" ] && RELEASE_NAME=${APP}
+  [ -z "${CHART_NAME}" ] && echo "ERROR: Chart name must be specified for truecharts deployment" && exit 1
+  [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for truecharts deployment" && exit 1
+  [ -z "${RELEASE_NAME}" ] && echo "ERROR: Release name must be specified for truecharts deployment" && exit 1
 elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
   [ -z "${CHART_NAME}" ] && echo "ERROR: Chart name must be specified for helm deployment" && exit 1
   if [[ "${CHART_NAME}" != "oci://"* ]]; then

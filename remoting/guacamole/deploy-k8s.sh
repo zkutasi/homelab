@@ -1,6 +1,8 @@
 #!/bin/bash
 
-APP=guacamole
+CHART_NAME=oci://oci.trueforge.org/truecharts/guacamole
+NS=guacamole
+RELEASE_NAME=guacamole
 VERSION=16.13.15
 
 EXTRA_PARAMS=
@@ -15,7 +17,9 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --app "${APP}" \
+    --chart-name "${CHART_NAME}" \
+    --namespace "${NS}" \
+    --release-name "${RELEASE_NAME}" \
     --type truecharts \
     --version "${VERSION}" \
     ${EXTRA_PARAMS}

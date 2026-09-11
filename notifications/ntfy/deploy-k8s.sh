@@ -1,6 +1,8 @@
 #!/bin/bash
 
-APP=ntfy
+CHART_NAME=oci://oci.trueforge.org/truecharts/ntfy
+NS=ntfy
+RELEASE_NAME=ntfy
 VERSION=13.7.0
 
 EXTRA_PARAMS=
@@ -15,6 +17,9 @@ while [ $# -ge 1 ]; do
 done
 
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --app "${APP}" \
+    --chart-name "${CHART_NAME}" \
+    --namespace "${NS}" \
+    --release-name "${RELEASE_NAME}" \
     --type truecharts \
+    --version "${VERSION}" \
     ${EXTRA_PARAMS}

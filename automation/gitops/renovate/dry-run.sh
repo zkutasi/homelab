@@ -3,8 +3,8 @@
 [ -z "${RENOVATE_TOKEN}" ] && echo "RENOVATE_TOKEN is not set" && exit 1
 
 RENOVATE_DIR=$(git rev-parse --show-toplevel)/automation/gitops/renovate
-RENOVATE_IMAGE_REPO=$(yq '.image.registry' ${RENOVATE_DIR}/renovate-values.yaml)
-RENOVATE_IMAGE_TAG=$(yq '.image.tag' ${RENOVATE_DIR}/renovate-values.yaml)
+RENOVATE_IMAGE_REPO=$(yq '.image.registry' ${RENOVATE_DIR}/app-values.yaml)
+RENOVATE_IMAGE_TAG=$(yq '.image.tag' ${RENOVATE_DIR}/app-values.yaml)
 
 docker run --rm -it \
     --volume "$(git rev-parse --show-toplevel):/repo" \
