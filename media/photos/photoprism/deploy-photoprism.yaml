@@ -6,7 +6,7 @@
     docker_compose_projectname: photoprism
     requested_image_version:
       photoprism: "photoprism/photoprism:251130"
-      mariadb: "mariadb:11"
+      mariadb: "mariadb:12"
     docker_compose_create_dirs:
       - name: storage
       - name: database
