@@ -67,6 +67,18 @@ if [[ "${MAINTYPE}" != "binary" && "${MAINTYPE}" != "docker" && "${MAINTYPE}" !=
     exit 1
 fi
 
+REQUIRED_COMMANDS=("yq" "curl" "jq")
+
+MISSING_COMMANDS=()
+for cmd in "${REQUIRED_COMMANDS[@]}"; do
+    command -v "${cmd}" >/dev/null 2>&1 || MISSING_COMMANDS+=("${cmd}")
+done
+if [ "${#MISSING_COMMANDS[@]}" -gt 0 ]; then
+    echo "ERROR: Missing required command(s): ${MISSING_COMMANDS[*]}"
+    echo "Please install them and try again."
+    exit 1
+fi
+
 REPO_ROOT="."
 if command -v git >/dev/null 2>&1; then
     REPO_ROOT=$(git rev-parse --show-toplevel)
@@ -186,7 +198,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               echo "Processing image..."
               APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
               APP_IMAGE_REPO=${APP_IMAGE%%:*}
-              APP_IMAGE_TAG=${APP_IMAGE##*:*}
+              APP_IMAGE_TAG=${APP_IMAGE##*:}
               yq -i ".image.repository = \"${APP_IMAGE_REPO}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.tag = \"${APP_IMAGE_TAG}\"" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
@@ -290,3 +302,4 @@ if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
 fi
 
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."
+echo "Double-check '${TARGET_APP_DIR}' for any remaining <PLACEHOLDER> tokens or unfinished sections and fill them in manually."
