@@ -6,7 +6,7 @@
     docker_compose_projectname: ntopng
     requested_image_version:
       ntopng: "ntop/ntopng:latest@sha256:acd4d290e82ebc565de1aa87e0a1bd6616883f06cebbfcd80b41f08d7cb33e54"
-      valkey: "docker.io/valkey/valkey:9.0.0"
+      valkey: "docker.io/valkey/valkey:9.1.2"
     docker_compose_create_dirs:
       - name: ntopng
       - name: redis
