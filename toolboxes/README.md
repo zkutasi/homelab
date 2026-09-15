@@ -8,6 +8,7 @@ N/A
 
 ## Contenders
 
+- [13ft](https://github.com/wasi-master/13ft) - This is a simple self hosted server that has a simple but powerful interface to block ads, paywalls, and other nonsense. Specially for sites like medium, new york times which have paid articles that you normally cannot read.
 - [Omni Tools](https://github.com/iib0011/omni-tools) - Helpful tools for everyday use
 - [IT Tools](https://github.com/CorentinTh/it-tools) - Tools for the IT Developer
 - [ConvertX](https://github.com/C4illin/ConvertX) - Convert anything to anything
