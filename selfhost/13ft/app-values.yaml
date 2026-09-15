@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/wasi-master/13ft
-  tag: 0.3.4
+  tag: 0.4.1
   pullPolicy: IfNotPresent
 service:
   main:
@@ -26,3 +26,6 @@ workload:
               enabled: false
             startup:
               enabled: false
+          securityContext:
+            runAsGroup: 1000
+            runAsUser: 1000
