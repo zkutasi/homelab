@@ -40,7 +40,7 @@ while [ $# -ge 1 ]; do
     --appname)
       shift
       APP_NAME=$1
-      APP_NAME_LOWERCASE=$(echo ${APP_NAME} | tr '[:upper:]' '[:lower:]')
+      APP_NAME_LOWERCASE=$(echo "${APP_NAME}" | tr '[:upper:]' '[:lower:]')
       ;;
     --host)
       shift
@@ -49,8 +49,8 @@ while [ $# -ge 1 ]; do
     --type)
       shift
       TYPE=$1
-      MAINTYPE=$(echo ${TYPE} | awk -F. '{print $1}')
-      SUBTYPE=$(echo ${TYPE} | awk -F. '{print $2}')
+      MAINTYPE=$(echo "${TYPE}" | awk -F. '{print $1}')
+      SUBTYPE=$(echo "${TYPE}" | awk -F. '{print $2}')
       ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
@@ -92,14 +92,14 @@ TARGET_APP_DIR="${REPO_ROOT}/${APP_FOLDERNAME}"
 echo "Preparing to kickstart app '${APP_NAME}' in folder '${APP_FOLDERNAME}' using '${TYPE}' templates."
 echo "Copy files..."
 mkdir -p "${TARGET_APP_DIR}"
-cp -r ${REPO_ROOT}/_templates/${MAINTYPE}/* "${TARGET_APP_DIR}"
+cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
 
 if [ "${MAINTYPE}" == "binary" ]; then
   echo
 elif [ "${MAINTYPE}" == "docker" ]; then
     if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
         echo "Processing existing docker-compose.yaml for templating..."
-        cp ${TARGET_APP_DIR}/docker-compose.yaml ${TARGET_APP_DIR}/docker-compose.yaml.j2
+        cp "${TARGET_APP_DIR}/docker-compose.yaml" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
         APP_IMAGE=$(yq -r ".services.${APP_NAME_LOWERCASE}.image" "${TARGET_APP_DIR}/docker-compose.yaml.j2")
         APP_IMAGE_REPO=${APP_IMAGE%%:*}
@@ -165,17 +165,25 @@ elif [ "${MAINTYPE}" == "docker" ]; then
     fi
 elif [ "${MAINTYPE}" == "k8s" ]; then
     if [ -n "${SUBTYPE}" ] && [ -d "${REPO_ROOT}/_templates/${TYPE}" ]; then
-        cp -r ${REPO_ROOT}/_templates/${TYPE}/* "${TARGET_APP_DIR}"
+        cp -r "${REPO_ROOT}/_templates/${TYPE}"/* "${TARGET_APP_DIR}"
     fi
     mkdir -p "${TARGET_APP_DIR}/config/templates"
     echo > "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
     if [ "${SUBTYPE}" == "truecharts" ]; then
-        APP_PORT=$(curl -s https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml | yq ".service.main.ports.main.port")
+        if TRUECHARTS_VALUES=$(curl -sf "https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml"); then
+            APP_PORT=$(echo "${TRUECHARTS_VALUES}" | yq ".service.main.ports.main.port")
+        else
+            echo "WARNING: Could not fetch upstream Truecharts values.yaml for '${APP_NAME_LOWERCASE}' (network error or chart not found). The <APP_PORT> placeholder will remain unresolved."
+        fi
     elif [ "${SUBTYPE}" == "truecharts-local" ]; then
         # Check if there is an original truecharts available or not
-        tags=$(curl -s https://oci.trueforge.org/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list | jq .tags)
-        if [ "${tags}" != "null" ]; then
-            echo "WARNING: Official Truecharts chart found for ${APP_NAME_LOWERCASE}. Consider using 'k8s.truecharts' type instead."
+        if tags_response=$(curl -s "https://oci.trueforge.org/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list"); then
+            tags=$(echo "${tags_response}" | jq .tags)
+            if [ "${tags}" != "null" ]; then
+                echo "WARNING: Official Truecharts chart found for ${APP_NAME_LOWERCASE}. Consider using 'k8s.truecharts' type instead."
+            fi
+        else
+            echo "WARNING: Could not reach oci.trueforge.org to check for an official Truecharts chart (network error). Skipping this check."
         fi
         if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
             echo "Gathering information from docker-compose.yaml for Truecharts values.yaml..."
@@ -368,18 +376,18 @@ fi
 
 echo "Swap out templates..."
 while read -r line; do
-  sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" ${line}
-  sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" ${line}
-  sed -i "s|<APP_IMAGE_TAG>|${APP_IMAGE_TAG}|g" ${line}
-  sed -i "s|<APP_NAME>|${APP_NAME}|g" ${line}
-  sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" ${line}
+  sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
+  sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
+  sed -i "s|<APP_IMAGE_TAG>|${APP_IMAGE_TAG}|g" "${line}"
+  sed -i "s|<APP_NAME>|${APP_NAME}|g" "${line}"
+  sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" "${line}"
   if [ -n "${ANSIBLE_HOST}" ]; then
-    sed -i "s|<ANSIBLE_HOST>|${ANSIBLE_HOST}|g" ${line}
+    sed -i "s|<ANSIBLE_HOST>|${ANSIBLE_HOST}|g" "${line}"
   fi
   if [ -n "${APP_PORT}" ]; then
-    sed -i "s|<APP_PORT>|${APP_PORT}|g" ${line}
+    sed -i "s|<APP_PORT>|${APP_PORT}|g" "${line}"
   fi
-done < <(find ${TARGET_APP_DIR} -type f)
+done < <(find "${TARGET_APP_DIR}" -type f)
 
 echo "Renaming files..."
 if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
