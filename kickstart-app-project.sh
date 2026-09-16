@@ -192,35 +192,70 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
             fi
             APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
-            if (( ${#APP_SERVICES[@]} == 1 )); then
-              SINGLE_APP_SERVICE=${APP_SERVICES[0]}
-              echo "Configuring application service '${SINGLE_APP_SERVICE}'..."
-              echo "Processing image..."
-              APP_IMAGE=$(yq ".services.${SINGLE_APP_SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
-              APP_IMAGE_REPO=${APP_IMAGE%%:*}
-              APP_IMAGE_TAG=${APP_IMAGE##*:}
-              yq -i ".image.repository = \"${APP_IMAGE_REPO}\"" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".image.tag = \"${APP_IMAGE_TAG}\"" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".image.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
+            if (( ${#APP_SERVICES[@]} >= 1 )); then
+              MULTI_CONTAINER=false
+              (( ${#APP_SERVICES[@]} > 1 )) && MULTI_CONTAINER=true
+
+              CONTAINER_KEYS=()
+              IMAGE_SELECTORS=()
+              for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
+                SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
+                if [ "${SERVICE_INDEX}" -eq 0 ]; then
+                  CONTAINER_KEYS+=("main")
+                  if [ "${MULTI_CONTAINER}" = true ]; then
+                    IMAGE_SELECTORS+=("${APP_NAME_LOWERCASE}Image")
+                  else
+                    IMAGE_SELECTORS+=("image")
+                  fi
+                else
+                  CONTAINER_KEYS+=("${SERVICE}")
+                  IMAGE_SELECTORS+=("${SERVICE}Image")
+                fi
+              done
+
+              echo "Processing images..."
+              for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
+                SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
+                IMAGE_SELECTOR=${IMAGE_SELECTORS[$SERVICE_INDEX]}
+                SERVICE_IMAGE=$(yq ".services.${SERVICE}.image" "${TARGET_APP_DIR}/docker-compose.yaml")
+                SERVICE_IMAGE_REPO=${SERVICE_IMAGE%%:*}
+                SERVICE_IMAGE_TAG=${SERVICE_IMAGE##*:}
+                yq -i ".${IMAGE_SELECTOR}.repository = \"${SERVICE_IMAGE_REPO}\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".${IMAGE_SELECTOR}.tag = \"${SERVICE_IMAGE_TAG}\"" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".${IMAGE_SELECTOR}.pullPolicy = \"IfNotPresent\"" "${TARGET_APP_DIR}/app-values.yaml"
+                if [ "${SERVICE_INDEX}" -eq 0 ]; then
+                  APP_IMAGE_REPO=${SERVICE_IMAGE_REPO}
+                  APP_IMAGE_TAG=${SERVICE_IMAGE_TAG}
+                fi
+              done
 
               echo "Processing volume mounts..."
-              VOLUME_PATH=".services.${SINGLE_APP_SERVICE}.volumes"
-              if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
-                  VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+              for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
+                SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
+                CONTAINER_KEY=${CONTAINER_KEYS[$SERVICE_INDEX]}
+                VOLUME_PATH=".services.${SERVICE}.volumes"
+                if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
+                    VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+                    if [ "${SERVICE_INDEX}" -eq 0 ]; then
+                      PERSISTENCE_KEY="data"
+                    else
+                      PERSISTENCE_KEY="${CONTAINER_KEY}-data"
+                    fi
 
-                  while IFS= read -r line; do
-                      [ -z "${line}" ] && continue
-                      CONTAINER_PATH=$(echo "${line}" | cut -d':' -f2)
-                      yq -i ".persistence.data.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
-                      yq -i ".persistence.data.accessModes = \"ReadWriteOnce\"" "${TARGET_APP_DIR}/app-values.yaml"
-                      CONTAINER_PATH="${CONTAINER_PATH}" yq -i ".persistence.data.mountPath = env(CONTAINER_PATH)" "${TARGET_APP_DIR}/app-values.yaml"
-                      yq -i ".persistence.data.type = \"pvc\"" "${TARGET_APP_DIR}/app-values.yaml"
-                      yq -i ".persistence.data.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
-                  done <<< "${VOLUME_ITEMS}"
-              fi
+                    while IFS= read -r line; do
+                        [ -z "${line}" ] && continue
+                        CONTAINER_PATH=$(echo "${line}" | cut -d':' -f2)
+                        yq -i ".persistence.${PERSISTENCE_KEY}.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+                        yq -i ".persistence.${PERSISTENCE_KEY}.accessModes = \"ReadWriteOnce\"" "${TARGET_APP_DIR}/app-values.yaml"
+                        CONTAINER_PATH="${CONTAINER_PATH}" yq -i ".persistence.${PERSISTENCE_KEY}.mountPath = env(CONTAINER_PATH)" "${TARGET_APP_DIR}/app-values.yaml"
+                        yq -i ".persistence.${PERSISTENCE_KEY}.type = \"pvc\"" "${TARGET_APP_DIR}/app-values.yaml"
+                        yq -i ".persistence.${PERSISTENCE_KEY}.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+                    done <<< "${VOLUME_ITEMS}"
+                fi
+              done
 
               echo "Processing ports..."
-              APP_PORT=$(yq ".services.${SINGLE_APP_SERVICE}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
+              APP_PORT=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
               yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
@@ -232,48 +267,60 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               echo "Processing workload..."
               yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".workload.main.podSpec.containers.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
+                SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
+                CONTAINER_KEY=${CONTAINER_KEYS[$SERVICE_INDEX]}
+                IMAGE_SELECTOR=${IMAGE_SELECTORS[$SERVICE_INDEX]}
+                IS_PRIMARY=false
+                [ "${SERVICE_INDEX}" -eq 0 ] && IS_PRIMARY=true
+                echo "Configuring workload container '${CONTAINER_KEY}' (service '${SERVICE}')..."
 
-              echo "Processing environment variables..."
-              ENV_PATH=".services.${SINGLE_APP_SERVICE}.environment"
-              if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
-                  ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
-                  if [ "${ENV_TYPE}" == "!!seq" ]; then
-                      ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
-                  else
-                      ENV_ITEMS=$(yq -r "${ENV_PATH} | to_entries | .[] | .key + \"=\" + .value" "${TARGET_APP_DIR}/docker-compose.yaml")
-                  fi
+                yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+                if [ "${MULTI_CONTAINER}" = true ]; then
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.imageSelector = \"${IMAGE_SELECTOR}\"" "${TARGET_APP_DIR}/app-values.yaml"
+                fi
 
-                  while IFS= read -r line; do
-                      [ -z "${line}" ] && continue
-                      KEY=${line%%=*}
-                      VALUE=${line#*=}
-                      KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.main.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
-                  done <<< "${ENV_ITEMS}"
-              fi
-              if [ -n "${POSTGRESQL}" ]; then
-                yq -i ".workload.main.podSpec.containers.main.env.DATABASE_URL.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.DATABASE_URL.secretKeyRef.key = \"std\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_HOST.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_HOST.secretKeyRef.key = \"host\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_USER.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_USER.secretKeyRef.key = \"username\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_PASSWORD.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
-                yq -i ".workload.main.podSpec.containers.main.env.POSTGRES_PASSWORD.secretKeyRef.key = \"password\"" "${TARGET_APP_DIR}/app-values.yaml"
-              fi
+                ENV_PATH=".services.${SERVICE}.environment"
+                if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
+                    ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
+                    if [ "${ENV_TYPE}" == "!!seq" ]; then
+                        ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
+                    else
+                        ENV_ITEMS=$(yq -r "${ENV_PATH} | to_entries | .[] | .key + \"=\" + .value" "${TARGET_APP_DIR}/docker-compose.yaml")
+                    fi
 
-              echo "Processing workload probes..."
-              yq -i ".workload.main.podSpec.containers.main.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".workload.main.podSpec.containers.main.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
-              yq -i ".workload.main.podSpec.containers.main.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+                    while IFS= read -r line; do
+                        [ -z "${line}" ] && continue
+                        KEY=${line%%=*}
+                        VALUE=${line#*=}
+                        KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
+                    done <<< "${ENV_ITEMS}"
+                fi
+                if [ "${IS_PRIMARY}" = true ] && [ -n "${POSTGRESQL}" ]; then
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.DATABASE_URL.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.DATABASE_URL.secretKeyRef.key = \"std\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_HOST.secretKeyRef.name = \"cnpg-main-urls\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_HOST.secretKeyRef.key = \"host\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_USER.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_USER.secretKeyRef.key = \"username\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_PASSWORD.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_PASSWORD.secretKeyRef.key = \"password\"" "${TARGET_APP_DIR}/app-values.yaml"
+                fi
 
-              echo "Processing workload resources..."
-              yq -i ".workload.main.podSpec.containers.main.resources.requests.cpu = \"10m\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
-              yq -i ".workload.main.podSpec.containers.main.resources.requests.memory = \"50Mi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
-              yq -i ".workload.main.podSpec.containers.main.resources.limits.cpu = \"1\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
-              yq -i ".workload.main.podSpec.containers.main.resources.limits.memory = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
-            else
-              echo "UNIMPLEMENTED: More than one application service found. Skipping image configuration."
+                yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.probes.readiness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+                yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.probes.startup.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
+
+                if [ "${IS_PRIMARY}" = true ]; then
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.requests.cpu = \"10m\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.requests.memory = \"50Mi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.limits.cpu = \"1\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.limits.memory = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+                fi
+              done
+
+              echo "Adding spacing between top-level sections..."
+              sed -i '2,$ s/^\([A-Za-z0-9_.-]\)/\n\1/' "${TARGET_APP_DIR}/app-values.yaml"
             fi
         fi
     fi
@@ -294,7 +341,7 @@ while read -r line; do
   fi
 done < <(find ${TARGET_APP_DIR} -type f)
 
-echo "Renaming..."
+echo "Renaming files..."
 if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
     mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
     mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
