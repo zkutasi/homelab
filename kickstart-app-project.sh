@@ -7,6 +7,9 @@ ANSIBLE_HOST=
 TYPE=docker
 MAINTYPE=docker
 SUBTYPE=
+# Pinned TrueCharts mariadb dependency version for generated Chart.yaml files; Renovate's helmv3
+# manager tracks chart/Chart.yaml dependencies natively once written, no special comment needed.
+MARIADB_CHART_VERSION="18.10.0"
 
 function usage() {
     cat <<EOF
@@ -177,6 +180,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
             SERVICES=$(yq ".services | keys | .[]" "${TARGET_APP_DIR}/docker-compose.yaml")
             IMAGES=$(yq ".services[].image" "${TARGET_APP_DIR}/docker-compose.yaml")
             POSTGRESQL=$(yq '.services[].image | select(test("postgres"))' "${TARGET_APP_DIR}/docker-compose.yaml")
+            MARIADB=$(yq '.services[].image | select(test("mysql|mariadb"))' "${TARGET_APP_DIR}/docker-compose.yaml")
             echo "Converting docker-compose.yaml for Truecharts values.yaml..."
             echo > "${TARGET_APP_DIR}/app-values.yaml"
             echo > "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
@@ -191,7 +195,17 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               yq -i ".cnpg.main.monitoring.enablePodMonitor = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
             fi
-            APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
+            if [ -n "${MARIADB}" ]; then
+              echo "Setting up a MariaDB instance..."
+              yq -i ".mariadb.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".mariadb.mariadbUsername = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".mariadb.mariadbDatabase = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
+              yq -i ".mariadb.persistence.data.size = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
+              if [ -f "${TARGET_APP_DIR}/chart/Chart.yaml" ]; then
+                yq -i ".dependencies += [{\"name\": \"mariadb\", \"version\": \"${MARIADB_CHART_VERSION}\", \"repository\": \"oci://oci.trueforge.org/truecharts\", \"condition\": \"mariadb.enabled\", \"alias\": \"\", \"tags\": [], \"import-values\": []}]" "${TARGET_APP_DIR}/chart/Chart.yaml"
+              fi
+            fi
+            APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
             if (( ${#APP_SERVICES[@]} >= 1 )); then
               MULTI_CONTAINER=false
               (( ${#APP_SERVICES[@]} > 1 )) && MULTI_CONTAINER=true
@@ -305,6 +319,14 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                   yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_USER.secretKeyRef.key = \"username\"" "${TARGET_APP_DIR}/app-values.yaml"
                   yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_PASSWORD.secretKeyRef.name = \"cnpg-main-user\"" "${TARGET_APP_DIR}/app-values.yaml"
                   yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.POSTGRES_PASSWORD.secretKeyRef.key = \"password\"" "${TARGET_APP_DIR}/app-values.yaml"
+                fi
+                if [ "${IS_PRIMARY}" = true ] && [ -n "${MARIADB}" ]; then
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_HOST.secretKeyRef.expandObjectName = false" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_HOST.secretKeyRef.name = \"${APP_NAME_LOWERCASE}-mariadbcreds\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_HOST.secretKeyRef.key = \"plainhost\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_PASSWORD.secretKeyRef.expandObjectName = false" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_PASSWORD.secretKeyRef.name = \"${APP_NAME_LOWERCASE}-mariadbcreds\"" "${TARGET_APP_DIR}/app-values.yaml"
+                  yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env.MYSQL_PASSWORD.secretKeyRef.key = \"mariadb-password\"" "${TARGET_APP_DIR}/app-values.yaml"
                 fi
 
                 yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.probes.liveness.enabled = false" "${TARGET_APP_DIR}/app-values.yaml"
