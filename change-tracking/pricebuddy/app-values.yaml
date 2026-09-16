@@ -1,0 +1,94 @@
+mariadb:
+  enabled: true
+  mariadbUsername: pricebuddy
+  mariadbDatabase: pricebuddy
+
+pricebuddyImage:
+  repository: jez500/pricebuddy
+  tag: v1.0.54
+  pullPolicy: IfNotPresent
+scraperImage:
+  repository: jez500/seleniumbase-scrapper
+  tag: v1.0
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /app/storage
+    type: pvc
+  env:
+    enabled: true
+    type: configmap
+    objectName: env
+    mountPath: /app/.env
+    subPath: .env
+    optional: false
+    readOnly: true
+  lock-apache:
+    enabled: true
+    type: emptyDir
+    mountPath: /run/lock/apache2
+    targetSelector:
+      main:
+        main: {}
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 80
+        protocol: http
+        targetPort: 80
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            AFFILIATE_ENABLED: true
+            DB_CONNECTION: mysql
+            DB_PORT: 3306
+            DB_DATABASE: pricebuddy
+            DB_HOST:
+              secretKeyRef:
+                expandObjectName: false
+                name: pricebuddy-mariadbcreds
+                key: plainhost
+            DB_USERNAME: pricebuddy
+            DB_PASSWORD:
+              secretKeyRef:
+                expandObjectName: false
+                name: pricebuddy-mariadbcreds
+                key: mariadb-password
+            SCRAPER_BASE_URL: http://localhost:3000
+          imageSelector: pricebuddyImage
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
+          securityContext:
+            readOnlyRootFilesystem: false
+            runAsNonRoot: false
+            runAsUser: 0
+        scraper:
+          enabled: true
+          imageSelector: scraperImage
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

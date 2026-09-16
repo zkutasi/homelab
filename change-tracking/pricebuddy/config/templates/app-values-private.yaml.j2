@@ -1,0 +1,20 @@
+configmap:
+  env:
+    enabled: true
+    data:
+      .env: |
+        APP_KEY={{ pricebuddy_app_key }}
+
+mariadb:
+  password: {{ pricebuddy_database_password }}
+  rootPassword: {{ pricebuddy_database_rootpassword }}
+
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            APP_KEY: {{ pricebuddy_app_key }}
+            APP_USER_EMAIL: {{ pricebuddy_user_email }}
+            APP_USER_PASSWORD: {{ pricebuddy_user_password }}

@@ -1,0 +1,21 @@
+apiVersion: v2
+# renovate: image=jez500/pricebuddy
+appVersion: latest
+dependencies:
+  - name: common
+    version: 28.26.3
+    repository: oci://oci.trueforge.org/truecharts
+    condition: ""
+    alias: ""
+    tags: []
+    import-values: []
+  - name: mariadb
+    version: 18.10.0
+    repository: oci://oci.trueforge.org/truecharts
+    condition: mariadb.enabled
+    alias: ""
+    tags: []
+    import-values: []
+name: pricebuddy
+type: application
+version: 1.0.0

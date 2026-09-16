@@ -1,0 +1,19 @@
+mariadb:
+  persistence:
+    data:
+      size: 1Gi
+persistence:
+  data:
+    size: 1Gi
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
