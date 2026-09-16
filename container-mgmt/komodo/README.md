@@ -5,7 +5,9 @@ A tool to build and deploy software on many servers
 - [Official site](https://komo.do/)
 - [Source repository](https://github.com/moghtech/komodo)
 - [Documentation](https://komo.do/docs/intro)
-- ~~Image repo~~
+- Image repo
+  - [Core](https://hub.docker.com/r/moghtech/komodo-core)
+  - [Periphery](https://hub.docker.com/r/moghtech/komodo-periphery)
 - ~~Other sites~~
 
 ## The setup

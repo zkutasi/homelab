@@ -1,6 +1,12 @@
 # X509-certificate-exporter
 
-[X509-certificate-exporter](https://github.com/enix/x509-certificate-exporter) - A Prometheus exporter for X.509 certificates, built for Kubernetes first but equally happy as a standalone binary
+A Prometheus exporter for X.509 certificates, built for Kubernetes first but equally happy as a standalone binary
+
+- ~~Official site~~
+- [Source repository](https://github.com/enix/x509-certificate-exporter)
+- ~~Documentation~~
+- [Helm Chart](https://github.com/enix/x509-certificate-exporter/tree/main/chart)
+- ~~Other sites~~
 
 ## The setup
 

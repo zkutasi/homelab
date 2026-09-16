@@ -56,7 +56,7 @@ Like an evolution of a SIEM, focusing not just on log collection and analysis, b
 ### SIEM/XDR
 
 - [UTMStack](https://utmstack.com/) - Unified Threat Management. Combines a SIEM and an XDR together into a full platform.
-- [Wazuh](https://wazuh.com/) - A HIDS (Host-based Intrusion Detection System). Opens source SIEM and XDR platform. Uses an Agent based approach on hosts, collects logs, handles File Integrity Monitoring (FIM), Rootkit detection, vulnerability assessment, and more.
+- [Wazuh](https://wazuh.com/) - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.
 
 ### VAS
 

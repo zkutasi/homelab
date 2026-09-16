@@ -1,6 +1,12 @@
 # Qbittorrent-exporter
 
-[Qbittorrent-exporter](https://github.com/martabal/qbittorrent-exporter) - A fast and lightweight prometheus exporter for qBittorrent
+A fast and lightweight prometheus exporter for qBittorrent
+
+- ~~Official site~~
+- [Source repository](https://github.com/martabal/qbittorrent-exporter)
+- ~~Documentation~~
+- [Image repo](https://github.com/martabal/qbittorrent-exporter/pkgs/container/qbittorrent-exporter)
+- ~~Other sites~~
 
 ## The setup
 

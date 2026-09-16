@@ -5,7 +5,7 @@ Analyzes resource usage and performance characteristics of running containers.
 - ~~Official site~~
 - [Source repository](https://github.com/google/cadvisor)
 - ~~Documentation~~
-- ~~Image repo~~
+- [Image repo](https://github.com/google/cadvisor/pkgs/container/cadvisor)
 - ~~Other sites~~
 
 ## The setup

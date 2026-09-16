@@ -5,7 +5,7 @@ Shelfmark is a self-hosted web interface for searching and requesting books and 
 - ~~Official site~~
 - [Source repository](https://github.com/calibrain/shelfmark)
 - ~~Documentation~~
-- ~~Image repo~~
+- [Image repo](https://github.com/calibrain/shelfmark/pkgs/container/shelfmark)
 - ~~Other sites~~
 
 ## The setup

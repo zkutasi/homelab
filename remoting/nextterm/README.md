@@ -1,6 +1,6 @@
 # Nexterm
 
-Server Management Software to connect remotely via SSH, VNC and RDP, deploy docker apps, manage Proxmox LXC and QEMU containers.
+The open source server management software for SSH, VNC & RDP
 
 - [Official site](https://nexterm.dev/)
 - [Source repository](https://github.com/gnmyt/Nexterm)

@@ -1,6 +1,6 @@
 # Kuvasz
 
-An open-source uptime and SSL monitoring service, with multiple notification channels, status pages, IAC support via YAML, Prometheus integration, a complete REST API and many more!
+Kuvasz (pronounce as [ˈkuvɒs]) is an open-source uptime and SSL monitoring service, with multiple notification channels, status pages, IAC support via YAML, Prometheus integration, a complete REST API and many more!
 
 - [Official site](https://kuvasz-uptime.dev/)
 - [Source repository](https://github.com/kuvasz-uptime/kuvasz)

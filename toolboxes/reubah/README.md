@@ -1,6 +1,6 @@
 # Reubah
 
-A simple web-based tool for processing images and converting documents with a simple interface
+a web-based tool for processing images and converting documents with a simple interface
 
 - ~~Official site~~
 - [Source repository](https://github.com/dendianugerah/reubah)

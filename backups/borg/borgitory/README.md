@@ -1,6 +1,12 @@
 # Borgitory
 
-[Borgitory](https://github.com/mlapaglia/Borgitory) - A Web UI for Borg clients mostly: Handle repos, backups, schedules archives. But also allows to import existing repos and monitor them.
+Web UI for managing BorgBackup repositories with scheduling, monitoring, and cloud sync
+
+- [Official site](https://borgitory.com)
+- [Source repository](https://github.com/mlapaglia/Borgitory)
+- [Documentation](https://borgitory.com)
+- [Image repo](https://hub.docker.com/r/mlapaglia/borgitory)
+- ~~Other sites~~
 
 ## The setup
 

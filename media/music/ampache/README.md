@@ -1,6 +1,6 @@
 # Ampache
 
-A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
+A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device.
 
 - ~~Official site~~
 - [Source repository](https://github.com/ampache/ampache)

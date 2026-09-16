@@ -15,7 +15,7 @@ A Network Attached Storage (NAS) system is either an OS or a set of tools to fac
 
 ## Contenders
 
-- [OpenMediaVault](https://www.openmediavault.org/) - A Very lightweight solution based on Debian, with plugin support for SnapRAID, MergerFS, and native support for NFS and Samba, among many others. Has a lightweight GUI and also supports docker-compose too.
+- [OpenMediaVault](https://www.openmediavault.org/) - openmediavault is the next generation network attached storage (NAS) solution based on Debian Linux. It contains services like SSH, (S)FTP, SMB/CIFS, DAAP media server, RSync, Kubernetes and many more ready to use.
 - [TrueNAS](https://www.truenas.com/) - A beast and a very versatile contender, based on the ZFS filesystem. Requires same-sized disks and expansion is not that easy as with others. TrueNAS Core focuses on NAS functionality and data integrity while TrueNAS Scale brings in Kubernetes and a plethora of Apps able to run inside of it and more cloud functionalities.
 - [Synology DSM](https://www.synology.com/en-us/dsm/) - The NAS OS from Synology, only usable on their Hardware. A very robust ecosystem with a highly customized Linux based OS, and Apps for everything, but if it is not enough, it also supports Docker Compose. One downside is the extremely customized OS as it makes life a bit harder for tinkerers, but for Novice people, it is a very easy to handle system.
 - [UnRaid](https://unraid.net/) - A NAS OS that is similar to TrueNAS, also based on ZFS. A very big bonus is that they utilize a system where the disks can be of any size, adding one for data or parity is very easy, so scaling on-the-go is a breeze. One big downside is that it is not completely free and requires a one-time payment.

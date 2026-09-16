@@ -1,6 +1,12 @@
 # Smartctl-exporter
 
-[Smartctl-exporter](https://github.com/prometheus-community/smartctl_exporter) - Export smartctl statistics to prometheus
+Export smartctl statistics to prometheus
+
+- ~~Official site~~
+- [Source repository](https://github.com/prometheus-community/smartctl_exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/prometheuscommunity/smartctl-exporter)
+- ~~Other sites~~
 
 ## The setup
 

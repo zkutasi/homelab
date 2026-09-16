@@ -1,11 +1,11 @@
 # Qui
 
-Supports multiple QBitTorrent instances in one UI
+A fast, single-binary qBittorrent web UI: manage multiple instances, automate torrent workflows, and cross-seed across trackers.
 
 - [Official site](https://getqui.com/)
 - [Source repository](https://github.com/autobrr/qui)
 - [Documentation](https://getqui.com/docs/intro/)
-- ~~Image repo~~
+- [Image repo](https://github.com/autobrr/qui/pkgs/container/qui)
 - ~~Other sites~~
 
 ## The setup

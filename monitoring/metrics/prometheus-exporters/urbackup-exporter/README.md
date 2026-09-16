@@ -1,6 +1,12 @@
 # Urbackup-exporter
 
-[Urbackup-exporter](https://github.com/ngosang/urbackup-exporter) - Prometheus exporter for the UrBackup backup system
+Prometheus exporter for the UrBackup backup system
+
+- ~~Official site~~
+- [Source repository](https://github.com/ngosang/urbackup-exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/ngosang/urbackup-exporter)
+- ~~Other sites~~
 
 ## The setup
 

@@ -1,11 +1,11 @@
 # Cup
 
-Cup is the easiest way to check for container image updates.
+Docker container updates made easy
 
 - [Official site](https://cup.sergi0g.dev/)
 - [Source repository](https://github.com/sergi0g/cup)
 - [Documentation](https://cup.sergi0g.dev/docs)
-- ~~Image repo~~
+- [Image repo](https://github.com/sergi0g/cup/pkgs/container/cup)
 - ~~Other sites~~
 
 ## The setup

@@ -18,13 +18,13 @@ When it comes to money, finances, or investments, there are a few apps to help o
 ## Contenders
 
 - [Firefly III](https://firefly-iii.org/) - Extremely complex app, but has the most features, also [third party tooling](https://docs.firefly-iii.org/references/firefly-iii/third-parties/apps/) is available like Phone apps, importers and more.
-- [Actual Budget](https://actualbudget.org/) - Very popular app as it is much simpler than Firefly III. Handles all kinds of imports, and based on the envelope budgeting principle.
-- [What you Get is What You Have (WYGIWYH)](https://github.com/eitchtee/WYGIWYH) - A no-budget approach. Supports schema-based CSV imports (very flexible, duplication-resistant so it supports periodic re-importing), multi-currency, multi-account support.
-- [EZBookkeeping](https://ezbookkeeping.mayswind.net/) - Supports multiple import formats, multi currency and language support, AI ops for receipt recognition and MCP Server too. Every transaction must be tagged as either income or expense... it is not deducted by the sign of the numbers, nothing is automatic here. But one could add also a script (JS) to import, so there is even more flexibility to solve everything. The creator explains in github issues that the import is not meant to be used in a periodic fashion and the App is meant to be filled manually as one goes.
+- [Actual Budget](https://actualbudget.org/) - A local-first personal finance app
+- [What you Get is What You Have (WYGIWYH)](https://github.com/eitchtee/WYGIWYH) - A simple but powerful self-hosted finance tracker
+- [EZBookkeeping](https://ezbookkeeping.mayswind.net/) - ezBookkeeping is an open source, powerful, self-hosted personal finance app that is easy to use.
 - [Ocular](https://simonwep.github.io/ocular/) - One needs to type the numbers manually as import only supports Google Sheets's Annual Planner. Separate money flow into income and expenses and create groups, where one need to manually sum those groups per month (it seems), like Groceries. Very simple, not really easy to automate.
 - [OpenBudgeteer](https://github.com/TheAxelander/OpenBudgeteer) - Based on the Bucket Budgeting principle. Simply it has 4 bucket tipes, supports CSV imports from bank documents (format is a question). Euro only?
-- [BudgetBoard](https://budgetboard.net/) - Supports SimpleFIN or CSV import, deducted by the sign of the amount. Only graphs trends, no flow graph or pie chart available. Transaction have to be still categorized, but can be done by rules as well, even after the import. Able to do more, like Assets, Budgets, Goals, but everything is manually entered.
-- [ExpenseOwl](https://github.com/Tanq16/ExpenseOwl) - Very simple, expense tracker, not a budgeting app. Only graphs monthly expenses by category in a pie chart. Can import from CSV but only its own format. Contains only limited currencies.
+- [BudgetBoard](https://budgetboard.net/) - A simple app for tracking monthly spending and working towards financial goals.
+- [ExpenseOwl](https://github.com/Tanq16/ExpenseOwl) - Extremely simple, self-hosted expense tracker with a beautiful UI.
 - [Sure](https://github.com/we-promise/sure) - A Fork of the discontinued [Maybe](https://github.com/maybe-finance/maybe) app
 - [Wally](https://github.com/polius/Wally) - Based on ExpenseOwl, a very small fork
 

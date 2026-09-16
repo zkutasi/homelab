@@ -1,6 +1,12 @@
 # Kopia-exporter
 
-[Kopia-exporter](https://github.com/ymettier/kopia_go_exporter/) - A Prometheus exporter for Kopia backup repositories.
+A Prometheus exporter for Kopia backup repositories.
+
+- ~~Official site~~
+- [Source repository](https://github.com/ymettier/kopia_go_exporter)
+- ~~Documentation~~
+- [Image repo](https://github.com/ymettier/kopia_go_exporter/pkgs/container/kopia_go_exporter)
+- ~~Other sites~~
 
 ## The setup
 

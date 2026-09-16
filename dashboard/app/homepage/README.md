@@ -5,7 +5,7 @@ A highly customizable homepage (or startpage / application dashboard) with Docke
 - [Official site](https://gethomepage.dev/)
 - [Source repository](https://github.com/gethomepage/homepage)
 - [Documentation](https://gethomepage.dev/configs/)
-- ~~Image repo~~
+- [Image repo](https://github.com/gethomepage/homepage/pkgs/container/homepage)
 - ~~Other sites~~
 
 ## The setup

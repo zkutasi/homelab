@@ -1,6 +1,6 @@
 # SnapOtter
 
-The open-source image suite that makes paid tools nervous. Every image tool you need. Your images stay yours.
+Open-source, self-hosted file-processing tool. Convert, compress, OCR, transcribe & run local AI across image, video, audio, PDF & documents, via UI, REST API & pipelines. Your files never leave your network.
 
 - [Official site](https://snapotter.com/)
 - [Source repository](https://github.com/snapotter-hq/snapotter)

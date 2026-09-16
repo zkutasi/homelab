@@ -1,6 +1,6 @@
 # Flood
 
-A monitoring service for multiple Torrent clients.
+A modern web UI for various torrent clients with a Node.js backend and React frontend.
 
 - [Official site](https://flood.js.org/)
 - [Source repository](https://github.com/jesec/flood)

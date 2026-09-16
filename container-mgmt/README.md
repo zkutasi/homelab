@@ -11,14 +11,14 @@ These applications can manage docker containers, docker-compose stacks or even d
 
 ## Contenders
 
-- [Portainer](https://www.portainer.io/) - The de facto standard in this space. Supports everything needed, the BE even more (like has the ability to show poutdated images like Watchtower).
+- [Portainer](https://www.portainer.io/) - Making Docker and Kubernetes management easy.
 - [Dockge](https://dockge.kuma.pet/) - A simple one. It is more like to edit the docker-compose files, not to have an overview dashboard. For me it caused 100% CPU utilization
 - [Dyrectorio](https://dyrector.io/)
 - [Yacht](https://yacht.sh/) - A WebUI for docker containers that focuses on templating. A bit abandoned, last commit was in 2024
-- [Komodo](https://komo.do/) - It is a very versatile alternative to Portainer, fully open source, and more like a build system with those extra features. Maybe too much for just looking at the docker compose stacks, but there are vast potentials in those extra features.
+- [Komodo](https://komo.do/) - a tool to build and deploy software on many servers
 - [Incus](https://linuxcontainers.org/incus/)
 - [1Panel](https://github.com/1Panel-dev/1Panel) - Seems chinese to me
 - [DweebUI](https://www.dweebui.com/) - Abandoned a bit, last release was in 2024
-- [DockHand](https://dockhand.pro) - A modern take on docker management, for homelabs mostly. Low footprint, but can do version checking, start/stop, log-streaming, real-time usage metrics and more.
-- [DockPeek](https://github.com/dockpeek/dockpeek) - Yet another one, this works only agentless, opening up the docker sockets for multiple hosts. Very minimalistic.
+- [DockHand](https://dockhand.pro) - Docker management you will like.
+- [DockPeek](https://github.com/dockpeek/dockpeek) - Easily access your Docker container web interfaces and keep them up to date — across all your hosts.
 - [Usulnet](https://usulnet.com/) - A very infant all-in-one solution.

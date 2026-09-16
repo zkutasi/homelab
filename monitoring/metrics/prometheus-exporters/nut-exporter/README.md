@@ -1,6 +1,12 @@
 # NUT Exporter
 
-[NUT Exporter](https://github.com/DRuggeri/nut_exporter) is a Prometheus compatible NUT metrics exporter.
+Network UPS Tools Prometheus Exporter
+
+- ~~Official site~~
+- [Source repository](https://github.com/DRuggeri/nut_exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/druggeri/nut_exporter)
+- ~~Other sites~~
 
 ## The setup
 

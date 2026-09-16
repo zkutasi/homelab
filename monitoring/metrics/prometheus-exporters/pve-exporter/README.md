@@ -1,6 +1,12 @@
 # pve-exporter
 
-[pve-exporter](https://github.com/prometheus-pve/prometheus-pve-exporter) - Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system
+Exposes information gathered from Proxmox VE cluster for use by the Prometheus monitoring system
+
+- ~~Official site~~
+- [Source repository](https://github.com/prometheus-pve/prometheus-pve-exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/prompve/prometheus-pve-exporter)
+- ~~Other sites~~
 
 ## The setup
 

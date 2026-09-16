@@ -1,6 +1,12 @@
 # K8s-ephemeral-storage-metrics
 
-[K8s-ephemeral-storage-metrics](https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics) - Prometheus ephemeral storage metrics exporter
+Prometheus ephemeral storage metrics exporter
+
+- ~~Official site~~
+- [Source repository](https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics)
+- [Documentation](https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/)
+- [Helm Chart](https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart)
+- ~~Other sites~~
 
 ## The setup
 

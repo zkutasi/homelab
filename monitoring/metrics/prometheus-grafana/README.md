@@ -1,6 +1,6 @@
 # kube-prometheus-stack
 
-Prometheus - The Prometheus monitoring system and time series database.
+Use Prometheus to monitor Kubernetes and applications running on Kubernetes
 
 - [Official site](https://prometheus.io)
 - [Source repository](https://github.com/prometheus-operator/kube-prometheus)

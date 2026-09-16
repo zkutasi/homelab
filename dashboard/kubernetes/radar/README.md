@@ -1,6 +1,6 @@
 # Skyhook Radar
 
-The missing open source Kubernetes UI. Topology, event timeline, and service traffic — plus resource browsing and Helm management.
+The missing open-source Kubernetes UI with a built-in MCP server for AI agents. See what's broken, why, and what changed. Issues, Topology, event timeline, Helm, GitOps, live service traffic, and cluster audits - all in one Go binary.
 
 - [Official site](https://radarhq.io/)
 - [Source repository](https://github.com/skyhook-io/radar)

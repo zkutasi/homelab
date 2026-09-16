@@ -1,6 +1,12 @@
 # Node-exporter
 
-[Node-exporter](https://github.com/prometheus/node_exporter) - Exporter for machine metrics
+Exporter for machine metrics
+
+- ~~Official site~~
+- [Source repository](https://github.com/prometheus/node_exporter)
+- ~~Documentation~~
+- [Image repo](https://quay.io/repository/prometheus/node-exporter)
+- ~~Other sites~~
 
 ## The setup
 

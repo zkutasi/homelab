@@ -2,6 +2,12 @@
 
 This deploys a Host-wide read-only instance of the docker-socket-proxy. If anything more complex is needed, consider deploying a specific one per app.
 
+- ~~Official site~~
+- [Source repository](https://github.com/wollomatic/socket-proxy)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/wollomatic/socket-proxy)
+- ~~Other sites~~
+
 ## The setup
 
 ## Prerequisites

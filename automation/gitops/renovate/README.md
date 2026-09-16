@@ -1,5 +1,7 @@
 # Renovate
 
+Home of the Renovate CLI: Cross-platform Dependency Automation by Mend.io
+
 - [Official site](https://www.mend.io/renovate/)
 - [Source repository](https://github.com/renovatebot/renovate)
 - [Documentation](https://docs.renovatebot.com/)

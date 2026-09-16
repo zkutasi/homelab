@@ -70,8 +70,8 @@ Other things to consider:
 
 Alternative user interfaces:
 
-- [Borgitory](https://github.com/mlapaglia/Borgitory) - Supports multiple repositories, able to import existing ones. Create backups, schedule, browse repository archives. Statistics for the repos. Comprehensive notification subsystem. Built in RClone based cloud sync. Either handles the central repositories on the Server, or handles the Client borg instances, but no unified infrastructure in a multi-host environment.
-- [Borg UI](https://github.com/karanhudia/borg-ui) - Same functionality, also primarily focused on client activities (backups, restores, schedules, etc...).
+- [Borgitory](https://github.com/mlapaglia/Borgitory) - Web UI for managing BorgBackup repositories with scheduling, monitoring, and cloud sync
+- [Borg UI](https://github.com/karanhudia/borg-ui) - Replace complex Borg Backup terminal commands with a beautiful web UI. Create, schedule, and restore backups with just a few clicks.
 - [Borg Backup Server](https://www.borgbackupserver.com/) - A fully fledged Server-Agents based solution supporting multiple hosts. Agents are lightweight and poll the server for instructions, and hold the Borg app itself to make those backups and ship them remotely. The BBS part handles the repositories. Quite an infant project, but already quite feature-rich (S3 support, DB backups, etc...). Agents are not dockerized though.
 
 There is really no need to have a UI for the client hosts, as one backup per day scheduled is perfect, but a UI for the repositories to check them is preferred.

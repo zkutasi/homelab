@@ -1,11 +1,11 @@
 # Autopulse
 
-Automated scanning tool that integrates widely-used media management services with various media servers for seamless media organization
+automated lightweight service that updates media servers like Plex and Jellyfin based on notifications from media organizers like Sonarr and Radarr
 
 - [Official site](https://autopulse.dancodes.online/autopulse/)
 - [Source repository](https://github.com/dan-online/autopulse)
 - [Documentation](https://autopulse.dancodes.online/autopulse/)
-- ~~Image repo~~
+- [Image repo](https://github.com/dan-online/autopulse/pkgs/container/autopulse)
 - ~~Other sites~~
 
 ## The setup

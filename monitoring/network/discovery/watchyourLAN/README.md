@@ -1,6 +1,6 @@
 # WatchYourLAN
 
-[WatchYourLAN](https://github.com/aceberg/WatchYourLAN) - Lightweight network IP scanner written in Go. With notifications, history, export to Grafana
+Lightweight network IP scanner written in Go. With notifications, history, export to Grafana
 
 - ~~Official site~~
 - [Source repository](https://github.com/aceberg/WatchYourLAN)

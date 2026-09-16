@@ -13,19 +13,19 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 
 ### All in one solutions
 
-- [Plex](https://www.plex.tv/) - One of the best. Need something to watch? We’re on it. Plex combines free movies & TV with the best free streaming services, so there’s always more to discover. Closed source.
+- [Plex](https://www.plex.tv/) - Don’t just store your movies and music—experience it like never before. Plex personal media server magically scans and organizes your files, sorting your media intuitively and beautifully.
   - Plex Dash - A mobile application, available for iOS and Android, designed for Plex Media Server administrators to monitor and manage their servers in real-time. It requires an active Plex Pass subscription to function, offering insights into active playbacks, bandwidth usage, server resources, and DVR activity.
   - [PlexAmp](https://www.plex.tv/plexamp/) - A new way to rediscover your music library. It is a Desktop app, or there is a Headless version to control an external Amplifier/DAC.
   - [Kometa](https://github.com/Kometa-Team/Kometa) - Elevate your library with beautifully crafted metadata - customize artwork, titles, summaries, and more to create a stunning library.
   - [Plezy](https://plezy.app/) - A beautiful client for Plex & Jellyfin. Stream your media library with HDR, Dolby Vision, offline downloads, and an experience built for every screen.
-- [Emby](https://emby.media/) - Emby Server is a personal media server with apps on just about every device.
+- [Emby](https://emby.media/) - Bringing all of your home videos, music, and photos together into one place has never been easier. Your personal Emby Server automatically converts and streams your media on-the-fly to play on any device.
   - [EmbyCon](https://emby.media/emby-for-kodi.html) - EmbyCon lets you easily browse and play your Emby library using Kodi.
   - [Emby Music Player (EMU)](https://emby.media/community/index.php?/topic/139893-emu-emby-music-player/) - In development now.
   - [Symfonium](https://symfonium.app/) - A beautiful Android music player to stream music from many backends (Emby included)
 - [Kodi](https://kodi.tv/) - An award-winning free and open source software media player and entertainment hub for digital media. More like a platform than an App.
   - [Kore](https://github.com/xbmc/Kore) - An official remote app for Android
   - [Yatse](https://yatse.tv/) - The Original Kodi Remote app. It is more mature and has many more features.
-- [Jellyfin](https://jellyfin.org/) - A fork of Emby. Jellyfin enables you to collect, manage, and stream your media. Run the Jellyfin server on your system and gain access to the leading free-software entertainment system, bells and whistles included.
+- [Jellyfin](https://jellyfin.org/) - The Free Software Media System - Server Backend & API
   - [Awesome Jellyfin](https://github.com/awesome-jellyfin/awesome-jellyfin) - A curated list of Jellyfin Plugins and Apps (many even compatible with Emby too)
   - [Jellywatch](https://jellywatch.app/) - The ultimate Android app for managing your Jellyfin media server
   - [JellyCon](https://github.com/jellyfin/jellycon) - Same as for Emby
@@ -44,14 +44,14 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 - [Swing Music](https://swingmx.com/) - A fast and beautiful, self-hosted music player for your local audio files. Like a cooler Spotify ... but bring your own music. Just run the app and enjoy your music library in a web browser.
 - [Lightweight Music Server (LMS)](https://github.com/epoupon/lms) - A self-hosted music streaming software: access your music collection from anywhere using a web interface!
 - [Gonic](https://github.com/sentriz/gonic) - Free-software subsonic server API implementation, supporting its many clients
-- [Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device. Able to extract correct metadata from embedded tags in your files and/or the file name.
+- [Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device.
 - *Sonic - A free, web-based media streamer platform with a specific API. [SubSonic](https://www.subsonic.org) was the original (this went closed source), then LibreSonic was forked, after that [Airsonic](https://github.com/airsonic/airsonic) (abandoned since 2020) and [Airsonic-advanced](https://github.com/airsonic-advanced/airsonic-advanced) (again abandoned since 2020)
 
 ### Companion apps
 
 - [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
 - [Tracearr](https://www.tracearr.com/) - Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
-- [Autopulse](https://autopulse.dancodes.online/autopulse/) - Automated scanning tool that integrates widely-used media management services with various media servers for seamless media organization
+- [Autopulse](https://autopulse.dancodes.online/autopulse/) - automated lightweight service that updates media servers like Plex and Jellyfin based on notifications from media organizers like Sonarr and Radarr
 
 ### Scrobblers
 
@@ -62,15 +62,15 @@ If a piece of software only supports the most popular scrobbler, you shall a too
 #### Music
 
 - [Last.fm](http://www.last.fm) - The original that started it all, for music
-  - [YourLastFM](https://github.com/Gomaink/your_lastfm) - Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and serves a web dashboard.
+  - [YourLastFM](https://github.com/Gomaink/your_lastfm) - Turn your Last.fm scrobbles into a complete, private dashboard.
 - [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
 - [Libre.fm](https://libre.fm/) - A more private last.fm alternative
-- [Koito](https://koito.io/) - A modern, themeable ListenBrainz-compatible scrobbler for self-hosters who want control over their data and insights into their listening habits. It supports relaying to other compatible scrobblers, so you can try it safely without replacing your current setup.
+- [Koito](https://koito.io/) - A modern, themeable scrobbler that you can use with any program that scrobbles to a custom ListenBrainz URL
 - [Maloja](https://github.com/krateng/maloja) - Simple self-hosted music scrobble database to create personal listening statistics. No commits since early 2025, seems abandoned.
-- [MultiScrobbler](https://github.com/FoxxMD/multi-scrobbler) - A dockerized app that monitors your music listening activity from everywhere and scrobbles it anywhere.
+- [MultiScrobbler](https://github.com/FoxxMD/multi-scrobbler) - Scrobble plays from multiple sources to multiple clients
 
 #### Movies and TV
 
 - [Trakt](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps.
 - [SIMKL](https://simkl.com/) - Track TV, Movies, Anime. Supports all services and platforms. A more modern, better alternative.
-- [Crosswatch](https://github.com/cenodude/CrossWatch) - A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
+- [Crosswatch](https://github.com/cenodude/CrossWatch) - Synchronize your data across media servers, media agents and trackers. Keep your movies and shows in sync, no matter where you watch.

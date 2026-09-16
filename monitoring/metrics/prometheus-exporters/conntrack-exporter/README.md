@@ -1,6 +1,12 @@
 # conntrack-exporter
 
-[conntrack-exporter](https://github.com/hiveco/conntrack_exporter) - Prometheus exporter for tracking network connections
+Prometheus exporter for tracking network connections
+
+- ~~Official site~~
+- [Source repository](https://github.com/hiveco/conntrack_exporter)
+- [Documentation](https://hub.docker.com/r/hiveco/conntrack_exporter)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

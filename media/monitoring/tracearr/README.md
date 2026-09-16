@@ -5,7 +5,7 @@ Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyz
 - [Official site](https://www.tracearr.com/)
 - [Source repository](https://github.com/connorgallopo/tracearr)
 - [Documentation](https://docs.tracearr.com/)
-- ~~Image repo~~
+- [Image repo](https://github.com/connorgallopo/tracearr/pkgs/container/tracearr)
 - ~~Other sites~~
 
 ## The setup

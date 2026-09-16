@@ -5,7 +5,7 @@ Self-hosted Speed Test for HTML5 and more. Easy setup, examples, configurable, m
 - [Official site](https://librespeed.org/)
 - [Source repository](https://github.com/librespeed/speedtest)
 - ~~Documentation~~
-- ~~Image repo~~
+- [Image repo](https://github.com/librespeed/speedtest/pkgs/container/speedtest)
 - ~~Other sites~~
 
 ## The setup

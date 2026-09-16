@@ -5,7 +5,10 @@ High performance self-hosted photo and video management solution.
 - [Official site](https://immich.app/)
 - [Source repository](https://github.com/immich-app/immich)
 - [Documentation](https://docs.immich.app/overview/quick-start/)
-- ~~Image repo~~
+- Image repo:
+  - [Immich Server](https://github.com/immich-app/immich/pkgs/container/immich-server)
+  - [Immich Machine Learning](https://github.com/immich-app/immich/pkgs/container/immich-machine-learning)
+  - [Postgres (Immich fork)](https://github.com/immich-app/postgres/pkgs/container/postgres)
 - ~~Other sites~~
 
 Immich Power Tools - A unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
@@ -13,7 +16,7 @@ Immich Power Tools - A unofficial immich client to provide better tools to organ
 - ~~Official site~~
 - [Source repository](https://github.com/immich-power-tools/immich-power-tools)
 - ~~Documentation~~
-- ~~Image repo~~
+- [Image repo](https://github.com/immich-power-tools/immich-power-tools/pkgs/container/immich-power-tools)
 - ~~Other sites~~
 
 ## The setup

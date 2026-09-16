@@ -1,6 +1,12 @@
 # Git
 
-[Git](https://git-scm.com/) is the most popular source/version controlling software of our time.
+Git is the most popular source/version controlling software of our time.
+
+- [Official site](https://git-scm.com/)
+- ~~Source repository~~
+- ~~Documentation~~
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

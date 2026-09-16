@@ -1,6 +1,12 @@
 # Pihole-exporter
 
-[Pihole-exporter](https://github.com/eko/pihole-exporter) - A Prometheus exporter for PI-Hole's Raspberry PI ad blocker
+A Prometheus exporter for PI-Hole's Raspberry PI ad blocker
+
+- ~~Official site~~
+- [Source repository](https://github.com/eko/pihole-exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/ekofr/pihole-exporter)
+- ~~Other sites~~
 
 ## The setup
 

@@ -5,7 +5,7 @@ A self-hosted library management and reading platform for ebooks, PDFs, audioboo
 - [Official site](https://bookorbit.app/)
 - [Source repository](https://github.com/bookorbit/bookorbit)
 - [Documentation](https://bookorbit.app/what-is-bookorbit)
-- ~~Image repo~~
+- [Image repo](https://github.com/bookorbit/bookorbit/pkgs/container/bookorbit)
 - ~~Other sites~~
 
 ## The setup

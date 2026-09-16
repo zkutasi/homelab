@@ -1,6 +1,12 @@
 # SeaweedFS
 
-[SeaweedFS](https://seaweedfs.com/) - SeaweedFS is a distributed storage system for object storage (S3), file systems, and Iceberg tables, designed to handle billions of files with O(1) disk access and effortless horizontal scaling.
+SeaweedFS is a distributed storage system for object storage (S3), file systems, and Iceberg tables, designed to handle billions of files with O(1) disk access and effortless horizontal scaling.
+
+- [Official site](https://seaweedfs.com/)
+- [Source repository](https://github.com/seaweedfs/seaweedfs)
+- [Documentation](https://seaweedfs.com/docs/deploy/)
+- [Image repo](https://hub.docker.com/r/chrislusf/seaweedfs)
+- ~~Other sites~~
 
 ## The setup
 

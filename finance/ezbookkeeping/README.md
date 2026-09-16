@@ -1,6 +1,6 @@
 # EZBookkeeping
 
-A lightweight, self-hosted personal finance app with a user-friendly interface and powerful bookkeeping features.
+ezBookkeeping is an open source, powerful, self-hosted personal finance app that is easy to use.
 
 - [Official site](https://ezbookkeeping.mayswind.net/)
 - [Source repository](https://github.com/mayswind/ezbookkeeping)

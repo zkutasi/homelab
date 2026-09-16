@@ -1,6 +1,12 @@
 # Pkg-exporter
 
-[Pkg-exporter](https://github.com/margau/pkg-exporter) - This project provides an textfile-based exporter for apt-repositories.
+This project provides an textfile-based exporter for apt-repositories.
+
+- ~~Official site~~
+- [Source repository](https://github.com/margau/pkg-exporter)
+- [Documentation](https://margau.net/posts/2021-06-26-prometheus-pkg-exporter/)
+- ~~Image repo~~
+- ~~Other sites~~
 
 ## The setup
 

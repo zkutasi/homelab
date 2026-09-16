@@ -30,12 +30,12 @@ These solutions are very easy to deploy, extensive, but has many limitations and
 
 Some more popular examples are:
 
-- [LibreNMS](https://www.librenms.org/) - Based on SNMP for example to collect data like Node-exporter and visualize them too. Has the ability to discover your network even in a given IP-range.
+- [LibreNMS](https://www.librenms.org/) - Community-based GPL-licensed network monitoring system
 - [CheckMK](https://checkmk.com/) - An all-in-one solution with an agent-based approach. The agents are super-flexible and programmable. The tool can collect a lot of metrics by default, has sensible warnings on them and quite extensible. Though the configuration of it might be a nightmare due to the conplexity.
 - [Netdata](https://www.netdata.cloud/) - Also an all-in-one solution focusing on near-real-time metrics collection. Also agent based, and very flexible. The company focuses on Cloud data-storage for the tool but self-hosting is also possible.
 - [Paessler PRTG](https://www.paessler.com/prtg) -A very nice solution with a huge drawback: The dashboard is Windows only.
 - [Zabbix](https://www.zabbix.com/index)
-- [Beszel](https://beszel.dev/) - A relative newcomer, very simple minimalistic, straight-to-the-point dashboards only
+- [Beszel](https://beszel.dev/) - Lightweight server monitoring with historical data, docker stats, and alerts.
 
 ### Grafana LGTM+ stack
 
@@ -51,7 +51,7 @@ Can be all deployed using the `k8s-monitoring-helm` helm chart.
 
 ### Data collection
 
-- [Alloy](https://grafana.com/docs/alloy/latest/) - Grafana Labs newest solution, collects logs, metrics from the host, docker container logs and more with plugins
+- [Alloy](https://grafana.com/docs/alloy/latest/) - Grafana Alloy combines the strengths of the leading collectors into one place. Whether observing applications, infrastructure, or both, Grafana Alloy can collect, process, and export telemetry signals to scale and future-proof your observability approach.
 - [Open Telemetry Collector](https://opentelemetry.io/docs/collector/) - This is the original source of Alloy itself
 - [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - The discontinued log collector from Grafana Labs
 - [Vector](https://vector.dev/) - By Datadog
@@ -70,14 +70,14 @@ Can be all deployed using the `k8s-monitoring-helm` helm chart.
 - [Mimir](https://grafana.com/oss/mimir/) - Grafana Labs' solution from their own stack
 - [Thanos](https://thanos.io/) - Extends Prometheus with long-term storage, HA and more features, [more info here](https://last9.io/blog/prometheus-vs-thanos/)
 - [Cortex](https://cortexmetrics.io/) - Another long-term storage for metrics, [more info here](https://last9.io/blog/prometheus-vs-cortex/)
-- [InfluxDB](https://www.influxdata.com/) - A timeseries Database to store metrics in, [more info here](https://last9.io/blog/prometheus-vs-influxdb/)
+- [InfluxDB](https://www.influxdata.com/) - Scalable datastore for metrics, events, and real-time analytics
 - [Graphite](https://graphiteapp.org/) - Another TSDB Database, [more info here](https://last9.io/blog/graphite-vs-prometheus/)
 
 It is also important to see if the metrics collection is push or pull. Prometheus usually pulls the metrics while for example InfluxDB one needs to push metrics into it somehow.
 
 ### Logs
 
-- [Loki](https://grafana.com/oss/loki/) - From Grafana Labs, great integration into Grafana itself
+- [Loki](https://grafana.com/oss/loki/) - Loki is a horizontally scalable, highly available, multi-tenant log aggregation system inspired by Prometheus. It is designed to be very cost effective and easy to operate. It does not index the contents of the logs, but rather a set of labels for each log stream.
 - [VictoriaLogs](https://docs.victoriametrics.com/victorialogs/) - Sister of VictoriaMetrics, focusing on footprint reduction and performance improvements
 - [GrayLog](https://graylog.org/) - A popular alternative among homelabbers, [more info here](https://last9.io/blog/graylog-vs-loki/)
 - [ELK Stack](https://www.elastic.co/elastic-stack) - The ELK stack, [more info here](https://last9.io/blog/kibana-vs-grafana/)
@@ -96,16 +96,16 @@ Allows to show across microservices the end-to-end flow of data, and catch the r
 
 Linux has to be up-to-date, these tools make it obvious if they are lacking behind.
 
-- [PatchMon](https://patchmon.net/) - Centralized patch management across diverse server environments.
+- [PatchMon](https://patchmon.net/) - Linux Patch Management & Automation Platform
 - [Linux Update Dashboard](https://github.com/TheDuffman85/linux-update-dashboard) - Web app for managing Linux package updates across multiple servers. Connect via SSH, check for updates, and apply them from a single dashboard in your browser. No agents are required.
 
 ### Proxmox
 
-- [Pulse](https://github.com/rcourtman/Pulse) - A specific monitoring solution for Proxmox PVE servers and Docker hosts, with an agent-driven approach. Ability to check SMART data and Sensor data as well.
+- [Pulse](https://github.com/rcourtman/Pulse) - Monitoring for Proxmox, Docker, Kubernetes, TrueNAS, and vSphere that watches your infrastructure for you: smart alerts, AI patrols that catch silent failures, and verified fixes
 
 ### Special ones
 
-- [NetAlertX](https://netalertx.com/) - Scans the network, discovers Hosts and alerts for changes (new host for example)
+- [NetAlertX](https://netalertx.com/) - Centralized network visibility and continuous asset discovery. Monitor devices, detect change, and stay aware across distributed networks.
 - [Scrutiny](https://github.com/analogj/scrutiny/pkgs/container/scrutiny) - A S.M.A.R.T. checker, that also correlates data from BackBlaze to predict HDD issues. Project seems to be abandoned on the release-side, but the images are updated regularly. Pretty interesting metrics, although extremely unreliable.
 
 ## Notable comments

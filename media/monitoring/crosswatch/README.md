@@ -1,6 +1,6 @@
 # Crosswatch
 
-A synchronization engine that keeps your Plex, Jellyfin, Emby, SIMKL, Trakt, AniList, MDBList and Tautulli in sync.
+Synchronize your data across media servers, media agents and trackers. Keep your movies and shows in sync, no matter where you watch.
 
 - [Official site](https://wiki.crosswatch.app/)
 - [Source repository](https://github.com/cenodude/CrossWatch)

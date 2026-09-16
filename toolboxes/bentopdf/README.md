@@ -1,6 +1,6 @@
 # BentoPDF
 
-A powerful, privacy-first, client-side PDF toolkit that is self hostable and allows you to manipulate, edit, merge, and process PDF files directly in your browser.
+The Privacy First PDF Toolkit
 
 - [Official site](https://www.bentopdf.com)
 - [Source repository](https://github.com/alam00000/bentopdf/)

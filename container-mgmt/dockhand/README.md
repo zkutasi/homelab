@@ -5,7 +5,9 @@ Dockhand - Docker management you will like.
 - [Official site](https://dockhand.pro)
 - [Source repository](https://github.com/Finsys/dockhand)
 - [Documentation](https://dockhand.pro/manual/)
-- ~~Image repo~~
+- Image repo
+  - [Dockhand](https://hub.docker.com/r/fnsys/dockhand)
+  - [Hawser](https://github.com/finsys/hawser/pkgs/container/hawser)
 - ~~Other sites~~
 
 ## The setup

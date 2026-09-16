@@ -1,6 +1,12 @@
 # Helm-exporter
 
-[Helm-exporter](https://github.com/sstarcher/helm-exporter) - Export helm stats into the Prometheus format
+Export helm stats into the Prometheus format
+
+- ~~Official site~~
+- [Source repository](https://github.com/sstarcher/helm-exporter)
+- ~~Documentation~~
+- [Helm Chart](https://shanestarcher.com/helm-charts/)
+- ~~Other sites~~
 
 ## The setup
 

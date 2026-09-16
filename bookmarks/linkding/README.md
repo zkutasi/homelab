@@ -1,6 +1,6 @@
 # Linkding
 
-A self-hosted bookmark manager designed to be minimal, fast, and easy to set up. Tag manually, import/export. Browser extension to add, REST API and RSS feed support.
+Self-hosted bookmark manager that is designed be to be minimal, fast, and easy to set up using Docker.
 
 - [Official site](https://linkding.link/)
 - [Source repository](https://github.com/sissbruecker/linkding)

@@ -5,7 +5,7 @@ A DNS performance testing IPv4, IPv6, DNS over HTTPS (DoH), DNS over TLS (DoT), 
 - [Official site](https://yadnsb.butialabs.com/)
 - [Source repository](https://github.com/butialabs/yadnsb)
 - ~~Documentation~~
-- ~~Image repo~~
+- [Image repo](https://github.com/butialabs/yadnsb/pkgs/container/yadnsb)
 - ~~Other sites~~
 
 ## The setup

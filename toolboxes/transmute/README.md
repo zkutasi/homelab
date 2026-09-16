@@ -1,6 +1,6 @@
 # Transmute
 
-Self hosted file converter for images, video, audio, json, excel and more. Supports over 2,000 conversions!
+Self hosted file converter and compression tool for images, video, audio, json, excel and more. Supports over 3,000 conversions!
 
 - [Official site](https://transmute.sh/)
 - [Source repository](https://github.com/transmute-app/transmute)

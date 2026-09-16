@@ -1,6 +1,6 @@
 # YourLastFM
 
-Synchronizes scrobbles from Last.fm, stores them in a local SQLite database, and serves a web dashboard.
+Turn your Last.fm scrobbles into a complete, private dashboard.
 
 - ~~Official site~~
 - [Source repository](https://github.com/Gomaink/your_lastfm)

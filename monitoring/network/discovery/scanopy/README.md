@@ -5,7 +5,7 @@ Network diagrams that update themselves
 - [Official site](https://scanopy.net/)
 - [Source repository](https://github.com/scanopy/scanopy)
 - [Documentation](https://scanopy.net/docs/)
-- ~~Image repo~~
+- [Image repo](https://github.com/scanopy/scanopy/pkgs/container/scanopy%2Fdaemon)
 - ~~Other sites~~
 
 ## The setup

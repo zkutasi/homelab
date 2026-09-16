@@ -16,7 +16,7 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 
 - [Kubeadm](https://kubernetes.io/docs/reference/setup-tools/kubeadm/) - The Original tool to install a Kubernetes cluster. Lots of cons though: It is a bit dated, but still widely used as it provides a low level understanding of what is going on. Heavy on the learning curve. Troubleshooting is a pain. Not supporting any tools, like monitoring, etc... to be installed.
 - [Kops](https://kops.sigs.k8s.io/)
-- [Kubespray](https://github.com/kubernetes-sigs/kubespray) - A modern way to install Kubernetes using Ansible and inventories. Has a vast amount of additional settings as well.
+- [Kubespray](https://github.com/kubernetes-sigs/kubespray) - Deploy a Production Ready Kubernetes Cluster
 - [Minikube](https://minikube.sigs.k8s.io/docs/) - A Simple way to test Kubernetes and gain knowledge. But not a native Kubernetes cluster, things work differently: No HA, no ingress, etc...
 - [Kind](https://kind.sigs.k8s.io/) - Intended for development and testing. Not a native Kubernetes cluster, things work differently
 - [K0s](https://k0sproject.io/)

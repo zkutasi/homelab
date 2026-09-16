@@ -1,6 +1,12 @@
 # Borgmatic-exporter
 
-[Borgmatic-exporter](https://github.com/maxim-mityutko/borgmatic-exporter/) - Prometheus exporter for Borgmatic seamlessly integrated into official Borgmatic docker image
+Prometheus exporter for Borgmatic seamlessly integrated into official Borgmatic docker image
+
+- ~~Official site~~
+- [Source repository](https://github.com/maxim-mityutko/borgmatic-exporter)
+- ~~Documentation~~
+- [Image repo](https://github.com/maxim-mityutko/borgmatic-exporter/pkgs/container/borgmatic-exporter)
+- ~~Other sites~~
 
 ## The setup
 

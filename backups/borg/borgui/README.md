@@ -1,6 +1,12 @@
 # BorgUI
 
-[BorgUI](https://github.com/karanhudia/borg-ui) A Web UI for Borg clients mostly: Handle repos, backups, schedules archives. But also allows to import existing repos and monitor them.
+Replace complex Borg Backup terminal commands with a beautiful web UI. Create, schedule, and restore backups with just a few clicks.
+
+- [Official site](https://borgui.com/)
+- [Source repository](https://github.com/karanhudia/borg-ui)
+- [Documentation](https://docs.borgui.com/)
+- [Image repo](https://hub.docker.com/r/ainullcode/borg-ui)
+- ~~Other sites~~
 
 ## The setup
 

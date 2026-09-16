@@ -1,6 +1,12 @@
 # Windows-exporter
 
-[Windows-exporter](https://github.com/prometheus-community/windows_exporter) - Prometheus exporter for Windows machines
+Prometheus exporter for Windows machines
+
+- ~~Official site~~
+- [Source repository](https://github.com/prometheus-community/windows_exporter)
+- ~~Documentation~~
+- [Image repo](https://hub.docker.com/r/prometheuscommunity/windows-exporter)
+- ~~Other sites~~
 
 ## The setup
 
