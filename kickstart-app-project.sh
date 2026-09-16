@@ -167,6 +167,8 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
     if [ -n "${SUBTYPE}" ] && [ -d "${REPO_ROOT}/_templates/${TYPE}" ]; then
         cp -r ${REPO_ROOT}/_templates/${TYPE}/* "${TARGET_APP_DIR}"
     fi
+    mkdir -p "${TARGET_APP_DIR}/config/templates"
+    echo > "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
     if [ "${SUBTYPE}" == "truecharts" ]; then
         APP_PORT=$(curl -s https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml | yq ".service.main.ports.main.port")
     elif [ "${SUBTYPE}" == "truecharts-local" ]; then
@@ -205,6 +207,20 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                 yq -i ".dependencies += [{\"name\": \"mariadb\", \"version\": \"${MARIADB_CHART_VERSION}\", \"repository\": \"oci://oci.trueforge.org/truecharts\", \"condition\": \"mariadb.enabled\", \"alias\": \"\", \"tags\": [], \"import-values\": []}]" "${TARGET_APP_DIR}/chart/Chart.yaml"
               fi
             fi
+
+            if [ -n "${POSTGRESQL}" ] || [ -n "${MARIADB}" ]; then
+              echo "Generating secrets configuration scaffolding..."
+              if [ -n "${POSTGRESQL}" ]; then
+                yq -i ".cnpg.main.password = \"PLACEHOLDER_DB_PASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+              fi
+              if [ -n "${MARIADB}" ]; then
+                yq -i ".mariadb.password = \"PLACEHOLDER_DB_PASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+                yq -i ".mariadb.rootPassword = \"PLACEHOLDER_DB_ROOTPASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+              fi
+              sed -i "s|PLACEHOLDER_DB_PASSWORD|{{ ${APP_NAME_LOWERCASE}_database_password }}|g" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+              sed -i "s|PLACEHOLDER_DB_ROOTPASSWORD|{{ ${APP_NAME_LOWERCASE}_database_rootpassword }}|g" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+            fi
+
             APP_SERVICES=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${TARGET_APP_DIR}/docker-compose.yaml"))
             if (( ${#APP_SERVICES[@]} >= 1 )); then
               MULTI_CONTAINER=false
