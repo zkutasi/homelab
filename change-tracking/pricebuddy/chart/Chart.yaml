@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=jez500/pricebuddy
-appVersion: latest
+appVersion: v1.0.54
 dependencies:
   - name: common
     version: 28.26.3
