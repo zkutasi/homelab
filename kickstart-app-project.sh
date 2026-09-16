@@ -269,7 +269,9 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
               done
 
               echo "Processing ports..."
-              APP_PORT=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml" | cut -d':' -f1)
+              APP_PORT_RAW=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml")
+              APP_PORT_RAW=${APP_PORT_RAW%%/*}
+              APP_PORT=${APP_PORT_RAW##*:}
               yq -i ".service.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.port = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
               yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
