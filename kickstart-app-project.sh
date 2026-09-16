@@ -275,13 +275,20 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
                 if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" >/dev/null 2>&1; then
                     VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
                     if [ "${SERVICE_INDEX}" -eq 0 ]; then
-                      PERSISTENCE_KEY="data"
+                      PERSISTENCE_BASE_KEY="data"
                     else
-                      PERSISTENCE_KEY="${CONTAINER_KEY}-data"
+                      PERSISTENCE_BASE_KEY="${CONTAINER_KEY}-data"
                     fi
 
+                    VOLUME_INDEX=0
                     while IFS= read -r line; do
                         [ -z "${line}" ] && continue
+                        VOLUME_INDEX=$((VOLUME_INDEX + 1))
+                        if [ "${VOLUME_INDEX}" -eq 1 ]; then
+                          PERSISTENCE_KEY="${PERSISTENCE_BASE_KEY}"
+                        else
+                          PERSISTENCE_KEY="${PERSISTENCE_BASE_KEY}-${VOLUME_INDEX}"
+                        fi
                         CONTAINER_PATH=$(echo "${line}" | cut -d':' -f2)
                         yq -i ".persistence.${PERSISTENCE_KEY}.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
                         yq -i ".persistence.${PERSISTENCE_KEY}.accessModes = \"ReadWriteOnce\"" "${TARGET_APP_DIR}/app-values.yaml"
