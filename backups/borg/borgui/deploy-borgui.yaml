@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: borgui
     requested_image_version:
-      borgui: "ainullcode/borg-ui:1.66.1"
+      borgui: "ainullcode/borg-ui:2.2.6"
     docker_compose_create_dirs:
       - name: borg_cache
       - name: borg_data
