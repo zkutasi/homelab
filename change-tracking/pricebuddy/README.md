@@ -24,6 +24,7 @@ A self hostable app that tracks prices and sends you notifications when prices m
     |----|------------------|-------|
     |pricebuddy_app_key|M|A unique app-key, generate it with for example `openssl rand -hex 16`|
     |pricebuddy_database_password|M|The database password|
+    |pricebuddy_database_rootpassword|M|The database rootpassword|
     |pricebuddy_user_email|M|The app username|
     |pricebuddy_user_password|M|The app password|
 
