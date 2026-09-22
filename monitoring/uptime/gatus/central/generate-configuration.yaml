@@ -1,8 +1,6 @@
-- name: Generate dynamic configuration for Uptime Kuma for K8s services
+- name: Generate dynamic configuration for Gatus for K8s services
   hosts: localhost
   gather_facts: false
-  vars:
-    monitor_base_dir: "config/autokuma-monitors"
   tasks:
     - name: Gather Contour HTTPProxy resources
       kubernetes.core.k8s_info:
@@ -10,15 +8,12 @@
         api_version: projectcontour.io/v1
         kind: HTTPProxy
       register: contour_proxies
-    - name: Extract FQDNs
+    - name: Filter HTTPProxy resources exposing a virtualhost FQDN
       ansible.builtin.set_fact:
-        contour_fqdns: >-
+        contour_endpoints: >-
           {{
             contour_proxies.resources
-            | map(attribute='spec.virtualhost.fqdn')
-            | select('defined')
-            | map('split', '.')
-            | map('first')
+            | selectattr('spec.virtualhost.fqdn', 'defined')
             | list
           }}
 - name: Generate dynamic configuration for Gatus

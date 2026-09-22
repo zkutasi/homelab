@@ -1,6 +1,8 @@
 apiVersion: projectcontour.io/v1
 kind: HTTPProxy
 metadata:
+  # annotations:
+  #   homelab/health-endpoint: <APP_HEALTH_ENDPOINT_PATH>
   labels:
     k8s-app: <APP_NAME_LOWERCASE>
   name: <APP_NAME_LOWERCASE>-httpproxy
