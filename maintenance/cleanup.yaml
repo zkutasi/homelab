@@ -1,22 +1,86 @@
 - name: Docker Prune
   hosts: docker
+  vars:
+    docker_prune_grace_period: "168h"
+    docker_repo_tag_pattern: '^(.*):([^:]+)$'
+    docker_version_tag_pattern: '^([vV]?[0-9]+(?:\.[0-9]+)*)(?:-.+)?$'
   tasks:
-    - name: Docker prune
+    - name: Prune stopped containers older than grace period
       community.docker.docker_prune:
         debug: true
         containers: true
+        containers_filters:
+          until: "{{ docker_prune_grace_period }}"
+
+    - name: Prune dangling images
+      community.docker.docker_prune:
+        debug: true
         images: true
+
+    - name: Prune unused networks
+      community.docker.docker_prune:
+        debug: true
         networks: true
+
+    - name: Prune unused volumes
+      community.docker.docker_prune:
+        debug: true
         volumes: true
+
+    - name: Get running containers
+      community.docker.docker_host_info:
+        containers: true
+        verbose_output: true
+      register: docker_running_containers
+
     - name: Get all images
       community.docker.docker_image_info:
       register: docker_images
-    - name: Remove all latest images
-      community.docker.docker_image:
-        state: absent
-        name: "{{ item.RepoTags[0].split(':')[0] }}"
-        tag: latest
-      loop: "{{ docker_images.images }}"
+
+    - name: Determine image IDs currently backing a running container
+      ansible.builtin.set_fact:
+        running_image_ids: >-
+          {{ docker_running_containers.containers
+             | map(attribute='ImageID')
+             | map('regex_replace', '^sha256:', '')
+             | list }}
+
+    - name: Build repo/tag/id entries for semantic-version image tags
+      ansible.builtin.set_fact:
+        version_tagged_images: >-
+          {{ (version_tagged_images | default([])) + [{
+            'repo': item.1 | regex_replace(docker_repo_tag_pattern, '\1'),
+            'tag': item.1 | regex_replace(docker_repo_tag_pattern, '\2'),
+            'version': item.1 | regex_replace(docker_repo_tag_pattern, '\2') | regex_replace(docker_version_tag_pattern, '\1'),
+            'id': item.0.Id | regex_replace('^sha256:', '')
+          }] }}
+      loop: "{{ docker_images.images | subelements('RepoTags', skip_missing=True) }}"
       loop_control:
-        label: "{{ item.RepoTags }}"
-      when: "'latest' in (item.RepoTags | map('split', ':') | map('last'))"
+        label: "{{ item.1 }}"
+      when: (item.1 | regex_replace(docker_repo_tag_pattern, '\\2')) is regex(docker_version_tag_pattern)
+
+    - name: Determine older, non-running image tags to remove
+      ansible.builtin.set_fact:
+        docker_images_to_remove: >-
+          {{ (docker_images_to_remove | default([])) +
+             (older_entries | rejectattr('id', 'in', running_image_ids)
+                | map('combine', {'newest_tag': newest_tag}) | list) }}
+      vars:
+        entries: "{{ version_tagged_images | default([]) | selectattr('repo', 'equalto', item) | list }}"
+        sorted_versions: "{{ entries | map(attribute='version') | list | community.general.version_sort }}"
+        newest_version: "{{ sorted_versions | last | string }}"
+        newest_tag: "{{ (entries | selectattr('version', 'equalto', newest_version) | map(attribute='tag') | list | first) | string }}"
+        older_entries: "{{ entries | rejectattr('version', 'equalto', newest_version) | list }}"
+      loop: "{{ version_tagged_images | default([]) | map(attribute='repo') | unique | list }}"
+      loop_control:
+        label: "{{ item }}"
+
+    - name: Remove superseded semantic-version image tags
+      community.docker.docker_image:
+        name: "{{ item.repo }}"
+        tag: "{{ item.tag }}"
+        state: absent
+        force_absent: true
+      loop: "{{ docker_images_to_remove | default([]) }}"
+      loop_control:
+        label: "{{ item.repo }}:{{ item.tag }} superseded by {{ item.repo }}:{{ item.newest_tag }}"
