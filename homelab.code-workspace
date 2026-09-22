@@ -75,6 +75,11 @@
 						"group": "Kickstart"
         },
 				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type docker --foldername ${PREFIX} --appname ${APPNAME} --docker-compose-url <DOCKER_COMPOSE_URL>; popd",
+            "name": "Kickstart a docker project from a docker-compose URL",
+						"group": "Kickstart"
+        },
+				{
             "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.helm --foldername ${PREFIX} --appname ${APPNAME}; popd",
             "name": "Kickstart a k8s.helm project",
 						"group": "Kickstart"
@@ -87,6 +92,11 @@
 				{
             "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.truecharts-local --foldername ${PREFIX} --appname ${APPNAME}; popd",
             "name": "Kickstart a k8s.truecharts-local project",
+						"group": "Kickstart"
+        },
+				{
+            "command": "PREFIX=$(git rev-parse --show-prefix); PREFIX=${PREFIX%/}; APPNAME=${PREFIX##*/}; APPNAME=${APPNAME^}; pushd $(git rev-parse --show-toplevel); ./kickstart-app-project.sh --type k8s.truecharts-local --foldername ${PREFIX} --appname ${APPNAME} --docker-compose-url <DOCKER_COMPOSE_URL>; popd",
+            "name": "Kickstart a k8s.truecharts-local project from a docker-compose URL",
 						"group": "Kickstart"
         },
 				{

@@ -7,13 +7,14 @@ ANSIBLE_HOST=
 TYPE=docker
 MAINTYPE=docker
 SUBTYPE=
+DOCKER_COMPOSE_URL=
 # Pinned TrueCharts mariadb dependency version for generated Chart.yaml files; Renovate's helmv3
 # manager tracks chart/Chart.yaml dependencies natively once written, no special comment needed.
 MARIADB_CHART_VERSION="18.10.0"
 
 function usage() {
     cat <<EOF
-Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>]
+Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>] [--docker-compose-url <url>]
 
 Options:
   --foldername <foldername>   Specify the folder to create (required)
@@ -28,6 +29,8 @@ Options:
                               - k8s.kustomize        : for Kubernetes based deployments with Kustomize files
                               - k8s.truecharts       : for Kubernetes based deployments with existing Truecharts helm chart
                               - k8s.truecharts-local : for Kubernetes based deployments with non-existing Truecharts helm chart
+  --docker-compose-url <url>  Download docker-compose.yaml from the given URL into the foldername
+                              instead of requiring one to already be present there
 EOF
 }
 
@@ -45,6 +48,10 @@ while [ $# -ge 1 ]; do
     --host)
       shift
       ANSIBLE_HOST=$1
+      ;;
+    --docker-compose-url)
+      shift
+      DOCKER_COMPOSE_URL=$1
       ;;
     --type)
       shift
@@ -89,9 +96,28 @@ fi
 
 TARGET_APP_DIR="${REPO_ROOT}/${APP_FOLDERNAME}"
 
+if [[ "${MAINTYPE}" == "docker" || "${TYPE}" == "k8s.truecharts-local" ]] && [ -z "${DOCKER_COMPOSE_URL}" ] && [ ! -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
+    echo "ERROR: No docker-compose.yaml found in '${TARGET_APP_DIR}' and no --docker-compose-url specified."
+    usage
+    exit 1
+fi
+
 echo "Preparing to kickstart app '${APP_NAME}' in folder '${APP_FOLDERNAME}' using '${TYPE}' templates."
-echo "Copy files..."
 mkdir -p "${TARGET_APP_DIR}"
+
+if [ -n "${DOCKER_COMPOSE_URL}" ]; then
+    if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/*/blob/* ]]; then
+        DOCKER_COMPOSE_URL=$(echo "${DOCKER_COMPOSE_URL}" | sed -E 's#^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
+        echo "Converted GitHub blob URL to raw URL: '${DOCKER_COMPOSE_URL}'"
+    fi
+    echo "Downloading docker-compose.yaml from '${DOCKER_COMPOSE_URL}'..."
+    if ! curl -sfL "${DOCKER_COMPOSE_URL}" -o "${TARGET_APP_DIR}/docker-compose.yaml"; then
+        echo "ERROR: Failed to download docker-compose.yaml from '${DOCKER_COMPOSE_URL}'"
+        exit 1
+    fi
+fi
+
+echo "Copy files..."
 cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
 
 if [ "${MAINTYPE}" == "binary" ]; then
