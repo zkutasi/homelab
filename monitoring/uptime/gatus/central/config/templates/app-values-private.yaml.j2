@@ -95,11 +95,11 @@ configmap:
               - "[CONNECTED] == true"
 {% endfor%}
 {% for proxy in contour_endpoints %}
-{% set fqdn = proxy.spec.virtualhost.fqdn.split('.')[0] %}
+{% set fqdn_prefix = proxy.spec.virtualhost.fqdn.split('.')[0] %}
 {% set health_endpoint = proxy.metadata.annotations['homelab/health-endpoint'] | default('') %}
-          - name: http-k8s-{{ fqdn }}
+          - name: http-k8s-{{ fqdn_prefix }}
             group: k8s
-            url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}{{ health_endpoint }}"
+            url: "https://{{ proxy.spec.virtualhost.fqdn }}{{ health_endpoint }}"
             client:
               insecure: true
             interval: 60s

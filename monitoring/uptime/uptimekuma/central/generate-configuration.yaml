@@ -59,26 +59,26 @@
         api_version: projectcontour.io/v1
         kind: HTTPProxy
       register: contour_proxies
-    - name: Extract FQDNs
+    - name: Filter HTTPProxy resources exposing a virtualhost FQDN
       ansible.builtin.set_fact:
-        contour_fqdns: >-
+        contour_endpoints: >-
           {{
             contour_proxies.resources
-            | map(attribute='spec.virtualhost.fqdn')
-            | select('defined')
-            | map('split', '.')
-            | map('first')
+            | selectattr('spec.virtualhost.fqdn', 'defined')
             | list
+            | sort(attribute='spec.virtualhost.fqdn')
           }}
     - name: Initialize expected files list
       ansible.builtin.set_fact:
         host_expected_files: []
     - name: Build expected files for host
       ansible.builtin.set_fact:
-        host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-k8s-' ~ service ~ '.json' ] }}"
-      loop: "{{ contour_fqdns }}"
+        host_expected_files: "{{ host_expected_files + [ monitor_base_dir ~ '/http-k8s-' ~ fqdn_prefix ~ '.json' ] }}"
+      loop: "{{ contour_endpoints }}"
       loop_control:
-        loop_var: service
+        loop_var: proxy
+      vars:
+        fqdn_prefix: "{{ proxy.spec.virtualhost.fqdn.split('.')[0] }}"
     - name: Find existing files for host
       delegate_to: localhost
       ansible.builtin.find:
@@ -100,12 +100,13 @@
       delegate_to: localhost
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
-        dest: "{{ monitor_base_dir }}/http-k8s-{{ service }}.json"
-      loop: "{{ contour_fqdns }}"
+        dest: "{{ monitor_base_dir }}/http-k8s-{{ fqdn_prefix }}.json"
+      loop: "{{ contour_endpoints }}"
       loop_control:
-        loop_var: service
+        loop_var: proxy
       vars:
-        monitor_name: "http-k8s-{{ service }}"
+        fqdn_prefix: "{{ proxy.spec.virtualhost.fqdn.split('.')[0] }}"
+        monitor_name: "http-k8s-{{ fqdn_prefix }}"
         monitor_parent_name: "k8s"
         monitor_type: "http"
-        monitor_url: "https://{{ service }}.{{ kubernetes_internal_domain }}"
+        monitor_url: "https://{{ proxy.spec.virtualhost.fqdn }}{{ proxy.metadata.annotations['homelab/health-endpoint'] | default('') }}"

@@ -49,10 +49,15 @@ sections:
 {% endfor %}
   - name: Kubernetes
     items:
-{% for fqdn in contour_fqdns %}
-{% set service_icon_url = 'sh-' + fqdn %}
-    - title: {{ fqdn }}
-      description: {{ fqdn }}
+{% for proxy in contour_endpoints %}
+{% set fqdn_prefix = proxy.spec.virtualhost.fqdn.split('.')[0] %}
+{% set health_endpoint = proxy.metadata.annotations['homelab/health-endpoint'] | default('') %}
+{% set service_icon_url = 'sh-' + fqdn_prefix %}
+    - title: {{ fqdn_prefix }}
+      description: {{ fqdn_prefix }}
       icon: {{ service_icon_url }}
-      url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}"
+      url: "https://{{ proxy.spec.virtualhost.fqdn }}"
+{% if health_endpoint %}
+      statusCheckUrl: "https://{{ proxy.spec.virtualhost.fqdn }}{{ health_endpoint }}"
+{% endif %}
 {% endfor %}

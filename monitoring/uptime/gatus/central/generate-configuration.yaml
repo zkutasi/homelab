@@ -15,6 +15,7 @@
             contour_proxies.resources
             | selectattr('spec.virtualhost.fqdn', 'defined')
             | list
+            | sort(attribute='spec.virtualhost.fqdn')
           }}
 - name: Generate dynamic configuration for Gatus
   hosts: localhost

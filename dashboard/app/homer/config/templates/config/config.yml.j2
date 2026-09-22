@@ -51,13 +51,14 @@ services:
   - name: "Kubernetes"
     icon: "fas fa-cloud"
     items:
-{% for fqdn in contour_fqdns %}
-{% set service_icon_url = 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/' + fqdn + '.png' %}
-      - name: "{{ fqdn }}"
+{% for proxy in contour_endpoints %}
+{% set fqdn_prefix = proxy.spec.virtualhost.fqdn.split('.')[0] %}
+{% set service_icon_url = 'https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/' + fqdn_prefix + '.png' %}
+      - name: "{{ fqdn_prefix }}"
         logo: "{{ service_icon_url }}"
-        url: "https://{{ fqdn }}.{{ kubernetes_internal_domain }}"
+        url: "https://{{ proxy.spec.virtualhost.fqdn }}"
         target: "_blank"
-{% if fqdn == "gatus" %}
+{% if fqdn_prefix == "gatus" %}
         type: "Gatus"
 {% else%}
         type: "Ping"

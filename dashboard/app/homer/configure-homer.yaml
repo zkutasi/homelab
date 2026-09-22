@@ -9,16 +9,14 @@
         kind: HTTPProxy
       delegate_to: localhost
       register: contour_proxies
-    - name: Extract FQDNs
+    - name: Filter HTTPProxy resources exposing a virtualhost FQDN
       ansible.builtin.set_fact:
-        contour_fqdns: >-
+        contour_endpoints: >-
           {{
             contour_proxies.resources
-            | map(attribute='spec.virtualhost.fqdn')
-            | select('defined')
-            | map('split', '.')
-            | map('first')
+            | selectattr('spec.virtualhost.fqdn', 'defined')
             | list
+            | sort(attribute='spec.virtualhost.fqdn')
           }}
 - name: Generate dynamic configuration for Homer
   hosts: dashboard
