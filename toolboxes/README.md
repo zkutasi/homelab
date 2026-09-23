@@ -13,6 +13,7 @@ N/A
 - [StirlingPDF](https://www.stirlingpdf.com/) - No1 PDF Application on GitHub that lets you edit PDFs on any device anywhere
 - [BentoPDF](https://www.bentopdf.com) - The Privacy First PDF Toolkit
 - [PDFCraft](https://pdfcraft.devtoolcafe.com/) - A free, privacy-focused PDF toolkit that runs entirely in your browser. With 90+ professional tools, you can edit, convert, merge, split, and secure your PDF files without ever uploading them to a server.
+- [PDFDing](https://www.pdfding.com/) - Selfhosted PDF manager, viewer and editor offering a seamless user experience on multiple devices.
 
 ### File Converters
 

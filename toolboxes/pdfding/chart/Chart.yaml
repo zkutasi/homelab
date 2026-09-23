@@ -1,0 +1,14 @@
+apiVersion: v2
+# renovate: image=mrmn/pdfding
+appVersion: v1.14.0
+dependencies:
+  - name: common
+    version: 28.26.3
+    repository: oci://oci.trueforge.org/truecharts
+    condition: ""
+    alias: ""
+    tags: []
+    import-values: []
+name: pdfding
+type: application
+version: 1.0.0

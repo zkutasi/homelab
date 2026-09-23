@@ -1,0 +1,47 @@
+image:
+  repository: mrmn/pdfding
+  tag: v1.14.0
+  pullPolicy: IfNotPresent
+
+persistence:
+  db:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /home/nonroot/pdfding/db
+    type: pvc
+  media:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /home/nonroot/pdfding/media
+    type: pvc
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 8000
+        protocol: http
+        targetPort: 8000
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            DEFAULT_THEME: dark
+            CSRF_COOKIE_SECURE: FALSE
+            SESSION_COOKIE_SECURE: FALSE
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false

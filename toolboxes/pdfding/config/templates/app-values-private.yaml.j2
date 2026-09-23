@@ -1,0 +1,8 @@
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            HOST_NAME: {{ pdfding_hostname }}
+            SECRET_KEY: {{ pdfding_secret_key }}
