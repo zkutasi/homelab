@@ -523,14 +523,25 @@ function kickstart_k8s_truecharts_local() {
       done
 
       echo "Processing ports ..."
-      local app_port_raw
-      app_port_raw=$(yq ".services.${app_services[0]}.ports[0]" "${APP_TARGET_DIR}/docker-compose.yaml")
-      app_port_raw=${app_port_raw%%/*}
-      APP_PORT=${app_port_raw##*:}
+      local port_items port_index port_key port_raw port_number line
+      port_items=$(yq -r ".services.${app_services[0]}.ports[]" "${APP_TARGET_DIR}/docker-compose.yaml")
       yq -i ".service.main.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
-      yq -i ".service.main.ports.main.port = ${APP_PORT}" "${APP_TARGET_DIR}/app-values.yaml"
-      yq -i ".service.main.ports.main.protocol = \"http\"" "${APP_TARGET_DIR}/app-values.yaml"
-      yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${APP_TARGET_DIR}/app-values.yaml"
+      port_index=0
+      while IFS= read -r line; do
+        [ -z "${line}" ] && continue
+        port_index=$((port_index + 1))
+        if [ "${port_index}" -eq 1 ]; then
+          port_key="main"
+        else
+          port_key="main-${port_index}"
+        fi
+        port_raw=${line%%/*}
+        port_number=${port_raw##*:}
+        [ "${port_index}" -eq 1 ] && APP_PORT=${port_number}
+        yq -i ".service.main.ports.${port_key}.port = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
+        yq -i ".service.main.ports.${port_key}.protocol = \"http\"" "${APP_TARGET_DIR}/app-values.yaml"
+        yq -i ".service.main.ports.${port_key}.targetPort = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
+      done <<< "${port_items}"
 
       echo "Processing timezone ..."
       yq -i ".TZ = \"Europe/Budapest\"" "${APP_TARGET_DIR}/app-values.yaml"
