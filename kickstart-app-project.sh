@@ -163,33 +163,6 @@ function image_repo_link() {
   esac
 }
 
-function populate_readme_image_repo() {
-  [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ] || return
-  [ -f "${TARGET_APP_DIR}/README.md" ] || return
-
-  local service image link
-  local -a services=()
-  local -a links=()
-  while IFS=$'\t' read -r service image; do
-    [[ "${image}" =~ ^(postgres|redis|mysql|mariadb)(:|$|/) ]] && continue
-    link=$(image_repo_link "${image}")
-    if [ -n "${link}" ]; then
-      services+=("${service}")
-      links+=("${link}")
-    fi
-  done < <(yq -o=json '.services' "${TARGET_APP_DIR}/docker-compose.yaml" | jq -r 'to_entries[] | .key + "\t" + .value.image')
-
-  if [ "${#links[@]}" -eq 1 ]; then
-    sed -i "s|^- ~~Image repo~~\$|- [Image repo](${links[0]})|" "${TARGET_APP_DIR}/README.md"
-  elif [ "${#links[@]}" -gt 1 ]; then
-    sed -i "s|^- ~~Image repo~~\$|- Image repo:|" "${TARGET_APP_DIR}/README.md"
-    local i
-    for ((i = ${#links[@]} - 1; i >= 0; i--)); do
-      sed -i "/^- Image repo:\$/a\\  - [${services[${i}]}](${links[${i}]})" "${TARGET_APP_DIR}/README.md"
-    done
-  fi
-}
-
 function populate_readme() {
   [ -f "${TARGET_APP_DIR}/README.md" ] || return
 
@@ -199,7 +172,47 @@ function populate_readme() {
     [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site](${APP_HOMEPAGE})|" "${TARGET_APP_DIR}/README.md"
     sed -i "s|^- ~~Source repository~~\$|- [Source repository](${APP_SOURCE_URL})|" "${TARGET_APP_DIR}/README.md"
   fi
-  populate_readme_image_repo
+
+  if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
+    local service image link
+    local -a services=()
+    local -a links=()
+    while IFS=$'\t' read -r service image; do
+      [[ "${image}" =~ ^(postgres|redis|mysql|mariadb)(:|$|/) ]] && continue
+      link=$(image_repo_link "${image}")
+      if [ -n "${link}" ]; then
+        services+=("${service}")
+        links+=("${link}")
+      fi
+    done < <(yq -o=json '.services' "${TARGET_APP_DIR}/docker-compose.yaml" | jq -r 'to_entries[] | .key + "\t" + .value.image')
+
+    if [ "${#links[@]}" -eq 1 ]; then
+      sed -i "s|^- ~~Image repo~~\$|- [Image repo](${links[0]})|" "${TARGET_APP_DIR}/README.md"
+    elif [ "${#links[@]}" -gt 1 ]; then
+      sed -i "s|^- ~~Image repo~~\$|- Image repo:|" "${TARGET_APP_DIR}/README.md"
+      local i
+      for ((i = ${#links[@]} - 1; i >= 0; i--)); do
+        sed -i "/^- Image repo:\$/a\\  - [${services[${i}]}](${links[${i}]})" "${TARGET_APP_DIR}/README.md"
+      done
+    fi
+  fi
+
+  if [ "${#ENV_SECRET_PLACEHOLDERS[@]}" -gt 0 ]; then
+    echo "Documenting sensitive environment variables in README.md ..."
+    local -a var_names=()
+    local entry
+    for entry in "${ENV_SECRET_PLACEHOLDERS[@]}"; do
+      var_names+=("${entry#*=}")
+    done
+
+    local rows
+    rows=$(printf '%s\n' "${var_names[@]}" | awk '!seen[$0]++ { printf "    |%s|M||\n", $0 }')
+    rows="${rows}"$'\n'
+    awk -v rows="${rows}" '
+      { print }
+      !inserted && /^    \|----\|------------------\|-------\|$/ { printf "%s", rows; inserted = 1 }
+    ' "${TARGET_APP_DIR}/README.md" > "${TARGET_APP_DIR}/README.md.tmp" && mv "${TARGET_APP_DIR}/README.md.tmp" "${TARGET_APP_DIR}/README.md"
+  fi
 }
 
 function swap_out_templates() {
@@ -448,6 +461,7 @@ function kickstart_k8s_truecharts_local() {
       echo "Processing workload..."
       yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
+      ENV_SECRET_PLACEHOLDERS=()
       for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
         SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
         CONTAINER_KEY=${CONTAINER_KEYS[$SERVICE_INDEX]}
@@ -463,6 +477,7 @@ function kickstart_k8s_truecharts_local() {
 
         ENV_PATH=".services.${SERVICE}.environment"
         if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
+          echo "Processing environment variables for container '${CONTAINER_KEY}' ..."
           ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
           if [ "${ENV_TYPE}" == "!!seq" ]; then
             ENV_ITEMS=$(yq -r "${ENV_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -474,7 +489,16 @@ function kickstart_k8s_truecharts_local() {
             [ -z "${line}" ] && continue
             KEY=${line%%=*}
             VALUE=${line#*=}
-            KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
+            echo "Found environment variable '${KEY}'..."
+            if [[ "${KEY}" =~ SECRET|PASSWORD ]]; then
+              echo "Routing sensitive environment variable '${KEY}' into app-values-private.yaml.j2 instead of app-values.yaml..."
+              ENV_VAR_NAME="${APP_NAME_LOWERCASE}_$(echo "${KEY}" | tr '[:upper:]' '[:lower:]')"
+              PLACEHOLDER="PLACEHOLDER_ENV_SECRET_${KEY}"
+              KEY="${KEY}" PLACEHOLDER="${PLACEHOLDER}" yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env[env(KEY)] = env(PLACEHOLDER)" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+              ENV_SECRET_PLACEHOLDERS+=("${PLACEHOLDER}=${ENV_VAR_NAME}")
+            else
+              KEY="${KEY}" VALUE="${VALUE}" yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env[env(KEY)] = env(VALUE)" "${TARGET_APP_DIR}/app-values.yaml"
+            fi
           done <<< "${ENV_ITEMS}"
         fi
         if [ "${IS_PRIMARY}" = true ] && [ -n "${POSTGRESQL}" ]; then
@@ -506,6 +530,10 @@ function kickstart_k8s_truecharts_local() {
           yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.limits.cpu = \"1\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
           yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.resources.limits.memory = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
         fi
+      done
+
+      for ENTRY in "${ENV_SECRET_PLACEHOLDERS[@]}"; do
+        sed -i "s|${ENTRY%%=*}|{{ ${ENTRY#*=} }}|" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
       done
 
       echo "Adding spacing between top-level sections..."
@@ -603,7 +631,6 @@ cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
 
 download_docker_compose
 preprocess_docker_compose
-populate_readme
 
 if [ "${MAINTYPE}" == "binary" ]; then
   kickstart_binary
@@ -612,6 +639,8 @@ elif [ "${MAINTYPE}" == "docker" ]; then
 elif [ "${MAINTYPE}" == "k8s" ]; then
   kickstart_k8s
 fi
+
+populate_readme
 
 swap_out_templates
 rename_files
