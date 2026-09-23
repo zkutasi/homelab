@@ -1,8 +1,12 @@
 #!/bin/bash
 
+APP_ABOUT=
+APP_FOLDERNAME=
+APP_HOMEPAGE=
 APP_NAME=
 APP_NAME_LOWERCASE=
-APP_FOLDERNAME=
+APP_SOURCE_URL=
+
 ANSIBLE_HOST=
 TYPE=docker
 MAINTYPE=docker
@@ -32,6 +36,38 @@ Options:
   --docker-compose-url <url>  Download docker-compose.yaml from the given URL into the foldername
                               instead of requiring one to already be present there
 EOF
+}
+
+function download_docker_compose() {
+    if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/*/blob/* ]]; then
+        DOCKER_COMPOSE_URL=$(echo "${DOCKER_COMPOSE_URL}" | sed -E 's#^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
+        echo "Converted GitHub blob URL to raw URL: '${DOCKER_COMPOSE_URL}'"
+    fi
+    echo "Downloading docker-compose.yaml from '${DOCKER_COMPOSE_URL}'..."
+    if ! curl -sfL "${DOCKER_COMPOSE_URL}" -o "${TARGET_APP_DIR}/docker-compose.yaml"; then
+        echo "ERROR: Failed to download docker-compose.yaml from '${DOCKER_COMPOSE_URL}'"
+        exit 1
+    fi
+
+    if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/* || "${DOCKER_COMPOSE_URL}" == https://raw.githubusercontent.com/* ]]; then
+        GITHUB_OWNER=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\2#p')
+        GITHUB_REPO=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\3#p')
+        echo "Fetching repository information for '${GITHUB_OWNER}/${GITHUB_REPO}' from GitHub..."
+        if GITHUB_REPO_INFO=$(curl -sf "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}"); then
+            APP_ABOUT=$(echo "${GITHUB_REPO_INFO}" | jq -r '
+                (.description // "")
+                | gsub("https?://\\S+"; "")
+                | gsub("^\\s+|\\s+$"; "")
+                | gsub("\\s{2,}"; " ")
+            ')
+            APP_HOMEPAGE=$(echo "${GITHUB_REPO_INFO}" | jq -r '.homepage // empty')
+            APP_SOURCE_URL="https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}"
+        else
+            echo "WARNING: Could not fetch repository information for '${GITHUB_OWNER}/${GITHUB_REPO}' from GitHub."
+        fi
+    else
+        echo "NOTE: Populating README.md from the repository's About section is not implemented for this URL's host; only GitHub URLs are supported."
+    fi
 }
 
 while [ $# -ge 1 ]; do
@@ -105,20 +141,17 @@ fi
 echo "Preparing to kickstart app '${APP_NAME}' in folder '${APP_FOLDERNAME}' using '${TYPE}' templates."
 mkdir -p "${TARGET_APP_DIR}"
 
-if [ -n "${DOCKER_COMPOSE_URL}" ]; then
-    if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/*/blob/* ]]; then
-        DOCKER_COMPOSE_URL=$(echo "${DOCKER_COMPOSE_URL}" | sed -E 's#^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
-        echo "Converted GitHub blob URL to raw URL: '${DOCKER_COMPOSE_URL}'"
-    fi
-    echo "Downloading docker-compose.yaml from '${DOCKER_COMPOSE_URL}'..."
-    if ! curl -sfL "${DOCKER_COMPOSE_URL}" -o "${TARGET_APP_DIR}/docker-compose.yaml"; then
-        echo "ERROR: Failed to download docker-compose.yaml from '${DOCKER_COMPOSE_URL}'"
-        exit 1
-    fi
-fi
+[ -n "${DOCKER_COMPOSE_URL}" ] && download_docker_compose
 
 echo "Copy files..."
 cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
+
+if [ -n "${APP_SOURCE_URL}" ] && [ -f "${TARGET_APP_DIR}/README.md" ]; then
+    echo "Populating README.md with information from '${APP_SOURCE_URL}'..."
+    [ -n "${APP_ABOUT}" ] && sed -i "s|^A short introduction of the app\$|${APP_ABOUT}|" "${TARGET_APP_DIR}/README.md"
+    [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site](${APP_HOMEPAGE})|" "${TARGET_APP_DIR}/README.md"
+    sed -i "s|^- ~~Source repository~~\$|- [Source repository](${APP_SOURCE_URL})|" "${TARGET_APP_DIR}/README.md"
+fi
 
 if [ "${MAINTYPE}" == "binary" ]; then
   echo
