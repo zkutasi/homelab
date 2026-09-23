@@ -22,3 +22,4 @@ These applications can manage docker containers, docker-compose stacks or even d
 - [DockHand](https://dockhand.pro) - Docker management you will like.
 - [DockPeek](https://github.com/dockpeek/dockpeek) - Easily access your Docker container web interfaces and keep them up to date — across all your hosts.
 - [Usulnet](https://usulnet.com/) - A very infant all-in-one solution.
+- [Sencho](https://sencho.io/) - Self-hosted Docker Compose management platform. For single or multi-host compose-first workflow.
