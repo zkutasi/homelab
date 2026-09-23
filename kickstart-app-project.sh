@@ -12,6 +12,7 @@ APP_NAME_LOWERCASE=
 APP_PORT=
 APP_SOURCE_URL=
 APP_TARGET_DIR=
+APP_VERSION=
 
 TYPE=docker
 MAINTYPE=docker
@@ -81,7 +82,7 @@ function curl_with_retry() {
   return "${exit_code}"
 }
 
-function download_docker_compose() {
+function fetch_docker_compose_and_repo_info() {
   [ -z "${APP_DOCKER_COMPOSE_URL}" ] && return
 
   if [[ "${APP_DOCKER_COMPOSE_URL}" == https://github.com/*/blob/* ]]; then
@@ -114,6 +115,14 @@ function download_docker_compose() {
     else
       echo "WARNING: Could not fetch repository information for '${github_owner}/${github_repo}' from GitHub."
     fi
+
+    local github_release_info
+    echo "Fetching latest release information for '${github_owner}/${github_repo}' from GitHub ..."
+    if github_release_info=$(curl_with_retry -sf "https://api.github.com/repos/${github_owner}/${github_repo}/releases/latest"); then
+      APP_VERSION=$(echo "${github_release_info}" | jq -r '.tag_name // empty')
+    else
+      echo "WARNING: Could not fetch latest release information for '${github_owner}/${github_repo}' from GitHub."
+    fi
   elif [[ "${APP_DOCKER_COMPOSE_URL}" == https://codeberg.org/* ]]; then
     local codeberg_owner codeberg_repo codeberg_repo_info
     codeberg_owner=$(echo "${APP_DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\1#p')
@@ -131,6 +140,14 @@ function download_docker_compose() {
     else
       echo "WARNING: Could not fetch repository information for '${codeberg_owner}/${codeberg_repo}' from Codeberg."
     fi
+
+    local codeberg_release_info
+    echo "Fetching latest release information for '${codeberg_owner}/${codeberg_repo}' from Codeberg ..."
+    if codeberg_release_info=$(curl_with_retry -sf "https://codeberg.org/api/v1/repos/${codeberg_owner}/${codeberg_repo}/releases/latest"); then
+      APP_VERSION=$(echo "${codeberg_release_info}" | jq -r '.tag_name // empty')
+    else
+      echo "WARNING: Could not fetch latest release information for '${codeberg_owner}/${codeberg_repo}' from Codeberg."
+    fi
   else
     echo "NOTE: Populating README.md from the repository's About section is not implemented for this URL's host; only GitHub and Codeberg URLs are supported."
   fi
@@ -141,6 +158,14 @@ function preprocess_docker_compose() {
 
   echo "Resolving env variable defaults in docker-compose.yaml ..."
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${APP_TARGET_DIR}/docker-compose.yaml"
+
+  if [ -n "${APP_VERSION}" ]; then
+    local current_image
+    if current_image=$(yq -e ".services.${APP_NAME_LOWERCASE}.image" "${APP_TARGET_DIR}/docker-compose.yaml" 2> /dev/null); then
+      echo "Updating '${APP_NAME_LOWERCASE}' image tag to the latest released version '${APP_VERSION}' ..."
+      yq -i ".services.${APP_NAME_LOWERCASE}.image = \"${current_image%%:*}:${APP_VERSION}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
+    fi
+  fi
 }
 
 function image_repo_link() {
@@ -681,7 +706,7 @@ mkdir -p "${APP_TARGET_DIR}"
 echo "Copy files ..."
 cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${APP_TARGET_DIR}"
 
-download_docker_compose
+fetch_docker_compose_and_repo_info
 preprocess_docker_compose
 
 if [ "${MAINTYPE}" == "binary" ]; then
