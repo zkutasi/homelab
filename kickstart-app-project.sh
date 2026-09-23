@@ -597,5 +597,8 @@ fi
 swap_out_templates
 rename_files
 
+echo "Deleting docker-compose.yaml file ..."
+rm -rf "${TARGET_APP_DIR}/docker-compose.yaml"
+
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."
 echo "Double-check '${TARGET_APP_DIR}' for any remaining <PLACEHOLDER> tokens or unfinished sections and fill them in manually."
