@@ -260,9 +260,14 @@ function populate_inventory() {
   fi
 
   echo "Appending sensitive environment variables into '${inventory_vars_file}' ..."
-  local entry
+  local entry var_name
   for entry in "${APP_ENV_SECRET_PLACEHOLDERS[@]}"; do
-    echo "${entry#*=}:" >> "${inventory_vars_file}"
+    var_name="${entry#*=}"
+    if grep -qE "^${var_name}:" "${inventory_vars_file}"; then
+      echo "Variable '${var_name}' already present in '${inventory_vars_file}', skipping."
+    else
+      echo "${var_name}:" >> "${inventory_vars_file}"
+    fi
   done
 }
 
