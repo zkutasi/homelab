@@ -37,3 +37,4 @@ Often these are possible to also be used as desktop apps.
 - [Kubewall](https://github.com/kubewall/kubewall) - Single-Binary Kubernetes Dashboard with Multi-Cluster Management & AI Integration. (OpenAI / Claude 4 / Gemini / DeepSeek / OpenRouter / Ollama / Qwen / LMStudio)
 - [Devtron](https://devtron.ai/) - The only Kubernetes dashboard you need
 - [Skyhook Radar](https://radarhq.io/) - The missing open source Kubernetes UI. Topology, event timeline, and service traffic — plus resource browsing and Helm management.
+- [Helm Dashboard](https://github.com/komodorio/helm-dashboard) - The missing UI for Helm - visualize your releases
