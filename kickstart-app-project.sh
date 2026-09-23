@@ -164,11 +164,18 @@ function preprocess_docker_compose() {
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${APP_TARGET_DIR}/docker-compose.yaml"
 
   if [ -n "${APP_VERSION}" ]; then
+    # The compose service is not guaranteed to be keyed by APP_NAME_LOWERCASE (upstream
+    # compose files can name it anything), so discover app services the same way
+    # kickstart_k8s_truecharts_local does: anything that isn't a known database image.
+    local -a app_services
+    local service
     local current_image
-    if current_image=$(yq -e ".services.${APP_NAME_LOWERCASE}.image" "${APP_TARGET_DIR}/docker-compose.yaml" 2> /dev/null); then
-      echo "Updating '${APP_NAME_LOWERCASE}' image tag to the latest released version '${APP_VERSION}' ..."
-      yq -i ".services.${APP_NAME_LOWERCASE}.image = \"${current_image%%:*}:${APP_VERSION}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
-    fi
+    app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
+    for service in "${app_services[@]}"; do
+      current_image=$(yq -r ".services.${service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
+      echo "Updating '${service}' image tag to the latest released version '${APP_VERSION}' ..."
+      yq -i ".services.${service}.image = \"${current_image%%:*}:${APP_VERSION}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
+    done
   fi
 }
 
