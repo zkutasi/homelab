@@ -112,14 +112,75 @@ function preprocess_docker_compose() {
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${TARGET_APP_DIR}/docker-compose.yaml"
 }
 
-function populate_readme() {
-  [ -z "${APP_SOURCE_URL}" ] && return
-  [ ! -f "${TARGET_APP_DIR}/README.md" ] && return
+# Given an image reference (e.g. "ghcr.io/owner/repo:tag" or "owner/image:tag"),
+# echoes a direct link to its Docker Hub or GHCR package page, or nothing if the
+# image is on neither (e.g. a private/third-party registry).
+function image_repo_link() {
+  local image_path="${1%%:*}"
 
-  echo "Populating README.md with information from '${APP_SOURCE_URL}' ..."
-  [ -n "${APP_ABOUT}" ] && sed -i "s|^A short introduction of the app\$|${APP_ABOUT}|" "${TARGET_APP_DIR}/README.md"
-  [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site](${APP_HOMEPAGE})|" "${TARGET_APP_DIR}/README.md"
-  sed -i "s|^- ~~Source repository~~\$|- [Source repository](${APP_SOURCE_URL})|" "${TARGET_APP_DIR}/README.md"
+  case "${image_path}" in
+    ghcr.io/*)
+      local ghcr_rest="${image_path#ghcr.io/}"
+      local owner="${ghcr_rest%%/*}"
+      local package="${ghcr_rest#*/}"
+      local repo="${package%%/*}"
+      echo "https://github.com/${owner}/${repo}/pkgs/container/${package//\//%2F}"
+      ;;
+    docker.io/*/*)
+      echo "https://hub.docker.com/r/${image_path#docker.io/}"
+      ;;
+    docker.io/*)
+      echo "https://hub.docker.com/_/${image_path#docker.io/}"
+      ;;
+    */*/*)
+      # Third-party registry (host-prefixed path) - not Docker Hub or GHCR, skip.
+      ;;
+    */*)
+      echo "https://hub.docker.com/r/${image_path}"
+      ;;
+    *)
+      echo "https://hub.docker.com/_/${image_path}"
+      ;;
+  esac
+}
+
+function populate_readme_image_repo() {
+  [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ] || return
+  [ -f "${TARGET_APP_DIR}/README.md" ] || return
+
+  local service image link
+  local -a services=()
+  local -a links=()
+  while IFS=$'\t' read -r service image; do
+    [[ "${image}" =~ ^(postgres|redis|mysql|mariadb)(:|$|/) ]] && continue
+    link=$(image_repo_link "${image}")
+    if [ -n "${link}" ]; then
+      services+=("${service}")
+      links+=("${link}")
+    fi
+  done < <(yq -o=json '.services' "${TARGET_APP_DIR}/docker-compose.yaml" | jq -r 'to_entries[] | .key + "\t" + .value.image')
+
+  if [ "${#links[@]}" -eq 1 ]; then
+    sed -i "s|^- ~~Image repo~~\$|- [Image repo](${links[0]})|" "${TARGET_APP_DIR}/README.md"
+  elif [ "${#links[@]}" -gt 1 ]; then
+    sed -i "s|^- ~~Image repo~~\$|- Image repo:|" "${TARGET_APP_DIR}/README.md"
+    local i
+    for ((i = ${#links[@]} - 1; i >= 0; i--)); do
+      sed -i "/^- Image repo:\$/a\\  - [${services[${i}]}](${links[${i}]})" "${TARGET_APP_DIR}/README.md"
+    done
+  fi
+}
+
+function populate_readme() {
+  [ -f "${TARGET_APP_DIR}/README.md" ] || return
+
+  if [ -n "${APP_SOURCE_URL}" ]; then
+    echo "Populating README.md with information from '${APP_SOURCE_URL}' ..."
+    [ -n "${APP_ABOUT}" ] && sed -i "s|^A short introduction of the app\$|${APP_ABOUT}|" "${TARGET_APP_DIR}/README.md"
+    [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site](${APP_HOMEPAGE})|" "${TARGET_APP_DIR}/README.md"
+    sed -i "s|^- ~~Source repository~~\$|- [Source repository](${APP_SOURCE_URL})|" "${TARGET_APP_DIR}/README.md"
+  fi
+  populate_readme_image_repo
 }
 
 function swap_out_templates() {
