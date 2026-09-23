@@ -245,7 +245,12 @@ function populate_inventory() {
 
 function swap_out_templates() {
   echo "Swap out templates ..."
-  local line
+  # This must stay the last step that touches file content: everything it substitutes in (Jinja
+  # "{{ x }}" among them) is valid-but-different YAML flow-mapping syntax, and any yq -i call after
+  # this point would silently reparse and corrupt it, as would happen if it ran before all the yq
+  # manipulation in the kickstart_* functions was done. Keep all such substitutions here so this
+  # guarantee only needs to be reasoned about in one place.
+  local line entry
   while read -r line; do
     sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
     sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
@@ -258,6 +263,18 @@ function swap_out_templates() {
     if [ -n "${APP_PORT}" ]; then
       sed -i "s|<APP_PORT>|${APP_PORT}|g" "${line}"
     fi
+
+    sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${line}"
+    sed -i "s|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g" "${line}"
+    sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${line}"
+    sed -i 's|PLACEHOLDER_GUID|{{ ansible_user_gid }}|g' "${line}"
+    sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${line}"
+    sed -i 's|PLACEHOLDER_DOCKER_SOCK|{{ docker_socket_path }}|g' "${line}"
+    sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${line}"
+
+    for entry in "${ENV_SECRET_PLACEHOLDERS[@]}"; do
+      sed -i "s|${entry%%=*}|{{ ${entry#*=} }}|" "${line}"
+    done
   done < <(find "${TARGET_APP_DIR}" -type f)
 }
 
@@ -334,15 +351,6 @@ function kickstart_docker() {
     fi
 
     yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-
-    echo "Replacing placeholders in docker-compose.yaml.j2 ..."
-    sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i "s|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i 's|PLACEHOLDER_GUID|{{ ansible_user_gid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i 's|PLACEHOLDER_DOCKER_SOCK|{{ docker_socket_path }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
-    sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
   fi
 }
 
@@ -407,8 +415,9 @@ function kickstart_k8s_truecharts_local() {
         yq -i ".mariadb.password = \"PLACEHOLDER_DB_PASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
         yq -i ".mariadb.rootPassword = \"PLACEHOLDER_DB_ROOTPASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
       fi
-      sed -i "s|PLACEHOLDER_DB_PASSWORD|{{ ${APP_NAME_LOWERCASE}_database_password }}|g" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
-      sed -i "s|PLACEHOLDER_DB_ROOTPASSWORD|{{ ${APP_NAME_LOWERCASE}_database_rootpassword }}|g" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
+
+      ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_PASSWORD=${APP_NAME_LOWERCASE}_database_password")
+      [ -n "${mariadb}" ] && ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_ROOTPASSWORD=${APP_NAME_LOWERCASE}_database_rootpassword")
     fi
 
     local -a app_services
@@ -501,7 +510,6 @@ function kickstart_k8s_truecharts_local() {
       echo "Processing workload ..."
       yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
-      ENV_SECRET_PLACEHOLDERS=()
       local is_primary env_path env_type env_items key value env_var_name placeholder
       for service_index in "${!app_services[@]}"; do
         service=${app_services[$service_index]}
@@ -571,11 +579,6 @@ function kickstart_k8s_truecharts_local() {
           yq -i ".workload.main.podSpec.containers.${container_key}.resources.limits.cpu = \"1\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
           yq -i ".workload.main.podSpec.containers.${container_key}.resources.limits.memory = \"1Gi\"" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
         fi
-      done
-
-      local entry
-      for entry in "${ENV_SECRET_PLACEHOLDERS[@]}"; do
-        sed -i "s|${entry%%=*}|{{ ${entry#*=} }}|" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
       done
 
       echo "Adding spacing between top-level sections ..."
