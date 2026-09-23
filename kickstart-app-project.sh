@@ -99,7 +99,9 @@ function fetch_docker_compose_and_repo_info() {
   fi
 
   if [[ "${APP_DOCKER_COMPOSE_URL}" == https://github.com/* || "${APP_DOCKER_COMPOSE_URL}" == https://raw.githubusercontent.com/* ]]; then
-    local github_owner github_repo github_repo_info
+    local github_owner
+    local github_repo
+    local github_repo_info
     github_owner=$(echo "${APP_DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\2#p')
     github_repo=$(echo "${APP_DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\3#p')
     echo "Fetching repository information for '${github_owner}/${github_repo}' from GitHub ..."
@@ -124,7 +126,9 @@ function fetch_docker_compose_and_repo_info() {
       echo "WARNING: Could not fetch latest release information for '${github_owner}/${github_repo}' from GitHub."
     fi
   elif [[ "${APP_DOCKER_COMPOSE_URL}" == https://codeberg.org/* ]]; then
-    local codeberg_owner codeberg_repo codeberg_repo_info
+    local codeberg_owner
+    local codeberg_repo
+    local codeberg_repo_info
     codeberg_owner=$(echo "${APP_DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\1#p')
     codeberg_repo=$(echo "${APP_DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\2#p')
     echo "Fetching repository information for '${codeberg_owner}/${codeberg_repo}' from Codeberg ..."
@@ -208,7 +212,9 @@ function populate_readme() {
   fi
 
   if [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
-    local service image link
+    local service
+    local image
+    local link
     local -a services=()
     local -a links=()
     while IFS=$'\t' read -r service image; do
@@ -260,7 +266,8 @@ function populate_inventory() {
   fi
 
   echo "Appending sensitive environment variables into '${inventory_vars_file}' ..."
-  local entry var_name
+  local entry
+  local var_name
   for entry in "${APP_ENV_SECRET_PLACEHOLDERS[@]}"; do
     var_name="${entry#*=}"
     if grep -qE "^${var_name}:" "${inventory_vars_file}"; then
@@ -278,7 +285,8 @@ function swap_out_templates() {
   # this point would silently reparse and corrupt it, as would happen if it ran before all the yq
   # manipulation in the kickstart_* functions was done. Keep all such substitutions here so this
   # guarantee only needs to be reasoned about in one place.
-  local line entry
+  local line
+  local entry
   while read -r line; do
     sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
     sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
@@ -334,7 +342,12 @@ function kickstart_docker() {
     yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
 
     echo "Processing environment variables ..."
-    local env_path env_type env_items line key value
+    local env_path
+    local env_type
+    local env_items
+    local line
+    local key
+    local value
     env_path=".services.${APP_NAME_LOWERCASE}.environment"
     if yq -e "${env_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
       env_type=$(yq "${env_path} | type" "${APP_TARGET_DIR}/docker-compose.yaml")
@@ -357,7 +370,11 @@ function kickstart_docker() {
     yq -i ".services.${APP_NAME_LOWERCASE}.environment.TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
 
     echo "Processing volumes ..."
-    local volume_path volume_items index from to
+    local volume_path
+    local volume_items
+    local index
+    local from
+    local to
     volume_path=".services.${APP_NAME_LOWERCASE}.volumes"
     if yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
       volume_items=$(yq -r "${volume_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
@@ -392,7 +409,8 @@ function kickstart_k8s_truecharts() {
 }
 
 function kickstart_k8s_truecharts_local() {
-  local tags_response tags
+  local tags_response
+  local tags
   # Check if there is an original truecharts available or not
   if tags_response=$(curl_with_retry -s "https://oci.trueforge.org/v2/truecharts/${APP_NAME_LOWERCASE}/tags/list"); then
     tags=$(echo "${tags_response}" | jq .tags)
@@ -404,7 +422,10 @@ function kickstart_k8s_truecharts_local() {
   fi
   if [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
     echo "Gathering information from docker-compose.yaml for Truecharts values.yaml ..."
-    local services images postgresql mariadb
+    local services
+    local images
+    local postgresql
+    local mariadb
     services=$(yq ".services | keys | .[]" "${APP_TARGET_DIR}/docker-compose.yaml")
     images=$(yq ".services[].image" "${APP_TARGET_DIR}/docker-compose.yaml")
     postgresql=$(yq '.services[].image | select(test("postgres"))' "${APP_TARGET_DIR}/docker-compose.yaml")
@@ -456,7 +477,8 @@ function kickstart_k8s_truecharts_local() {
 
       local -a container_keys=()
       local -a image_selectors=()
-      local service_index service
+      local service_index
+      local service
       for service_index in "${!app_services[@]}"; do
         service=${app_services[$service_index]}
         if [ "${service_index}" -eq 0 ]; then
@@ -473,7 +495,10 @@ function kickstart_k8s_truecharts_local() {
       done
 
       echo "Processing images ..."
-      local image_selector service_image service_image_repo service_image_tag
+      local image_selector
+      local service_image
+      local service_image_repo
+      local service_image_tag
       for service_index in "${!app_services[@]}"; do
         service=${app_services[$service_index]}
         image_selector=${image_selectors[$service_index]}
@@ -490,7 +515,14 @@ function kickstart_k8s_truecharts_local() {
       done
 
       echo "Processing volume mounts ..."
-      local container_key volume_path volume_items persistence_base_key volume_index persistence_key container_path line
+      local container_key
+      local volume_path
+      local volume_items
+      local persistence_base_key
+      local volume_index
+      local persistence_key
+      local container_path
+      local line
       for service_index in "${!app_services[@]}"; do
         service=${app_services[$service_index]}
         container_key=${container_keys[$service_index]}
@@ -523,7 +555,12 @@ function kickstart_k8s_truecharts_local() {
       done
 
       echo "Processing ports ..."
-      local port_items port_index port_key port_raw port_number line
+      local port_items
+      local port_index
+      local port_key
+      local port_raw
+      local port_number
+      local line
       port_items=$(yq -r ".services.${app_services[0]}.ports[]" "${APP_TARGET_DIR}/docker-compose.yaml")
       yq -i ".service.main.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
       port_index=0
@@ -549,7 +586,14 @@ function kickstart_k8s_truecharts_local() {
       echo "Processing workload ..."
       yq -i ".workload.main.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
       yq -i ".workload.main.type = \"Deployment\"" "${APP_TARGET_DIR}/app-values.yaml"
-      local is_primary env_path env_type env_items key value env_var_name placeholder
+      local is_primary
+      local env_path
+      local env_type
+      local env_items
+      local key
+      local value
+      local env_var_name
+      local placeholder
       for service_index in "${!app_services[@]}"; do
         service=${app_services[$service_index]}
         container_key=${container_keys[$service_index]}
