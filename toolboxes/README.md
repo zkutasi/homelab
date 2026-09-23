@@ -23,3 +23,4 @@ N/A
 - [PDFCraft](https://pdfcraft.devtoolcafe.com/) - A free, privacy-focused PDF toolkit that runs entirely in your browser. With 90+ professional tools, you can edit, convert, merge, split, and secure your PDF files without ever uploading them to a server.
 - [SnapOtter](https://snapotter.com/) - Open-source, self-hosted file-processing tool. Convert, compress, OCR, transcribe & run local AI across image, video, audio, PDF & documents, via UI, REST API & pipelines. Your files never leave your network.
 - [Transmute](https://transmute.sh/) - Self hosted file converter and compression tool for images, video, audio, json, excel and more. Supports over 3,000 conversions!
+- [Converttoit](https://convert.to.it/) - Truly universal online file converter

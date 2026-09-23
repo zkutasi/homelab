@@ -1,0 +1,14 @@
+apiVersion: v2
+# renovate: image=ghcr.io/p2r3/convert
+appVersion: latest
+dependencies:
+  - name: common
+    version: 28.26.3
+    repository: oci://oci.trueforge.org/truecharts
+    condition: ""
+    alias: ""
+    tags: []
+    import-values: []
+name: converttoit
+type: application
+version: 1.0.0
