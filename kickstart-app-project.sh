@@ -7,18 +7,19 @@ APP_NAME=
 APP_NAME_LOWERCASE=
 APP_SOURCE_URL=
 
-ANSIBLE_HOST=
 TYPE=docker
 MAINTYPE=docker
 SUBTYPE=
+
+ANSIBLE_HOST=
 DOCKER_COMPOSE_URL=
-# Pinned TrueCharts mariadb dependency version for generated Chart.yaml files; Renovate's helmv3
-# manager tracks chart/Chart.yaml dependencies natively once written, no special comment needed.
+INVENTORY=
+
 MARIADB_CHART_VERSION="18.10.0"
 
 function usage() {
   cat << EOF
-Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>] [--docker-compose-url <url>]
+Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>] [--docker-compose-url <url>] [--inventory <inventory>]
 
 Options:
   --foldername <foldername>   Specify the folder to create (required)
@@ -35,6 +36,9 @@ Options:
                               - k8s.truecharts-local : for Kubernetes based deployments with non-existing Truecharts helm chart
   --docker-compose-url <url>  Download docker-compose.yaml from the given URL into the foldername
                               instead of requiring one to already be present there
+  --inventory <inventory>     Path to an Ansible inventory. When given, sensitive environment
+                              variables discovered during kickstart are appended to its
+                              group_vars/all file
 EOF
 }
 
@@ -131,9 +135,6 @@ function preprocess_docker_compose() {
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${TARGET_APP_DIR}/docker-compose.yaml"
 }
 
-# Given an image reference (e.g. "ghcr.io/owner/repo:tag" or "owner/image:tag"),
-# echoes a direct link to its Docker Hub or GHCR package page, or nothing if the
-# image is on neither (e.g. a private/third-party registry).
 function image_repo_link() {
   local image_path="${1%%:*}"
 
@@ -213,6 +214,23 @@ function populate_readme() {
       !inserted && /^    \|----\|------------------\|-------\|$/ { printf "%s", rows; inserted = 1 }
     ' "${TARGET_APP_DIR}/README.md" > "${TARGET_APP_DIR}/README.md.tmp" && mv "${TARGET_APP_DIR}/README.md.tmp" "${TARGET_APP_DIR}/README.md"
   fi
+}
+
+function populate_inventory() {
+  [ -z "${INVENTORY}" ] && return
+  [ "${#ENV_SECRET_PLACEHOLDERS[@]}" -eq 0 ] && return
+
+  local inventory_vars_file="${INVENTORY}/group_vars/all"
+  if [ ! -f "${inventory_vars_file}" ]; then
+    echo "WARNING: Inventory group_vars/all file not found at '${inventory_vars_file}'. Skipping."
+    return
+  fi
+
+  echo "Appending sensitive environment variables into '${inventory_vars_file}' ..."
+  local entry
+  for entry in "${ENV_SECRET_PLACEHOLDERS[@]}"; do
+    echo "${entry#*=}:" >> "${inventory_vars_file}"
+  done
 }
 
 function swap_out_templates() {
@@ -574,6 +592,10 @@ while [ $# -ge 1 ]; do
       shift
       DOCKER_COMPOSE_URL=$1
       ;;
+    --inventory)
+      shift
+      INVENTORY=$1
+      ;;
     --type)
       shift
       TYPE=$1
@@ -641,6 +663,7 @@ elif [ "${MAINTYPE}" == "k8s" ]; then
 fi
 
 populate_readme
+populate_inventory
 
 swap_out_templates
 rename_files
