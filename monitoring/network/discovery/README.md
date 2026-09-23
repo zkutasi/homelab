@@ -19,3 +19,4 @@ Applications, that periodically scans the subnet of the network your hosts are d
 - [LanLens](https://github.com/AlexRosbach/LanLens) - Scans your local network, identifies devices by MAC/IP, and gives you a clean web UI to document, classify, and connect to them.
 - [HomeLabInfo](https://github.com/gregluffy/HomeLabInfo) - A modern, self-hosted network discovery and visualization suite designed for homelab enthusiasts.
 - [Homelable](https://homelable.net/) - Self-hosted homelab infrastructure visualizer — interactive network diagram with live status monitoring
+- [LANGuard](https://github.com/hillaliy/LanGuard) - LAN visibility and alerting tool for home networks and small offices
