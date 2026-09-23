@@ -38,6 +38,7 @@ Some more popular examples are:
 - [Beszel](https://beszel.dev/) - Lightweight server monitoring with historical data, docker stats, and alerts.
 - [Glances](https://github.com/nicolargo/glances) - Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS and Windows operating systems.
 - [Pulse](https://github.com/rcourtman/Pulse) - Monitoring for Proxmox, Docker, Kubernetes, TrueNAS, and vSphere that watches your infrastructure for you: smart alerts, AI patrols that catch silent failures, and verified fixes
+- [OmniSight](https://github.com/caglaryalcin/OmniSight) - It is a monitoring platform that allows you to monitor multiple platforms on a single page.
 
 ### Grafana LGTM+ stack
 

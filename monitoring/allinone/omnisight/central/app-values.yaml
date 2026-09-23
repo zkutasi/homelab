@@ -1,0 +1,40 @@
+image:
+  repository: ghcr.io/caglaryalcin/omnisight
+  tag: v2.5.10
+  pullPolicy: IfNotPresent
+
+persistence:
+  data:
+    enabled: true
+    accessModes: ReadWriteOnce
+    mountPath: /app/data
+    type: pvc
+
+service:
+  main:
+    enabled: true
+    ports:
+      main:
+        port: 3000
+        protocol: http
+        targetPort: 3000
+
+TZ: Europe/Budapest
+
+workload:
+  main:
+    enabled: true
+    type: Deployment
+    podSpec:
+      containers:
+        main:
+          enabled: true
+          env:
+            PORT: 3000
+          probes:
+            liveness:
+              enabled: false
+            readiness:
+              enabled: false
+            startup:
+              enabled: false
