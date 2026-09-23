@@ -77,6 +77,9 @@ function download_docker_compose() {
   if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/*/blob/* ]]; then
     DOCKER_COMPOSE_URL=$(echo "${DOCKER_COMPOSE_URL}" | sed -E 's#^https://github\.com/([^/]+)/([^/]+)/blob/(.+)$#https://raw.githubusercontent.com/\1/\2/\3#')
     echo "Converted GitHub blob URL to raw URL: '${DOCKER_COMPOSE_URL}'"
+  elif [[ "${DOCKER_COMPOSE_URL}" == https://codeberg.org/*/src/* ]]; then
+    DOCKER_COMPOSE_URL=$(echo "${DOCKER_COMPOSE_URL}" | sed -E 's#^https://codeberg\.org/([^/]+)/([^/]+)/src/(.+)$#https://codeberg.org/\1/\2/raw/\3#')
+    echo "Converted Codeberg src URL to raw URL: '${DOCKER_COMPOSE_URL}'"
   fi
   echo "Downloading docker-compose.yaml from '${DOCKER_COMPOSE_URL}' ..."
   if ! curl_with_retry -sfL "${DOCKER_COMPOSE_URL}" -o "${TARGET_APP_DIR}/docker-compose.yaml"; then
@@ -100,8 +103,24 @@ function download_docker_compose() {
     else
       echo "WARNING: Could not fetch repository information for '${GITHUB_OWNER}/${GITHUB_REPO}' from GitHub."
     fi
+  elif [[ "${DOCKER_COMPOSE_URL}" == https://codeberg.org/* ]]; then
+    CODEBERG_OWNER=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\1#p')
+    CODEBERG_REPO=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\2#p')
+    echo "Fetching repository information for '${CODEBERG_OWNER}/${CODEBERG_REPO}' from Codeberg..."
+    if CODEBERG_REPO_INFO=$(curl_with_retry -sf "https://codeberg.org/api/v1/repos/${CODEBERG_OWNER}/${CODEBERG_REPO}"); then
+      APP_ABOUT=$(echo "${CODEBERG_REPO_INFO}" | jq -r '
+                (.description // "")
+                | gsub("https?://\\S+"; "")
+                | gsub("^\\s+|\\s+$"; "")
+                | gsub("\\s{2,}"; " ")
+            ')
+      APP_HOMEPAGE=$(echo "${CODEBERG_REPO_INFO}" | jq -r '.website // empty')
+      APP_SOURCE_URL="https://codeberg.org/${CODEBERG_OWNER}/${CODEBERG_REPO}"
+    else
+      echo "WARNING: Could not fetch repository information for '${CODEBERG_OWNER}/${CODEBERG_REPO}' from Codeberg."
+    fi
   else
-    echo "NOTE: Populating README.md from the repository's About section is not implemented for this URL's host; only GitHub URLs are supported."
+    echo "NOTE: Populating README.md from the repository's About section is not implemented for this URL's host; only GitHub and Codeberg URLs are supported."
   fi
 }
 
