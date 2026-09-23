@@ -48,7 +48,7 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/alloy/docker/deploy-alloy.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/alloy/docker/deploy-alloy.yaml --no-check
     ```
 
 ### Deploy the host agents on baremetal hosts
@@ -56,7 +56,7 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/alloy/host/deploy-alloy.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/alloy/host/deploy-alloy.yaml --no-check
     ```
 
 ### Post deployment

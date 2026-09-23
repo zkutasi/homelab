@@ -31,7 +31,7 @@ Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS 
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/glances/central/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/glances/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
@@ -43,7 +43,7 @@ Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS 
 ### Deploy the agents
 
 ```bash
-./common-ansible-run-playbook.sh --playbook monitoring/glances/agents/deploy-glances.yaml --no-check
+./common-ansible-run-playbook.sh --playbook monitoring/allinone/glances/agents/deploy-glances.yaml --no-check
 ```
 
 ### Post deployment

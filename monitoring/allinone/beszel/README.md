@@ -49,7 +49,7 @@ Lightweight server monitoring with historical data, docker stats, and alerts.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/docker/deploy-beszel-agent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/beszel/agents/docker/deploy-beszel-agent.yaml --no-check
     ```
 
 ### Deploy the agents on Dockerless hosts
@@ -57,7 +57,7 @@ Lightweight server monitoring with historical data, docker stats, and alerts.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/host/deploy-beszel-agent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/beszel/agents/host/deploy-beszel-agent.yaml --no-check
     ```
 
 ### Deploy the agents on the Kubernetes hosts
@@ -67,7 +67,7 @@ When the regular Agents are deployed, the required Env variables are fetched fro
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/beszel/agents/k8s/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/beszel/agents/k8s/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

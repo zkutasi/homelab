@@ -36,6 +36,8 @@ Some more popular examples are:
 - [Paessler PRTG](https://www.paessler.com/prtg) -A very nice solution with a huge drawback: The dashboard is Windows only.
 - [Zabbix](https://www.zabbix.com/index)
 - [Beszel](https://beszel.dev/) - Lightweight server monitoring with historical data, docker stats, and alerts.
+- [Glances](https://github.com/nicolargo/glances) - Glances an Eye on your system. A top/htop alternative for GNU/Linux, BSD, macOS and Windows operating systems.
+- [Pulse](https://github.com/rcourtman/Pulse) - Monitoring for Proxmox, Docker, Kubernetes, TrueNAS, and vSphere that watches your infrastructure for you: smart alerts, AI patrols that catch silent failures, and verified fixes
 
 ### Grafana LGTM+ stack
 
@@ -98,10 +100,6 @@ Linux has to be up-to-date, these tools make it obvious if they are lacking behi
 
 - [PatchMon](https://patchmon.net/) - Linux Patch Management & Automation Platform
 - [Linux Update Dashboard](https://github.com/TheDuffman85/linux-update-dashboard) - Web app for managing Linux package updates across multiple servers. Connect via SSH, check for updates, and apply them from a single dashboard in your browser. No agents are required.
-
-### Proxmox
-
-- [Pulse](https://github.com/rcourtman/Pulse) - Monitoring for Proxmox, Docker, Kubernetes, TrueNAS, and vSphere that watches your infrastructure for you: smart alerts, AI patrols that catch silent failures, and verified fixes
 
 ### Special ones
 
