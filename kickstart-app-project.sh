@@ -55,7 +55,7 @@ function curl_with_retry() {
     case "${exit_code}" in
       6 | 7 | 28 | 35 | 52 | 56)
         if [ "${attempt}" -lt "${max_attempts}" ]; then
-          echo "WARNING: curl connectivity issue (exit code ${exit_code}), retrying in ${delay}s (attempt ${attempt}/${max_attempts})..." >&2
+          echo "WARNING: curl connectivity issue (exit code ${exit_code}), retrying in ${delay}s (attempt ${attempt}/${max_attempts}) ..." >&2
           sleep "${delay}"
           delay=$((delay * 2))
         fi
@@ -90,7 +90,7 @@ function download_docker_compose() {
   if [[ "${DOCKER_COMPOSE_URL}" == https://github.com/* || "${DOCKER_COMPOSE_URL}" == https://raw.githubusercontent.com/* ]]; then
     GITHUB_OWNER=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\2#p')
     GITHUB_REPO=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://(raw\.githubusercontent\.com|github\.com)/([^/]+)/([^/]+)/.*#\3#p')
-    echo "Fetching repository information for '${GITHUB_OWNER}/${GITHUB_REPO}' from GitHub..."
+    echo "Fetching repository information for '${GITHUB_OWNER}/${GITHUB_REPO}' from GitHub ..."
     if GITHUB_REPO_INFO=$(curl_with_retry -sf "https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}"); then
       APP_ABOUT=$(echo "${GITHUB_REPO_INFO}" | jq -r '
                 (.description // "")
@@ -106,7 +106,7 @@ function download_docker_compose() {
   elif [[ "${DOCKER_COMPOSE_URL}" == https://codeberg.org/* ]]; then
     CODEBERG_OWNER=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\1#p')
     CODEBERG_REPO=$(echo "${DOCKER_COMPOSE_URL}" | sed -nE 's#^https://codeberg\.org/([^/]+)/([^/]+)/.*#\2#p')
-    echo "Fetching repository information for '${CODEBERG_OWNER}/${CODEBERG_REPO}' from Codeberg..."
+    echo "Fetching repository information for '${CODEBERG_OWNER}/${CODEBERG_REPO}' from Codeberg ..."
     if CODEBERG_REPO_INFO=$(curl_with_retry -sf "https://codeberg.org/api/v1/repos/${CODEBERG_OWNER}/${CODEBERG_REPO}"); then
       APP_ABOUT=$(echo "${CODEBERG_REPO_INFO}" | jq -r '
                 (.description // "")
@@ -216,7 +216,7 @@ function populate_readme() {
 }
 
 function swap_out_templates() {
-  echo "Swap out templates..."
+  echo "Swap out templates ..."
   while read -r line; do
     sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
     sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
@@ -233,7 +233,7 @@ function swap_out_templates() {
 }
 
 function rename_files() {
-  echo "Renaming files..."
+  echo "Renaming files ..."
   if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
     mv "${TARGET_APP_DIR}/deploy.yaml" "${TARGET_APP_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
     mv "${TARGET_APP_DIR}/undeploy.yaml" "${TARGET_APP_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
@@ -247,7 +247,7 @@ function kickstart_binary() {
 
 function kickstart_docker() {
   if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
-    echo "Processing existing docker-compose.yaml for templating..."
+    echo "Processing existing docker-compose.yaml for templating ..."
     cp "${TARGET_APP_DIR}/docker-compose.yaml" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
     APP_IMAGE=$(yq -r ".services.${APP_NAME_LOWERCASE}.image" "${TARGET_APP_DIR}/docker-compose.yaml.j2")
@@ -258,7 +258,7 @@ function kickstart_docker() {
     yq -i ".services.${APP_NAME_LOWERCASE}.image = \"PLACEHOLDER_IMAGE_VERSION\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
-    echo "Processing environment variables..."
+    echo "Processing environment variables ..."
     ENV_PATH=".services.${APP_NAME_LOWERCASE}.environment"
     if yq -e "${ENV_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
       ENV_TYPE=$(yq "${ENV_PATH} | type" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -280,7 +280,7 @@ function kickstart_docker() {
     yq -i ".services.${APP_NAME_LOWERCASE}.environment.PGID = \"PLACEHOLDER_GUID\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${APP_NAME_LOWERCASE}.environment.TZ = \"PLACEHOLDER_TZ\"" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
-    echo "Processing volumes..."
+    echo "Processing volumes ..."
     VOLUME_PATH=".services.${APP_NAME_LOWERCASE}.volumes"
     if yq -e "${VOLUME_PATH}" "${TARGET_APP_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
       VOLUME_ITEMS=$(yq -r "${VOLUME_PATH}[]" "${TARGET_APP_DIR}/docker-compose.yaml")
@@ -303,7 +303,7 @@ function kickstart_docker() {
 
     yq -i 'sort_keys(..)' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
 
-    echo "Replacing placeholders in docker-compose.yaml.j2..."
+    echo "Replacing placeholders in docker-compose.yaml.j2 ..."
     sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     sed -i "s|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g" "${TARGET_APP_DIR}/docker-compose.yaml.j2"
     sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${TARGET_APP_DIR}/docker-compose.yaml.j2"
@@ -333,16 +333,16 @@ function kickstart_k8s_truecharts_local() {
     echo "WARNING: Could not reach oci.trueforge.org to check for an official Truecharts chart (network error). Skipping this check."
   fi
   if [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ]; then
-    echo "Gathering information from docker-compose.yaml for Truecharts values.yaml..."
+    echo "Gathering information from docker-compose.yaml for Truecharts values.yaml ..."
     SERVICES=$(yq ".services | keys | .[]" "${TARGET_APP_DIR}/docker-compose.yaml")
     IMAGES=$(yq ".services[].image" "${TARGET_APP_DIR}/docker-compose.yaml")
     POSTGRESQL=$(yq '.services[].image | select(test("postgres"))' "${TARGET_APP_DIR}/docker-compose.yaml")
     MARIADB=$(yq '.services[].image | select(test("mysql|mariadb"))' "${TARGET_APP_DIR}/docker-compose.yaml")
-    echo "Converting docker-compose.yaml for Truecharts values.yaml..."
+    echo "Converting docker-compose.yaml for Truecharts values.yaml ..."
     echo > "${TARGET_APP_DIR}/app-values.yaml"
     echo > "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
     if [ -n "${POSTGRESQL}" ]; then
-      echo "Setting up a CNPG instance..."
+      echo "Setting up a CNPG instance ..."
       yq -i ".cnpg.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".cnpg.main.cluster.instances = 1" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
       yq -i ".cnpg.main.cluster.singleNode = true" "${TARGET_APP_DIR}/app-values-dimensioning.yaml"
@@ -353,7 +353,7 @@ function kickstart_k8s_truecharts_local() {
       yq -i ".cnpg.main.user = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
     fi
     if [ -n "${MARIADB}" ]; then
-      echo "Setting up a MariaDB instance..."
+      echo "Setting up a MariaDB instance ..."
       yq -i ".mariadb.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".mariadb.mariadbUsername = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".mariadb.mariadbDatabase = \"${APP_NAME_LOWERCASE}\"" "${TARGET_APP_DIR}/app-values.yaml"
@@ -364,7 +364,7 @@ function kickstart_k8s_truecharts_local() {
     fi
 
     if [ -n "${POSTGRESQL}" ] || [ -n "${MARIADB}" ]; then
-      echo "Generating secrets configuration scaffolding..."
+      echo "Generating secrets configuration scaffolding ..."
       if [ -n "${POSTGRESQL}" ]; then
         yq -i ".cnpg.main.password = \"PLACEHOLDER_DB_PASSWORD\"" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
       fi
@@ -398,7 +398,7 @@ function kickstart_k8s_truecharts_local() {
         fi
       done
 
-      echo "Processing images..."
+      echo "Processing images ..."
       for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
         SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
         IMAGE_SELECTOR=${IMAGE_SELECTORS[$SERVICE_INDEX]}
@@ -414,7 +414,7 @@ function kickstart_k8s_truecharts_local() {
         fi
       done
 
-      echo "Processing volume mounts..."
+      echo "Processing volume mounts ..."
       for SERVICE_INDEX in "${!APP_SERVICES[@]}"; do
         SERVICE=${APP_SERVICES[$SERVICE_INDEX]}
         CONTAINER_KEY=${CONTAINER_KEYS[$SERVICE_INDEX]}
@@ -446,7 +446,7 @@ function kickstart_k8s_truecharts_local() {
         fi
       done
 
-      echo "Processing ports..."
+      echo "Processing ports ..."
       APP_PORT_RAW=$(yq ".services.${APP_SERVICES[0]}.ports[0]" "${TARGET_APP_DIR}/docker-compose.yaml")
       APP_PORT_RAW=${APP_PORT_RAW%%/*}
       APP_PORT=${APP_PORT_RAW##*:}
@@ -455,10 +455,10 @@ function kickstart_k8s_truecharts_local() {
       yq -i ".service.main.ports.main.protocol = \"http\"" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".service.main.ports.main.targetPort = ${APP_PORT}" "${TARGET_APP_DIR}/app-values.yaml"
 
-      echo "Processing timezone..."
+      echo "Processing timezone ..."
       yq -i ".TZ = \"Europe/Budapest\"" "${TARGET_APP_DIR}/app-values.yaml"
 
-      echo "Processing workload..."
+      echo "Processing workload ..."
       yq -i ".workload.main.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
       yq -i ".workload.main.type = \"Deployment\"" "${TARGET_APP_DIR}/app-values.yaml"
       ENV_SECRET_PLACEHOLDERS=()
@@ -468,7 +468,7 @@ function kickstart_k8s_truecharts_local() {
         IMAGE_SELECTOR=${IMAGE_SELECTORS[$SERVICE_INDEX]}
         IS_PRIMARY=false
         [ "${SERVICE_INDEX}" -eq 0 ] && IS_PRIMARY=true
-        echo "Configuring workload container '${CONTAINER_KEY}' (service '${SERVICE}')..."
+        echo "Configuring workload container '${CONTAINER_KEY}' (service '${SERVICE}') ..."
 
         yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.enabled = true" "${TARGET_APP_DIR}/app-values.yaml"
         if [ "${MULTI_CONTAINER}" = true ]; then
@@ -489,9 +489,9 @@ function kickstart_k8s_truecharts_local() {
             [ -z "${line}" ] && continue
             KEY=${line%%=*}
             VALUE=${line#*=}
-            echo "Found environment variable '${KEY}'..."
+            echo "Found environment variable '${KEY}' ..."
             if [[ "${KEY}" =~ SECRET|PASSWORD ]]; then
-              echo "Routing sensitive environment variable '${KEY}' into app-values-private.yaml.j2 instead of app-values.yaml..."
+              echo "Routing sensitive environment variable '${KEY}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
               ENV_VAR_NAME="${APP_NAME_LOWERCASE}_$(echo "${KEY}" | tr '[:upper:]' '[:lower:]')"
               PLACEHOLDER="PLACEHOLDER_ENV_SECRET_${KEY}"
               KEY="${KEY}" PLACEHOLDER="${PLACEHOLDER}" yq -i ".workload.main.podSpec.containers.${CONTAINER_KEY}.env[env(KEY)] = env(PLACEHOLDER)" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
@@ -536,7 +536,7 @@ function kickstart_k8s_truecharts_local() {
         sed -i "s|${ENTRY%%=*}|{{ ${ENTRY#*=} }}|" "${TARGET_APP_DIR}/config/templates/app-values-private.yaml.j2"
       done
 
-      echo "Adding spacing between top-level sections..."
+      echo "Adding spacing between top-level sections ..."
       sed -i '2,$ s/^\([A-Za-z0-9_.-]\)/\n\1/' "${TARGET_APP_DIR}/app-values.yaml"
     fi
   fi
@@ -626,7 +626,7 @@ fi
 echo "Preparing to kickstart app '${APP_NAME}' in folder '${APP_FOLDERNAME}' using '${TYPE}' templates."
 mkdir -p "${TARGET_APP_DIR}"
 
-echo "Copy files..."
+echo "Copy files ..."
 cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
 
 download_docker_compose
