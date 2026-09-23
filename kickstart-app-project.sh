@@ -105,6 +105,13 @@ function download_docker_compose() {
   fi
 }
 
+function preprocess_docker_compose() {
+  [ -f "${TARGET_APP_DIR}/docker-compose.yaml" ] || return
+
+  echo "Resolving env variable defaults in docker-compose.yaml ..."
+  sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${TARGET_APP_DIR}/docker-compose.yaml"
+}
+
 function populate_readme() {
   [ -z "${APP_SOURCE_URL}" ] && return
   [ ! -f "${TARGET_APP_DIR}/README.md" ] && return
@@ -515,6 +522,7 @@ echo "Copy files..."
 cp -r "${REPO_ROOT}/_templates/${MAINTYPE}"/* "${TARGET_APP_DIR}"
 
 download_docker_compose
+preprocess_docker_compose
 populate_readme
 
 if [ "${MAINTYPE}" == "binary" ]; then
