@@ -32,7 +32,7 @@ The open source server management software for SSH, VNC & RDP
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook remoting/nextterm/deploy-nexterm.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook remoting/nexterm/deploy-nexterm.yaml --no-check
     ```
 
 ### Post deployment
