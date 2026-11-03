@@ -42,4 +42,4 @@ Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyz
 
 ## Notable comments
 
-- Notably eats more resources than Tautuli & other combined, due to the Architecture, so keep this in mind
+- Notably eats more resources than Tautulli & others combined, due to the Architecture, so keep this in mind

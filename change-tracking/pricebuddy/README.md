@@ -6,7 +6,7 @@ A self hostable app that tracks prices and sends you notifications when prices m
 - [Source repository](https://github.com/jez500/pricebuddy)
 - [Documentation](https://pricebuddy.jez.me/installation.html)
 - Image repo:
-  - [Pricebudy](https://hub.docker.com/r/jez500/pricebuddy)
+  - [Pricebuddy](https://hub.docker.com/r/jez500/pricebuddy)
   - [Scraper](https://hub.docker.com/r/jez500/seleniumbase-scrapper)
 - ~~Other sites~~
 

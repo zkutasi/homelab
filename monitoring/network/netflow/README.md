@@ -12,9 +12,9 @@ Analyzing all of your local subnet's traffic is a great way to get insights whic
 
 - [NtopNG](https://www.ntop.org/) - Based on the original ntop back in the 1990s
 - [Akvorado](https://github.com/akvorado/akvorado) - Graphical UI that receives flows and enriches them from various external sources
-- [Elastiflow](https://www.elastiflow.com/) - Based on the Elastic stack (so quote resource intensive)
+- [Elastiflow](https://www.elastiflow.com/) - Based on the Elastic stack (so quite resource intensive)
 - [pmacct](http://www.pmacct.net/) - A set of passive network monitoring tools. Not as friendly user interface as others.
 - [nfDump](https://github.com/phaag/nfdump)
 - [SiLK](https://tools.netsa.cert.org/silk/index.html) - Tools for large networks from Carnegie Mellon University
-- Grafana Flow - It is a made up name for a Telegraph-collector -> InfluxDB/Prometheus -> Grafana combo
+- Grafana Flow - It is a made up name for a Telegraf-collector -> InfluxDB/Prometheus -> Grafana combo
 - [SniffNet](https://sniffnet.net/) - A cool little desktop app that PCAPs all your packets and gets you insights about the traffic.

@@ -1,6 +1,6 @@
 # Backup solutions
 
-A Collection of backup solution I investigated or even tried out.
+A collection of backup solutions I investigated or even tried out.
 
 In the network, there are Linux VMs, Linux Baremetal Hosts and 1-2 Windows Host.
 
@@ -62,7 +62,7 @@ Other things to consider:
 
 - [Community Resources](https://github.com/borgbackup/community)
 - [BorgMatic](https://github.com/borgmatic-collective/borgmatic) - A wrapper that makes things easier
-- [BorgWarehouse](https://borgwarehouse.com/) - Centralized webUI for the Server-handling (so does not handle the client Hosts). Runs its own SSH server so it can be separated from the default SSH access. Creates repos with a randon hash-ID, and uses a proprietary alias to name them properly. Limited statistics.
+- [BorgWarehouse](https://borgwarehouse.com/) - Centralized webUI for the Server-handling (so does not handle the client Hosts). Runs its own SSH server so it can be separated from the default SSH access. Creates repos with a random hash-ID, and uses a proprietary alias to name them properly. Limited statistics.
 - [BorgBase](https://www.borgbase.com/) - Cloud Repo solution
 - Docker
   - [Docker image for Borgmatic clients](https://github.com/borgmatic-collective/docker-borgmatic)
@@ -118,7 +118,7 @@ Cons:
 
 [Official Site](https://kopia.io/)
 
-Kopia natively supports many local or remote repos, being it a remove Host, NAS or Cloud provider, though only one can be selected at once, so not possible to do a local and a cloud backup at the same time with one instance. The developers provide docker images and there is also a helm chart available too.
+Kopia natively supports many local or remote repos, being it a remote Host, NAS or Cloud provider, though only one can be selected at once, so not possible to do a local and a cloud backup at the same time with one instance. The developers provide docker images and there is also a helm chart available too.
 
 In server mode, the webUI is going to be active, managing multiple machines with it is possible. All of the managed client Hosts have to install Kopia somehow in non-server mode (docker or binary).
 

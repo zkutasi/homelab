@@ -30,7 +30,7 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
   - [Jellywatch](https://jellywatch.app/) - The ultimate Android app for managing your Jellyfin media server
   - [JellyCon](https://github.com/jellyfin/jellycon) - Same as for Emby
   - [Jellify](https://github.com/Jellify-Music/App) - Jellify is a free and open source music player for the Jellyfin Media Server on Android/iOS.
-  - [Steamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
+  - [Streamyfin](https://streamyfin.app/) - Streamyfin is a user-friendly Jellyfin video streaming client built with Expo. Designed as an alternative to other Jellyfin clients, it aims to offer a smooth and reliable streaming experience.
   - [Fladder](https://github.com/DonutWare/Fladder) - A cross-platform Jellyfin Frontend built on top of Flutter.
 
 ### Video Only
@@ -57,7 +57,7 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 
 It is sometimes beneficial to have your listening taste analyzed, by forwarding what music you listen to. This is called scrobbling. The process can be set up in each of the music listening apps/servers. Then the online scrobbler website can list your favourites, lets you explore their catalog, or even recommend to you new similar artists.
 
-If a piece of software only supports the most popular scrobbler, you shall a tool that scross-scrobbles, below are some examples.
+If a piece of software only supports the most popular scrobbler, you should use a tool that cross-scrobbles, below are some examples.
 
 #### Music
 

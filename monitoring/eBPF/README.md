@@ -27,7 +27,7 @@
 - [Oryx](https://github.com/pythops/oryx) - TUI for sniffing network traffic using eBPF on Linux
 - [Kyanos](https://kyanos.io/) - A networking analysis tool using eBPF. It can visualize the time packets spend in the kernel, capture requests/responses, makes troubleshooting more efficient.
 
-### Heterogenous network compatible
+### Heterogeneous network compatible
 
 - [Falco](https://falco.org/) - Cloud Native Runtime Security
 - The Grafana ecosystem with [Beyla](https://grafana.com/oss/beyla-ebpf/) - eBPF-based autoinstrumentation of web applications and network metrics

@@ -11,7 +11,7 @@ High performance self-hosted photo and video management solution.
   - [Postgres (Immich fork)](https://github.com/immich-app/postgres/pkgs/container/postgres)
 - ~~Other sites~~
 
-Immich Power Tools - A unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
+Immich Power Tools - An unofficial immich client to provide better tools to organize and manage your immich account. Building it to speed up your workflows in Immich to organize your people and albums.
 
 - ~~Official site~~
 - [Source repository](https://github.com/immich-power-tools/immich-power-tools)

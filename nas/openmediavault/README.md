@@ -95,5 +95,5 @@ It is a lot trickier to know the input data here, one needs to check the code of
 
 ## Notable comments
 
-- Automating the setup I Have was a beast, as the OMV developers does not really like not using the UI. They do have CLI Tools, but they are very cumbersome. The UI makes things super easy, but anything done in the CLI is tricky.
+- Automating the setup I have was a beast, as the OMV developers does not really like not using the UI. They do have CLI Tools, but they are very cumbersome. The UI makes things super easy, but anything done in the CLI is tricky.
 - Currently I could not find any good way to Apply the changes always, as sometimes `omv-confdbadm update` does it in itself, sometimes even `omv-salt deploy run` does not do it. The dirty state has always remained. According to the info I gathered, the UI does this cleanup manually. So if required, Apply on the UI.

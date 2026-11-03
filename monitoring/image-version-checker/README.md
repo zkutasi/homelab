@@ -11,7 +11,7 @@ However, a Renovate + GitOps way is the better way instead:
 
 ## Requirements
 
-- Possibility to just show the required updated but not necessarily auto-update the images
+- Possibility to just show the required updates but not necessarily auto-update the images
 - Ability to handle remote hosts
 - No need to open up the docker-socket at all (agent-based)
 - Free and Open source, preferably 0$ cost

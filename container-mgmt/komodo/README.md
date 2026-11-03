@@ -52,7 +52,7 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
     1. Log into the UI
     2. Go to Settings -> Profile -> API Keys, and add a new one, two things will be generated an API Key and a Secret
     3. Place this API Key & Secret into the inventory as `komodo_api_key` and `komodo_api_secret` into the `all` group_vars file
-    4. Place a generated into the `all` group_vars file as `komodo_periphery_passkey`
+    4. Place a generated passkey into the `all` group_vars file as `komodo_periphery_passkey`
 
 ### Deploy the agents
 

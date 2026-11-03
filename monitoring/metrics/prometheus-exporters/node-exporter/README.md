@@ -25,7 +25,7 @@ Exporter for machine metrics
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |node_exporter_textfiles_dir|M|The directory where node-exporter read the texfiles from|
+    |node_exporter_textfiles_dir|M|The directory where node-exporter reads the textfiles from|
 
 ### Deploy on the Kubernetes cluster
 

@@ -1,8 +1,8 @@
-# Docker Socker Proxy
+# Docker Socket Proxy
 
 Using the docker.sock on its own is a big security risk: you give basically root access to your Host doing this. Any malicious container can then do whatever they want. This is why agent-based solutions are better, as they do not require to expose the docker socket externally, only internally. But there are some solutions that do not ship with agents.
 
-Also, if you use more than one network-wide docker-manager solution, the amount of agents multiply, using resources. If you already intent to do read-only socket operations, a single docker-socket-proxy might be ideal. But if modification is also needed, consider deploying these proxies per App.
+Also, if you use more than one network-wide docker-manager solution, the amount of agents multiply, using resources. If you already intend to do read-only socket operations, a single docker-socket-proxy might be ideal. But if modification is also needed, consider deploying these proxies per App.
 
 ## Requirements
 

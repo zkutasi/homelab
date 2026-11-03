@@ -26,12 +26,12 @@ Monitoring the Home infrastructure is essential, checking high CPU usage, error 
 
 ### All in one solutions
 
-These solutions are very easy to deploy, extensive, but has many limitations and customizing them is not that easy. Figuring out how to add some exytra metrics is harder as they might be not that widely used or even proprietarily managed.
+These solutions are very easy to deploy, extensive, but has many limitations and customizing them is not that easy. Figuring out how to add some extra metrics is harder as they might be not that widely used or even proprietarily managed.
 
 Some more popular examples are:
 
 - [LibreNMS](https://www.librenms.org/) - Community-based GPL-licensed network monitoring system
-- [CheckMK](https://checkmk.com/) - An all-in-one solution with an agent-based approach. The agents are super-flexible and programmable. The tool can collect a lot of metrics by default, has sensible warnings on them and quite extensible. Though the configuration of it might be a nightmare due to the conplexity.
+- [CheckMK](https://checkmk.com/) - An all-in-one solution with an agent-based approach. The agents are super-flexible and programmable. The tool can collect a lot of metrics by default, has sensible warnings on them and quite extensible. Though the configuration of it might be a nightmare due to the complexity.
 - [Netdata](https://www.netdata.cloud/) - Also an all-in-one solution focusing on near-real-time metrics collection. Also agent based, and very flexible. The company focuses on Cloud data-storage for the tool but self-hosting is also possible.
 - [Paessler PRTG](https://www.paessler.com/prtg) -A very nice solution with a huge drawback: The dashboard is Windows only.
 - [Zabbix](https://www.zabbix.com/index)
@@ -97,7 +97,7 @@ Allows to show across microservices the end-to-end flow of data, and catch the r
 
 ### Updates & Patches
 
-Linux has to be up-to-date, these tools make it obvious if they are lacking behind.
+Linux has to be up-to-date, these tools make it obvious if they are lagging behind.
 
 - [PatchMon](https://patchmon.net/) - Linux Patch Management & Automation Platform
 - [Linux Update Dashboard](https://github.com/TheDuffman85/linux-update-dashboard) - Web app for managing Linux package updates across multiple servers. Connect via SSH, check for updates, and apply them from a single dashboard in your browser. No agents are required.

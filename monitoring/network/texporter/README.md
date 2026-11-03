@@ -60,4 +60,4 @@ A lightweight, high-performance eBPF-based network traffic exporter for Promethe
 ## Notable comments
 
 - A tad bit limited: for a given byte, it stores the source and destination IP. There is a possibility to enrich the IPs via reverse DNS lookup also
-- The reverse DNS lookup was abismally slow, even the metrics endpoint was not responding for long seconds.
+- The reverse DNS lookup was abysmally slow, even the metrics endpoint was not responding for long seconds.

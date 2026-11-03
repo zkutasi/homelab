@@ -43,7 +43,7 @@ They consist of:
 - 1x VPS for essential things to host remotely (RustDesk for example)
 - 1x NUC for HTPC purposes
 - 1x NUC for private stuff (Windows)
-- 1x Self-build tower PC for NAS with Movies, TVShows and co.
+- 1x Self-built tower PC for NAS with Movies, TVShows and co.
 
 ### Tech stacks
 
@@ -84,13 +84,13 @@ These are fundamental or general tools I built my infrastructure on or use it ac
 | Logo | Name | Description |
 |------|------|-------------|
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/kubernetes.svg" alt="Kubernetes"> | [Kubernetes](https://kubernetes.io/) | Orchestrate containerized applications |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/helm.svg" alt="Helm"> | [Helm](https://helm.sh/) | A package manager for Helm |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/helm.svg" alt="Helm"> | [Helm](https://helm.sh/) | A package manager for Kubernetes |
 | <img width="32" src="https://raw.githubusercontent.com/rook/artwork/master/logo/blue.svg" alt="Rook Ceph"> | [Rook Ceph](https://rook.io) | Storage Orchestration for Kubernetes |
 | <img width="32" src="https://avatars.githubusercontent.com/u/60239468?s=200&v=4" alt="MetalLB"> | [MetalLB](https://metallb.io/) | A network load-balancer implementation for Kubernetes using standard routing protocols |
 | <img width="32" src="https://github.com/jetstack/cert-manager/raw/master/logo/logo.png" alt="Cert Manager"> | [Cert Manager](https://cert-manager.io/) | Automatically provision and manage TLS certificates in Kubernetes |
 | <img width="32" src="https://avatars.githubusercontent.com/u/54918165?s=200&v=4" alt="Contour"> | [Contour](https://projectcontour.io/) | Contour is a Kubernetes ingress controller using Envoy proxy. |
 | <img width="32" src="https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png" alt="ExternalDNS"> | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) | Configure external DNS servers dynamically from Kubernetes resources |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/postgresql.svg" alt="CNPG"> | [CloudNativePG](https://cloudnative-pg.io/) | he open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/postgresql.svg" alt="CNPG"> | [CloudNativePG](https://cloudnative-pg.io/) | The open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/seaweedfs.svg" alt="SeaweedFS"> | [SeaweedFS](https://seaweedfs.com/) | SeaweedFS is a distributed storage system for object storage (S3), file systems, and Iceberg tables, designed to handle billions of files with O(1) disk access and effortless horizontal scaling. |
 
 #### Media stack
@@ -165,7 +165,7 @@ These are services that allow me to manage certain aspects of the infrastructure
 |------|------|-------------|
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/homepage.svg" alt="Homepage"> | [Homepage](https://gethomepage.dev/) | A highly customizable homepage (or startpage / application dashboard) with Docker and service API integrations. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/glance.svg" alt="Glance"> | [Glance](https://github.com/glanceapp/glance) | A self-hosted dashboard that puts all your feeds in one place |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wygiwyh.svg" alt="WYHIWYG"> | [WYGIWYH](https://github.com/eitchtee/WYGIWYH) | A simple but powerful self-hosted finance tracker |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wygiwyh.svg" alt="WYGIWYH"> | [WYGIWYH](https://github.com/eitchtee/WYGIWYH) | A simple but powerful self-hosted finance tracker |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/convertx.png" alt="ConvertX"> | [ConvertX](https://github.com/C4illin/ConvertX) | Self-hosted online file converter. Supports 1000+ formats |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/it-tools.svg" alt="IT Tools"> | [IT Tools](https://github.com/CorentinTh/it-tools) | Collection of handy online tools for developers, with great UX. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/png/omnitools.png" alt="Omni Tools"> | [Omni Tools](https://github.com/iib0011/omni-tools) | Self-hosted collection of powerful web-based tools for everyday tasks. No ads, no tracking, just fast, accessible utilities right from your browser! |

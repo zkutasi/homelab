@@ -1,4 +1,4 @@
-# Calico WHisker
+# Calico Whisker
 
 You can observe network traffic in your cluster by viewing flow logs in the Calico Whisker web console.
 

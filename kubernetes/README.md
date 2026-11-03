@@ -26,7 +26,7 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 
 ### App sources
 
-I would like to keep everything though Helm, so I could manage the lifecycle with helm commands.
+I would like to keep everything through Helm, so I could manage the lifecycle with helm commands.
 
 So the sources to consider in preference order:
 
@@ -38,9 +38,9 @@ So the sources to consider in preference order:
     - [Stakater application](https://github.com/stakater/application) - Generic Helm chart for deploying stateless applications on Kubernetes
 3. Use the `docker-compose.yaml` file provided by the author and use one of the many template and deployment engines:
     - [Kompose](https://kompose.io/) - An official Kubernetes tool to migrate a docker compose file into Kubernetes manifests automatically. Problem is that it is severely limited even for a simple compose file and development is at a stall in 2025. Really only works as a blueprint for migrations.
-    - [Cloud Development Kit for Kubernetes (cdk8s)](https://cdk8s.io/) - Use Python, Java, Typescript or Go to define your manifests. Every such CDK8s App synthetises into Kubernetes Manifests. It is an NPM app.
+    - [Cloud Development Kit for Kubernetes (cdk8s)](https://cdk8s.io/) - Use Python, Java, Typescript or Go to define your manifests. Every such CDK8s App synthesizes into Kubernetes Manifests. It is an NPM app.
     - [Timoni](https://timoni.sh/) and the [CUE language](https://cuelang.org/). Timoni is a helm-replacement (module=chart, bundle=IHC, instance=release), but CUE can be templated into YAML manifests themselves. CUE is a superset of JSON. One of the most promising solutions out there.
-    - [Carvel](https://carvel.dev/) - The [ytt templating language](https://carvel.dev/ytt/) treats templates like true YAML, unlike Helm go-templates, based on YAML and Starlark. Carvel is a whole exosystem of apps, the kapp CLI tool to install them, and a few other helper tools too. Has strong ties to VMWare. Another disadvantage is that one would still need to write all those lengthy YAML files, and all boilerplate things.
+    - [Carvel](https://carvel.dev/) - The [ytt templating language](https://carvel.dev/ytt/) treats templates like true YAML, unlike Helm go-templates, based on YAML and Starlark. Carvel is a whole ecosystem of apps, the kapp CLI tool to install them, and a few other helper tools too. Has strong ties to VMWare. Another disadvantage is that one would still need to write all those lengthy YAML files, and all boilerplate things.
     - [Pulumi](https://github.com/pulumi/pulumi) - Write IaC in any language. Supports 120+ platforms. Kind of a replacement for Terraform, due to its massive IaC capabilities.
     - [Grafana Tanka](https://tanka.dev/) and the [JSonnet configuration language](https://jsonnet.org/). The language comes from one of Google's 20% projects. It is an extension of JSON.
     - [DHall-Kubernetes](https://github.com/dhall-lang/dhall-kubernetes) and the [DHall language](https://github.com/dhall-lang/dhall-lang) - Does not seem to be very active.

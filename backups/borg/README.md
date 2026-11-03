@@ -118,7 +118,7 @@ For exporting metrics, there are several ways:
   |[borg-exporter by k0ral](https://codeberg.org/k0ral/borg-exporter)|Borg based|Exposes many metrics|Single repo only|Also supports remote borg repos via SSH|
   |[borgmatic-exporter by Maxim Mityutko](https://github.com/maxim-mityutko/borgmatic-exporter)|Borgmatic based|Exposes many metrics|Yes|Extends Dani Hodovic's version|
 
-One distinction is whether the exporter shall be placed on the client or next to the Borg repo (One or Many deployments). Another is the method used: borg directly or borgmatic or something else. Multi-repo support is also required if placed next to a Borg repo, but not if paced on the client.
+One distinction is whether the exporter shall be placed on the client or next to the Borg repo (One or Many deployments). Another is the method used: borg directly or borgmatic or something else. Multi-repo support is also required if placed next to a Borg repo, but not if placed on the client.
 
 Or just use Borg-UI, that exposes the required metrics itself.
 

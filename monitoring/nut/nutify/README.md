@@ -49,5 +49,5 @@ The UPS is plugged into one of the Synology NAS Hosts. I am using the Synology D
 
 ## Notable comments
 
-- I was unable to use the dockerized NUT Server, as for some yet unknown reason the USB device was not fully visible and I got the infamous `Can't claim USB device [XXXX:XXXX]@0/0/0: Entity not found`, although I mapped in the devices, used the cgroups and the Wizard was able to find my UPS. BUt then the config check part failed 100%. So I just use Nutify to scrape info from the Synology NUT Server, which works.
+- I was unable to use the dockerized NUT Server, as for some yet unknown reason the USB device was not fully visible and I got the infamous `Can't claim USB device [XXXX:XXXX]@0/0/0: Entity not found`, although I mapped in the devices, used the cgroups and the Wizard was able to find my UPS. But then the config check part failed 100%. So I just use Nutify to scrape info from the Synology NUT Server, which works.
 - I have chosen `network_mode=host`, because otherwise I would need to give a very specific IP address to the Synology NUT Server as allowed remote hosts.
