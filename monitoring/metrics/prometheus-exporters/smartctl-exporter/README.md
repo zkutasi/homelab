@@ -37,7 +37,7 @@ Export smartctl statistics to prometheus
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/smartctl-exporter/k8s/deploy-smartctl-exporter.yaml --no-check
+    ./deploy-k8s.sh
     ```
 
 ### Deploy on the Docker hosts

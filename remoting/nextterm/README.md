@@ -20,7 +20,7 @@ The open source server management software for SSH, VNC & RDP
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |nextterm_encryption_key|M|The encryption key used|
+    |nexterm_encryption_key|M|The encryption key used|
 
 2. For each Ansible host, the following variables can be set
 

@@ -8,7 +8,7 @@ Terraform enables you to safely and predictably create, change, and improve infr
 - ~~Image repo~~
 - ~~Other sites~~
 
-Recently in 2025 there was a big shift in the license const of this tool, so if you still want to use it in the future, probably a good way to go is to look into [OpenTofu](https://opentofu.org/). It still uses the same language to write the IaC, and is completely still open source.
+In 2023 HashiCorp moved this tool from an open source license (MPL) to the Business Source License (BSL), so if you still want to use it in the future, probably a good way to go is to look into [OpenTofu](https://opentofu.org/). It still uses the same language to write the IaC, and is completely still open source.
 
 - [Official site](https://opentofu.org/)
 - [Source repository](https://github.com/opentofu/opentofu)
@@ -39,7 +39,7 @@ The `vars.tf` file holds the schema for the config you need to pass in (see late
     |endpoint|The PVE system's entry HTTP address|
     |api_token|The Terraform user's Proxmox API token, created beforehand|
     |k8s_controllers|A list of Kubernetes controller Hosts, with fields `address` (IP/mask), `cpu`, `disk`, `memory`, `name` (hostname), `node_name` (which PVE should have this VM) and `vm_id`|
-    |k8s_worker|A list of Kubernetes worker hosts. Same fields are valid as for controllers. Additional fields: `disk_data`|
+    |k8s_workers|A list of Kubernetes worker hosts. Same fields are valid as for controllers. Additional fields: `disk_data`|
     |username|The username for the created VM Guest|
     |password|The password for the created user|
 

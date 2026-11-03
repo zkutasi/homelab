@@ -20,7 +20,7 @@ ezBookkeeping is an open source, powerful, self-hosted personal finance app that
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |ezbookeeping_database_password|M||
+    |ezbookkeeping_database_password|M||
 
 2. For each Ansible host, the following variables can be set
 

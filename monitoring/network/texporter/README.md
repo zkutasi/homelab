@@ -32,13 +32,13 @@ A lightweight, high-performance eBPF-based network traffic exporter for Promethe
 1. Configure from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/network/texporter/host/configure-texporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/texporter/host/configure-texporter.yaml --no-check
     ```
 
 2. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/network/texporter/host/deploy-texporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/texporter/host/deploy-texporter.yaml --no-check
     ```
 
 ### Post deployment

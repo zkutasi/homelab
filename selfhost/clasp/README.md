@@ -35,7 +35,7 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
 1. Install with the provided script
 
    ```bash
-   ./common-ansible-run-playbook.sh --playbook selfhosting/clasp/deploy-clasp.yaml --no-check
+   ./common-ansible-run-playbook.sh --playbook selfhost/clasp/deploy-clasp.yaml --no-check
    ```
 
 ## Metrics, Alerts, Notifications

@@ -114,15 +114,15 @@ To uninstall Rook, follow these steps
 6. Remove local data from disk
 
     ```bash
-    ansible all -i kubespray/inventory/hosts.yaml --become -a 'rm -rvf /var/lib/rook'
+    ansible all -i kubernetes/k8s-install/kubespray/inventory/hosts.yaml --become -a 'rm -rvf /var/lib/rook'
     ```
 
 7. ZAP the disk to wipe it clean
 
     ```bash
-    ansible kube_node -i kubespray/inventory/hosts.yaml --become -a 'sgdisk --zap-all /dev/sdb'
-    ansible kube_node -i kubespray/inventory/hosts.yaml --become -a 'blkdiscard /dev/sdb'
-    ansible kube_node -i kubespray/inventory/hosts.yaml --become -a 'partprobe /dev/sdb'
+    ansible kube_node -i kubernetes/k8s-install/kubespray/inventory/hosts.yaml --become -a 'sgdisk --zap-all /dev/sdb'
+    ansible kube_node -i kubernetes/k8s-install/kubespray/inventory/hosts.yaml --become -a 'blkdiscard /dev/sdb'
+    ansible kube_node -i kubernetes/k8s-install/kubespray/inventory/hosts.yaml --become -a 'partprobe /dev/sdb'
     ```
 
 ## Notable comments

@@ -30,7 +30,13 @@ Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/deploy-caddy.yaml --no-check

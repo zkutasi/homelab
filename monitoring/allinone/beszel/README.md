@@ -42,7 +42,7 @@ Lightweight server monitoring with historical data, docker stats, and alerts.
 
 ### Post deployment of the central hub
 
-1. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_token`
+1. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_universal_token`
 
 ### Deploy the agents on the Docker hosts
 

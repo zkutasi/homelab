@@ -79,13 +79,13 @@ OMV is based on [SaltStack](https://saltproject.io/), an Automation platform lik
 Some cool and useful commands for this:
 
 `omv-salt deploy list-dirty` - After some modification is done, this command lists the components that have changed, and needs to be applied, as they have dirty state.
-`omv-salt deploy run –append-dirty` - Run all of the dirty stated components
+`omv-salt deploy run --append-dirty` - Run all of the dirty stated components
 
 If one needs to make changes on the CLI, there is a command for that as well, that makes changes in the internal database (/etc/openmediavault/config.xml).
 
 `omv-confdbadm list-ids` - List the available config IDs
 `omv-confdbadm read <ConfID>` - Read the given config ID fragment data
-`omv-confdbadm update <ConfID> <JSONData> - Write data into the given config fragment. Pay attention, that if the config fragment is a list, each element will have a unique UUID, and this method can update directly only one element, by specifying the UUID in the JSONData. If UUID is omitted, a new element will be added to the list. Some checks are also performed to protect the integrity of the DB.
+`omv-confdbadm update <ConfID> <JSONData>` - Write data into the given config fragment. Pay attention, that if the config fragment is a list, each element will have a unique UUID, and this method can update directly only one element, by specifying the UUID in the JSONData. If UUID is omitted, a new element will be added to the list. Some checks are also performed to protect the integrity of the DB.
 
 The UI does RPC calls in the background, so if that is needed, for example the code to do something is directly in the RPC call (I look at you Symlinks API :)), the following command can be used to directly communicate these RPCs.
 

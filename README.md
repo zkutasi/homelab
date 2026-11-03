@@ -21,8 +21,9 @@ but the Infrastructure as Code aspects will evolve as well as the hosted Service
 - 1x External VPS with 1 vCPU and 512MB RAM
 - 1x Intel NUC Kit 7i3DNHE with i3-7100U, 16GB RAM, 500GB SSD
 - 1x Intel NUC Kit 7i3BNH with i3-7100U, 8GB RAM, 256GB SSD
+- 1x Qotom mini PC appliance with 4x 1Gbps Ethernet ports
 - 1x Self-built tower PC
-  - Motherboard:
+  - Motherboard: Supermicro X11SSH-F
   - CPU: Intel Pentium G4560
   - RAM: 32GB
   - Storage: 256GB SSD + 8x 8TB HDD
@@ -33,7 +34,7 @@ And a bunch of smaller stuff.
 
 They consist of:
 
-- 3x Dell Optiplex for a Kubernetes cluster
+- 3x Dell Optiplex as a Proxmox cluster, hosting a Kubernetes cluster in 3 controller + 3 worker VMs
 - 1x Synology NAS for Music
 - 1x Synology NAS for Documents, Photos and work related stuff
 - 1x Raspberry Pi 4 for PiHole DNS
@@ -75,7 +76,7 @@ These are fundamental or general tools I built my infrastructure on or use it ac
 | <img width="32" src="https://media.sys.truenas.net/apps/borgwarehouse/icons/icon.svg" alt="Borgwarehouse"> | [Borgwarehouse](https://borgwarehouse.com/) | A fast and modern WebUI for a BorgBackup's central repository server. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/kopia.svg" alt="Kopia"> | [Kopia](https://kopia.io/) | Cross-platform backup tool for Windows, macOS & Linux with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication. CLI and GUI included. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/urbackup.png" alt="UrBackup"> | [UrBackup](https://www.urbackup.org/) | UrBackup is an easy to setup Open Source client/server backup system, that through a combination of image and file backups accomplishes both data safety and a fast restoration time. |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/portabase.svg" alt="Portabase"> | [Portabase](https://portabase.io/) | Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB, Firebird SQL, SQLite, MongoDB, Redis and Docker Volume |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/portabase.svg" alt="Portabase"> | [Portabase](https://portabase.io/) | Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB, Firebird SQL, SQLite, MongoDB, Redis, Files and Docker Volume |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/databasus.svg" alt="Databasus"> | [Databasus](https://databasus.com/) | PostgreSQL backup tool with Point-In-Time-Recovery and restore verification |
 
 #### Kubernetes infrastructure stack
@@ -89,7 +90,7 @@ These are fundamental or general tools I built my infrastructure on or use it ac
 | <img width="32" src="https://github.com/jetstack/cert-manager/raw/master/logo/logo.png" alt="Cert Manager"> | [Cert Manager](https://cert-manager.io/) | Automatically provision and manage TLS certificates in Kubernetes |
 | <img width="32" src="https://avatars.githubusercontent.com/u/54918165?s=200&v=4" alt="Contour"> | [Contour](https://projectcontour.io/) | Contour is a Kubernetes ingress controller using Envoy proxy. |
 | <img width="32" src="https://github.com/kubernetes-sigs/external-dns/raw/master/docs/img/external-dns.png" alt="ExternalDNS"> | [ExternalDNS](https://github.com/kubernetes-sigs/external-dns) | Configure external DNS servers dynamically from Kubernetes resources |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/postgresql.svg" alt="CNPG"> | [Cloud Native PostgreSQL](https://cloudnative-pg.io/) | he open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/postgresql.svg" alt="CNPG"> | [CloudNativePG](https://cloudnative-pg.io/) | he open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/seaweedfs.svg" alt="SeaweedFS"> | [SeaweedFS](https://seaweedfs.com/) | SeaweedFS is a distributed storage system for object storage (S3), file systems, and Iceberg tables, designed to handle billions of files with O(1) disk access and effortless horizontal scaling. |
 
 #### Media stack

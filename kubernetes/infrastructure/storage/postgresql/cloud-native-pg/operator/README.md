@@ -1,4 +1,4 @@
-# Cloud Native PostgreSQL (CNPG)
+# CloudNativePG (CNPG)
 
 The open-source platform designed to seamlessly manage the entire operational lifecycle of PostgreSQL databases within Kubernetes
 

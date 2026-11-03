@@ -30,7 +30,7 @@ N/A
 
 ### Network
 
-- [Network Toolbox](https://github.com/lissy93/networking-toolbox) - 100+ offline-first networking tools and utilities
+- [Networking Toolbox](https://github.com/lissy93/networking-toolbox) - 100+ offline-first networking tools and utilities
 - [Web-Check](https://web-check.xyz/) - All-in-one OSINT tool for analysing any website
 
 ### Other

@@ -20,7 +20,6 @@ A modern, themeable scrobbler that you can use with any program that scrobbles t
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |koito_postgres_password|M|The postgres password for Koito|
 
 2. For each Ansible host, the following variables can be set
 

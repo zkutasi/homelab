@@ -31,7 +31,7 @@ It is a monitoring platform that allows you to monitor multiple platforms on a s
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/omnisight/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/omnisight/central/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script

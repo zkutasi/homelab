@@ -94,7 +94,7 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
   - `resolvconf` - If modifying /etc/resolv.conf in any way
 
 - To enable a feature-gate, follow [this Wikipage](https://oneuptime.com/blog/post/2026-02-09-kubernetes-feature-gates-api-kubelet/view). For example for API Server:
-  - First, query the available feature-gates: `kubectl -n kube-system exec -ti kube-apiserver-k8s-controller-1 -- kube-apiserver -h | grep -A 50 "feature-gates`
+  - First, query the available feature-gates: `kubectl -n kube-system exec -ti kube-apiserver-k8s-controller-1 -- kube-apiserver -h | grep -A 50 "feature-gates"`
   - Edit the file `/etc/kubernetes/manifests/kube-apiserver.yaml` and add the `--feature-gates` flag with the feature you want
   - The system will redeploy the new API Servers automatically
 

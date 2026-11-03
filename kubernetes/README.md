@@ -33,9 +33,8 @@ So the sources to consider in preference order:
 1. Official Helm Charts (bigger projects all should have them)
     - [Bitnami](https://github.com/bitnami/charts/tree/main) - **WARNING**: Bitnami recently stopped providing free updates for their portfolio's images
     - [CloudPirates](https://github.com/CloudPirates-io/helm-charts)
-    - [TrueCharts](https://trueforge.org/)
 2. Take a library chart and just configure to use a specific image and version, with parameters to set up the app (env vars, mounts, dependencies, etc...)
-    - [TrueCharts](https://truecharts.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, with only a `values.yaml` to fully configure it. Pair it together for example with a YAML-to-YAML transformer that takes the `docker-compose.yaml` as input and spits out this `values.yaml`, for this CUE seems to a be perfect candidate.
+    - [TrueCharts](https://trueforge.org/) - A community driven project with a vast array of Charts. Not preferred because it is not official, but they update pretty regularly. They even have a library chart to create new Charts, with only a `values.yaml` to fully configure it. Pair it together for example with a YAML-to-YAML transformer that takes the `docker-compose.yaml` as input and spits out this `values.yaml`, for this CUE seems to a be perfect candidate.
     - [Stakater application](https://github.com/stakater/application) - Generic Helm chart for deploying stateless applications on Kubernetes
 3. Use the `docker-compose.yaml` file provided by the author and use one of the many template and deployment engines:
     - [Kompose](https://kompose.io/) - An official Kubernetes tool to migrate a docker compose file into Kubernetes manifests automatically. Problem is that it is severely limited even for a simple compose file and development is at a stall in 2025. Really only works as a blueprint for migrations.
@@ -77,8 +76,8 @@ A lot of tools should be used with Kubernetes:
 - [kube-score](https://kube-score.com/) - Kubernetes object analysis with recommendations for improved reliability and security. kube-score actively prevents downtime and bugs in your Kubernetes YAML and Charts. Static code analysis for Kubernetes.
 
 ```bash
-./common-ansible-run-playbook.sh --playbook kubernetes/deploy-k8s-tools.yaml --no-check
-./common-ansible-run-playbook.sh --playbook kubernetes/configure-k8s-tools.yaml --no-check
+./common-ansible-run-playbook.sh --playbook kubernetes/tools/deploy-k8s-tools.yaml --no-check
+./common-ansible-run-playbook.sh --playbook kubernetes/tools/configure-k8s-tools.yaml --no-check
 ```
 
 ### Notable comments

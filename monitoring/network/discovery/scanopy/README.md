@@ -52,7 +52,7 @@ Deploy Agents to everywhere and deploy the Server into Kubernetes.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/scanopy/agents/deploy-scanopy-agent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/scanopy/agents/deploy-scanopy.yaml --no-check
     ```
 
 ### Post deployment

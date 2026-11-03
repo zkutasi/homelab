@@ -38,13 +38,13 @@ Exporter for machine metrics
 2. Prepare the hosts for the Node-exporter textfile exporter
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/k8s/configure-node-exporter.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/k8s/prepare-node-exporter.yaml --no-check
     ```
 
 3. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/node-exporter/k8s/deploy-node-exporter.yaml --no-check
+    ./deploy-k8s.sh
     ```
 
 ### Deploy on the Docker hosts

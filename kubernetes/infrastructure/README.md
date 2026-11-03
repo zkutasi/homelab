@@ -32,7 +32,7 @@ In order to access externally the cluster services and resources we somehow need
 
 In Kubernetes, above the LoadBalancer layer, Ingresses allow Layer7 access to HTTP endpoints, by exposing their own singular LoadBalancer and routing based on Fully Qualified Domain Names (FQDN). Here is a good list of such components: [Ingress Controllers](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/)
 
-- [Nginx](https://www.nginx.com/products/nginx-ingress-controller/) - This is the original ingress shipped with Kubernetes, and compatible with many helm charts out of the box.
+- [Ingress-Nginx](https://github.com/kubernetes/ingress-nginx) - This is the original ingress shipped with Kubernetes, and compatible with many helm charts out of the box. Retired in March 2026, no longer maintained.
 - [Contour](https://projectcontour.io/) - This is what I have chosen as I work with this one, I know this one well enough.
 - [Traefik](https://doc.traefik.io/traefik/providers/kubernetes-ingress/) - Another popular ingress among homelabbers
 
@@ -84,4 +84,3 @@ Data is a tricky part in Kubernetes, due to the whole platform's distributed and
 
 - [Rook Ceph](https://rook.io/) - For Block storage, this is what I have chosen as I work with this one, I know this one well enough.
 - [Longhorn](https://longhorn.io/) - Popular alternative choice instead of Rook, albeit it has a few issues still required to be worked out.
-- [Minio](https://www.min.io/) - For S3 object storage, this is what I have chosen as I work with this one. Though I need to learn a lot about it.

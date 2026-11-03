@@ -34,7 +34,7 @@ Multiple clients (in docker) run on multiple hosts independently.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook selfhosting/torrent/qbittorrent/deploy-qbittorrent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook torrenting/qbittorrent/deploy-qbittorrent.yaml --no-check
     ```
 
 ### Post deployment
@@ -42,7 +42,7 @@ Multiple clients (in docker) run on multiple hosts independently.
 1. Configure with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook selfhosting/torrent/qbittorrent/configure-qbittorrent.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook torrenting/qbittorrent/configure-qbittorrent.yaml --no-check
     ```
 
 This does the following:

@@ -41,7 +41,7 @@ Cert-manager will provide the self-signed certificates from a self-signed rootCA
 1. Generate the internal self-signed certificate, valid for 30 years
 
     ```bash
-    cd security/certificates/certs/
+    cd security/certificates/
     ./internal-certs.sh
     ```
 

@@ -28,13 +28,7 @@ automated lightweight service that updates media servers like Plex and Jellyfin 
 
 ### Deploy the app
 
-1. Generate configuration from the Ansible inventory
-
-    ```bash
-    ./common-ansible-run-playbook.sh --playbook media/autopulse/generate-configuration.yaml --no-check
-    ```
-
-2. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook media/autopulse/deploy-autopulse.yaml --no-check

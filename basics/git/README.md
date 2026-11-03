@@ -18,6 +18,7 @@ There are a handful of useful stuff set up:
 
 - Some shortened aliases
 - Some pre-commit hooks ([Check for more](https://pre-commit.com/hooks.html)):
+  - SOPS up-to-date (local) - Ensures the SOPS-encrypted secrets are in sync with their decrypted counterparts, see [age-sops](../../security/secret-mgmt/age-sops/README.md)
   - [Common ones](https://github.com/pre-commit/pre-commit-hooks) - Like trailing whitespaces, newline at end of file, etc...
   - [YAMLLint](https://github.com/adrienverge/yamllint)- Since most of the config is YAML, might as well lint them
   - [Typos](https://github.com/crate-ci/typos) - Accidental typos happen, avoid them even in code

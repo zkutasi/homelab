@@ -29,7 +29,7 @@ However, a Renovate + GitOps way is the better way instead:
 - [Tugtainer](https://github.com/Quenary/tugtainer) - Multi-host support. But seems to only handle "latest" tags.
 - [Hoister](https://github.com/HerrMuellerluedenscheid/hoister)
 - [Dockcheck](https://github.com/mag37/dockcheck) - CLI only
-- [Slackwatch](https://github.com/mag37/dockcheck)
+- [Slackwatch](https://github.com/devclef/slackwatch)
 - [Docking Station](https://github.com/LooLzzz/docking-station)
 - [Dockwatch](https://github.com/Notifiarr/dockwatch)
 - [Komodo](https://komo.do/) - Should also work, but for me it is not. Maybe because I am not managing my docker-compose files with it

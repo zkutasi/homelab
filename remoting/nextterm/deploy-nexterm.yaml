@@ -1,5 +1,5 @@
 - name: Deploy Nexterm as docker
-  hosts: control
+  hosts: controlserver
   roles:
     - docker-compose
   vars:

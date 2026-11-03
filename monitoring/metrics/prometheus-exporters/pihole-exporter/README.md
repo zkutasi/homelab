@@ -30,7 +30,13 @@ A Prometheus exporter for PI-Hole's Raspberry PI ad blocker
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pihole-exporter/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/pihole-exporter/deploy-pihole-exporter.yaml --no-check

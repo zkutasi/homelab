@@ -24,7 +24,7 @@ Scrobble plays from multiple sources to multiple clients
     |multiscrobbler_lastfm_api_key|M|The LastFM API KEY for MultiScrobbler|
     |multiscrobbler_lastfm_secret|M|The LastFM API secret for MultiScrobbler|
     |listenbrainz_token|M|The ListenBrainz token|
-    |listenbraniz_username|M|The ListenBrainz username|
+    |listenbrainz_username|M|The ListenBrainz username|
     |koito_endpoint_url|M|The Koito endpoint URL|
 
 2. For each Ansible host, the following variables can be set
@@ -35,7 +35,7 @@ Scrobble plays from multiple sources to multiple clients
 ### Deploy the app
 
 ```bash
-./common-ansible-run-playbook.sh --playbook media/music/multi-scrobbler//deploy-multi-scrobbler.yaml --no-check
+./common-ansible-run-playbook.sh --playbook media/music/multi-scrobbler/deploy-multi-scrobbler.yaml --no-check
 ```
 
 ## Metrics, Alerts, Notifications

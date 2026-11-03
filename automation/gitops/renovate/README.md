@@ -76,7 +76,7 @@ docker run --rm -it \
     --volume "${PWD}:/repo" \
     --workdir /repo \
     --env LOG_LEVEL=debug \
-    --env RENOVATE_TOKEN=${RENOVATE_TOKEN}$ \
+    --env RENOVATE_TOKEN=${RENOVATE_TOKEN} \
     --env RENOVATE_GITHUB_COM_TOKEN=${RENOVATE_TOKEN} \
     renovate/renovate:43.220 \
     renovate \

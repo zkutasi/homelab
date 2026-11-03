@@ -29,7 +29,7 @@ An idea how to use it: Create a Google App Script to catch such emails, extract 
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook selfhosting/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook selfhost/kr-docu-decrypt/deploy-kr-docu-decrypt.yaml --no-check
     ```
 
 ### Post deployment

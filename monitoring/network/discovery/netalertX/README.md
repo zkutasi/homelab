@@ -35,10 +35,16 @@ I deployed it besides a PiHole to integrate it with.
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/netalertx/deploy-netalertx.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/netalertX/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/netalertX/deploy-netalertx.yaml --no-check
     ```
 
 ### Post deployment

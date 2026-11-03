@@ -37,8 +37,8 @@ The Host that is used to handle the git repo has SOPS and age installed.
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook security/age-sops/deploy-age.yaml --no-check
-    ./common-ansible-run-playbook.sh --playbook security/age-sops/deploy-sops.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/secret-mgmt/age-sops/deploy-age.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/secret-mgmt/age-sops/deploy-sops.yaml --no-check
     ```
 
 ### Post deployment
@@ -46,7 +46,7 @@ The Host that is used to handle the git repo has SOPS and age installed.
 1. Configure age to generate keys
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook security/age-sops/configure-age.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook security/secret-mgmt/age-sops/configure-age.yaml --no-check
     ```
 
 ## Metrics, Alerts, Notifications

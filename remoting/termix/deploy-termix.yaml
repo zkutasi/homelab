@@ -1,5 +1,5 @@
 - name: Deploy Termix as docker
-  hosts: control
+  hosts: controlserver
   roles:
     - docker-compose
   vars:

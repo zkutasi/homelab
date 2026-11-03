@@ -5,8 +5,8 @@ services:
       PGID: {{ ansible_user_gid }}
       PUID: {{ ansible_user_uid }}
       QBITTORRENT_BASE_URL: http://qbittorrent-nox:{{ port_qbittorrent }}
-      QBITTORRENT_PASSWORD: {{ qbittorent_password }}
-      QBITTORRENT_USERNAME: {{ qbittorent_username }}
+      QBITTORRENT_PASSWORD: {{ qbittorrent_password }}
+      QBITTORRENT_USERNAME: {{ qbittorrent_username }}
       TZ: {{ timezone }}
     hostname: {{ id }}-qbittorrent-exporter
     image: {{ requested_image_version['qbittorrent-exporter'] }}

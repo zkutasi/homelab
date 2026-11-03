@@ -1,6 +1,6 @@
 # Portabase
 
-Portabase - Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB, Firebird SQL, SQLite, MongoDB, Redis and Docker Volume
+Portabase - Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB, Firebird SQL, SQLite, MongoDB, Redis, Files and Docker Volume
 
 - [Official site](https://portabase.io/)
 - [Source repository](https://github.com/Portabase/portabase)

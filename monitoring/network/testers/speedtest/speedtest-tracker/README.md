@@ -39,7 +39,13 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
     echo -n 'base64:'; openssl rand -base64 32;
     ```
 
-2. Install with the provided script
+2. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/speedtest-tracker/generate-configuration.yaml --no-check
+    ```
+
+3. Install with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/speedtest/speedtest-tracker/deploy-speedtest-tracker.yaml --no-check

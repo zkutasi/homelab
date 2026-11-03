@@ -47,7 +47,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |borgwarehouse_alert|O|The amount of minutes borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
+    |borgwarehouse_alert|O|The amount of seconds borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
     |borgwarehouse_storage_size|O|The size of the storage quota. Default is 10 GB.|
     |borgmatic_encryption_passphrase|M|The encryption passphrase|
 

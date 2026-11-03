@@ -51,9 +51,9 @@ Kuvasz (pronounce as [ˈkuvɒs]) is an open-source uptime and SSL monitoring ser
     2. Add your CA into this
 
         ```bash
-        CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
+        CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs
         docker run --rm \
-            -v ${CA_DIR}:/tmp/certs/ca.crt \
+            -v ${CA_DIR}/ca.crt:/tmp/certs/ca.crt \
             -v ${PWD}/cacerts:/tmp/certs/cacerts \
             eclipse-temurin:25-jre-alpine-3.23 \
             sh -c 'cd /tmp/certs && keytool \
@@ -66,7 +66,7 @@ Kuvasz (pronounce as [ˈkuvɒs]) is an open-source uptime and SSL monitoring ser
                 -file ca.crt'
         ```
 
-    3. Now add this new `cacerts` file as an extra Secret mount to the container. This is done in the deploy.sh script.
+    3. Now add this new `cacerts` file as an extra Secret mount to the container: place it at `config/static/cacerts`, and the deploy-k8s.sh script mounts it.
 
 3. Install with the provided script
 

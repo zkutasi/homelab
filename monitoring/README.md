@@ -69,7 +69,7 @@ Can be all deployed using the `k8s-monitoring-helm` helm chart.
 ### Metrics
 
 - [Prometheus](https://prometheus.io/) - The de-facto standard Time Series Database (TSDB), oldest solution that is able to read metrics from services calling an endpoint on them that provides text-based data. A couple of other options can be found [on the official site](https://prometheus.io/docs/introduction/comparison/)
-- [VictoriaMetrics](https://victoriametrics.com/products/open-source/) - A fork of Prometheus, with lots of optimizations, [more info here](https://last9.io/blog/prometheus-vs-victoriametrics/)
+- [VictoriaMetrics](https://victoriametrics.com/products/open-source/) - A Prometheus-compatible alternative, written from scratch with lots of optimizations, [more info here](https://last9.io/blog/prometheus-vs-victoriametrics/)
 - [Mimir](https://grafana.com/oss/mimir/) - Grafana Labs' solution from their own stack
 - [Thanos](https://thanos.io/) - Extends Prometheus with long-term storage, HA and more features, [more info here](https://last9.io/blog/prometheus-vs-thanos/)
 - [Cortex](https://cortexmetrics.io/) - Another long-term storage for metrics, [more info here](https://last9.io/blog/prometheus-vs-cortex/)

@@ -30,13 +30,7 @@ Instant K8s service dependency map, right to your Grafana.
 
 ### Deploy the app
 
-1. Generate configuration from the Ansible inventory
-
-    ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/eBPF/caretta/generate-configuration.yaml --no-check
-    ```
-
-2. Install with the provided script
+1. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
