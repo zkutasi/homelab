@@ -36,6 +36,12 @@ Homer is a dead simple static HOMepage for your servER (or anything else) to kee
 
 ### Post deployment
 
+1. Generate the dashboard configuration, including an entry for every service exposed through the Kubernetes ingress. Re-run it whenever services are added or removed.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook dashboard/app/homer/configure-homer.yaml --no-check
+    ```
+
 ## Metrics, Alerts, Notifications
 
 ## Commands

@@ -95,7 +95,6 @@ winrm enumerate winrm/config/Listener
     |ansible_user|M|The user to enter via SSH onto the corresponding host|
     |ansible_ssh_pass|O|If you have SSH password set, set it here, otherwise set passwordless SSH with SSH keys|
     |ansible_become_pass|O|If you have sudo password set, set it here, otherwise set up passwordless sudo first|
-    |bash_path|O|If your host has its bash shell path elsewhere, set it here. Default is /usr/bin/env bash|
     |docker_cli_path|O|If for example on Synology devices, the docker path is not by default on the PATH, set it here, and it will be fixed during execution|
     |docker_with_sudo|O|If docker requires sudo to be executed (On Synology NASes it might be true)|
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|

@@ -37,6 +37,12 @@ A highly customizable homepage (or startpage / application dashboard) with Docke
 
 ### Post deployment
 
+1. Generate the dashboard configuration, including an entry for every service exposed through the Kubernetes ingress. Re-run it whenever services are added or removed.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook dashboard/app/homepage/configure-homepage.yaml --no-check
+    ```
+
 ## Metrics, Alerts, Notifications
 
 ## Commands

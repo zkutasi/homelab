@@ -36,6 +36,12 @@ A self-hostable personal dashboard built for you. Includes status-checking, widg
 
 ### Post deployment
 
+1. Generate the dashboard configuration, including an entry for every service exposed through the Kubernetes ingress. Re-run it whenever services are added or removed.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook dashboard/app/dashy/configure-dashy.yaml --no-check
+    ```
+
 ## Metrics, Alerts, Notifications
 
 ## Commands

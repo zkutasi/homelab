@@ -59,6 +59,12 @@ Also Alloy bundles Beyla, for no-code instrumentation eBPF application observabi
     ./common-ansible-run-playbook.sh --playbook monitoring/allinone/alloy/host/deploy-alloy.yaml --no-check
     ```
 
+2. Configure Alloy and (re)start its service. Re-run it whenever the Alloy configuration changes.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/alloy/host/configure-alloy.yaml --no-check
+    ```
+
 ### Post deployment
 
 ## Metrics, Alerts, Notifications
