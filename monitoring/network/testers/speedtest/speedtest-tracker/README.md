@@ -22,6 +22,7 @@ Deployed onto the Network appliance Host and measures every X minutes the speed 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |speedtest_tracker_api_key|O|An API token generated on the Speedtest Tracker UI|
     |speedtest_tracker_schedule|M|A cron-expression to specify how many times a test should be scheduled|
     |speedtest_tracker_app_key|M|A generated App-Key|
     |speedtest_tracker_app_url|M|The App URL used in notifications and emails|

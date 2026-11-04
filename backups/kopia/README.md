@@ -42,6 +42,7 @@ If you have a Synology and the backup server is going to be there, these items h
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |docker_ipv6_ipam_subnet_kopia|O|An IPv6 subnet ending in `::` for the Kopia docker network (e.g. `fd00:11::/64`), its gateway will be the `::1` address. If not set, the network is IPv4 only|
 
 ### Deploy Kopia Server and clients
 

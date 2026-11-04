@@ -42,6 +42,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
     |----|------------------|-------|
     |borgwarehouse_cronjob_key|M|A Secret key generated via `openssl rand -base64 32` for example|
     |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on, on the backupserver host|
+    |borgmatic_encryption_passphrase|M|The encryption passphrase of the Borg repositories|
 
 2. For each Ansible host, the following variables can be set
 
@@ -49,7 +50,8 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
     |----|------------------|-------|
     |borgwarehouse_alert|O|The amount of seconds borgwarehouse shall alert after the last backup. Default is 604800 (7 days).|
     |borgwarehouse_storage_size|O|The size of the storage quota. Default is 10 GB.|
-    |borgmatic_encryption_passphrase|M|The encryption passphrase|
+    |docker_ipv6_ipam_subnet_borgmatic|O|An IPv6 subnet ending in `::` for the Borgmatic docker network (e.g. `fd00:10::/64`), its gateway will be the `::1` address. If not set, the network is IPv4 only|
+    |docker_ipv6_ipam_subnet_borgwarehouse|O|The same, for the Borgwarehouse docker network|
 
 3. For the `backupserver` group set up the following variables:
 

@@ -39,6 +39,8 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
     |----|------------------|-------|
     |grafana_admin_user|M|The Grafana admin username|
     |grafana_admin_password|M|The Grafana admin password|
+    |grafana_api_token|O|The token of the Viewer service account, created in the post deployment step|
+    |grafana_hostname|O|The full URL Grafana is reached on (e.g. `https://grafana.example.home`)|
 
 2. For each Ansible host, the following variables can be set
 

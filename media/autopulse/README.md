@@ -20,6 +20,11 @@ automated lightweight service that updates media servers like Plex and Jellyfin 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |autopulse_password|M|The password of the Autopulse login|
+    |autopulse_username|M|The username of the Autopulse login|
+    |emby_apikey_autopulse|O|An Emby API key for Autopulse, generated on Emby. If not set, Emby is not updated|
+    |jellyfin_apikey_autopulse|O|A Jellyfin API key for Autopulse, generated on Jellyfin. If not set, Jellyfin is not updated|
+    |plex_token|O|The Plex authentication token (X-Plex-Token) of the server. If not set, Plex is not updated|
 
 2. For each Ansible host, the following variables can be set
 

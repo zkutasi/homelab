@@ -12,8 +12,8 @@ services:
     restart: unless-stopped
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
-{% if fstab_entries %}
-{% for entry in fstab_entries %}
+{% if fstab_entries | default([]) %}
+{% for entry in fstab_entries | default([]) %}
       - {{ entry.path }}:/media{{ entry.path }}:ro
 {% endfor %}
 {% endif %}

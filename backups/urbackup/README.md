@@ -38,6 +38,8 @@ If you have a Synology and the backup server is going to be there, these items h
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |urbackup_authkey|M|This is the client auth-key the server expects in case of manual internet-client setup. This is a unique key per client and can be acquired by trying to add a named client on the UI, then on the next page where the client download links are, copy the generated new key and set it in the inventory.|
+    |docker_ipv6_ipam_subnet_urbackup_client|O|An IPv6 subnet ending in `::` for the UrBackup client docker network (e.g. `fd00:12::/64`), its gateway will be the `::1` address. If not set, the network is IPv4 only|
+    |docker_ipv6_ipam_subnet_urbackup_server|O|The same, for the UrBackup server docker network|
 
 ### Deploy the server
 

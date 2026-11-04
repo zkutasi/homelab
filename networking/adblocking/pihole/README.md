@@ -41,6 +41,8 @@ This Unbound instance is configured in Recursive mode.
     |pihole_docker_network_3digit|M|The used docker network between Pi-hole and Unbound. Only give the first 3 digits, the last digit is not needed.|
     |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
     |pihole_secondary_address|O|The full URL to the Secondary Pi-hole instance in order to call its API|
+    |localdns_extra_cname_entries|O|A map of extra CNAME records, alias name to target name, both without the domain (e.g. `files: nas`)|
+    |localdns_extra_entries|O|A map of extra DNS records, name to IP address, the name without the domain (e.g. `nas: 192.168.1.5`)|
 
 2. For each Ansible host, the following variables can be set
 

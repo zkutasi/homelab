@@ -34,6 +34,8 @@ Since this is an OS in itself, just a fresh empty host is required.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |omv_password|O|The password of an OMV web UI user, for API access|
+    |omv_username|O|The username of an OMV web UI user, for API access|
 
 2. For each Ansible host, the following variables can be set
 
@@ -42,6 +44,7 @@ Since this is an OS in itself, just a fresh empty host is required.
     |omv_input_disks|M|The disk dictionary you have, everything is based on this. Shall have as keys disk-labels, and under them the list of the shared folders with their name and path.|
     |omv_mergerfs_pools|M|The dictionary of mergerFS pools, where keys are the pool-names and under them the shared folders.|
     |omv_nfs_allowed_clients|M|A mandatory parameter for the NFS shares.|
+    |omv_snapraid_array_name|M|The name of the SnapRAID array to create|
 
 ### Deploy the app
 

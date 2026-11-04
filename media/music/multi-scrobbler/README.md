@@ -25,7 +25,8 @@ Scrobble plays from multiple sources to multiple clients
     |multiscrobbler_lastfm_secret|M|The LastFM API secret for MultiScrobbler|
     |listenbrainz_token|M|The ListenBrainz token|
     |listenbrainz_username|M|The ListenBrainz username|
-    |koito_endpoint_url|M|The Koito endpoint URL|
+    |koito_endpoint_url|O|The Koito endpoint URL, needed together with `koito_apikey`|
+    |koito_apikey|O|A Koito API key, generated on the Koito UI. If not set, scrobbling to Koito is disabled|
 
 2. For each Ansible host, the following variables can be set
 

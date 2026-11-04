@@ -97,7 +97,21 @@ winrm enumerate winrm/config/Listener
     |ansible_become_pass|O|If you have sudo password set, set it here, otherwise set up passwordless sudo first|
     |docker_cli_path|M|The path of the docker CLI on the host (e.g. `/usr/bin/docker`; elsewhere on Synology devices, where it is not on the PATH)|
     |docker_with_sudo|M|Whether docker requires sudo to be executed (`true` on Synology NASes, `false` otherwise)|
+    |email_full|O|The email address used to send (and receive) notification emails|
+    |email_password|O|The password of the SMTP account|
+    |email_server|O|The SMTP server to send emails through|
+    |email_username|O|The username of the SMTP account|
+    |fstab_entries|O|A list of network shares to mount on the host|
+    |fstab_entries.src|M|The source of the share (e.g. `nas.home:/export/media`)|
+    |fstab_entries.path|M|The local mount point|
+    |fstab_entries.fstype|O|The filesystem type. Default is nfs|
+    |fstab_entries.opts|O|The mount options. Default is a set of NFS options that wait for the network and do not block the boot|
+    |geoip_account_id|O|The account ID of a (free) MaxMind GeoLite2 account, to download the GeoIP databases|
+    |geoip_license_key|O|A license key of that MaxMind account|
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|
+    |network_domain|M|The local network domain all hosts and services are reachable under (e.g. `home`)|
+    |network_interface|O|The name of the host's main network interface (e.g. `eno1`)|
+    |path_extension_list|O|A list of extra folders to put in front of the PATH when running docker commands (e.g. where docker compose lives on Synology)|
     |timezone|M|The timezone to be set in all containers and on the host as well|
 
 ## Metrics, Alerts, Notifications

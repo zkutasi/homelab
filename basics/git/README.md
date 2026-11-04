@@ -40,7 +40,20 @@ Also, if you maybe want a more modern git-hook alternative, here are a few:
 
 ### Ansible inventory setup
 
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |git_email|M|The email address to commit with|
+    |git_name|M|The name to commit with|
+
 ### Deploy the app
+
+1. Install and configure git on the control server with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook basics/git/setup-git.yaml --no-check
+    ```
 
 ### Post deployment
 

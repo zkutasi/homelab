@@ -30,6 +30,7 @@ Multiple clients (in docker) run on multiple hosts independently.
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |qbittorrent_extra_mounts|O|Any mounts that should be attached to, to transfer data from/to|
+    |docker_ipv6_ipam_subnet_qbittorrent_nox|O|An IPv6 subnet ending in `::` for the qBittorrent docker network (e.g. `fd00:13::/64`), its gateway will be the `::1` address. If not set, the network is IPv4 only|
 
 ### Deploy the app
 

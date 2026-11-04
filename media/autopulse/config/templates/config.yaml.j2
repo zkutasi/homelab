@@ -2,6 +2,7 @@ app:
   api_logging: true
 
 targets:
+{% if plex_token is defined %}
   my_plex:
     type: "plex"
     url: "https://plex.{{ reverseproxy_internal_domain }}:443"
@@ -11,6 +12,8 @@ targets:
     rewrite:
       - from: "-hdd0[1-8]"
         to: ""
+{% endif %}
+{% if emby_apikey_autopulse is defined %}
 
   my_emby:
     type: "emby"
@@ -21,6 +24,8 @@ targets:
     rewrite:
       - from: "-hdd0[1-8]"
         to: ""
+{% endif %}
+{% if jellyfin_apikey_autopulse is defined %}
 
   my_jellyfin:
     type: "jellyfin"
@@ -31,3 +36,4 @@ targets:
     rewrite:
       - from: "-hdd0[1-8]"
         to: ""
+{% endif %}

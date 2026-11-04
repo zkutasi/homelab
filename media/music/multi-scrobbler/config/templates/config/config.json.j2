@@ -32,7 +32,7 @@
         "apiKey": "anything",
         "secret": "anything"
       }
-    },
+    }{% if koito_apikey is defined %},
     {
       "name": "koito-client",
       "configureAs": "client",
@@ -43,6 +43,6 @@
         "username": "admin",
         "url": "{{ koito_endpoint_url }}"
       }
-    }
+    }{% endif %}
   ]
 }

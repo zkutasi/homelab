@@ -33,6 +33,7 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
     |----|------------------|-------|
     |apprise_api_hostname|M|The Apprise API hostname to configure the notification architecture with|
     |apprise_target_key|M|The apprise endpoint that identifies the configuration to use for the whole notification pipeline|
+    |pushover_user|O|The Pushover user key of the account to send to|
 
 2. For each Ansible host, the following variables can be set
 

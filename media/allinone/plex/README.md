@@ -28,6 +28,7 @@ Tautulli - The best web application to monitor, view analytics, and receive noti
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |plex_token|O|The Plex authentication token (X-Plex-Token) of the server|
 
 2. For each Ansible host, the following variables can be set
 

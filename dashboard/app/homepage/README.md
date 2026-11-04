@@ -20,7 +20,9 @@ A highly customizable homepage (or startpage / application dashboard) with Docke
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |emby_apikey_homepage|O|An Emby API key for the dashboard widget, generated on Emby|
     |homepage_allowed_hosts|M|Comma-separated list of the host[:port] values Homepage is opened on in the browser (e.g. `192.168.1.10:3000,dashboard.example.home`)|
+    |jellyfin_apikey_homepage|O|A Jellyfin API key for the dashboard widget, generated on Jellyfin|
 
 2. For each Ansible host, the following variables can be set
 

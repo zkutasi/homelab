@@ -1,7 +1,7 @@
 - name: Get the version of docker compose
   check_mode: false
   environment:
-    PATH: "{{ path_extension_list | join(':') }}:{{ lookup('env', 'PATH') }}"
+    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
   block:
     - name: Check the version of docker compose
       ansible.builtin.command:
