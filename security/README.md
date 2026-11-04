@@ -46,6 +46,7 @@ Like an evolution of a SIEM, focusing not just on log collection and analysis, b
 ### Network IDS/IPS
 
 - [CrowdSec](https://www.crowdsec.net/) - CrowdSec is an open-source and participative security solution offering crowdsourced server detection and protection against malicious IPs. Detect and block with our Security Engine, contribute to the network, and enjoy our real-time community blocklist.
+- [Fail2Ban](https://github.com/fail2ban/fail2ban) - Daemon to ban hosts that cause multiple authentication errors
 - [Zeek](https://zeek.org) - Open source network security monitoring tool for traffic analysis
   - [Rita](https://github.com/activecm/rita) - The framework ingests Zeek Logs in TSV or JSON format and adds some extra features
 - [Suricata](https://suricata.io/) - A high performance, open source network analysis and threat detection software. A real-time IDS, IPS and NMS.

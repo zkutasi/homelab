@@ -52,6 +52,8 @@ Manage Movies, TVShows, Music, Books and more. Metadata collection and tracking,
 - [Tautulli](https://tautulli.com/) - Tautulli is the best web application to monitor, view analytics, and receive notifications about your Plex Media Server.
 - [Tracearr](https://www.tracearr.com/) - Real-time monitoring for Plex, Jellyfin, and Emby servers. Track streams, analyze playback, and detect account sharing from a single dashboard.
 - [Autopulse](https://autopulse.dancodes.online/autopulse/) - automated lightweight service that updates media servers like Plex and Jellyfin based on notifications from media organizers like Sonarr and Radarr
+- [Medialyze](https://www.medialyze.app/) - Self-hosted media library analysis for large media collections
+- [Beets](https://beets.io) - Music library manager and MusicBrainz tagger. Useful to retag files so the media servers show Albums and Compilations right.
 
 ### Scrobblers
 

@@ -12,3 +12,4 @@ It is great if things go well, but if not, one wants to get notified about any i
 - [Ntfy](https://ntfy.sh/) - Send push notifications to your phone or desktop using PUT/POST
 - [Gotify](https://gotify.net/) - A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui)
 - [Apprise](https://appriseit.com/) - Push Notifications that work with just about every platform!
+  - [Mailrise](https://mailrise.xyz/) - An SMTP gateway for Apprise notifications. Lets legacy apps that can only send email take part in the Apprise pipeline.
