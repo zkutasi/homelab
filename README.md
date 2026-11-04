@@ -213,3 +213,54 @@ I am using VS Code, with a few plugins and tricks:
 - Vscode-sops - Encrypting secrets in the repository with [SOPS](https://github.com/getsops/sops) and [age](https://github.com/FiloSottile/age)
 - Support for Jinja, Python, Ansible and any languages required
 - Run Terminal Command - A simple extension to allow me to run arbitrary commands by right clicking on files in the Explorer window.
+
+### Repository layout and conventions
+
+How this repository is organised and the conventions every App follows.
+
+#### Folder structure
+
+- The top-level folders are categories (monitoring, media, backups, etc...), sometimes with sub-categories. Their README describes the requirements and the investigated contenders for that kind of App.
+- Each App has its own folder below its category, with a README describing the setup, the inventory variables, the deployment and any notable comments.
+- Apps with more than one component split them into sub-folders: `central` for the main component and `agents` for what runs on the other hosts, or `k8s`, `docker` and `host` when the same App can be deployed in multiple ways.
+
+#### Where commands run
+
+- Ansible playbooks are executed from the repository root through the `common-ansible-run-playbook.sh` wrapper, passing the playbook path relative to the root. It runs in check and diff mode by default, so nothing changes until `--no-check` is added.
+- Kubernetes deployment scripts (`deploy-k8s.sh` and `undeploy-k8s.sh`) are executed from the App's own folder, as they pick up the files lying next to them.
+
+#### Prerequisites on the control host
+
+- Ansible runs inside a locally built execution environment (a container image with Ansible and all required collections), built once with `automation/ansible/deploy-ansible.sh`.
+- The Ansible inventory lives in a separate private git repository, cloned into `automation/ansible/homelab-ansible-inventory`. It is ignored by this repository, so no host details or passwords end up here.
+
+#### Kubernetes Apps
+
+- Each App has its own `deploy-k8s.sh` and `undeploy-k8s.sh`, which are thin wrappers around the shared `common-*.sh` scripts in the repository root (for Helm charts, Kustomize, Kompose and CloudNativePG databases).
+- Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
+- Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App.
+
+#### Docker Apps
+
+- Each App has a `docker-compose.yaml.j2` template, filled in from the Ansible inventory, plus a `deploy-<app>.yaml` and `undeploy-<app>.yaml` playbook.
+- The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `~/docker-compose` on the target host and starts the stack.
+
+#### Private files and secrets
+
+- Anything that depends on the inventory (passwords, hostnames, IPs) is never written directly: a `generate-configuration.yaml` playbook renders the `config/templates/*.j2` templates into `*-private.yaml` files. These are ignored by git.
+- When such a private file has to be kept in the repository, its SOPS-encrypted copy is committed with the `_encrypted` suffix. A pre-commit hook makes sure the encrypted copies are up-to-date with the decrypted ones.
+
+#### Adding a new App
+
+- `kickstart-app-project.sh` creates the folder of a new App from the `_templates` folder, for the chosen deployment type (binary, Docker Compose, or Kubernetes with Helm, Kustomize, Kompose or TrueCharts).
+- It can start from the upstream project's docker-compose file: it converts it into the matching templates, fills in the README links and the latest released version, and turns the sensitive environment variables into inventory variables.
+- The result is a starting point: the README and the templates still need a manual review and finishing.
+
+#### Repository-wide helper
+
+- Some configurations depend on the list of all Apps: the reverse proxy, the local DNS entries, the dashboard and the uptime monitoring. Whenever an App is added or removed, run `update-homelab-config.sh` from the repository root, which regenerates and redeploys all of these in one go.
+
+#### Linting
+
+- Pre-commit hooks run on every commit: file hygiene (whitespace, line endings, large files, executable scripts), YAML and Markdown linting, two spell checkers, secret detection, and the check that the SOPS-encrypted files are up-to-date.
+- The Ansible code can also be linted with `automation/ansible/ansible-lint.sh`.
