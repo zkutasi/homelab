@@ -20,6 +20,9 @@ Synchronize configuration of multiple Pi-hole v6.x instances.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
+    |pihole_secondary_address|M|The full URL to the Secondary Pi-hole instance in order to call its API|
+    |pihole_password|M|The password set up for Pi-hole, the same on both instances|
 
 2. For each Ansible host, the following variables can be set
 

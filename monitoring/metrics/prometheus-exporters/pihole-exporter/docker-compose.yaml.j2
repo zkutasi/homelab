@@ -7,7 +7,7 @@ services:
       TZ: {{ timezone }}
       PIHOLE_PROTOCOL: https
       PIHOLE_PORT: {{ port_pihole_webui_https }}
-{% if pihole_secondary_hostname and pihole_secondary_apikey %}
+{% if pihole_secondary_hostname | default('') and pihole_secondary_apikey | default('') %}
       PIHOLE_HOSTNAME: {{ pihole_hostname }},{{ pihole_secondary_hostname }}
       PIHOLE_PASSWORD: {{ pihole_apikey }},{{ pihole_secondary_apikey }}
 {% else %}

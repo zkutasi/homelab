@@ -4,9 +4,9 @@
     {
       "name": "{{ host }}",
       "ip": "{{ hostvars[host]['ansible_host'] }}",
-      "port": {{ hostvars[host]['ansible_port'] }},
+      "port": {{ hostvars[host]['ansible_port'] | default(22) }},
       "username": "{{ hostvars[host]['ansible_user'] }}",
-      "password": "{{ hostvars[host]['ansible_ssh_pass'] }}",
+      "password": "{{ hostvars[host]['ansible_ssh_pass'] | default('') }}",
 {% if host in groups['docker'] %}
       "folder": "docker",
 {% elif host in groups['proxmox'] %}
