@@ -20,6 +20,20 @@ Proxmox Virtual Environment is a complete open-source platform for enterprise vi
 - [ProxSave](https://github.com/tis24dev/proxsave) - Backup tool for Proxmox PBS & PVE System Files with advanced features and notifications
 - [PegaProx](https://pegaprox.com/) - A powerful web-based management interface for Proxmox VE clusters. Manage multiple clusters from a single dashboard with features like live monitoring, VM management, automated tasks, and more.
 
+## Usage
+
+- `configure-proxmox.yaml` - Proxmox specific apt repository setup (PVE 8 and 9), force IPv4 for apt, and a service working around the Intel NIC bug
+- `configure-proxmox-lm-sensors.yaml` - Install `lm-sensors` and detect the sensors on the Proxmox nodes (needed for temperature monitoring, e.g. Pulse)
+- `configure-proxmox-pulse.yaml` - Create a `pulse-monitor` role & user in PVE for [Pulse](../../monitoring/allinone/pulse/README.md)
+- `configure-proxmox-terraform.yaml` - Create a `terraform` role & user in PVE and Linux, with SSH keys, for [Terraform](../../automation/terraform/README.md)
+- `setup-packages-guest.yaml` - Install the `qemu-guest-agent` package on all VMs (`vms` group)
+
+Run any of them with:
+
+```bash
+./common-ansible-run-playbook.sh --playbook virtualization/proxmox/<PLAYBOOK> --no-check
+```
+
 ## Metrics, Alerts, Notifications
 
 1. Set up the external InfluxDB streaming
@@ -41,4 +55,4 @@ Proxmox Virtual Environment is a complete open-source platform for enterprise vi
 
   Pay attention that there are dashboards that use InfluxDB but use `InfluxQL`, those will not work here, use these ones done with `Flux`.
 
-  Some dashboards require a `Telegraf Collector` as well, so try to chose one that does not require such.
+  Some dashboards require a `Telegraf Collector` as well, so try to choose one that does not require such.

@@ -2,12 +2,12 @@
 
 SOPS and age are tools to be used to protect secrets but still able to commit them in git repos for example so version-controlling them too.
 
-- Official site
+- Official site:
   - [SOPS](https://getsops.io/)
 - Source repository:
   - [SOPS](https://github.com/getsops/sops)
   - [age](https://github.com/FiloSottile/age)
-- Documentation
+- Documentation:
   - [SOPS](https://getsops.io/docs/)
 - ~~Image repo~~
 - ~~Other sites~~

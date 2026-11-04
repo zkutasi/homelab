@@ -1,9 +1,9 @@
 # Nut-server
 
-A short introduction of the app
+The primary goal of the Network UPS Tools (NUT) project is to provide support for Power Devices, such as Uninterruptible Power Supplies, Power Distribution Units, Automatic Transfer Switches, Power Supply Units and Solar Controllers.
 
 - [Official site](https://networkupstools.org/)
-- ~~Source repository~~
+- [Source repository](https://github.com/networkupstools/nut)
 - [Documentation](https://networkupstools.org/documentation.html)
 - ~~Image repo~~
 - ~~Other sites~~

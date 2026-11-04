@@ -28,6 +28,8 @@ A short introduction of the app
 
 ### Deploy the app
 
+### Post deployment
+
 ## Metrics, Alerts, Notifications
 
 1. Deploy the Prometheus configs locally

@@ -37,8 +37,6 @@ Deploy the central GUI in the Kubernetes cluster and deploy to each Peer Host th
     ./deploy-k8s.sh
     ```
 
-### Post deployment of the central UI
-
 ### Deploy the peer hosts
 
 1. Install with the provided script

@@ -4,7 +4,7 @@ Open source container update monitoring — 23 registries, 20 notification trigg
 
 - [Official site](https://drydock.codeswhat.com/)
 - [Source repository](https://github.com/CodesWhat/drydock)
-- Documentation: getdrydock.com/docs
+- [Documentation](https://getdrydock.com/docs)
 - [Image repo](https://hub.docker.com/r/codeswhat/drydock)
 - ~~Other sites~~
 
