@@ -26,7 +26,7 @@ MARIADB_CHART_VERSION="18.10.0"
 
 function usage() {
   cat << EOF
-Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <docker|k8s>] [--docker-compose-url <url>] [--inventory <inventory>]
+Usage: $0 --foldername <foldername> --appname <appname> [--host <ansible_host>] [--type <type>] [--docker-compose-url <url>] [--inventory <inventory>]
 
 Options:
   --foldername <foldername>   Specify the folder to create (required)
@@ -326,6 +326,8 @@ function rename_files() {
   if [[ "${TYPE}" == "binary" || "${TYPE}" == "docker" ]]; then
     mv "${APP_TARGET_DIR}/deploy.yaml" "${APP_TARGET_DIR}/deploy-${APP_NAME_LOWERCASE}.yaml"
     mv "${APP_TARGET_DIR}/undeploy.yaml" "${APP_TARGET_DIR}/undeploy-${APP_NAME_LOWERCASE}.yaml"
+  fi
+  if [ -f "${APP_TARGET_DIR}/config/templates/scrapeconfig-private.yaml.j2" ]; then
     mv "${APP_TARGET_DIR}/config/templates/scrapeconfig-private.yaml.j2" "${APP_TARGET_DIR}/config/templates/scrapeconfig-${APP_NAME_LOWERCASE}-private.yaml.j2"
   fi
 }
