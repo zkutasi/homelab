@@ -4,6 +4,7 @@ This folder contains fundamental settings applied to hosts, including
 
 - `docker/setup-docker.yaml` - Set up docker on the hosts, pay special attention to Synology, where the docker compose version should be uplifted as well
 - `git/setup-git.yaml` - Set up git and some common best practices
+- `hardware/` - Hardware related settings, like alerts
 - `scripts/setup-scripts.yaml` - Some hosts have developed bash scripts. Distribute them.
 - `setup-bashrc.yaml` - Set up bashrc with some common defaults
 - `setup-dns.yaml` - Set up the home DNS server and the local .home domain
