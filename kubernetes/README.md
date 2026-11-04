@@ -49,11 +49,17 @@ So the sources to consider in preference order:
 
 ## Extra settings
 
-KubeSpray is used to setup the cluster and install some basic tools, but there are some things that the setup is not doing.
+1. KubeSpray is used to setup the cluster and install some basic tools, but there are some things that the setup is not doing.
 
-```bash
-./common-ansible-run-playbook.sh --playbook kubernetes/configure-k8s-hosts.yaml --no-check
-```
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook kubernetes/configure-k8s-hosts.yaml --no-check
+    ```
+
+2. The etcd database is snapshotted every night on each controller node (`etcdctl snapshot save` at 02:15, verified with `snapshot status`). Snapshots are kept for 7 days in `~/etcd-backups/` of the Ansible user, so they can be picked up from there by the regular backup clients.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook kubernetes/backups/setup-etcd-backup.yaml --no-check
+    ```
 
 ## Tools
 
