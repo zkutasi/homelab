@@ -3,7 +3,7 @@
 NS=kube-system
 RELEASE_NAME=descheduler
 
-EXTRA_PARAMS=""
+EXTRA_PARAMS="--delete-namespace 0"
 
 while [ $# -ge 1 ]; do
   case "$1" in
