@@ -9,6 +9,7 @@ There are a lot of components that are still required for the Kubernetes infrast
 - Certificate Managers
 - StorageClasses
 - Cloud Native databases and storage servers
+- Pod rebalancing
 
 ## Requirements
 
@@ -84,3 +85,9 @@ Data is a tricky part in Kubernetes, due to the whole platform's distributed and
 
 - [Rook Ceph](https://rook.io/) - For Block storage, this is what I have chosen as I work with this one, I know this one well enough.
 - [Longhorn](https://longhorn.io/) - Popular alternative choice instead of Rook, albeit it has a few issues still required to be worked out.
+
+### Pod rebalancing
+
+Kubernetes only places Pods when they are scheduled, and never moves them afterwards, even if the cluster becomes unbalanced (for example after a node restart or when new nodes are added).
+
+- [Descheduler](https://github.com/kubernetes-sigs/descheduler) - Evicts Pods based on policies, so the scheduler can place them on more suitable nodes.
