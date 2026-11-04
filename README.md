@@ -159,6 +159,18 @@ These are services that allow me to manage certain aspects of the infrastructure
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/rustdesk.svg" alt="RustDesk"> | [RustDesk](https://rustdesk.com/) | An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/termix.svg" alt="Termix"> | [Termix](https://docs.termix.site/) | Self-hosted SSH and remote desktop management. |
 
+#### Security stack
+
+Protecting the hosts, scanning for vulnerabilities, and keeping secrets and passwords safe.
+
+| Logo | Name | Description |
+|------|------|-------------|
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/wazuh.svg" alt="Wazuh"> | [Wazuh](https://wazuh.com/) | The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads. |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/openvas.svg" alt="OpenVAS"> | [OpenVAS](https://www.openvas.org/) | A full-featured vulnerability scanner. Its capabilities include unauthenticated and authenticated testing, various high-level and low-level internet and industrial protocols, performance tuning for large-scale scans and a powerful internal programming language to implement any type of vulnerability test. |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/png/fail2ban.png" alt="Fail2Ban"> | [Fail2Ban](https://github.com/fail2ban/fail2ban) | Daemon to ban hosts that cause multiple authentication errors |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/vaultwarden.svg" alt="Vaultwarden"> | [Vaultwarden](https://github.com/dani-garcia/vaultwarden) | Unofficial Bitwarden compatible server written in Rust, formerly known as bitwarden_rs |
+|| [SOPS](https://getsops.io/) & [age](https://github.com/FiloSottile/age) | Encrypting secrets so they can still be committed and version-controlled in git |
+
 #### Others
 
 | Logo | Name | Description |
