@@ -63,7 +63,7 @@ So the sources to consider in preference order:
 
 3. Some cluster-wide manifests in `extra-manifests`:
 
-    - `default-dns-ndots-mutatingadmissionpolicy.yaml` - A MutatingAdmissionPolicy that sets `ndots: 2` on every workload, so external names do not go through all the search domains first
+    - `default-dns-ndots-mutatingadmissionpolicy.yaml` - A MutatingAdmissionPolicy that sets `ndots: 2` on every new Pod that does not set it itself, so external names do not go through all the search domains first
     - `service-nodelocaldns-metrics.yaml` - A metrics Service for NodeLocalDNS
     - `servicemonitor-nodelocaldns.yaml` - A ServiceMonitor so Prometheus scrapes NodeLocalDNS
 
