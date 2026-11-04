@@ -58,11 +58,17 @@ Each remote controllable machine needs the RustDesk client as well as the machin
 
 ### Deploy the clients with Ansible
 
-```bash
-./common-ansible-run-playbook.sh --playbook remoting/rustdesk/client/deploy-rustdesk.yaml --no-check
-```
+1. Install with the provided script. The client IDs will be printed to the output, for the setup of the controlling client.
 
-The client IDs will be printed to the output, for the setup of the controlling client.
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook remoting/rustdesk/client/deploy-rustdesk.yaml --no-check
+    ```
+
+2. Disable Wayland on the HTPC, as it is not supported on the controlled host. Takes effect after a reboot.
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook remoting/rustdesk/configure-rustdesk.yaml --no-check
+    ```
 
 ## Metrics, Alerts, Notifications
 
