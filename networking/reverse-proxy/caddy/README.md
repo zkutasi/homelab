@@ -64,6 +64,12 @@ Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS
 
 ## Commands
 
+- Re-apply the Caddyfile and the local DNS entries in one go, for example after adding a new exposed service
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/reverse-proxy/caddy/update-caddy-config.yaml --no-check
+    ```
+
 ## Notable comments
 
 - For TLS certificates generated: There will be an intermediate certificate generated, that has a validity of `7d` (default, configurable), and a leaf certificate generated that has a validity of `12h` (default, configurable per route only). The renewal window is set to `33%` (default, configurable), meaning `4h` before the expiration the leaf cert will be renewed. This might be a problem to spot non-renewing certs, but makes sure that stolen certs are not valid for too long. Since all of the certs are managed by Caddy, if one goes down all goes down... so it is pointless to monitor them. Monitor Caddy instead with a single monitor.
