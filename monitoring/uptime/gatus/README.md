@@ -22,7 +22,7 @@ The central Gatus runs in Kubernetes. A second, standalone Gatus instance runs i
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |gatus_database_password|M||
+    |gatus_database_password|M|The Postgres database password|
 
 2. For each Ansible host, the following variables can be set
 

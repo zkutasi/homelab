@@ -41,7 +41,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |borgwarehouse_cronjob_key|M|A Secret key generated via `openssl rand -base64 32` for example|
-    |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on on the backupserver host|
+    |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on, on the backupserver host|
 
 2. For each Ansible host, the following variables can be set
 

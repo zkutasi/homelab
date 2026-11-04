@@ -17,7 +17,7 @@ These applications can manage docker containers, docker-compose stacks or even d
 - [Yacht](https://dev.yacht.sh/) - A WebUI for docker containers that focuses on templating. A bit abandoned, last commit was in 2024
 - [Komodo](https://komo.do/) - a tool to build and deploy software on many servers
 - [Incus](https://linuxcontainers.org/incus/)
-- [1Panel](https://github.com/1Panel-dev/1Panel) - Seems chinese to me
+- [1Panel](https://github.com/1Panel-dev/1Panel) - A modern, open-source Linux server management panel. Mainly targets a Chinese audience: its homepage and parts of its documentation are in Chinese.
 - [DweebUI](https://www.dweebui.com/) - Abandoned a bit, last release was in 2024
 - [DockHand](https://dockhand.pro) - Docker management you will like.
 - [DockPeek](https://github.com/dockpeek/dockpeek) - Easily access your Docker container web interfaces and keep them up to date — across all your hosts.

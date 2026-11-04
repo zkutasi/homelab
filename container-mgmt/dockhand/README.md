@@ -59,6 +59,3 @@ Dockhand - Docker management you will like.
 ## Commands
 
 ## Notable comments
-
-- A public API is not there yet in 1.0.6, so programmatically adding Hosts is not possible.
-- Semantic version check is also on the roadmap as of 1.0.6
