@@ -61,6 +61,18 @@ So the sources to consider in preference order:
     ./common-ansible-run-playbook.sh --playbook kubernetes/backups/setup-etcd-backup.yaml --no-check
     ```
 
+3. Some cluster-wide manifests in `extra-manifests`:
+
+    - `default-dns-ndots-mutatingadmissionpolicy.yaml` - A MutatingAdmissionPolicy that sets `ndots: 2` on every workload, so external names do not go through all the search domains first
+    - `service-nodelocaldns-metrics.yaml` - A metrics Service for NodeLocalDNS
+    - `servicemonitor-nodelocaldns.yaml` - A ServiceMonitor so Prometheus scrapes NodeLocalDNS
+
+    Deploy them with:
+
+    ```bash
+    ./deploy-k8s.sh
+    ```
+
 ## Tools
 
 A lot of tools should be used with Kubernetes:
