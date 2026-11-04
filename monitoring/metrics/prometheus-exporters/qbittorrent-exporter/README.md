@@ -20,6 +20,8 @@ A fast and lightweight prometheus exporter for qBittorrent
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |qbittorrent_username|M|The qBittorrent WebUI username|
+    |qbittorrent_password|M|The qBittorrent WebUI password|
 
 2. For each Ansible host, the following variables can be set
 

@@ -20,6 +20,9 @@ A community-supported supercharged document management system: scan, index and a
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |paperless_ngx_db_password|M|The Postgres database password|
+    |paperless_ngx_secret_key|M|A randomly generated secret|
+    |paperless_ngx_url|M|The full URL the app is reached on (e.g. `https://paperless.example.home`)|
 
 2. For each Ansible host, the following variables can be set
 

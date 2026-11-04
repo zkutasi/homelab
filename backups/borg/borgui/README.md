@@ -22,6 +22,8 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |borgui_username|M|The Borg UI login username|
+    |borgui_password|M|The Borg UI login password (the one set after changing the default)|
 
 2. For each Ansible host, the following variables can be set
 
@@ -38,7 +40,12 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
 
 ### Post deployment
 
-Login with `admin/admin123` default password and change it when prompted.
+1. Login with `admin/admin123` default password and change it when prompted. Set the new credentials in `borgui_username` and `borgui_password`.
+2. Register the Borgwarehouse repositories in Borg UI
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook backups/borg/borgui/configure-borgui-from-borgwarehouse.yaml --no-check
+    ```
 
 ## Commands
 

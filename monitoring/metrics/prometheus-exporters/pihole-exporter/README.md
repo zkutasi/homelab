@@ -20,6 +20,8 @@ A Prometheus exporter for PI-Hole's Raspberry PI ad blocker
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |pihole_apikey|M|The API key (app password) of the Primary Pi-hole instance, generated on its web UI|
+    |pihole_secondary_apikey|O|The API key (app password) of the Secondary Pi-hole instance, if there is one|
 
 2. For each Ansible host, the following variables can be set
 

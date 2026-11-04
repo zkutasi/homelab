@@ -25,6 +25,7 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
+    |komodo_database_password|M|The database password|
 
 2. For each Ansible host, the following variables can be set
 

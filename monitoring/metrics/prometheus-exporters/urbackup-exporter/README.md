@@ -20,6 +20,8 @@ Prometheus exporter for the UrBackup backup system
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |urbackup_username|M|A UrBackup Server web UI username|
+    |urbackup_password|M|The password of that UrBackup Server user|
 
 2. For each Ansible host, the following variables can be set
 

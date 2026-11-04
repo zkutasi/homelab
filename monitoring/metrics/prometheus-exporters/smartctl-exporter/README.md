@@ -25,6 +25,9 @@ Export smartctl statistics to prometheus
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |disk_devices|O|A list of the disks to monitor. If not set, the exporter scans for devices itself|
+    |disk_devices.path|M|The /dev path of the disk (e.g. `/dev/sda`)|
+    |disk_devices.smartctlexporter_extra_args|O|Extra smartctl arguments for this disk (e.g. `-d sat`)|
 
 ### Deploy on the Kubernetes cluster
 

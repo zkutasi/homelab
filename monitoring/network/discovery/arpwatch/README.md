@@ -25,6 +25,7 @@ Arpwatch maintains a database of Ethernet MAC addresses seen on the network, wit
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |arpwatch_interface|M|The network interface to listen on (e.g. `eth0`)|
 
 ### Deploy the app
 

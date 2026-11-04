@@ -22,6 +22,7 @@ Deploy the central component in Kubernetes and handle all other Hosts with agent
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |tugtainer_agent_secret|M|A randomly generated secret shared between the central component and the agents|
 
 2. For each Ansible host, the following variables can be set
 

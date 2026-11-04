@@ -20,8 +20,9 @@ A self-hosted library management and reading platform for ebooks, PDFs, audioboo
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |bookorbit_bootstrap_token|M||
-    |bookorbit_jwt_secret|M||
+    |bookorbit_app_url|M|The full URL the app is reached on (e.g. `https://bookorbit.example.home`)|
+    |bookorbit_bootstrap_token|M|A randomly generated secret|
+    |bookorbit_jwt_secret|M|A randomly generated secret|
     |bookorbit_postgres_password|M|The DB password|
 
 2. For each Ansible host, the following variables can be set

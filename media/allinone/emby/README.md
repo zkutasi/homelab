@@ -25,6 +25,9 @@ Bringing all of your home videos, music, and photos together into one place has 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |emby_embyignores|O|A list of `.embyignore` files to place on the host holding the media files|
+    |emby_embyignores.destination|M|The media folder to put the `.embyignore` file into|
+    |emby_embyignores.content|M|The content of the `.embyignore` file (the patterns to ignore)|
 
 ### Deploy the app
 
@@ -35,6 +38,12 @@ Bringing all of your home videos, music, and photos together into one place has 
     ```
 
 ### Post deployment
+
+1. Configure ignored files
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook media/allinone/emby/configure-embyignore.yaml --no-check
+    ```
 
 ## Metrics, Alerts, Notifications
 

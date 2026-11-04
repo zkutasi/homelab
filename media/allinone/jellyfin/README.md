@@ -25,6 +25,9 @@ The Free Software Media System - Server Backend & API
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |jellyfin_ignores|O|A list of `.ignore` files to place on the host holding the media files|
+    |jellyfin_ignores.destination|M|The media folder to put the `.ignore` file into|
+    |jellyfin_ignores.content|M|The content of the `.ignore` file (the patterns to ignore)|
 
 ### Deploy the app
 

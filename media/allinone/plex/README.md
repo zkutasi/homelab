@@ -33,6 +33,9 @@ Tautulli - The best web application to monitor, view analytics, and receive noti
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |plex_plexignores|O|A list of `.plexignore` files to place on the host holding the media files|
+    |plex_plexignores.destination|M|The media folder to put the `.plexignore` file into|
+    |plex_plexignores.content|M|The content of the `.plexignore` file (the patterns to ignore)|
 
 ### Deploy the app
 

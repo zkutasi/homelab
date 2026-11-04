@@ -22,6 +22,8 @@ There shall be one NUT Server per host that has a UPS connected. Synology device
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |nut_server_monitoring_username|M|The username of the NUT monitoring user (monuser) to create|
+    |nut_server_monitoring_password|M|The password of the NUT monitoring user|
 
 2. For each Ansible host, the following variables can be set
 

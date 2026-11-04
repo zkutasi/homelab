@@ -22,6 +22,7 @@ On the router-side that transfers all ingress and egress traffic into the local 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |ntopng_redis_password|M|A randomly generated password for the bundled Redis instance|
 
 2. For each Ansible host, the following variables can be set
 
