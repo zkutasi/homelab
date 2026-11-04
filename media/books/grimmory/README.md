@@ -27,7 +27,9 @@ A self-hosted library for your ebooks, comics, and audiobooks. Grimmory is an in
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |books_mount|M|The folder to mount into the container for books|
+    |books_mounts|O|A list of the book folders to mount into the container, read-only|
+    |books_mounts.from|M|The folder on the host|
+    |books_mounts.to|M|The sub-folder name under `/books` inside the container|
 
 ### Deploy the app
 

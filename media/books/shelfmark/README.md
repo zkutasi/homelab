@@ -25,6 +25,9 @@ Shelfmark is a self-hosted web interface for searching and requesting books and 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |books_mounts|O|A list of the book folders to mount into the container|
+    |books_mounts.from|M|The folder on the host|
+    |books_mounts.to|M|The sub-folder name under `/books` inside the container|
 
 ### Deploy the app
 
