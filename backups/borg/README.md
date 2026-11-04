@@ -26,9 +26,9 @@ Borgwarehouse - A fast and modern WebUI for a BorgBackup's central repository se
 
 ## The setup
 
-I really wanted a unified UI, so I have placed Borgwarehouse on the backupServer host, in a docker container. Borgwarehouse also contains the Borg server in it, so that part is done.
+I really wanted a unified UI, so I have placed Borgwarehouse on the backupserver host, in a docker container. Borgwarehouse also contains the Borg server in it, so that part is done.
 
-Then all client hosts need a Borgmatic docker container as well, even the backup server too. The Borgmatic container will also contain Borg itself. All clients will back up to the remote backupServer only, not locally.
+Then all client hosts need a Borgmatic docker container as well, even the backup server too. The Borgmatic container will also contain Borg itself. All clients will back up to the remote backupserver only, not locally.
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |borgwarehouse_cronjob_key|M|A Secret key generated via `openssl rand -base64 32` for example|
-    |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on on the backupServer host|
+    |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on on the backupserver host|
 
 2. For each Ansible host, the following variables can be set
 
@@ -75,7 +75,7 @@ When finished go to the Borgwarehouse UI and
 
 1. Log in with admin/admin
 2. Go to the Admin page (top right corner) -> Account -> Integrations -> Generate token. Be sure to set the proper rights to the token
-3. Place the generated token into your inventory (preferably in group_vars/all.yaml) as `borgwarehouse_api_key` into the `all` group_vars file
+3. Place the generated token into your inventory as `borgwarehouse_api_key` into the `all` group_vars file
 
 ### Configure Borgwarehouse
 
@@ -151,7 +151,7 @@ docker exec -ti borgmatic borgmatic compact --progress
   - If IPv6 is required, one needs to set the `HOSTNAME=::` environment variable, this will bind to the IPv6 address on the NextJS UI app. This is handled by the playbooks.
 - Borgmatic
   - It is mandatory to have at least 1GB of RAM on the hosts, otherwise even the repo init will be potentially OOMKilled
-  - It is required for each client to have its own public key in the backupServer's `authorized_keys` and also the backupserver's host key in its own `known_hosts` file. This is handled by the playbooks
+  - It is required for each client to have its own public key in the backupserver's `authorized_keys` and also the backupserver's host key in its own `known_hosts` file. This is handled by the playbooks
 - If you ever need to migrate the server's backup-folder, here is what I have used, between two Synology devices:
 
     ```bash

@@ -44,7 +44,7 @@ The central management server is deployed on the Kubernetes cluster, and it mana
 1. Generate an access token to access the REST API:
     1. Log into the UI
     2. Go to My Account (top right corner) -> Access token, and add a new one
-    3. Place this access token into the inventory (preferably in group_vars/all.yaml) as `portainer_access_token` into the `all` group_vars file
+    3. Place this access token into the inventory as `portainer_access_token` into the `all` group_vars file
 
 ### Deploy the agents
 
