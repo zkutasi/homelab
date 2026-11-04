@@ -19,4 +19,4 @@ These kind of apps help you to organize bookmarks outside of your browser, and m
 - [Linkwarden](https://linkwarden.app/) - Self-hosted collaborative bookmark manager to collect, read, annotate, and fully preserve what matters, all in one place.
   - [Linkwarden viewer](https://github.com/Tidone/linkwarden-viewer) - Ability to browse the Linkwarden datastructure in the browser
 - [Wallabag](https://wallabag.org) - Save and classify articles.
-- [Readeck](https://readeck.org/en/) - Saves webpages locally. Version controlled in codeberg, not github. It is a "one-man-show"
+- [Readeck](https://readeck.org/en/) - Saves webpages locally. Version controlled in Codeberg, not GitHub. It is a "one-man-show"

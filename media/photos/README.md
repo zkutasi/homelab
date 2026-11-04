@@ -11,7 +11,7 @@ Apps to replace Google photos.
 
 ## Contenders
 
-A good comprehensive collection of such apps can be found [on this comparison github page](https://github.com/meichthys/foss_photo_libraries).
+A good comprehensive collection of such apps can be found [on this comparison GitHub page](https://github.com/meichthys/foss_photo_libraries).
 
 - [Chevereto](https://chevereto.com/) - Viewing, categorization, tagging, albums. Pretty basic stuff only. No map view. No android app.
 - [Damselfly](https://github.com/Webreaper/Damselfly) - AI/ML image recognition, tagging, geolocation, complex filtering. The interface seems a bit dated.

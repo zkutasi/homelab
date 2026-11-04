@@ -10,7 +10,7 @@ Home of the Renovate CLI: Cross-platform Dependency Automation by Mend.io
 
 ## The setup
 
-The easiest way to run Renovate is to add it as an [App](https://github.com/apps/renovate) to your github profile. This runs Renovate on Mend's infrastructure, but you gain a very simple configuration.
+The easiest way to run Renovate is to add it as an [App](https://github.com/apps/renovate) to your GitHub profile. This runs Renovate on Mend's infrastructure, but you gain a very simple configuration.
 
 There are multiple ways to run Renovate as a Helm Chart, which is preferred:
 
@@ -40,7 +40,7 @@ This token has to have the following accesses:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |github_pat_renovate|M|The Renovate Personal Access Token (PAT) to access the github repo|
+    |github_pat_renovate|M|The Renovate Personal Access Token (PAT) to access the GitHub repo|
     |github_homelab_repo|M|The repo's name|
 
 2. For each Ansible host, the following variables can be set

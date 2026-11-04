@@ -4,9 +4,9 @@ Helps to do chores: updates of versions on binaries, helm charts, and docker ima
 
 An end-to-end automatic GitOps workflow might look like this:
 
-1. Dependency Automation: Checks github/dockerhub or other places for release updates of configured projects and also knows where and how those releases are used in this repo. Creates Pull Requests (PRs) for these small changes, waiting for Automatic CI to pass and for human approval.
-2. Version control: Where the source code lives. Can be Github, GitLab, Codeberg or anything git-like. Or it can be totally self-hosted. Possible to sync more registries, so for example a private one to a public one.
-3. Runners: Triggerable activities when a PR is opened. Can be Github Actions, Gitlab CI or other matching. Also in case of self-hosted counterparts, the corresponding runners can be set up. The tricky part comes in, where the Runner is executed and what access does it have into the homelab. Of course on the selfhosted ones, it is completely inside the local network. In case of Github for example, Runners can be self-hosted as well, so they could deploy a canary release for example.
+1. Dependency Automation: Checks GitHub/dockerhub or other places for release updates of configured projects and also knows where and how those releases are used in this repo. Creates Pull Requests (PRs) for these small changes, waiting for Automatic CI to pass and for human approval.
+2. Version control: Where the source code lives. Can be GitHub, GitLab, Codeberg or anything git-like. Or it can be totally self-hosted. Possible to sync more registries, so for example a private one to a public one.
+3. Runners: Triggerable activities when a PR is opened. Can be GitHub Actions, GitLab CI or other matching. Also in case of self-hosted counterparts, the corresponding runners can be set up. The tricky part comes in, where the Runner is executed and what access does it have into the homelab. Of course on the selfhosted ones, it is completely inside the local network. In case of GitHub for example, Runners can be self-hosted as well, so they could deploy a canary release for example.
 4. Continuous Delivery: Notices changes in the git repo about what is deployed and what should be deployed. Reconciles the differences (updates in this case the versions and redeploy/upgrade)
 
 ## Requirements

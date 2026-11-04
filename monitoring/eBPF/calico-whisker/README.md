@@ -10,7 +10,7 @@ You can observe network traffic in your cluster by viewing flow logs in the Cali
 
 ## The setup
 
-Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whisker is enabled by default. However Kubespray installs Calico in the manifest-only way, in which case it is a bit more difficult. Fortunately here is a [detailed description](https://www.tigera.io/blog/how-to-deploy-whisker-and-goldmane-in-manifest-only-calico-setups/) how to install Whisker in this case. Even more info is in [this github discussion](https://github.com/orgs/projectcalico/discussions/11445).
+Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whisker is enabled by default. However Kubespray installs Calico in the manifest-only way, in which case it is a bit more difficult. Fortunately here is a [detailed description](https://www.tigera.io/blog/how-to-deploy-whisker-and-goldmane-in-manifest-only-calico-setups/) how to install Whisker in this case. Even more info is in [this GitHub discussion](https://github.com/orgs/projectcalico/discussions/11445).
 
 ## Prerequisites
 

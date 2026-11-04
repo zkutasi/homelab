@@ -187,7 +187,7 @@ I am using VS Code, with a few plugins and tricks:
 
 - Remote SSH - Writing code on my Windows PC, but using it to enter into a Linux host that has a few things installed (Git, Ansible, Terraform, Kubernetes toolings, etc...)
 - Drawing pictures with Draw.io
-- Github Copilot - To help me with some code completion and writing faster
+- GitHub Copilot - To help me with some code completion and writing faster
 - Vscode-sops - Encrypting secrets in the repository with [SOPS](https://github.com/getsops/sops) and [age](https://github.com/FiloSottile/age)
 - Support for Jinja, Python, Ansible and any languages required
 - Run Terminal Command - A simple extension to allow me to run arbitrary commands by right clicking on files in the Explorer window.

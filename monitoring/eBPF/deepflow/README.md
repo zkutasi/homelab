@@ -58,7 +58,7 @@ This is documented well and requires the `deepflow-cli` command, but not automat
 
 ## Notable comments
 
-- The whole project is a Chinese one. Major problem with this is that the github reported tickets are 90% chinese, the whole documentation is a bit all over the place (ChatGPT generated and/or translated), like if there would be a language barrier. Many defaults are Chinese: Timezone, NTP server, etc.
+- The whole project is a Chinese one. Major problem with this is that the GitHub reported tickets are 90% chinese, the whole documentation is a bit all over the place (ChatGPT generated and/or translated), like if there would be a language barrier. Many defaults are Chinese: Timezone, NTP server, etc.
 - There is a way to deploy agents outside of the Kubernetes cluster, even to monitor more clusters. However, this requires to use the `deepflow-cli` tool to generate a domain of some sort. It would be awesome if this could be done with some config instead.
 - The `deepflow-ctl` by default tries to connect to the localhost, via a Nodeport of 30417, which is not really secure
 - An [external Grafana](https://deepflow.io/docs/best-practice/production-deployment/#integrate-with-an-existing-grafana) can also be used, however it is a bit cumbersome: First unsigned plugins have to be loaded, then Custom pre-defined dashboards have to be loaded (or of course one can make their own custom ones as well)
