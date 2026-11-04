@@ -31,6 +31,16 @@ The `vars.tf` file holds the schema for the config you need to pass in (see late
 
 ## Usage
 
+### Deploy Terraform
+
+1. Install Terraform on the control server with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook automation/terraform/deploy-terraform.yaml --no-check
+    ```
+
+### Provision the VMs
+
 1. Create the configuration files: Create file `terraform.tfvars`, with the following required content
 
     |Variable|Description|
