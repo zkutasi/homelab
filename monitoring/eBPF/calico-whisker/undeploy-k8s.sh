@@ -6,7 +6,6 @@ kubectl -n $NS delete serviceaccount goldmane
 kubectl -n $NS delete service goldmane
 kubectl -n $NS delete configmap goldmane
 kubectl -n $NS delete deployment goldmane
-kubectl -n $NS delete secret goldmane-internal-ca-secret
 kubectl -n $NS delete secret goldmane-tls
 
 kubectl -n $NS delete serviceaccount whisker

@@ -41,7 +41,13 @@ Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whis
     ./common-ansible-run-playbook.sh --playbook monitoring/eBPF/calico-whisker/generate-certs.yaml --no-check
     ```
 
-2. Install with the provided script
+2. Create the Kubernetes TLS secrets for Goldmane and Whisker-backend from these certs
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/eBPF/calico-whisker/generate-secrets-from-certs.yaml --no-check
+    ```
+
+3. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
