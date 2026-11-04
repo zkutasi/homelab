@@ -14,7 +14,7 @@ These applications can manage docker containers, docker-compose stacks or even d
 - [Portainer](https://www.portainer.io/) - Making Docker and Kubernetes management easy.
 - [Dockge](https://dockge.kuma.pet/) - A simple one. It is more like to edit the docker-compose files, not to have an overview dashboard. For me it caused 100% CPU utilization
 - [Dyrectorio](https://dyrector.io/)
-- [Yacht](https://yacht.sh/) - A WebUI for docker containers that focuses on templating. A bit abandoned, last commit was in 2024
+- [Yacht](https://dev.yacht.sh/) - A WebUI for docker containers that focuses on templating. A bit abandoned, last commit was in 2024
 - [Komodo](https://komo.do/) - a tool to build and deploy software on many servers
 - [Incus](https://linuxcontainers.org/incus/)
 - [1Panel](https://github.com/1Panel-dev/1Panel) - Seems chinese to me

@@ -2,7 +2,7 @@
 
 A DNS performance testing IPv4, IPv6, DNS over HTTPS (DoH), DNS over TLS (DoT), and DNS over QUIC (DoQ).
 
-- [Official site](https://yadnsb.butialabs.com/)
+- ~~Official site~~
 - [Source repository](https://github.com/butialabs/yadnsb)
 - ~~Documentation~~
 - [Image repo](https://github.com/butialabs/yadnsb/pkgs/container/yadnsb)
@@ -41,3 +41,5 @@ A DNS performance testing IPv4, IPv6, DNS over HTTPS (DoH), DNS over TLS (DoT), 
 ## Commands
 
 ## Notable comments
+
+- The project was archived on 2026-07-11 (read-only, no successor named), so no further updates are expected.

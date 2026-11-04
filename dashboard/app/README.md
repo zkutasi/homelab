@@ -17,7 +17,7 @@ A dashboard for all the apps running, having an easy interface to navigate to th
 - [Dashy](https://dashy.to/) - A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!
 - [Glance](https://github.com/glanceapp/glance) - A self-hosted dashboard that puts all your feeds in one place
 - [TraLa](https://www.trala.fyi/) - A simple, modern, and dynamic dashboard for your Traefik services.
-- [DashLit](https://dashlit.cwec.dev/) - DashLit is self-hosted startpage for your server.
+- [DashLit](https://codewec.github.io/dashlit/) - DashLit is self-hosted startpage for your server.
 - [Dashwise](https://dashwise-next.vercel.app/) - Dashwise, an all-in-one homelab dashboard. Primary focus is on GUI editing.
 - [Hestia](https://hestiacp.com/) - A lightweight and powerful control panel for the modern web.
 - [LabDash](https://github.com/AnthonyGress/lab-dash) - An open-source dashboard designed to manage your server/homelab applications and services.

@@ -111,7 +111,7 @@ Manage my Movies, Music, Books, Photos and all media files.
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/shelfmark.svg" alt="Shelfmark"> | [Shelfmark](https://github.com/calibrain/shelfmark) | Shelfmark is a self-hosted web interface for searching and requesting books and audiobooks across multiple sources. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/immich.svg" alt="Immich"> | [Immich](https://immich.app/) | High performance self-hosted photo and video management solution. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/navidrome.svg" alt="Navidrome"> | [Navidrome](https://www.navidrome.org/) | An open source web-based music collection server and streamer. It gives you freedom to listen to your music collection from any browser or mobile device. It's like your personal Spotify! |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/paperless-ngx.svg" alt="Paperless"> | [Paperless-NGX](http://docs.paperless-ngx.com/) | A community-supported supercharged document management system: scan, index and archive all your documents |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/paperless-ngx.svg" alt="Paperless"> | [Paperless-NGX](https://docs.paperless-ngx.com/) | A community-supported supercharged document management system: scan, index and archive all your documents |
 
 #### Monitoring stack
 

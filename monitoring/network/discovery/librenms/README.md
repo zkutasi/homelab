@@ -6,7 +6,7 @@ Community-based GPL-licensed network monitoring system
 - [Source repository](https://github.com/librenms/librenms)
 - [Documentation](https://docs.librenms.org/)
 - [Image repo](https://hub.docker.com/r/librenms/librenms)
-- [Helm Chart](https://github.com/librenms/helm-charts/tree/develop/charts/librenms)
+- [Helm Chart](https://github.com/librenms/helm-charts/tree/main/charts/librenms)
 - ~~Other sites~~
 
 ## The setup

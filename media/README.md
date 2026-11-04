@@ -63,7 +63,7 @@ If a piece of software only supports the most popular scrobbler, you should use 
 
 #### Music
 
-- [Last.fm](http://www.last.fm) - The original that started it all, for music
+- [Last.fm](https://www.last.fm/) - The original that started it all, for music
   - [YourLastFM](https://github.com/Gomaink/your_lastfm) - Turn your Last.fm scrobbles into a complete, private dashboard.
 - [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
 - [Libre.fm](https://libre.fm/) - A more private last.fm alternative

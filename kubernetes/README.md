@@ -21,7 +21,7 @@ Here is a matrix that collects most of the possibilities and their capabilities:
 - [Kind](https://kind.sigs.k8s.io/) - Intended for development and testing. Not a native Kubernetes cluster, things work differently
 - [K0s](https://k0sproject.io/)
 - [K3s](https://k3s.io/)
-- [Rancher RKE](https://www.rancher.com/index.php/products/rke) - From SUSE.
+- [Rancher RKE2](https://docs.rke2.io/) - From SUSE. The successor of RKE, which reached its end of life in 2025.
 - [MicroK8s](https://microk8s.io/) - The Kubernetes flavor from Ubuntu.
 
 ### App sources

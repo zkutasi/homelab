@@ -25,7 +25,7 @@ Manage Kubernetes clusters via a UI, not from the CLI. Observability, notificati
 ### CLI Apps
 
 - [K9s](https://k9scli.io/) - Kubernetes CLI To Manage Your Clusters In Style!
-- [KDash](https://kdash.cli.rs/) - A simple and fast dashboard for Kubernetes
+- [KDash](https://kdash-rs.github.io) - A simple and fast dashboard for Kubernetes
 
 ### Deployables
 
