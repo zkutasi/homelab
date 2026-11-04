@@ -37,6 +37,14 @@ Self-hosted SSH and remote desktop management.
 
 ### Post deployment
 
+1. Generate an importable hosts file from the Ansible inventory: every Linux host gets an SSH connection, sorted into docker, proxmox and kubernetes folders
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook remoting/termix/generate-hosts-json.yaml --no-check
+    ```
+
+2. Import the generated `remoting/termix/termix_hosts.json` on the Termix UI
+
 ## Metrics, Alerts, Notifications
 
 ## Commands
