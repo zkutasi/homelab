@@ -10,6 +10,8 @@ Automated developer-oriented status page with alerting and incident support
 
 ## The setup
 
+The central Gatus runs in Kubernetes. A second, standalone Gatus instance runs in docker on the network monitoring host, checking with ICMP (over IPv4 and/or IPv6) that the Dynamic DNS names of all hosts resolve and respond.
+
 ## Prerequisites
 
 ## Usage
@@ -27,7 +29,7 @@ Automated developer-oriented status page with alerting and incident support
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
 
-### Deploy the app
+### Deploy the central component
 
 1. Generate configuration from the Ansible inventory
 
@@ -39,6 +41,14 @@ Automated developer-oriented status page with alerting and incident support
 
     ```bash
     ./deploy-k8s.sh
+    ```
+
+### Deploy the agents
+
+1. Install the DDNS-checking instance with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/gatus/agents/deploy-gatus-agent.yaml --no-check
     ```
 
 ### Post deployment
