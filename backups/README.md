@@ -190,3 +190,11 @@ Cons:
     |backupfolders|M|A list containing the folders to back up on the client. Each will be mounted under a single root folder that will be backed up|
     |backup_cron|O|The cron pattern when to execute the backups, default is empty, meaning nothing will be done automatically|
     |backup_exclude_patterns|O|A list of things to exclude from the backup. Default is *.log.|
+
+## Update the backed up folders
+
+When `backupfolders` changes on a host, the clients have to be redeployed to mount the new folders. This convenience playbook redeploys the Borgmatic, Kopia and UrBackup clients in one go:
+
+```bash
+./common-ansible-run-playbook.sh --playbook backups/update-backup-folders.yaml --no-check
+```
