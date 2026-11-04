@@ -20,9 +20,9 @@ Kuvasz (pronounce as [ˈkuvɒs]) is an open-source uptime and SSL monitoring ser
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |kuvasz_admin_username|M||
-    |kuvasz_admin_password|M||
-    |kuvasz_admin_apikey|M||
+    |kuvasz_admin_username|M|The admin username|
+    |kuvasz_admin_password|M|The admin password|
+    |kuvasz_admin_apikey|M|A randomly generated API key for the admin user|
 
 2. For each Ansible host, the following variables can be set
 

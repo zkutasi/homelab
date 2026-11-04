@@ -20,8 +20,8 @@ A simple but powerful self-hosted finance tracker
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |wygiwyh_database_password|M||
-    |wygiwyh_secret_key|M||
+    |wygiwyh_database_password|M|The Postgres database password|
+    |wygiwyh_secret_key|M|A randomly generated secret|
     |wygiwyh_url|M|The full used URL in the browser, for CSRF protection, hostname part only|
 
 2. For each Ansible host, the following variables can be set

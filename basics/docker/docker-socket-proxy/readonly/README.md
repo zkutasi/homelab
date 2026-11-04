@@ -25,6 +25,7 @@ This deploys a Host-wide read-only instance of the docker-socket-proxy. If anyth
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |docker_docker_group_id|M|The group ID (GID) of the `docker` group on the host, see `getent group docker`|
 
 ### Deploy the app
 

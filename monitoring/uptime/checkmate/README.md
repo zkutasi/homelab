@@ -20,8 +20,8 @@ An open-source, self-hosted tool designed to track and monitor server hardware, 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |checkmate_jwt_secret|M||
-    |checkmate_url|M||
+    |checkmate_jwt_secret|M|A randomly generated secret|
+    |checkmate_url|M|The full URL the app is reached on (e.g. `https://checkmate.example.home`)|
 
 2. For each Ansible host, the following variables can be set
 

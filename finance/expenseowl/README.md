@@ -20,7 +20,7 @@ Extremely simple, self-hosted expense tracker with a beautiful UI.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |expenseowl_database_password|M||
+    |expenseowl_database_password|M|The Postgres database password|
 
 2. For each Ansible host, the following variables can be set
 

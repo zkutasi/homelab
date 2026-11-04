@@ -20,9 +20,9 @@ Easily access your Docker container web interfaces and keep them up to date — 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |dockpeek_secret_key|M||
-    |dockpeek_username|M||
-    |dockpeek_password|M||
+    |dockpeek_secret_key|M|A randomly generated secret|
+    |dockpeek_username|M|The login username|
+    |dockpeek_password|M|The login password|
 
 2. For each Ansible host, the following variables can be set
 

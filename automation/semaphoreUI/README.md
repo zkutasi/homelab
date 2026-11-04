@@ -27,8 +27,8 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |semaphore_username|M||
-    |semaphore_password|M||
+    |semaphore_username|M|The username of the admin user to create|
+    |semaphore_password|M|The password of the admin user|
 
 2. For each Ansible host, the following variables can be set
 

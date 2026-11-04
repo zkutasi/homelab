@@ -20,7 +20,7 @@ Self-hosted online file converter. Supports 1000+ formats
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |convertx_jwt_secret|M||
+    |convertx_jwt_secret|M|A randomly generated secret|
 
 2. For each Ansible host, the following variables can be set
 

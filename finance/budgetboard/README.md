@@ -20,7 +20,7 @@ A simple app for tracking monthly spending and working towards financial goals.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |budgetboard_database_password|M||
+    |budgetboard_database_password|M|The Postgres database password|
 
 2. For each Ansible host, the following variables can be set
 

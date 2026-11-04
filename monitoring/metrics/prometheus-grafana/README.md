@@ -37,8 +37,8 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |grafana_admin_user|M||
-    |grafana_admin_password|M||
+    |grafana_admin_user|M|The Grafana admin username|
+    |grafana_admin_password|M|The Grafana admin password|
 
 2. For each Ansible host, the following variables can be set
 

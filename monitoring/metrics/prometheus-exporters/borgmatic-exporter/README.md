@@ -22,11 +22,13 @@ Placed next to the Borg repos, and providing it with the repo structure only.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |borgmatic_encryption_passphrase|M|The encryption passphrase of the Borg repositories|
 
 2. For each Ansible host, the following variables can be set
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |backups_folder|M|The volume on the backup server that stores the backups|
 
 ### Deploy the app
 

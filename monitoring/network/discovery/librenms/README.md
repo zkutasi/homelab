@@ -25,8 +25,8 @@ In this tool, one needs to either add the monitored hosts manually or there is a
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |snmp_auth_pass|M||
-    |snmp_priv_pass|M||
+    |snmp_auth_pass|M|The SNMPv3 authentication passphrase of the read-only user|
+    |snmp_priv_pass|M|The SNMPv3 privacy (encryption) passphrase of the read-only user|
     |librenms_appkey|M|Generate a Laravel App-key with this [Laravel Key Generator](https://generate-random.org/laravel-key-generator)|
 
 2. For each Ansible host, the following variables can be set

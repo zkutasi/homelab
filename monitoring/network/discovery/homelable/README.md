@@ -20,10 +20,10 @@ Self-hosted homelab infrastructure visualizer — interactive network diagram wi
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |homelable_auth_username|M||
-    |homelable_auth_password_hash|M||
-    |homelable_secret_key|M||
-    |homelable_url|M||
+    |homelable_auth_username|M|The login username|
+    |homelable_auth_password_hash|M|The hash of the login password (not the password itself)|
+    |homelable_secret_key|M|A randomly generated secret|
+    |homelable_url|M|The full URL the app is reached on (e.g. `https://homelable.example.home`)|
 
 2. For each Ansible host, the following variables can be set
 

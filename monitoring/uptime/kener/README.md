@@ -20,9 +20,9 @@ Stunning status pages, batteries included!
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |kener_redis_password|M||
-    |kener_secret_key|M||
-    |kener_url|M||
+    |kener_redis_password|M|A randomly generated password for the bundled Redis instance|
+    |kener_secret_key|M|A randomly generated secret|
+    |kener_url|M|The full URL the app is reached on (e.g. `https://kener.example.home`)|
 
 2. For each Ansible host, the following variables can be set
 

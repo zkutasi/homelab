@@ -20,10 +20,10 @@ SeaweedFS is a distributed storage system for object storage (S3), file systems,
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |seaweedfs_admin_accessKey|M||
-    |seaweedfs_admin_secretKey|M||
-    |seaweedfs_read_accessKey|M||
-    |seaweedfs_read_secretKey|M||
+    |seaweedfs_admin_accessKey|M|The S3 access key of the admin user|
+    |seaweedfs_admin_secretKey|M|The S3 secret key of the admin user|
+    |seaweedfs_read_accessKey|M|The S3 access key of the read-only user|
+    |seaweedfs_read_secretKey|M|The S3 secret key of the read-only user|
 
 2. For each Ansible host, the following variables can be set
 

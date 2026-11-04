@@ -24,7 +24,7 @@ A self-hostable bookmark-everything app (links, notes and images) with AI-based 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |karakeep_nextauth_secret|M||
+    |karakeep_nextauth_secret|M|A randomly generated secret|
 
 2. For each Ansible host, the following variables can be set
 

@@ -20,9 +20,9 @@ Linux Patch Management & Automation Platform
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |patchmon_redis_password|M||
-    |patchmon_database_password|M||
-    |patchmon_jwt_secret|M||
+    |patchmon_redis_password|M|A randomly generated password for the bundled Redis instance|
+    |patchmon_database_password|M|The Postgres database password|
+    |patchmon_jwt_secret|M|A randomly generated secret|
 
 2. For each Ansible host, the following variables can be set
 

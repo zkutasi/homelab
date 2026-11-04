@@ -20,7 +20,7 @@ A simple server for sending and receiving messages in real-time per WebSocket. (
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |gotify_default_user_pass|M||
+    |gotify_default_user_pass|M|The password of the default admin user|
 
 2. For each Ansible host, the following variables can be set
 

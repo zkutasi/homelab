@@ -20,8 +20,8 @@ Kubernetes Operator to automate Helm, DaemonSet, StatefulSet & Deployment update
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |keel_username|M||
-    |keel_password|M||
+    |keel_username|M|The dashboard login (basic auth) username|
+    |keel_password|M|The dashboard login (basic auth) password|
 
 2. For each Ansible host, the following variables can be set
 

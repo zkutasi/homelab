@@ -22,9 +22,9 @@ Run InfluxDB 2.x although 3.x is out there, because of simplicity: 3.x requires 
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |influxdb_user|M||
-    |influxdb_password|M||
-    |influxdb_admin_token|M||
+    |influxdb_user|M|The username of the admin user to create|
+    |influxdb_password|M|The password of the admin user|
+    |influxdb_admin_token|M|A randomly generated API token for the admin user|
 
 2. For each Ansible host, the following variables can be set
 

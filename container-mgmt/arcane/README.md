@@ -20,8 +20,8 @@ Modern Docker Management, Designed for Everyone
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |arcane_encryption_key|M||
-    |arcane_jwt_secret|M||
+    |arcane_encryption_key|M|A randomly generated encryption key|
+    |arcane_jwt_secret|M|A randomly generated secret|
 
 2. For each Ansible host, the following variables can be set
 
