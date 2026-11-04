@@ -37,7 +37,7 @@ They consist of:
 - 3x Dell Optiplex as a Proxmox cluster, hosting a Kubernetes cluster in 3 controller + 3 worker VMs
 - 1x Synology NAS for Music
 - 1x Synology NAS for Documents, Photos and work related stuff
-- 1x Raspberry Pi 4 for PiHole DNS
+- 1x Raspberry Pi 4 for Pi-hole DNS
 - 1x Raspberry Pi 4 for a Dashboard screen
 - 1x Qotom small appliance machine with 4x1Gbps Ethernet ports
 - 1x VPS for essential things to host remotely (RustDesk for example)
@@ -63,8 +63,8 @@ These are fundamental or general tools I built my infrastructure on or use it ac
 
 | Logo | Name | Description |
 |------|------|-------------|
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/pi-hole.svg" alt="Pihole"> | [Pihole](https://pi-hole.net/) | A black hole for Internet advertisements |
-| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/unbound.svg" alt="Unbound"> | [Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) | Used with Pihole, to bypass public DNS Servers |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/pi-hole.svg" alt="Pi-hole"> | [Pi-hole](https://pi-hole.net/) | A black hole for Internet advertisements |
+| <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/unbound.svg" alt="Unbound"> | [Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) | Used with Pi-hole, to bypass public DNS Servers |
 || [Nebula-sync](https://github.com/lovelaze/nebula-sync) | Synchronize configuration of multiple Pi-hole v6.x instances. |
 | <img width="32" src="https://cdn.jsdelivr.net/gh/selfhst/icons@main/svg/caddy.svg" alt="Caddy"> | [Caddy](https://github.com/caddyserver/caddy) | Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS |
 

@@ -43,5 +43,5 @@ A self-hostable personal dashboard built for you. Includes status-checking, widg
 ## Notable comments
 
 - Widgets here are not tied into the card themselves, but they are bigger and can sit in any group section or on their own group.
-- PiHole widget for v6 API does not work, as it should not use an API key but a new mechanism not yet implemented.
+- Pi-hole widget for v6 API does not work, as it should not use an API key but a new mechanism not yet implemented.
 - Any widget requires some metrics uses Glances at the backend... if you already use Glances, great, but if not or use something else, it is not going to work.

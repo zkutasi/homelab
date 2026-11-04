@@ -10,11 +10,11 @@ Centralized network visibility and continuous asset discovery. Monitor devices, 
 
 ## The setup
 
-I deployed it besides a PiHole to integrate it with.
+I deployed it besides a Pi-hole to integrate it with.
 
 ## Prerequisites
 
-1. PiHole present next to the deployment
+1. Pi-hole present next to the deployment
 
 ## Usage
 

@@ -9,7 +9,7 @@ This folder contains fundamental settings applied to hosts, including
 - `setup-dns.yaml` - Set up the home DNS server and the local .home domain
 - `setup-fastfetch.yaml` - Install fastfetch, a system information tool
 - `setup-fstab.yaml` - Set up the mount points to mount NFS shares around the home network
-- `setup-hosts.yaml` - Set up the /etc/hosts file to have home-routable DNS entries, until the PiHole instance is spread by the DHCP server
+- `setup-hosts.yaml` - Set up the /etc/hosts file to have home-routable DNS entries, until the Pi-hole instance is spread by the DHCP server
 - `setup-locale.yaml` - Install and configure the locales
 - `setup-mail.yaml` - Install the email packages on hosts that need to send emails (`emailnotifiers` group)
 - `setup-notifications.yaml` - Set up push-notifications via Apprise (a `send_notification.sh` script on each host)

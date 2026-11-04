@@ -63,7 +63,7 @@ winrm enumerate winrm/config/Listener
         - `books` - The server that stores Books
         - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
         - `dashboard` - The hosts that run the app dashboards (Dashy, Glance, Homepage, etc)
-        - `dnsserver` - All of the local DNS servers like PiHole
+        - `dnsserver` - All of the local DNS servers like Pi-hole
         - `documents` - The server that holds documents
         - `emailnotifiers` - Hosts that can send emails
         - `htpc` - The HTPC hosts that run the media servers (Emby, Jellyfin, Plex)

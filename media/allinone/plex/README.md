@@ -63,4 +63,4 @@ Tautulli - The best web application to monitor, view analytics, and receive noti
 ## Notable comments
 
 - Without a Plex Pass, the client has to be on the same Subnet as the Server. This makes docker bridge networking problematic as usually the host's Subnet is totally different than the docker bridges. Plex can set up ranges for local playback ONLY with a Plex Pass, so this totally does not work. The easiest solution is to set host-mode for the network.
-- Plex behind PiHole & Unbound was problematic if accessed through the local DNS record, as it identified the access as Remote. A simple solution is to block plex.direct from resolving, making it 0.0.0.0, and then everything shall work as expected.
+- Plex behind Pi-hole & Unbound was problematic if accessed through the local DNS record, as it identified the access as Remote. A simple solution is to block plex.direct from resolving, making it 0.0.0.0, and then everything shall work as expected.

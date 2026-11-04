@@ -10,12 +10,12 @@ Configure external DNS servers dynamically from Kubernetes resources
 
 ## The setup
 
-Whenever there is a HTTPProxy Contour ingress is deployed, the system checks which FQDN-IP mapping has to be shipped into the DNS Server and when applicable, does it. There is a PiHole configured in there as local DNS Server.
+Whenever there is a HTTPProxy Contour ingress is deployed, the system checks which FQDN-IP mapping has to be shipped into the DNS Server and when applicable, does it. There is a Pi-hole configured in there as local DNS Server.
 
 ## Prerequisites
 
 - Ingress (Contour) installed
-- Local DNS Server (PiHole) is installed
+- Local DNS Server (Pi-hole) is installed
 
 ## Usage
 

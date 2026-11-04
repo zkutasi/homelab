@@ -25,8 +25,8 @@ A Prometheus exporter for PI-Hole's Raspberry PI ad blocker
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |pihole_hostname|M|The hostname of the Primary PiHole instance|
-    |pihole_secondary_hostname|O|The hostname of the Secondary PiHole instance|
+    |pihole_hostname|M|The hostname of the Primary Pi-hole instance|
+    |pihole_secondary_hostname|O|The hostname of the Secondary Pi-hole instance|
 
 ### Deploy the app
 

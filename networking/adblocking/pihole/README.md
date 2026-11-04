@@ -1,4 +1,4 @@
-# PiHole
+# Pi-hole
 
 A black hole for Internet advertisements
 
@@ -18,7 +18,7 @@ Unbound - Unbound is a validating, recursive, caching DNS resolver. It is design
 
 ## The setup
 
-A Pihole Host is running in the network, as a DNS resolver, capable to act as a complete replacement for the DNS servers used from the ISP.
+A Pi-hole Host is running in the network, as a DNS resolver, capable to act as a complete replacement for the DNS servers used from the ISP.
 
 Then [Unbound](https://nlnetlabs.nl/projects/unbound/about/) is used as a DNS resolver. There are two ways to resolve DNS:
 
@@ -37,10 +37,10 @@ This Unbound instance is configured in Recursive mode.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |pihole_password|M|The password set up for pihole|
-    |pihole_docker_network_3digit|M|The used docker network between PiHole and Unbound. Only give the first 3 digits, the last digit is not needed.|
-    |pihole_address|M|The full URL to the Primary PiHole instance in order to call its API|
-    |pihole_secondary_address|O|The full URL to the Secondary PiHole instance in order to call its API|
+    |pihole_password|M|The password set up for Pi-hole|
+    |pihole_docker_network_3digit|M|The used docker network between Pi-hole and Unbound. Only give the first 3 digits, the last digit is not needed.|
+    |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
+    |pihole_secondary_address|O|The full URL to the Secondary Pi-hole instance in order to call its API|
 
 2. For each Ansible host, the following variables can be set
 
