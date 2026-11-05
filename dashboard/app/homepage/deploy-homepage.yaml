@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: homepage
     requested_image_version:
-      homepage: "ghcr.io/gethomepage/homepage:v1.12.3"
+      homepage: "ghcr.io/gethomepage/homepage:v1.13.2"
     docker_compose_create_dirs:
       - name: config
       - name: certs
