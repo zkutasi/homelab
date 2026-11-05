@@ -1,7 +1,6 @@
 #!/bin/bash
 
 NS=
-RELEASE_NAME=
 
 function usage() {
     echo "Usage: $0 --namespace <namespace>"

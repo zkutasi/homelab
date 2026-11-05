@@ -15,7 +15,7 @@ LIMIT=
 PLAYBOOK=
 
 function usage() {
-    echo "Usage: $0 --playbook <playbook> [--inventory <inventory>] [limit <limit>] [--no-diff] [--no-check] [--extra-args <args>]"
+    echo "Usage: $0 --playbook <playbook> [--inventory <inventory>] [--limit <limit>] [--no-diff] [--no-check] [--extra-args <args>]"
     echo ""
     echo "Options:"
     echo "  --ansible-navigator-config <config>   Specify the ansible-navigator configuration file"

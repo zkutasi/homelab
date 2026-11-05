@@ -4,6 +4,7 @@ CNPG_CLUSTER_CHART_VERSION=0.8.1
 
 APP=app
 CHART_NAME=
+DEBUG=0
 DEPLOYMENT_TYPE=helm
 EXTRA_VALUES_FILES=
 LATEST=0
@@ -13,21 +14,21 @@ RELEASE_NAME=
 REPO_NAME=
 REPO_URL=
 TEMPLATE=0
-VALUES=
 VERSION=
 
 function usage() {
     cat <<EOF
-Usage: $0 --app <app-name> --deployment-type <helm|truecharts> [--chart-name <chart-name>] [--repo-url <repo-url>] [--latest] [--namespace <namespace>] [--release-name <release-name>] [--version <version>]
+Usage: $0 --chart-name <chart-name> --namespace <namespace> --release-name <release-name> [--app <app-name>] [--type <helm|truecharts|local>] [--repo-url <repo-url>] [--extra-values <file>] [--latest] [--post-renderer <post-renderer>] [--template] [--debug] [--version <version>]
 
 Options:
   --app <app-name>            Name of the application (default: app)
-  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>)
-  --extra-values <file>       Additional values file to pass to helm (can be specified multiple times)
+  --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>) (required)
+  --debug                     Pass --debug to helm for verbose output
+  --extra-values <file>       Additional values file to pass to helm (can be specified multiple times, must exist)
   --latest                    Use the latest chart version (overrides --version)
-  --namespace <namespace>     Kubernetes namespace to deploy to (default: same as app name)
+  --namespace <namespace>     Kubernetes namespace to deploy to (required)
   --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
-  --release-name <release-name> Helm release name (default: same as app name)
+  --release-name <release-name> Helm release name (required)
   --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
   --template                  Template out the results for testing, do not deploy
   --type <type>               Type of deployment. Can be either of the following:
@@ -47,6 +48,9 @@ while [ $# -ge 1 ]; do
     --chart-name)
       shift
       CHART_NAME=$1
+      ;;
+    --debug)
+      DEBUG=1
       ;;
     --extra-values)
       shift
@@ -93,12 +97,15 @@ done
 
 [ -z "${APP}" ] && echo "ERROR: APP must be set" && exit 1
 VALUE_FILES=
-for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" "${APP}-values-dimensioning.yaml" ${EXTRA_VALUES_FILES}; do
-  if [ ! -f ${valuefile} ]; then
-    echo "WARNING: No values file ${valuefile} found"
-    echo "Creating an empty values file ${valuefile}"
-    touch ${valuefile}
+for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" "${APP}-values-dimensioning.yaml"; do
+  if [ -f "${valuefile}" ]; then
+    VALUE_FILES="${VALUE_FILES} --values ${valuefile}"
+  else
+    echo "INFO: No values file ${valuefile} found, skipping"
   fi
+done
+for valuefile in ${EXTRA_VALUES_FILES}; do
+  [ ! -f "${valuefile}" ] && echo "ERROR: Extra values file ${valuefile} not found" && exit 1
   VALUE_FILES="${VALUE_FILES} --values ${valuefile}"
 done
 
@@ -164,13 +171,15 @@ if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
   helm dependency update "${CHART_NAME}"
 fi
 
-pwd
 CMD="${RELEASE_NAME} ${CHART_NAME} \
     --version ${VERSION} \
     --namespace $NS \
     --create-namespace \
-    ${VALUE_FILES} \
-    --debug"
+    ${VALUE_FILES}"
+
+if [ "${DEBUG}" -eq 1 ]; then
+  CMD="${CMD} --debug"
+fi
 
 if [ -n "${POST_RENDERER}" ]; then
   CMD="${CMD} --post-renderer ${POST_RENDERER}"
