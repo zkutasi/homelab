@@ -36,6 +36,31 @@
       "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?-(?<build>\\d+)$"
     },
     {
+      "customType": "regex",
+      "description": "Helm chart pinned in a deploy-k8s.sh script via CHART_NAME, REPO_URL (repo charts only) and VERSION",
+      "managerFilePatterns": [
+        "/(^|/)deploy-k8s\\.sh$/"
+      ],
+      "matchStringsStrategy": "combination",
+      "matchStrings": [
+        "\\nCHART_NAME=\"?(?:oci://)?(?<depName>[^\"\\s]+)\"?",
+        "\\nREPO_URL=\"?(?<registryUrl>https?://[^\"\\s]+)\"?",
+        "\\nVERSION=\"?(?<currentValue>[^\"\\s#]+)\"?"
+      ],
+      "datasourceTemplate": "{{#if registryUrl}}helm{{else}}docker{{/if}}",
+      "depNameTemplate": "{{#if registryUrl}}{{{replace '^[^/]+/' '' depName}}}{{else}}{{{depName}}}{{/if}}"
+    },
+    {
+      "customType": "regex",
+      "description": "Any VAR=version line preceded by a '# renovate: datasource=... depName=...' annotation",
+      "managerFilePatterns": [
+        "/\\.sh$/"
+      ],
+      "matchStrings": [
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(\\s+registryUrl=(?<registryUrl>\\S+))?(\\s+extractVersion=(?<extractVersion>\\S+))?\\s*\\n[A-Z_]+=\"?(?<currentValue>[^\"\\s#]+)\"?"
+      ]
+    },
+    {
       "customType": "jsonata",
       "fileFormat": "yaml",
       "managerFilePatterns": [

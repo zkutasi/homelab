@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NS=wazuh
+# renovate: datasource=github-tags depName=wazuh/wazuh-kubernetes extractVersion=^v(?<version>.+)$
 VERSION="4.14.2"
 
 EXTRA_PARAMS=

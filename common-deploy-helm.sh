@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# renovate: datasource=helm depName=cluster registryUrl=https://cloudnative-pg.github.io/charts
 CNPG_CLUSTER_CHART_VERSION=0.8.1
 
 APP=app
