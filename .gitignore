@@ -18,10 +18,13 @@ cup.json
 wazuh-kubernetes
 context
 *.log
-Chart.lock
-common-*.tgz
 ca.key
-**/chart/charts/**
 termix_hosts.json
 cacerts
 autokuma-monitors
+
+# Helm: dependency archives, lock files and interrupted-update leftovers are
+# re-created by `helm dependency update`, never commit them
+**/charts/*.tgz
+**/tmpcharts-*/
+Chart.lock
