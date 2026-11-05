@@ -5,6 +5,7 @@ extend-exclude = [
 
 [default.extend-words]
 browseable = "browseable"
+bund = "bund"
 Hashi = "Hashi"
 Observ = "Observ"
 ND = "ND"

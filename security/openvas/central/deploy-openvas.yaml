@@ -20,10 +20,10 @@
       gsad: "registry.community.greenbone.net/community/gsad:24.16.0"
       gvm-tools: "registry.community.greenbone.net/community/gvm-tools:25.4.8"
       ospd-openvas: "registry.community.greenbone.net/community/ospd-openvas:22.10.1"
-      nginx: "registry.community.greenbone.net/community/nginx:latest"
+      nginx: "registry.community.greenbone.net/community/nginx:latest@sha256:57e6a98d192f48e03acecdd193e8cf0a5b7fcf8c8be3cd7611f9725179ed8c19"
       pg-gvm: "registry.community.greenbone.net/community/pg-gvm:22.6.15"
-      pg-gvm-migrator: "registry.community.greenbone.net/community/pg-gvm-migrator:stable"
-      gvm-config: "registry.community.greenbone.net/community/gvm-config:latest"
+      pg-gvm-migrator: "registry.community.greenbone.net/community/pg-gvm-migrator:stable@sha256:8fc1cc11cac0481674527e01ec7610a8195110cf117d700bd47fe3af7012b34d"
+      gvm-config: "registry.community.greenbone.net/community/gvm-config:latest@sha256:05bc33d1a259c18eb5398cbc737df0068bd07103f9a65192cdd95f354450e8ea"
     docker_compose_create_dirs:
       - name: vt_data
         owner: 1001

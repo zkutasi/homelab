@@ -29,4 +29,4 @@ dependencies:
 
 images:
   base_image:
-    name: ghcr.io/ansible-community/community-ee-base:latest
+    name: ghcr.io/ansible-community/community-ee-base:2.21.5-2@sha256:d42f2597080e8e34ce4d1f70f66f987fc841bd0bbeb680f8d234e94ef1afc60a

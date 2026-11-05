@@ -8,5 +8,5 @@
       - name: config
       - name: emby-backup
     requested_image_version:
-      alpine: "alpine"
+      alpine: "alpine:3.24.3"
       emby: "emby/embyserver:4.9.3.0"

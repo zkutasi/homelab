@@ -25,13 +25,24 @@
       "datasourceTemplate": "github-releases"
     },
     {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)execution-environment\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "base_image:\\s*\\n\\s*name:\\s*\"?(?<depName>[^:\"\\s]+):(?<currentValue>[^@\"\\s]+)(@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "datasourceTemplate": "docker",
+      "versioningTemplate": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)(\\.(?<patch>\\d+))?-(?<build>\\d+)$"
+    },
+    {
       "customType": "jsonata",
       "fileFormat": "yaml",
       "managerFilePatterns": [
         "/(^|/)deploy.*\\.ya?ml$/"
       ],
       "matchStrings": [
-        "$[].vars.requested_image_version.*.( { \"depName\": $substringBefore($, \":\"), \"currentValue\": $substringAfter($, \":\") } )"
+        "$[].vars.requested_image_version.*.( $ref := $substringBefore($, \"@\"); $m := $match($ref, /^(.+):([^:\\/]+)$/); { \"depName\": $m ? $m.groups[0] : $ref, \"currentValue\": $m.groups[1], \"currentDigest\": $contains($, \"@\") ? $substringAfter($, \"@\") } )"
       ],
       "datasourceTemplate": "docker"
     }

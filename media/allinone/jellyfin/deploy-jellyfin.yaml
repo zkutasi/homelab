@@ -7,5 +7,5 @@
     docker_compose_create_dirs:
       - name: config
     requested_image_version:
-      alpine: "alpine"
+      alpine: "alpine:3.24.3"
       jellyfin: "jellyfin/jellyfin:10.11.6"
