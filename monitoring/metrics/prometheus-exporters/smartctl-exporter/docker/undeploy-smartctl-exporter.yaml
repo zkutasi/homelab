@@ -3,4 +3,4 @@
   roles:
     - docker-compose-remove
   vars:
-    docker_compose_projectname: smartctl
+    docker_compose_projectname: smartctl-exporter
