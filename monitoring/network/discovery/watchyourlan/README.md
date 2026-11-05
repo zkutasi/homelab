@@ -32,7 +32,7 @@ Lightweight network IP scanner written in Go. With notifications, history, expor
 1. Install with the provided script
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/watchyourLAN/deploy-watchyourlan.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/watchyourlan/deploy-watchyourlan.yaml --no-check
     ```
 
 ### Post deployment

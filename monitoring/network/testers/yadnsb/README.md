@@ -31,7 +31,7 @@ A DNS performance testing IPv4, IPv6, DNS over HTTPS (DoH), DNS over TLS (DoT), 
 1. Install with the provided script
 
   ```bash
-  ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/yaDNSb/deploy-yadnsb.yaml --no-check
+  ./common-ansible-run-playbook.sh --playbook monitoring/network/testers/yadnsb/deploy-yadnsb.yaml --no-check
   ```
 
 ### Post deployment

@@ -40,7 +40,7 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 1. Generate configuration from the Ansible inventory
 
     ```bash
-    ./common-ansible-run-playbook.sh --playbook automation/semaphoreUI/generate-configuration.yaml --no-check
+    ./common-ansible-run-playbook.sh --playbook automation/semaphoreui/generate-configuration.yaml --no-check
     ```
 
 2. Install with the provided script
