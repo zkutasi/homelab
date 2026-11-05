@@ -16,6 +16,28 @@ loki:
     bucketNames:
       chunks: loki-chunks
       ruler: loki-ruler
+  structuredConfig:
+    storage_config:
+      aws:
+        endpoint: 'http://seaweedfs-all-in-one.seaweedfs.svc.cluster.local:8333'
+        s3forcepathstyle: true
+        insecure: true
+      named_stores:
+        aws:
+          seaweedfs:
+            endpoint: 'http://seaweedfs-all-in-one.seaweedfs.svc.cluster.local:8333'
+            bucketnames: loki-chunks
+            s3forcepathstyle: true
+            insecure: true
+    schema_config:
+      configs:
+        - from: "2026-05-01"
+          store: tsdb
+          object_store: seaweedfs
+          schema: v13
+          index:
+            prefix: index_
+            period: 24h
 
 deploymentMode: Monolithic
 

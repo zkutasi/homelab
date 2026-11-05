@@ -22,6 +22,8 @@ Loki integrated beautifully into Grafana itself and acts as an endpoint to strea
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |seaweedfs_admin_accessKey|M|The S3 access key of the SeaweedFS admin user|
+    |seaweedfs_admin_secretKey|M|The S3 secret key of the SeaweedFS admin user|
 
 2. For each Ansible host, the following variables can be set
 
@@ -30,7 +32,13 @@ Loki integrated beautifully into Grafana itself and acts as an endpoint to strea
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/logs/loki/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

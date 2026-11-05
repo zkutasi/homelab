@@ -1,0 +1,11 @@
+loki:
+  structuredConfig:
+    storage_config:
+      aws:
+        access_key_id: "{{ seaweedfs_admin_accessKey }}"
+        secret_access_key: "{{ seaweedfs_admin_secretKey }}"
+      named_stores:
+        aws:
+          seaweedfs:
+            access_key_id: "{{ seaweedfs_admin_accessKey }}"
+            secret_access_key: "{{ seaweedfs_admin_secretKey }}"
