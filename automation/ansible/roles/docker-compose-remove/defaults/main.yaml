@@ -1,4 +1,2 @@
-docker_cli_path: /usr/bin/docker
 docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
 docker_compose_projectname: "{{ undef(hint='You must specify the docker compose projectname') }}"
-docker_with_sudo: false
