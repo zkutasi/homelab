@@ -49,8 +49,10 @@ DB_SECRET_NAME="${APP}-db-password-secret"
 DB_USERNAME=${DB_USERNAME}
 DB_DATABASE=${DB_DATABASE}
 if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
-  echo "Generating random database password..."
-  DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
+  if [ -z "${DB_PASSWORD}" ]; then
+    echo "Generating random database password..."
+    DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
+  fi
 
   kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
   kubectl create secret generic ${DB_SECRET_NAME} \
@@ -58,11 +60,13 @@ if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
       --from-literal=password="${DB_PASSWORD}" \
       --type=kubernetes.io/basic-auth \
       --namespace=$NS
-
-  yq -i ".cluster.initdb.database=\"${DB_DATABASE}\"" app-postgresql-values-private.yaml
-  yq -i ".cluster.initdb.owner=\"${DB_USERNAME}\"" app-postgresql-values-private.yaml
-  yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" app-postgresql-values-private.yaml
 fi
+
+echo "Setting the database initialization values..."
+touch app-postgresql-values-private.yaml
+yq -i ".cluster.initdb.database=\"${DB_DATABASE}\"" app-postgresql-values-private.yaml
+yq -i ".cluster.initdb.owner=\"${DB_USERNAME}\"" app-postgresql-values-private.yaml
+yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" app-postgresql-values-private.yaml
 
 echo "Deploying the PostgreSQL database..."
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
