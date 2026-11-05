@@ -3,7 +3,7 @@
 CHART_NAME=oci://oci.trueforge.org/truecharts/glances
 NS=glances
 RELEASE_NAME=glances
-VERSION=3.1.0 # Later version require more recent Kubernetes cluster
+VERSION=3.1.0
 
 EXTRA_PARAMS=""
 
