@@ -227,7 +227,7 @@ How this repository is organised and the conventions every App follows.
 #### Where commands run
 
 - Ansible playbooks are executed from the repository root through the `common-ansible-run-playbook.sh` wrapper, passing the playbook path relative to the root. It runs in check and diff mode by default, so nothing changes until `--no-check` is added.
-- Kubernetes deployment scripts (`deploy-k8s.sh` and `undeploy-k8s.sh`) are executed from the App's own folder, as they pick up the files lying next to them.
+- Kubernetes deployment scripts (`deploy-k8s.sh` and `undeploy-k8s.sh`) are executed from the folder containing the script, as they pick up the files lying next to them.
 
 #### Prerequisites on the control host
 
