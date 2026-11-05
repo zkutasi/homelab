@@ -148,17 +148,8 @@ fi
 
 if [ -z "${VERSION}" ]; then
   echo "Trying to figure out the latest version..."
-  if [ "${DEPLOYMENT_TYPE}" == "truecharts" ]; then
-    CURL_CHART_REPO=${CHART_NAME/oci/https}
-    CURL_CHART_REPO=${CURL_CHART_REPO/oci.trueforge.org/oci.trueforge.org\/v2}
-    latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
-  elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
-    if [[ "${CHART_NAME}" == "oci://"* ]]; then
-      CURL_CHART_REPO=${CHART_NAME/oci/https}
-      latest=$(curl -s ${CURL_CHART_REPO}/tags/list | jq -r '.tags[]' | sort -V | tail -n1)
-    else
-      latest=$(helm search repo --regexp "\v${CHART_NAME}\v" | tail -n1 | awk '{print $2}')
-    fi
+  if [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
+    latest=$(helm show chart "${CHART_NAME}" | yq '.version // ""')
   elif [ "${DEPLOYMENT_TYPE}" == "local" ]; then
     latest=local
   fi
