@@ -1,4 +1,6 @@
 - name: Recreate the docker compose project
+  # In check mode a never-deployed app has no project folder yet, so there is nothing to recreate
+  when: not (ansible_check_mode and docker_compose_dir is changed)
   become: "{{ docker_with_sudo }}"
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"

@@ -3,6 +3,7 @@
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
     state: directory
     mode: '0755'
+  register: docker_compose_dir
 - name: Create bind mount directories
   ansible.builtin.file:
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name }}"
