@@ -71,23 +71,21 @@
       ansible.builtin.debug:
         var: docker_compose_installed_version
 - name: Gather docker compose stack state
-  community.docker.docker_compose_v2:
-    project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
-    docker_cli: "{{ docker_cli_path }}"
-    state: present
-  register: compose_state
+  become: "{{ docker_with_sudo }}"
+  check_mode: false
+  environment:
+    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
+  ansible.builtin.command:
+    cmd: "{{ docker_cli_path }} compose ps --status running --quiet"
+    chdir: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"
+  register: compose_running
   changed_when: false
-  failed_when: false
+  failed_when: compose_running.rc | default(1) != 0 and not ansible_check_mode
 - name: Trigger docker restart if stack is down
   ansible.builtin.debug:
     msg: "Docker compose stack has no running containers"
   changed_when: true
   when: >
-    (
-      compose_state.containers | default([])
-      | selectattr('State', 'equalto', 'running')
-      | list
-      | length
-    ) == 0
+    compose_running.stdout_lines | default([]) | length == 0
   notify:
     - Restart the docker service
