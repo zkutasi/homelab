@@ -29,10 +29,6 @@ kubectl create secret generic ca-certificates \
     --from-file=cacerts=config/static/cacerts \
     --dry-run=client -o yaml | kubectl apply -f -
 
-$(git rev-parse --show-toplevel)/common-ansible-run-playbook.sh \
-    --playbook ${PWD}/generate-configuration.yaml \
-    --no-check
-
 $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
