@@ -52,7 +52,7 @@ if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
   echo "Generating random database password..."
   DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
 
-  kubectl create namespace $NS
+  kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
   kubectl create secret generic ${DB_SECRET_NAME} \
       --from-literal=username="${DB_USERNAME}" \
       --from-literal=password="${DB_PASSWORD}" \

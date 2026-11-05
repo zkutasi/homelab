@@ -2,7 +2,7 @@
 
 NS=pve-exporter
 
-kubectl create namespace $NS
+kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
