@@ -21,9 +21,9 @@ function hash_all_mkv_files()
         filename=$(basename "${file}")
         dirname=$(dirname "${file}")
         echo "[${i}/${num}] Creating SHA hash for ${file}..."
-        pushd "${dirname}" 2>&1 > /dev/null
+        pushd "${dirname}" > /dev/null 2>&1
         sha1sum "${filename}" > "${filename}.sha"
-        popd 2>&1 > /dev/null
+        popd > /dev/null 2>&1
       else
         echo "[${i}/${num}] ${file} already has a SHA hash"
       fi
