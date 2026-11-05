@@ -13,6 +13,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-kompose.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-kompose.sh \
     --namespace $NS \
     ${EXTRA_PARAMS}
