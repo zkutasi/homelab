@@ -15,15 +15,15 @@ while read -r chart; do
 
     case ${#images[@]} in
         0)
-            echo "INFO: No repository found for ${chart_file}, skipping..."
+            echo "INFO: No repository found for ${chart}, skipping..."
             continue
             ;;
         1)
             image="${images[0]}"
             ;;
         *)
-            echo "WARN: Multiple repository entries found for ${chart_file}, skipping..."
-            echo "  ${images[@]}"
+            echo "WARN: Multiple repository entries found for ${chart}, skipping..."
+            echo "  ${images[*]}"
             continue
             ;;
     esac
