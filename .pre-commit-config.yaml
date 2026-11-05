@@ -34,7 +34,7 @@ repos:
     hooks:
       - id: markdownlint-cli2-docker
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.28.0
+    rev: v8.30.1
     hooks:
       - id: gitleaks-docker
 # Disable ansible-lint for now, as it does not pass the staged files in due to context requirements, making it extremely slow.
