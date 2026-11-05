@@ -33,4 +33,4 @@ while read -r chart; do
     sed -i "/^appVersion:/i # renovate: image=${image}" "${chart}"
 
     echo "=========="
-done < <(find ${ROOT_DIR} -name Chart.yaml)
+done < <(find "${ROOT_DIR}" -name Chart.yaml)

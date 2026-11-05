@@ -33,6 +33,6 @@ if [ ! -f wazuh-kubernetes/wazuh/certs/dashboard_http/cert.pem ]; then
   ./wazuh-kubernetes/wazuh/certs/dashboard_http/generate_certs.sh
 fi
 
-$(git rev-parse --show-toplevel)/common-deploy-kustomize.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-kustomize.sh \
     --namespace $NS \
     ${EXTRA_PARAMS}

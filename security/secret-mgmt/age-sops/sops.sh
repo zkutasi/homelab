@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AGE_KEY=$(cat ${SOPS_AGE_KEY_FILE} | grep -oP "public key: \K(.*)")
+AGE_KEY=$(cat "${SOPS_AGE_KEY_FILE}" | grep -oP "public key: \K(.*)")
 ENCRYPT_FILE=""
 MODE=decrypt-all
 FILE_TYPE="binary"
@@ -58,7 +58,7 @@ if [ "${MODE}" == "encrypt" ]; then
     sops --encrypt \
         --input-type ${FILE_TYPE} \
         --output-type ${FILE_TYPE} \
-        --age ${AGE_KEY} \
+        --age "${AGE_KEY}" \
         --output "${ENCRYPT_FILE}_encrypted" \
         "${ENCRYPT_FILE}"
 elif [ "${MODE}" == "decrypt" ]; then
@@ -70,7 +70,7 @@ elif [ "${MODE}" == "decrypt" ]; then
     sops --decrypt \
         --input-type ${FILE_TYPE} \
         --output-type ${FILE_TYPE} \
-        --age ${AGE_KEY} \
+        --age "${AGE_KEY}" \
         --output "${DECRYPT_FILE%_encrypted}" \
         "${DECRYPT_FILE}"
 elif [ "${MODE}" == "encrypt-all" ]; then
@@ -82,7 +82,7 @@ elif [ "${MODE}" == "encrypt-all" ]; then
             diff -u <(sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
+                --age "${AGE_KEY}" \
                 "${encrypted_filename}") \
                 "${decrypted_filename}" >/dev/null
             res=$?
@@ -93,7 +93,7 @@ elif [ "${MODE}" == "encrypt-all" ]; then
                 sops --encrypt \
                     --input-type ${FILE_TYPE} \
                     --output-type ${FILE_TYPE} \
-                    --age ${AGE_KEY} \
+                    --age "${AGE_KEY}" \
                     --output "${decrypted_filename}" \
                     "${decrypted_filename}"
             fi
@@ -102,11 +102,11 @@ elif [ "${MODE}" == "encrypt-all" ]; then
             sops --encrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
+                --age "${AGE_KEY}" \
                 --output "${encrypted_filename}" \
                 "${decrypted_filename}"
         fi
-    done < <(find $(git rev-parse --show-toplevel) -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
+    done < <(find "$(git rev-parse --show-toplevel)" -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
 elif [ "${MODE}" == "decrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -116,7 +116,7 @@ elif [ "${MODE}" == "decrypt-all" ]; then
             diff -u <(sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
+                --age "${AGE_KEY}" \
                 "${encrypted_filename}") \
                 "${decrypted_filename}"
             res=$?
@@ -131,11 +131,11 @@ elif [ "${MODE}" == "decrypt-all" ]; then
             sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
+                --age "${AGE_KEY}" \
                 --output "${decrypted_filename}" \
                 "${encrypted_filename}"
         fi
-    done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
 elif [ "${MODE}" == "reencrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -145,7 +145,7 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
             diff -u <(sops --decrypt \
                 --input-type ${FILE_TYPE} \
                 --output-type ${FILE_TYPE} \
-                --age ${AGE_KEY} \
+                --age "${AGE_KEY}" \
                 "${encrypted_filename}") \
                 "${decrypted_filename}" >/dev/null
             res=$?
@@ -156,14 +156,14 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
                 sops --encrypt \
                     --input-type ${FILE_TYPE} \
                     --output-type ${FILE_TYPE} \
-                    --age ${AGE_KEY} \
+                    --age "${AGE_KEY}" \
                     --output "${encrypted_filename}" \
                     "${decrypted_filename}"
             fi
         else
             echo "WARNING: Unencrypted file ${decrypted_filename} not found. Skipping re-encryption for ${encrypted_filename}."
         fi
-    done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
 elif [ "${MODE}" == "redecrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -172,10 +172,10 @@ elif [ "${MODE}" == "redecrypt-all" ]; then
         sops --decrypt \
             --input-type ${FILE_TYPE} \
             --output-type ${FILE_TYPE} \
-            --age ${AGE_KEY} \
+            --age "${AGE_KEY}" \
             --output "${decrypted_filename}" \
             "${encrypted_filename}"
-    done < <(find $(git rev-parse --show-toplevel) -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1

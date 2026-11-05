@@ -15,8 +15,8 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --chart-name ${PWD}/chart \
+"$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
+    --chart-name "${PWD}"/chart \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --type local \

@@ -13,6 +13,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-kustomize.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-kustomize.sh \
     --namespace $NS \
     ${EXTRA_PARAMS}

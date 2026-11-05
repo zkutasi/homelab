@@ -12,7 +12,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-undeploy-helm.sh \
+"$(git rev-parse --show-toplevel)"/common-undeploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}

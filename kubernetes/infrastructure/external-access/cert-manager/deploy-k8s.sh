@@ -18,7 +18,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
@@ -28,5 +28,5 @@ $(git rev-parse --show-toplevel)/common-deploy-helm.sh \
 
 kubectl create secret generic contour-internal-ca-secret \
     --namespace $NS \
-    --from-file=tls.key=${CA_DIR}/ca.key \
-    --from-file=tls.crt=${CA_DIR}/ca.crt
+    --from-file=tls.key="${CA_DIR}"/ca.key \
+    --from-file=tls.crt="${CA_DIR}"/ca.crt

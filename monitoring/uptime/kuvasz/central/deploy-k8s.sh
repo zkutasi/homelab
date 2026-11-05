@@ -17,7 +17,7 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-$(git rev-parse --show-toplevel)/common-deploy-cnpg.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-cnpg.sh \
     --app ${APP}-postgresql \
     --db-database ${APP} \
     --db-username ${APP} \
@@ -29,7 +29,7 @@ kubectl create secret generic ca-certificates \
     --from-file=cacerts=config/static/cacerts \
     --dry-run=client -o yaml | kubectl apply -f -
 
-$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \

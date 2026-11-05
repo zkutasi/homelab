@@ -25,7 +25,7 @@ if [ -n "${CLUSTERS}" ]; then
   exit 1
 fi
 
-$(git rev-parse --show-toplevel)/common-undeploy-helm.sh \
+"$(git rev-parse --show-toplevel)"/common-undeploy-helm.sh \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}

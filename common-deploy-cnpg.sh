@@ -48,18 +48,18 @@ done
 DB_SECRET_NAME="${APP}-db-password-secret"
 DB_USERNAME=${DB_USERNAME}
 DB_DATABASE=${DB_DATABASE}
-if ! $(kubectl -n $NS get secret ${DB_SECRET_NAME} &> /dev/null); then
+if ! $(kubectl -n "$NS" get secret "${DB_SECRET_NAME}" &> /dev/null); then
   if [ -z "${DB_PASSWORD}" ]; then
     echo "Generating random database password..."
     DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"
   fi
 
-  kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
-  kubectl create secret generic ${DB_SECRET_NAME} \
+  kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"
+  kubectl create secret generic "${DB_SECRET_NAME}" \
       --from-literal=username="${DB_USERNAME}" \
       --from-literal=password="${DB_PASSWORD}" \
       --type=kubernetes.io/basic-auth \
-      --namespace=$NS
+      --namespace="$NS"
 fi
 
 echo "Setting the database initialization values..."
@@ -69,10 +69,10 @@ yq -i ".cluster.initdb.owner=\"${DB_USERNAME}\"" app-postgresql-values-private.y
 yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" app-postgresql-values-private.yaml
 
 echo "Deploying the PostgreSQL database..."
-$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
+"$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
     --chart-name cnpg/cluster \
-    --release-name ${RELEASE_NAME} \
-    --namespace $NS \
+    --release-name "${RELEASE_NAME}" \
+    --namespace "$NS" \
     --repo-url ${REPO_URL_CNPG} \
     --app app-postgresql \
     ${EXTRA_PARAMS}

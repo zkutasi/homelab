@@ -45,7 +45,7 @@ done
 [ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
 
 echo "Uninstall helm chart..."
-RELEASES=$(helm -n $NS list --short)
+RELEASES=$(helm -n "$NS" list --short)
 if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
   CMD="helm uninstall ${RELEASE_NAME} \
         --namespace $NS \
@@ -60,7 +60,7 @@ else
   echo "Helm release ${RELEASE_NAME} not found in namespace ${NS}, skipping uninstall"
 fi
 
-if [ ${DELETE_NAMESPACE} -eq 1 ]; then
+if [ "${DELETE_NAMESPACE}" -eq 1 ]; then
   echo "Deleting namespace ${NS}..."
-  kubectl delete namespace $NS
+  kubectl delete namespace "$NS"
 fi

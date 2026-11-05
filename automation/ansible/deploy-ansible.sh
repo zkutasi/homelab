@@ -12,4 +12,4 @@ pipx install ansible-navigator
 pipx install ansible-builder
 
 echo "Build the execution environment..."
-ansible-builder build -vvv -f ${EE_CONFIG} -t ansible-execution-environment:latest
+ansible-builder build -vvv -f "${EE_CONFIG}" -t ansible-execution-environment:latest

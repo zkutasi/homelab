@@ -122,7 +122,7 @@ elif [ "${DEPLOYMENT_TYPE}" == "helm" ]; then
   fi
   [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for helm deployment" && exit 1
   [ -z "${RELEASE_NAME}" ] && echo "ERROR: Release name must be specified for helm deployment" && exit 1
-  REPO_NAME=$(echo ${CHART_NAME} | cut -d'/' -f1)
+  REPO_NAME=$(echo "${CHART_NAME}" | cut -d'/' -f1)
 elif [ "${DEPLOYMENT_TYPE}" == "local" ]; then
   [ -z "${CHART_NAME}" ] && echo "ERROR: Chart name must be specified for helm deployment" && exit 1
   [ -z "${NS}" ] && echo "ERROR: Namespace must be specified for helm deployment" && exit 1
@@ -137,15 +137,15 @@ if [ "${DEPLOYMENT_TYPE}" == "helm" ] && [[ "${CHART_NAME}" != "oci://"* ]]; the
   if helm repo list | grep -q "^${REPO_NAME}[[:space:]]"; then
     echo "Helm repo ${REPO_NAME} already added."
   else
-    helm repo add ${REPO_NAME} ${REPO_URL}
+    helm repo add "${REPO_NAME}" "${REPO_URL}"
   fi
   echo "Update the added helm repo..."
-  helm repo update ${REPO_NAME}
+  helm repo update "${REPO_NAME}"
 fi
 
 if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
   echo "Trying to figure out the current version..."
-  current=$(helm -n $NS get metadata ${RELEASE_NAME} | grep ^VERSION | awk '{print $NF}')
+  current=$(helm -n "$NS" get metadata "${RELEASE_NAME}" | grep ^VERSION | awk '{print $NF}')
   if [ -n "${current}" ]; then
     echo "Current version is ${current}"
     VERSION=${current}
@@ -197,9 +197,9 @@ echo "Executing command: ${CMD}"
 ${CMD}
 
 if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; }; then
-  cnpg_enabled=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg.*.enabled')
+  cnpg_enabled=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" | yq '.cnpg.*.enabled')
   if [ "${cnpg_enabled}" == "true" ]; then
-    cnpg_clustername=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg | keys | .0')
+    cnpg_clustername=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" | yq '.cnpg | keys | .0')
     echo "Deploying Prometheus rules for monitoring..."
     CMD="helm template \
       --release-name ${RELEASE_NAME}-cnpg \
@@ -220,7 +220,7 @@ if [ "${TEMPLATE}" -eq 0 ]; then
   echo "Apply additional manifests, if any..."
   if [ -d "./extra-manifests" ]; then
     while read -r line; do
-      kubectl apply -f "$line" -n $NS
+      kubectl apply -f "$line" -n "$NS"
     done < <(find ./extra-manifests -type f -name "*.yaml")
   fi
 fi

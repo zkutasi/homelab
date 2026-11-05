@@ -18,11 +18,11 @@ done
 
 kubectl create secret generic ca-certificates \
     --namespace $NS \
-    --from-file=homelab-ca.crt=${CA_DIR}/ca.crt \
+    --from-file=homelab-ca.crt="${CA_DIR}"/ca.crt \
     --dry-run=client -o yaml | kubectl apply -f -
 
-$(git rev-parse --show-toplevel)/common-deploy-helm.sh \
-    --chart-name ${PWD}/chart \
+"$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
+    --chart-name "${PWD}"/chart \
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --type local \
