@@ -1,6 +1,6 @@
 image:
   repository: caronc/apprise
-  tag: 1.5.0
+  tag: v1.5.4
   pullPolicy: IfNotPresent
 persistence:
   config:
