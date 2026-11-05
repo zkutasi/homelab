@@ -10,18 +10,16 @@
 - name: Update pipx by installing pipx in pipx
   hosts: linux-selfmanaged
   tasks:
-    - name: Check if pipx is installed locally
-      ansible.builtin.stat:
-        path: "{{ ansible_facts['user_dir'] }}/.local/bin/pipx"
-      register: pipx_stat
     - name: Bootstrap pipx
-      ansible.builtin.shell: |
-        python3 -m venv /tmp/bootstrap
-        /tmp/bootstrap/bin/pip install pipx
-        /tmp/bootstrap/bin/pipx install pipx
-        rm -rf /tmp/bootstrap
-        .local/bin/pipx ensurepath
-      when: not pipx_stat.stat.exists
+      ansible.builtin.shell:
+        cmd: |
+          set -e
+          python3 -m venv /tmp/bootstrap
+          /tmp/bootstrap/bin/pip install pipx
+          /tmp/bootstrap/bin/pipx install pipx
+          rm -rf /tmp/bootstrap
+          "$HOME/.local/bin/pipx" ensurepath
+        creates: "{{ ansible_facts['user_dir'] }}/.local/bin/pipx"
 - name: Install some pipx packages on controlserver
   hosts: controlserver
   roles:

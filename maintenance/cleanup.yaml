@@ -5,7 +5,8 @@
     docker_repo_tag_pattern: '^(.*):([^:]+)$'
     docker_version_tag_pattern: '^([vV]?[0-9]+(?:\.[0-9]+)*)(?:-.+)?$'
   tasks:
-    - name: Prune stopped containers older than grace period
+    # noqa below: ansible-lint mistakes the docker filter key `until` for the task keyword
+    - name: Prune stopped containers older than grace period  # noqa: jinja[spacing]
       community.docker.docker_prune:
         debug: true
         containers: true
