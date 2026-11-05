@@ -57,8 +57,6 @@ service:
         protocol: http
         targetPort: 9120
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

@@ -17,5 +17,3 @@ extraVolumeMounts:
   - name: ca-certificates
     mountPath: /opt/java/openjdk/lib/security/cacerts
     subPath: cacerts
-
-timezone: "Europe/Budapest"

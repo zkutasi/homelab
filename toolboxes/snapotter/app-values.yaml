@@ -21,7 +21,6 @@ service:
         port: 1349
         protocol: http
         targetPort: 1349
-TZ: Europe/Budapest
 workload:
   main:
     enabled: true

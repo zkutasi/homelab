@@ -28,7 +28,13 @@ Self-hosted collection of powerful web-based tools for everyday tasks. No ads, n
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook toolboxes/omni-tools/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

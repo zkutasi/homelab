@@ -31,7 +31,13 @@ Deploy the central GUI in the Kubernetes cluster and deploy to each Peer Host th
 
 ### Deploy the central UI
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/discovery/portracker/central/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

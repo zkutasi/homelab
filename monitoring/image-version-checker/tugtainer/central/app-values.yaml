@@ -31,8 +31,6 @@ securityContext:
     runAsUser: 33
     runAsGroup: 33
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

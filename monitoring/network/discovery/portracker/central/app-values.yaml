@@ -16,7 +16,6 @@ service:
         port: 4999
         protocol: http
         targetPort: 4999
-TZ: Europe/Budapest
 workload:
   main:
     enabled: true

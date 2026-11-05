@@ -1,14 +1,14 @@
 {
-	"data": "ENC[AES256_GCM,data:rng2vycHqpY3AilYg1xoYHIw1iIYGhqz+RH7pufDvzwhonwQlnre30Q=,iv:S2rSE3d0AGyK+osMIt/P8V8xL9xPFqSPaAk+egS0xko=,tag:4MsCnvbSAQjXj2w7oP+EDA==,type:str]",
+	"data": "ENC[AES256_GCM,data:fqa1VpJXjixhlvswwqFL6C5iUX6BNM66+SNllxevCZcVfq5Qj91VeYWu61wDsazVK8ysN0cdZSafq5ACdbBnlQ==,iv:28DgmdDpgEfAhzODArU/BZ08OdzR5a0nCa4VKLQSBuM=,tag:bMA1myrIpglplxQMloi8kA==,type:str]",
 	"sops": {
 		"age": [
 			{
 				"recipient": "age1s5u088rjv3njzdlefcq5gpd0vl4p78x4luq04zwndq2s73a4550skl492d",
-				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBsaE5jSWdPOUtzU2tzTExE\na09DSDFPZHdsSDNLcHdTREdRSytPQlRzVkNZCjMrN3lLaEFCb252TzBHQmpXemdk\nNDEvamNVeWl4dk5DdDRUb2lHNEpxZm8KLS0tIE1CNFI3cDFSM3pLbFZHbVN0SWNi\nbUlLQkhYTnZXbU9wZFJseEpVazNBeEkKw3sv17wNQ3QU28Ur3DYvhq0Ao0o5kYak\nUfKGCCEmC1TF1/ytNlV1pZtXnDeujx+QkC1LtmZ6uvzPce2xv00QjQ==\n-----END AGE ENCRYPTED FILE-----\n"
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBNZVdKcWw1eWZScnk3d2x6\nS0l3RjNvenJOcGlzKzhKUkl1dE0xV2hFQ3h3CnJmemhWMW0ybHo1YjZya3NWM0dt\neWtxQzVQODMzckl1dGJ2TUVaTjVlc2sKLS0tIFF4aDFDZncxSTVUcDNFTXFXZFR0\ncVFaQnl2dWtNaWF4RWJtMnpvWS9xcU0K74MylD+AaCjL5ClJQTX0yzQqrm8expwj\nlvvZTPun6srko0cQBpo4pGYKaPrRBWhYbXOLsMSULoM50uIlyttHcA==\n-----END AGE ENCRYPTED FILE-----\n"
 			}
 		],
-		"lastmodified": "2025-11-26T10:36:14Z",
-		"mac": "ENC[AES256_GCM,data:u1JUMszIeA37mKPcRuZQllNAvooxUiHQ0zOYqB5+N02eK+oH1So58lRbGGRUiepwbqhHFIrTXnAtp9TkHiRsCfGXYcy8CceqL+6b5rlVCQVybXChqAwlWx2zDT9OGWZHFTBA0/S/x6zRbIG0vXNoWEq87eMRYsnB2iZeGfXvgPk=,iv:QlXfQlQWFAxy4EZlmOVX+p291BjlsRpXABpOm1ZZ4L0=,tag:c6k8iildZuIb0Af4fdxBiw==,type:str]",
+		"lastmodified": "2026-11-05T08:34:20Z",
+		"mac": "ENC[AES256_GCM,data:XqGFaJJJ0WH2QyT4C/n53ZjVJJUYanzgm8N6mhCCJ1OKPvWZUiv/EDxcYCZTkH9fvItqxZ5+D9KNKAZVjlrB+kODCE5CBH7wpyVexb8xYjeka1xgzrqfp3BZhTFk3wFlePMsYanq7PznN5PUsBAbRt79a9hImXLgnAQNt9wUtoA=,iv:4EFCCsZ/WNMTZV2DcbUue3/V+I9EcN2vBCV8iyzII+Q=,tag:xRgzSnchZBudme7TchZI0g==,type:str]",
 		"unencrypted_suffix": "_unencrypted",
 		"version": "3.10.2"
 	}

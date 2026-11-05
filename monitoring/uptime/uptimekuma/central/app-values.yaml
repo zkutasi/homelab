@@ -52,8 +52,6 @@ service:
         protocol: http
         targetPort: 3001
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

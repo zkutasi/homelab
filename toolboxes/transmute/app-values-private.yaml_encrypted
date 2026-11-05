@@ -1,0 +1,15 @@
+{
+	"data": "ENC[AES256_GCM,data:gIylK+wYEPGp/JUsYgkLU6yjfb87Vw==,iv:6WTfyBvIF1aB1zMl4DpTe4qjMbsfOBZvmpY6X6s9IMQ=,tag:DPXePEkafpENsO42ARxP2g==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"recipient": "age1s5u088rjv3njzdlefcq5gpd0vl4p78x4luq04zwndq2s73a4550skl492d",
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBsK09mS3N6V3Q1WVlBNm5R\nbzVsaHFZcmVCSGhxWGJyb0pIUHhDdUM2TFdBCmNKbzlZMVlOQjMyU0VtOERvNFQ3\nTzRRZTZFZGlMZDJJUGt2TEdIQXJWcDQKLS0tIDN3Z1JDNFFNZkFhNXNWNGM3NTh1\nVHJNS0xONDFMQzhYaEN2SFV3MkFZZ0UKvq+Bz1+T3140/BGiBdopydC4BtHo2zCP\nPeRxMk1Z7hKxr2kumYMsZUtRnGd9mDst/uKiQq1l1KYeBUoO3Erekw==\n-----END AGE ENCRYPTED FILE-----\n"
+			}
+		],
+		"lastmodified": "2026-11-05T08:34:23Z",
+		"mac": "ENC[AES256_GCM,data:MRYNxVG6VsvKJqewdPZ76cj7DGKMKn/CRhpweRIOSbfdj9ia/bDZBbmRSwFqAErHP/Iz0Pv2UYQRaUWtW4I8ZyxK/D/78XOTWSwJp5YQD/MB2SumHU/I2lpY6Aznpg1ntW9RTzVWSJyb+ahOraKQyitfq2M8QyV7aY+1eiwcZ84=,iv:w94zHTj8gq++SIa5hsDi5DB/Ten6Gjf5onrlklv7pZ4=,tag:CZkaO443fFa+MDcobUpXng==,type:str]",
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.10.2"
+	}
+}

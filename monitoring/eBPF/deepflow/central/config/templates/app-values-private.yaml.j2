@@ -1,0 +1,15 @@
+global:
+  timezone: "{{ timezone }}"
+
+configmap:
+  server.yaml:
+    ingester:
+      ckdb:
+        time-zone: "{{ timezone }}"
+
+deepflow-agent:
+  timezone: "{{ timezone }}"
+
+grafana:
+  env:
+    TZ: "{{ timezone }}"

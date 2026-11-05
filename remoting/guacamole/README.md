@@ -30,7 +30,13 @@ Deployed into the Kubernetes cluster.
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook remoting/guacamole/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

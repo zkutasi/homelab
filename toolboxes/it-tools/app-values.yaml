@@ -15,7 +15,6 @@ service:
         port: 8080
         protocol: http
         targetPort: 8080
-TZ: Europe/Budapest
 workload:
   main:
     enabled: true

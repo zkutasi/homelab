@@ -10,7 +10,6 @@ service:
         port: 5000
         protocol: http
         targetPort: 5000
-TZ: Europe/Budapest
 workload:
   main:
     enabled: true

@@ -1,7 +1,5 @@
 image:
   tag: 1.25.2
 
-timezone: Europe/Budapest
-
 updateStrategy:
   type: Recreate

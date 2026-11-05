@@ -590,7 +590,7 @@ function kickstart_k8s_truecharts_local() {
       done <<< "${port_items}"
 
       echo "Processing timezone ..."
-      yq -i ".TZ = \"Europe/Budapest\"" "${APP_TARGET_DIR}/app-values.yaml"
+      yq -i ".TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
 
       echo "Processing workload ..."
       yq -i ".workload.main.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"

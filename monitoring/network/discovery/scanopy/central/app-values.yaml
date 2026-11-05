@@ -27,8 +27,6 @@ service:
         protocol: http
         targetPort: 60072
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

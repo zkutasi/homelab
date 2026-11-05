@@ -10,7 +10,6 @@ service:
         port: 45876
         protocol: http
         hostPort: 45876
-TZ: Europe/Budapest
 workload:
   main:
     enabled: true

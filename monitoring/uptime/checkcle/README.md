@@ -28,7 +28,13 @@ CheckCle is a self-hosted, open-source monitoring platform for seamless, real-ti
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/uptime/checkcle/central/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

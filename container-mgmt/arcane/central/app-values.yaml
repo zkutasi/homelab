@@ -19,8 +19,6 @@ persistence:
     mountPath: /app/data
     type: pvc
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

@@ -30,7 +30,13 @@ Deploy the central component in the Kubernetes cluster and put down agents every
 
 ### Deploy the central component
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/pulse/central/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

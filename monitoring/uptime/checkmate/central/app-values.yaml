@@ -40,8 +40,6 @@ service:
         protocol: http
         targetPort: 52345
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

@@ -42,8 +42,6 @@ service:
         protocol: http
         targetPort: 80
 
-TZ: Europe/Budapest
-
 workload:
   main:
     enabled: true

@@ -28,7 +28,13 @@ Self hosted file converter and compression tool for images, video, audio, json, 
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook toolboxes/transmute/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

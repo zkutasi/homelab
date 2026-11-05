@@ -28,7 +28,13 @@ This is a simple self hosted server that has a simple but powerful interface to 
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook toolboxes/13ft/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

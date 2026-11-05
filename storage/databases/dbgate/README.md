@@ -28,7 +28,13 @@ Database manager for MySQL, PostgreSQL, SQL Server, MongoDB, SQLite and others. 
 
 ### Deploy the app
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook storage/databases/dbgate/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh
