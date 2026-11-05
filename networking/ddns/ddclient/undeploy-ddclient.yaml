@@ -1,0 +1,8 @@
+- name: Delete ddclient
+  hosts:
+    - external
+    - backupserver
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: ddclient

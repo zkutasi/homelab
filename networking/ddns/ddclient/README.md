@@ -27,7 +27,21 @@ ddclient updates dynamic DNS entries for accounts on a wide range of dynamic DNS
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |ddns_interface|M|The network interface to check for the IP address on|
-    |ddns_aliases|M|The list of aliases to set the IP on|
+    |ddns_aliases|O|The list of aliases to set the IP on. If empty, ddclient is not deployed on that host|
+
+### Deploy the app
+
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook networking/ddns/ddclient/deploy-ddclient.yaml --no-check
+    ```
+
+### Post deployment
+
+## Metrics, Alerts, Notifications
+
+## Commands
 
 ## Notable comments
 
