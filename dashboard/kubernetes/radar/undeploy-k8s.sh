@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NS=radar
+NS=skyhook
 RELEASE_NAME=radar
 
 EXTRA_PARAMS=""
