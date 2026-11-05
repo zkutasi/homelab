@@ -10,6 +10,8 @@ ddclient updates dynamic DNS entries for accounts on a wide range of dynamic DNS
 
 ## The setup
 
+## Prerequisites
+
 ## Usage
 
 ### Ansible inventory setup

@@ -38,6 +38,8 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
 
 ### Post deployment
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

@@ -47,6 +47,8 @@ I only use the repository monitoring capabilities, as Borgmatic handles my daily
     ./common-ansible-run-playbook.sh --playbook backups/borg/borgui/configure-borgui-from-borgwarehouse.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
 ## Commands
 
 ## Notable comments

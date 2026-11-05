@@ -40,4 +40,8 @@ The Linux console version runs daily via cron on the hosts that handle disks and
     ./common-ansible-run-playbook.sh --playbook monitoring/hardware/hdsentinel/configure-hdsentinel.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
+## Commands
+
 ## Notable comments

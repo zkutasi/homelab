@@ -39,4 +39,8 @@ Kodi runs natively on the HTPC, and is started automatically on login. The autos
     ./common-ansible-run-playbook.sh --playbook media/allinone/kodi/deploy-kodi.yaml --no-check
     ```
 
+## Metrics, Alerts, Notifications
+
+## Commands
+
 ## Notable comments
