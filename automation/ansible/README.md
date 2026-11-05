@@ -96,7 +96,7 @@ winrm enumerate winrm/config/Listener
     |ansible_ssh_pass|O|If you have SSH password set, set it here, otherwise set passwordless SSH with SSH keys|
     |ansible_become_pass|O|If you have sudo password set, set it here, otherwise set up passwordless sudo first|
     |docker_cli_path|M|The path of the docker CLI on the host (e.g. `/usr/bin/docker`; elsewhere on Synology devices, where it is not on the PATH)|
-    |docker_with_sudo|M|Whether docker requires sudo to be executed (`true` on Synology NASes, `false` otherwise)|
+    |docker_with_sudo|M|Whether docker requires sudo to be executed (`false` once sudoless docker is set up, see [Docker](../../basics/docker/README.md))|
     |email_full|O|The email address used to send (and receive) notification emails|
     |email_password|O|The password of the SMTP account|
     |email_server|O|The SMTP server to send emails through|
