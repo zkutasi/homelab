@@ -11,8 +11,8 @@
     owner: "{{ item.owner | default(docker_compose_files_owner) }}"
     group: "{{ item.group | default(docker_compose_files_group) }}"
   loop: "{{ docker_compose_create_dirs }}"
-  ignore_errors: true
-  register: ignore_errors_register
+  # Containers may re-own their data folders; keep going if the owner cannot be reset
+  ignore_errors: true  # noqa: ignore-errors
   become: "{{ item.owner is defined or item.group is defined }}"
 - name: Copy any static files necessary
   ansible.builtin.copy:
@@ -24,7 +24,7 @@
     directory_mode: "{{ item.folder_mode | default('0755') }}"
   loop: "{{ docker_compose_static_files_copy }}"
   notify:
-    - Restart the docker service
+    - Recreate the docker compose project
 - name: Make sure destination dir exists for template files
   ansible.builtin.file:
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/{{ item.name | dirname }}"
@@ -43,7 +43,7 @@
     follow: true
   loop: "{{ docker_compose_template_files_copy }}"
   notify:
-    - Restart the docker service
+    - Recreate the docker compose project
 - name: Copy docker compose file
   ansible.builtin.template:
     src: "{{ docker_compose_source_basepath }}/docker-compose.yaml.j2"
@@ -52,24 +52,7 @@
     owner: "{{ docker_compose_files_owner }}"
     group: "{{ docker_compose_files_group }}"
   notify:
-    - Restart the docker service
-- name: Get the version of docker compose
-  check_mode: false
-  environment:
-    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
-  block:
-    - name: Check the version of docker compose
-      ansible.builtin.command:
-        cmd: "docker compose version"
-      register: docker_compose_version_output
-      changed_when: false
-    - name: Extract exact version
-      ansible.builtin.set_fact:
-        docker_compose_installed_version: "{{ docker_compose_version_output.stdout_lines[0]
-          | regex_search('Docker Compose version v?([0-9\\.]*)', '\\1') | first }}"
-    - name: Print out the docker compose version
-      ansible.builtin.debug:
-        var: docker_compose_installed_version
+    - Recreate the docker compose project
 - name: Gather docker compose stack state
   become: "{{ docker_with_sudo }}"
   check_mode: false
@@ -81,11 +64,11 @@
   register: compose_running
   changed_when: false
   failed_when: compose_running.rc | default(1) != 0 and not ansible_check_mode
-- name: Trigger docker restart if stack is down
+- name: Trigger stack recreation if it is down
   ansible.builtin.debug:
     msg: "Docker compose stack has no running containers"
   changed_when: true
   when: >
     compose_running.stdout_lines | default([]) | length == 0
   notify:
-    - Restart the docker service
+    - Recreate the docker compose project

@@ -1,7 +1,4 @@
-# - name: Restart the docker service
-#   ansible.builtin.debug:
-#     msg: "Handler triggered: Restarting docker-compose project {{ docker_compose_projectname }}"
-- name: Restart the docker service
+- name: Recreate the docker compose project
   become: "{{ docker_with_sudo }}"
   community.docker.docker_compose_v2:
     project_src: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"

@@ -1,20 +1,3 @@
-- name: Get the version of docker compose
-  check_mode: false
-  environment:
-    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
-  block:
-    - name: Check the version of docker compose
-      ansible.builtin.command:
-        cmd: "docker compose version"
-      register: docker_compose_version_output
-      changed_when: false
-    - name: Extract exact version
-      ansible.builtin.set_fact:
-        docker_compose_installed_version: "{{ docker_compose_version_output.stdout_lines[0]
-          | regex_search('Docker Compose version v?([0-9\\.]*)', '\\1') | first }}"
-    - name: Print out the docker compose version
-      ansible.builtin.debug:
-        var: docker_compose_installed_version
 - name: Check if docker-compose.yaml is present
   ansible.builtin.stat:
     path: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/docker-compose.yaml"
