@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: pihole-exporter
     requested_image_version:
-      pihole-exporter: "ekofr/pihole-exporter:v1.2.0"
+      pihole-exporter: "ekofr/pihole-exporter:v1.3.1"
