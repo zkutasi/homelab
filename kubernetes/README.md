@@ -55,7 +55,7 @@ So the sources to consider in preference order:
     ./common-ansible-run-playbook.sh --playbook kubernetes/configure-k8s-hosts.yaml --no-check
     ```
 
-2. The etcd database is snapshotted every night on each controller node (`etcdctl snapshot save` at 02:15, verified with `snapshot status`). Snapshots are kept for 7 days in `~/etcd-backups/` of the Ansible user, so they can be picked up from there by the regular backup clients.
+2. The etcd database is snapshotted every night on each controller node (`etcdctl snapshot save` at 02:15, verified with `snapshot status`). Snapshots are kept for 7 days in `~/etcd-backups/` of the Ansible user, locally on each controller node; they are not copied off the hosts.
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook kubernetes/backups/setup-etcd-backup.yaml --no-check
