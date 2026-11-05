@@ -57,7 +57,7 @@
   become: "{{ docker_with_sudo }}"
   check_mode: false
   environment:
-    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
+    PATH: "{{ (path_extension_list | default([]) + [ansible_env.PATH]) | join(':') }}"
   ansible.builtin.command:
     cmd: "{{ docker_cli_path }} compose ps --status running --quiet"
     chdir: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}"

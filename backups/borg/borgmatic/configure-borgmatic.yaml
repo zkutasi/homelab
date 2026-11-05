@@ -5,7 +5,7 @@
       ansible.builtin.command: "ssh-keyscan -p {{ port_borgwarehouse_ssh }} {{ backupserver_hostname }}"
       changed_when: true
       environment:
-        PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
+        PATH: "{{ (path_extension_list | default([]) + [ansible_env.PATH]) | join(':') }}"
       register: ssh_fingerprints
       until: ssh_fingerprints.rc == 0
       retries: 5
@@ -24,7 +24,7 @@
         label: "{{ item_host }} {{ item_type }}"
 - name: Initialize the repository
   environment:
-    PATH: "{{ (path_extension_list | default([]) + [lookup('env', 'PATH')]) | join(':') }}"
+    PATH: "{{ (path_extension_list | default([]) + [ansible_env.PATH]) | join(':') }}"
   hosts: backupclient
   tasks:
     - name: Docker exec borgmatic init
