@@ -196,7 +196,7 @@ fi
 echo "Executing command: ${CMD}"
 ${CMD}
 
-if [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; then
+if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; }; then
   cnpg_enabled=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg.*.enabled')
   if [ "${cnpg_enabled}" == "true" ]; then
     cnpg_clustername=$(helm -n ${NS} get values -a ${RELEASE_NAME} | yq '.cnpg | keys | .0')
