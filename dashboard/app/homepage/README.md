@@ -24,6 +24,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |homepage_emby_apikey|O|An Emby API key for the dashboard widget, generated on Emby. If not set, the widget is not shown|
     |homepage_allowed_hosts|M|Comma-separated list of the host[:port] values Homepage is opened on in the browser (e.g. `192.168.1.10:3000,dashboard.example.home`)|
+    |homepage_grimmory_password|O|The password of that Grimmory user. If not set, the widget is not shown|
+    |homepage_grimmory_username|O|A Grimmory web UI username for the dashboard widget. If not set, the widget is not shown|
     |homepage_jellyfin_apikey|O|A Jellyfin API key for the dashboard widget, generated on Jellyfin. If not set, the widget is not shown|
     |immich_api_key|O|API key for external apps to access Immich. If not set, the widget is not shown|
     |kopia_server_password|O|The above user's password. If not set, the widget is not shown|
