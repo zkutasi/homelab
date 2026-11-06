@@ -22,6 +22,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_windows_exporter|M|The port of the Windows exporter metrics endpoint on the Windows hosts|
 
 2. For each Ansible host, the following variables can be set
 

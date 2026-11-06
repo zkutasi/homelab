@@ -26,6 +26,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |bookorbit_bootstrap_token|M|A randomly generated secret|
     |bookorbit_jwt_secret|M|A randomly generated secret|
     |bookorbit_postgres_password|M|The DB password|
+    |port_bookorbit|M|The host port of the BookOrbit web UI|
+    |port_bookorbit_postgres|M|The host port of the BookOrbit PostgreSQL database|
 
 2. For each Ansible host, the following variables can be set
 

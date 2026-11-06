@@ -26,6 +26,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_cadvisor|M|The host port of the cAdvisor web UI and metrics endpoint|
 
 2. For each Ansible host, the following variables can be set
 

@@ -28,6 +28,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |speedtest_tracker_schedule|M|A cron-expression to specify how many times a test should be scheduled|
     |speedtest_tracker_app_key|M|A generated App-Key|
     |speedtest_tracker_app_url|M|The App URL used in notifications and emails|
+    |port_speedtest_tracker_http|M|The host port of the Speedtest Tracker web UI over HTTP, also serving its metrics|
+    |port_speedtest_tracker_https|M|The host port of the Speedtest Tracker web UI over HTTPS|
 
 2. For each Ansible host, the following variables can be set
 

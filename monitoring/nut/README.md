@@ -28,6 +28,7 @@ Variables that are shared more widely than this group of Apps are not listed her
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_nutserver|M|The port of the NUT server|
 
 2. For each Ansible host, the following variables can be set
 

@@ -34,6 +34,12 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_urbackup_client_commands|M|The host port of the UrBackup client commands channel (UDP)|
+    |port_urbackup_client_discovery|M|The host port of the UrBackup client discovery (UDP)|
+    |port_urbackup_client_fileserver|M|The host port of the UrBackup client file server (UDP)|
+    |port_urbackup_server_fastcgi|M|The host port of the UrBackup server FastCGI interface|
+    |port_urbackup_server_http|M|The host port of the UrBackup server web UI and API|
+    |port_urbackup_server_internet_clients|M|The host port of the UrBackup server for internet clients|
     |urbackup_password|M|The password of that UrBackup Server user|
     |urbackup_username|M|A UrBackup Server web UI username|
 

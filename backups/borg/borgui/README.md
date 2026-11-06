@@ -26,6 +26,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |borgui_username|M|The Borg UI login username|
     |borgui_password|M|The Borg UI login password (the one set after changing the default)|
+    |port_borgui|M|The host port of the Borg UI web UI|
 
 2. For each Ansible host, the following variables can be set
 

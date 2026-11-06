@@ -27,6 +27,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |beszel_password|M|Beszel password|
     |beszel_universal_token|M|The universal token to use for the agents|
     |beszel_ssh_key|M|SSH key for the agent|
+    |port_beszel|M|The port the Beszel agents listen on|
 
 2. For each Ansible host, the following variables can be set
 

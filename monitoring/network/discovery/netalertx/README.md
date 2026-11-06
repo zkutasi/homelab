@@ -29,6 +29,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |netalertx_api_token|M|API token for interacting with the service from other Apps|
     |netalertx_interface|M|The interface to scan for devices from.|
     |netalertx_subnet|M|The subnet to scan for devices.|
+    |port_netalertx|M|The host port of the NetAlertX web UI|
+    |port_netalertx_graphql|M|The host port of the NetAlertX GraphQL API, also serving its metrics|
 
 2. For each Ansible host, the following variables can be set
 

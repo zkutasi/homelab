@@ -26,6 +26,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |qbittorrent_username|M|The qBittorrent WebUI username|
     |qbittorrent_password|M|The qBittorrent WebUI password|
+    |port_qbittorrent|M|The host port of the qBittorrent web UI and API|
 
 2. For each Ansible host, the following variables can be set
 

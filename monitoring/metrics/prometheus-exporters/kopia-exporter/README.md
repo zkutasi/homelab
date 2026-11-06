@@ -23,6 +23,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |kopia_client_password|M|The password on the client side|
+    |port_kopia|M|The Kopia Server port any Server will listen on|
+    |port_kopia_exporter|M|The host port of the Kopia exporter metrics endpoint|
 
 2. For each Ansible host, the following variables can be set
 

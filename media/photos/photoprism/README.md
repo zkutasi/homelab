@@ -25,6 +25,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |photoprism_db_password|M|The password for the MariaDB|
     |photoprism_db_root_password|M|The root password for the MariaDB|
     |photoprism_admin_password|M|The initial Admin password for the app|
+    |port_photoprism|M|The host port of the PhotoPrism web UI|
 
 2. For each Ansible host, the following variables can be set
 

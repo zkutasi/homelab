@@ -31,6 +31,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |plex_token|O|The Plex authentication token (X-Plex-Token) of the server|
+    |port_plex_http|O|The port of the Plex web UI (32400 by default)|
+    |port_tautulli|M|The host port of the Tautulli web UI|
 
 2. For each Ansible host, the following variables can be set
 

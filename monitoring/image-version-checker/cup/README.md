@@ -27,6 +27,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |cup_control_server|O|The name of the cup instance that shall be the controller of the system, if any. In my case, this will be not set as the control-server will be running inside K8s|
     |cup_registries|O|A map of registries and their access tokens if a rate-limit is reached and the app starts behaving erratic due to the Unauthorized issues.|
     |cup_servers|O|A map of server names to URLs the control-server shall handle as remotes. Since the control-server runs in Kubernetes, this is not needed here.|
+    |port_cup|M|The host port of the Cup agents|
 
 2. For each Ansible host, the following variables can be set
 

@@ -26,6 +26,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |dockhand_agent_token|M|The token to securely communicate with the Agent|
     |dockhand_database_password|M|The Database password to use|
+    |port_dockhand|M|The host port of the Dockhand agents|
 
 2. For each Ansible host, the following variables can be set
 

@@ -23,6 +23,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |peanut_api_password|M|A password to protect the PeaNUT API with|
+    |port_peanut|M|The host port of the PeaNUT web UI|
 
 2. For each Ansible host, the following variables can be set
 

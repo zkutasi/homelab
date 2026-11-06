@@ -35,6 +35,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |immich_db_password|M|The postgres database password|
     |immich_api_key|M|API key for external apps to access Immich|
+    |port_immich|M|The host port of the Immich web UI|
+    |port_immich_power_tools|M|The host port of the Immich Power Tools web UI|
 
 2. For each Ansible host, the following variables can be set
 

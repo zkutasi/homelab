@@ -25,6 +25,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |borgmatic_encryption_passphrase|M|The encryption passphrase of the Borg repositories|
+    |port_borgmatic_exporter|M|The host port of the Borgmatic exporter metrics endpoint|
 
 2. For each Ansible host, the following variables can be set
 

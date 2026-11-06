@@ -26,6 +26,9 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_kr_docu_decrypt|M|The host port of the KR Docu Decrypt web UI|
+    |port_selenium|M|The port of the bundled Selenium WebDriver|
+    |port_selenium_vnc|M|The port of the bundled Selenium VNC viewer|
 
 2. For each Ansible host, the following variables can be set
 

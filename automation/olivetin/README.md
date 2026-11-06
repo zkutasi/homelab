@@ -22,6 +22,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_olivetin|M|The host port of the OliveTin web UI|
 
 2. For each Ansible host, the following variables can be set
 

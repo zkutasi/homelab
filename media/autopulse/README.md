@@ -27,6 +27,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |autopulse_emby_apikey|O|An Emby API key for Autopulse, generated on Emby. If not set, Emby is not updated|
     |autopulse_jellyfin_apikey|O|A Jellyfin API key for Autopulse, generated on Jellyfin. If not set, Jellyfin is not updated|
     |plex_token|O|The Plex authentication token (X-Plex-Token) of the server. If not set, Plex is not updated|
+    |port_autopulse|M|The host port of the Autopulse API|
 
 2. For each Ansible host, the following variables can be set
 

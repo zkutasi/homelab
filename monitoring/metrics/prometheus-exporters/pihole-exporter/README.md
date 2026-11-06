@@ -24,6 +24,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |pihole_apikey|M|The API key (app password) of the Primary Pi-hole instance, generated on its web UI|
     |pihole_secondary_apikey|O|The API key (app password) of the Secondary Pi-hole instance, if there is one|
+    |port_pihole_exporter|M|The host port of the Pi-hole exporter metrics endpoint|
+    |port_pihole_webui_https|M|The host port of the Pi-hole web UI over HTTPS|
 
 2. For each Ansible host, the following variables can be set
 

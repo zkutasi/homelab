@@ -36,6 +36,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |speedtest_tracker_api_key|O|An API token generated on the Speedtest Tracker UI. If not set, the widget is not shown|
     |urbackup_password|O|The password of that UrBackup Server user. If not set, the widget is not shown|
     |urbackup_username|O|A UrBackup Server web UI username. If not set, the widget is not shown|
+    |port_homepage|M|The host port of the Homepage web UI|
+    |port_pihole_webui_https|O|The host port of the Pi-hole web UI over HTTPS, needed together with `pihole_apikey`|
 
 2. For each Ansible host, the following variables can be set
 

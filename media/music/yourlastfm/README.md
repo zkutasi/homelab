@@ -22,6 +22,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_yourlastfm|M|The host port of the YourLastFM web UI|
     |yourlastfm_lastfm_api_key|M|A read-only last.fm API account key|
 
 2. For each Ansible host, the following variables can be set

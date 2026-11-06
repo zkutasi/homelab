@@ -25,6 +25,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |paperless_ngx_db_password|M|The Postgres database password|
     |paperless_ngx_secret_key|M|A randomly generated secret|
     |paperless_ngx_url|M|The full URL the app is reached on (e.g. `https://paperless.example.home`)|
+    |port_paperless_ngx|M|The host port of the Paperless-ngx web UI|
+    |port_paperless_ngx_postgres|M|The host port of the Paperless-ngx PostgreSQL database|
 
 2. For each Ansible host, the following variables can be set
 

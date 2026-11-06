@@ -25,6 +25,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |ntopng_redis_password|M|A randomly generated password for the bundled Redis instance|
+    |port_ntopng_redis|M|The local host port of the ntopng Redis database|
 
 2. For each Ansible host, the following variables can be set
 

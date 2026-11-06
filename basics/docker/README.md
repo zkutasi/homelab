@@ -30,6 +30,7 @@ On Synology, Docker comes from DSM; only Docker Compose is uplifted and sudoless
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_docker_daemon_metrics|M|The host port of the Docker daemon metrics endpoint|
 
 2. For each Ansible host, the following variables can be set (a common default can also go into `group_vars/all`)
 

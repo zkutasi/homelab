@@ -30,6 +30,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |alloy_beyla_enabled|O|Whether to enable Beyla's eBPF collector. Default is False|
     |alloy_beyla_geoip_enabled|O|Whether to enable Beyla's GeoIP features. Default is False|
+    |port_alloy|M|The host port of the Alloy web UI and API|
 
 2. For each Ansible host, the following variables can be set
 

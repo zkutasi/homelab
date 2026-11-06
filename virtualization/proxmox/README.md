@@ -36,6 +36,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |influxdb_admin_token|O|A randomly generated API token for the admin user|
     |influxdb_hostname|O|The hostname InfluxDB is reachable on|
+    |port_influxdb|M|The port InfluxDB is reached on (e.g. 443 behind the reverse proxy)|
+    |port_proxmox|O|The port of the Proxmox VE web UI (8006 by default)|
 
 2. For each Ansible host, the following variables can be set
 

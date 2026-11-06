@@ -24,6 +24,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |koito_apikey|O|A Koito API key, generated on the Koito UI. If not set, scrobbling to Koito is disabled|
     |koito_endpoint_url|O|The Koito endpoint URL, needed together with `koito_apikey`|
+    |port_koito|M|The host port of the Koito web UI|
 
 2. For each Ansible host, the following variables can be set
 

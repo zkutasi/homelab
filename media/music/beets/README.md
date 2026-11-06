@@ -35,6 +35,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_beets|M|The host port of the Beets web UI|
 
 2. For Music NAS host, the following variables can be set
 

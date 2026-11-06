@@ -27,6 +27,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |nutify_secret_key|M|A string to encrypt the database with|
+    |port_nutify_web|O|The port of the Nutify web UI (5050 by default)|
 
 2. For each Ansible host, the following variables can be set
 

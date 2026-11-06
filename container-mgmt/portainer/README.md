@@ -28,6 +28,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |portainer_hostname|M|The FQDN hostname of the portainer service|
     |portainer_access_token|M|An access token generated on the Portainer UI, to access its REST API|
+    |port_portainer_agent|M|The host port of the Portainer agents|
 
 2. For each Ansible host, the following variables can be set
 

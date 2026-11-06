@@ -25,6 +25,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |dockpeek_secret_key|M|A randomly generated secret|
     |dockpeek_username|M|The login username|
     |dockpeek_password|M|The login password|
+    |port_dockpeek|M|The port of the Docker socket proxy on each host that Dockpeek connects to|
 
 2. For each Ansible host, the following variables can be set
 

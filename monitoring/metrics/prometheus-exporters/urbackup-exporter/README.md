@@ -24,6 +24,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |urbackup_username|M|A UrBackup Server web UI username|
     |urbackup_password|M|The password of that UrBackup Server user|
+    |port_urbackup_exporter|M|The host port of the UrBackup exporter metrics endpoint|
+    |port_urbackup_server_http|M|The host port of the UrBackup server web UI and API|
 
 2. For each Ansible host, the following variables can be set
 

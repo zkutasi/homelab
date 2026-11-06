@@ -22,6 +22,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_smartctl_exporter|M|The host port of the smartctl exporter metrics endpoint|
 
 2. For each Ansible host, the following variables can be set
 

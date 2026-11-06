@@ -22,6 +22,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_termix|M|The host port of the Termix web UI|
+    |port_termix_guacd|M|The host port of the bundled Guacamole daemon (guacd)|
     |termix_rdp|O|If Guacd is required as well to support RDP. Default is False|
 
 2. For each Ansible host, the following variables can be set

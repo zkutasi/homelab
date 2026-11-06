@@ -42,6 +42,9 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |pihole_docker_network_3digit|M|The used docker network between Pi-hole and Unbound. Only give the first 3 digits, the last digit is not needed.|
     |pihole_secondary_address|O|The full URL to the Secondary Pi-hole instance in order to call its API|
     |pihole_apikey|M|The API key (app password) of the Primary Pi-hole instance, generated on its web UI|
+    |port_pihole_unbound|M|The host port of the bundled Unbound DNS resolver (TCP and UDP)|
+    |port_pihole_webui_http|M|The host port of the Pi-hole web UI over HTTP|
+    |port_pihole_webui_https|M|The host port of the Pi-hole web UI over HTTPS|
 
 2. For each Ansible host, the following variables can be set
 

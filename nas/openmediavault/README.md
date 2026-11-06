@@ -38,6 +38,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |omv_password|O|The password of an OMV web UI user, for API access|
     |omv_username|O|The username of an OMV web UI user, for API access|
+    |port_omv|O|The port of the OpenMediaVault web UI (80 by default)|
 
 2. For each Ansible host, the following variables can be set
 

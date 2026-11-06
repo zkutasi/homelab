@@ -26,6 +26,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |koel_db_password|M|The DB password|
     |koel_app_key|M|A Laravel encryption key|
+    |port_koel|M|The host port of the Koel web UI|
 
 2. For each Ansible host, the following variables can be set
 

@@ -27,6 +27,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |multiscrobbler_lastfm_secret|M|The LastFM API secret for MultiScrobbler|
     |koito_endpoint_url|O|The Koito endpoint URL, needed together with `koito_apikey`|
     |koito_apikey|O|A Koito API key, generated on the Koito UI. If not set, scrobbling to Koito is disabled|
+    |port_multi_scrobbler|M|The host port of the Multi-Scrobbler web UI|
 
 2. For each Ansible host, the following variables can be set
 

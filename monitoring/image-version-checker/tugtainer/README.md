@@ -24,6 +24,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_tugtainer_agent|M|The host port of the Tugtainer agents|
     |tugtainer_agent_secret|M|A randomly generated secret shared between the central component and the agents|
 
 2. For each Ansible host, the following variables can be set

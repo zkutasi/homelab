@@ -28,6 +28,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |scanopy_api_key|M|An API key for daemons to communicate with Scanopy Server|
     |scanopy_server_host|M|The host and port of the Scanopy server|
     |scanopy_database_password|M|The Postgres database password|
+    |port_scanopy_daemon|M|The host port of the Scanopy daemons|
 
 2. For each Ansible host, the following variables can be set
 

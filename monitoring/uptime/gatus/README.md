@@ -25,6 +25,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |gatus_database_password|M|The Postgres database password|
+    |port_gatus|M|The host port of the Gatus agents' web UI|
 
 2. For each Ansible host, the following variables can be set
 

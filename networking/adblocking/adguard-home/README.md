@@ -23,6 +23,10 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |adguardhome_docker_network_3digit|M|The used docker network between AdguardHome and Unbound. Only give the first 3 digits, the last digit is not needed.|
+    |port_adguardhome_init_webui_http|M|The host port of the AdGuard Home first-time setup web UI|
+    |port_adguardhome_unbound|M|The host port of the bundled Unbound DNS resolver (TCP and UDP)|
+    |port_adguardhome_webui_http|M|The host port of the AdGuard Home web UI over HTTP|
+    |port_adguardhome_webui_https|M|The host port of the AdGuard Home web UI over HTTPS|
 
 2. For each Ansible host, the following variables can be set
 

@@ -29,6 +29,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_fail2ban_exporter|M|The host port of the Fail2ban exporter metrics endpoint|
+    |port_fail2ban_geoexporter|M|The host port of the Fail2ban geo exporter metrics endpoint|
 
 2. For each Ansible host, the following variables can be set
 

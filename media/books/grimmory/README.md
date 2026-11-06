@@ -24,6 +24,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |----|------------------|-------|
     |grimmory_db_root_password|M|The DB root password|
     |grimmory_db_user_password|M|The DB user password|
+    |port_grimmory|M|The host port of the Grimmory web UI|
+    |port_grimmory_mariadb|M|The host port of the Grimmory MariaDB database|
 
 2. For each Ansible host, the following variables can be set
 

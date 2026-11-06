@@ -31,6 +31,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |komodo_api_key|M|An API key generated on the Komodo UI, to access its REST API|
     |komodo_api_secret|M|The secret generated together with that Komodo API key|
     |komodo_periphery_passkey|M|A generated passkey shared between Komodo and its Periphery agents|
+    |port_komodo_periphery|M|The host port of the Komodo Periphery agents|
 
 2. For each Ansible host, the following variables can be set
 

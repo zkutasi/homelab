@@ -46,6 +46,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on, on the backupserver host|
     |borgmatic_encryption_passphrase|M|The encryption passphrase of the Borg repositories|
     |borgwarehouse_api_key|M|An API token generated on the BorgWarehouse UI, to access its REST API|
+    |port_borgwarehouse|M|The host port of the BorgWarehouse web UI and API|
 
 2. For each Ansible host, the following variables can be set
 

@@ -22,6 +22,9 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
+    |port_caddy_api|M|The host port of the Caddy admin API, also serving its metrics|
+    |port_reverseproxy_http|M|The host port of the reverse proxy over HTTP|
+    |port_reverseproxy_https|M|The host port of the reverse proxy over HTTPS (TCP and UDP)|
 
 2. For each Ansible host, the following variables can be set
 
