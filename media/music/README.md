@@ -19,6 +19,24 @@ Music collection servers and streamers, to listen to the own music library from 
 - [Ampache](https://ampache.org/) - A web based audio/video streaming application and file manager allowing you to access your music & videos from anywhere, using almost any internet enabled device.
 - *Sonic - A free, web-based media streamer platform with a specific API. [SubSonic](https://www.subsonic.org) was the original (this went closed source), then LibreSonic was forked, after that [Airsonic](https://github.com/airsonic/airsonic) (abandoned since 2020) and [Airsonic-advanced](https://github.com/airsonic-advanced/airsonic-advanced) (again abandoned since 2020)
 
+### Scrobblers
+
+It is sometimes beneficial to have your listening taste analyzed, by forwarding what music you listen to. This is called scrobbling. The process can be set up in each of the music listening apps/servers. Then the online scrobbler website can list your favourites, lets you explore their catalog, or even recommend to you new similar artists.
+
+If a piece of software only supports the most popular scrobbler, you should use a tool that cross-scrobbles, below are some examples.
+
+- [Last.fm](https://www.last.fm/) - The original that started it all, for music
+  - [YourLastFM](https://github.com/Gomaink/your_lastfm) - Turn your Last.fm scrobbles into a complete, private dashboard.
+- [ListenBrainz](https://listenbrainz.org) - Part of the *Brainz family
+- [Libre.fm](https://libre.fm/) - A more private last.fm alternative
+- [Koito](https://koito.io/) - A modern, themeable scrobbler that you can use with any program that scrobbles to a custom ListenBrainz URL
+- [Maloja](https://github.com/krateng/maloja) - Simple self-hosted music scrobble database to create personal listening statistics. No commits since early 2025, seems abandoned.
+- [MultiScrobbler](https://github.com/FoxxMD/multi-scrobbler) - Scrobble plays from multiple sources to multiple clients
+
+### Companion apps
+
+- [Beets](https://beets.io) - Music library manager and MusicBrainz tagger. Useful to retag files so the media servers show Albums and Compilations right.
+
 ## Usage
 
 ### Ansible inventory setup
