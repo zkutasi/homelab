@@ -4,7 +4,7 @@
     - binary-install
   become: true
   vars:
-    requested_binary_repo_version: "fastfetch-cli/fastfetch:2.68.1"
+    requested_binary_repo_version: "fastfetch-cli/fastfetch:2.71.0"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: fastfetch
