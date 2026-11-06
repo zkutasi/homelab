@@ -12,7 +12,7 @@ defaults:
   colorTheme: auto
 
 services:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined %}
   - name: "{{ host }}"
     icon: "fas fa-network-wired"

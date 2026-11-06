@@ -1,4 +1,4 @@
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined and hostvars[host].exposed_services | selectattr("type", "equalto", "http") | list | length > 0 %}
 - {{ host }}:
 {% for service in hostvars[host].exposed_services %}

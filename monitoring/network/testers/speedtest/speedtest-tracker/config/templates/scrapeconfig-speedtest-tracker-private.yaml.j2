@@ -8,7 +8,7 @@ spec:
   jobName: speedtest-tracker
   metricsPath: /prometheus
   staticConfigs:
-{% for host in groups['networkmonitoring'] %}
+{% for host in groups['networkmonitoring'] | sort %}
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_speedtest_tracker_http }}"]
       labels:
         host: "{{ hostvars[host].id }}"

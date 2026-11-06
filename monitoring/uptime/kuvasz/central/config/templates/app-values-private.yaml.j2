@@ -6,7 +6,7 @@ auth:
 config:
   raw: |
     http-monitors:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
 {% if service.type == "http" %}

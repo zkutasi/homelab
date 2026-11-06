@@ -12,7 +12,7 @@ spec:
     cluster: ['1']
     node: ['1']
   staticConfigs:
-{% for host in groups['proxmox'] %}
+{% for host in groups['proxmox'] | sort %}
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_pve_exporter }}"]
       labels:
         host: "{{ hostvars[host].id }}"

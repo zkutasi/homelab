@@ -7,7 +7,7 @@ metadata:
 spec:
   jobName: qbittorrent-exporter
   staticConfigs:
-{% for host in groups['torrent'] | default([]) %}
+{% for host in groups['torrent'] | default([]) | sort %}
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_qbittorrent_exporter }}"]
       labels:
         host: "{{ hostvars[host].id }}"

@@ -14,7 +14,7 @@ configmap:
               url: "http://gatus-agent.{{ reverseproxy_internal_domain }}/api/v1/endpoints/statuses"
         metrics: true
         endpoints:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
 {% if service.type == "http" %}
@@ -48,7 +48,7 @@ configmap:
 {% endfor %}
 {% endif %}
 {% endfor%}
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined %}
 {% for service in hostvars[host].exposed_services %}
 {% if service.type == "tcp" %}
@@ -72,7 +72,7 @@ configmap:
 {% endfor %}
 {% endif %}
 {% endfor%}
-{% for host in groups['all'] | difference(groups['windows'] | default([])) %}
+{% for host in groups['all'] | difference(groups['windows'] | default([])) | sort %}
           - name: ssh-{{ host }}
             group: {{ 'k8s' if host.startswith('k8s') else host }}
             url: "ssh://{{ hostvars[host].ansible_host }}:{{ hostvars[host].ansible_port | default(22) }}"
@@ -86,7 +86,7 @@ configmap:
               - "[CONNECTED] == true"
               - "[STATUS] == 0"
 {% endfor %}
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
           - name: ping-{{ host }}
             group: {{ 'k8s' if host.startswith('k8s') else host }}
             url: "icmp://{{ hostvars[host].ansible_host }}"

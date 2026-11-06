@@ -7,7 +7,7 @@ metadata:
 spec:
   jobName: texporter
   staticConfigs:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].texporter_interface | default("") %}
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_texporter }}"]
       labels:

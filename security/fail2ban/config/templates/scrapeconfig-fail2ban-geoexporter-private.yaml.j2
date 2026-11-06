@@ -7,7 +7,7 @@ metadata:
 spec:
   jobName: fail2ban-geoexporter
   staticConfigs:
-{% for host in groups['external'] %}
+{% for host in groups['external'] | sort %}
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_fail2ban_geoexporter }}"]
       labels:
         host: "{{ hostvars[host].id }}"

@@ -5,7 +5,7 @@ configmap:
       cup.json: |
         {
             "servers": {
-{% for host in groups['docker'] %}
+{% for host in groups['docker'] | sort %}
                 "{{ hostvars[host].id }}": "http://{{ hostvars[host].ansible_host }}:{{ port_cup }}"{{ "," if not loop.last else "" }}
 {% endfor %}
             },

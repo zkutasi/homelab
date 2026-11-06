@@ -9,7 +9,7 @@ kopia:
     repositoryURL: "https://{{ backupserver_hostname }}:{{ port_kopia }}"
     fingerprint: "{{ kopia_server_fingerprint }}"
   clients:
-{% for host in groups['backupclient'] %}
+{% for host in groups['backupclient'] | sort %}
     {{ hostvars[host].inventory_hostname }}:
       hostname: "{{ hostvars[host].inventory_hostname }}"
       username: "{{ ansible_user }}"

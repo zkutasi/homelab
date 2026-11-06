@@ -3,7 +3,7 @@ storage:
   path: /data/data.db
 
 endpoints:
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].ddns_aliases is defined %}
 {% for alias in hostvars[host].ddns_aliases %}
 {% if hostvars[host].ddns_ipv4 %}

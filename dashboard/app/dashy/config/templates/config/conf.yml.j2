@@ -20,7 +20,7 @@ sections:
       #   options:
       #     hostname: https://{{ hostvars[groups['dnsserver'][0]].ansible_host }}
       #     apiKey: {{ pihole_apikey }}
-{% for host in groups['all'] %}
+{% for host in groups['all'] | sort %}
 {% if hostvars[host].exposed_services is defined %}
   - name: {{ host }}
     items:

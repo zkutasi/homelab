@@ -4,7 +4,7 @@ grafana:
 kubeEtcd:
   enabled: true
   endpoints:
-{% for host in groups['kubernetes'] | default([]) %}
+{% for host in groups['kubernetes'] | default([]) | sort %}
 {% if 'controller' in host %}
     - {{ hostvars[host].ansible_host }}
 {% endif %}
