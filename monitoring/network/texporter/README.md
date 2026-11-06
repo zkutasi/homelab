@@ -47,13 +47,19 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ## Metrics, Alerts, Notifications
 
-1. Deploy the Prometheus configs locally
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/network/texporter/k8s/generate-configuration.yaml --no-check
+    ```
+
+2. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
     ```
 
-2. Load in any of the matching Grafana dashboards
+3. Load in any of the matching Grafana dashboards
 
     - [22901](https://grafana.com/grafana/dashboards/22901-traffic-monitoring/)
 

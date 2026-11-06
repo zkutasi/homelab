@@ -36,7 +36,13 @@ Deploy it manually.
 
 ## Metrics, Alerts, Notifications
 
-1. Deploy the Prometheus configs locally
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/metrics/prometheus-exporters/windows-exporter/generate-configuration.yaml --no-check
+    ```
+
+2. Deploy the Prometheus configs locally
 
     ```bash
     ./deploy-k8s.sh
