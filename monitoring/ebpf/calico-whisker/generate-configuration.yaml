@@ -1,0 +1,19 @@
+- name: Generate dynamic configuration for Calico Whisker
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+        mode: "0755"
+    - name: Generate whisker-httpproxy from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/whisker-httpproxy-private.yaml.j2
+        dest: "extra-manifests/whisker-httpproxy-private.yaml"
+        mode: "0644"
+    - name: Generate whisker-internal-certificate from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/whisker-internal-certificate-private.yaml.j2
+        dest: "extra-manifests/whisker-internal-certificate-private.yaml"
+        mode: "0644"

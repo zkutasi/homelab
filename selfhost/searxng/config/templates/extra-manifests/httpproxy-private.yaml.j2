@@ -1,0 +1,36 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: searxng
+  name: searxng-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: searxng
+          port: 8080
+      timeoutPolicy:
+        idle: infinity
+        response: infinity
+  virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*"  # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m"  # preflight requests can be cached for 10 minutes.
+    fqdn: searxng.{{ kubernetes_internal_domain }}
+    tls:
+      secretName: searxng-cert-secret

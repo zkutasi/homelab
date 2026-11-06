@@ -1,0 +1,19 @@
+- name: Generate dynamic configuration for Linkding
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+        mode: "0755"
+    - name: Generate httpproxy from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/httpproxy-private.yaml.j2
+        dest: "extra-manifests/httpproxy-private.yaml"
+        mode: "0644"
+    - name: Generate internal-certificate from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/internal-certificate-private.yaml.j2
+        dest: "extra-manifests/internal-certificate-private.yaml"
+        mode: "0644"

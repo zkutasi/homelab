@@ -1,0 +1,15 @@
+{
+	"data": "ENC[AES256_GCM,data:tr3aQ29FWPxmI3e/rDuUY9q5qVhYiZ5e5/B+aYF+MTEnnyu8YYAJhPFOnq4wlPYXmpQAJB2Nb6XWyhwlBtzOaLG6LjznwYGiMj7U46fYgjDpWXBoWZKyQkngLC8csN/Ae1SJCpP+x5wrTmiiZ8JTU5Si5kygV9KNi/S9ly7eEcXyo2EqlKVxkf1UlvWvYmONyMFby++It77WWyBI+w4dk4I0vc55bDdDR1Ud6i2ib0fcE3T9QbIBBXgQmBGVpP7EmlT6MXJRuJYgk7Yrhf0/4lgnFDXm72pXUU8ugR74h5OSvLBihiAAQHHztpIoIUdxHTyoMIYBVIZLGgnMVTb6uiQ1eXlCc89rL9kgREqkdvw4FwubCMs4P4Dh5FlQyG0a0nUqcTdWv+lopMoJUF4XpwXcFQQ9iS09isvQB62Q/1DHpGrFE32JQZX6CpWGjVwNq0bbCSmoo0nB/UySdDKqHvXWcZK19ubEo1zfLvv/NU+YQkfRWW6wykaZ4hJyh0ckYy+rnncBsn+7xCIIPRK61D7QHxtAqutHyaPlaZsnU8hAoUuYhWC9O+GK+cvh6Tdmq5RkvQPv89bCPl1hhqpNGC63J9ulmCWnhKQbozAxxF8Hs+b2rWV1uiuCZZ2u4U1s+RGytsMQcvLGt513rcFSAGGTxeI/IwtTbGCh3abngWeRz1Cc8cTgFXQK4HvZyIXtxOXT++Fjh7LtUnyL3QJQoI8W2x7ZyW5UyOcg5YEDytASLr+7I4OSEaSDpUFQpLxJRxsXhe6eF3jg3x0JJy9pkyLnXywkUNqib61SPfgIEkeYCQdEgwcKFNDqWqFS7Aic8mU1MQw4QpqsFrTW4OJF1nLiZo31FC2/ljbp2eNUraMAmEkZhnM6FsfeDvY7+Eh2HCwUNvuyGpOw72gnjeGZEkiZnjgmUxihArtyFAHeAEgmm2Wmq+HcjKW1zJpv3d6DNbBXKuQUKJpbNz4fD2Hp5eRt4M+YLtc1PXHq8oFvw/6ZEIrSeOk5W3i29OM=,iv:vAO/6xT48L5DCRv+c4Fje/zwKbho+ZJ9FS9x770xqAQ=,tag:FYw8gwWo0qg07rvgjacXnw==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"recipient": "age1s5u088rjv3njzdlefcq5gpd0vl4p78x4luq04zwndq2s73a4550skl492d",
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBCMHlVRVhsNEYzRmRZWmhG\ndmhtMGhQaXpBNTRyMnlleEY4NXhrTzZKa3l3CmxIV2VCc2pUaThHb1pldVd5eHh2\nL0o2R1VYaWVmU0k3UUhMaDk2V0IwWHMKLS0tIG5Tbmh5bTFxU2JVWUNDblJtMFhN\nek9ENWErM0xEWGxmWGJYSWtRS0cxL2cK57mNKYwepC2xf0f24tviQJL8sIbhaj0N\nNnPVZYB6Ro0Cf0POOOwtUbqWfwnxwkHuI7imtViskJeUGFoW/pXB5A==\n-----END AGE ENCRYPTED FILE-----\n"
+			}
+		],
+		"lastmodified": "2026-11-06T14:42:36Z",
+		"mac": "ENC[AES256_GCM,data:GHnxu9tjrtoizHWUhgC7k368jqFg/ZUidW2O00S8qd8BlvPk9uz9aU7DcV0P6tAmeDe0JM6MLqzfIHNbl4iPINGjXe/uLbqBq6zv8j1p2pZuu6MvKlEzWdLEDNOrGcy4MngEaSrS98Lj90aNTETcWjW9dZVU1K7Aro1tRkveGKg=,iv:AR1rrqyxPmwCFUShrmvdLrzk7eSKnNNBie1EMKL9uUw=,tag:KjzqqvtKaqcj64sHhDko2w==,type:str]",
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.10.2"
+	}
+}

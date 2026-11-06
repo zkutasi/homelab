@@ -1,0 +1,15 @@
+{
+	"data": "ENC[AES256_GCM,data:NZ8bk9WrQxG066w07YUa3+/mll3cdSfE9ueaY4VzPB4Y4RPMJwjLM14+jwDsVro6+bUUpHTYvgqbtVl/YDp8y8jgQdEBIqbCC1iaiR5k1C/nq4YUXwi1LtiExvnUWwSABJg3atudtxdLss/Nn1kZoY49sbc8rkBSnsL6W98+/uEOhTR79C+dnWxQkO31nkqHzwADKKU6+oD3mxBlj8qKgfbczqSJCgvfBvPcs/adqgmwuaVgtivr9NdApzalQFRpQ0p3i8toLLU+P7+jQbew0Q67IIEjuo7Q15ijJ/wbb0Rj56EYvQt1FHBNMT7ZOy7yyKY3KgZ2v0Finq2y6LDdFYngkzK3frQce7mB1ISkPbzjLpdsft3hahnjVULZaiDvQ+iMu20MsVn8U0c/BHseJeV4xyuun/PlGbertt1l20xyD21xlsTIuvMuE6eR2yW0E+QnjVcNUD9Ekgnjm/w+BQp3+ofC9TNV9DeAj7AEs6Wmnr1O0UA956wiojfFggzCYfwA/s5/1AAhdHL9HZ27vae+N2g+fEyXIIuzHTLg/ABWNLlwy0z73+brteNHTbQ5vkviEMj6u7XyTKl6+Hsc2+kT4b9NhPZy+w05eaXlGOesW4a1tXPZOgxIkR5ff0pn1xElA6XgzJcpbwae9ebTBm47DhA1K4jkh62ujp4N+uFOxVO5oul6zV+LttAul1MgP2zdsaae9puf2d6lHF93BjiIu7UIAWc8U5qNuUKEUjE97W8N/TrvdGjaJ3K6T9IBZlWA6dC237oyjTIAjHYBKEMpey/nSk5sbJx81KjcmmDjnoz8SHanQN+Ns3bumIJ7D5lPdqGt2o5HHQavKU+Cbe378IGFJHSgKVB8212fY+E83E3PHEsjYXerZo2ebYgYxGRa+E083nEPiC3pxiFg0RG6EkB6mqUkU7yV4uFg3No1DPfEqMGA9dbJYdbhBrJWfOhUBFYWTsRmB7mIbA5EdVdiisD9FVCNv/EYFwxLaiG9OStIjGjXtHM2Q8IZOXDnsZlYshmeGm/Vbkr2llIKaIOV27saUl2FcA==,iv:vsvf60V1gGVmIzUOILAdmDKmt837SIcnFiokOgR0F5w=,tag:eypy+SDS+1pEpCtvtMdBdw==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"recipient": "age1s5u088rjv3njzdlefcq5gpd0vl4p78x4luq04zwndq2s73a4550skl492d",
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6a2JMeW9md3dERGpUUEMr\nRGZicm5JZDlSdVVuVjR0Y0JKdXFXLzJJYm1VCkFEdGExdHdVZmVJMjRKa3JIVDlY\nYlRrVG9pYnY1OGdKOHhlYm5SOVd4TzAKLS0tIC9HZHBEYlNmbjM3UWlwZmE4allw\nMjQ5bFdxVGFndzNGZnZmR0h0QzErdk0KMCKDYN+qrWFRJd/8c8o/SlKUjGSsE+Zc\n3h1ME6OW/FSVVJdHFPXyNnpIthrbQ3+yrqp53WjrttSCT8HcOMKZCg==\n-----END AGE ENCRYPTED FILE-----\n"
+			}
+		],
+		"lastmodified": "2026-11-06T14:42:36Z",
+		"mac": "ENC[AES256_GCM,data:1D519bWBalcd/c+6vfaishLxE100wdjZlHvs7FGuVQCEIXTSnBumHGQGzzsqrXJdtkQFysDtv7YJbc5/SnuHiqgG2ZGTf6mK9FvDcL+ozmCSaG89GMC5v0o4xgHsWqYDMKgx+8kEOIUh0XW5925IMfHyGtXPdQABwj8QeGTp71c=,iv:v1G0r8QjMNjsPpQIABNQGf8S6dlkG72R2TRB2Spc2lA=,tag:dUNLbN24Yrl3sHPPopsy8Q==,type:str]",
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.10.2"
+	}
+}

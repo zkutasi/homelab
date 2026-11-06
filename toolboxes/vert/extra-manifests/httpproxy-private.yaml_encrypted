@@ -1,0 +1,15 @@
+{
+	"data": "ENC[AES256_GCM,data:qRsIASf/Yosr6UPJAICqn3IPJ7QXcpXBGNbqlAH9fKtiDzS0QzaOY9yR9O8O2DgO3IT089cZoRyaWLma5IUMnfKFtRW3anjTjAg+sru/c4fezaqNn4DYmD5vNKackSv48lEr1eVFOY4i2OAzFsbglxeouYmR1Za8uS3huqdTJ2nrug5jqwSI3/DamMl2OurTKm5r/ti1ggx/Xplknr5kUYsROWyQM00Z2MpIyuxchSzfMIBfNiMGKgk1JsDB8nAZGL83yst4dbVB3cvHsb/nLA51FGpbnnSGUpiPqn6uzHcFTC9lkZRBMNqdNbm0omsZ2wbmPAUNzLvZ8S6h/PhI9EuoSv9JAjcD5Eef6CB6FDXrxpk+ZzklAfcWIuZUHtFu521UBBkvxygqrSgeL4+xbS/1qaPrKDpewl16Huaxv+wYnNHDYl1WxdOCcTKtAgyzQjoAtlcVcGK/gGmghDX1xtigMZIsWhqhFL5t8srkdHja6KADwE05X2GQLwcv83mf2m0kZwZdOHaotUNbNIzPkBhm79KsSp/1YXZfekQ+aq6YINNj+qLUGVilPxPwoXbYsvDTHqEsBu+VLfD5vibEOORRmMr+fj7n/ZXNyshMp47OxudI6r+gVT+dlvynXQ3OQnPWIZ+jXLMd4sre7SnE7lZ86XQBJbMUIBQPvDFRoEod+1XnlAB7zejrbRw9xccwzgGKoZE4yu//ibzSWKuX2VTFMAZaXVTVJD7BWV3Q5LroqIW6n/F1Q3uySn8zB7xJqWLgiO/R9IAGEeGmOrxdgth+jqeRQ+ANGqUhyXuBrJ0hKga+kTSixmQo8TPd9wNqz1UWjg5V2DU3/evAq8ePDJjrL5CrCIP9JSJL64ikuIGzPJN5loVvSX9BpJAvZaVGO/PbUDHfniplr4noNdv3ol7/Vdx1775DDfGBcZ7TMGzXosCbZbvYxq22ehBGw7DUSfSw71YYCJzIiBCV2M7LsICiKU2d3ToJvY/vhBqxU37oOM/WngZp1uIcR0pqOY32LVP7Ye2tvSiFrMlYWIUUPSm8,iv:bXpGMgFniXuuSdmExsxv+7pzhaxvPpXMH1DSSB0SiVU=,tag:z13l6KIj+ioc9zoEM2tuiA==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"recipient": "age1s5u088rjv3njzdlefcq5gpd0vl4p78x4luq04zwndq2s73a4550skl492d",
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFWGptU3JDemtjU2tLTW9n\nM0FyM09lTnZDQTkxV3l1b0VNTHRacWFIT3dZCkUvZFNIcnpBZ2sxR0xxdE8wSHlN\nWURWVE5zSG96WGN0OUlCSFFnYVVVYlEKLS0tIEs0SkVtYXBCUlpOWVhWZGdROUxZ\ndHVBanZFbjB5L1hrRHpQQkpIOGNIWFUKiNEbRpc9ySdVTJ+xkSICVp9QLjm5b0jh\n1fvpsaHpzYVu6TKMmXC7GhD9H+N97t1ZW1YW/OJ5XTTeuBhbg9j+uw==\n-----END AGE ENCRYPTED FILE-----\n"
+			}
+		],
+		"lastmodified": "2026-11-06T14:42:40Z",
+		"mac": "ENC[AES256_GCM,data:vapY+R9PxS85jB6Y6IN04nnV+2FbEmJ9lXSLEoW9opxVBZOgvOhl3XeBwU35fLYsoIgKEHIBH85v9V7TnbdKrIBfpjPJlbSHvkl+g1LwjQdO8SDqGm2xUaUOUXfiRyZYcoH+FhGeuELjFp72Of/5C7fmLx+Uxsh9K4spXnkkCOw=,iv:T/aS3ekzdTpeZb/8d9xG8GDvtbsCLiRr0/5X+IVvWgc=,tag:7fXdEfoyM/apzBZr3zcrWA==,type:str]",
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.10.2"
+	}
+}

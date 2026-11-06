@@ -39,7 +39,13 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Deploy the kubernetes deployment
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/allinone/alloy/k8s/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

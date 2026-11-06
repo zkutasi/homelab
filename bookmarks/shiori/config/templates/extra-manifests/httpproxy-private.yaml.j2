@@ -1,0 +1,32 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: shiori
+  name: shiori-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: shiori
+          port: 10098
+  virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*"  # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m"  # preflight requests can be cached for 10 minutes.
+    fqdn: shiori.{{ kubernetes_internal_domain }}
+    tls:
+      secretName: shiori-cert-secret

@@ -1,0 +1,33 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  labels:
+    k8s-app: dockhand
+  name: dockhand-httpproxy
+spec:
+  routes:
+    - conditions:
+        - prefix: /
+      enableWebsockets: true
+      services:
+        - name: dockhand
+          port: 3000
+  virtualhost:
+    corsPolicy:
+      allowCredentials: true
+      allowOrigin:
+        - "*"  # allows any origin
+      allowMethods:
+        - GET
+        - POST
+        - OPTIONS
+      allowHeaders:
+        - authorization
+        - cache-control
+      exposeHeaders:
+        - Content-Length
+        - Content-Range
+      maxAge: "10m"  # preflight requests can be cached for 10 minutes.
+    fqdn: dockhand.{{ kubernetes_internal_domain }}
+    tls:
+      secretName: dockhand-cert-secret

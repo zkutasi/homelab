@@ -312,6 +312,7 @@ function swap_out_templates() {
     sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${line}"
     sed -i 's|PLACEHOLDER_GUID|{{ ansible_user_gid }}|g' "${line}"
     sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${line}"
+    sed -i 's|PLACEHOLDER_KUBERNETES_DOMAIN|{{ kubernetes_internal_domain }}|g' "${line}"
     sed -i 's|PLACEHOLDER_DOCKER_SOCK|{{ docker_socket_path }}|g' "${line}"
     sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${line}"
 

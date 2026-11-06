@@ -37,19 +37,25 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Deploy the app
 
-1. Generate Goldmane and Whisker-backend TLS certs using the Typha Kubernetes CA
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/ebpf/calico-whisker/generate-configuration.yaml --no-check
+    ```
+
+2. Generate Goldmane and Whisker-backend TLS certs using the Typha Kubernetes CA
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/ebpf/calico-whisker/generate-certs.yaml --no-check
     ```
 
-2. Create the Kubernetes TLS secrets for Goldmane and Whisker-backend from these certs
+3. Create the Kubernetes TLS secrets for Goldmane and Whisker-backend from these certs
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/ebpf/calico-whisker/generate-secrets-from-certs.yaml --no-check
     ```
 
-3. Install with the provided script
+4. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

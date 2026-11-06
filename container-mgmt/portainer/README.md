@@ -36,7 +36,13 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Deploy the central component
 
-1. Install with the provided script
+1. Generate configuration from the Ansible inventory
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook container-mgmt/portainer/central/generate-configuration.yaml --no-check
+    ```
+
+2. Install with the provided script
 
     ```bash
     ./deploy-k8s.sh

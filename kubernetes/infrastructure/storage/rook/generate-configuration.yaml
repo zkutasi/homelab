@@ -1,0 +1,19 @@
+- name: Generate dynamic configuration for Rook
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Make sure extra-manifests directory exists
+      ansible.builtin.file:
+        path: extra-manifests
+        state: directory
+        mode: "0755"
+    - name: Generate dashboard-httpproxy from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/dashboard-httpproxy-private.yaml.j2
+        dest: "extra-manifests/dashboard-httpproxy-private.yaml"
+        mode: "0644"
+    - name: Generate dashboard-internal-certificate from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/dashboard-internal-certificate-private.yaml.j2
+        dest: "extra-manifests/dashboard-internal-certificate-private.yaml"
+        mode: "0644"
