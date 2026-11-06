@@ -50,42 +50,109 @@ winrm enumerate winrm/config/Listener
 ### Ansible inventory setup
 
 1. Create an inventory folder
-2. In it, create a `hosts.yaml` file, and list your hosts
-3. You can and should create groups of these hosts too
-    1. Certain groups are to select lots of hosts that are somewhat similar
-        - `docker` - All hosts that prefer dockerized apps over binaries
-        - `external` - Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.
-        - `home` - Represent machines that are fully internal, on the home network.
-        - `kubernetes` - The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)
-        - `linux` - All Linux hosts, separated from Windows ones
-        - `linux-selfmanaged` - All Linux hosts that are self-managed, so Linux machines except Synology for example
-        - `proxmox` - All the Proxmox hosts
-        - `proxmoxclusters` - The individual clusters, as some operations should not be done on all cluster Nodes
-        - `standalone` - Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.
-        - `synology` - All the Synology NAS-es, which require special care
-        - `vms` - All VMs among the hosts
-        - `windows` - All Windows hosts, they require a completely different set of roles
-    2. Certain groups are to select a role to deploy some specific Apps
-        - `backupserver` - The Backup Server that hosts all of the backups of the various hosts
-        - `backupclient` - The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)
-        - `books` - The server that stores Books
-        - `controlserver` - The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.
-        - `dashboard` - The hosts that run the app dashboards (Dashy, Glance, Homepage, etc)
-        - `dnsserver` - All of the local DNS servers like Pi-hole
-        - `documents` - The server that holds documents
-        - `emailnotifiers` - Hosts that can send emails
-        - `htpc` - The HTPC hosts that run the media servers (Emby, Jellyfin, Plex)
-        - `music` - The server that holds music files
-        - `networkmonitoring` - Host that provides Flow analysis, IDS, and various other network monitoring capabilities
-        - `nutserver` - The hosts that have a UPS attached via USB and run the NUT server
-        - `omv` - The OpenMediaVault NAS host that holds the Movies, TVShows and co.
-        - `photos` - The server that stores Photos
-        - `remotecontrolled` - The hosts that have remote controlling apps (like RustDesk)
-        - `reverseproxy` - A host used to run a reverseproxy in the whole network
-        - `smart` - Hosts that require S.M.A.R.T. data to be collected
-        - `torrent` - Hosts that run torrent clients
-4. For global variables common to all or many hosts (shared by a group for example) can go into `group_vars/all` and `group_vars/XXX` where XXX is a valid group name
-5. The following variables can be set on a host (uniquely or on a group):
+2. In it, create a `hosts.yaml` file, list your hosts, and put them into the groups below
+
+#### Host groups
+
+Groups select hosts either by their kind or by the Apps they run. Variables shared by a group can go into `group_vars/<group>`.
+
+Groups by kind of host:
+
+|Group|Description|
+|-----|-----------|
+|`docker`|All hosts that prefer dockerized apps over binaries|
+|`external`|Represent machines that are fully external. Requires special handling if networking is required towards other services on other Hosts.|
+|`home`|Represent machines that are fully internal, on the home network.|
+|`kubernetes`|The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)|
+|`linux`|All Linux hosts, separated from Windows ones|
+|`linux-selfmanaged`|All Linux hosts that are self-managed, so Linux machines except Synology for example|
+|`proxmox`|All the Proxmox hosts|
+|`proxmoxclusters`|The individual clusters, as some operations should not be done on all cluster Nodes|
+|`standalone`|Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.|
+|`synology`|All the Synology NAS-es, which require special care|
+|`vms`|All VMs among the hosts|
+|`windows`|All Windows hosts, they require a completely different set of roles|
+
+Groups by App:
+
+|Group|Description|
+|-----|-----------|
+|`backupclient`|The backup clients, those hosts that required to be backed up (install clients, set the directories, etc)|
+|`backupserver`|The Backup Server that hosts all of the backups of the various hosts|
+|`books`|The server that stores Books|
+|`controlserver`|The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.|
+|`dashboard`|The hosts that run the app dashboards (Dashy, Glance, Homepage, etc)|
+|`dnsserver`|All of the local DNS servers like Pi-hole|
+|`documents`|The server that holds documents|
+|`emailnotifiers`|Hosts that can send emails|
+|`htpc`|The HTPC hosts that run the media servers (Emby, Jellyfin, Plex)|
+|`music`|The server that holds music files|
+|`networkmonitoring`|Host that provides Flow analysis, IDS, and various other network monitoring capabilities|
+|`nutserver`|The hosts that have a UPS attached via USB and run the NUT server|
+|`omv`|The OpenMediaVault NAS host that holds the Movies, TVShows and co.|
+|`photos`|The server that stores Photos|
+|`remotecontrolled`|The hosts that have remote controlling apps (like RustDesk)|
+|`reverseproxy`|A host used to run a reverseproxy in the whole network|
+|`smart`|Hosts that require S.M.A.R.T. data to be collected|
+|`torrent`|Hosts that run torrent clients|
+
+#### User-specific variables
+
+App-specific variables are documented in each App's own README.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |discogs_user_token|O|The API token of the user's Discogs account|
+    |email_full|O|The email address used to send (and receive) notification emails|
+    |email_password|O|The password of the SMTP account|
+    |email_server|O|The SMTP server to send emails through|
+    |email_username|O|The username of the SMTP account|
+    |geoip_account_id|O|The account ID of a (free) MaxMind GeoLite2 account, to download the GeoIP databases|
+    |geoip_license_key|O|A license key of that MaxMind account|
+    |github_access_token|O|A GitHub personal access token of the user|
+    |github_homelab_repo|O|The name of the user's homelab repository on GitHub|
+    |lastfm_username|O|The user's Last.fm username|
+    |listenbrainz_token|O|The user's ListenBrainz token|
+    |listenbrainz_username|O|The user's ListenBrainz username|
+    |pushover_user|O|The Pushover user key of the account to send to|
+    |timezone|M|The timezone to be set in all containers and on the host as well|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+#### Network-specific variables
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |localdns_extra_cname_entries|O|A map of extra CNAME records, alias name to target name, both without the domain (e.g. `files: nas`)|
+    |localdns_extra_entries|O|A map of extra DNS records, name to IP address, the name without the domain (e.g. `nas: 192.168.1.5`)|
+    |network_domain|M|The local network domain all hosts and services are reachable under (e.g. `home`)|
+    |network_subnet|M|The network subnet that defines all of the machines' IP addresses, CIDR notation|
+    |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
+    |pihole_password|M|The password set up for Pi-hole, the same on both instances|
+    |reverseproxy_internal_domain|M|The common suffix of the reverseproxy domain|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |exposed_services|O|A list of the services to get exposed on the given host. Each element is a map, with keys `proxy_url_prefix` and `backend_port`|
+    |network_interface|O|The name of the host's main network interface (e.g. `eno1`)|
+
+#### Host variables
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set (a common default can also go into `group_vars/all`)
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
@@ -95,24 +162,10 @@ winrm enumerate winrm/config/Listener
     |ansible_user|M|The user to enter via SSH onto the corresponding host|
     |ansible_ssh_pass|O|If you have SSH password set, set it here, otherwise set passwordless SSH with SSH keys|
     |ansible_become_pass|O|If you have sudo password set, set it here, otherwise set up passwordless sudo first|
-    |docker_cli_path|M|The path of the docker CLI on the host (e.g. `/usr/bin/docker`; elsewhere on Synology devices, where it is not on the PATH)|
-    |docker_with_sudo|M|Whether docker requires sudo to be executed (`false` once sudoless docker is set up, see [Docker](../../basics/docker/README.md))|
-    |email_full|O|The email address used to send (and receive) notification emails|
-    |email_password|O|The password of the SMTP account|
-    |email_server|O|The SMTP server to send emails through|
-    |email_username|O|The username of the SMTP account|
-    |fstab_entries|O|A list of network shares to mount on the host|
-    |fstab_entries.src|M|The source of the share (e.g. `nas.home:/export/media`)|
-    |fstab_entries.path|M|The local mount point|
-    |fstab_entries.fstype|O|The filesystem type. Default is nfs|
-    |fstab_entries.opts|O|The mount options. Default is a set of NFS options that wait for the network and do not block the boot|
-    |geoip_account_id|O|The account ID of a (free) MaxMind GeoLite2 account, to download the GeoIP databases|
-    |geoip_license_key|O|A license key of that MaxMind account|
     |id|M|The string identifier of a corresponding host, used throughout all of the roles. Usually it is the name of the server/client/host|
-    |network_domain|M|The local network domain all hosts and services are reachable under (e.g. `home`)|
-    |network_interface|O|The name of the host's main network interface (e.g. `eno1`)|
-    |path_extension_list|O|A list of extra folders to put in front of the PATH when running docker commands (e.g. where docker compose lives on Synology)|
-    |timezone|M|The timezone to be set in all containers and on the host as well|
+    |path_extension_list|O|A list of extra folders to put in front of the PATH when running commands|
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

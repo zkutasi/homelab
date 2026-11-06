@@ -31,3 +31,19 @@ Often coupled with a DNS server, to not use public ones, and have full control o
 ### Other cool projects
 
 - [Donut Hole](https://github.com/santhoshjanan/donut-hole) - An AI-powered sidecar for Pi-hole that classifies the domains passing through your network, lets you review them, and exports a custom blocklist back to Pi-hole.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

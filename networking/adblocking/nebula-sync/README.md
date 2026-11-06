@@ -16,13 +16,13 @@ Synchronize configuration of multiple Pi-hole v6.x instances.
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
     |pihole_secondary_address|M|The full URL to the Secondary Pi-hole instance in order to call its API|
-    |pihole_password|M|The password set up for Pi-hole, the same on both instances|
 
 2. For each Ansible host, the following variables can be set
 

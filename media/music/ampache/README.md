@@ -16,6 +16,8 @@ A web based audio/video streaming application and file manager allowing you to a
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -25,13 +27,14 @@ A web based audio/video streaming application and file manager allowing you to a
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |music_mounts|O|The folders to mount into the container for music|
 
 ### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook media/music/ampache/deploy-ampache.yaml --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

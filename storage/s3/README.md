@@ -17,3 +17,19 @@ For a long time [Minio](https://www.min.io/) was the de-facto standard and nobod
 - [Zenko CloudServer](https://www.zenko.io/cloudserver) - An open-source Node.js implementation of the Amazon S3 protocol on the front-end and backend storage capabilities to multiple clouds, including Azure and Google.
 - [Apache Ozone](https://ozone.apache.org/) - Scalable, reliable, distributed storage system optimized for data analytics and object store workloads.
 - [Versity Gateway](https://www.versity.com/products/versitygw/) - A simple to deploy but feature rich S3 object storage server for your filesystem
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

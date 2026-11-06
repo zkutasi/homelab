@@ -39,3 +39,19 @@ N/A
 - [Omni Tools](https://github.com/iib0011/omni-tools) - Self-hosted collection of powerful web-based tools for everyday tasks. No ads, no tracking, just fast, accessible utilities right from your browser!
 - [IT Tools](https://github.com/CorentinTh/it-tools) - Collection of handy online tools for developers, with great UX.
 - [CyberChef](https://gchq.github.io/CyberChef/) - The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

@@ -19,3 +19,19 @@ A Network Attached Storage (NAS) system is either an OS or a set of tools to fac
 - [TrueNAS](https://www.truenas.com/) - A beast and a very versatile contender, based on the ZFS filesystem. Requires same-sized disks and expansion is not that easy as with others. TrueNAS Core focuses on NAS functionality and data integrity while TrueNAS Scale brings in Kubernetes and a plethora of Apps able to run inside of it and more cloud functionalities.
 - [Synology DSM](https://www.synology.com/en-us/dsm/) - The NAS OS from Synology, only usable on their Hardware. A very robust ecosystem with a highly customized Linux based OS, and Apps for everything, but if it is not enough, it also supports Docker Compose. One downside is the extremely customized OS as it makes life a bit harder for tinkerers, but for Novice people, it is a very easy to handle system.
 - [UnRaid](https://unraid.net/) - A NAS OS that is similar to TrueNAS, but its array is based on per-disk filesystems (XFS/Btrfs) with dedicated parity, ZFS is optional. A very big bonus is that they utilize a system where the disks can be of any size, adding one for data or parity is very easy, so scaling on-the-go is a breeze. One big downside is that it is not free: either a one-time Lifetime license, or cheaper tiers that need a paid extension for updates after the first year.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

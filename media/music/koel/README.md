@@ -18,6 +18,8 @@ A simple web-based personal audio streaming service written in Vue on the client
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -29,7 +31,6 @@ A simple web-based personal audio streaming service written in Vue on the client
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |music_mounts|O|The folders to mount into the container for music|
 
 ### Deploy the app
 
@@ -48,6 +49,8 @@ A simple web-based personal audio streaming service written in Vue on the client
     ```
 
 4. When navigating to the UI, use the default credentials of `admin@koel.dev/KoelIsCool`
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

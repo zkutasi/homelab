@@ -23,3 +23,22 @@ A good comprehensive collection of such apps can be found [on this comparison Gi
 - [PhotoPrism](https://www.photoprism.app/) - Another big contender. Search filters, maps, face recognition, auto-classification. No real mobile app, just 3rd party ones.
 - [PhotoView](https://photoview.github.io/) - Timeline view, albums, map view, face recognition. And that's it. Simple app.
 - [Piwigo](https://piwigo.org/) - Categorize, tag and handle 100k photos with ease. Does not feel like a modern app, more like those photo-sites where you look at tiny pictures with left/right arrows and lots of ads on the border.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |photos_mounts|O|The input/original photos folders, a list to mount into the container|
+    |photos_mounts.from|M|The folder on the host|
+    |photos_mounts.to|M|Where the folder appears inside the container|

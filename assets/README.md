@@ -18,3 +18,19 @@ Whether it is only for IT equipment, computer or the entire item list in the Hom
 - [Grocy](https://grocy.info/) - Grocy is a web-based self-hosted groceries & household management solution for your home.
 - [Rackula](https://count.racku.la/) - Plan your rack layout. Drag your devices in, move them around, export it. It runs in your browser. You can close the tab whenever you want.
 - [VoucherVault](https://github.com/l4rm4nd/VoucherVault) - Django web application to store and manage vouchers, coupons, loyalty and gift cards digitally
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

@@ -14,3 +14,19 @@ Everything requires passwords nowadays. Apps, banks, services, websites. Relying
 - [VaultWarden](https://github.com/dani-garcia/vaultwarden) - An alternative server implementation of the Bitwarden Client API, written in Rust and compatible with official Bitwarden clients, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal.
 - [Passbolt](https://www.passbolt.com/) - Passbolt is a free and open source password manager that allows team members to store and share credentials securely.
 - [KeepassXC](https://keepassxc.org/) - A cross-platform community-driven port of the Windows application “KeePass Password Safe”. It saves many different types of information, such as usernames, passwords, URLs, attachments, and notes in an offline, encrypted file that can be stored in any location, including private and public cloud solutions. It is just an App, no server component is there.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

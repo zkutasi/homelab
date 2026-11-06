@@ -5,6 +5,10 @@ configmap:
       config.json: |
         {
           "databases": [
+{% set portabase_dbs = (['grimmory'] if grimmory_db_user_password is defined else [])
+                     + (['paperless'] if paperless_ngx_db_password is defined else [])
+                     + (['wygiwyh'] if wygiwyh_database_password is defined else []) %}
+{% if 'grimmory' in portabase_dbs %}
             {
               "name": "grimmory",
               "database": "booklore",
@@ -14,7 +18,9 @@ configmap:
               "username": "booklore",
               "password": "{{ grimmory_db_user_password }}",
               "generated_id": "019e91f5-bc09-74df-8e9c-b71507e5452f"
-            },
+            }{{ ',' if portabase_dbs[-1] != 'grimmory' else '' }}
+{% endif %}
+{% if 'paperless' in portabase_dbs %}
             {
               "name": "paperless",
               "database": "paperless",
@@ -24,7 +30,9 @@ configmap:
               "username": "paperless",
               "password": "{{ paperless_ngx_db_password }}",
               "generated_id": "019e91f5-d4ba-7856-a12d-57b53e244c77"
-            },
+            }{{ ',' if portabase_dbs[-1] != 'paperless' else '' }}
+{% endif %}
+{% if 'wygiwyh' in portabase_dbs %}
             {
               "name": "wygiwyh",
               "database": "wygiwyh",
@@ -35,6 +43,7 @@ configmap:
               "password": "{{ wygiwyh_database_password }}",
               "generated_id": "019e9357-0423-763b-882a-721d82dcf884"
             }
+{% endif %}
           ]
         }
 workload:

@@ -6,6 +6,7 @@ Contour is a Kubernetes ingress controller using Envoy proxy.
 - [Source repository](https://github.com/projectcontour/contour)
 - [Documentation](https://projectcontour.io/docs/)
 - [Helm Chart](https://github.com/projectcontour/helm-charts/tree/main/charts/contour)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -17,6 +18,8 @@ The chosen ingress controller. Will provide access to HTTP endpoints.
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 
@@ -35,6 +38,8 @@ The chosen ingress controller. Will provide access to HTTP endpoints.
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

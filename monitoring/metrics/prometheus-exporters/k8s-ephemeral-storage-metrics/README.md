@@ -6,6 +6,7 @@ Prometheus ephemeral storage metrics exporter
 - [Source repository](https://github.com/jmcgrath207/k8s-ephemeral-storage-metrics)
 - [Documentation](https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/)
 - [Helm Chart](https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ Prometheus ephemeral storage metrics exporter
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

@@ -38,3 +38,19 @@ Often these are possible to also be used as desktop apps.
 - [Devtron](https://devtron.ai/) - The only Kubernetes dashboard you need
 - [Skyhook Radar](https://radarhq.io/) - The missing open source Kubernetes UI. Topology, event timeline, and service traffic — plus resource browsing and Helm management.
 - [Helm Dashboard](https://github.com/komodorio/helm-dashboard) - The missing UI for Helm - visualize your releases
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

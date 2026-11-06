@@ -6,6 +6,7 @@ The missing UI for Helm - visualize your releases
 - [Source repository](https://github.com/komodorio/helm-dashboard)
 - ~~Documentation~~
 - [Helm Chart](https://github.com/komodorio/helm-charts/tree/master/charts/helm-dashboard)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ The missing UI for Helm - visualize your releases
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

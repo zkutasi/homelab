@@ -6,6 +6,7 @@ A Kubernetes web UI that is fully-featured, user-friendly and extensible
 - [Source repository](https://github.com/kubernetes-sigs/headlamp)
 - [Documentation](https://headlamp.dev/docs/latest/)
 - [Helm Chart](https://github.com/kubernetes-sigs/headlamp/tree/main/charts/headlamp)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ A Kubernetes web UI that is fully-featured, user-friendly and extensible
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

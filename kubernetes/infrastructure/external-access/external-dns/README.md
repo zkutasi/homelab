@@ -6,6 +6,7 @@ Configure external DNS servers dynamically from Kubernetes resources
 - [Source repository](https://github.com/kubernetes-sigs/external-dns)
 - [Documentation](https://kubernetes-sigs.github.io/external-dns/latest/)
 - [Helm Chart](https://github.com/kubernetes-sigs/external-dns/tree/master/charts/external-dns)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -20,6 +21,8 @@ Whenever there is a HTTPProxy Contour ingress is deployed, the system checks whi
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

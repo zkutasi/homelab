@@ -16,6 +16,8 @@ This deploys a Host-wide read-only instance of the docker-socket-proxy. If anyth
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -25,13 +27,14 @@ This deploys a Host-wide read-only instance of the docker-socket-proxy. If anyth
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |docker_docker_group_id|M|The group ID (GID) of the `docker` group on the host, see `getent group docker`|
 
 ### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook basics/docker/docker-socket-proxy/readonly/deploy-docker-socket-proxy-readonly.yaml --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

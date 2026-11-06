@@ -6,6 +6,7 @@ Scalable datastore for metrics, events, and real-time analytics
 - [Source repository](https://github.com/influxdata/influxdb)
 - [Documentation](https://docs.influxdata.com/influxdb/v2/)
 - [Helm Chart](https://github.com/influxdata/helm-charts/tree/master/charts/influxdb2)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -17,6 +18,8 @@ Run InfluxDB 2.x although 3.x is out there, because of simplicity: 3.x requires 
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

@@ -19,3 +19,19 @@ Whether it is needed to Control remote Desktops, or consolidated remote SSH sess
 - [XPipe](https://xpipe.io/) - A connection hub that allows you to access your entire server infrastructure from your local desktop. Supports SSH, Docker, RDP, VNC, Tailscale, Netbird and more.
 - [NexTerm](https://github.com/gnmyt/Nexterm) - The open source server management software for SSH, VNC & RDP
 - [Shellhub](https://www.shellhub.io/) -  Get seamless remote access to any Linux device. Centralized SSH for the edge and cloud computing
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

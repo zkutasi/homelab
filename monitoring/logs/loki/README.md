@@ -6,6 +6,7 @@ Loki is a horizontally scalable, highly available, multi-tenant log aggregation 
 - [Source repository](https://github.com/grafana/loki)
 - [Documentation](https://grafana.com/docs/loki/latest/)
 - [Helm Chart](https://github.com/grafana-community/helm-charts/tree/main/charts/loki)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -17,6 +18,8 @@ Loki integrated beautifully into Grafana itself and acts as an endpoint to strea
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

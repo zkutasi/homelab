@@ -22,3 +22,19 @@ A dashboard for all the apps running, having an easy interface to navigate to th
 - [Hestia](https://hestiacp.com/) - A lightweight and powerful control panel for the modern web.
 - [LabDash](https://github.com/AnthonyGress/lab-dash) - An open-source dashboard designed to manage your server/homelab applications and services.
 - [Mafl](https://mafl.hywax.space/) - Minimalistic flexible homepage. Abandoned since 2024.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

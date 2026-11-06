@@ -16,14 +16,16 @@ automated lightweight service that updates media servers like Plex and Jellyfin 
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |autopulse_password|M|The password of the Autopulse login|
     |autopulse_username|M|The username of the Autopulse login|
-    |emby_apikey_autopulse|O|An Emby API key for Autopulse, generated on Emby. If not set, Emby is not updated|
-    |jellyfin_apikey_autopulse|O|A Jellyfin API key for Autopulse, generated on Jellyfin. If not set, Jellyfin is not updated|
+    |autopulse_emby_apikey|O|An Emby API key for Autopulse, generated on Emby. If not set, Emby is not updated|
+    |autopulse_jellyfin_apikey|O|A Jellyfin API key for Autopulse, generated on Jellyfin. If not set, Jellyfin is not updated|
     |plex_token|O|The Plex authentication token (X-Plex-Token) of the server. If not set, Plex is not updated|
 
 2. For each Ansible host, the following variables can be set

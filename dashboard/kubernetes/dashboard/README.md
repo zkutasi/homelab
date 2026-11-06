@@ -6,6 +6,7 @@ General-purpose web UI for Kubernetes clusters
 - [Source repository](https://github.com/kubernetes/dashboard)
 - ~~Documentation~~
 - [Helm Chart](https://github.com/kubernetes-retired/dashboard/tree/master/charts/kubernetes-dashboard)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ General-purpose web UI for Kubernetes clusters
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

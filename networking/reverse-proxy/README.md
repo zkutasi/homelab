@@ -20,3 +20,19 @@ A reverse proxy further helps by eliminating the need to remember port numbers: 
 - [HAProxy](https://github.com/haproxy/haproxy) - A very fast and reliable reverse-proxy offering high availability, load balancing, and proxying for TCP and HTTP-based applications.
 - [SWAG](https://www.linuxserver.io/blog/2020-08-21-introducing-swag) - A bundle from LinuxServer.IO, using Nginx, Php7, Certbot (Let's Encrypt client) and Fail2ban.
 - [Zoraxy](https://zoraxy.aroz.org/) - A good alternative for NPM, mainly a GUI reverse Proxy with additional networking features.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

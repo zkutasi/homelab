@@ -24,3 +24,19 @@ These apps provide application level monitoring, usually per app the UP/DOWN sta
 - [Cachet](https://cachethq.io/) - Cachet, the open-source self-hosted status page system. Abandoned since 2023.
 - [Kener](https://kener.ing/) - Stunning status pages, batteries included!
 - [Maintenant](https://maintenant.dev/) - Monitor everything. Manage nothing. Drop a single container. Your entire stack is monitored in seconds.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

@@ -27,6 +27,8 @@ Immich Power Tools - An unofficial immich client to provide better tools to orga
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -38,7 +40,6 @@ Immich Power Tools - An unofficial immich client to provide better tools to orga
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |photos_mounts|O|The input/original photos folders|
 
 ### Deploy the app
 
@@ -47,6 +48,8 @@ Immich Power Tools - An unofficial immich client to provide better tools to orga
 ```
 
 Then Navigate to the User Settings, and generate an API key and set it as well.
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

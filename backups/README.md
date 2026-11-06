@@ -167,7 +167,11 @@ Cons:
 - [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/) - 15$/1TB/month, no egress cost
 - [Scaleway Glacier S3](https://www.scaleway.com/en/pricing/storage/#scaleway-glacier) - 2euro/1TB/month
 
-## Ansible inventory setup
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
 
 1. Create a group called `backupserver`, and include your host to act as a backup server, hosting the backups and the server UI
 2. Create a group called `backupclient` and list all the hosts you want to take backup from, these will host the client agents
@@ -181,6 +185,7 @@ Cons:
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |backups_folder|M|The volume created on the backup server to store backups in|
+    |backups_gid|M|The Group ID Synology created for the backup group|
 
 5. For each Ansible host, the following variables can be set
 

@@ -23,6 +23,8 @@ Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whis
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -52,6 +54,8 @@ Normally, Calico Whisker requires the Calico Tigera Operator, in which case Whis
     ```bash
     ./deploy-k8s.sh
     ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

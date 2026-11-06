@@ -20,7 +20,29 @@ Proxmox Virtual Environment is a complete open-source platform for enterprise vi
 - [ProxSave](https://github.com/tis24dev/proxsave) - Backup tool for Proxmox PBS & PVE System Files with advanced features and notifications
 - [PegaProx](https://pegaprox.com/) - A powerful web-based management interface for Proxmox VE clusters. Manage multiple clusters from a single dashboard with features like live monitoring, VM management, automated tasks, and more.
 
+## The setup
+
+## Prerequisites
+
 ## Usage
+
+### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |influxdb_admin_token|O|A randomly generated API token for the admin user|
+    |influxdb_hostname|O|The hostname InfluxDB is reachable on|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+### Deploy the app
 
 - `configure-proxmox.yaml` - Proxmox specific apt repository setup (PVE 8 and 9), force IPv4 for apt, and a service working around the Intel NIC bug
 - `configure-proxmox-lm-sensors.yaml` - Install `lm-sensors` and detect the sensors on the Proxmox nodes (needed for temperature monitoring, e.g. Pulse)
@@ -33,6 +55,8 @@ Run any of them with:
 ```bash
 ./common-ansible-run-playbook.sh --playbook virtualization/proxmox/<PLAYBOOK> --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 
@@ -56,3 +80,7 @@ Run any of them with:
   Pay attention that there are dashboards that use InfluxDB but use `InfluxQL`, those will not work here, use these ones done with `Flux`.
 
   Some dashboards require a `Telegraf Collector` as well, so try to choose one that does not require such.
+
+## Commands
+
+## Notable comments

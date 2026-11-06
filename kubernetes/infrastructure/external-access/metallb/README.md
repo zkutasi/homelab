@@ -6,6 +6,7 @@ A network load-balancer implementation for Kubernetes using standard routing pro
 - [Source repository](https://github.com/metallb/metallb)
 - [Documentation](https://metallb.io/)
 - [Helm Chart](https://github.com/metallb/metallb/tree/main/charts/metallb)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -19,6 +20,8 @@ The external access of the services inside the cluster will be provided on the I
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

@@ -6,6 +6,7 @@ Use Prometheus to monitor Kubernetes and applications running on Kubernetes
 - [Source repository](https://github.com/prometheus-operator/kube-prometheus)
 - [Documentation](https://prometheus.io/docs/introduction/overview/)
 - [Helm Chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+- ~~Image repo~~
 - ~~Other sites~~
 
 Grafana - Grafana Open Source Software (OSS) enables you to query, visualize, alert on, and explore your metrics, logs, and traces wherever they’re stored. Grafana data source plugins enable you to query data sources including time series databases like Prometheus and CloudWatch, logging tools like Loki and Elasticsearch, NoSQL/SQL databases like Postgres, CI/CD tooling like GitHub, and many more. Grafana OSS provides you with tools to display that data on live dashboards with insightful graphs and visualizations.
@@ -14,6 +15,7 @@ Grafana - Grafana Open Source Software (OSS) enables you to query, visualize, al
 - [Source repository](https://github.com/prometheus-operator/kube-prometheus)
 - [Documentation](https://grafana.com/docs/grafana/latest/)
 - [Helm Chart](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+- ~~Image repo~~
 - Other sites:
   - [Dashboards](https://grafana.com/grafana/dashboards/)
 
@@ -33,6 +35,8 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -41,6 +45,9 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
     |grafana_admin_password|M|The Grafana admin password|
     |grafana_api_token|O|The token of the Viewer service account, created in the post deployment step|
     |grafana_hostname|O|The full URL Grafana is reached on (e.g. `https://grafana.example.home`)|
+    |grafana_dashboards|O|A list of the Grafana dashboards to save into the repo. If not set, no dashboards are saved|
+    |grafana_dashboards.uid|M|The UID of the dashboard, see the dashboard URL|
+    |grafana_dashboards.save_name|M|The file name to save it as, without the .json extension|
 
 2. For each Ansible host, the following variables can be set
 
@@ -74,4 +81,4 @@ The used helm chart is the `kube-prometheus-stack`, which installs the following
 ## Notable comments
 
 - For a very cool CLI-based tool for Grafana, check out [GDG (Grafana Dash-n-Grab)](https://github.com/esnet/gdg)
-- For saving Grafana dashboards into the git repo, one can use the `save-grafana-dashboards.yaml` Ansible playbook. It requires `grafana_dashboards` structure in the `all` group vars to be set: each array element has a field `uid` (get it by looking at the dashboard URL) and `save_name` (without the .json extension).
+- For saving Grafana dashboards into the git repo, one can use the `save-grafana-dashboards.yaml` Ansible playbook. It uses the optional `grafana_dashboards` structure in the `all` group vars (if not set, nothing is saved): each array element has a field `uid` (get it by looking at the dashboard URL) and `save_name` (without the .json extension).

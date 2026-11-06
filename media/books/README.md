@@ -24,3 +24,22 @@ Cataloging either EPUB or PDF books, audiobooks and making them available, searc
 ### Companion apps
 
 - [Shelfmark](https://github.com/calibrain/shelfmark) - A unified web interface for searching and aggregating books and audiobook downloads from multiple sources - all in one place. Works out of the box with popular web sources, no configuration required. Add metadata providers, additional release sources, and download clients to create a single hub for building your digital library.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |books_mounts|O|A list of the book folders to mount into the container|
+    |books_mounts.from|M|The folder on the host|
+    |books_mounts.to|M|The sub-folder name under `/books` inside the container|

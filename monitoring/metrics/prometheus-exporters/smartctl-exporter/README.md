@@ -16,6 +16,8 @@ Export smartctl statistics to prometheus
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -25,9 +27,6 @@ Export smartctl statistics to prometheus
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |disk_devices|O|A list of the disks to monitor. If not set, the exporter scans for devices itself|
-    |disk_devices.path|M|The /dev path of the disk (e.g. `/dev/sda`)|
-    |disk_devices.smartctlexporter_extra_args|O|Extra smartctl arguments for this disk (e.g. `-d sat`)|
 
 ### Deploy on the Kubernetes cluster
 

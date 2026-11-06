@@ -16,6 +16,8 @@ Scrobble plays from multiple sources to multiple clients
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -23,8 +25,6 @@ Scrobble plays from multiple sources to multiple clients
     |multiscrobbler_baseurl|M|The Callback URL used by interactive login sites|
     |multiscrobbler_lastfm_api_key|M|The LastFM API KEY for MultiScrobbler|
     |multiscrobbler_lastfm_secret|M|The LastFM API secret for MultiScrobbler|
-    |listenbrainz_token|M|The ListenBrainz token|
-    |listenbrainz_username|M|The ListenBrainz username|
     |koito_endpoint_url|O|The Koito endpoint URL, needed together with `koito_apikey`|
     |koito_apikey|O|A Koito API key, generated on the Koito UI. If not set, scrobbling to Koito is disabled|
 
@@ -38,6 +38,8 @@ Scrobble plays from multiple sources to multiple clients
 ```bash
 ./common-ansible-run-playbook.sh --playbook media/music/multi-scrobbler/deploy-multi-scrobbler.yaml --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

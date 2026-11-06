@@ -39,3 +39,19 @@ However, a Renovate + GitOps way is the better way instead:
 - [Cupdate](https://github.com/AlexGustafsson/cupdate) - For Kubernetes or docker hosts
 - [Jetstack Version Checker](https://github.com/jetstack/version-checker) - Expose the versions discovered as metrics, so a Grafana dashboard can be built around them.
 - [Keel](https://keel.sh/) - Kubernetes Operator to automate Helm, DaemonSet, StatefulSet & Deployment updates. Quite in development.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

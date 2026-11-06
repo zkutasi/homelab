@@ -6,6 +6,7 @@ The Privacy First PDF Toolkit
 - [Source repository](https://github.com/alam00000/bentopdf/)
 - [Documentation](https://www.bentopdf.com/docs/)
 - [Helm Chart](https://github.com/alam00000/bentopdf/tree/main/chart)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ The Privacy First PDF Toolkit
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

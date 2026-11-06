@@ -6,6 +6,7 @@ Portabase - Database backup & restore tool for PostgreSQL, MySQL, MsSQL, MariaDB
 - [Source repository](https://github.com/Portabase/portabase)
 - [Documentation](https://portabase.io/docs)
 - [Helm Chart](https://github.com/Portabase/portabase/tree/main/helm)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -19,6 +20,8 @@ Since I already want to expose relevant databases to be able to browse them, the
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -26,6 +29,14 @@ Since I already want to expose relevant databases to be able to browse them, the
     |portabase_url|M|The URL to access Portabase on|
     |portabase_secret|M|A randomly generated secret|
     |portabase_edge_key|M|The central server's key for the agents|
+    |grimmory_db_user_password|O|The DB user password. If not set, that database is not configured in Portabase|
+    |paperless_ngx_db_password|O|The Postgres database password. If not set, that database is not configured in Portabase|
+    |wygiwyh_database_password|O|The Postgres database password. If not set, that database is not configured in Portabase|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
 
 ### Deploy the central UI
 

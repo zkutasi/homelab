@@ -20,6 +20,8 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -37,6 +39,8 @@ Clasp requires NodeJS, so it is best to enclose it in a docker container. The co
    ```bash
    ./common-ansible-run-playbook.sh --playbook selfhost/clasp/deploy-clasp.yaml --no-check
    ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

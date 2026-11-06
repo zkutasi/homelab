@@ -18,23 +18,17 @@ There shall be one NUT Server per host that has a UPS connected. Synology device
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |nut_server_monitoring_username|M|The username of the NUT monitoring user (monuser) to create|
-    |nut_server_monitoring_password|M|The password of the NUT monitoring user|
 
 2. For each Ansible host, the following variables can be set
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |ups|O|If the host has a UPS attached, create this mapping|
-    |ups.name|M|The name of the UPS to identify|
-    |ups.driver|M|The USB driver to use. Use nut-scanner to discover the value required.|
-    |ups.vendorid|M|The UPS Vendor ID. Use nut-scanner to discover the value required.|
-    |ups.productid|M|The UPS Product ID. Use nut-scanner to discover the value required.|
-    |ups.desc|M|The UPS description|
 
 ### Deploy the app
 

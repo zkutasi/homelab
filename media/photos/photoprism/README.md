@@ -16,6 +16,8 @@ AI-Powered Photos App
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -28,13 +30,14 @@ AI-Powered Photos App
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |photos_mounts|O|The input/original photos folders|
 
 ### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook media/photos/photoprism/deploy-photoprism.yaml --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

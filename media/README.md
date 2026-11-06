@@ -76,3 +76,19 @@ If a piece of software only supports the most popular scrobbler, you should use 
 - [Trakt](https://trakt.tv) - Track Movies, TVShows watched state back and forth from Apps.
 - [SIMKL](https://simkl.com/) - Track TV, Movies, Anime. Supports all services and platforms. A more modern, better alternative.
 - [Crosswatch](https://github.com/cenodude/CrossWatch) - Synchronize your data across media servers, media agents and trackers. Keep your movies and shows in sync, no matter where you watch.
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

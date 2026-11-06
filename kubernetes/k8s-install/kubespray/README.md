@@ -21,6 +21,8 @@ Opted for a 3master + 3worker setup, virtualized under Proxmox. This gives me HA
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 Kubespray requires an inventory to identify what to do with the Nodes, which roles they are intended to be running. The inventory is best to be created from the sample inventory from the git repo (see later).
 
 ### Install

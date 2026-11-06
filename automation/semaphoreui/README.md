@@ -23,12 +23,14 @@ The homelab has a bunch of Ansible playbooks. Some of them require scheduled exe
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |semaphore_username|M|The username of the admin user to create|
-    |semaphore_password|M|The password of the admin user|
+    |semaphoreui_username|M|The username of the admin user to create|
+    |semaphoreui_password|M|The password of the admin user|
 
 2. For each Ansible host, the following variables can be set
 

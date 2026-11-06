@@ -29,23 +29,25 @@ The used plugins are:
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |discogs_user_token|M|The API token to query Discogs|
 
 2. For Music NAS host, the following variables can be set
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |music_mounts|O|The folders to mount into the container for music|
 
 ### Deploy the app
 
 ```bash
 ./common-ansible-run-playbook.sh --playbook media/music/beets/deploy-beets.yaml --no-check
 ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

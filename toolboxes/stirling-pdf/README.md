@@ -6,6 +6,7 @@ No1 PDF Application on GitHub that lets you edit PDFs on any device anywhere
 - [Source repository](https://github.com/Stirling-Tools/Stirling-PDF)
 - [Documentation](https://docs.stirlingpdf.com/)
 - [Helm Chart](https://github.com/Stirling-Tools/Stirling-PDF-chart)
+- ~~Image repo~~
 - ~~Other sites~~
 
 ## The setup
@@ -15,6 +16,8 @@ No1 PDF Application on GitHub that lets you edit PDFs on any device anywhere
 ## Usage
 
 ### Ansible inventory setup
+
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
 
 1. Add the following variables into the `all` group_vars file:
 

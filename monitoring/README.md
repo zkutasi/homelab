@@ -107,6 +107,25 @@ Linux has to be up-to-date, these tools make it obvious if they are lagging behi
 - [NetAlertX](https://netalertx.com/) - Centralized network visibility and continuous asset discovery. Monitor devices, detect change, and stay aware across distributed networks.
 - [Scrutiny](https://github.com/analogj/scrutiny/pkgs/container/scrutiny) - A S.M.A.R.T. checker, that also correlates data from BackBlaze to predict HDD issues. Project seems to be abandoned on the release-side, but the images are updated regularly. Pretty interesting metrics, although extremely unreliable.
 
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |disk_devices|O|A list of the disks (the /dev devices) of the host to monitor|
+    |disk_devices.path|M|The /dev path of the disk (e.g. `/dev/sda`)|
+    |disk_devices.smartctlexporter_extra_args|O|Extra smartctl arguments for this disk (e.g. `-d sat`)|
+
 ## Notable comments
 
 - To properly have per-container cgroup reported memory, one needs to edit the file `/boot/firmware/cmdline.txt` and add `cgroup_memory=1 cgroup_enable=memory` to enable this feature.

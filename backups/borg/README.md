@@ -36,6 +36,8 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -43,6 +45,7 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
     |borgwarehouse_cronjob_key|M|A Secret key generated via `openssl rand -base64 32` for example|
     |port_borgwarehouse_ssh|M|The SSH port the borg server will listen on, on the backupserver host|
     |borgmatic_encryption_passphrase|M|The encryption passphrase of the Borg repositories|
+    |borgwarehouse_api_key|M|An API token generated on the BorgWarehouse UI, to access its REST API|
 
 2. For each Ansible host, the following variables can be set
 
@@ -57,7 +60,6 @@ Then all client hosts need a Borgmatic docker container as well, even the backup
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |backups_gid|M|The Group ID Synology created for the backup group|
 
 ### Deploy Borgwarehouse (GUI)
 
@@ -106,6 +108,8 @@ When finished go to the Borgwarehouse UI and
 
 1. Add the backupserver's SSH key to each client's known_host file
 2. Init the borg repo from the client side, which requires proper SSH connection to the server
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

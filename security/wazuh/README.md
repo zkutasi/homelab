@@ -18,6 +18,8 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -45,6 +47,8 @@ Run the dashboard and the data-stack in Kubernetes, and install the agents into 
     ```bash
     ./common-ansible-run-playbook.sh --playbook security/wazuh/agents/deploy-wazuh-agent.yaml --no-check
     ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

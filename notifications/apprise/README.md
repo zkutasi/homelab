@@ -27,20 +27,17 @@ If a service does not support Apprise, it might support Ntfy or Gotify or Pushov
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |apprise_api_hostname|M|The Apprise API hostname to configure the notification architecture with|
-    |apprise_target_key|M|The apprise endpoint that identifies the configuration to use for the whole notification pipeline|
-    |pushover_user|O|The Pushover user key of the account to send to|
 
 2. For each Ansible host, the following variables can be set
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |gotify_token|O|The app token for Gotify to identify the host in the notifications|
-    |pushover_token|O|The app token for Pushover to identify the host in the notifications|
 
 ### Deploy the app
 

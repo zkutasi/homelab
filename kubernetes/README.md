@@ -47,6 +47,24 @@ So the sources to consider in preference order:
     - [KCL](https://github.com/kcl-lang/kcl) - Check the [comparison Wiki](https://www.kcl-lang.io/docs/user_docs/getting-started/intro) for a good explanation of these various languages. Also has a [CLI toolset](https://github.com/kcl-lang/cli)
 4. [Artifact Hub](https://artifacthub.io/) - Like Docker Hub, but for Helm Charts, from anyone
 
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+    |kubernetes_ingress_ips|M|The list of IP addresses handed out to the services exposed from the Kubernetes cluster|
+    |kubernetes_internal_domain|M|The domain suffix of the services exposed from the Kubernetes cluster (e.g. `kubernetes.home`)|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
 ## Extra settings
 
 1. KubeSpray is used to setup the cluster and install some basic tools, but there are some things that the setup is not doing.

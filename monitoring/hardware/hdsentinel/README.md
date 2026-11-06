@@ -20,6 +20,8 @@ The Linux console version runs daily via cron on the hosts that handle disks and
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
@@ -30,7 +32,6 @@ The Linux console version runs daily via cron on the hosts that handle disks and
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |hdsentinel_dir|M|The folder holding the HDSentinel binary and its HTML report|
-    |network_subnet|M|The network subnet that defines all of the machines' IP addresses, CIDR notation|
 
 ### Deploy the app
 
@@ -39,6 +40,8 @@ The Linux console version runs daily via cron on the hosts that handle disks and
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/hardware/hdsentinel/configure-hdsentinel.yaml --no-check
     ```
+
+### Post deployment
 
 ## Metrics, Alerts, Notifications
 

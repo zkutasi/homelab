@@ -23,3 +23,19 @@ These applications can manage docker containers, docker-compose stacks or even d
 - [DockPeek](https://github.com/dockpeek/dockpeek) - Easily access your Docker container web interfaces and keep them up to date — across all your hosts.
 - [Sencho](https://sencho.io/) - Self-hosted Docker Compose management platform. For single or multi-host compose-first workflow.
 - [Arcane](https://getarcane.app/) - Modern Docker Management, Designed for Everyone
+
+## Usage
+
+### Ansible inventory setup
+
+Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.
+
+1. Add the following variables into the `all` group_vars file:
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|
+
+2. For each Ansible host, the following variables can be set
+
+    |Name|Mandatory/Optional|Details|
+    |----|------------------|-------|

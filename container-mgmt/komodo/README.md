@@ -20,12 +20,17 @@ Run the Komodo server in Kubernetes and attach into the remote Docker hosts via 
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |komodo_hostname|M|The FQDN hostname of the komodo service, to access the REST API|
     |komodo_database_password|M|The database password|
+    |komodo_api_key|M|An API key generated on the Komodo UI, to access its REST API|
+    |komodo_api_secret|M|The secret generated together with that Komodo API key|
+    |komodo_periphery_passkey|M|A generated passkey shared between Komodo and its Periphery agents|
 
 2. For each Ansible host, the following variables can be set
 

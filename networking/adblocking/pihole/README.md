@@ -33,16 +33,15 @@ This Unbound instance is configured in Recursive mode.
 
 ### Ansible inventory setup
 
+Variables that are shared by several Apps are not listed here, but in the more generic README files higher up in the folder structure, that cover all Apps or a whole group of Apps. Only the variables specific to this App are listed below.
+
 1. Add the following variables into the `all` group_vars file:
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |pihole_password|M|The password set up for Pi-hole|
     |pihole_docker_network_3digit|M|The used docker network between Pi-hole and Unbound. Only give the first 3 digits, the last digit is not needed.|
-    |pihole_address|M|The full URL to the Primary Pi-hole instance in order to call its API|
     |pihole_secondary_address|O|The full URL to the Secondary Pi-hole instance in order to call its API|
-    |localdns_extra_cname_entries|O|A map of extra CNAME records, alias name to target name, both without the domain (e.g. `files: nas`)|
-    |localdns_extra_entries|O|A map of extra DNS records, name to IP address, the name without the domain (e.g. `nas: 192.168.1.5`)|
+    |pihole_apikey|M|The API key (app password) of the Primary Pi-hole instance, generated on its web UI|
 
 2. For each Ansible host, the following variables can be set
 
