@@ -1,4 +1,4 @@
-{% if ddns_ipv6 %}
+{% if ddns_ipv6 | default(true) %}
 allow-ipv6          = true
 {% endif %}
 iface               = {{ ddns_interface }}
@@ -7,7 +7,7 @@ verify-address      = false
 
 {% if ddns_aliases | length > 0 %}
 {% for alias in ddns_aliases %}
-{% if ddns_ipv4 %}
+{% if ddns_ipv4 | default(true) %}
 custom dynu-{{ alias }}-ipv4 {
     checkip-command = "ip -4 addr show {{ ddns_interface }} | grep inet | awk -F '[ \t]+|/' '{print $3}'"
     ddns-server     = api.dynu.com
@@ -17,7 +17,7 @@ custom dynu-{{ alias }}-ipv4 {
     username        = {{ ddns_username }}
 }
 {% endif %}
-{% if ddns_ipv6 %}
+{% if ddns_ipv6 | default(true) %}
 custom dynu-{{ alias }}-ipv6 {
     checkip-command = "ip -6 addr show {{ ddns_interface }} | grep inet6 | egrep -v 'temporary|secondary|deprecated' | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80"
     ddns-server     = api.dynu.com
