@@ -3,7 +3,7 @@
   roles:
     - binary-install
   vars:
-    requested_binary_repo_version: "kubescape/kubescape:4.0.9"
+    requested_binary_repo_version: "kubescape/kubescape:4.0.20"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: kubescape
