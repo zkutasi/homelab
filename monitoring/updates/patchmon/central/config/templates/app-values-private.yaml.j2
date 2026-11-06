@@ -12,5 +12,7 @@ workload:
             REDIS_PASSWORD: {{ patchmon_redis_password }}
             DB_PASSWORD: {{ patchmon_database_password }}
             JWT_SECRET: {{ patchmon_jwt_secret }}
+            CORS_ORIGIN: https://patchmon.{{ kubernetes_internal_domain }}
+            SERVER_HOST: patchmon.{{ kubernetes_internal_domain }}
 
 TZ: "{{ timezone }}"

@@ -6,8 +6,8 @@
   vars:
     hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
-      - omv.home
-      - synology216.home
+      - "omv.{{ network_domain }}"
+      - "synology216.{{ network_domain }}"
 - name: Set up /etc/hosts for monitoring
   hosts:
     - standalone
@@ -19,13 +19,13 @@
   vars:
     hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
-      - loki.kubernetes.home
-      - prometheus.kubernetes.home
-      - influxdb.kubernetes.home
-      - pulse.kubernetes.home
-      - beszel.kubernetes.home
-      - grafana.kubernetes.home
-      - patchmon.kubernetes.home
+      - "loki.{{ kubernetes_internal_domain }}"
+      - "prometheus.{{ kubernetes_internal_domain }}"
+      - "influxdb.{{ kubernetes_internal_domain }}"
+      - "pulse.{{ kubernetes_internal_domain }}"
+      - "beszel.{{ kubernetes_internal_domain }}"
+      - "grafana.{{ kubernetes_internal_domain }}"
+      - "patchmon.{{ kubernetes_internal_domain }}"
 - name: Set up /etc/hosts for ansible
   hosts: controlserver
   become: true
@@ -34,7 +34,7 @@
   vars:
     hosts_dns_server: "@{{ hostvars[groups['dnsserver'][0]].ansible_host }}"
     hosts_entries:
-      - komodo.kubernetes.home
-      - portainer.kubernetes.home
-      - portracker.kubernetes.home
-      - beszel.kubernetes.home
+      - "komodo.{{ kubernetes_internal_domain }}"
+      - "portainer.{{ kubernetes_internal_domain }}"
+      - "portracker.{{ kubernetes_internal_domain }}"
+      - "beszel.{{ kubernetes_internal_domain }}"

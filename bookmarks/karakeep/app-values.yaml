@@ -26,7 +26,6 @@ workload:
           enabled: true
           env:
             DATA_DIR: /data
-            NEXTAUTH_URL: https://karakeep.kubernetes.home
           probes:
             liveness:
               enabled: false

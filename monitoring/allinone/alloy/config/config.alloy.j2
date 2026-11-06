@@ -10,7 +10,7 @@ logging {
 loki.write "default" {
   endpoint {
     tenant_id = "Home"
-    url = "https://loki.kubernetes.home:443/loki/api/v1/push"
+    url = "https://loki.{{ kubernetes_internal_domain }}:443/loki/api/v1/push"
     tls_config {
       insecure_skip_verify = true
     }
@@ -19,7 +19,7 @@ loki.write "default" {
 
 prometheus.remote_write "default" {
   endpoint {
-    url = "https://prometheus.kubernetes.home:443/api/v1/write"
+    url = "https://prometheus.{{ kubernetes_internal_domain }}:443/api/v1/write"
     tls_config {
       insecure_skip_verify = true
     }

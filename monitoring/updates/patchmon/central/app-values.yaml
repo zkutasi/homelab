@@ -54,7 +54,6 @@ workload:
         backend:
           enabled: true
           env:
-            CORS_ORIGIN: https://patchmon.kubernetes.home
             DATABASE_URL:
               secretKeyRef:
                 name: cnpg-main-urls
@@ -67,7 +66,6 @@ workload:
                 name: patchmon-rediscreds
                 key: redis-password
                 expandObjectName: false
-            SERVER_HOST: patchmon.kubernetes.home
             SERVER_PORT: 80
             SERVER_PROTOCOL: http
           imageSelector: backendImage

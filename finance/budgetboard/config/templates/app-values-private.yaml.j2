@@ -1,5 +1,12 @@
 cnpg:
   main:
     password: {{ budgetboard_database_password }}
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            VITE_BUDGET_BOARD_DOMAIN: budgetboard.{{ kubernetes_internal_domain }}
 
 TZ: "{{ timezone }}"

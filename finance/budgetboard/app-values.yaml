@@ -80,7 +80,6 @@ workload:
           env:
             PORT: 6253
             VITE_SERVER_ADDRESS: budgetboard-server
-            VITE_BUDGET_BOARD_DOMAIN: budgetboard.kubernetes.home
           imageSelector: clientImage
           probes:
             liveness:

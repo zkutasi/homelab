@@ -3,4 +3,4 @@ server:
     - name: TZ
       value: "{{ timezone }}"
     - name: PULSE_PUBLIC_URL
-      value: http://pulse.kubernetes.home
+      value: http://pulse.{{ kubernetes_internal_domain }}

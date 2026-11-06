@@ -11,7 +11,7 @@ configmap:
         remote:
           instances:
             - endpoint-prefix: ""
-              url: "http://gatus-agent.internal.home/api/v1/endpoints/statuses"
+              url: "http://gatus-agent.{{ reverseproxy_internal_domain }}/api/v1/endpoints/statuses"
         metrics: true
         endpoints:
 {% for host in groups['all'] %}
