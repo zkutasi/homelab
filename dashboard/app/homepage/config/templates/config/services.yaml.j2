@@ -18,12 +18,12 @@
       icon: {{ service_icon_url }}
       href: {{ domain }}
       siteMonitor: {{ domain }}
-{% if service.name == "grimmory" and homepage_grimmory_username is defined %}
+{% if service.name == "grimmory" and grimmory_username is defined %}
       widget:
         type: booklore
         url: {{ domain }}
-        username: {{ homepage_grimmory_username }}
-        password: {{ homepage_grimmory_password }}
+        username: {{ grimmory_username }}
+        password: {{ grimmory_password }}
 {% elif service.name == "emby" and homepage_emby_apikey is defined %}
       widget:
         type: emby
