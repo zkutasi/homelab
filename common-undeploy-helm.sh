@@ -44,6 +44,13 @@ done
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 [ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
 
+echo "Delete additional manifests, if any..."
+if [ -d "./extra-manifests" ]; then
+  while read -r line; do
+    kubectl delete -f "$line" -n "$NS" --ignore-not-found
+  done < <(find ./extra-manifests -type f -name "*.yaml")
+fi
+
 echo "Uninstall helm chart..."
 RELEASES=$(helm -n "$NS" list --short)
 if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
