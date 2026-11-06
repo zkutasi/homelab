@@ -10,4 +10,4 @@ services:
     restart: unless-stopped
     volumes:
       - {{ docker_socket_path }}:/var/run/docker.sock
-      - {{ docker_lib_path }}/volumes:/var/lib/docker/volumes
+      - {{ docker_data_root }}/volumes:/var/lib/docker/volumes

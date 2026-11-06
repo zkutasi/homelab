@@ -9,7 +9,7 @@ docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
 docker_compose_static_files_copy: []
 docker_compose_template_files_copy: []
 docker_socket_path: /var/run/docker.sock
-docker_lib_path: /var/lib/docker
+docker_data_root: /var/lib/docker
 
 is_slave_mount_allowed: true
 
