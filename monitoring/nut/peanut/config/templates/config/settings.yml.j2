@@ -1,5 +1,5 @@
 NUT_SERVERS:
-  - HOST: {{ hostvars[groups['nutserver'][0]].ansible_host }}
+  - HOST: {{ ansible_host }}
     PORT: {{ port_nutserver}}
     USERNAME: "{{ nut_server_monitoring_username }}"
     PASSWORD: "{{ nut_server_monitoring_password }}"
