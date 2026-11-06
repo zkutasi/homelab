@@ -3,7 +3,7 @@ apiVersion: v2
 appVersion: v3.0.0
 dependencies:
   - name: common
-    version: 28.26.3
+    version: 30.4.1
     repository: oci://oci.trueforge.org/truecharts
     condition: ""
     alias: ""
