@@ -50,7 +50,7 @@ services:
       - /run:/run:ro
       - /var/log:/var/log:ro
       - /sys:/sys:ro
-{% if alloy_monitor_containers %}
+{% if alloy_monitor_containers | default(true) %}
       - {{ docker_data_root }}:/var/lib/docker/:ro
 {% endif %}
       - /run/udev/data:/run/udev/data:ro

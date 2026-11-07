@@ -114,7 +114,7 @@ scrape_interval = "15s"
   forward_to = [prometheus.remote_write.default.receiver]
 }
 
-{% if alloy_monitor_containers %}
+{% if alloy_monitor_containers | default(true) %}
 // *****************************
 // ** SECTION: DOCKER METRICS **
 // *****************************

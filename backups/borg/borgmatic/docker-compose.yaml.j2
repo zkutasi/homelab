@@ -2,7 +2,7 @@ services:
   borgmatic:
     container_name: borgmatic
     environment:
-      - BACKUP_CRON={{ backup_cron }}
+      - BACKUP_CRON={{ backup_cron | default('') }}
       - TZ={{ timezone }}
     hostname: {{ id }}-borgmatic
     image: {{ requested_image_version['borgmatic'] }}
