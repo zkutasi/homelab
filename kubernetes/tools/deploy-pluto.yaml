@@ -3,7 +3,7 @@
   roles:
     - binary-install
   vars:
-    requested_binary_repo_version: "FairwindsOps/pluto:5.24.0"
+    requested_binary_repo_version: "FairwindsOps/pluto:5.24.5"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: pluto
