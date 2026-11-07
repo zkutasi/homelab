@@ -22,7 +22,7 @@
           --path=/repository
           --override-username={{ ansible_user }}
           --override-hostname={{ id }}"
-      when: "'repository not initialized' in kopia_repo_check.stderr"
+      when: "'repository not initialized' in (kopia_repo_check.stderr | default(''))"
     - name: Docker compose restart the Server due to the new repository
       become: "{{ docker_with_sudo }}"
       community.docker.docker_compose_v2:
@@ -30,7 +30,7 @@
         docker_cli: "{{ docker_cli_path }}"
         remove_orphans: true
         recreate: always
-      when: "'repository not initialized' in kopia_repo_check.stderr"
+      when: "'repository not initialized' in (kopia_repo_check.stderr | default(''))"
     - name: List users
       become: "{{ docker_with_sudo }}"
       community.docker.docker_compose_v2_exec:
@@ -39,6 +39,8 @@
         service: kopia
         command: "kopia server users list"
       register: kopia_repo_users
+      changed_when: false
+      check_mode: false
     - name: Print the current users
       ansible.builtin.debug:
         msg: "{{ kopia_repo_users.stdout | split('\n') }}"

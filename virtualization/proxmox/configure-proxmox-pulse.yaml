@@ -5,6 +5,7 @@
       ansible.builtin.command: pveversion
       register: pve_version_raw
       changed_when: false
+      check_mode: false
     - name: Extract major version
       ansible.builtin.set_fact:
         pve_major_version: "{{ pve_version_raw.stdout | regex_search('pve-manager/(?P<v>[0-9]+)', '\\g<v>') | first }}"

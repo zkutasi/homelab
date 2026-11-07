@@ -15,6 +15,8 @@
     validate_certs: false
     status_code: "{{ rest_api_status_codes }}"
   register: rest_api_response
+  # GET requests only read, so they also run in check mode to give later tasks real data
+  check_mode: "{{ ansible_check_mode and rest_api_method | upper != 'GET' }}"
   retries: 5
   delay: 5
   until: rest_api_response.status in rest_api_status_codes
