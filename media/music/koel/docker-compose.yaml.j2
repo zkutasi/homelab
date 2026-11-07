@@ -32,6 +32,7 @@ services:
       POSTGRES_DB: koel
       POSTGRES_USER: koel
       POSTGRES_PASSWORD: {{ koel_db_password }}
+      TZ: {{ timezone }}
     hostname: {{ id }}-koel-postgresql
     image: {{ requested_image_version['postgresql'] }}
     restart: unless-stopped
