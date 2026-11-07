@@ -5,4 +5,4 @@
   vars:
     docker_compose_projectname: librespeed
     requested_image_version:
-      librespeed: "ghcr.io/librespeed/speedtest:5.4.1"
+      librespeed: "ghcr.io/librespeed/speedtest:5.5.1"
