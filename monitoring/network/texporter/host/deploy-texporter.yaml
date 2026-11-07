@@ -4,7 +4,7 @@
     - role: binary-install
       when: texporter_interface | default("") | length > 0
   vars:
-    requested_binary_repo_version: "kasd/texporter:1.0.1"
+    requested_binary_repo_version: "kasd/texporter:1.1.0"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
     bin_filename: texporter
