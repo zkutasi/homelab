@@ -4,7 +4,6 @@
   tasks:
     - name: Gather Contour HTTPProxy resources
       kubernetes.core.k8s_info:
-        kubeconfig: "/runner/.kube/config"
         api_version: projectcontour.io/v1
         kind: HTTPProxy
       delegate_to: localhost
