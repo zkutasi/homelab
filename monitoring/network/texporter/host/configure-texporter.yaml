@@ -16,8 +16,12 @@
             mode: '0644'
             owner: root
             group: root
-        - name: Restart the service
-          ansible.builtin.systemd_service:
-            name: "texporter"
-            state: restarted
-            enabled: true
+          notify: Restart texporter
+        - name: Gather service facts
+          ansible.builtin.service_facts:
+  handlers:
+    - name: Restart texporter
+      when: ansible_facts.services['texporter.service'] is defined
+      ansible.builtin.systemd_service:
+        name: texporter
+        state: restarted
