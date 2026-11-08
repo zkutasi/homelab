@@ -5,7 +5,7 @@ CURL="/usr/bin/curl"
 
 ${CURL} -s -k \
   -X POST \
-  -d "body=${message}" \
-  -d "type=info" \
-  -d "tags={{ hostvars[inventory_hostname].id }}" \
+  --data-urlencode "body=${message}" \
+  --data-urlencode "type=info" \
+  --data-urlencode "tags={{ hostvars[inventory_hostname].id }}" \
   {{ apprise_api_hostname }}/notify/{{ apprise_target_key }}
