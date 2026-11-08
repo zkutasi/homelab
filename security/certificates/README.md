@@ -21,4 +21,4 @@ The homelab's own root Certificate Authority (CA), used to issue the internal TL
 
 ## Notable comments
 
-- Running `internal-certs.sh` again overwrites the existing CA. Every certificate issued from the old one stops being trusted, and the new `ca.crt` has to be redistributed to all clients.
+- `internal-certs.sh` refuses to run while `certs/ca.key` or `certs/ca.crt` exists. To replace the CA, delete both first. Every certificate issued from the old one stops being trusted, and the new `ca.crt` has to be redistributed to all clients.
