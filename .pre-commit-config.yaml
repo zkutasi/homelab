@@ -7,6 +7,11 @@ repos:
         language: script
         always_run: true
         pass_filenames: false
+      - id: ca-key-symlink-only
+        name: Allow ca.key only as a symlink
+        entry: "bash -c 'for f in \"$@\"; do [ -L \"$f\" ] || { echo \"ERROR: $f is a real key, only symlinks are allowed\"; exit 1; }; done' --"
+        language: system
+        files: (^|/)ca\.key$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:

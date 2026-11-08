@@ -19,6 +19,8 @@ wazuh-kubernetes
 context
 *.log
 ca.key
+# App config folders only symlink the CA key, a pre-commit hook blocks real copies
+!**/config/static/**/ca.key
 termix_hosts.json
 cacerts
 autokuma-monitors
