@@ -29,4 +29,5 @@ done
 kubectl create secret generic contour-internal-ca-secret \
     --namespace $NS \
     --from-file=tls.key="${CA_DIR}"/ca.key \
-    --from-file=tls.crt="${CA_DIR}"/ca.crt
+    --from-file=tls.crt="${CA_DIR}"/ca.crt \
+    --dry-run=client -o yaml | kubectl apply -f -

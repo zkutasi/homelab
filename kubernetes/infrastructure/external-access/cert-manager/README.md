@@ -14,6 +14,13 @@ Cert-manager will provide the self-signed certificates from a self-signed rootCA
 
 ## Prerequisites
 
+1. The internal CA must exist in `security/certificates/certs/` (`ca.crt` and `ca.key`). It is normally already there, with `ca.key` decrypted from its SOPS-encrypted copy. Only on a brand new setup generate it once, from the repository root:
+
+    ```bash
+    cd security/certificates/
+    ./internal-certs.sh
+    ```
+
 ## Usage
 
 ### Ansible inventory setup
@@ -40,14 +47,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Post deployment
 
-1. Generate the internal self-signed certificate, valid for 30 years
-
-    ```bash
-    cd security/certificates/
-    ./internal-certs.sh
-    ```
-
-2. Load the generated CA also into the Browser as trusted CA
+1. Load the CA (`security/certificates/certs/ca.crt`) into the Browser as trusted CA
 
 ## Metrics, Alerts, Notifications
 
