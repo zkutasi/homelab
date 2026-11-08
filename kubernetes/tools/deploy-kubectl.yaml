@@ -10,4 +10,4 @@
     download_url: "https://dl.k8s.io/release/v{{ requested_binary_version }}/bin/linux/amd64/{{ bin_filename }}"
     compressed: false
     destination_path: "/usr/local/bin/{{ bin_filename }}"
-    version_flag: "version"
+    version_flag: "version --client"
