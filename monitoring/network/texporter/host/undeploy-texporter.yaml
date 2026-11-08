@@ -1,6 +1,17 @@
 - name: Delete Texporter as a service
   hosts: linux
   roles:
-    - binary-remove
+    - role: binary-remove
+      when: texporter_interface | default("") | length > 0
   vars:
     bin_filename: texporter
+    service_name: texporter
+- name: Delete Texporter configuration
+  hosts: linux
+  become: true
+  tasks:
+    - name: Remove /etc/texporter
+      when: texporter_interface | default("") | length > 0
+      ansible.builtin.file:
+        path: /etc/texporter
+        state: absent
