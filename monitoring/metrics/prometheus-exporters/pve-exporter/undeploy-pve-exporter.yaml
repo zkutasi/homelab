@@ -1,3 +1,11 @@
+- name: Delete the pve-exporter service
+  hosts: proxmox
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: pve_exporter
+    bin_path: /root/.local/bin
+    service_name: pve-exporter
 - name: Remove pve-exporter package
   hosts: proxmox
   roles:
