@@ -1,6 +1,8 @@
 - name: Set up /etc/fstab
   hosts: standalone
   become: true
+  vars:
+    fstab_default_opts: "defaults,_netdev,x-systemd.requires=network-online.target,nofail,timeo=14"
   tasks:
     - name: Install some packages for mounting
       ansible.builtin.include_role:
@@ -16,18 +18,31 @@
         mode: "0755"
         owner: root
         group: root
-      when: ansible_mounts | selectattr('mount', 'equalto', item.path | dirname) | list | length == 0
+      when: ansible_mounts | selectattr('mount', 'equalto', item.path) | list | length == 0
       loop: "{{ fstab_entries | default([]) }}"
-    - name: Unmount the given entries
+    - name: Update the fstab entries
       ansible.posix.mount:
+        src: "{{ item.src }}"
         path: "{{ item.path }}"
-        state: unmounted
+        state: present
+        fstype: "{{ item.fstype | default('nfs') }}"
+        opts: "{{ item.opts | default(fstab_default_opts) }}"
       loop: "{{ fstab_entries | default([]) }}"
+      register: fstab_update
+    # Only the changed entries are unmounted, so a new src is picked up without disturbing the others
+    - name: Unmount the entries whose fstab line changed
+      ansible.posix.mount:
+        path: "{{ item.item.path }}"
+        state: unmounted
+      loop: "{{ fstab_update.results }}"
+      loop_control:
+        label: "{{ item.item.path }}"
+      when: item.changed
     - name: Mount the given entries
       ansible.posix.mount:
         src: "{{ item.src }}"
         path: "{{ item.path }}"
         state: mounted
         fstype: "{{ item.fstype | default('nfs') }}"
-        opts: "{{ item.opts | default('defaults,_netdev,x-systemd.requires=network-online.target,nofail,timeo=14') }}"
+        opts: "{{ item.opts | default(fstab_default_opts) }}"
       loop: "{{ fstab_entries | default([]) }}"
