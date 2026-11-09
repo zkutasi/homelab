@@ -19,8 +19,16 @@
           changed_when: false
         - name: Extract exact version
           ansible.builtin.set_fact:
-            binary_installed_version: "{{ (binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines) | join('\n')
-              | regex_search('v?([0-9]+(?:\\.[0-9]+)+)', '\\1') | first }}"
+            binary_installed_version: "{{ ((binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines) | join('\n')
+              | regex_search('v?([0-9]+(?:\\.[0-9]+)+)', '\\1') or ['']) | first }}"
+        - name: Make sure the version could be read
+          ansible.builtin.assert:
+            that: binary_installed_version | length > 0
+            fail_msg: >-
+              Could not find a version number in the output of
+              '{{ bin_path }}/{{ bin_filename }} {{ version_flag }}'. Fix version_flag,
+              or set it to "" if the binary has no version information.
+            quiet: true
         - name: Print out the binary version
           ansible.builtin.debug:
             var: binary_installed_version
