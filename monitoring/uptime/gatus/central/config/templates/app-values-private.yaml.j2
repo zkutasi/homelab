@@ -26,7 +26,7 @@ configmap:
             interval: 60s
             conditions:
 {% if service.accepted_extra_statuscodes is defined %}
-              - "[STATUS] == any({{ service.accepted_extra_statuscodes | join(',') }})"
+              - "[STATUS] == any(200, {{ service.accepted_extra_statuscodes | join(', ') }})"
 {% else %}
               - "[STATUS] < 300"
 {% endif %}
@@ -38,7 +38,7 @@ configmap:
             interval: 60s
             conditions:
 {% if service.accepted_extra_statuscodes is defined %}
-              - "[STATUS] == any({{ service.accepted_extra_statuscodes | join(',') }})"
+              - "[STATUS] == any(200, {{ service.accepted_extra_statuscodes | join(', ') }})"
 {% else %}
               - "[STATUS] < 300"
 {% endif %}
