@@ -9,7 +9,7 @@ ansible-navigator:
     volume-mounts:
       - src: /etc/hosts
         dest: /etc/hosts
-        options: Z
+        options: ro
       - src: ${HOME}/.ssh
         dest: /runner/.ssh
       - src: ${HOME}/.kube
