@@ -2,26 +2,26 @@
 
 This folder contains fundamental settings applied to hosts, including
 
-- `docker/setup-docker.yaml` - Set up docker on the hosts, pay special attention to Synology, where the docker compose version should be uplifted as well
+- `docker/setup-docker.yaml` - Set up Docker and Docker Compose on the hosts
 - `git/setup-git.yaml` - Set up git and some common best practices
 - `hardware/` - Hardware related settings, like alerts
 - `scripts/setup-scripts.yaml` - Some hosts have developed bash scripts. Distribute them.
-- `setup-bashrc.yaml` - Set up bashrc with some common defaults
-- `setup-dns.yaml` - Set up the home DNS server and the local .home domain
+- `setup-bashrc.yaml` - Set up the shell environment of the login user
+- `setup-dns.yaml` - Make the hosts resolve the local network domain through the home DNS servers
 - `setup-fastfetch.yaml` - Install fastfetch, a system information tool
-- `setup-fstab.yaml` - Set up the mount points to mount NFS shares around the home network
-- `setup-hosts.yaml` - Set up the /etc/hosts file to have home-routable DNS entries, until the Pi-hole instance is spread by the DHCP server
-- `setup-locale.yaml` - Install and configure the locales
-- `setup-mail.yaml` - Install the email packages on hosts that need to send emails (`emailnotifiers` group)
-- `setup-notifications.yaml` - Set up push-notifications via Apprise (a `send_notification.sh` script on each host)
+- `setup-fstab.yaml` - Mount the network shares the hosts need
+- `setup-hosts.yaml` - Add static name resolution for the services some hosts need to reach without relying on the home DNS
+- `setup-locale.yaml` - Install the locales
+- `setup-mail.yaml` - Enable sending emails from the hosts that need it
+- `setup-notifications.yaml` - Enable sending push notifications from the hosts
 - `setup-ntp.yaml` - Set up the timezone for all of the hosts and enable automatic time sync
 - `setup-packages.yaml` - Install some basic useful packages everywhere
 - `setup-python.yaml` - Set up the python environment on each host
-- `setup-snmp.yaml` - Set up SNMP on each host for monitoring
-- `setup-ssh.yaml` - Set up on each host a public-private SSH key for the default (hopefully non-root) user
+- `setup-snmp.yaml` - Set up SNMP for monitoring
+- `setup-ssh.yaml` - Set up an SSH key pair for the login user
 - `setup-starship.yaml` - Set up the [starship](https://starship.rs/) command prompt module
 - `setup-sudoers.yaml` - Allow some commands to run with sudo but without password
-- `setup-sysctl.yaml` - Set some kernel parameters
+- `setup-sysctl.yaml` - Raise the system resource limits where the default ones are too low
 - `setup-vim.yaml` - Install & configure vim with defaults
 
 ## Usage
