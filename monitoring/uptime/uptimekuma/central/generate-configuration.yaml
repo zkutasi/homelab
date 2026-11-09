@@ -48,7 +48,7 @@
       when: not inventory_hostname.startswith('k8s')
     - name: Generate HTTP monitor configuration files from template
       ansible.builtin.include_tasks:
-        file: create-http-monitors.yaml
+        file: tasks-http-monitors.yaml
       vars:
         monitorable_host: "{{ inventory_hostname }}"
         monitor_base_dir: "config/autokuma-monitors"

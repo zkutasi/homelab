@@ -88,7 +88,7 @@
   tasks:
     - name: Create the policies
       ansible.builtin.include_tasks:
-        file: create-policy-task.yaml
+        file: tasks-policies.yaml
       loop: "{{ groups['backupclient'] }}"
       loop_control:
         loop_var: backupclient

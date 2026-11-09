@@ -38,7 +38,7 @@
   tasks:
     - name: Iterate through the hosts
       ansible.builtin.include_tasks:
-        file: configure-caddy-pihole-single-host.yaml
+        file: tasks-caddy-pihole-single-host.yaml
       loop: "{{ groups['linux'] }}"
       loop_control:
         loop_var: exposed_host
