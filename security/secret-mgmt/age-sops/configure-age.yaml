@@ -19,4 +19,4 @@
         path: "{{ ansible_user_dir }}/.bash_aliases"
         state: present
         line: 'export SOPS_AGE_KEY_FILE="${HOME}/.sops/age.key"'
-        regexp: '#?\s*SOPS_AGE_KEY_FILE=.*'
+        regexp: '^#?\s*(export\s+)?SOPS_AGE_KEY_FILE='

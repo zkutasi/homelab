@@ -6,7 +6,7 @@
     - name: Disable Wayland in GDM
       ansible.builtin.lineinfile:
         path: /etc/gdm3/custom.conf
-        regexp: '#WaylandEnable=false'
+        regexp: '^#?\s*WaylandEnable='
         line: 'WaylandEnable=false'
         owner: root
         group: root
