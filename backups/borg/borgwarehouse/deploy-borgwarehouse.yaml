@@ -27,7 +27,7 @@
 
   handlers:
     - name: Restart borgwarehouse docker service
-      become: true
+      become: "{{ docker_with_sudo }}"
       community.docker.docker_compose_v2:
         docker_cli: "{{ docker_cli_path }}"
         project_src: "{{ docker_compose_rootdir }}/borgwarehouse"

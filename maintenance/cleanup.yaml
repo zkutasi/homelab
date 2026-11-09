@@ -1,5 +1,6 @@
 - name: Docker Prune
   hosts: docker
+  become: "{{ docker_with_sudo }}"
   vars:
     docker_prune_grace_period: "168h"
     docker_repo_tag_pattern: '^(.*):([^:]+)$'
