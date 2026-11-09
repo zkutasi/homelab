@@ -1,22 +1,29 @@
+- name: Remove the service for the binary if requested
+  when: service_name | length > 0
+  become: true
+  block:
+    - name: Check if the service file exists
+      ansible.builtin.stat:
+        path: "{{ service_path }}/{{ service_name }}.service"
+      register: service_file
+    # The service may already be gone (re-run) or was never installed on this host
+    - name: Stop, disable and remove the service
+      when: service_file.stat.exists
+      block:
+        - name: Stop and disable the service
+          ansible.builtin.systemd_service:
+            name: "{{ service_name }}"
+            state: stopped
+            enabled: false
+        - name: Remove the service file
+          ansible.builtin.file:
+            path: "{{ service_path }}/{{ service_name }}.service"
+            state: absent
+        - name: Systemd daemon-reload
+          ansible.builtin.systemd_service:
+            daemon_reload: true
 - name: Remove binaries
   become: true
   ansible.builtin.file:
     path: "{{ bin_path }}/{{ bin_filename }}"
     state: absent
-- name: Remove Service for the binary if requested
-  when: service_name | length > 0
-  become: true
-  block:
-    - name: Stop and disable the service
-      ansible.builtin.systemd_service:
-        name: "{{ service_name }}"
-        state: stopped
-        enabled: false
-    - name: Remove the service file
-      ansible.builtin.file:
-        path: "{{ service_path }}/{{ service_name }}.service"
-        state: absent
-    - name: Systemd daemon-reload
-      ansible.builtin.systemd_service:
-        daemon_reexec: true
-        daemon_reload: true
