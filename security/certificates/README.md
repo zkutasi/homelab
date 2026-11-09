@@ -13,7 +13,7 @@ The homelab's own root Certificate Authority (CA), used to issue the internal TL
 1. Generate the CA (only needed once)
 
     ```bash
-    cd security/certificates/
+    cd "$(git rev-parse --show-toplevel)"/security/certificates/
     ./internal-certs.sh
     ```
 

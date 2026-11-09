@@ -14,10 +14,10 @@ Cert-manager will provide the self-signed certificates from a self-signed rootCA
 
 ## Prerequisites
 
-1. The internal CA must exist in `security/certificates/certs/` (`ca.crt` and `ca.key`). It is normally already there, with `ca.key` decrypted from its SOPS-encrypted copy. Only on a brand new setup generate it once, from the repository root:
+1. The internal CA must exist in `security/certificates/certs/` (`ca.crt` and `ca.key`). It is normally already there, with `ca.key` decrypted from its SOPS-encrypted copy. Only on a brand new setup generate it once:
 
     ```bash
-    cd security/certificates/
+    cd "$(git rev-parse --show-toplevel)"/security/certificates/
     ./internal-certs.sh
     ```
 
