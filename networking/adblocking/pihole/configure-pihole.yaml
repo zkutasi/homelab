@@ -146,3 +146,17 @@
         rest_api_data:
           sid: "{{ pihole_authresponse.cookies.sid }}"
         rest_api_body_format: "json"
+- name: Log out from Pi-hole
+  hosts: controlserver
+  tasks:
+    - name: Close the API session
+      when: pihole_authresponse.cookies.sid is defined
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_fact_name: "pihole_logoutresponse"
+        rest_api_url: "{{ pihole_address }}"
+        rest_api_endpoint: "/api/auth"
+        rest_api_method: "DELETE"
+        rest_api_headers:
+          X-FTL-SID: "{{ pihole_authresponse.cookies.sid }}"
