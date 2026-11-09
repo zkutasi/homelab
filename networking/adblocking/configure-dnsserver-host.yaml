@@ -7,20 +7,24 @@
         path: "/etc/systemd/resolved.conf"
         state: present
         line: 'DNSStubListener=no'
-        regexp: '#?\s*DNSStubListener=.*'
+        regexp: '^#?\s*DNSStubListener='
+      notify: Restart systemd-resolved
     - name: Set DNS server to be localhost
       ansible.builtin.lineinfile:
         path: "/etc/systemd/resolved.conf"
         state: present
         line: 'DNS=127.0.0.1'
-        regexp: '#?\s*DNS=.*'
+        regexp: '^#?\s*DNS='
+      notify: Restart systemd-resolved
     - name: Relink resolve.conf
       ansible.builtin.file:
         path: /etc/resolv.conf
         force: true
         state: link
         src: /run/systemd/resolve/resolv.conf
+      notify: Restart systemd-resolved
+  handlers:
     - name: Restart systemd-resolved
-      ansible.builtin.systemd:
+      ansible.builtin.systemd_service:
         name: systemd-resolved
         state: restarted
