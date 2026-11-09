@@ -18,7 +18,7 @@ done
 
 "$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
     --chart-name "${CHART_NAME}" \
-    --namespace "${NS}" \
+    --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --type truecharts \
     --version "${VERSION}" \

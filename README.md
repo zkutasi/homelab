@@ -247,7 +247,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Shebang `#!/bin/bash`, and the file is executable.
 - No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead.
-- Variables in `UPPER_CASE`, referenced as `"${VAR}"`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
+- Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
 - The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
 - App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
 
