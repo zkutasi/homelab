@@ -1,5 +1,5 @@
 - name: Configure persistent file descriptor limits
-  hosts: htpc
+  hosts: mediaserver
   become: true
   vars:
     nofile_limit_soft: 65535

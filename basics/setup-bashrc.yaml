@@ -1,8 +1,8 @@
 - name: Ensure bash_aliases file exists
   hosts:
     - controlserver
-    - omv
-    - pidash
+    - openmediavault
+    - displayscreen
     - proxmox
   tasks:
     - name: Ensure bash_aliases file exists
@@ -12,8 +12,8 @@
         mode: '0644'
 - name: Set up specific bash configuration for certain hosts
   hosts:
-    - omv
-    - pidash
+    - openmediavault
+    - displayscreen
   tasks:
     - name: Ensure .bash_profile is present
       ansible.builtin.template:

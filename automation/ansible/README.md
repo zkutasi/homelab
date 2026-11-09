@@ -66,6 +66,7 @@ Groups by kind of host:
 |`kubernetes`|The kubernetes inventory if anything is required on the hosts that Kubespray cannot do itself (Kubespray has its own inventory elsewhere)|
 |`linux`|All Linux hosts, separated from Windows ones|
 |`linux-selfmanaged`|All Linux hosts that are self-managed, so Linux machines except Synology for example|
+|`openmediavault`|All the OpenMediaVault NAS hosts|
 |`proxmox`|All the Proxmox hosts|
 |`proxmoxclusters`|The individual clusters, as some operations should not be done on all cluster Nodes|
 |`standalone`|Represents the standalone machines, machines that are neither Virtual Environments nor special machines like Synology NAS-es, those require special handling a lot of times.|
@@ -82,14 +83,14 @@ Groups by App:
 |`books`|The server that stores Books|
 |`controlserver`|The server that will act as an Ansible control host, git host and terraform host as well as host for other toolings like kubernetes tools.|
 |`dashboard`|The hosts that run the app dashboards (Dashy, Glance, Homepage, etc)|
+|`displayscreen`|The hosts that show a dashboard on an attached screen|
 |`dnsserver`|All of the local DNS servers like Pi-hole|
 |`documents`|The server that holds documents|
 |`emailnotifiers`|Hosts that can send emails|
-|`htpc`|The HTPC hosts that run the media servers (Emby, Jellyfin, Plex)|
+|`mediaserver`|The hosts that run the media servers and players (Emby, Jellyfin, Plex, Kodi)|
 |`music`|The server that holds music files|
 |`networkmonitoring`|Host that provides Flow analysis, IDS, and various other network monitoring capabilities|
 |`nutserver`|The hosts that have a UPS attached via USB and run the NUT server|
-|`omv`|The OpenMediaVault NAS host that holds the Movies, TVShows and co.|
 |`photos`|The server that stores Photos|
 |`remotecontrolled`|The hosts that have remote controlling apps (like RustDesk)|
 |`reverseproxy`|A host used to run a reverseproxy in the whole network|

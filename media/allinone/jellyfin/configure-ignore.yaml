@@ -1,5 +1,5 @@
 - name: Put ignore files in place
-  hosts: omv
+  hosts: openmediavault
   tasks:
     - name: Create .ignore files
       ansible.builtin.copy:

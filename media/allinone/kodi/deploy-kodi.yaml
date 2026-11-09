@@ -1,5 +1,5 @@
 - name: Install and set up Kodi
-  hosts: htpc
+  hosts: mediaserver
   tasks:
     - name: Install some packages
       ansible.builtin.include_role:

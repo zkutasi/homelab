@@ -1,5 +1,5 @@
 - name: Put a embyignore files in place
-  hosts: omv
+  hosts: openmediavault
   tasks:
     - name: Create .embyignore files
       ansible.builtin.copy:

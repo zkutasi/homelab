@@ -1,5 +1,5 @@
 - name: Configure OMV
-  hosts: omv
+  hosts: openmediavault
   become: true
   roles:
     - openmediavault

@@ -1,5 +1,5 @@
 - name: Deploy Navidrome as docker
-  hosts: htpc
+  hosts: mediaserver
   roles:
     - docker-compose
   vars:

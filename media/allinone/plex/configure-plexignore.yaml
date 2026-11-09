@@ -1,5 +1,5 @@
 - name: Put a plexignore files in place
-  hosts: omv
+  hosts: openmediavault
   tasks:
     - name: Create .plexignore files
       ansible.builtin.copy:

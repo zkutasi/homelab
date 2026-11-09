@@ -1,5 +1,5 @@
 - name: Set up /etc/hosts for media
-  hosts: htpc
+  hosts: mediaserver
   become: true
   roles:
     - hosts

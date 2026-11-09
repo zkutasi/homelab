@@ -1,5 +1,5 @@
 - name: Deploy Qui as docker
-  hosts: omv
+  hosts: openmediavault
   roles:
     - docker-compose
   vars:

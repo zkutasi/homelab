@@ -1,5 +1,5 @@
 - name: Execute "php artisan koel:init --no-assets"
-  hosts: htpc
+  hosts: mediaserver
   tasks:
     - name: Run koel init command
       community.docker.docker_compose_v2_exec:
