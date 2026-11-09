@@ -32,6 +32,10 @@ while [ $# -ge 1 ]; do
       shift
       RELEASE_NAME=$1
       ;;
+    --help)
+      usage
+      exit 0
+      ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
       usage

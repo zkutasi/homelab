@@ -759,6 +759,10 @@ while [ $# -ge 1 ]; do
       MAINTYPE=$(echo "${TYPE}" | awk -F. '{print $1}')
       SUBTYPE=$(echo "${TYPE}" | awk -F. '{print $2}')
       ;;
+    --help)
+      usage
+      exit 0
+      ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
       usage

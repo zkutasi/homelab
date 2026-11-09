@@ -15,6 +15,10 @@ while [ $# -ge 1 ]; do
       shift
       NS=$1
       ;;
+    --help)
+      usage
+      exit 0
+      ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
       usage

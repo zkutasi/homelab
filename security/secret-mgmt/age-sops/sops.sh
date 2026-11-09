@@ -44,6 +44,10 @@ while [ $# -ge 1 ]; do
     --redecrypt-all)
         MODE=redecrypt-all
         ;;
+    --help)
+      usage
+      exit 0
+      ;;
     *)
       echo "ERROR: unknown parameter \"$1\""
       usage
