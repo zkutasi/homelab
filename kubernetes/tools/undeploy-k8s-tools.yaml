@@ -32,3 +32,21 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.krew"
         state: absent
+- name: Remove the shell integration
+  hosts: controlserver
+  become: false
+  tasks:
+    - name: Remove the autocompletion lines
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        regexp: '#?\s*source <\({{ item }} completion bash\).*'
+        state: absent
+      loop:
+        - kubectl
+        - helm
+        - kompose
+    - name: Remove the krew path
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        regexp: '#?\s*export PATH="\${KREW_ROOT:-\$HOME/\.krew}/bin:\$PATH".*'
+        state: absent
