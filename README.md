@@ -244,8 +244,8 @@ How this repository is organised and the conventions every App follows.
 #### Docker Apps
 
 - Each App has a `docker-compose.yaml.j2` template, filled in from the Ansible inventory, plus a `deploy-<app>.yaml` and `undeploy-<app>.yaml` playbook.
-- The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `~/docker-compose` on the target host and starts the stack.
-- Undeploying an App runs `docker compose down` removing its volumes and images, then deletes its whole folder under `~/docker-compose`, including all of its data and configuration. Back up anything worth keeping first.
+- The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `docker_compose_rootdir` (usually `~/docker-compose`) on the target host and starts the stack.
+- Undeploying an App runs `docker compose down` removing its volumes and images, then deletes its whole folder under `docker_compose_rootdir`, including all of its data and configuration. Back up anything worth keeping first.
 
 #### Private files and secrets
 

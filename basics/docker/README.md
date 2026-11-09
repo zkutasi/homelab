@@ -40,6 +40,7 @@ On Synology, Docker comes from DSM; only Docker Compose is uplifted and sudoless
     |docker_compose_files_group|O|The group (name or GID) of the folders and files created for Docker apps on the host. Default is the Ansible user's name|
     |docker_compose_files_owner|O|The owner (user name or UID) of the folders and files created for Docker apps on the host. Default is the Ansible user|
     |docker_compose_ipv6|O|Whether Docker Apps that support it get their own IPv6-enabled network on the host. Each such App then also needs its own IPv6 subnet variable set. Default is false|
+    |docker_compose_rootdir|M|The folder on the host under which each Docker App gets its own folder (e.g. `"{{ ansible_user_dir }}/docker-compose"`)|
     |docker_data_root|O|The folder where docker stores its data. Default is /var/lib/docker (`/volume1/@docker` on Synology devices)|
     |docker_docker_group_id|M|The group ID (GID) of the `docker` group on the host, see `getent group docker`|
     |docker_ipv6_ula_subnet|M|The IPv6 ULA subnet for the default docker bridge network (e.g. `fd00:dead:beef::/48`)|

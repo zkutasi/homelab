@@ -3,7 +3,7 @@
   tasks:
     - name: Find all subdirectories containing docker-compose.yaml
       ansible.builtin.find:
-        paths: "{{ ansible_user_dir }}/docker-compose"
+        paths: "{{ docker_compose_rootdir }}"
         patterns: "docker-compose.yaml"
         file_type: file
         recurse: true

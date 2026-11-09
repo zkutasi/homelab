@@ -1,7 +1,7 @@
 - name: Create the policies for exclude patterns ({{ backupclient }})
   become: "{{ docker_with_sudo }}"
   community.docker.docker_compose_v2_exec:
-    project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+    project_src: "{{ docker_compose_rootdir }}/kopia"
     docker_cli: "{{ docker_cli_path }}"
     service: kopia
     command: "kopia policy set @{{ hostvars[backupclient].id }} --add-ignore {{ item | quote }}"
@@ -9,7 +9,7 @@
 - name: Create the policies for cron scheduling ({{ backupclient }})
   become: "{{ docker_with_sudo }}"
   community.docker.docker_compose_v2_exec:
-    project_src: "{{ ansible_user_dir }}/docker-compose/kopia"
+    project_src: "{{ docker_compose_rootdir }}/kopia"
     docker_cli: "{{ docker_cli_path }}"
     service: kopia
     command: "kopia policy set @{{ hostvars[backupclient].id }} --snapshot-time-crontab {{ hostvars[backupclient].backup_cron | quote }}"

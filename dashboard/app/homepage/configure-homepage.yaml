@@ -23,8 +23,8 @@
     - name: Generate service configuration file from template
       ansible.builtin.template:
         src: config/templates/config/services.yaml.j2
-        dest: "{{ ansible_user_dir }}/docker-compose/homepage/config/services.yaml"
+        dest: "{{ docker_compose_rootdir }}/homepage/config/services.yaml"
     - name: Generate information widgets configuration file from template
       ansible.builtin.template:
         src: config/templates/config/widgets.yaml.j2
-        dest: "{{ ansible_user_dir }}/docker-compose/homepage/config/widgets.yaml"
+        dest: "{{ docker_compose_rootdir }}/homepage/config/widgets.yaml"

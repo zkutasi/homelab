@@ -3,7 +3,7 @@
   tasks:
     - name: Get the server cert fingerprint
       community.crypto.x509_certificate_info:
-        path: "{{ ansible_user_dir }}/docker-compose/kopia/ssl-certs/fullchain.pem"
+        path: "{{ docker_compose_rootdir }}/kopia/ssl-certs/fullchain.pem"
       register: server_certs
     - name: Set the certs in a fact for later use
       ansible.builtin.set_fact:

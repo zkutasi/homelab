@@ -23,4 +23,4 @@
     - name: Generate configuration file from template
       ansible.builtin.template:
         src: config/templates/config/config.yml.j2
-        dest: "{{ ansible_user_dir }}/docker-compose/homer/config/config.yml"
+        dest: "{{ docker_compose_rootdir }}/homer/config/config.yml"
