@@ -17,7 +17,7 @@ cup.json
 *.pem
 *.csr
 wazuh-kubernetes
-context
+automation/ansible/ansible-execution-environment/context/
 *.log
 ca.key
 # App config folders only symlink the CA key, a pre-commit hook blocks real copies
