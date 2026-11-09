@@ -216,41 +216,88 @@ I am using VS Code, with a few plugins and tricks:
 
 ### Repository layout and conventions
 
-How this repository is organised and the conventions every App follows.
+How this repository is organised and the conventions every App follows. Follow these when adding or changing anything; when a change needs to break one, decide it explicitly instead of drifting.
 
 #### Folder structure
 
 - The top-level folders are categories (monitoring, media, backups, etc...), sometimes with sub-categories. Their README describes the requirements and the investigated contenders for that kind of App.
 - Each App has its own folder below its category, with a README describing the setup, the inventory variables, the deployment and any notable comments.
 - Apps with more than one component split them into sub-folders: `central` for the main component and `agents` for what runs on the other hosts, or `k8s`, `docker` and `host` when the same App can be deployed in multiple ways.
+- Shared helpers live in the repository root as `common-*.sh`, reusable Ansible roles in `automation/ansible/roles`, and the scaffolding for new Apps in `_templates`.
+
+#### File naming
+
+- Playbooks of an App: `deploy-<app>.yaml`, `undeploy-<app>.yaml`, `configure-<app>.yaml` and `generate-configuration.yaml`; host setup playbooks: `setup-<topic>.yaml`.
+- Task files that are only included by another playbook: `tasks-<topic>.yaml`. They are never run on their own.
+- Kubernetes scripts: `deploy-k8s.sh` and `undeploy-k8s.sh`.
+- YAML files use the `.yaml` extension. Jinja templates end in `.j2` and live under the App's `config/templates/`, static files under `config/static/`.
 
 #### Where commands run
 
 - Ansible playbooks are executed from the repository root through the `common-ansible-run-playbook.sh` wrapper, passing the playbook path relative to the root. It runs in check and diff mode by default, so nothing changes until `--no-check` is added.
 - Kubernetes deployment scripts (`deploy-k8s.sh` and `undeploy-k8s.sh`) are executed from the folder containing the script, as they pick up the files lying next to them.
+- Scripts never change their own working directory; paths relative to the caller's directory are deliberate. Where a script needs the repository root, it builds the path from `git rev-parse --show-toplevel`.
 
 #### Prerequisites on the control host
 
 - Ansible runs inside a locally built execution environment (a container image with Ansible and all required collections), built once with `automation/ansible/deploy-ansible.sh`.
 - The Ansible inventory lives in a separate private git repository, cloned into `automation/ansible/homelab-ansible-inventory`. It is ignored by this repository, so no host details or passwords end up here.
 
-#### Kubernetes Apps
+#### Shell scripts
 
-- Each App has its own `deploy-k8s.sh` and `undeploy-k8s.sh`, which are thin wrappers around the shared `common-*.sh` scripts in the repository root (for Helm charts, Kustomize, Kompose, plain manifests and CloudNativePG databases).
-- Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
-- Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App.
-- Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
+- Shebang `#!/bin/bash`, and the file is executable.
+- No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead.
+- Variables in `UPPER_CASE`, referenced as `"${VAR}"`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
+- The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
+- App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
+
+#### Ansible
+
+- Modules by fully qualified name (`ansible.builtin.copy`, `community.docker.docker_compose_v2`, …), and file modes as quoted strings (`mode: "0644"`).
+- `ansible.cfg` sets `jinja2_native = True`: whenever a whole `{{ … }}` value could look like a number (versions, tags, IDs), the filter chain ends with `| string`, otherwise it is silently turned into an int or float.
+- Privileged tasks inside roles set their own `become: true`, handlers included.
+- Anything that talks to Docker uses the host's settings, like the shared role does: `become: "{{ docker_with_sudo }}"` and `docker_cli: "{{ docker_cli_path }}"`, with App folders under `{{ docker_compose_rootdir }}`, never a hardcoded path.
+- Plays target inventory groups; host-specific template and script folders are named after the host.
+- Playbooks work in check mode: read-only lookups run with `check_mode: false`, and later tasks tolerate what a skipped write would have created.
+- Services are restarted through handlers on actual changes, not unconditionally.
+- An undeploy removes everything the deploy and its configure playbooks created, and can be re-run without failing.
+
+#### Templates, private files and secrets
+
+- Anything that depends on the inventory (passwords, hostnames, IPs, domains) is never written directly: a `generate-configuration.yaml` playbook renders the `config/templates/**/*.j2` templates into `*-private.yaml` files. These are ignored by git.
+- When such a private file has to be kept in the repository, its SOPS-encrypted copy is committed with the `_encrypted` suffix. A pre-commit hook makes sure the encrypted copies are up-to-date with the decrypted ones.
+- Loops in templates that produce files are sorted (`{% for host in groups['x'] | sort %}`, and `| sort` after `difference`, `union`, `intersect` and `symmetric_difference`), so the generated files stay stable between runs.
+- A `ca.key` may only be committed as a symlink to the SOPS-managed key.
 
 #### Docker Apps
 
 - Each App has a `docker-compose.yaml.j2` template, filled in from the Ansible inventory, plus a `deploy-<app>.yaml` and `undeploy-<app>.yaml` playbook.
 - The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `docker_compose_rootdir` (usually `~/docker-compose`) on the target host and starts the stack.
+- Each service sets `container_name`, `hostname: {{ id }}-<service>`, `restart: unless-stopped` and `TZ: {{ timezone }}` (plus `PUID`/`PGID` where the image supports them), takes its image from `requested_image_version['<service>']`, and mounts its folders from below `{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}`.
 - Undeploying an App runs `docker compose down` removing its volumes and images, then deletes its whole folder under `docker_compose_rootdir`, including all of its data and configuration. Back up anything worth keeping first.
 
-#### Private files and secrets
+#### Kubernetes Apps
 
-- Anything that depends on the inventory (passwords, hostnames, IPs) is never written directly: a `generate-configuration.yaml` playbook renders the `config/templates/*.j2` templates into `*-private.yaml` files. These are ignored by git.
-- When such a private file has to be kept in the repository, its SOPS-encrypted copy is committed with the `_encrypted` suffix. A pre-commit hook makes sure the encrypted copies are up-to-date with the decrypted ones.
+- Each App has its own `deploy-k8s.sh` and `undeploy-k8s.sh`, which are thin wrappers around the shared `common-*.sh` scripts in the repository root (for Helm charts, Kustomize, Kompose, plain manifests and CloudNativePG databases).
+- Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
+- Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App. The HTTPProxy and Certificate manifests are templates under `config/templates/extra-manifests/` using `{{ kubernetes_internal_domain }}`, never static files with a hardcoded domain.
+- Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
+- Manifests that were removed or renamed are cleaned up from the cluster by hand; the scripts don't prune.
+
+#### Versions and Renovate
+
+- Every version is pinned where Renovate can see it: `requested_image_version` and `requested_binary_repo_version` in playbooks, `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`, Helm values, or a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
+- Renovate rules are generic (tag shape, datasource, file type), never specific to one App or image.
+- Version bumps are left to Renovate.
+
+#### Documentation
+
+- Every App and category has a README following `_templates/README.layer1.md` (category) or `_templates/README.layer2.md` (App).
+- Inventory variable tables use `|Name|Mandatory/Optional|Details|`; Details describe what the value is, never which Apps or playbooks use it.
+- Each variable is documented once at the most generic level it belongs to: user-specific, network-specific and host connection variables in the Ansible README, Docker variables in the Docker README (per-App IPv6 subnets stay with their App), variables shared by a group of Apps in that group's README, and App-specific variables, prefixed with the App's name, in every README of an App that uses them.
+- READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
+- Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.
+- Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`. Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
 
 #### Adding a new App
 
@@ -264,5 +311,5 @@ How this repository is organised and the conventions every App follows.
 
 #### Linting
 
-- Pre-commit hooks run on every commit: file hygiene (whitespace, line endings, large files, executable scripts), YAML and Markdown linting, two spell checkers, secret detection, and the check that the SOPS-encrypted files are up-to-date.
+- Pre-commit hooks run on every commit: file hygiene (whitespace, line endings, large files, executable scripts), YAML and Markdown linting, two spell checkers, secret detection, the check that the SOPS-encrypted files are up-to-date, and the check that a `ca.key` is only committed as a symlink.
 - The Ansible code can also be linted with `automation/ansible/ansible-lint.sh`.
