@@ -34,14 +34,20 @@
               force user = nobody
               hosts allow = {{ network_subnet }}
               hosts deny = ALL
+      notify: Restart Samba
     - name: Validate Samba configuration
       ansible.builtin.command:
         cmd: testparm -s
       changed_when: false
-    - name: Enable and restart Samba
+    - name: Make sure Samba is enabled and running
       ansible.builtin.systemd:
         name: smbd
         enabled: true
+        state: started
+  handlers:
+    - name: Restart Samba
+      ansible.builtin.systemd_service:
+        name: smbd
         state: restarted
 - name: Deploy HDSentinel configuration
   hosts:
