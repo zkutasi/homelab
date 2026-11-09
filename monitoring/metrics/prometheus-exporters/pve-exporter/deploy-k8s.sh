@@ -2,11 +2,17 @@
 
 NS=pve-exporter
 
-kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
+EXTRA_PARAMS=
 
-echo "Apply additional manifests, if any..."
-if [ -d "./extra-manifests" ]; then
-  while read -r line; do
-    kubectl apply -f "$line" -n $NS
-  done < <(find ./extra-manifests -type f -name "*.yaml")
-fi
+while [ $# -ge 1 ]; do
+  case "$1" in
+    *)
+      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      ;;
+  esac
+  shift
+done
+
+"$(git rev-parse --show-toplevel)"/common-deploy-manifests.sh \
+    --namespace $NS \
+    ${EXTRA_PARAMS}

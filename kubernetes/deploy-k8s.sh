@@ -1,8 +1,16 @@
 #!/bin/bash
 
-echo "Apply additional manifests, if any..."
-if [ -d "./extra-manifests" ]; then
-  while read -r line; do
-    kubectl apply -f "$line"
-  done < <(find ./extra-manifests -type f -name "*.yaml")
-fi
+EXTRA_PARAMS=
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    *)
+      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      ;;
+  esac
+  shift
+done
+
+# Cluster-wide manifests, so no namespace is given
+"$(git rev-parse --show-toplevel)"/common-deploy-manifests.sh \
+    ${EXTRA_PARAMS}
