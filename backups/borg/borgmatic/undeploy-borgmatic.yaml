@@ -4,3 +4,13 @@
     - docker-compose-remove
   vars:
     docker_compose_projectname: borgmatic
+- name: Remove the backup server from the known hosts
+  hosts: backupclient
+  vars:
+    known_hosts_name: "{{ backupserver_hostname if (port_borgwarehouse_ssh | int) == 22 else '[' ~ backupserver_hostname ~ ']:' ~ port_borgwarehouse_ssh }}"
+  tasks:
+    - name: Remove the backup server's host keys
+      ansible.builtin.known_hosts:
+        name: "{{ known_hosts_name }}"
+        path: "{{ ansible_user_dir }}/.ssh/known_hosts"
+        state: absent
