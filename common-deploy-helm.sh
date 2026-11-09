@@ -1,5 +1,6 @@
 #!/bin/bash
 
+CNPG_REPO_URL=https://cloudnative-pg.github.io/charts
 # renovate: datasource=helm depName=cluster registryUrl=https://cloudnative-pg.github.io/charts
 CNPG_CLUSTER_CHART_VERSION=0.8.1
 
@@ -197,10 +198,10 @@ echo "Executing command: ${CMD}"
 ${CMD}
 
 if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; }; then
-  cnpg_enabled=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" | yq '.cnpg.*.enabled')
-  if [ "${cnpg_enabled}" == "true" ]; then
-    cnpg_clustername=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" | yq '.cnpg | keys | .0')
-    echo "Deploying Prometheus rules for monitoring..."
+  cnpg_clusters=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" \
+    | yq '.cnpg // {} | to_entries | .[] | select(.value.enabled == true) | .key')
+  for cnpg_clustername in ${cnpg_clusters}; do
+    echo "Deploying Prometheus rules for CNPG cluster ${cnpg_clustername}..."
     CMD="helm template \
       --release-name ${RELEASE_NAME}-cnpg \
       --namespace ${NS} \
@@ -209,11 +210,12 @@ if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "$
       --set cluster.monitoring.prometheusRule.excludeRules[0]=CNPGClusterHAWarning \
       --set cluster.monitoring.prometheusRule.excludeRules[1]=CNPGClusterHACritical \
       --show-only templates/prometheus-rule.yaml \
+      --repo ${CNPG_REPO_URL} \
       --version ${CNPG_CLUSTER_CHART_VERSION} \
-      cnpg/cluster"
-      echo "Executing command: ${CMD}"
-      ${CMD} | kubectl apply -f -
-  fi
+      cluster"
+    echo "Executing command: ${CMD}"
+    ${CMD} | kubectl apply -f -
+  done
 fi
 
 if [ "${TEMPLATE}" -eq 0 ]; then
