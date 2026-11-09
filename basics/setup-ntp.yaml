@@ -55,4 +55,5 @@
       ansible.builtin.debug:
         msg: >
           Timezone={{ timedatectl_tz.stdout | default('Not found') }}
+          TimezoneFile={{ (current_tz.content | b64decode | trim) if current_tz.content is defined else 'Not found' }}
           DateTime={{ current_datetime.stdout }}
