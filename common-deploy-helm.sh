@@ -28,7 +28,7 @@ Options:
   --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>) (required)
   --debug                     Pass --debug to helm for verbose output
   --extra-values <file>       Additional values file to pass to helm (can be specified multiple times, must exist)
-  --latest                    Use the latest chart version (overrides --version)
+  --latest                    Use the latest chart version instead of the deployed one (ignored when --version is given)
   --namespace <namespace>     Kubernetes namespace to deploy to (required)
   --no-extra-manifests        Do not apply the ./extra-manifests folder (e.g. when deploying a helper chart for an App)
   --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
