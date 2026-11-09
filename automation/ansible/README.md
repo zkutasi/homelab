@@ -142,7 +142,16 @@ App-specific variables are documented in each App's own README.
 
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
-    |exposed_services|O|A list of the services to get exposed on the given host. Each element is a map, with keys `proxy_url_prefix` and `backend_port`|
+    |exposed_services|O|A list of the services running on the host that are published on the network|
+    |exposed_services.name|M|The name of the service|
+    |exposed_services.type|M|The kind of service: `http` for web services behind the reverse proxy, `tcp` for plain network ports|
+    |exposed_services.backend_port|M|For `http`, the port the service listens on. For `tcp`, a map with `tcp` and/or `udp` lists of ports|
+    |exposed_services.proxy_url_prefix|M (http)|The subdomain the service gets under the reverse proxy domain|
+    |exposed_services.icon|O|The icon of the service: a selfh.st icon name or a full URL. Default is the service name|
+    |exposed_services.insecure_also|O|Whether the service is also reachable over plain HTTP. Default is false|
+    |exposed_services.redirection_path|O|A path the root URL redirects to (e.g. `/admin`)|
+    |exposed_services.https_skip_verify|O|Whether the backend speaks HTTPS with a certificate that is not verified. Default is false|
+    |exposed_services.accepted_extra_statuscodes|O|A list of extra HTTP status codes that count as healthy (e.g. `[401]` for a login-protected service)|
     |network_interface|O|The name of the host's main network interface (e.g. `eno1`)|
 
 #### Host variables
