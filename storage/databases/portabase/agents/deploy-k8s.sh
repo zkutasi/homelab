@@ -16,6 +16,8 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
+
 kubectl create secret generic ca-certificates \
     --namespace $NS \
     --from-file=homelab-ca.crt="${CA_DIR}"/ca.crt \

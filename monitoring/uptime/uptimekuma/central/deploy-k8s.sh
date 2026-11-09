@@ -16,6 +16,8 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
+
 kubectl create configmap autokuma-staticmonitors \
     --namespace $NS \
     --from-file=config/autokuma-monitors \
