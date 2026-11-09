@@ -11,6 +11,7 @@ kubespray-repo
 .ansible
 *-private.yaml
 kompose-manifests
+all.yaml
 cup.json
 *.env
 *.pem
