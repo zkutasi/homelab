@@ -116,6 +116,8 @@ A lot of tools should be used with Kubernetes:
 ./common-ansible-run-playbook.sh --playbook kubernetes/tools/configure-k8s-tools.yaml --no-check
 ```
 
+Each tool also has its own `deploy-<tool>.yaml` in `kubernetes/tools/`, to install or upgrade a single one.
+
 ## Notable comments
 
 - The inotify kernel settings were not high enough and the root user (id 0) had already used 128 instances which is the max number per user by default. Setting this a little bit higher avoids having for example log-tailing to error with "failed to create fsnotify watcher: too many open files", or in Loki, all of the Containers logged this error too.
