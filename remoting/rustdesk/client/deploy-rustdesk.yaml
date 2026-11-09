@@ -30,6 +30,7 @@
         cmd: rustdesk --get-id
       register: rustdesk_client_id
       changed_when: false
+      check_mode: false
     - name: Print the Client ID
       ansible.builtin.debug:
         msg: "{{ rustdesk_client_id.stdout }}"

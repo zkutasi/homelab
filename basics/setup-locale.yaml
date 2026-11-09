@@ -16,6 +16,7 @@
         cmd: localectl status
       register: localectl_status
       changed_when: false
+      check_mode: false
     - name: Print current system locale
       ansible.builtin.debug:
         msg: "Current system locale: {{ localectl_status.stdout }}"

@@ -87,6 +87,7 @@
       ansible.builtin.command: /usr/syno/sbin/synogroup --enum all
       register: synogroup_list
       changed_when: false
+      check_mode: false
     - name: Ensure docker group exists
       ansible.builtin.command: synogroup --add docker
       register: add_group

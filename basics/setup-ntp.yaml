@@ -47,10 +47,12 @@
       when: timedatectl_bin.stat.exists
       register: timedatectl_tz
       changed_when: false
+      check_mode: false
     - name: Check system date and time
       ansible.builtin.command: date '+%Z %Y-%m-%d %H:%M:%S'
       register: current_datetime
       changed_when: false
+      check_mode: false
     - name: Report timezone status
       ansible.builtin.debug:
         msg: >

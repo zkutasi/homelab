@@ -12,6 +12,7 @@
         set -o pipefail && dpkg -l openmediavault | awk '$2 == "openmediavault" { print substr($3,1,1) }'
       register: omv_version
       changed_when: false
+      check_mode: false
     - name: Set OMV version fact
       ansible.builtin.set_fact:
         omv_version_major: "{{ omv_version.stdout | trim }}"
@@ -20,6 +21,7 @@
       register: omvextras_installed
       ignore_errors: true
       changed_when: false
+      check_mode: false
     - name: Download OMV-Extras package
       ansible.builtin.get_url:
         url: "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/\
