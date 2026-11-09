@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # This script creates a sha1 hash next to all of the movie files, if there is none already
 # Requirements:

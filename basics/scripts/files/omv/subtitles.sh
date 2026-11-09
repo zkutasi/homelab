@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # This script tries to summarize the state of subtitles in every HDD, for Movies
 # It expects Hungarian subtitles, with suffix of '.HUN.srt'
