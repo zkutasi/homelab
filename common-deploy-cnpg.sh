@@ -1,6 +1,8 @@
 #!/bin/bash
 
 REPO_URL_CNPG=https://cloudnative-pg.github.io/charts
+# renovate: datasource=helm depName=cluster registryUrl=https://cloudnative-pg.github.io/charts
+CNPG_CLUSTER_CHART_VERSION=0.8.1
 
 APP=app-postgresql
 DB_DATABASE=app
@@ -74,5 +76,7 @@ echo "Deploying the PostgreSQL database..."
     --release-name "${RELEASE_NAME}" \
     --namespace "$NS" \
     --repo-url ${REPO_URL_CNPG} \
+    --version "${CNPG_CLUSTER_CHART_VERSION}" \
     --app app-postgresql \
+    --no-extra-manifests \
     ${EXTRA_PARAMS}

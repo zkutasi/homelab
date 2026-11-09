@@ -8,6 +8,7 @@ APP=app
 CHART_NAME=
 DEBUG=0
 DEPLOYMENT_TYPE=helm
+EXTRA_MANIFESTS=1
 EXTRA_VALUES_FILES=
 LATEST=0
 NS=
@@ -20,7 +21,7 @@ VERSION=
 
 function usage() {
     cat <<EOF
-Usage: $0 --chart-name <chart-name> --namespace <namespace> --release-name <release-name> [--app <app-name>] [--type <helm|truecharts|local>] [--repo-url <repo-url>] [--extra-values <file>] [--latest] [--post-renderer <post-renderer>] [--template] [--debug] [--version <version>]
+Usage: $0 --chart-name <chart-name> --namespace <namespace> --release-name <release-name> [--app <app-name>] [--type <helm|truecharts|local>] [--repo-url <repo-url>] [--extra-values <file>] [--latest] [--no-extra-manifests] [--post-renderer <post-renderer>] [--template] [--debug] [--version <version>]
 
 Options:
   --app <app-name>            Name of the application (default: app)
@@ -29,6 +30,7 @@ Options:
   --extra-values <file>       Additional values file to pass to helm (can be specified multiple times, must exist)
   --latest                    Use the latest chart version (overrides --version)
   --namespace <namespace>     Kubernetes namespace to deploy to (required)
+  --no-extra-manifests        Do not apply the ./extra-manifests folder (e.g. when deploying a helper chart for an App)
   --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
   --release-name <release-name> Helm release name (required)
   --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
@@ -64,6 +66,9 @@ while [ $# -ge 1 ]; do
     --namespace)
       shift
       NS=$1
+      ;;
+    --no-extra-manifests)
+      EXTRA_MANIFESTS=0
       ;;
     --post-renderer)
       shift
@@ -218,7 +223,7 @@ if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "$
   done
 fi
 
-if [ "${TEMPLATE}" -eq 0 ]; then
+if [ "${TEMPLATE}" -eq 0 ] && [ "${EXTRA_MANIFESTS}" -eq 1 ]; then
   echo "Apply additional manifests, if any..."
   if [ -d "./extra-manifests" ]; then
     while read -r line; do
