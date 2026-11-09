@@ -2,15 +2,12 @@
 
 NS=kube-system
 
-kubectl -n $NS delete serviceaccount goldmane
-kubectl -n $NS delete service goldmane
-kubectl -n $NS delete configmap goldmane
-kubectl -n $NS delete deployment goldmane
-kubectl -n $NS delete secret goldmane-tls
+echo "Delete the manifests..."
+if [ -d "./extra-manifests" ]; then
+  while read -r line; do
+    kubectl delete -f "$line" -n $NS --ignore-not-found
+  done < <(find ./extra-manifests -type f -name "*.yaml")
+fi
 
-kubectl -n $NS delete serviceaccount whisker
-kubectl -n $NS delete service whisker
-kubectl -n $NS delete deployment whisker
-kubectl -n $NS delete certificate whisker-cert
-kubectl -n $NS delete httpproxy whisker-httpproxy
-kubectl -n $NS delete secret whisker-backend-tls
+echo "Delete the generated TLS secrets..."
+kubectl -n $NS delete secret goldmane-tls whisker-backend-tls whisker-cert-secret --ignore-not-found
