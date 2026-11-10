@@ -77,5 +77,5 @@ fi
 
 if [ "${DELETE_NAMESPACE}" -eq 1 ]; then
   echo "Deleting namespace ${NS}..."
-  kubectl delete namespace "$NS"
+  kubectl delete namespace "$NS" --ignore-not-found
 fi

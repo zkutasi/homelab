@@ -31,4 +31,4 @@ done
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 
 echo "Deleting namespace ${NS}..."
-kubectl delete namespace "$NS"
+kubectl delete namespace "$NS" --ignore-not-found
