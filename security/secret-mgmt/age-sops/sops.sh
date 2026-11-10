@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ENCRYPT_FILE=""
-MODE=decrypt-all
+MODE=
 FILE_TYPE="binary"
 FAILED=0
 MISMATCHES=()
@@ -9,18 +9,19 @@ TMP_DECRYPTED=$(mktemp)
 trap 'rm -f "${TMP_DECRYPTED}"' EXIT
 
 function usage() {
-    echo "Usage: $0 [--encrypt <file>] [--encrypt-all] [--decrypt <file>] [--decrypt-all] [--reencrypt-all]"
+    echo "Usage: $0 [--encrypt <file> | --decrypt <file> | --encrypt-all | --decrypt-all | --reencrypt-all | --redecrypt-all | --help]"
     echo ""
     echo "Options:"
-    echo "  --encrypt <file>      Encrypt the specified file and save it as '<file>_encrypted'"
-    echo "  --encrypt-all         Encrypt all files having 'private' in their name and save them as '<file>_encrypted'"
-    echo "  --decrypt <file>      Decrypt the specified file (which should end with '_encrypted') and save it as '<file>'"
-    echo "  --decrypt-all         Decrypt all files ending with '_encrypted' in the repository (default)"
-    echo "  --reencrypt-all       Re-encrypt all encrypted files from their non-encrypted counterparts"
-    echo "  --redecrypt-all       Re-decrypt all non-encrypted files from their encrypted counterparts"
+    echo "  --encrypt <file>      Encrypt <file> and save it as '<file>_encrypted'"
+    echo "  --decrypt <file>      Decrypt <file> (must end with '_encrypted') and save it without that suffix"
+    echo "  --encrypt-all         Encrypt every file with 'private' in its name (except templates and '_encrypted' copies), skipping unchanged ones"
+    echo "  --decrypt-all         Decrypt every '_encrypted' file whose plaintext is missing, and diff-check the existing ones (used by the pre-commit hook)"
+    echo "  --reencrypt-all       Re-encrypt every '_encrypted' file whose plaintext has changed"
+    echo "  --redecrypt-all       Overwrite every plaintext file with the decrypted content of its '_encrypted' copy"
+    echo "  --help                Show this help"
     echo ""
     echo "Environment Variables:"
-    echo "  SOPS_AGE_KEY_FILE     Path to the file containing the age public key (required)"
+    echo "  SOPS_AGE_KEY_FILE     Path to your age private key file (required); its public key, derived with age-keygen, is the recipient"
 }
 
 while [ $# -ge 1 ]; do
@@ -59,6 +60,11 @@ while [ $# -ge 1 ]; do
   esac
   shift
 done
+
+if [ -z "${MODE}" ]; then
+  usage
+  exit 1
+fi
 
 if [ -z "${SOPS_AGE_KEY_FILE}" ] || [ ! -f "${SOPS_AGE_KEY_FILE}" ]; then
   echo "ERROR: SOPS_AGE_KEY_FILE must point to your age key file (currently: \"${SOPS_AGE_KEY_FILE}\")"
