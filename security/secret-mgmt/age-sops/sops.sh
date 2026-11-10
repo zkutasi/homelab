@@ -110,7 +110,7 @@ elif [ "${MODE}" == "encrypt-all" ]; then
                 --output "${encrypted_filename}" \
                 "${decrypted_filename}"
         fi
-    done < <(find "$(git rev-parse --show-toplevel)" -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2")
+    done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2" -print)
 elif [ "${MODE}" == "decrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -139,7 +139,7 @@ elif [ "${MODE}" == "decrypt-all" ]; then
                 --output "${decrypted_filename}" \
                 "${encrypted_filename}"
         fi
-    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -name "*_encrypted" -print)
 elif [ "${MODE}" == "reencrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -167,7 +167,7 @@ elif [ "${MODE}" == "reencrypt-all" ]; then
         else
             echo "WARNING: Unencrypted file ${decrypted_filename} not found. Skipping re-encryption for ${encrypted_filename}."
         fi
-    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -name "*_encrypted" -print)
 elif [ "${MODE}" == "redecrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
@@ -179,7 +179,7 @@ elif [ "${MODE}" == "redecrypt-all" ]; then
             --age "${AGE_KEY}" \
             --output "${decrypted_filename}" \
             "${encrypted_filename}"
-    done < <(find "$(git rev-parse --show-toplevel)" -type f -name "*_encrypted")
+    done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -name "*_encrypted" -print)
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1
