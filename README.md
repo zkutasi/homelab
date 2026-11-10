@@ -264,7 +264,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 #### Templates, private files and secrets
 
-- Anything that depends on the inventory (passwords, hostnames, IPs, domains) is never written directly: a `generate-configuration.yaml` playbook renders the `config/templates/**/*.j2` templates into `*-private.yaml` files. These are ignored by git.
+- Anything that depends on the inventory (passwords, hostnames, IPs, domains) is never written directly: a `generate-configuration.yaml` playbook renders the `config/templates/**/*.j2` templates into `*-private.yaml` files. Every file with `private` in its name is ignored by git (except templates and `_encrypted` copies) and encrypted by `sops.sh --encrypt-all`.
 - When such a private file has to be kept in the repository, its SOPS-encrypted copy is committed with the `_encrypted` suffix. A pre-commit hook makes sure the encrypted copies are up-to-date with the decrypted ones.
 - Loops in templates that produce files are sorted (`{% for host in groups['x'] | sort %}`, and `| sort` after `difference`, `union`, `intersect` and `symmetric_difference`), so the generated files stay stable between runs.
 - A `ca.key` may only be committed as a symlink to the SOPS-managed key.
