@@ -1,6 +1,6 @@
 image:
   repository: dockpeek/dockpeek
-  tag: v1.7.2
+  tag: v1.7.3
   pullPolicy: IfNotPresent
 service:
   main:
