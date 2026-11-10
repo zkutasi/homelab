@@ -59,6 +59,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 2. Open a new shell, so `SOPS_AGE_KEY_FILE` is set
 
+3. Back up `~/.sops/age.key` to a safe place outside this host (e.g. a password manager). It is the only key that can decrypt the `_encrypted` files; without it they are lost for good.
+
 ## Metrics, Alerts, Notifications
 
 ## Commands
@@ -80,3 +82,4 @@ To encrypt or decrypt, use the helper script `sops.sh`. It always needs a mode, 
 - After changing a private file, run `sops.sh --encrypt-all` (or `--reencrypt-all`) before committing, otherwise the pre-commit hook stops the commit.
 - After a fresh clone, run `sops.sh --decrypt-all` to get all plaintext files.
 - Commits from GUI git clients (e.g. VS Code) fail the pre-commit hook, as they don't load `~/.bash_aliases`. Commit from a terminal instead.
+- On a new control server, restore the backed-up key to `~/.sops/age.key` before running `configure-age.yaml`: the playbook only creates a key when there is none, and a newly created key cannot decrypt the existing files.
