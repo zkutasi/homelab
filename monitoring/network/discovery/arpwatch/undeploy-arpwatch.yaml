@@ -14,3 +14,11 @@
   vars:
     packages:
       - arpwatch
+- name: Delete the arpwatch data
+  hosts: networkmonitoring
+  become: true
+  tasks:
+    - name: Remove the arpwatch database
+      ansible.builtin.file:
+        path: /var/lib/arpwatch
+        state: absent

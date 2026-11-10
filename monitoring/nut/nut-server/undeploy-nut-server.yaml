@@ -6,3 +6,5 @@
     packages:
       - libusb-1.0-0-dev
       - nut
+      - nut-server
+      - nut-client

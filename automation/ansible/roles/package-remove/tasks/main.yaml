@@ -5,11 +5,11 @@
   become: true
   when: ansible_pkg_mgr == 'apt'
   block:
-    - name: Remove packages
-      when: ansible_pkg_mgr != 'unknown'
-      ansible.builtin.package:
+    - name: Remove and purge packages, including their configuration
+      ansible.builtin.apt:
         name: "{{ item }}"
         state: absent
+        purge: true
       loop: "{{ packages }}"
     - name: Remove the APT repository and its GPG key
       when: gpg_dearmor
