@@ -1,0 +1,6 @@
+- name: Delete Flux CLI
+  hosts: controlserver
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: flux
