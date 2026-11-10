@@ -47,6 +47,10 @@ done
 
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 [ -z "${RELEASE_NAME}" ] && echo "ERROR: No release name specified" && exit 1
+if [ "${DELETE_NAMESPACE}" != "0" ] && [ "${DELETE_NAMESPACE}" != "1" ]; then
+  echo "ERROR: --delete-namespace must be 0 or 1, got \"${DELETE_NAMESPACE}\""
+  exit 1
+fi
 
 echo "Delete additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
