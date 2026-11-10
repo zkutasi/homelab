@@ -1,0 +1,24 @@
+- name: Remove the HDSentinel cron job
+  hosts:
+    - synology
+    - proxmox-nas
+  tasks:
+    - name: Remove the cron job
+      become: true
+      ansible.builtin.file:
+        path: /etc/cron.d/hdsentinel
+        state: absent
+- name: Remove the HDSentinel Samba share on Proxmox
+  hosts: proxmox-nas
+  become: true
+  tasks:
+    - name: Remove the managed Samba configuration block
+      ansible.builtin.blockinfile:
+        path: /etc/samba/smb.conf
+        state: absent
+      notify: Restart Samba
+  handlers:
+    - name: Restart Samba
+      ansible.builtin.systemd_service:
+        name: smbd
+        state: restarted
