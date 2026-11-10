@@ -2,10 +2,6 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Generate configuration file from template
-      ansible.builtin.template:
-        src: config/templates/app-values-private.yaml.j2
-        dest: "app-values-private.yaml"
     - name: Ensure output directory exists
       delegate_to: localhost
       ansible.builtin.file:
@@ -124,3 +120,11 @@
         monitor_parent_name: "k8s"
         monitor_type: "http"
         monitor_url: "https://{{ proxy.spec.virtualhost.fqdn }}{{ proxy.metadata.annotations['homelab/health-endpoint'] | default('') }}"
+- name: Generate the Helm values for Uptime Kuma, after all monitor files exist
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate configuration file from template
+      ansible.builtin.template:
+        src: config/templates/app-values-private.yaml.j2
+        dest: "app-values-private.yaml"

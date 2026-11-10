@@ -1,3 +1,12 @@
+configmap:
+  autokuma-staticmonitors:
+    enabled: true
+    expandObjectName: false
+    data:
+{% for monitor_file in query('ansible.builtin.fileglob', playbook_dir ~ '/config/autokuma-monitors/*.json') | sort %}
+      {{ monitor_file | basename }}: |
+        {{ lookup('ansible.builtin.file', monitor_file) | indent(8) }}
+{% endfor %}
 secret:
   ca-certificates:
     enabled: true
