@@ -2,4 +2,5 @@
   community.general.pipx:
     name: "{{ item }}"
     state: absent
+    executable: "{{ pipx_executable | default(omit) }}"
   with_items: "{{ pipx_packages }}"

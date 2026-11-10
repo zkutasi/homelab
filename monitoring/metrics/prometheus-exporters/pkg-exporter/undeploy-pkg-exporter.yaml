@@ -1,3 +1,17 @@
+- name: Delete pkg-exporter configuration
+  hosts: linux-selfmanaged
+  become: true
+  tasks:
+    - name: Remove the cron job, the APT hook, the metrics file and the APT hook markers
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/cron.d/pkg-exporter
+        - /etc/apt/apt.conf.d/00-pkg-exporter
+        - "{{ node_exporter_textfiles_dir }}/pkg-exporter.prom"
+        - /tmp/pkg-exporter-apt-update-pre
+        - /tmp/pkg-exporter-apt-update-post
 - name: Remove pkg-exporter package
   hosts: linux-selfmanaged
   roles:
@@ -5,3 +19,4 @@
   vars:
     pipx_packages:
       - pkg-exporter
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

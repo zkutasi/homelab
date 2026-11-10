@@ -13,3 +13,4 @@
   vars:
     pipx_packages:
       - prometheus-pve-exporter
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"
