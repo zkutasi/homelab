@@ -1,5 +1,11 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
+  echo "ERROR: Run $(basename "$0") from its own folder: ${SCRIPT_DIR}"
+  exit 1
+fi
+
 NS=x509-certificate-exporter
 RELEASE_NAME=x509-certificate-exporter
 

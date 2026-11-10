@@ -1,5 +1,11 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
+  echo "ERROR: Run $(basename "$0") from its own folder: ${SCRIPT_DIR}"
+  exit 1
+fi
+
 CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
 APP=uptimekuma
 NS=uptimekuma

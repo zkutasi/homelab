@@ -1,5 +1,11 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
+  echo "ERROR: Run $(basename "$0") from its own folder: ${SCRIPT_DIR}"
+  exit 1
+fi
+
 CHART_NAME=<APP_NAME_LOWERCASE>/<APP_NAME_LOWERCASE>
 NS=<APP_NAME_LOWERCASE>
 RELEASE_NAME=<APP_NAME_LOWERCASE>

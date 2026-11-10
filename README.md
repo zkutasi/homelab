@@ -279,6 +279,7 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Kubernetes Apps
 
 - Each App has its own `deploy-k8s.sh` and `undeploy-k8s.sh`, which are thin wrappers around the shared `common-*.sh` scripts in the repository root (for Helm charts, Kustomize, Kompose, plain manifests and CloudNativePG databases).
+- Run `deploy-k8s.sh` and `undeploy-k8s.sh` from the App's own folder, as they read their files relative to the current folder. They refuse to run anywhere else.
 - Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
 - Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App. The HTTPProxy and Certificate manifests are templates under `config/templates/extra-manifests/` using `{{ kubernetes_internal_domain }}`, never static files with a hardcoded domain.
 - Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
