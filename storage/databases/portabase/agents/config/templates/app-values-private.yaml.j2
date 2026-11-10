@@ -46,6 +46,13 @@ configmap:
 {% endif %}
           ]
         }
+secret:
+  ca-certificates:
+    enabled: true
+    expandObjectName: false
+    data:
+      homelab-ca.crt: |
+        {{ lookup('ansible.builtin.file', 'config/static/certs/ca.crt') | indent(8) }}
 workload:
   main:
     podSpec:

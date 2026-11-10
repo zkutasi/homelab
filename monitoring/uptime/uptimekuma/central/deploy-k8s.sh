@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
 APP=uptimekuma
 NS=uptimekuma
 RELEASE_NAME=uptimekuma
@@ -27,11 +26,6 @@ kubectl get namespace $NS >/dev/null 2>&1 || kubectl create namespace $NS
 kubectl create configmap autokuma-staticmonitors \
     --namespace $NS \
     --from-file=config/autokuma-monitors \
-    --dry-run=client -o yaml | kubectl apply -f -
-
-kubectl create secret generic ca-certificates \
-    --namespace $NS \
-    --from-file=homelab-ca.pem="${CA_DIR}"/ca.crt \
     --dry-run=client -o yaml | kubectl apply -f -
 
 "$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
