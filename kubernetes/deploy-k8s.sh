@@ -6,6 +6,8 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
+NS=kube-system
+
 EXTRA_PARAMS=
 
 while [ $# -ge 1 ]; do
@@ -17,6 +19,6 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-# Cluster-wide manifests, so no namespace is given
 "$(git rev-parse --show-toplevel)"/common-deploy-manifests.sh \
+    --namespace $NS \
     ${EXTRA_PARAMS}
