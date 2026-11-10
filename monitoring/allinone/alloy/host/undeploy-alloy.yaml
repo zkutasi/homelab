@@ -3,5 +3,8 @@
   roles:
     - package-remove
   vars:
+    gpg_dearmor: true
+    gpg_project_name: alloy
+    gpg_signed_repo: "https://apt.grafana.com stable main"
     packages:
       - alloy

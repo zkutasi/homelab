@@ -11,3 +11,15 @@
         name: "{{ item }}"
         state: absent
       loop: "{{ packages }}"
+    - name: Remove the APT repository and its GPG key
+      when: gpg_dearmor
+      block:
+        - name: Remove the repository
+          ansible.builtin.apt_repository:
+            repo: "deb [signed-by={{ gpg_key_path }}] {{ gpg_signed_repo }}"
+            state: absent
+            update_cache: true
+        - name: Remove the GPG key
+          ansible.builtin.file:
+            path: "{{ gpg_key_path }}"
+            state: absent
