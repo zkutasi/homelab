@@ -14,7 +14,13 @@ SOPS and age are tools to be used to protect secrets but still able to commit th
 
 ## The setup
 
-The Host that is used to handle the git repo has SOPS and age installed.
+The host that handles the git repo (the control server) has SOPS and age installed, and holds the age key in `~/.sops/age.key`.
+
+- Every file with `private` in its name holds secrets and is ignored by git. When it has to be kept in the repository, its SOPS-encrypted copy is committed next to it with the `_encrypted` suffix.
+- Files are encrypted as a whole (SOPS binary mode), so a decrypted copy is byte for byte identical to the original.
+- The recipient of every encrypted file is the public key that `sops.sh` derives from the age key with `age-keygen`.
+- `SOPS_AGE_KEY_FILE` points SOPS and `sops.sh` to the age key. It is exported in `~/.bash_aliases`, so it is only set in interactive shells.
+- A git pre-commit hook runs `sops.sh --decrypt-all` before every commit, and fails when a plaintext file differs from its encrypted copy, or when `SOPS_AGE_KEY_FILE` is not set.
 
 ## Prerequisites
 
@@ -45,19 +51,32 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Post deployment
 
-1. Configure age to generate keys
+1. Configure age: it generates the age key if there is none yet, and exports `SOPS_AGE_KEY_FILE` in `~/.bash_aliases`
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook security/secret-mgmt/age-sops/configure-age.yaml --no-check
     ```
 
+2. Open a new shell, so `SOPS_AGE_KEY_FILE` is set
+
 ## Metrics, Alerts, Notifications
 
 ## Commands
 
-To encrypt or decrypt, use the helper script `sops.sh`
+To encrypt or decrypt, use the helper script `sops.sh`. It always needs a mode, and `--help` lists them all.
+
+|Command|What it does|
+|-------|------------|
+|`sops.sh --encrypt <file>`|Encrypts one file into `<file>_encrypted`|
+|`sops.sh --decrypt <file>_encrypted`|Decrypts one file next to it, without the suffix|
+|`sops.sh --encrypt-all`|Encrypts every private file, skipping the ones whose content did not change|
+|`sops.sh --decrypt-all`|Decrypts every missing plaintext file, and checks the existing ones against their encrypted copy (what the pre-commit hook runs)|
+|`sops.sh --reencrypt-all`|Re-encrypts every encrypted file whose plaintext has changed|
+|`sops.sh --redecrypt-all`|Recreates every plaintext file from its encrypted copy, overwriting local changes|
 
 ## Notable comments
 
-- One can use the provided `sops.sh` script to encrypt and decrypt files with SOPS.
-- Even a git pre-commit hook was added to protect in the case of not properly updating the encrypted (& committed) files.
+- Besides `sops`, `sops.sh` needs `age-keygen` (installed together with age) to derive the public key.
+- After changing a private file, run `sops.sh --encrypt-all` (or `--reencrypt-all`) before committing, otherwise the pre-commit hook stops the commit.
+- After a fresh clone, run `sops.sh --decrypt-all` to get all plaintext files.
+- Commits from GUI git clients (e.g. VS Code) fail the pre-commit hook, as they don't load `~/.bash_aliases`. Commit from a terminal instead.
