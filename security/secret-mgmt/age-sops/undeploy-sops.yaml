@@ -1,7 +1,6 @@
 - name: Delete SOPS
   hosts: controlserver
-  tasks:
-    - name: Delete SOPS binary
-      ansible.builtin.file:
-        path: /usr/local/bin/sops
-        state: absent
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: sops

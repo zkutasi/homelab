@@ -1,11 +1,17 @@
 - name: Delete age
   hosts: controlserver
+  roles:
+    - role: binary-remove
+      vars:
+        bin_filename: age
+    - role: binary-remove
+      vars:
+        bin_filename: age-keygen
+- name: Delete the age configuration, keeping the private key
+  hosts: controlserver
   tasks:
-    - name: Delete age binary
-      ansible.builtin.file:
-        path: /usr/local/bin/age
-        state: absent
-    - name: Delete age-keygen binary
-      ansible.builtin.file:
-        path: /usr/local/bin/age-keygen
+    - name: Remove SOPS_AGE_KEY_FILE from the bash aliases
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        regexp: '^#?\s*(export\s+)?SOPS_AGE_KEY_FILE='
         state: absent
