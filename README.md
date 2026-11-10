@@ -283,6 +283,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
 - Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App. The HTTPProxy and Certificate manifests are templates under `config/templates/extra-manifests/` using `{{ kubernetes_internal_domain }}`, never static files with a hardcoded domain.
 - Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
+- What happens to a Helm App's CRDs on undeploy is up to its chart's defaults; the scripts never remove or keep CRDs by force. CRDs shipped in a chart's `crds/` folder or marked `helm.sh/resource-policy: keep` stay, the others are deleted on uninstall, together with every resource of their kind in the cluster.
 - Manifests that were removed or renamed are cleaned up from the cluster by hand; the scripts don't prune.
 
 #### Versions and Renovate
