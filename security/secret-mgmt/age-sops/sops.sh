@@ -4,6 +4,7 @@ ENCRYPT_FILE=""
 MODE=decrypt-all
 FILE_TYPE="binary"
 FAILED=0
+MISMATCHES=()
 TMP_DECRYPTED=$(mktemp)
 trap 'rm -f "${TMP_DECRYPTED}"' EXIT
 
@@ -151,7 +152,8 @@ elif [ "${MODE}" == "decrypt-all" ]; then
                     echo "No differences found between decrypted content and existing file."
                 elif [ $res -eq 1 ]; then
                     echo "Differences found between decrypted content and existing file."
-                    exit 1
+                    MISMATCHES+=("${decrypted_filename}")
+                    FAILED=1
                 fi
             fi
         else
@@ -214,6 +216,11 @@ elif [ "${MODE}" == "redecrypt-all" ]; then
 else
     echo "ERROR: unknown mode \"${MODE}\""
     exit 1
+fi
+
+if [ ${#MISMATCHES[@]} -gt 0 ]; then
+    echo "ERROR: ${#MISMATCHES[@]} decrypted file(s) differ from their encrypted copy:"
+    printf '  %s\n' "${MISMATCHES[@]}"
 fi
 
 exit "${FAILED}"
