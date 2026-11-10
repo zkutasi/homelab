@@ -1,0 +1,9 @@
+- name: Generate dynamic configuration for cert-manager
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Generate the internal CA secret from template
+      ansible.builtin.template:
+        src: config/templates/extra-manifests/contour-internal-ca-secret-private.yaml.j2
+        dest: "extra-manifests/contour-internal-ca-secret-private.yaml"
+        mode: "0600"

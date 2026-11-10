@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-CA_DIR=$(git rev-parse --show-toplevel)/security/certificates/certs/
 CHART_NAME=jetstack/cert-manager
 NS=cert-manager
 RELEASE_NAME=cert-manager
@@ -31,9 +30,3 @@ done
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
     ${EXTRA_PARAMS}
-
-kubectl create secret generic contour-internal-ca-secret \
-    --namespace $NS \
-    --from-file=tls.key="${CA_DIR}"/ca.key \
-    --from-file=tls.crt="${CA_DIR}"/ca.crt \
-    --dry-run=client -o yaml | kubectl apply -f -
