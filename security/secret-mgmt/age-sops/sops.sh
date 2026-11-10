@@ -81,6 +81,14 @@ if [ -z "${AGE_KEY}" ]; then
 fi
 
 if [ "${MODE}" == "encrypt" ]; then
+    if [ -z "${ENCRYPT_FILE}" ] || [ ! -f "${ENCRYPT_FILE}" ]; then
+        echo "ERROR: --encrypt needs an existing file (got \"${ENCRYPT_FILE}\")"
+        exit 1
+    fi
+    if [[ "${ENCRYPT_FILE}" == *_encrypted ]]; then
+        echo "ERROR: ${ENCRYPT_FILE} is already an encrypted file"
+        exit 1
+    fi
     echo "Encrypting file: ${ENCRYPT_FILE}..."
     sops --encrypt \
         --input-type ${FILE_TYPE} \
@@ -90,11 +98,15 @@ if [ "${MODE}" == "encrypt" ]; then
         "${ENCRYPT_FILE}" \
         || { echo "ERROR: Could not encrypt ${ENCRYPT_FILE}"; FAILED=1; }
 elif [ "${MODE}" == "decrypt" ]; then
-    echo "Decrypting file: ${DECRYPT_FILE}..."
     if [[ ! "${DECRYPT_FILE}" == *_encrypted ]]; then
         echo "ERROR: file to decrypt must end with '_encrypted'"
         exit 1
     fi
+    if [ ! -f "${DECRYPT_FILE}" ]; then
+        echo "ERROR: ${DECRYPT_FILE} does not exist"
+        exit 1
+    fi
+    echo "Decrypting file: ${DECRYPT_FILE}..."
     sops --decrypt \
         --input-type ${FILE_TYPE} \
         --output-type ${FILE_TYPE} \
