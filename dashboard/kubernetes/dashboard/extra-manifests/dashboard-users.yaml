@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-ds-viewer
+  namespace: kubernetes-dashboard
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-ds-editor
+  namespace: kubernetes-dashboard
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kube-ds-admin
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-ds-viewer-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: kube-ds-viewer
+    namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-ds-editor-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+  - kind: ServiceAccount
+    name: kube-ds-editor
+    namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kube-ds-admin-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+  - kind: ServiceAccount
+    name: kube-ds-admin
+    namespace: kubernetes-dashboard

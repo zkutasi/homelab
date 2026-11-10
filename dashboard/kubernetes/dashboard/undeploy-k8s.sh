@@ -18,7 +18,3 @@ done
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     ${EXTRA_PARAMS}
-
-kubectl delete clusterrolebinding kube-ds-viewer-role-binding
-kubectl delete clusterrolebinding kube-ds-editor-role-binding
-kubectl delete clusterrolebinding kube-ds-admin-role-binding
