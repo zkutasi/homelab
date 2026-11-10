@@ -1,6 +1,5 @@
 #!/bin/bash
 
-AGE_KEY=$(cat "${SOPS_AGE_KEY_FILE}" | grep -oP "public key: \K(.*)")
 ENCRYPT_FILE=""
 MODE=decrypt-all
 FILE_TYPE="binary"
@@ -59,6 +58,16 @@ while [ $# -ge 1 ]; do
   esac
   shift
 done
+
+if [ -z "${SOPS_AGE_KEY_FILE}" ] || [ ! -f "${SOPS_AGE_KEY_FILE}" ]; then
+  echo "ERROR: SOPS_AGE_KEY_FILE must point to your age key file (currently: \"${SOPS_AGE_KEY_FILE}\")"
+  exit 1
+fi
+AGE_KEY=$(grep -oP "public key: \K(.*)" "${SOPS_AGE_KEY_FILE}")
+if [ -z "${AGE_KEY}" ]; then
+  echo "ERROR: No \"# public key:\" line found in ${SOPS_AGE_KEY_FILE}"
+  exit 1
+fi
 
 if [ "${MODE}" == "encrypt" ]; then
     echo "Encrypting file: ${ENCRYPT_FILE}..."
