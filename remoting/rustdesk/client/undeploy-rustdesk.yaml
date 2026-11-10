@@ -1,0 +1,14 @@
+- name: Remove the Rustdesk client
+  hosts: remotecontrolled
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - rustdesk
+- name: Remove the Rustdesk client configuration
+  hosts: remotecontrolled
+  tasks:
+    - name: Remove the user's Rustdesk configuration
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/.config/rustdesk"
+        state: absent
