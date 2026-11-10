@@ -8,12 +8,12 @@ for group in linux windows; do
     ansible_module="ansible.windows.win_ping"
   fi
 
-  CMD="ansible --inventory homelab-ansible-inventory/inventory -m ${ansible_module} --limit ${group} all"
+  CMD=(ansible --inventory homelab-ansible-inventory/inventory -m "${ansible_module}" --limit "${group}" all)
   if command -v ansible-navigator >/dev/null 2>&1; then
     echo "Using ansible-navigator..."
     REPO_ROOT=$(git rev-parse --show-toplevel)
     export ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
-    CMD="ansible-navigator exec -- ${CMD}"
+    CMD=(ansible-navigator exec -- "${CMD[@]}")
   elif command -v ansible >/dev/null 2>&1; then
     echo "Using ansible..."
   else
@@ -21,7 +21,7 @@ for group in linux windows; do
     exit 1
   fi
 
-  echo "Executing command: ${CMD}"
-  ${CMD}
+  echo "Executing command: ${CMD[*]}"
+  "${CMD[@]}"
 
 done

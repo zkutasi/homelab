@@ -33,13 +33,13 @@ done
 echo "Execute Kompose conversion..."
 rm -rf ./kompose-manifests/*
 mkdir -p ./kompose-manifests
-CMD="kompose convert \
-    --file docker-compose.yaml \
-    --service-group-mode label \
-    --out ./kompose-manifests"
+CMD=(kompose convert
+    --file docker-compose.yaml
+    --service-group-mode label
+    --out ./kompose-manifests)
 
-echo "Executing command: ${CMD}"
-${CMD}
+echo "Executing command: ${CMD[*]}"
+"${CMD[@]}"
 
 echo "Ensure namespace $NS exists..."
 kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"

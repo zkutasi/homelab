@@ -34,12 +34,12 @@ echo "Ensure namespace $NS exists..."
 kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"
 
 echo "Apply kustomization.yaml..."
-CMD="kubectl apply \
-    --kustomize . \
-	  --namespace $NS"
+CMD=(kubectl apply
+    --kustomize .
+    --namespace $NS)
 
-echo "Executing command: ${CMD}"
-${CMD}
+echo "Executing command: ${CMD[*]}"
+"${CMD[@]}"
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then

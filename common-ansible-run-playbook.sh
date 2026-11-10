@@ -75,19 +75,19 @@ if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
   export ANSIBLE_NAVIGATOR_CONFIG
   echo "ANSIBLE_NAVIGATOR_CONFIG=${ANSIBLE_NAVIGATOR_CONFIG}"
-  CMD="ansible-navigator run ${PLAYBOOK} -m stdout --inventory ${INVENTORY} ${EXTRA_ARGS}"
+  CMD=(ansible-navigator run "${PLAYBOOK}" -m stdout --inventory "${INVENTORY}" ${EXTRA_ARGS})
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."
-  CMD="ansible-playbook --inventory ${INVENTORY} ${PLAYBOOK} ${EXTRA_ARGS}"
+  CMD=(ansible-playbook --inventory "${INVENTORY}" "${PLAYBOOK}" ${EXTRA_ARGS})
 else
   echo "ERROR: neither ansible-navigator nor ansible-playbook is available"
   exit 1
 fi
 
-[ "${CHECK}" -eq 1 ] && CMD="${CMD} --check"
-[ "${DIFF}" -eq 1 ] && CMD="${CMD} --diff"
-[ -n "${LIMIT}" ] && CMD="${CMD} --limit ${LIMIT}"
+[ "${CHECK}" -eq 1 ] && CMD+=(--check)
+[ "${DIFF}" -eq 1 ] && CMD+=(--diff)
+[ -n "${LIMIT}" ] && CMD+=(--limit "${LIMIT}")
 
 # CMD="ansible-navigator exec -- ansible-config dump --only-change"
-echo "Executing command: ${CMD}"
-${CMD}
+echo "Executing command: ${CMD[*]}"
+"${CMD[@]}"

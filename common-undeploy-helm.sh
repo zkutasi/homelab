@@ -58,15 +58,15 @@ fi
 echo "Uninstall helm chart..."
 RELEASES=$(helm -n "$NS" list --short)
 if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
-  CMD="helm uninstall ${RELEASE_NAME} \
-        --namespace $NS \
-        --wait"
+  CMD=(helm uninstall "${RELEASE_NAME}"
+        --namespace $NS
+        --wait)
   if [ "${DEBUG}" -eq 1 ]; then
-    CMD="${CMD} --debug"
+    CMD+=(--debug)
   fi
 
-  echo "Executing command: ${CMD}"
-  ${CMD}
+  echo "Executing command: ${CMD[*]}"
+  "${CMD[@]}"
 else
   echo "Helm release ${RELEASE_NAME} not found in namespace ${NS}, skipping uninstall"
 fi

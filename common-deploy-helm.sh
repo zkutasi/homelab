@@ -9,7 +9,7 @@ CHART_NAME=
 DEBUG=0
 DEPLOYMENT_TYPE=helm
 EXTRA_MANIFESTS=1
-EXTRA_VALUES_FILES=
+EXTRA_VALUES_FILES=()
 LATEST=0
 NS=
 POST_RENDERER=
@@ -58,7 +58,7 @@ while [ $# -ge 1 ]; do
       ;;
     --extra-values)
       shift
-      EXTRA_VALUES_FILES="${EXTRA_VALUES_FILES} $1"
+      EXTRA_VALUES_FILES+=("$1")
       ;;
     --latest)
       LATEST=1
@@ -107,17 +107,17 @@ while [ $# -ge 1 ]; do
 done
 
 [ -z "${APP}" ] && echo "ERROR: APP must be set" && exit 1
-VALUE_FILES=
+VALUE_FILES=()
 for valuefile in "${APP}-values.yaml" "${APP}-values-private.yaml" "${APP}-values-dimensioning.yaml"; do
   if [ -f "${valuefile}" ]; then
-    VALUE_FILES="${VALUE_FILES} --values ${valuefile}"
+    VALUE_FILES+=(--values "${valuefile}")
   else
     echo "INFO: No values file ${valuefile} found, skipping"
   fi
 done
-for valuefile in ${EXTRA_VALUES_FILES}; do
+for valuefile in "${EXTRA_VALUES_FILES[@]}"; do
   [ ! -f "${valuefile}" ] && echo "ERROR: Extra values file ${valuefile} not found" && exit 1
-  VALUE_FILES="${VALUE_FILES} --values ${valuefile}"
+  VALUE_FILES+=(--values "${valuefile}")
 done
 
 [ -z "${DEPLOYMENT_TYPE}" ] && echo "ERROR: Deployment type must be set" && exit 1
@@ -182,48 +182,48 @@ if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
   helm dependency update "${CHART_NAME}"
 fi
 
-CMD="${RELEASE_NAME} ${CHART_NAME} \
-    --version ${VERSION} \
-    --namespace $NS \
-    --create-namespace \
-    ${VALUE_FILES}"
+CMD=("${RELEASE_NAME}" "${CHART_NAME}"
+    --version "${VERSION}"
+    --namespace $NS
+    --create-namespace
+    "${VALUE_FILES[@]}")
 
 if [ "${DEBUG}" -eq 1 ]; then
-  CMD="${CMD} --debug"
+  CMD+=(--debug)
 fi
 
 if [ -n "${POST_RENDERER}" ]; then
-  CMD="${CMD} --post-renderer ${POST_RENDERER}"
+  CMD+=(--post-renderer "${POST_RENDERER}")
 fi
 
 if [ "${TEMPLATE}" -eq 0 ]; then
   echo "Install helm chart..."
-  CMD="helm upgrade --install ${CMD}"
+  CMD=(helm upgrade --install "${CMD[@]}")
 else
   echo "Template out the result..."
-  CMD="helm template ${CMD}"
+  CMD=(helm template "${CMD[@]}")
 fi
-echo "Executing command: ${CMD}"
-${CMD}
+echo "Executing command: ${CMD[*]}"
+"${CMD[@]}"
 
 if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; }; then
   cnpg_clusters=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" \
     | yq '.cnpg // {} | to_entries | .[] | select(.value.enabled == true) | .key')
   for cnpg_clustername in ${cnpg_clusters}; do
     echo "Deploying Prometheus rules for CNPG cluster ${cnpg_clustername}..."
-    CMD="helm template \
-      --release-name ${RELEASE_NAME}-cnpg \
-      --namespace ${NS} \
-      --set nameOverride=${cnpg_clustername} \
-      --set cluster.monitoring.enabled=true \
-      --set cluster.monitoring.prometheusRule.excludeRules[0]=CNPGClusterHAWarning \
-      --set cluster.monitoring.prometheusRule.excludeRules[1]=CNPGClusterHACritical \
-      --show-only templates/prometheus-rule.yaml \
-      --repo ${CNPG_REPO_URL} \
-      --version ${CNPG_CLUSTER_CHART_VERSION} \
-      cluster"
-    echo "Executing command: ${CMD}"
-    ${CMD} | kubectl apply -f -
+    CMD=(helm template
+      --release-name "${RELEASE_NAME}-cnpg"
+      --namespace $NS
+      --set "nameOverride=${cnpg_clustername}"
+      --set cluster.monitoring.enabled=true
+      --set "cluster.monitoring.prometheusRule.excludeRules[0]=CNPGClusterHAWarning"
+      --set "cluster.monitoring.prometheusRule.excludeRules[1]=CNPGClusterHACritical"
+      --show-only templates/prometheus-rule.yaml
+      --repo "${CNPG_REPO_URL}"
+      --version "${CNPG_CLUSTER_CHART_VERSION}"
+      cluster)
+    echo "Executing command: ${CMD[*]}"
+    "${CMD[@]}" | kubectl apply -f -
   done
 fi
 
