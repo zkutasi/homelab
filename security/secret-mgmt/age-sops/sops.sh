@@ -64,9 +64,13 @@ if [ -z "${SOPS_AGE_KEY_FILE}" ] || [ ! -f "${SOPS_AGE_KEY_FILE}" ]; then
   echo "ERROR: SOPS_AGE_KEY_FILE must point to your age key file (currently: \"${SOPS_AGE_KEY_FILE}\")"
   exit 1
 fi
-AGE_KEY=$(grep -oP "public key: \K(.*)" "${SOPS_AGE_KEY_FILE}")
+if ! command -v age-keygen >/dev/null 2>&1; then
+  echo "ERROR: age-keygen is needed to derive the public key (see deploy-age.yaml)"
+  exit 1
+fi
+AGE_KEY=$(age-keygen -y "${SOPS_AGE_KEY_FILE}" | paste -sd, -)
 if [ -z "${AGE_KEY}" ]; then
-  echo "ERROR: No \"# public key:\" line found in ${SOPS_AGE_KEY_FILE}"
+  echo "ERROR: Could not derive the public key from ${SOPS_AGE_KEY_FILE}"
   exit 1
 fi
 
