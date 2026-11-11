@@ -123,7 +123,7 @@ function fetch_docker_compose_and_repo_info() {
                 (.description // "")
                 | gsub("https?://\\S+"; "")
                 | gsub("^\\s+|\\s+$"; "")
-                | gsub("\\s{2,}"; " ")
+                | gsub("\\s+"; " ")
             ')
       APP_HOMEPAGE=$(echo "${github_repo_info}" | jq -r '.homepage // empty')
       APP_SOURCE_URL="https://github.com/${github_owner}/${github_repo}"
@@ -150,7 +150,7 @@ function fetch_docker_compose_and_repo_info() {
                 (.description // "")
                 | gsub("https?://\\S+"; "")
                 | gsub("^\\s+|\\s+$"; "")
-                | gsub("\\s{2,}"; " ")
+                | gsub("\\s+"; " ")
             ')
       APP_HOMEPAGE=$(echo "${codeberg_repo_info}" | jq -r '.website // empty')
       APP_SOURCE_URL="https://codeberg.org/${codeberg_owner}/${codeberg_repo}"
@@ -205,6 +205,11 @@ function preprocess_docker_compose() {
       yq -i ".services.${main_service}.image = \"$(image_repo "${current_image}"):${new_tag}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
     fi
   fi
+}
+
+# Escapes a value for the replacement side of a sed s|…|…| command ('\', '|' and '&')
+function sed_escape() {
+  printf '%s' "$1" | sed -e 's/[\\|&]/\\&/g'
 }
 
 function image_repo() {
@@ -270,9 +275,9 @@ function populate_readme() {
 
   if [ -n "${APP_SOURCE_URL}" ]; then
     echo "Populating README.md with information from '${APP_SOURCE_URL}' ..."
-    [ -n "${APP_ABOUT}" ] && sed -i "s|^A short introduction of the app\$|${APP_ABOUT}|" "${APP_TARGET_DIR}/README.md"
-    [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site](${APP_HOMEPAGE})|" "${APP_TARGET_DIR}/README.md"
-    sed -i "s|^- ~~Source repository~~\$|- [Source repository](${APP_SOURCE_URL})|" "${APP_TARGET_DIR}/README.md"
+    [ -n "${APP_ABOUT}" ] && sed -i "s|^A short introduction of the app\$|$(sed_escape "${APP_ABOUT}")|" "${APP_TARGET_DIR}/README.md"
+    [ -n "${APP_HOMEPAGE}" ] && sed -i "s|^- ~~Official site~~\$|- [Official site]($(sed_escape "${APP_HOMEPAGE}"))|" "${APP_TARGET_DIR}/README.md"
+    sed -i "s|^- ~~Source repository~~\$|- [Source repository]($(sed_escape "${APP_SOURCE_URL}"))|" "${APP_TARGET_DIR}/README.md"
   fi
 
   if [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
@@ -291,7 +296,7 @@ function populate_readme() {
     done < <(yq -o=json '.services' "${APP_TARGET_DIR}/docker-compose.yaml" | jq -r 'to_entries[] | .key + "\t" + .value.image')
 
     if [ "${#links[@]}" -eq 1 ]; then
-      sed -i "s|^- ~~Image repo~~\$|- [Image repo](${links[0]})|" "${APP_TARGET_DIR}/README.md"
+      sed -i "s|^- ~~Image repo~~\$|- [Image repo]($(sed_escape "${links[0]}"))|" "${APP_TARGET_DIR}/README.md"
     elif [ "${#links[@]}" -gt 1 ]; then
       sed -i "s|^- ~~Image repo~~\$|- Image repo:|" "${APP_TARGET_DIR}/README.md"
       local i
@@ -355,21 +360,21 @@ function swap_out_templates() {
   local line
   local entry
   while read -r line; do
-    sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
-    sed -i "s|<APP_VAR_NAME>|${APP_VAR_NAME}|g" "${line}"
-    sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
-    sed -i "s|<APP_IMAGE_TAG>|${APP_IMAGE_TAG}|g" "${line}"
-    sed -i "s|<APP_NAME>|${APP_NAME}|g" "${line}"
-    sed -i "s|<APP_FOLDERNAME>|${APP_FOLDERNAME}|g" "${line}"
+    sed -i "s|<APP_NAME_LOWERCASE>|$(sed_escape "${APP_NAME_LOWERCASE}")|g" "${line}"
+    sed -i "s|<APP_VAR_NAME>|$(sed_escape "${APP_VAR_NAME}")|g" "${line}"
+    sed -i "s|<APP_IMAGE_REPO>|$(sed_escape "${APP_IMAGE_REPO}")|g" "${line}"
+    sed -i "s|<APP_IMAGE_TAG>|$(sed_escape "${APP_IMAGE_TAG}")|g" "${line}"
+    sed -i "s|<APP_NAME>|$(sed_escape "${APP_NAME}")|g" "${line}"
+    sed -i "s|<APP_FOLDERNAME>|$(sed_escape "${APP_FOLDERNAME}")|g" "${line}"
     if [ -n "${ANSIBLE_HOST}" ]; then
-      sed -i "s|<ANSIBLE_HOST>|${ANSIBLE_HOST}|g" "${line}"
+      sed -i "s|<ANSIBLE_HOST>|$(sed_escape "${ANSIBLE_HOST}")|g" "${line}"
     fi
     if [ -n "${APP_PORT}" ]; then
-      sed -i "s|<APP_PORT>|${APP_PORT}|g" "${line}"
+      sed -i "s|<APP_PORT>|$(sed_escape "${APP_PORT}")|g" "${line}"
     fi
 
     sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${line}"
-    sed -i "s|PLACEHOLDER_IMAGE_VERSION|{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}|g" "${line}"
+    sed -i "s|PLACEHOLDER_IMAGE_VERSION|$(sed_escape "{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}")|g" "${line}"
     sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${line}"
     sed -i 's|PLACEHOLDER_GUID|{{ ansible_user_gid }}|g' "${line}"
     sed -i 's|PLACEHOLDER_TZ|{{ timezone }}|g' "${line}"
@@ -379,7 +384,7 @@ function swap_out_templates() {
 
     for entry in "${APP_ENV_SECRET_PLACEHOLDERS[@]}"; do
       # Whole words only: one placeholder can be the start of another (DB_PASSWORD, DB_PASSWORD_FILE)
-      sed -i "s|\b${entry%%=*}\b|{{ ${entry#*=} }}|" "${line}"
+      sed -i "s|\b${entry%%=*}\b|$(sed_escape "{{ ${entry#*=} }}")|" "${line}"
     done
   done < <(find "${APP_TARGET_DIR}" -type f)
 }
