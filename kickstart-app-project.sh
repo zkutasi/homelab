@@ -388,6 +388,14 @@ function rename_files() {
   fi
 }
 
+# Whether an environment variable holds a secret, judged by its name.
+# *_FILE variables only hold a path to a secret file, not the secret itself.
+function is_secret_env() {
+  local key=$1
+  [[ "${key}" == *_FILE ]] && return 1
+  [[ "${key}" =~ SECRET|PASSWORD|PASSWD|TOKEN|CREDENTIAL|PRIVATE|SALT|KEYS?($|_)|(^|_)(PASS|PW|PWD)(_|$) ]]
+}
+
 function kickstart_binary() {
   echo
 }
@@ -439,8 +447,7 @@ function kickstart_docker() {
         [ -z "${line}" ] && continue
         key=${line%%=*}
         value=${line#*=}
-        # *_FILE variables hold a path to a secret file, not the secret itself
-        if [[ "${key}" =~ SECRET|PASSWORD ]] && [[ "${key}" != *_FILE ]]; then
+        if is_secret_env "${key}"; then
           echo "Routing sensitive environment variable '${key}' of '${service}' into the inventory ..."
           placeholder="PLACEHOLDER_ENV_SECRET_${key}"
           KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
@@ -707,8 +714,7 @@ function kickstart_k8s_truecharts_local() {
             key=${line%%=*}
             value=${line#*=}
             echo "Found environment variable '${key}' ..."
-            # *_FILE variables hold a path to a secret file, not the secret itself
-            if [[ "${key}" =~ SECRET|PASSWORD ]] && [[ "${key}" != *_FILE ]]; then
+            if is_secret_env "${key}"; then
               echo "Routing sensitive environment variable '${key}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
               env_var_name="${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')"
               placeholder="PLACEHOLDER_ENV_SECRET_${key}"
