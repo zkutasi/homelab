@@ -5,7 +5,13 @@
 # If the Movie has embedded subtitles, mark it with '.HUN.srt.inside'
 # Requirements:
 #    - Setting up the PATHS variable properly, so you end up with a list of your Paths to scan.
-# Arguments: NONE
+# Arguments: see --help
+
+function usage() {
+    echo "Usage: $0 [-s|--summary] [-v|--verbose] [-d|--disk <disk>]"
+    echo ""
+    echo "Summarizes the Hungarian subtitles of the movies, per disk."
+}
 
 PATHS='/srv/dev-disk-by-label-hdd0{1..7}/Movies/'
 
@@ -50,6 +56,10 @@ summary=1
 disk=""
 while [[ $# -gt 0 ]]; do
   case $1 in
+    --help)
+      usage
+      exit 0
+      ;;
     -s|--summary)
       summary=1
       shift
@@ -64,7 +74,9 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     *)
-      shift
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
       ;;
   esac
 done

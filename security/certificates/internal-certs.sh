@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Generates a new internal CA (ca.key, ca.crt) in ./certs, refuses if one exists. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 OUTPUT_DIR=certs
 VALID_FOR_YEARS=30
 VALID_FOR_DAYS=$((VALID_FOR_YEARS * 365))

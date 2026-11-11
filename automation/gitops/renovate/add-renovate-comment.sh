@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Adds a '# renovate: image=...' comment above appVersion in every Chart.yaml whose values files name exactly one image repository. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 ROOT_DIR=$(git rev-parse --show-toplevel)
 
 while read -r chart; do

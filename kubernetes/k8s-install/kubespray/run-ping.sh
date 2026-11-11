@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Pings all kubespray inventory hosts with Ansible, using kubespray's ansible.cfg. Run it from its own folder. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   echo "ERROR: Run $(basename "$0") from its own folder: ${SCRIPT_DIR}"

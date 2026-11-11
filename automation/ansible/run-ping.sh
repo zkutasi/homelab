@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Pings all Linux and Windows inventory hosts with Ansible. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 for group in linux windows; do
   echo "Pinging ${group} hosts..."
 

@@ -21,12 +21,18 @@ EXCLUDES=(
 
 usage() {
   echo "Usage: $0 <vm_ip> [--user username]"
-  exit 1
 }
 
-if [ -z "$1" ]; then
-  usage
-fi
+case "$1" in
+  --help)
+    usage
+    exit 0
+    ;;
+  ""|-*)
+    usage
+    exit 1
+    ;;
+esac
 
 VM_IP="$1"
 shift
@@ -39,6 +45,7 @@ while [[ "$#" -gt 0 ]]; do
       ;;
     *)
       usage
+      exit 1
       ;;
   esac
 done

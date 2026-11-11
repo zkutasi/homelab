@@ -1,7 +1,41 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]; then echo "Usage: $0 HOST"; exit 1; fi
-HOST=$1
+function usage() {
+    echo "Usage: $0 <host>"
+    echo ""
+    echo "Gathers and prints the Ansible facts of one inventory host or group."
+}
+
+HOST=
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+    *)
+      if [ -n "${HOST}" ]; then
+        echo "ERROR: only one host can be given"
+        usage
+        exit 1
+      fi
+      HOST=$1
+      ;;
+  esac
+  shift
+done
+
+if [ -z "${HOST}" ]; then
+  echo "ERROR: No host specified"
+  usage
+  exit 1
+fi
 
 CMD=(ansible "${HOST}" --inventory homelab-ansible-inventory/inventory -m setup)
 if command -v ansible-navigator >/dev/null 2>&1; then

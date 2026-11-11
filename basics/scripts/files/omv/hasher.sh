@@ -32,8 +32,16 @@ function hash_all_mkv_files()
   done < <(find "${path}" -type f -name '*.mkv')
 }
 
+if [ "$1" = "--help" ]; then
+  echo "Usage: $0 [<folder>]"
+  echo ""
+  echo "Writes a sha1 hash next to every .mkv without one, in <folder> or on all disks."
+  exit 0
+fi
+
 if [ $# -gt 1 ]; then
   echo "ERROR: Too many arguments!"
+  exit 1
 elif [ $# -eq 1 ]; then
   hash_all_mkv_files "$1"
 else

@@ -11,6 +11,27 @@
 #    - A sane directory structure, same on every HDD (Movies, Animation, Anime, Docu, etc...)
 # Arguments: NONE
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Counts the unique media items (movies, episodes, etc.) per directory on the NAS disks. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 DRIVE_DIR="/srv/dev-disk-by-label-hdd0"
 DRIVES=$(seq -w 1 7 | sed "s,^,${DRIVE_DIR},")
 

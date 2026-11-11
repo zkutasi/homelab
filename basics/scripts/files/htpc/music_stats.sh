@@ -1,5 +1,26 @@
 #!/bin/bash
 
+function usage() {
+    echo "Usage: $0"
+    echo ""
+    echo "Counts the albums and EPs per release year under /mnt/Music. Takes no options."
+}
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "ERROR: unknown parameter \"$1\""
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
 BASE="/mnt/Music/"
 
 for d in Albums EPs; do
