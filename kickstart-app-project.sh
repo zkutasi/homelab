@@ -49,6 +49,14 @@ Options:
 EOF
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 # Retries only on connectivity-related curl exit codes (DNS failure, connection
 # refused/no route to host, timeout, SSL connect error, empty/dropped reply).
 # HTTP-level failures (e.g. -f getting a 404) are returned immediately, since
@@ -697,9 +705,33 @@ function check_and_set_variables() {
   [ -z "${APP_FOLDERNAME}" ] && echo "ERROR: No foldername specified" && usage && exit 1
   [ -z "${APP_NAME}" ] && echo "ERROR: No appname specified" && usage && exit 1
 
-  if [[ "${MAINTYPE}" != "binary" && "${MAINTYPE}" != "docker" && "${MAINTYPE}" != "k8s" ]]; then
-    echo "ERROR: Invalid type specified. Allowed values are 'binary', 'docker' or 'k8s'."
-    usage
+  case "${TYPE}" in
+    binary|docker|k8s.helm|k8s.kompose|k8s.kustomize|k8s.truecharts|k8s.truecharts-local) ;;
+    *)
+      echo "ERROR: Invalid type '${TYPE}'"
+      usage
+      exit 1
+      ;;
+  esac
+
+  if [[ ! "${APP_NAME}" =~ ^[A-Za-z0-9_-]+$ ]]; then
+    echo "ERROR: The appname may only contain letters, digits, '-' and '_'"
+    exit 1
+  fi
+
+  if [[ ! "${APP_FOLDERNAME}" =~ ^[A-Za-z0-9_./-]+$ ]] || [[ "${APP_FOLDERNAME}" == /* ]] \
+      || [[ "/${APP_FOLDERNAME%/}/" =~ /\.\.?/ ]]; then
+    echo "ERROR: The foldername must be a relative path inside the repo, no '.' or '..' parts"
+    exit 1
+  fi
+
+  if [ -n "${APP_DOCKER_COMPOSE_URL}" ] && [[ ! "${APP_DOCKER_COMPOSE_URL}" =~ ^https?:// ]]; then
+    echo "ERROR: The docker-compose URL must start with http:// or https://"
+    exit 1
+  fi
+
+  if [ -n "${INVENTORY}" ] && [ ! -f "${INVENTORY}/group_vars/all" ]; then
+    echo "ERROR: No group_vars/all file in the inventory '${INVENTORY}'"
     exit 1
   fi
 
@@ -733,27 +765,33 @@ function check_and_set_variables() {
 while [ $# -ge 1 ]; do
   case "$1" in
     --foldername)
+      require_value "$1" "$2"
       shift
       APP_FOLDERNAME=$1
       ;;
     --appname)
+      require_value "$1" "$2"
       shift
       APP_NAME=$1
       APP_NAME_LOWERCASE=$(echo "${APP_NAME}" | tr '[:upper:]' '[:lower:]')
       ;;
     --host)
+      require_value "$1" "$2"
       shift
       ANSIBLE_HOST=$1
       ;;
     --docker-compose-url)
+      require_value "$1" "$2"
       shift
       APP_DOCKER_COMPOSE_URL=$1
       ;;
     --inventory)
+      require_value "$1" "$2"
       shift
       INVENTORY=$1
       ;;
     --type)
+      require_value "$1" "$2"
       shift
       TYPE=$1
       MAINTYPE=$(echo "${TYPE}" | awk -F. '{print $1}')
