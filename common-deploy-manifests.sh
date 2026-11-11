@@ -39,5 +39,5 @@ echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
     kubectl apply -f "$line" ${NS_ARGS}
-  done < <(find ./extra-manifests -type f -name "*.yaml")
+  done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi

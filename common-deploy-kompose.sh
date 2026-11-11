@@ -48,12 +48,12 @@ echo "Apply Kompose manifests..."
 if [ -d "./kompose-manifests" ]; then
   while read -r line; do
     kubectl apply -f "$line" -n "$NS"
-  done < <(find ./kompose-manifests -type f -name "*.yaml")
+  done < <(find ./kompose-manifests -type f -name "*.yaml" | sort)
 fi
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
     kubectl apply -f "$line" -n "$NS"
-  done < <(find ./extra-manifests -type f -name "*.yaml")
+  done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi
