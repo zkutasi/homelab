@@ -371,7 +371,8 @@ function swap_out_templates() {
     sed -i 's|PLACEHOLDER_VOLUME_PATH|{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}|g' "${line}"
 
     for entry in "${APP_ENV_SECRET_PLACEHOLDERS[@]}"; do
-      sed -i "s|${entry%%=*}|{{ ${entry#*=} }}|" "${line}"
+      # Whole words only: one placeholder can be the start of another (DB_PASSWORD, DB_PASSWORD_FILE)
+      sed -i "s|\b${entry%%=*}\b|{{ ${entry#*=} }}|" "${line}"
     done
   done < <(find "${APP_TARGET_DIR}" -type f)
 }
@@ -438,7 +439,8 @@ function kickstart_docker() {
         [ -z "${line}" ] && continue
         key=${line%%=*}
         value=${line#*=}
-        if [[ "${key}" =~ SECRET|PASSWORD ]]; then
+        # *_FILE variables hold a path to a secret file, not the secret itself
+        if [[ "${key}" =~ SECRET|PASSWORD ]] && [[ "${key}" != *_FILE ]]; then
           echo "Routing sensitive environment variable '${key}' of '${service}' into the inventory ..."
           placeholder="PLACEHOLDER_ENV_SECRET_${key}"
           KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
@@ -705,7 +707,8 @@ function kickstart_k8s_truecharts_local() {
             key=${line%%=*}
             value=${line#*=}
             echo "Found environment variable '${key}' ..."
-            if [[ "${key}" =~ SECRET|PASSWORD ]]; then
+            # *_FILE variables hold a path to a secret file, not the secret itself
+            if [[ "${key}" =~ SECRET|PASSWORD ]] && [[ "${key}" != *_FILE ]]; then
               echo "Routing sensitive environment variable '${key}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
               env_var_name="${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')"
               placeholder="PLACEHOLDER_ENV_SECRET_${key}"
