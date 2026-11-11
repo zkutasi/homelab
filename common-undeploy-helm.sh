@@ -60,7 +60,10 @@ if [ -d "./extra-manifests" ]; then
 fi
 
 echo "Uninstall helm chart..."
-RELEASES=$(helm -n "$NS" list --short)
+if ! RELEASES=$(helm -n "$NS" list --short); then
+  echo "ERROR: Could not list the Helm releases in namespace ${NS}, not continuing"
+  exit 1
+fi
 if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
   CMD=(helm uninstall "${RELEASE_NAME}"
         --namespace $NS

@@ -20,10 +20,16 @@ while [ $# -ge 1 ]; do
   shift
 done
 
-CLUSTERS=$(kubectl get clusters.postgresql.cnpg.io \
-    --all-namespaces \
-    -o go-template \
-    --template='{{range .items}}{{.metadata.namespace}}/{{.metadata.name}}{{"\n"}}{{end}}')
+CLUSTERS=
+if kubectl get crd clusters.postgresql.cnpg.io >/dev/null 2>&1; then
+  if ! CLUSTERS=$(kubectl get clusters.postgresql.cnpg.io \
+      --all-namespaces \
+      -o go-template \
+      --template='{{range .items}}{{.metadata.namespace}}/{{.metadata.name}}{{"\n"}}{{end}}'); then
+    echo "ERROR: Could not list the PostgreSQL clusters, not uninstalling the operator"
+    exit 1
+  fi
+fi
 
 if [ -n "${CLUSTERS}" ]; then
   echo "The following PostgreSQL clusters exist and must be deleted before uninstalling the operator:"
