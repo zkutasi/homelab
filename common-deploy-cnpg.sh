@@ -13,6 +13,21 @@ RELEASE_NAME=postgresql
 
 EXTRA_PARAMS=
 
+function usage() {
+    echo "Usage: $0 [--app <app-name>] [--namespace <namespace>] [--release-name <release-name>] [--db-database <name>] [--db-username <name>] [--db-password <password>] [<common-deploy-helm.sh options>]"
+    echo ""
+    echo "Options:"
+    echo "  --app <app-name>            Name of the database App, also the default namespace (default: app-postgresql)"
+    echo "  --namespace <namespace>     Kubernetes namespace to deploy to (default: the App name)"
+    echo "  --release-name <name>       Helm release name of the database cluster (default: postgresql)"
+    echo "  --db-database <name>        Database to create (default: app)"
+    echo "  --db-username <name>        Owner of the database (default: app)"
+    echo "  --db-password <password>    Password of the owner, used only when its secret doesn't exist yet (default: random)"
+    echo "  --help                      Show this help"
+    echo ""
+    echo "Any other option is passed on to common-deploy-helm.sh."
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --app)
@@ -39,6 +54,10 @@ while [ $# -ge 1 ]; do
     --release-name)
       shift
       RELEASE_NAME=$1
+      ;;
+    --help)
+      usage
+      exit 0
       ;;
     *)
       EXTRA_PARAMS="${EXTRA_PARAMS} $1"
