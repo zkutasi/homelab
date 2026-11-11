@@ -791,7 +791,7 @@ function check_and_set_variables() {
 
   APP_TARGET_DIR="${REPO_ROOT}/${APP_FOLDERNAME}"
 
-  if [[ "${MAINTYPE}" == "docker" || "${TYPE}" == "k8s.truecharts-local" ]] && [ -z "${APP_DOCKER_COMPOSE_URL}" ] && [ ! -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
+  if [[ "${MAINTYPE}" == "docker" || "${TYPE}" == "k8s.truecharts-local" || "${TYPE}" == "k8s.kompose" ]] && [ -z "${APP_DOCKER_COMPOSE_URL}" ] && [ ! -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
     echo "ERROR: No docker-compose.yaml found in '${APP_TARGET_DIR}' and no --docker-compose-url specified."
     usage
     exit 1
@@ -871,8 +871,11 @@ populate_inventory
 swap_out_templates
 rename_files
 
-echo "Deleting docker-compose.yaml file ..."
-rm -rf "${APP_TARGET_DIR}/docker-compose.yaml"
+# The kompose type deploys by converting docker-compose.yaml, so it stays
+if [ "${TYPE}" != "k8s.kompose" ]; then
+  echo "Deleting docker-compose.yaml file ..."
+  rm -rf "${APP_TARGET_DIR}/docker-compose.yaml"
+fi
 
 echo
 echo "=============================================================================================================="
