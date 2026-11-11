@@ -537,6 +537,8 @@ function kickstart_docker() {
     local index
     local from
     local to
+    local bind_dir
+    local -a bind_dirs=()
     # Every service that isn't a known database image gets the same paths as the main one
     for service in $(compose_app_services); do
       volume_path=".services.${service}.volumes"
@@ -558,12 +560,22 @@ function kickstart_docker() {
           from="PLACEHOLDER_DOCKER_SOCK"
         else
           from="PLACEHOLDER_VOLUME_PATH/${from#./}"
+          bind_dir=${line%%:*}
+          bind_dir=${bind_dir#./}
+          bind_dir=${bind_dir%/}
+          if [[ "${bind_dir}" == ../* || "${bind_dir}" == ".." || "${bind_dir##*/}" == *.* ]]; then
+            echo "WARNING: Not creating '${line%%:*}' of '${service}' (outside the project or a single file), handle it by hand"
+          elif [[ " ${bind_dirs[*]} " != *" ${bind_dir} "* ]]; then
+            bind_dirs+=("${bind_dir}")
+          fi
         fi
         to=${line#*:}
         INDEX="${index}" FROM="${from}" TO="${to}" yq -i "${volume_path}[env(INDEX)] = strenv(FROM) + \":\" + strenv(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         index=$((index + 1))
       done <<< "${volume_items}"
     done
+    # The folders to create are the ones the volumes mount from the project folder
+    DIRS="${bind_dirs[*]}" yq -i '.[0].vars.docker_compose_create_dirs = (strenv(DIRS) | split(" ") | map(select(. != "")) | map({"name": .})) | (.[0].vars.docker_compose_create_dirs | ..) style=""' "${APP_TARGET_DIR}/deploy.yaml"
 
     yq -i 'sort_keys(..)' "${APP_TARGET_DIR}/docker-compose.yaml.j2"
   fi
