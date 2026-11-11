@@ -547,11 +547,17 @@ function kickstart_docker() {
       index=0
       while IFS= read -r line; do
         [ -z "${line}" ] && continue
+        # Anonymous volumes ('- /data') and absolute host paths stay as they are
+        if [[ "${line}" != *:* || ( "${line}" == /* && "${line}" != "/var/run/docker.sock"* ) ]]; then
+          INDEX="${index}" LINE="${line}" yq -i "${volume_path}[env(INDEX)] = strenv(LINE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+          index=$((index + 1))
+          continue
+        fi
         from=${line%%:*}
         if [[ "${from}" == "/var/run/docker.sock"* ]]; then
           from="PLACEHOLDER_DOCKER_SOCK"
         else
-          from="PLACEHOLDER_VOLUME_PATH/${from}"
+          from="PLACEHOLDER_VOLUME_PATH/${from#./}"
         fi
         to=${line#*:}
         INDEX="${index}" FROM="${from}" TO="${to}" yq -i "${volume_path}[env(INDEX)] = strenv(FROM) + \":\" + strenv(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
