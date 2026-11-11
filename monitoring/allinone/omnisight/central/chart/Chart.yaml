@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=ghcr.io/caglaryalcin/omnisight
-appVersion: latest
+appVersion: "v2.5.10"
 dependencies:
   - name: common
     version: 28.26.3

@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=caronc/apprise
-appVersion: 1.0.0
+appVersion: "1.5.0"
 dependencies:
   - name: common
     version: 28.26.3

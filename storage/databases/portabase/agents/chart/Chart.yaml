@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=portabase/agent
-appVersion: 1.0.0
+appVersion: "1.17.1"
 dependencies:
   - name: common
     version: 28.26.3
