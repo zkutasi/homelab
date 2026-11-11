@@ -8,7 +8,7 @@ spec:
   jobName: <APP_NAME_LOWERCASE>
   staticConfigs:
 {% for host in groups['<ANSIBLE_HOST>'] | default([]) %}
-    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_<APP_NAME_LOWERCASE> }}"]
+    - targets: ["{{ hostvars[host].ansible_host }}:{{ port_<APP_VAR_NAME> }}"]
       labels:
         host: "{{ hostvars[host].id }}"
 {% endfor %}

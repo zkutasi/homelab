@@ -9,6 +9,7 @@ APP_IMAGE_REPO=
 APP_IMAGE_TAG=
 APP_NAME=
 APP_NAME_LOWERCASE=
+APP_VAR_NAME=
 APP_PORT=
 APP_SOURCE_URL=
 APP_TARGET_DIR=
@@ -348,6 +349,7 @@ function swap_out_templates() {
   local entry
   while read -r line; do
     sed -i "s|<APP_NAME_LOWERCASE>|${APP_NAME_LOWERCASE}|g" "${line}"
+    sed -i "s|<APP_VAR_NAME>|${APP_VAR_NAME}|g" "${line}"
     sed -i "s|<APP_IMAGE_REPO>|${APP_IMAGE_REPO}|g" "${line}"
     sed -i "s|<APP_IMAGE_TAG>|${APP_IMAGE_TAG}|g" "${line}"
     sed -i "s|<APP_NAME>|${APP_NAME}|g" "${line}"
@@ -440,7 +442,7 @@ function kickstart_docker() {
           echo "Routing sensitive environment variable '${key}' of '${service}' into the inventory ..."
           placeholder="PLACEHOLDER_ENV_SECRET_${key}"
           KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-          APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${APP_NAME_LOWERCASE}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')")
+          APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')")
         else
           KEY="${key}" VALUE="${value}" yq -i "${env_path}[env(KEY)] = env(VALUE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         fi
@@ -546,8 +548,8 @@ function kickstart_k8s_truecharts_local() {
         yq -i ".mariadb.rootPassword = \"PLACEHOLDER_DB_ROOTPASSWORD\"" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
       fi
 
-      APP_ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_PASSWORD=${APP_NAME_LOWERCASE}_database_password")
-      [ -n "${mariadb}" ] && APP_ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_ROOTPASSWORD=${APP_NAME_LOWERCASE}_database_rootpassword")
+      APP_ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_PASSWORD=${APP_VAR_NAME}_database_password")
+      [ -n "${mariadb}" ] && APP_ENV_SECRET_PLACEHOLDERS+=("PLACEHOLDER_DB_ROOTPASSWORD=${APP_VAR_NAME}_database_rootpassword")
     fi
 
     local -a app_services
@@ -705,7 +707,7 @@ function kickstart_k8s_truecharts_local() {
             echo "Found environment variable '${key}' ..."
             if [[ "${key}" =~ SECRET|PASSWORD ]]; then
               echo "Routing sensitive environment variable '${key}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
-              env_var_name="${APP_NAME_LOWERCASE}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')"
+              env_var_name="${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')"
               placeholder="PLACEHOLDER_ENV_SECRET_${key}"
               KEY="${key}" PLACEHOLDER="${placeholder}" yq -i ".workload.main.podSpec.containers.${container_key}.env[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
               APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${env_var_name}")
@@ -837,6 +839,8 @@ while [ $# -ge 1 ]; do
       shift
       APP_NAME=$1
       APP_NAME_LOWERCASE=$(echo "${APP_NAME}" | tr '[:upper:]' '[:lower:]')
+      # Ansible variable names can't contain '-'
+      APP_VAR_NAME=${APP_NAME_LOWERCASE//-/_}
       ;;
     --host)
       require_value "$1" "$2"
