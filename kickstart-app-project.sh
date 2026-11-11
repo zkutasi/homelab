@@ -429,6 +429,7 @@ function swap_out_templates() {
     fi
 
     sed -i 's|PLACEHOLDER_ID|{{ id }}|g' "${line}"
+    sed -i -E "s/PLACEHOLDER_SERVICE_IMAGE\[([^]]+)\]/{{ requested_image_version['\1'] }}/g" "${line}"
     sed -i "s|PLACEHOLDER_IMAGE_VERSION|$(sed_escape "{{ requested_image_version['${APP_NAME_LOWERCASE}'] }}")|g" "${line}"
     sed -i 's|PLACEHOLDER_PUID|{{ ansible_user_uid }}|g' "${line}"
     sed -i 's|PLACEHOLDER_GUID|{{ ansible_user_gid }}|g' "${line}"
@@ -530,6 +531,25 @@ function kickstart_docker() {
     yq -i ".services.${main}.environment.PUID = \"PLACEHOLDER_PUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${main}.environment.PGID = \"PLACEHOLDER_GUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${main}.environment.TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+
+    # Every other service follows the same rules as the main one (see the root README)
+    local container_name
+    local service_image
+    for service in $(yq '.services | keys | .[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+      [ "${service}" == "${main}" ] && continue
+      if [[ "${service}" == *"${APP_NAME_LOWERCASE}"* ]]; then
+        container_name=${service}
+      else
+        container_name="${APP_NAME_LOWERCASE}-${service}"
+      fi
+      service_image=$(yq -r ".services.${service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
+      yq -i ".services.${service}.container_name = \"${container_name}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i ".services.${service}.hostname = \"PLACEHOLDER_ID-${container_name}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i ".services.${service}.image = \"PLACEHOLDER_SERVICE_IMAGE[${service}]\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i ".services.${service}.restart = \"unless-stopped\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i ".services.${service}.environment.TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      SERVICE="${service}" IMAGE="${service_image}" yq -i '.[0].vars.requested_image_version[strenv(SERVICE)] = strenv(IMAGE) | .[0].vars.requested_image_version[strenv(SERVICE)] style="double"' "${APP_TARGET_DIR}/deploy.yaml"
+    done
 
     echo "Processing volumes ..."
     local volume_path
