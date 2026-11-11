@@ -242,6 +242,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Ansible runs inside a locally built execution environment (a container image with Ansible and all required collections), built once with `automation/ansible/deploy-ansible.sh`.
 - The Ansible inventory lives in a separate private git repository, cloned into `automation/ansible/homelab-ansible-inventory`. It is ignored by this repository, so no host details or passwords end up here.
+- The scripts call a few command-line tools directly: `kubectl`, `helm`, `kompose`, `kustomize`, `sops`, `age`, `curl`, `jq` and the Go-based `yq` (mikefarah/yq v4; the Python `yq` wrapper of the same name doesn't work). The repository's own playbooks install them: `basics/setup-packages.yaml`, the `kubernetes/tools` playbooks and the ones in `security/secret-mgmt/age-sops`.
 
 #### Shell scripts
 
@@ -304,7 +305,7 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Adding a new App
 
 - `kickstart-app-project.sh` creates the folder of a new App from the `_templates` folder, for the chosen deployment type (binary, Docker Compose, or Kubernetes with Helm, Kustomize, Kompose or TrueCharts).
-- It needs `curl`, `jq` and the Go-based `yq` (mikefarah/yq v4) on the control host; the Python `yq` wrapper of the same name doesn't work with it.
+- It needs `curl`, `jq` and `yq` from the control host prerequisites.
 - It can start from the upstream project's docker-compose file: it converts it into the matching templates, fills in the README links and the latest released version, and turns the sensitive environment variables into inventory variables.
 - The result is a starting point: the README and the templates still need a manual review and finishing.
 
