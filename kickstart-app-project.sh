@@ -192,6 +192,20 @@ function preprocess_docker_compose() {
   echo "Resolving env variable defaults in docker-compose.yaml ..."
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${APP_TARGET_DIR}/docker-compose.yaml"
 
+  echo "Turning unresolved variable references into placeholders ..."
+  # ${VAR}, ${VAR:?msg} and $VAR (not $$VAR, compose's escape) -> <VAR>, repeated until none is
+  # left so that adjacent references ($A$B) are all caught
+  sed -i -E ':a; s/(^|[^$])\$\{([A-Za-z_][A-Za-z0-9_]*)(:?\?[^}]*)?\}/\1<\2>/; ta; :b; s/(^|[^$])\$([A-Za-z_][A-Za-z0-9_]*)/\1<\2>/; tb' "${APP_TARGET_DIR}/docker-compose.yaml"
+
+  local service
+  local env_file
+  for service in $(yq '.services | keys | .[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+    for env_file in $(yq -r "(.services.${service}.env_file // []) | ([] + .)[] | (.path // .)" "${APP_TARGET_DIR}/docker-compose.yaml"); do
+      echo "WARNING: '${service}' reads '${env_file}', which isn't deployed: add its variables to the environment by hand"
+    done
+    yq -i "del(.services.${service}.env_file)" "${APP_TARGET_DIR}/docker-compose.yaml"
+  done
+
   if [ -n "${APP_VERSION}" ]; then
     # Only the main service follows the app's release; sidecars keep their own tags
     local main_service
@@ -774,6 +788,8 @@ function kickstart_k8s_truecharts_local() {
             [ -z "${line}" ] && continue
             key=${line%%=*}
             value=${line#*=}
+            # $$ is compose's escape for a literal $
+            value=${value//\$\$/\$}
             echo "Found environment variable '${key}' ..."
             if is_secret_env "${key}"; then
               echo "Routing sensitive environment variable '${key}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
@@ -981,7 +997,7 @@ fi
 echo
 echo "=============================================================================================================="
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."
-REMAINING=$(grep -rnoE '<[A-Z][A-Z_]*>|PLACEHOLDER_[A-Z_]+' "${APP_TARGET_DIR}" | sort -u | sort -t: -k1,1 -k2,2n)
+REMAINING=$(grep -rnoE '<[A-Za-z_][A-Za-z0-9_]*>|PLACEHOLDER_[A-Z_]+' "${APP_TARGET_DIR}" | sort -u | sort -t: -k1,1 -k2,2n)
 if [ -n "${REMAINING}" ]; then
   echo "Still to fill in by hand (file:line:token):"
   echo "${REMAINING}" | sed "s|^${APP_TARGET_DIR}/|  |"
