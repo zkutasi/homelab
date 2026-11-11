@@ -212,6 +212,12 @@ function sed_escape() {
   printf '%s' "$1" | sed -e 's/[\\|&]/\\&/g'
 }
 
+# Prints each port of a compose service, keeping their order: the short form as written
+# ("8080:80/udp"), the long form ({target: 80, protocol: udp}) as <target>/<protocol>
+function compose_ports() {
+  yq -r "(.services.${1}.ports // [])[] | with(select(tag == \"!!map\"); . = (.target | tostring) + \"/\" + (.protocol // \"tcp\"))" "${APP_TARGET_DIR}/docker-compose.yaml"
+}
+
 function image_repo() {
   local image="${1%%@*}"
   if [[ "${image##*/}" == *:* ]]; then
@@ -668,27 +674,52 @@ function kickstart_k8s_truecharts_local() {
       local port_items
       local port_index
       local port_key
+      local service_key
       local port_raw
       local port_number
+      local port_protocol
       local line
-      port_items=$(yq -r ".services.${app_services[0]}.ports[]" "${APP_TARGET_DIR}/docker-compose.yaml")
       yq -i ".service.main.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
-      port_index=0
-      while IFS= read -r line; do
-        [ -z "${line}" ] && continue
-        port_index=$((port_index + 1))
-        if [ "${port_index}" -eq 1 ]; then
-          port_key="main"
+      # The main container's ports go to the main service, each sidecar's to its own service
+      for service_index in "${!app_services[@]}"; do
+        service=${app_services[$service_index]}
+        container_key=${container_keys[$service_index]}
+        if [ "${service_index}" -eq 0 ]; then
+          service_key="main"
         else
-          port_key="main-${port_index}"
+          service_key="${container_key}"
         fi
-        port_raw=${line%%/*}
-        port_number=${port_raw##*:}
-        [ "${port_index}" -eq 1 ] && APP_PORT=${port_number}
-        yq -i ".service.main.ports.${port_key}.port = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
-        yq -i ".service.main.ports.${port_key}.protocol = \"http\"" "${APP_TARGET_DIR}/app-values.yaml"
-        yq -i ".service.main.ports.${port_key}.targetPort = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
-      done <<< "${port_items}"
+        port_items=$(compose_ports "${service}")
+        port_index=0
+        while IFS= read -r line; do
+          [ -z "${line}" ] && continue
+          port_raw=${line%%/*}
+          port_number=${port_raw##*:}
+          if [[ ! "${port_number}" =~ ^[0-9]+$ ]]; then
+            echo "WARNING: Skipping port '${line}' of '${service}', port ranges have to be mapped by hand"
+            continue
+          fi
+          port_protocol="http"
+          [[ "${line}" == */udp ]] && port_protocol="udp"
+          port_index=$((port_index + 1))
+          if [ "${port_index}" -eq 1 ]; then
+            port_key="${service_key}"
+          else
+            port_key="${service_key}-${port_index}"
+          fi
+          [ "${service_index}" -eq 0 ] && [ "${port_index}" -eq 1 ] && APP_PORT=${port_number}
+          yq -i ".service.${service_key}.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
+          if [ "${service_index}" -ne 0 ]; then
+            yq -i ".service.${service_key}.ports.${port_key}.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
+          fi
+          yq -i ".service.${service_key}.ports.${port_key}.port = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
+          yq -i ".service.${service_key}.ports.${port_key}.protocol = \"${port_protocol}\"" "${APP_TARGET_DIR}/app-values.yaml"
+          yq -i ".service.${service_key}.ports.${port_key}.targetPort = ${port_number}" "${APP_TARGET_DIR}/app-values.yaml"
+          if [ "${service_index}" -ne 0 ]; then
+            yq -i ".service.${service_key}.ports.${port_key}.targetSelector = \"${container_key}\"" "${APP_TARGET_DIR}/app-values.yaml"
+          fi
+        done <<< "${port_items}"
+      done
 
       echo "Processing timezone ..."
       yq -i ".TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
