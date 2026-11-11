@@ -23,6 +23,14 @@ usage() {
   echo "Usage: $0 <vm_ip> [--user username]"
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 case "$1" in
   --help)
     usage
@@ -40,6 +48,7 @@ shift
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
     --user)
+      require_value "$1" "$2"
       SSH_USER="$2"
       shift 2
       ;;

@@ -13,6 +13,14 @@ function usage() {
     echo "Summarizes the Hungarian subtitles of the movies, per disk."
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 PATHS='/srv/dev-disk-by-label-hdd0{1..7}/Movies/'
 
 
@@ -69,6 +77,7 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     -d|--disk)
+      require_value "$1" "$2"
       shift
       disk=$1
       shift

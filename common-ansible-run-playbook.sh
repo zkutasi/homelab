@@ -29,13 +29,27 @@ function usage() {
     echo "  --playbook <playbook>                 Specify the Ansible playbook to run (required)"
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --ansible-navigator-config)
+      require_value "$1" "$2"
       shift
       ANSIBLE_NAVIGATOR_CONFIG="$1"
       ;;
     --extra-args)
+      if [ $# -lt 2 ]; then
+        echo "ERROR: --extra-args needs a value"
+        usage
+        exit 1
+      fi
       shift
       EXTRA_ARGS="$EXTRA_ARGS $1"
       ;;
@@ -44,10 +58,12 @@ while [ $# -ge 1 ]; do
       exit 0
       ;;
     --inventory)
+      require_value "$1" "$2"
       shift
       INVENTORY=$1
       ;;
     --limit)
+      require_value "$1" "$2"
       shift
       LIMIT=$1
       ;;
@@ -58,6 +74,7 @@ while [ $# -ge 1 ]; do
       DIFF=0
       ;;
     --playbook)
+      require_value "$1" "$2"
       shift
       PLAYBOOK=$1
       ;;

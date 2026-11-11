@@ -24,6 +24,14 @@ function usage() {
     echo "  SOPS_AGE_KEY_FILE     Path to your age private key file (required); its public key, derived with age-keygen, is the recipient"
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 function sops_encrypt() {
     # Encrypt plaintext file $1 into $2
     local plain_file=$1
@@ -85,6 +93,7 @@ while [ $# -ge 1 ]; do
   case "$1" in
     --decrypt)
         MODE=decrypt
+        require_value "$1" "$2"
         shift
         DECRYPT_FILE=$1
         ;;
@@ -93,6 +102,7 @@ while [ $# -ge 1 ]; do
         ;;
     --encrypt)
         MODE=encrypt
+        require_value "$1" "$2"
         shift
         ENCRYPT_FILE=$1
         ;;

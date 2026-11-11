@@ -31,30 +31,44 @@ function usage() {
     echo "Any other option is ignored, so a calling App can pass its own options on unchanged."
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --app)
+      require_value "$1" "$2"
       shift
       APP=$1
       NS=${APP}
       ;;
     --db-database)
+      require_value "$1" "$2"
       shift
       DB_DATABASE=$1
       ;;
     --db-username)
+      require_value "$1" "$2"
       shift
       DB_USERNAME=$1
       ;;
     --db-password)
+      require_value "$1" "$2"
       shift
       DB_PASSWORD=$1
       ;;
     --namespace)
+      require_value "$1" "$2"
       shift
       NS=$1
       ;;
     --release-name)
+      require_value "$1" "$2"
       shift
       RELEASE_NAME=$1
       ;;

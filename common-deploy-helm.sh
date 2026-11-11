@@ -43,13 +43,23 @@ Options:
 EOF
 }
 
+function require_value() {
+  if [ -z "$2" ] || [[ "$2" == --* ]]; then
+    echo "ERROR: $1 needs a value"
+    usage
+    exit 1
+  fi
+}
+
 while [ $# -ge 1 ]; do
   case "$1" in
     --app)
+      require_value "$1" "$2"
       shift
       APP=$1
       ;;
     --chart-name)
+      require_value "$1" "$2"
       shift
       CHART_NAME=$1
       ;;
@@ -57,6 +67,7 @@ while [ $# -ge 1 ]; do
       DEBUG=1
       ;;
     --extra-values)
+      require_value "$1" "$2"
       shift
       EXTRA_VALUES_FILES+=("$1")
       ;;
@@ -64,6 +75,7 @@ while [ $# -ge 1 ]; do
       LATEST=1
       ;;
     --namespace)
+      require_value "$1" "$2"
       shift
       NS=$1
       ;;
@@ -71,14 +83,17 @@ while [ $# -ge 1 ]; do
       EXTRA_MANIFESTS=0
       ;;
     --post-renderer)
+      require_value "$1" "$2"
       shift
       POST_RENDERER=$1
       ;;
     --release-name)
+      require_value "$1" "$2"
       shift
       RELEASE_NAME=$1
       ;;
     --repo-url)
+      require_value "$1" "$2"
       shift
       REPO_URL=$1
       ;;
@@ -86,10 +101,12 @@ while [ $# -ge 1 ]; do
       TEMPLATE=1
       ;;
     --type)
+      require_value "$1" "$2"
       shift
       DEPLOYMENT_TYPE=$1
       ;;
     --version)
+      require_value "$1" "$2"
       shift
       VERSION=$1
       ;;
