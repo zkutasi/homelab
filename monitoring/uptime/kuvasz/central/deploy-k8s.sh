@@ -27,7 +27,8 @@ done
     --app ${APP}-postgresql \
     --db-database ${APP} \
     --db-username ${APP} \
-    --namespace $NS
+    --namespace $NS \
+    ${EXTRA_PARAMS}
 
 kubectl create secret generic ca-certificates \
     --namespace $NS \
