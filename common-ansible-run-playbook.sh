@@ -4,7 +4,8 @@ REPO_ROOT="."
 if command -v git >/dev/null 2>&1; then
   REPO_ROOT=$(git rev-parse --show-toplevel)
 fi
-export ANSIBLE_CONFIG="${REPO_ROOT}/ansible.cfg"
+# An ansible.cfg in the current folder wins, the same way ansible-navigator picks it (e.g. kubespray-repo)
+[ -f ./ansible.cfg ] || export ANSIBLE_CONFIG="${REPO_ROOT}/ansible.cfg"
 ANSIBLE_NAVIGATOR_CONFIG="${REPO_ROOT}/.ansible-navigator.yaml"
 INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
 
