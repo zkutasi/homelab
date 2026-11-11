@@ -479,11 +479,13 @@ function kickstart_docker() {
     local index
     local from
     local to
-    volume_path=".services.${main}.volumes"
-    if yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
+    # Every service that isn't a known database image gets the same paths as the main one
+    for service in $(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+      volume_path=".services.${service}.volumes"
+      yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1 || continue
       volume_items=$(yq -r "${volume_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
 
-      yq -i ".services.${main}.volumes = []" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i "${volume_path} = []" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
       index=0
       while IFS= read -r line; do
         [ -z "${line}" ] && continue
@@ -494,10 +496,10 @@ function kickstart_docker() {
           from="PLACEHOLDER_VOLUME_PATH/${from}"
         fi
         to=${line#*:}
-        INDEX="${index}" FROM="${from}" TO="${to}" yq -i ".services.${main}.volumes[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+        INDEX="${index}" FROM="${from}" TO="${to}" yq -i "${volume_path}[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         index=$((index + 1))
       done <<< "${volume_items}"
-    fi
+    done
 
     yq -i 'sort_keys(..)' "${APP_TARGET_DIR}/docker-compose.yaml.j2"
   fi
@@ -653,6 +655,10 @@ function kickstart_k8s_truecharts_local() {
             yq -i ".persistence.${persistence_key}.accessModes = \"ReadWriteOnce\"" "${APP_TARGET_DIR}/app-values.yaml"
             CONTAINER_PATH="${container_path}" yq -i ".persistence.${persistence_key}.mountPath = env(CONTAINER_PATH)" "${APP_TARGET_DIR}/app-values.yaml"
             yq -i ".persistence.${persistence_key}.type = \"pvc\"" "${APP_TARGET_DIR}/app-values.yaml"
+            # Without a targetSelector TrueCharts mounts it into the main container
+            if [ "${service_index}" -ne 0 ]; then
+              yq -i ".persistence.${persistence_key}.targetSelector.main.${container_key} = {}" "${APP_TARGET_DIR}/app-values.yaml"
+            fi
             yq -i ".persistence.${persistence_key}.size = \"1Gi\"" "${APP_TARGET_DIR}/app-values-dimensioning.yaml"
           done <<< "${volume_items}"
         fi
