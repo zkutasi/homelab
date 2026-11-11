@@ -165,6 +165,22 @@ function fetch_docker_compose_and_repo_info() {
   fi
 }
 
+# The compose service that is the app itself: the one named after the app, else the first
+# one that isn't a known database image (upstream compose files can name it anything)
+function main_service() {
+  local -a app_services
+  local service
+  app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
+  [ "${#app_services[@]}" -eq 0 ] && return
+  for service in "${app_services[@]}"; do
+    if [ "${service}" == "${APP_NAME_LOWERCASE}" ]; then
+      echo "${service}"
+      return
+    fi
+  done
+  echo "${app_services[0]}"
+}
+
 function preprocess_docker_compose() {
   [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ] || return
 
@@ -172,20 +188,12 @@ function preprocess_docker_compose() {
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${APP_TARGET_DIR}/docker-compose.yaml"
 
   if [ -n "${APP_VERSION}" ]; then
-    # Only the main service follows the app's release; sidecars keep their own tags. The compose
-    # service is not guaranteed to be keyed by APP_NAME_LOWERCASE (upstream compose files can
-    # name it anything), so fall back to the first service that isn't a known database image.
-    local -a app_services
+    # Only the main service follows the app's release; sidecars keep their own tags
     local main_service
-    local service
     local current_image
     local new_tag
-    app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
-    if [ "${#app_services[@]}" -gt 0 ]; then
-      main_service=${app_services[0]}
-      for service in "${app_services[@]}"; do
-        [ "${service}" == "${APP_NAME_LOWERCASE}" ] && main_service=${service}
-      done
+    main_service=$(main_service)
+    if [ -n "${main_service}" ]; then
       current_image=$(yq -r ".services.${main_service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
       new_tag=$(release_tag_like "${APP_VERSION}" "$(image_tag "${current_image}")")
       echo "Updating '${main_service}' image tag to the latest released version '${new_tag}' ..."
@@ -386,14 +394,21 @@ function kickstart_docker() {
     echo "Processing existing docker-compose.yaml for templating ..."
     cp "${APP_TARGET_DIR}/docker-compose.yaml" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
 
+    local main
+    main=$(main_service)
+    if [ -z "${main}" ]; then
+      echo "ERROR: No app service in docker-compose.yaml, only database images"
+      exit 1
+    fi
+
     local app_image
-    app_image=$(yq -r ".services.${APP_NAME_LOWERCASE}.image" "${APP_TARGET_DIR}/docker-compose.yaml.j2")
+    app_image=$(yq -r ".services.${main}.image" "${APP_TARGET_DIR}/docker-compose.yaml.j2")
     APP_IMAGE_REPO=$(image_repo "${app_image}")
     APP_IMAGE_TAG=$(image_tag "${app_image}")
-    yq -i ".services.${APP_NAME_LOWERCASE}.container_name = \"${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME_LOWERCASE}.hostname = \"PLACEHOLDER_ID-${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME_LOWERCASE}.image = \"PLACEHOLDER_IMAGE_VERSION\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME_LOWERCASE}.restart = \"unless-stopped\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.container_name = \"${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.hostname = \"PLACEHOLDER_ID-${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.image = \"PLACEHOLDER_IMAGE_VERSION\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.restart = \"unless-stopped\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
 
     echo "Processing environment variables ..."
     local env_path
@@ -402,8 +417,13 @@ function kickstart_docker() {
     local line
     local key
     local value
-    env_path=".services.${APP_NAME_LOWERCASE}.environment"
-    if yq -e "${env_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
+    local service
+    local placeholder
+    # Sensitive variables of every service (the database stays in this compose file too)
+    # go to the inventory instead of into git
+    for service in $(yq '.services | keys | .[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+      env_path=".services.${service}.environment"
+      yq -e "${env_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1 || continue
       env_type=$(yq "${env_path} | type" "${APP_TARGET_DIR}/docker-compose.yaml")
       if [ "${env_type}" == "!!seq" ]; then
         env_items=$(yq -r "${env_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
@@ -411,17 +431,24 @@ function kickstart_docker() {
         env_items=$(yq -r "${env_path} | to_entries | .[] | .key + \"=\" + .value" "${APP_TARGET_DIR}/docker-compose.yaml")
       fi
 
-      yq -i ".services.${APP_NAME_LOWERCASE}.environment = {}" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i "${env_path} = {}" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
       while IFS= read -r line; do
         [ -z "${line}" ] && continue
         key=${line%%=*}
         value=${line#*=}
-        KEY="${key}" VALUE="${value}" yq -i ".services.${APP_NAME_LOWERCASE}.environment[env(KEY)] = env(VALUE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+        if [[ "${key}" =~ SECRET|PASSWORD ]]; then
+          echo "Routing sensitive environment variable '${key}' of '${service}' into the inventory ..."
+          placeholder="PLACEHOLDER_ENV_SECRET_${key}"
+          KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+          APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${APP_NAME_LOWERCASE}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')")
+        else
+          KEY="${key}" VALUE="${value}" yq -i "${env_path}[env(KEY)] = env(VALUE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+        fi
       done <<< "${env_items}"
-    fi
-    yq -i ".services.${APP_NAME_LOWERCASE}.environment.PUID = \"PLACEHOLDER_PUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME_LOWERCASE}.environment.PGID = \"PLACEHOLDER_GUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
-    yq -i ".services.${APP_NAME_LOWERCASE}.environment.TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    done
+    yq -i ".services.${main}.environment.PUID = \"PLACEHOLDER_PUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.environment.PGID = \"PLACEHOLDER_GUID\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+    yq -i ".services.${main}.environment.TZ = \"PLACEHOLDER_TZ\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
 
     echo "Processing volumes ..."
     local volume_path
@@ -429,11 +456,11 @@ function kickstart_docker() {
     local index
     local from
     local to
-    volume_path=".services.${APP_NAME_LOWERCASE}.volumes"
+    volume_path=".services.${main}.volumes"
     if yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
       volume_items=$(yq -r "${volume_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
 
-      yq -i ".services.${APP_NAME_LOWERCASE}.volumes = []" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+      yq -i ".services.${main}.volumes = []" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
       index=0
       while IFS= read -r line; do
         [ -z "${line}" ] && continue
@@ -444,7 +471,7 @@ function kickstart_docker() {
           from="PLACEHOLDER_VOLUME_PATH/${from}"
         fi
         to=${line#*:}
-        INDEX="${index}" FROM="${from}" TO="${to}" yq -i ".services.${APP_NAME_LOWERCASE}.volumes[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+        INDEX="${index}" FROM="${from}" TO="${to}" yq -i ".services.${main}.volumes[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         index=$((index + 1))
       done <<< "${volume_items}"
     fi
