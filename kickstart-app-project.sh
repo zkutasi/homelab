@@ -21,6 +21,7 @@ SUBTYPE=
 
 ANSIBLE_HOST=
 INVENTORY=
+INVENTORY_ADDED=()
 REPO_ROOT=
 
 MARIADB_CHART_VERSION="18.10.0"
@@ -329,6 +330,8 @@ function populate_inventory() {
   fi
 
   echo "Appending sensitive environment variables into '${inventory_vars_file}' ..."
+  # A file without a final newline would glue the first new entry onto its last line
+  [ -n "$(tail -c1 "${inventory_vars_file}")" ] && echo >> "${inventory_vars_file}"
   local entry
   local var_name
   for entry in "${APP_ENV_SECRET_PLACEHOLDERS[@]}"; do
@@ -337,6 +340,7 @@ function populate_inventory() {
       echo "Variable '${var_name}' already present in '${inventory_vars_file}', skipping."
     else
       echo "${var_name}:" >> "${inventory_vars_file}"
+      INVENTORY_ADDED+=("${var_name}")
     fi
   done
 }
@@ -931,3 +935,7 @@ else
   echo "No placeholders left."
 fi
 echo "Also review '${APP_TARGET_DIR}' for unfinished sections."
+if [ "${#INVENTORY_ADDED[@]}" -gt 0 ]; then
+  echo "Added as empty entries to '${INVENTORY}/group_vars/all', move them to the right place and fill them in by hand:"
+  printf '  %s\n' "${INVENTORY_ADDED[@]}"
+fi
