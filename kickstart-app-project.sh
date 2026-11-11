@@ -46,7 +46,10 @@ Options:
                               instead of requiring one to already be present there
   --inventory <inventory>     Path to an Ansible inventory. When given, sensitive environment
                               variables discovered during kickstart are appended to its
-                              group_vars/all file
+                              group_vars/all file as empty entries: move each one to the
+                              right place in the inventory and fill in its value by hand
+
+Requires curl, jq and the Go-based yq (mikefarah/yq v4); the Python yq wrapper doesn't work.
 EOF
 }
 

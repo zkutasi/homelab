@@ -304,6 +304,7 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Adding a new App
 
 - `kickstart-app-project.sh` creates the folder of a new App from the `_templates` folder, for the chosen deployment type (binary, Docker Compose, or Kubernetes with Helm, Kustomize, Kompose or TrueCharts).
+- It needs `curl`, `jq` and the Go-based `yq` (mikefarah/yq v4) on the control host; the Python `yq` wrapper of the same name doesn't work with it.
 - It can start from the upstream project's docker-compose file: it converts it into the matching templates, fills in the README links and the latest released version, and turns the sensitive environment variables into inventory variables.
 - The result is a starting point: the README and the templates still need a manual review and finishing.
 
