@@ -1,7 +1,7 @@
 cronjob:
   schedule: "0 * * * *"
 env:
-  LOG_LEVEL: debug
+  LOG_LEVEL: info
   RENOVATE_X_SQLITE_PACKAGE_CACHE: true
 renovate:
   persistence:
