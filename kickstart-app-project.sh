@@ -218,6 +218,12 @@ function compose_ports() {
   yq -r "(.services.${1}.ports // [])[] | with(select(tag == \"!!map\"); . = (.target | tostring) + \"/\" + (.protocol // \"tcp\"))" "${APP_TARGET_DIR}/docker-compose.yaml"
 }
 
+# Prints each volume of a compose service as <source>:<target>[:<mode>], keeping their
+# order; the long form ({source: ./x, target: /x}) is turned into the short one
+function compose_volumes() {
+  yq -r "(.services.${1}.volumes // [])[] | with(select(tag == \"!!map\"); . = (.source // \"\") + \":\" + .target)" "${APP_TARGET_DIR}/docker-compose.yaml"
+}
+
 function image_repo() {
   local image="${1%%@*}"
   if [[ "${image##*/}" == *:* ]]; then
@@ -489,7 +495,7 @@ function kickstart_docker() {
     for service in $(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
       volume_path=".services.${service}.volumes"
       yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1 || continue
-      volume_items=$(yq -r "${volume_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
+      volume_items=$(compose_volumes "${service}")
 
       yq -i "${volume_path} = []" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
       index=0
@@ -640,7 +646,7 @@ function kickstart_k8s_truecharts_local() {
         container_key=${container_keys[$service_index]}
         volume_path=".services.${service}.volumes"
         if yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
-          volume_items=$(yq -r "${volume_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
+          volume_items=$(compose_volumes "${service}")
           if [ "${service_index}" -eq 0 ]; then
             persistence_base_key="data"
           else
@@ -650,6 +656,12 @@ function kickstart_k8s_truecharts_local() {
           volume_index=0
           while IFS= read -r line; do
             [ -z "${line}" ] && continue
+            # An anonymous volume ('- /data') has only the container path
+            [[ "${line}" == *:* ]] || line=":${line}"
+            if [[ "${line}" == /* ]]; then
+              echo "WARNING: Skipping host path volume '${line}' of '${service}', map it by hand"
+              continue
+            fi
             volume_index=$((volume_index + 1))
             if [ "${volume_index}" -eq 1 ]; then
               persistence_key="${persistence_base_key}"
