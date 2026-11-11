@@ -300,7 +300,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Each variable is documented once at the most generic level it belongs to: user-specific, network-specific and host connection variables in the Ansible README, Docker variables in the Docker README (per-App IPv6 subnets stay with their App), variables shared by a group of Apps in that group's README, and App-specific variables, prefixed with the App's name, in every README of an App that uses them.
 - READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
 - Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.
-- Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`. Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
+- Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`, run from the folder that holds it (the component's sub-folder for split Apps). Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
 
 #### Adding a new App
 

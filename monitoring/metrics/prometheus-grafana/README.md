@@ -76,6 +76,8 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ## Metrics, Alerts, Notifications
 
+1. The Prometheus configs are deployed together with the app by `./deploy-k8s.sh`
+
 ## Commands
 
 ## Notable comments

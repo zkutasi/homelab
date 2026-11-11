@@ -41,7 +41,9 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ## Metrics, Alerts, Notifications
 
-1. The [matching Grafana dashboard](https://github.com/sstarcher/helm-exporter/blob/master/helm/templates/grafana-dashboard.yaml) will be auto-provisioned
+1. The Prometheus configs are deployed together with the app by `./deploy-k8s.sh`
+
+2. The [matching Grafana dashboard](https://github.com/sstarcher/helm-exporter/blob/master/helm/templates/grafana-dashboard.yaml) will be auto-provisioned
 
 ## Commands
 
