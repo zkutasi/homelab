@@ -912,6 +912,21 @@ function check_and_set_variables() {
 
   APP_TARGET_DIR="${REPO_ROOT}/${APP_FOLDERNAME}"
 
+  # Re-running over an existing App overwrites its template files (handy while developing
+  # this script); only a docker-compose.yaml placed there beforehand is expected
+  if [ -d "${APP_TARGET_DIR}" ]; then
+    local existing
+    local answer
+    existing=$(find "${APP_TARGET_DIR}" -mindepth 1 -maxdepth 1 ! -name docker-compose.yaml -printf '%f\n' | sort | tr '\n' ' ')
+    if [ -n "${existing}" ] && [ -t 0 ]; then
+      read -r -p "'${APP_TARGET_DIR}' already has content (${existing% }). Overwrite? [Y/n] " answer
+      if [[ "${answer}" =~ ^[Nn] ]]; then
+        echo "Stopped, nothing was changed."
+        exit 1
+      fi
+    fi
+  fi
+
   if [[ "${MAINTYPE}" == "docker" || "${TYPE}" == "k8s.truecharts-local" || "${TYPE}" == "k8s.kompose" ]] && [ -z "${APP_DOCKER_COMPOSE_URL}" ] && [ ! -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
     echo "ERROR: No docker-compose.yaml found in '${APP_TARGET_DIR}' and no --docker-compose-url specified."
     usage
