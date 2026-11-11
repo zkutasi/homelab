@@ -477,7 +477,8 @@ function kickstart_docker() {
       if [ "${env_type}" == "!!seq" ]; then
         env_items=$(yq -r "${env_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
       else
-        env_items=$(yq -r "${env_path} | to_entries | .[] | .key + \"=\" + .value" "${APP_TARGET_DIR}/docker-compose.yaml")
+        # A null value (compose's pass-through, 'NAME:') prints just the name
+        env_items=$(yq -r "${env_path} | to_entries | .[] | .key + ((.value | select(. != null) | \"=\" + tostring) // \"\")" "${APP_TARGET_DIR}/docker-compose.yaml")
       fi
 
       yq -i "${env_path} = {}" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
@@ -485,13 +486,15 @@ function kickstart_docker() {
         [ -z "${line}" ] && continue
         key=${line%%=*}
         value=${line#*=}
+        # A pass-through ('- NAME') takes its value from the host: fill it in by hand
+        [[ "${line}" == *=* ]] || value="<${key}>"
         if is_secret_env "${key}"; then
           echo "Routing sensitive environment variable '${key}' of '${service}' into the inventory ..."
           placeholder="PLACEHOLDER_ENV_SECRET_${key}"
-          KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+          KEY="${key}" PLACEHOLDER="${placeholder}" yq -i "${env_path}[env(KEY)] = strenv(PLACEHOLDER)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
           APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')")
         else
-          KEY="${key}" VALUE="${value}" yq -i "${env_path}[env(KEY)] = env(VALUE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+          KEY="${key}" VALUE="${value}" yq -i "${env_path}[env(KEY)] = strenv(VALUE)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         fi
       done <<< "${env_items}"
     done
@@ -522,7 +525,7 @@ function kickstart_docker() {
           from="PLACEHOLDER_VOLUME_PATH/${from}"
         fi
         to=${line#*:}
-        INDEX="${index}" FROM="${from}" TO="${to}" yq -i "${volume_path}[env(INDEX)] = env(FROM) + \":\" + env(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
+        INDEX="${index}" FROM="${from}" TO="${to}" yq -i "${volume_path}[env(INDEX)] = strenv(FROM) + \":\" + strenv(TO)" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
         index=$((index + 1))
       done <<< "${volume_items}"
     done
@@ -685,7 +688,7 @@ function kickstart_k8s_truecharts_local() {
             container_path=$(echo "${line}" | cut -d':' -f2)
             yq -i ".persistence.${persistence_key}.enabled = true" "${APP_TARGET_DIR}/app-values.yaml"
             yq -i ".persistence.${persistence_key}.accessModes = \"ReadWriteOnce\"" "${APP_TARGET_DIR}/app-values.yaml"
-            CONTAINER_PATH="${container_path}" yq -i ".persistence.${persistence_key}.mountPath = env(CONTAINER_PATH)" "${APP_TARGET_DIR}/app-values.yaml"
+            CONTAINER_PATH="${container_path}" yq -i ".persistence.${persistence_key}.mountPath = strenv(CONTAINER_PATH)" "${APP_TARGET_DIR}/app-values.yaml"
             yq -i ".persistence.${persistence_key}.type = \"pvc\"" "${APP_TARGET_DIR}/app-values.yaml"
             # Without a targetSelector TrueCharts mounts it into the main container
             if [ "${service_index}" -ne 0 ]; then
@@ -781,13 +784,16 @@ function kickstart_k8s_truecharts_local() {
           if [ "${env_type}" == "!!seq" ]; then
             env_items=$(yq -r "${env_path}[]" "${APP_TARGET_DIR}/docker-compose.yaml")
           else
-            env_items=$(yq -r "${env_path} | to_entries | .[] | .key + \"=\" + .value" "${APP_TARGET_DIR}/docker-compose.yaml")
+            # A null value (compose's pass-through, 'NAME:') prints just the name
+            env_items=$(yq -r "${env_path} | to_entries | .[] | .key + ((.value | select(. != null) | \"=\" + tostring) // \"\")" "${APP_TARGET_DIR}/docker-compose.yaml")
           fi
 
           while IFS= read -r line; do
             [ -z "${line}" ] && continue
             key=${line%%=*}
             value=${line#*=}
+            # A pass-through ('- NAME') takes its value from the host: fill it in by hand
+            [[ "${line}" == *=* ]] || value="<${key}>"
             # $$ is compose's escape for a literal $
             value=${value//\$\$/\$}
             echo "Found environment variable '${key}' ..."
@@ -795,10 +801,10 @@ function kickstart_k8s_truecharts_local() {
               echo "Routing sensitive environment variable '${key}' into app-values-private.yaml.j2 instead of app-values.yaml ..."
               env_var_name="${APP_VAR_NAME}_$(echo "${key}" | tr '[:upper:]' '[:lower:]')"
               placeholder="PLACEHOLDER_ENV_SECRET_${key}"
-              KEY="${key}" PLACEHOLDER="${placeholder}" yq -i ".workload.main.podSpec.containers.${container_key}.env[env(KEY)] = env(PLACEHOLDER)" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
+              KEY="${key}" PLACEHOLDER="${placeholder}" yq -i ".workload.main.podSpec.containers.${container_key}.env[env(KEY)] = strenv(PLACEHOLDER)" "${APP_TARGET_DIR}/config/templates/app-values-private.yaml.j2"
               APP_ENV_SECRET_PLACEHOLDERS+=("${placeholder}=${env_var_name}")
             else
-              KEY="${key}" VALUE="${value}" yq -i ".workload.main.podSpec.containers.${container_key}.env[env(KEY)] = env(VALUE)" "${APP_TARGET_DIR}/app-values.yaml"
+              KEY="${key}" VALUE="${value}" yq -i ".workload.main.podSpec.containers.${container_key}.env[env(KEY)] = strenv(VALUE)" "${APP_TARGET_DIR}/app-values.yaml"
             fi
           done <<< "${env_items}"
         fi
