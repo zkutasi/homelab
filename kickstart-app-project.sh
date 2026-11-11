@@ -541,10 +541,13 @@ function kickstart_docker() {
 
 function kickstart_k8s_truecharts() {
   local truecharts_values
-  if truecharts_values=$(curl_with_retry -sf "https://raw.githubusercontent.com/trueforge-org/truecharts/refs/heads/master/charts/stable/${APP_NAME_LOWERCASE}/values.yaml"); then
+  # The same registry the generated deploy-k8s.sh installs from
+  if truecharts_values=$(helm show values "oci://oci.trueforge.org/truecharts/${APP_NAME_LOWERCASE}" 2> /dev/null); then
     APP_PORT=$(echo "${truecharts_values}" | yq ".service.main.ports.main.port")
+    [[ "${APP_PORT}" =~ ^[0-9]+$ ]] || APP_PORT=
+    [ -z "${APP_PORT}" ] && echo "WARNING: The Truecharts chart for '${APP_NAME_LOWERCASE}' has no main service port. The <APP_PORT> placeholder will remain unresolved."
   else
-    echo "WARNING: Could not fetch upstream Truecharts values.yaml for '${APP_NAME_LOWERCASE}' (network error or chart not found). The <APP_PORT> placeholder will remain unresolved."
+    echo "WARNING: Could not read the Truecharts chart for '${APP_NAME_LOWERCASE}' (network error or chart not found). The <APP_PORT> placeholder will remain unresolved."
   fi
 }
 
