@@ -914,4 +914,11 @@ fi
 echo
 echo "=============================================================================================================="
 echo "Kickstart completed successfully for app '${APP_NAME}' in folder '${APP_FOLDERNAME}'."
-echo "Double-check '${APP_TARGET_DIR}' for any remaining <PLACEHOLDER> tokens or unfinished sections and fill them in manually."
+REMAINING=$(grep -rnoE '<[A-Z][A-Z_]*>|PLACEHOLDER_[A-Z_]+' "${APP_TARGET_DIR}" | sort -u | sort -t: -k1,1 -k2,2n)
+if [ -n "${REMAINING}" ]; then
+  echo "Still to fill in by hand (file:line:token):"
+  echo "${REMAINING}" | sed "s|^${APP_TARGET_DIR}/|  |"
+else
+  echo "No placeholders left."
+fi
+echo "Also review '${APP_TARGET_DIR}' for unfinished sections."

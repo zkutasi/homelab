@@ -10,4 +10,4 @@
       - name: config
       - name: data
     docker_compose_template_files_copy:
-      - name: XXX
+      - name: <TEMPLATE_FILE_PATH>

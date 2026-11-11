@@ -1,4 +1,4 @@
-# XXX
+# <CATEGORY_NAME>
 
 A short description of the app group, why it is needed and what benefits they give.
 
