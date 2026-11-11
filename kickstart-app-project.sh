@@ -175,7 +175,7 @@ function fetch_docker_compose_and_repo_info() {
 function main_service() {
   local -a app_services
   local service
-  app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
+  app_services=($(compose_app_services))
   [ "${#app_services[@]}" -eq 0 ] && return
   for service in "${app_services[@]}"; do
     if [ "${service}" == "${APP_NAME_LOWERCASE}" ]; then
@@ -241,6 +241,30 @@ function compose_ports() {
 # order; the long form ({source: ./x, target: /x}) is turned into the short one
 function compose_volumes() {
   yq -r "(.services.${1}.volumes // [])[] | with(select(tag == \"!!map\"); . = (.source // \"\") + \":\" + .target)" "${APP_TARGET_DIR}/docker-compose.yaml"
+}
+
+# What a compose image is, judged by the image's own name only (no registry, path, tag or
+# digest), so helpers like postgres-exporter or redis-commander still count as App services
+function image_kind() {
+  local name="${1##*/}"
+  name="${name%%[:@]*}"
+  case "${name}" in
+    postgres|postgresql|postgis|pgvecto-rs|pgvector|timescaledb|timescaledb-ha) echo "postgres" ;;
+    mysql|mariadb|percona-server) echo "mysql" ;;
+    redis|valkey|keydb|dragonfly|memcached) echo "cache" ;;
+    mongo|mongodb) echo "other-db" ;;
+    *) echo "app" ;;
+  esac
+}
+
+# The compose services that are the App itself, in file order
+function compose_app_services() {
+  local service
+  for service in $(yq '.services | keys | .[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+    if [ "$(image_kind "$(yq -r ".services.${service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")")" == "app" ]; then
+      echo "${service}"
+    fi
+  done
 }
 
 function image_repo() {
@@ -318,7 +342,7 @@ function populate_readme() {
     local -a services=()
     local -a links=()
     while IFS=$'\t' read -r service image; do
-      [[ "${image}" =~ ^(postgres|redis|mysql|mariadb)(:|$|/) ]] && continue
+      [ "$(image_kind "${image}")" != "app" ] && continue
       link=$(image_repo_link "${image}")
       if [ -n "${link}" ]; then
         services+=("${service}")
@@ -514,7 +538,7 @@ function kickstart_docker() {
     local from
     local to
     # Every service that isn't a known database image gets the same paths as the main one
-    for service in $(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+    for service in $(compose_app_services); do
       volume_path=".services.${service}.volumes"
       yq -e "${volume_path}" "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1 || continue
       volume_items=$(compose_volumes "${service}")
@@ -565,14 +589,20 @@ function kickstart_k8s_truecharts_local() {
   fi
   if [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ]; then
     echo "Gathering information from docker-compose.yaml for Truecharts values.yaml ..."
-    local services
-    local images
-    local postgresql
-    local mariadb
-    services=$(yq ".services | keys | .[]" "${APP_TARGET_DIR}/docker-compose.yaml")
-    images=$(yq ".services[].image" "${APP_TARGET_DIR}/docker-compose.yaml")
-    postgresql=$(yq '.services[].image | select(test("postgres"))' "${APP_TARGET_DIR}/docker-compose.yaml")
-    mariadb=$(yq '.services[].image | select(test("mysql|mariadb"))' "${APP_TARGET_DIR}/docker-compose.yaml")
+    local postgresql=
+    local mariadb=
+    local service
+    local image
+    local kind
+    for service in $(yq '.services | keys | .[]' "${APP_TARGET_DIR}/docker-compose.yaml"); do
+      image=$(yq -r ".services.${service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
+      kind=$(image_kind "${image}")
+      case "${kind}" in
+        postgres) postgresql=${image} ;;
+        mysql) mariadb=${image} ;;
+        cache|other-db) echo "WARNING: '${service}' (${image}) is a ${kind} service that isn't set up automatically, add it by hand" ;;
+      esac
+    done
     echo "Converting docker-compose.yaml for Truecharts values.yaml ..."
     echo > "${APP_TARGET_DIR}/app-values.yaml"
     echo > "${APP_TARGET_DIR}/app-values-dimensioning.yaml"
@@ -613,7 +643,10 @@ function kickstart_k8s_truecharts_local() {
     fi
 
     local -a app_services
-    app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
+    # The main container is the App's own service (main_service), the others follow in file order
+    local main
+    main=$(main_service)
+    app_services=(${main} $(compose_app_services | grep -vx "${main}"))
     if (( ${#app_services[@]} >= 1 )); then
       local multi_container=false
       (( ${#app_services[@]} > 1 )) && multi_container=true
