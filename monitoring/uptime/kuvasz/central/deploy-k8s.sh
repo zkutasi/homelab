@@ -28,7 +28,8 @@ done
     --db-database ${APP} \
     --db-username ${APP} \
     --namespace $NS \
-    ${EXTRA_PARAMS}
+    ${EXTRA_PARAMS} \
+  || exit 1
 
 kubectl create secret generic ca-certificates \
     --namespace $NS \

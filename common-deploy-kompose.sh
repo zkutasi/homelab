@@ -39,7 +39,10 @@ CMD=(kompose convert
     --out ./kompose-manifests)
 
 echo "Executing command: ${CMD[*]}"
-"${CMD[@]}"
+if ! "${CMD[@]}"; then
+  echo "ERROR: kompose convert failed, not applying anything"
+  exit 1
+fi
 
 echo "Ensure namespace $NS exists..."
 kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"

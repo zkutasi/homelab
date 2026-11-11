@@ -204,7 +204,10 @@ else
   CMD=(helm template "${CMD[@]}")
 fi
 echo "Executing command: ${CMD[*]}"
-"${CMD[@]}"
+if ! "${CMD[@]}"; then
+  echo "ERROR: helm failed, not applying anything else"
+  exit 1
+fi
 
 if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "${DEPLOYMENT_TYPE}" == "local" ]; }; then
   cnpg_clusters=$(helm -n "${NS}" get values -a "${RELEASE_NAME}" \

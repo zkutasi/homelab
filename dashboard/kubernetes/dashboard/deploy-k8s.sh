@@ -29,7 +29,8 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    ${EXTRA_PARAMS} \
+  || exit 1
 
 kubectl create token kube-ds-viewer -n $NS
 kubectl create token kube-ds-editor -n $NS

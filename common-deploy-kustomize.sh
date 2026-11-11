@@ -39,7 +39,10 @@ CMD=(kubectl apply
     --namespace $NS)
 
 echo "Executing command: ${CMD[*]}"
-"${CMD[@]}"
+if ! "${CMD[@]}"; then
+  echo "ERROR: kubectl apply failed, not applying anything else"
+  exit 1
+fi
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
