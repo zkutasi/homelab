@@ -189,6 +189,11 @@ function main_service() {
 function preprocess_docker_compose() {
   [ -f "${APP_TARGET_DIR}/docker-compose.yaml" ] || return
 
+  if ! yq -e '(.services | type) == "!!map" and (.services | length) > 0' "${APP_TARGET_DIR}/docker-compose.yaml" > /dev/null 2>&1; then
+    echo "ERROR: docker-compose.yaml has no services, is it really a compose file?"
+    exit 1
+  fi
+
   echo "Resolving env variable defaults in docker-compose.yaml ..."
   sed -i -E 's/\$\{[A-Za-z_][A-Za-z0-9_]*:?-([^}]*)\}/\1/g' "${APP_TARGET_DIR}/docker-compose.yaml"
 
