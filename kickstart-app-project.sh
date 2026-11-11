@@ -179,6 +179,7 @@ function preprocess_docker_compose() {
     local main_service
     local service
     local current_image
+    local new_tag
     app_services=($(yq '.services | with_entries( select(.value.image | test("postgres|redis|mysql|mariadb") | not) ) | keys[]' "${APP_TARGET_DIR}/docker-compose.yaml"))
     if [ "${#app_services[@]}" -gt 0 ]; then
       main_service=${app_services[0]}
@@ -186,14 +187,44 @@ function preprocess_docker_compose() {
         [ "${service}" == "${APP_NAME_LOWERCASE}" ] && main_service=${service}
       done
       current_image=$(yq -r ".services.${main_service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
-      echo "Updating '${main_service}' image tag to the latest released version '${APP_VERSION}' ..."
-      yq -i ".services.${main_service}.image = \"${current_image%%:*}:${APP_VERSION}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
+      new_tag=$(release_tag_like "${APP_VERSION}" "$(image_tag "${current_image}")")
+      echo "Updating '${main_service}' image tag to the latest released version '${new_tag}' ..."
+      yq -i ".services.${main_service}.image = \"$(image_repo "${current_image}"):${new_tag}\"" "${APP_TARGET_DIR}/docker-compose.yaml"
     fi
   fi
 }
 
+function image_repo() {
+  local image="${1%%@*}"
+  if [[ "${image##*/}" == *:* ]]; then
+    echo "${image%:*}"
+  else
+    echo "${image}"
+  fi
+}
+
+function image_tag() {
+  local image="${1%%@*}"
+  if [[ "${image##*/}" == *:* ]]; then
+    echo "${image##*:}"
+  else
+    echo "latest"
+  fi
+}
+
+# Writes the release name in the style of the image's current tag: with a
+# leading 'v' only if the current tag has one
+function release_tag_like() {
+  if [[ "$2" == v[0-9]* ]]; then
+    echo "v${1#v}"
+  else
+    echo "${1#v}"
+  fi
+}
+
 function image_repo_link() {
-  local image_path="${1%%:*}"
+  local image_path
+  image_path=$(image_repo "$1")
 
   case "${image_path}" in
     ghcr.io/*)
@@ -357,8 +388,8 @@ function kickstart_docker() {
 
     local app_image
     app_image=$(yq -r ".services.${APP_NAME_LOWERCASE}.image" "${APP_TARGET_DIR}/docker-compose.yaml.j2")
-    APP_IMAGE_REPO=${app_image%%:*}
-    APP_IMAGE_TAG=${app_image##*:}
+    APP_IMAGE_REPO=$(image_repo "${app_image}")
+    APP_IMAGE_TAG=$(image_tag "${app_image}")
     yq -i ".services.${APP_NAME_LOWERCASE}.container_name = \"${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${APP_NAME_LOWERCASE}.hostname = \"PLACEHOLDER_ID-${APP_NAME_LOWERCASE}\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
     yq -i ".services.${APP_NAME_LOWERCASE}.image = \"PLACEHOLDER_IMAGE_VERSION\"" "${APP_TARGET_DIR}/docker-compose.yaml.j2"
@@ -526,8 +557,8 @@ function kickstart_k8s_truecharts_local() {
         service=${app_services[$service_index]}
         image_selector=${image_selectors[$service_index]}
         service_image=$(yq ".services.${service}.image" "${APP_TARGET_DIR}/docker-compose.yaml")
-        service_image_repo=${service_image%%:*}
-        service_image_tag=${service_image##*:}
+        service_image_repo=$(image_repo "${service_image}")
+        service_image_tag=$(image_tag "${service_image}")
         yq -i ".${image_selector}.repository = \"${service_image_repo}\"" "${APP_TARGET_DIR}/app-values.yaml"
         yq -i ".${image_selector}.tag = \"${service_image_tag}\"" "${APP_TARGET_DIR}/app-values.yaml"
         yq -i ".${image_selector}.pullPolicy = \"IfNotPresent\"" "${APP_TARGET_DIR}/app-values.yaml"
