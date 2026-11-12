@@ -1,6 +1,6 @@
 image:
   repository: henrygd/beszel-agent
-  tag: 0.18.1
+  tag: 0.21.2
   pullPolicy: IfNotPresent
 service:
   main:
