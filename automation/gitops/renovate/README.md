@@ -69,22 +69,17 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ## Commands
 
-It is worth to know how to test newer renovate.json files without actually committing the changes, as Renovate by default clones the repo and works from there. This can be done by executing the Renovate tool in `local` mode, which will use the `renovate.json` from the local filesystem:
+- Test a changed `renovate.json` before committing it: Renovate runs locally against the working copy, in full dry-run mode, with the same image as the deployed chart. Needs `RENOVATE_TOKEN`.
 
-```bash
-RENOVATE_TOKEN=XXXX
-docker run --rm -it \
-    --volume "${PWD}:/repo" \
-    --workdir /repo \
-    --env LOG_LEVEL=debug \
-    --env RENOVATE_TOKEN=${RENOVATE_TOKEN} \
-    --env RENOVATE_GITHUB_COM_TOKEN=${RENOVATE_TOKEN} \
-    renovate/renovate:43.220 \
-    renovate \
-    --platform=local \
-    --dry-run=full \
-    --print-config
-```
+    ```bash
+    RENOVATE_TOKEN=XXXX ./automation/gitops/renovate/dry-run.sh
+    ```
+
+- Add the `# renovate: image=…` comment to every local chart's `Chart.yaml` that names exactly one image in its values, so Renovate tracks its `appVersion`.
+
+    ```bash
+    ./automation/gitops/renovate/add-renovate-comment.sh
+    ```
 
 ## Notable comments
 

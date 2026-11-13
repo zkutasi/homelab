@@ -7,7 +7,7 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "(^|/)Chart\\.ya?ml$/"
+        "/(^|/)Chart\\.ya?ml$/"
       ],
       "matchStrings": [
         "#\\s?renovate: image=(?<depName>.*?)\\s?appVersion:\\s?\\\"?(?<currentValue>[\\w+\\.\\-]*)"
@@ -93,6 +93,12 @@
       "matchDatasources": ["docker"],
       "matchCurrentValue": "/^release-\\d+\\.\\d+\\.\\d+$/",
       "versioning": "regex:^(?:release-)?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "description": "A chart lives in <app>/chart: name its branch and commit after the App folder, so its appVersion bump joins the same image bump in the App values",
+      "matchFileNames": ["**/chart/Chart.yaml"],
+      "additionalBranchPrefix": "{{replace \"/chart$\" \"\" packageFileDir}}-",
+      "commitMessagePrefix": "[{{replace \"/chart$\" \"\" packageFileDir}}] "
     }
   ],
 

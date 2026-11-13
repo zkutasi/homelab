@@ -24,16 +24,23 @@ done
 [ -z "${RENOVATE_TOKEN}" ] && echo "RENOVATE_TOKEN is not set" && exit 1
 
 RENOVATE_DIR=$(git rev-parse --show-toplevel)/automation/gitops/renovate
-RENOVATE_IMAGE_REPO=$(yq '.image.registry' "${RENOVATE_DIR}"/app-values.yaml)
-RENOVATE_IMAGE_TAG=$(yq '.image.tag' "${RENOVATE_DIR}"/app-values.yaml)
+# The same image the deployed chart runs, so a dry-run behaves like production
+CHART_NAME=$(sed -n 's/^CHART_NAME=//p' "${RENOVATE_DIR}"/renovate-oss/deploy-k8s.sh)
+CHART_VERSION=$(sed -n 's/^VERSION=//p' "${RENOVATE_DIR}"/renovate-oss/deploy-k8s.sh)
+RENOVATE_IMAGE=$(helm show values "${CHART_NAME}" --version "${CHART_VERSION}" 2>/dev/null \
+    | yq '.image.registry + "/" + .image.repository + ":" + .image.tag')
+if [[ ! "${RENOVATE_IMAGE}" =~ ^[^/]+/[^:]+:[^/:]+$ ]] || [[ "${RENOVATE_IMAGE}" == *null* ]]; then
+  echo "ERROR: Could not read the Renovate image from chart ${CHART_NAME} ${CHART_VERSION}"
+  exit 1
+fi
 
-docker run --rm -it \
+docker run --rm \
     --volume "$(git rev-parse --show-toplevel):/repo" \
     --workdir /repo \
     --env LOG_LEVEL=debug \
     --env RENOVATE_TOKEN="${RENOVATE_TOKEN}" \
     --env RENOVATE_GITHUB_COM_TOKEN="${RENOVATE_TOKEN}" \
-    "${RENOVATE_IMAGE_REPO}":"${RENOVATE_IMAGE_TAG}" \
+    "${RENOVATE_IMAGE}" \
     renovate \
     --platform=local \
     --dry-run=full \
