@@ -6,3 +6,4 @@
       ansible.builtin.template:
         src: config/templates/ipaddresspool-private.yaml.j2
         dest: "extra-manifests/ipaddresspool-private.yaml"
+        mode: "0644"

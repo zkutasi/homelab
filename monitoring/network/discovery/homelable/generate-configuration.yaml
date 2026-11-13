@@ -6,6 +6,7 @@
       ansible.builtin.template:
         src: config/templates/app-values-private.yaml.j2
         dest: "app-values-private.yaml"
+        mode: "0644"
     - name: Make sure extra-manifests directory exists
       ansible.builtin.file:
         path: extra-manifests

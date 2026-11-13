@@ -7,10 +7,12 @@
       ansible.builtin.file:
         path: "config/autokuma-monitors"
         state: directory
+        mode: "0755"
     - name: Generate group for k8s
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
         dest: "config/autokuma-monitors/k8s.json"
+        mode: "0644"
       vars:
         monitor_name: "k8s"
         monitor_type: "group"
@@ -38,6 +40,7 @@
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
         dest: "config/autokuma-monitors/{{ inventory_hostname }}.json"
+        mode: "0644"
       vars:
         monitor_name: "{{ inventory_hostname }}"
         monitor_type: "group"
@@ -53,6 +56,7 @@
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
         dest: "config/autokuma-monitors/ping-{{ inventory_hostname }}.json"
+        mode: "0644"
       vars:
         monitor_name: "ping-{{ inventory_hostname }}"
         monitor_parent_name: "{{ 'k8s' if inventory_hostname.startswith('k8s') else inventory_hostname }}"
@@ -111,6 +115,7 @@
       ansible.builtin.template:
         src: config/templates/monitor.json.j2
         dest: "{{ monitor_base_dir }}/http-k8s-{{ fqdn_prefix }}.json"
+        mode: "0644"
       loop: "{{ contour_endpoints }}"
       loop_control:
         loop_var: proxy
@@ -128,3 +133,4 @@
       ansible.builtin.template:
         src: config/templates/app-values-private.yaml.j2
         dest: "app-values-private.yaml"
+        mode: "0644"
