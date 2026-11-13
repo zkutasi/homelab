@@ -11,5 +11,21 @@ renovate:
 
       "dependencyDashboard": true,
 
+      "hostRules": [
+        {
+          "description": "Log in to GitHub's registry (and lscr.io, which serves from it) instead of hitting its anonymous rate limit",
+          "matchHost": "ghcr.io",
+          "hostType": "docker",
+          "username": "{{ github_homelab_repo.split('/')[0] }}",
+          "password": "{{ github_pat_renovate }}"
+        },
+        {
+          "matchHost": "lscr.io",
+          "hostType": "docker",
+          "username": "{{ github_homelab_repo.split('/')[0] }}",
+          "password": "{{ github_pat_renovate }}"
+        }
+      ],
+
       "timezone": "{{ timezone }}"
     }
