@@ -93,7 +93,7 @@ DB_SECRET_NAME="${APP}-db-password-secret"
 DB_USERNAME=${DB_USERNAME}
 DB_DATABASE=${DB_DATABASE}
 if [ "${TEMPLATE}" -eq 0 ]; then
-  if ! $(kubectl -n "$NS" get secret "${DB_SECRET_NAME}" &> /dev/null); then
+  if ! kubectl -n "$NS" get secret "${DB_SECRET_NAME}" &> /dev/null; then
     if [ -z "${DB_PASSWORD}" ]; then
       echo "Generating random database password..."
       DB_PASSWORD="$(dd if=/dev/urandom bs=1 count=12 status=none | base64 | tr -dc 'a-zA-Z0-9' | head -c 12)"

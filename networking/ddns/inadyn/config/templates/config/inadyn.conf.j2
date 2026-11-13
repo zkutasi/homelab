@@ -19,7 +19,7 @@ custom dynu-{{ alias }}-ipv4 {
 {% endif %}
 {% if ddns_ipv6 | default(true) %}
 custom dynu-{{ alias }}-ipv6 {
-    checkip-command = "ip -6 addr show {{ ddns_interface }} | grep inet6 | egrep -v 'temporary|secondary|deprecated' | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80"
+    checkip-command = "ip -6 addr show {{ ddns_interface }} | grep inet6 | grep -E -v 'temporary|secondary|deprecated' | awk -F '[ \t]+|/' '{print $3}' | grep -v ^::1 | grep -v ^fe80"
     ddns-server     = api.dynu.com
     ddns-path       = "/nic/update?hostname=%h&alias={{alias}}&myipv6=%i"
     hostname        = {{ ddns_hostname }}
