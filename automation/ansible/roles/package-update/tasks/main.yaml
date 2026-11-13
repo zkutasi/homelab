@@ -23,4 +23,5 @@
         get_checksum: false
       register: reboot
       changed_when: reboot.stat.exists
+      # Deliberately not connected: reboots are done by hand, when convenient
       # notify: Perform reboot
