@@ -6,5 +6,6 @@
       ansible.builtin.file:
         path: "{{ node_exporter_textfiles_dir }}"
         state: directory
+        mode: "0755"
         owner: "{{ ansible_user }}"
         group: "{{ ansible_user }}"

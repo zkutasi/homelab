@@ -24,3 +24,4 @@
       ansible.builtin.template:
         src: config/templates/config/config.yml.j2
         dest: "{{ docker_compose_rootdir }}/homer/config/config.yml"
+        mode: "0644"

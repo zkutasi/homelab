@@ -24,3 +24,4 @@
       ansible.builtin.template:
         src: config/templates/config/conf.yml.j2
         dest: "{{ docker_compose_rootdir }}/dashy/config/conf.yml"
+        mode: "0644"

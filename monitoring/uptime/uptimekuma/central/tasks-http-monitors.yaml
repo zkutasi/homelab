@@ -34,6 +34,7 @@
   ansible.builtin.template:
     src: config/templates/monitor.json.j2
     dest: "{{ monitor_base_dir }}/http-{{ monitorable_host }}-{{ service.name }}.json"
+    mode: "0644"
   loop: "{{ hostvars[monitorable_host].exposed_services | default([]) }}"
   loop_control:
     loop_var: service

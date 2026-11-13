@@ -24,7 +24,9 @@
       ansible.builtin.template:
         src: config/templates/config/services.yaml.j2
         dest: "{{ docker_compose_rootdir }}/homepage/config/services.yaml"
+        mode: "0644"
     - name: Generate information widgets configuration file from template
       ansible.builtin.template:
         src: config/templates/config/widgets.yaml.j2
         dest: "{{ docker_compose_rootdir }}/homepage/config/widgets.yaml"
+        mode: "0644"

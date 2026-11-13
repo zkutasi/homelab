@@ -9,6 +9,7 @@
           ansible.builtin.file:
             path: "/etc/texporter"
             state: directory
+            mode: '0755'
         - name: Create config.json from template
           ansible.builtin.template:
             src: ../config/config.json.j2

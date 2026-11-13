@@ -5,6 +5,7 @@
       ansible.builtin.file:
         path: "{{ node_exporter_textfiles_dir }}"
         state: directory
+        mode: "0755"
 - name: Deploy node-exporter as a service
   hosts: proxmox
   roles:

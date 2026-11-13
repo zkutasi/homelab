@@ -6,6 +6,7 @@
     - name: Create specific config file
       ansible.builtin.copy:
         dest: "{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/unbound/conf.d/plex.conf"
+        mode: "0644"
         content: |
           server:
             private-domain: plex.direct

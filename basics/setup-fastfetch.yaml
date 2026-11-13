@@ -35,7 +35,9 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.config/fastfetch"
         state: directory
+        mode: "0755"
     - name: Template the fastfetch configuration file
       ansible.builtin.template:
         src: "all/fastfetch.config.jsonc.j2"
         dest: "{{ ansible_user_dir }}/.config/fastfetch/config.jsonc"
+        mode: "0644"

@@ -5,6 +5,7 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/.sops"
         state: directory
+        mode: "0700"
     - name: Check if age key pair exists
       ansible.builtin.stat:
         path: "{{ ansible_user_dir }}/.sops/age.key"
