@@ -112,6 +112,11 @@
       "description": "Major updates need a decision: open them from the Dependency Dashboard",
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Template placeholders such as <APP_VERSION> aren't versions: never look them up",
+      "matchCurrentValue": "/^<.+>$/",
+      "enabled": false
     }
   ],
 
