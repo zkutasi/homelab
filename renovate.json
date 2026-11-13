@@ -100,6 +100,18 @@
       "matchFileNames": ["**/chart/Chart.yaml"],
       "additionalBranchPrefix": "{{replace \"/chart$\" \"\" packageFileDir}}-",
       "commitMessagePrefix": "[{{replace \"/chart$\" \"\" packageFileDir}}] "
+    },
+    {
+      "description": "One PR per App for the non-major updates of its images and charts; the branch prefix already names the App folder. Binary tools and pre-commit hooks keep one PR each",
+      "matchDatasources": ["docker", "helm"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
+      "groupName": "non-major updates",
+      "groupSlug": "non-major"
+    },
+    {
+      "description": "Major updates need a decision: open them from the Dependency Dashboard",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
     }
   ],
 
@@ -107,5 +119,7 @@
     "enabled": true
   },
 
-  "prHourlyLimit": 10
+  "prHourlyLimit": 10,
+
+  "schedule": ["before 6am on monday"]
 }
