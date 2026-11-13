@@ -247,7 +247,7 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Shell scripts
 
 - Shebang `#!/bin/bash`, and the file is executable.
-- No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead.
+- No strict mode (`set -e`, `set -euo pipefail`), and no guard on every `pushd`, `popd` or `cd`; where a failure would go unnoticed, a targeted check is added on that one command instead.
 - Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
 - The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
 - App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
@@ -258,7 +258,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - `ansible.cfg` sets `jinja2_native = True`: whenever a whole `{{ … }}` value could look like a number (versions, tags, IDs), the filter chain ends with `| string`, otherwise it is silently turned into an int or float.
 - Privileged tasks inside roles set their own `become: true`, handlers included.
 - Anything that talks to Docker uses the host's settings, like the shared role does: `become: "{{ docker_with_sudo }}"` and `docker_cli: "{{ docker_cli_path }}"`, with App folders under `{{ docker_compose_rootdir }}`, never a hardcoded path.
-- Plays target inventory groups; host-specific template and script folders are named after the host.
+- Plays target inventory groups named after a role, never single host names; host-specific template and script folders are named after the host.
 - Playbooks work in check mode: read-only lookups run with `check_mode: false`, and later tasks tolerate what a skipped write would have created.
 - Services are restarted through handlers on actual changes, not unconditionally.
 - An undeploy removes everything the deploy and its configure playbooks created, and can be re-run without failing.
@@ -269,6 +269,8 @@ How this repository is organised and the conventions every App follows. Follow t
 - When such a private file has to be kept in the repository, its SOPS-encrypted copy is committed with the `_encrypted` suffix. A pre-commit hook makes sure the encrypted copies are up-to-date with the decrypted ones.
 - Loops in templates that produce files are sorted (`{% for host in groups['x'] | sort %}`, and `| sort` after `difference`, `union`, `intersect` and `symmetric_difference`), so the generated files stay stable between runs.
 - A `ca.key` may only be committed as a symlink to the SOPS-managed key.
+- `sops.sh` encrypts in binary mode with a single age key, passed on the command line; a `.sops.yaml` only comes with a second recipient, such as a backup key. `--redecrypt-all` deliberately recreates every plaintext from its `_encrypted` copy, overwriting local changes.
+- Secrets may show up in Ansible output and logs (no `no_log`), as long as those logs are ephemeral or kept out of git, like the ansible-navigator debug log under `/tmp`. A secret must never land in git or another shared place.
 
 #### Docker Apps
 
@@ -283,6 +285,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Run `deploy-k8s.sh` and `undeploy-k8s.sh` from the App's own folder, as they read their files relative to the current folder. They refuse to run anywhere else.
 - Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
 - Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App. The HTTPProxy and Certificate manifests are templates under `config/templates/extra-manifests/` using `{{ kubernetes_internal_domain }}`, never static files with a hardcoded domain.
+- Manifests never set `metadata.namespace`; the deploy helper supplies it with `-n $NS`. The only exception is where the API needs it inside the object, like a ClusterRoleBinding's ServiceAccount subject.
 - Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
 - What happens to a Helm App's CRDs on undeploy is up to its chart's defaults; the scripts never remove or keep CRDs by force. CRDs shipped in a chart's `crds/` folder or marked `helm.sh/resource-policy: keep` stay, the others are deleted on uninstall, together with every resource of their kind in the cluster.
 - Manifests that were removed or renamed are cleaned up from the cluster by hand; the scripts don't prune.
@@ -307,7 +310,8 @@ How this repository is organised and the conventions every App follows. Follow t
 - `kickstart-app-project.sh` creates the folder of a new App from the `_templates` folder, for the chosen deployment type (binary, Docker Compose, or Kubernetes with Helm, Kustomize, Kompose or TrueCharts).
 - It needs `curl`, `jq` and `yq` from the control host prerequisites.
 - It can start from the upstream project's docker-compose file: it converts it into the matching templates, fills in the README links and the latest released version, and turns the sensitive environment variables into inventory variables.
-- The result is a starting point: the README and the templates still need a manual review and finishing.
+- It does about 90% of the work; the rest is always finished by hand, and the end of the run lists every placeholder still to fill in. Re-running it over an existing App folder overwrites the generated files (it asks first, defaulting to yes), which is handy while working on the script itself.
+- The `<UPPER_CASE>` markers in `_templates`, such as `<HELM_REPO_URL>`, are deliberate reminders of how a setting is written; they stay in the templates.
 
 #### Repository-wide helper
 
