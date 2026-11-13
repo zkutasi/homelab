@@ -34,7 +34,6 @@ function process_path()
   local hdd=$2
   while read -r line; do
     local bn=$(basename "${line}")
-    local dn=$(dirname "${line}")
     local srtbasename="${line%.*}"
     local substatus=""
     ((count++))
@@ -98,7 +97,7 @@ else
   printf "\n"
 fi
 for path in $(eval echo ${PATHS}); do
-  if [ -n ${disk} ] && [[ ${path} == *${disk}* ]]; then
+  if [ -z "${disk}" ] || [[ "${path}" == *"${disk}"* ]]; then
     rowkey=$(echo ${path} | sed 's;.*dev-disk-by-label-\([^/]*\)/.*;\1;')
     process_path "${path}" "${rowkey}"
   fi
