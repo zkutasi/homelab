@@ -1,5 +1,8 @@
 cronjob:
   schedule: "0 * * * *"
+  # Runs take minutes; a hung one is stopped before the next hour instead of overlapping it
+  concurrencyPolicy: Forbid
+  activeDeadlineSeconds: 3000
 env:
   LOG_LEVEL: info
   RENOVATE_X_SQLITE_PACKAGE_CACHE: true
