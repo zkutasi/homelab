@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/p2r3/convert
-  tag: latest
+  tag: latest@sha256:2f2f1be26bf28d1fe4975f467dd4006f3e5af9e87485469387008ee989e797b0
   pullPolicy: IfNotPresent
 
 service:
