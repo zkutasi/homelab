@@ -89,3 +89,4 @@ Variables that are shared by several Apps are not listed here, but in the more g
 ## Notable comments
 
 - Does not handle turning off certificate verification at any point: S3 endpoint must either be HTTP or with a known CA certificate, and also the Agent cannot connect to a self-signed certificate UI.
+- The main page answers a plain HTTP request with a 500 status, and only a browser follows on to the working page. The HTTPProxy therefore points the uptime checks to `/api/health` in its `homelab/health-endpoint` annotation, as suggested by the author.
