@@ -5,7 +5,7 @@ mariadb:
 
 pricebuddyImage:
   repository: jez500/pricebuddy
-  tag: v1.0.54
+  tag: v1.0.57
   pullPolicy: IfNotPresent
 scraperImage:
   repository: jez500/seleniumbase-scrapper
