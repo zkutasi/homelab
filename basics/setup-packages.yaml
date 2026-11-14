@@ -15,6 +15,7 @@
       - needrestart
       - sudo
       - ufw
+      - unzip
 - name: Deploy yq
   hosts: controlserver
   roles:

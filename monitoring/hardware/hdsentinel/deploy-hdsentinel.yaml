@@ -1,0 +1,13 @@
+- name: Deploy HDSentinel as binary
+  hosts: smart
+  roles:
+    - binary-install
+  become: true
+  vars:
+    requested_binary_version: "0.20c"
+    bin_filename: HDSentinel
+    bin_path: "{{ hdsentinel_dir }}"
+    download_url: "https://www.hdsentinel.com/hdslin/hdsentinel-{{ requested_binary_version | replace('.', '') }}-x64.zip"
+    # The role's defaults are tar options; the zip holds the binary at its top level
+    decompression_options: []
+    version_flag: "-h"

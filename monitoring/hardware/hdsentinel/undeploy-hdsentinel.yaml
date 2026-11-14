@@ -1,22 +1,42 @@
-- name: Remove the HDSentinel cron job
-  hosts:
-    - synology
-    - proxmox-nas
+- name: Remove the HDSentinel cron job and report
+  hosts: smart
   tasks:
     - name: Remove the cron job
       become: true
       ansible.builtin.file:
         path: /etc/cron.d/hdsentinel
         state: absent
-- name: Remove the HDSentinel Samba share on Proxmox
-  hosts: proxmox-nas
+    - name: Remove the HTML report
+      become: true
+      ansible.builtin.file:
+        path: "{{ hdsentinel_dir }}/hdsreport.html"
+        state: absent
+- name: Delete HDSentinel as binary
+  hosts: smart
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: HDSentinel
+    bin_path: "{{ hdsentinel_dir }}"
+- name: Remove the HDSentinel Samba share
+  hosts: "{{ groups['smart'] | default([]) | difference(groups['synology'] | default([])) }}"
   become: true
   tasks:
+    - name: Check if Samba is configured
+      ansible.builtin.stat:
+        path: /etc/samba/smb.conf
+      register: smb_conf
     - name: Remove the managed Samba configuration block
+      when: smb_conf.stat.exists
       ansible.builtin.blockinfile:
         path: /etc/samba/smb.conf
         state: absent
       notify: Restart Samba
+    # The configure playbook created this folder; on Synology it is a DSM share and stays
+    - name: Remove the HDSentinel folder
+      ansible.builtin.file:
+        path: "{{ hdsentinel_dir }}"
+        state: absent
   handlers:
     - name: Restart Samba
       ansible.builtin.systemd_service:

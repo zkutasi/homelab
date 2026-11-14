@@ -1,5 +1,5 @@
-- name: Configure Samba guest share on Proxmox
-  hosts: proxmox-nas
+- name: Configure Samba guest share
+  hosts: "{{ groups['smart'] | default([]) | difference(groups['synology'] | default([])) }}"
   become: true
   tasks:
     - name: Install some packages for mounting
@@ -20,11 +20,6 @@
       ansible.builtin.blockinfile:
         path: /etc/samba/smb.conf
         block: |
-          [global]
-              workgroup = WORKGROUP
-              map to guest = Bad User
-              guest account = nobody
-              server min protocol = SMB2
           [hdsentinel]
               path = {{ hdsentinel_dir }}
               browseable = yes
@@ -34,26 +29,28 @@
               force user = nobody
               hosts allow = {{ network_subnet }}
               hosts deny = ALL
+        validate: testparm -s %s
       notify: Restart Samba
-    - name: Validate Samba configuration
-      ansible.builtin.command:
-        cmd: testparm -s
-      changed_when: false
-      check_mode: false
+    - name: Check if Samba is installed
+      ansible.builtin.stat:
+        path: /usr/sbin/smbd
+      register: smbd_bin
     - name: Make sure Samba is enabled and running
+      # In check mode the package install above is only simulated, so there is no service yet
+      when: smbd_bin.stat.exists or not ansible_check_mode
       ansible.builtin.systemd:
         name: smbd
         enabled: true
         state: started
   handlers:
     - name: Restart Samba
+      # In check mode the package install above is only simulated, so there is no service yet
+      when: smbd_bin.stat.exists or not ansible_check_mode
       ansible.builtin.systemd_service:
         name: smbd
         state: restarted
 - name: Deploy HDSentinel configuration
-  hosts:
-    - synology
-    - proxmox-nas
+  hosts: smart
   tasks:
     - name: Install HDSentinel cron job
       become: true

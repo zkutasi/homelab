@@ -20,7 +20,7 @@
         - name: Extract exact version
           ansible.builtin.set_fact:
             binary_installed_version: "{{ ((binary_installed_version_output.stdout_lines + binary_installed_version_output.stderr_lines) | join('\n')
-              | regex_search('v?([0-9]+(?:\\.[0-9]+)+)', '\\1') or ['']) | first }}"
+              | regex_search('v?([0-9]+(?:\\.[0-9]+)+(?:[a-z](?![a-z0-9]))?)', '\\1') or ['']) | first | string }}"
         - name: Make sure the version could be read
           ansible.builtin.assert:
             that: binary_installed_version | length > 0
@@ -77,16 +77,54 @@
           become: true
           block:
             - name: Download and extract the binary
-              become: true
-              ansible.builtin.unarchive:
-                src: "{{ download_url }}"
-                remote_src: true
-                dest: "{{ bin_path }}"
-                extra_opts: "{{ decompression_options }}"
-                mode: '0755'
-                owner: root
-                group: root
               when: compressed
+              block:
+                - name: Download and extract the binary
+                  become: true
+                  ansible.builtin.unarchive:
+                    src: "{{ download_url }}"
+                    remote_src: true
+                    dest: "{{ bin_path }}"
+                    extra_opts: "{{ decompression_options }}"
+                    mode: '0755'
+                    owner: root
+                    group: root
+              # unarchive needs unzip or tar on the host; a host that has neither but ships 7z (like a NAS appliance)
+              # gets the binary extracted with 7z instead. This works for archives holding the binary at their top
+              # level, like a zip; 7z unpacks only one layer of a .tar.gz at a time.
+              rescue:
+                - name: Fail on anything else than a missing extractor
+                  ansible.builtin.fail:
+                    msg: "{{ ansible_failed_result.msg }}"
+                  when: ansible_failed_result.msg is not search('Failed to find handler')
+                - name: Create a temporary folder for the archive
+                  ansible.builtin.tempfile:
+                    state: directory
+                    suffix: "{{ bin_filename }}"
+                  register: binary_archive_tmpdir
+                - name: Download the archive
+                  ansible.builtin.get_url:
+                    url: "{{ download_url }}"
+                    dest: "{{ binary_archive_tmpdir.path }}/{{ download_url | basename }}"
+                    mode: '0644'
+                # iso_extract only runs `7z x` on the file, which reads any archive format 7z knows, not just ISO images
+                - name: Extract the binary with 7z
+                  community.general.iso_extract:
+                    image: "{{ binary_archive_tmpdir.path }}/{{ download_url | basename }}"
+                    dest: "{{ bin_path }}"
+                    files:
+                      - "{{ bin_filename }}"
+                    executable: 7z
+                - name: Set the mode and owner of the binary
+                  ansible.builtin.file:
+                    path: "{{ bin_path }}/{{ bin_filename }}"
+                    mode: '0755'
+                    owner: root
+                    group: root
+                - name: Remove the temporary folder
+                  ansible.builtin.file:
+                    path: "{{ binary_archive_tmpdir.path }}"
+                    state: absent
             - name: Download the binary
               become: true
               ansible.builtin.get_url:

@@ -12,9 +12,9 @@ Hard Disk Sentinel (HDSentinel) is a multi-OS SSD and HDD monitoring and analysi
 
 The Linux console version runs daily via cron on the hosts that handle disks and writes an HTML health report. These report files are shared via the network. Then the main HDSentinel UI app shall reach these shares and read those files.
 
-## Prerequisites
+The deploy playbook downloads the pinned version of the Linux console build from the official site and installs the binary into `hdsentinel_dir` on each host.
 
-1. Download the Linux console version of HDSentinel, and place the `HDSentinel` binary into `hdsentinel_dir` on each host
+## Prerequisites
 
 ## Usage
 
@@ -35,7 +35,13 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Deploy the app
 
-1. Configure with the provided script
+1. Install with the provided script
+
+    ```bash
+    ./common-ansible-run-playbook.sh --playbook monitoring/hardware/hdsentinel/deploy-hdsentinel.yaml --no-check
+    ```
+
+2. Configure with the provided script
 
     ```bash
     ./common-ansible-run-playbook.sh --playbook monitoring/hardware/hdsentinel/configure-hdsentinel.yaml --no-check
@@ -48,3 +54,5 @@ Variables that are shared by several Apps are not listed here, but in the more g
 ## Commands
 
 ## Notable comments
+
+- HDSentinel is released neither on GitHub nor in any registry, so Renovate can't see its version. Check the Linux page under "Other sites" for a newer build, and bump `requested_binary_version` in `deploy-hdsentinel.yaml` by hand.
