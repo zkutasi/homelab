@@ -27,7 +27,7 @@
           {{
             (omv_sharedfolders.stdout | from_json
               | selectattr('mntentref', 'equalto', disk_mount_uuid)
-              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | selectattr('reldirpath', 'equalto', omv_shared_folder_path)
               | list
               | first) | default({})
           }}

@@ -28,3 +28,5 @@ omv_apply_modules:
   omv-confdbadm update conf.service.symlinks.symlink: []
   omv-rpc mergerfs set: [mergerfs, monit]
   omv-rpc Symlinks setSymlink: []
+# OMV stores a shared folder's path with one trailing slash; the inventory may give it with or without
+omv_shared_folder_path: "{{ (shared_folder.path | regex_replace('/+$', '')) ~ '/' }}"

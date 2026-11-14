@@ -5,6 +5,6 @@
   "name": "{{ shared_folder.name }}",
   "comment": "{{ comment }}",
   "mntentref": "{{ disk_mount_uuid }}",
-  "reldirpath": "{{ shared_folder.path }}",
+  "reldirpath": "{{ omv_shared_folder_path }}",
   "privileges": {{ omv_shared_folder_privileges_entry | to_json }}
 }
