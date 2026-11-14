@@ -1,0 +1,66 @@
+- name: Handle Snapraid configuration
+  block:
+    - name: Create a Snapraid array
+      ansible.builtin.include_tasks:
+        file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+      loop:
+        - conf.service.snapraid.array
+      loop_control:
+        loop_var: omv_config_fragment
+      vars:
+        current_config_filter_enabled: true
+        current_config_filter_key: 'name'
+        current_config_filter_value: "{{ omv_snapraid_array_name }}"
+    - name: Read OMV configuration
+      ansible.builtin.command: omv-confdbadm read conf.service.snapraid.array
+      register: omv_snapraid_arrays
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV snapraid drives
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.snapraid.drive
+      register: omv_snapraid_drives
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured in snapraid either as data or parity
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_snapraid_drives.stdout | from_json
+              | selectattr('path', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        snapraid_uuid: >-
+          {{
+            (omv_snapraid_arrays.stdout | from_json
+              | selectattr('name', 'equalto', omv_snapraid_array_name)
+              | first).uuid
+          }}
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'snapraid_drive_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "SnapRAID drive {{ hdd.label }}"
+        omv_write_command: omv-confdbadm update conf.service.snapraid.drive
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry != new_entry
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ hdd.label }}"
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml

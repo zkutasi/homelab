@@ -2,6 +2,9 @@ current_config_filter_enabled: false
 current_config_filter_key: ''
 current_config_filter_value: ''
 
+email_port: 587
+email_tls: starttls
+
 omv_input_disks: {}
 
 omv_mergerfs_createpolicy: erofs

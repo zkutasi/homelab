@@ -2,7 +2,7 @@
   hosts: standalone
   become: true
   vars:
-    fstab_default_opts: "defaults,_netdev,x-systemd.requires=network-online.target,nofail,timeo=14"
+    fstab_default_opts: "defaults,ro,_netdev,x-systemd.requires=network-online.target,nofail,timeo=14"
   tasks:
     - name: Install some packages for mounting
       ansible.builtin.include_role:

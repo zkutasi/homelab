@@ -1,0 +1,77 @@
+- name: Build list of available disks with allowed labels
+  block:
+    - name: Discover all disks by UUID
+      ansible.builtin.find:
+        paths: /dev/disk/by-uuid
+        file_type: link
+        follow: false
+      register: disk_links
+    - name: Resolve symlink targets
+      ansible.builtin.command: readlink -f "{{ item.path }}"
+      register: disk_targets
+      changed_when: false
+      check_mode: false
+      loop: "{{ disk_links.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+    - name: Build base disk list
+      ansible.builtin.set_fact:
+        disks_base: >-
+          {{
+            disks_base | default([]) + [
+              {
+                'uuid': disk_links.files[idx].path | basename,
+                'name': (disk_targets.results[idx].stdout | regex_replace('^.*/', ''))
+              }
+            ]
+          }}
+      loop: "{{ range(0, disk_links.files | length) | list }}"
+      loop_control:
+        loop_var: idx
+    - name: Get lsblk JSON info for filtered disks
+      ansible.builtin.command: lsblk -J -o NAME,LABEL,UUID {{ item.name | regex_replace('^', '/dev/') }}
+      loop: "{{ disks_base }}"
+      register: lsblk_info
+      changed_when: false
+      check_mode: false
+    - name: Combine base info with lsblk labels
+      ansible.builtin.set_fact:
+        disks_full: >-
+          {{
+            disks_full | default([]) + [
+              disks_base[idx] | combine({
+                'label': (lsblk_info.results[idx].stdout | from_json).blockdevices[0].label
+              })
+            ]
+          }}
+      loop: "{{ range(0, disks_base | length) | list }}"
+      loop_control:
+        loop_var: idx
+    - name: Filter disks by allowed labels
+      vars:
+        allowed_labels: "{{ omv_input_disks.keys() | list }}"
+      ansible.builtin.set_fact:
+        disks_filtered: >-
+          {{
+            disks_full
+            | selectattr('label', 'in', allowed_labels)
+            | list
+          }}
+    - name: Check that each disk of the inventory is attached once
+      vars:
+        omv_found_labels: "{{ disks_filtered | map(attribute='label') | list }}"
+        omv_missing_labels: "{{ omv_input_disks.keys() | reject('in', omv_found_labels) | list }}"
+        omv_doubled_labels: "{{ omv_found_labels | community.general.counter | dict2items | selectattr('value', '>', 1) | map(attribute='key') | list }}"
+      ansible.builtin.assert:
+        that: (omv_missing_labels + omv_doubled_labels) | length == 0
+        fail_msg: "Not attached: {{ omv_missing_labels }}; attached more than once: {{ omv_doubled_labels }}"
+        quiet: true
+    - name: Merge input data into discovered disks
+      ansible.builtin.set_fact:
+        disks: >-
+          {{
+            disks | default([]) + [
+              item | combine({'shared_folders': []}, omv_input_disks[item.label])
+            ]
+          }}
+      loop: "{{ disks_filtered }}"

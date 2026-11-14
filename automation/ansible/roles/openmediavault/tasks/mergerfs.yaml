@@ -1,0 +1,103 @@
+- name: Handle MergerFS
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each mergerFS pool is configured in OMV as a mountpoint
+      vars:
+        mergerfs_pool_name: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        mergerfs_uuid: "{{ current_entry.fsname | default(ansible_date_time.iso8601_micro | to_uuid) }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'mergerfs_mount_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "mountpoint of pool {{ mergerfs_pool_name }}"
+        omv_write_command: omv-confdbadm update conf.system.filesystem.mountpoint
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools.keys() | list }}"
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV mergerFS Pools
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.mergerfs.pool
+      register: omv_omv_mergerfs_pools
+      changed_when: false
+      check_mode: false
+    - name: Ensure each mergerFS Pool is configured in OMV
+      vars:
+        mergerfs_pool_name: "{{ item }}"
+        mergerfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list
+              | first).uuid
+          }}
+        mergerfs_sharedfolderrefs: >-
+          {{
+            omv_sharedfolders.stdout | from_json
+            | selectattr('reldirpath', 'match', '^' + mergerfs_pool_name + '/')
+            | map(attribute='uuid')
+          }}
+        current_entry: >-
+          {{
+            (omv_omv_mergerfs_pools.stdout | from_json
+              | selectattr('name', 'equalto', mergerfs_pool_name)
+              | list
+              | first) | default({})
+          }}
+        disk_mounts: >-
+          {{
+            omv_mounts.stdout | from_json
+            | selectattr('dir', 'match', '^/srv/dev-disk-by-uuid-')
+            | list
+          }}
+        current_entry_omvrpc: >-
+          {
+            {% if current_entry.uuid is defined %}
+            "uuid": "{{ current_entry.uuid }}",
+            {% endif %}
+            "name": "{{ current_entry.name | default('') }}",
+            "mntentref": "{{ current_entry.mntentref | default('') }}",
+            "sharedfolderrefs": {{
+              current_entry.paths | default('')
+                | mergerfs_paths_to_sharedfolderrefs(disk_mounts, omv_sharedfolders.stdout | from_json)
+            }},
+            "createpolicy": "{{ current_entry.createpolicy | default(omv_mergerfs_createpolicy) }}",
+            "minfreespace": {{ current_entry.minfreespace | default(4) }},
+            "minfreespaceunit": "{{ current_entry.minfreespaceunit | default('G') }}",
+            "options": "{{ current_entry.options | default('') }}",
+          }
+        omv_uuid: "{{ current_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'mergerfs_pool_entry_via_rpc.json.j2') | to_json | from_json }}"
+        omv_write_label: "pool {{ mergerfs_pool_name }}"
+        omv_write_command: omv-rpc mergerfs set
+        omv_write_current: "{{ current_entry_omvrpc }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry_omvrpc != new_entry
+      loop: "{{ omv_mergerfs_pools.keys() | list }}"
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml

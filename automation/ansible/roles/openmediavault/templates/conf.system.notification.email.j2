@@ -5,10 +5,10 @@
         "username": "{{ email_username }}"
     },
     "enable": true,
-    "port": 587,
+    "port": {{ email_port }},
     "primaryemail": "{{ email_full }}",
     "secondaryemail": "",
     "sender": "{{ email_full }}",
     "server": "{{ email_server }}",
-    "tls": "starttls"
+    "tls": "{{ email_tls }}"
 }

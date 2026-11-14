@@ -1,0 +1,30 @@
+# The privileges entry of a shared folder, from its human-readable `privileges` list
+# ("user:<name>:rw", "group:<name>:ro"). A folder without the list keeps the privileges
+# already in OMV. Evaluated lazily in the shared-folder write tasks (needs shared_folder
+# and current_entry there).
+omv_shared_folder_privileges_entry: >-
+  {{
+    {'privilege': shared_folder.privileges
+      | map('regex_replace', '^(user|group):([^:]+):ro$', '{"type": "\1", "name": "\2", "perms": 5}')
+      | map('regex_replace', '^(user|group):([^:]+):rw$', '{"type": "\1", "name": "\2", "perms": 7}')
+      | map('from_json') | list}
+    if shared_folder.privileges is defined
+    else current_entry.privileges | default({'privilege': []})
+  }}
+
+# The OMV modules to apply after each kind of write, keyed by the write command: the ones
+# OMV's own engine marks for an apply on such a change (its module listeners, OMV 7).
+# Writes through omv-confdbadm mark nothing themselves, so the role applies them per area.
+# Every write command needs an entry here; an empty list means nothing to apply.
+omv_apply_modules:
+  omv-confdbadm update conf.system.filesystem.mountpoint: [fstab, quota, monit, collectd]
+  omv-confdbadm update conf.system.sharedfolder: [sharedfolders, nfs, samba, rsync, rsyncd, systemd, compose]
+  omv-confdbadm update conf.system.notification.email: [postfix, monit, smartmontools]
+  omv-confdbadm update conf.system.omvextras: []
+  omv-confdbadm update conf.service.nfs.share: [nfs, zeroconf]
+  omv-confdbadm update conf.service.smb.share: [samba, zeroconf]
+  omv-confdbadm update conf.service.snapraid.array: [snapraid]
+  omv-confdbadm update conf.service.snapraid.drive: [snapraid]
+  omv-confdbadm update conf.service.symlinks.symlink: []
+  omv-rpc mergerfs set: [mergerfs, monit]
+  omv-rpc Symlinks setSymlink: []

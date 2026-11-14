@@ -1,0 +1,19 @@
+# Writes one entry into OMV's database. The difference is shown first, and in check mode
+# only the difference is shown, so a check run is the plan of what a real run would write.
+# Included by the write tasks with omv_write_label, omv_write_command, omv_write_current
+# and omv_write_new, plus optionally omv_write_no_log (true for entries with secrets: then
+# neither the diff nor the command is shown); the caller decides with its `when` whether the
+# entry differs. The OMV modules the write affects are collected for apply.yaml.
+- name: "Show the change of {{ omv_write_label }}"
+  ansible.utils.fact_diff:
+    before: "{{ omv_write_current }}"
+    after: "{{ omv_write_new }}"
+  no_log: "{{ omv_write_no_log | default(false) }}"
+- name: "Write {{ omv_write_label }}"
+  ansible.builtin.command: >-
+    {{ omv_write_command }} '{{ omv_write_new | to_json }}'
+  changed_when: true
+  no_log: "{{ omv_write_no_log | default(false) }}"
+- name: "Remember what to apply after {{ omv_write_label }}"
+  ansible.builtin.set_fact:
+    omv_modules_to_apply: "{{ (omv_modules_to_apply | default([]) + omv_apply_modules[omv_write_command]) | unique }}"

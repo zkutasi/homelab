@@ -108,7 +108,9 @@ App-specific variables are documented in each App's own README.
     |discogs_user_token|O|The API token of the user's Discogs account|
     |email_full|O|The email address used to send (and receive) notification emails|
     |email_password|O|The password of the SMTP account|
-    |email_server|O|The SMTP server to send emails through|
+    |email_port|O|The port of the SMTP server. Default is 587|
+    |email_server|O|The SMTP server to send emails through. If not set, OMV's email notifications are left as they are|
+    |email_tls|O|How the SMTP connection is encrypted: `none`, `ssl`, `starttls` or `auto`. Default is starttls|
     |email_username|O|The username of the SMTP account|
     |geoip_account_id|O|The account ID of a (free) MaxMind GeoLite2 account, to download the GeoIP databases|
     |geoip_license_key|O|A license key of that MaxMind account|

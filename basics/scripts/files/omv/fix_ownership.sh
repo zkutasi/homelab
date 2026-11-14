@@ -31,7 +31,8 @@ sudo find ${ROOT} \! -user ${USER} -print
 
 echo "Fixing the ownerships..."
 sudo chown -R ${USER}:${GROUP} ${ROOT}/*/*
-sudo chmod -R 777 ${ROOT}/*/*
+sudo find ${ROOT}/*/* -type d -exec chmod 0750 {} +
+sudo find ${ROOT}/*/* -type f -exec chmod 0640 {} +
 
 echo "Rechecking..."
 sudo find ${ROOT} \! -user ${USER} -print

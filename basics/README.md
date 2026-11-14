@@ -44,4 +44,4 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |fstab_entries.src|M|The source of the share (e.g. `nas.home:/export/media`)|
     |fstab_entries.path|M|The local mount point|
     |fstab_entries.fstype|O|The filesystem type. Default is nfs|
-    |fstab_entries.opts|O|The mount options. Default is a set of NFS options that wait for the network and do not block the boot|
+    |fstab_entries.opts|O|The mount options. Default is a set of NFS options that mount the share read-only, wait for the network and do not block the boot|

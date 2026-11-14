@@ -300,6 +300,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Every App and category has a README following `_templates/README.layer1.md` (category) or `_templates/README.layer2.md` (App).
 - Inventory variable tables use `|Name|Mandatory/Optional|Details|`; Details describe what the value is, never which Apps or playbooks use it.
+- A structured variable gets a row of its own, then one dotted row per field, where the field's M/O applies within its parent (`fstab_entries`, `fstab_entries.src`, ...). The keys of a dictionary are written as an escaped placeholder (`omv_input_disks.\<label\>.snapraid_role`), so that GitHub shows `<label>`. The structure is never described in the parent's Details.
 - Each variable is documented once at the most generic level it belongs to: user-specific, network-specific and host connection variables in the Ansible README, Docker variables in the Docker README (per-App IPv6 subnets stay with their App), variables shared by a group of Apps in that group's README, and App-specific variables, prefixed with the App's name, in every README of an App that uses them.
 - READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
 - Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.

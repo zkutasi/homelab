@@ -1,0 +1,72 @@
+- name: Handle Symlinks
+  block:
+    - name: Get current OMV symlinks
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.symlinks.symlink
+      register: omv_symlinks_before
+      changed_when: false
+      check_mode: false
+    - name: Check if symlink exists on the filesystem
+      ansible.builtin.stat:
+        path: "/srv/dev-disk-by-label-{{ item.label }}"
+      loop: "{{ disks }}"
+      register: symlink_stats
+      loop_control:
+        label: "{{ item.label }}"
+    - name: Ensure each discovered disk is configured a symlink in OMV
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_symlinks_before.stdout | from_json
+              | selectattr('source', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + '/')
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        new_entry: "{{ lookup('template', 'symlink_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "symlink entry of {{ hdd.label }}"
+        omv_write_command: omv-confdbadm update conf.service.symlinks.symlink
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry != new_entry
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ item.label }}"
+    - name: Get current OMV symlinks
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.symlinks.symlink
+      register: omv_symlinks
+      changed_when: false
+      check_mode: false
+    # The RPC creates the link itself; it's needed where the entry changed or the link is missing
+    - name: Apply symlink configuration via RPC for changed or missing entries
+      vars:
+        hdd: "{{ item.0 }}"
+        link_exists: "{{ item.1.stat.exists }}"
+        entry_before: >-
+          {{
+            (omv_symlinks_before.stdout | from_json
+              | selectattr('source', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + '/')
+              | list
+              | first) | default({})
+          }}
+        omv_entry: >-
+          {{
+            (omv_symlinks.stdout | from_json
+              | selectattr('source', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + '/')
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ omv_entry.uuid }}"
+        rpc_payload: "{{ lookup('template', 'symlink_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "symlink of {{ hdd.label }}"
+        omv_write_command: omv-rpc Symlinks setSymlink
+        omv_write_current: "{{ entry_before }}"
+        omv_write_new: "{{ rpc_payload }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: not link_exists or entry_before != omv_entry
+      loop: "{{ disks | zip(symlink_stats.results) | list }}"
+      loop_control:
+        label: "{{ item.0.label }}"

@@ -1,0 +1,54 @@
+- name: Enable email notifications
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+  loop:
+    - conf.system.notification.email
+  loop_control:
+    loop_var: omv_config_fragment
+  when: email_server is defined
+- name: Enable OMV Extras
+  block:
+    - name: Define OMV major version
+      ansible.builtin.command: dpkg-query --show --showformat='${Version}' openmediavault
+      register: omv_version
+      changed_when: false
+      check_mode: false
+    - name: Set OMV version fact
+      ansible.builtin.set_fact:
+        omv_version_major: "{{ omv_version.stdout.split('.') | first }}"
+    - name: Check if OMV-Extras is already installed
+      ansible.builtin.command: dpkg-query --show --showformat='${db:Status-Status}' openmediavault-omvextrasorg
+      register: omvextras_installed
+      # A package dpkg has never seen exits 1; the printed state decides
+      failed_when: false
+      changed_when: false
+      check_mode: false
+    - name: Download OMV-Extras package
+      ansible.builtin.get_url:
+        url: "https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/\
+          openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+        dest: "/tmp/openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+        mode: '0644'
+      when: omvextras_installed.stdout != 'installed'
+    - name: Install OMV-Extras package
+      ansible.builtin.apt:
+        deb: "/tmp/openmediavault-omvextrasorg_latest_all{{ omv_version_major }}.deb"
+      when: omvextras_installed.stdout != 'installed'
+- name: Enable docker
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/confdbadm_update.yaml"
+  loop:
+    - conf.system.omvextras
+  loop_control:
+    loop_var: omv_config_fragment
+- name: Install some OMV Extras packages
+  ansible.builtin.include_role:
+    name: package-install
+  vars:
+    packages:
+      - openmediavault-compose
+      - openmediavault-mergerfs
+      - openmediavault-snapraid
+      - openmediavault-symlinks
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml

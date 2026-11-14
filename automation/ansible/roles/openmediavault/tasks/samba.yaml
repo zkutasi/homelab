@@ -1,0 +1,124 @@
+- name: Handle Samba shares for shared folders
+  block:
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current Samba shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.smb.share
+      register: omv_sambashares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured also as a Samba share in OMV
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        shared_folder_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        current_entry: >-
+          {{
+            (omv_sambashares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', shared_folder_entry.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: "{{ hdd.label }}"
+        samba_readonly: false
+        new_entry: "{{ lookup('template', 'samba_share_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "Samba share {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.service.smb.share
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - shared_folder.share_as_samba | default(omv_shared_folders_as_samba_shares)
+        - current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+- name: Handle Samba shares for MergerFS pools
+  block:
+    - name: Get current OMV mounts
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current Samba shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.smb.share
+      register: omv_sambashares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured also as a Samba share in OMV
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        shared_folder_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        current_entry: >-
+          {{
+            (omv_sambashares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', shared_folder_entry.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: ""
+        samba_readonly: true
+        new_entry: "{{ lookup('template', 'samba_share_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "Samba share {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.service.smb.share
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - shared_folder.share_as_samba | default(omv_shared_folders_as_samba_shares)
+        - current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml

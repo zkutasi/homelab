@@ -1,4 +1,7 @@
 {
+{% if omv_uuid is defined %}
+  "uuid": "{{ omv_uuid }}",
+{% endif %}
   "name": "{{ mergerfs_pool_name }}",
   "mntentref": "{{ mergerfs_mountref }}",
   "sharedfolderrefs": {{ mergerfs_sharedfolderrefs }},

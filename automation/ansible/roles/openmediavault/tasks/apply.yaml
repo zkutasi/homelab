@@ -1,0 +1,11 @@
+# Applies the OMV modules collected by write-entry.yaml the way the UI's Apply button does,
+# which also clears them from the UI's list of pending changes. Imported at the end of each
+# area, so a later area builds on applied changes. In check mode only the list is shown.
+- name: "Apply the changed OMV modules: {{ omv_modules_to_apply | default([]) | join(', ') }}"
+  ansible.builtin.command: >-
+    omv-rpc Config applyChanges '{{ {'modules': omv_modules_to_apply, 'force': true} | to_json }}'
+  when: omv_modules_to_apply | default([]) | length > 0
+  changed_when: true
+- name: Forget the applied OMV modules
+  ansible.builtin.set_fact:
+    omv_modules_to_apply: []

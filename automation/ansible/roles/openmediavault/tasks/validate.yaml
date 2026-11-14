@@ -1,0 +1,28 @@
+# Checks the inventory input once, before anything is read from or written to OMV, so the
+# other tasks can rely on its shape. Each rule lists the entries that break it.
+- name: "Check the input: {{ item.rule }}"
+  vars:
+    omv_disk_folders: "{{ omv_input_disks.values() | map(attribute='shared_folders', default=[]) | flatten }}"
+    omv_pool_folders: "{{ omv_mergerfs_pools.values() | map(attribute='shared_folders', default=[]) | flatten }}"
+    omv_all_folders: "{{ omv_disk_folders + omv_pool_folders }}"
+    omv_roles: "{{ omv_input_disks | dict2items | map(attribute='value.snapraid_role', default='') | list }}"
+    omv_needed: [omv_nfs_allowed_clients, omv_snapraid_array_name]
+  ansible.builtin.assert:
+    that: item.wrong | length == 0
+    fail_msg: "{{ item.rule }}; these don't: {{ item.wrong }}"
+    quiet: true
+  loop_control:
+    label: "{{ item.rule }}"
+  loop:
+    - rule: each disk has snapraid_role data or parity
+      wrong: "{{ omv_input_disks.keys() | zip(omv_roles) | rejectattr(1, 'in', ['data', 'parity']) | map(attribute=0) | list }}"
+    - rule: each shared folder has a name and a path
+      wrong: "{{ omv_all_folders | rejectattr('name', 'defined') | list + omv_all_folders | rejectattr('path', 'defined') | list }}"
+    - rule: shared folder names are unique
+      wrong: "{{ omv_all_folders | map(attribute='name', default='') | community.general.counter | dict2items | selectattr('value', '>', 1) | map(attribute='key') | list }}"
+    - rule: privileges look like user:<name>:ro or group:<name>:rw
+      wrong: "{{ omv_all_folders | map(attribute='privileges', default=[]) | flatten | reject('match', '^(user|group):[^:]+:(ro|rw)$') | list }}"
+    - rule: pool folders don't set share_as_nfs, as pools are always exported over NFS
+      wrong: "{{ omv_pool_folders | selectattr('share_as_nfs', 'defined') | map(attribute='name') | list }}"
+    - rule: omv_nfs_allowed_clients and omv_snapraid_array_name are set
+      wrong: "{{ omv_needed | zip(q('ansible.builtin.vars', *omv_needed, default='')) | rejectattr(1) | map(attribute=0) | list }}"

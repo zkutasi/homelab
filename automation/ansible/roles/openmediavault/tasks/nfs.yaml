@@ -1,0 +1,227 @@
+- name: Handle NFS shares for shared folders
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured in OMV as an NFS mountpoint
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('fsname', 'equalto', '/srv/dev-disk-by-uuid-' + hdd.uuid + "/" + shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        filesystem_name: "/srv/dev-disk-by-uuid-{{ hdd.uuid }}/{{ shared_folder.path }}"
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'nfs_mountpoint_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "NFS mountpoint {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.system.filesystem.mountpoint
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - shared_folder.share_as_nfs | default(omv_shared_folders_as_nfs_shares)
+        - current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV NFS shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.nfs.share
+      register: omv_nfsshares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each shared folder is configured in OMV as an NFS share
+      vars:
+        hdd: "{{ item.0 }}"
+        shared_folder: "{{ item.1 }}"
+        nfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        nfs_sharedfolderref: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('name', 'equalto', shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        current_entry: >-
+          {{
+            (omv_nfsshares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', nfs_sharedfolderref)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        nfs_accessmode: ro
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'nfs_share_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "NFS share {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.service.nfs.share
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - shared_folder.share_as_nfs | default(omv_shared_folders_as_nfs_shares)
+        - current_entry != new_entry
+      loop: "{{ disks | subelements('shared_folders') }}"
+      loop_control:
+        label: "{{ hdd.label }} - {{ shared_folder.name }}"
+- name: Handle NFS shares for MergerFS pools
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured a shared folder in OMV
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        disk_mount_entry: >-
+          {{
+            (omv_mounts.stdout | from_json)
+              | selectattr('dir', 'equalto', '/srv/mergerfs/' + mergerfs_pool_name)
+              | list | first
+          }}
+        disk_mount_uuid: "{{ disk_mount_entry.uuid }}"
+        current_entry: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('mntentref', 'equalto', disk_mount_uuid)
+              | selectattr('reldirpath', 'equalto', shared_folder.path)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'shared_folder_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "shared folder {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.system.sharedfolder
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured in OMV as an NFS mountpoint
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        filesystem_name: "/srv/mergerfs/{{ mergerfs_pool_name }}/{{ shared_folder.path }}"
+        comment: ""
+        new_entry: "{{ lookup('template', 'nfs_mountpoint_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "NFS mountpoint {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.system.filesystem.mountpoint
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV shared folders
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.sharedfolder
+      register: omv_sharedfolders
+      changed_when: false
+      check_mode: false
+    - name: Get current OMV NFS shares
+      ansible.builtin.command: >
+        omv-confdbadm read conf.service.nfs.share
+      register: omv_nfsshares
+      changed_when: false
+      check_mode: false
+    - name: Ensure each MergerFS pool is configured in OMV as an NFS share
+      vars:
+        mergerfs_pool_name: "{{ item.0.key }}"
+        shared_folder: "{{ item.1 }}"
+        nfs_mountref: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('dir', 'equalto', '/export/' + shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        nfs_sharedfolderref: >-
+          {{
+            (omv_sharedfolders.stdout | from_json
+              | selectattr('name', 'equalto', shared_folder.name)
+              | list
+              | first).uuid
+          }}
+        current_entry: >-
+          {{
+            (omv_nfsshares.stdout | from_json
+              | selectattr('sharedfolderref', 'equalto', nfs_sharedfolderref)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        nfs_accessmode: ro
+        comment: ""
+        new_entry: "{{ lookup('template', 'nfs_share_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "NFS share {{ shared_folder.name }}"
+        omv_write_command: omv-confdbadm update conf.service.nfs.share
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when:
+        - current_entry != new_entry
+      loop: "{{ omv_mergerfs_pools | dict2items | subelements('value.shared_folders') }}"
+      loop_control:
+        label: "{{ mergerfs_pool_name }} - {{ shared_folder.name }}"
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml

@@ -6,7 +6,6 @@
       register: omv_conf_read
       check_mode: false
       changed_when: false
-      failed_when: omv_conf_read.rc != 0
     - name: Parse current config into JSON
       ansible.builtin.set_fact:
         current_config: "{{ omv_conf_read.stdout | from_json }}"
@@ -37,14 +36,12 @@
       ansible.builtin.set_fact:
         omv_config_needs_update: "{{ current_config != desired_config }}"
     - name: Apply OMV configuration inline
-      ansible.builtin.command: >
-        omv-confdbadm update {{ omv_config_fragment }} '{{ omv_rendered[omv_config_fragment] | to_json }}'
-      # ansible.builtin.debug:
-      #   msg: >
-      #     current_config={{ current_config }}
-      #     desired_config={{ omv_rendered[omv_config_fragment] }}
-      #     omv_config_needs_update={{ omv_config_needs_update }}
-      register: omv_conf_results
-      changed_when: omv_conf_results.rc == 0
-      failed_when: omv_conf_results.rc != 0
+      vars:
+        omv_write_label: "{{ omv_config_fragment }}"
+        omv_write_command: omv-confdbadm update {{ omv_config_fragment }}
+        omv_write_current: "{{ current_config }}"
+        omv_write_new: "{{ omv_rendered[omv_config_fragment] }}"
+        # The notification email holds the SMTP password
+        omv_write_no_log: "{{ omv_config_fragment == 'conf.system.notification.email' }}"
+      ansible.builtin.include_tasks: write-entry.yaml
       when: omv_config_needs_update

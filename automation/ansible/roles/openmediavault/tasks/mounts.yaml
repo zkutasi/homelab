@@ -1,0 +1,32 @@
+- name: Handle Filesystem mounts
+  block:
+    - name: Get current OMV filesystem mountpoints
+      ansible.builtin.command: >
+        omv-confdbadm read conf.system.filesystem.mountpoint
+      register: omv_mounts
+      changed_when: false
+      check_mode: false
+    - name: Ensure each discovered disk is configured in OMV
+      vars:
+        hdd: "{{ item }}"
+        current_entry: >-
+          {{
+            (omv_mounts.stdout | from_json
+              | selectattr('fsname', 'equalto', '/dev/disk/by-uuid/' + hdd.uuid)
+              | list
+              | first) | default({})
+          }}
+        omv_uuid: "{{ current_entry.uuid }}"
+        comment: "{{ hdd.label }}"
+        new_entry: "{{ lookup('template', 'mount_entry.json.j2') | to_json | from_json }}"
+        omv_write_label: "mountpoint of {{ hdd.label }}"
+        omv_write_command: omv-confdbadm update conf.system.filesystem.mountpoint
+        omv_write_current: "{{ current_entry }}"
+        omv_write_new: "{{ new_entry }}"
+      ansible.builtin.include_tasks: write-entry.yaml
+      when: current_entry != new_entry
+      loop: "{{ disks }}"
+      loop_control:
+        label: "{{ item.label }}"
+- name: Apply the changes of this area
+  ansible.builtin.import_tasks: apply.yaml
