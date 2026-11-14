@@ -6,9 +6,9 @@
   vars:
     packages:
       - bash-completion
+      - bind9-dnsutils
       - cron
       - curl
-      - dnsutils
       - gpg
       - jq
       - logrotate
