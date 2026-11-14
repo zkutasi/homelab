@@ -93,11 +93,17 @@
       register: add_group
       when: "'docker' not in synogroup_list.stdout"
       changed_when: add_group.rc == 0
+    - name: Get the members of the docker group
+      ansible.builtin.command: synogroup --get docker
+      register: docker_group
+      changed_when: false
+      check_mode: false
+      when: "'docker' in synogroup_list.stdout"
+    # The members are listed one per line, as 0:[name]
     - name: Add user to docker group
       ansible.builtin.command: synogroup --memberadd docker {{ ansible_user }}
-      register: add_member
-      failed_when: add_member.rc != 0
-      changed_when: add_member.rc == 0
+      changed_when: true
+      when: docker_group.stdout | default('') is not search('(?m)^[0-9]+:\[' ~ ansible_user ~ '\]$')
     - name: Change ownership of docker socket
       ansible.builtin.file:
         path: /var/run/docker.sock
