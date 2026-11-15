@@ -30,7 +30,8 @@
       loop: "{{ fstab_entries | default([]) }}"
       register: fstab_update
     # Only the changed entries are unmounted, so a new src is picked up without disturbing the others
-    - name: Unmount the entries whose fstab line changed
+    # noqa below: a handler can't pick only the changed entries out of the loop results
+    - name: Unmount the entries whose fstab line changed  # noqa: no-handler
       ansible.posix.mount:
         path: "{{ item.item.path }}"
         state: unmounted
