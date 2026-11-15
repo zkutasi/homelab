@@ -39,8 +39,15 @@
         - name: Debug the input data
           ansible.builtin.debug:
             msg: "Downloading {{ bin_filename }} version {{ requested_binary_version }} from {{ download_url }}"
+        # The installer needs its temporary folder and runs a command, neither of which happens in check mode,
+        # so the planned install is reported instead
+        - name: Report the installer run that check mode skips
+          when: install_cmd | length > 0 and ansible_check_mode
+          ansible.builtin.debug:
+            msg: "{{ bin_filename }} {{ requested_binary_version }} would be installed with: {{ install_cmd }}"
+          changed_when: true
         - name: Download and execute installer
-          when: install_cmd | length > 0
+          when: install_cmd | length > 0 and not ansible_check_mode
           block:
             - name: Create temporary directory for installer {{ bin_filename }}
               ansible.builtin.tempfile:
@@ -89,6 +96,14 @@
                     mode: '0755'
                     owner: root
                     group: root
+                  register: binary_unarchive
+                # Check mode skips unarchive for tar archives, and for zips without unzip on the host,
+                # so the planned install is reported here instead
+                - name: Report the install that check mode skipped
+                  when: binary_unarchive is skipped
+                  ansible.builtin.debug:
+                    msg: "{{ bin_filename }} {{ requested_binary_version }} would be installed ({{ binary_unarchive.msg }})"
+                  changed_when: true
               # unarchive needs unzip or tar on the host; a host that has neither but ships 7z (like a NAS appliance)
               # gets the binary extracted with 7z instead. This works for archives holding the binary at their top
               # level, like a zip; 7z unpacks only one layer of a .tar.gz at a time.
