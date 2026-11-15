@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=dbgate
 NS=dbgate
 RELEASE_NAME=dbgate
 

@@ -19,6 +19,8 @@ services:
       done
       '
     container_name: emby-mount-check
+    environment:
+      TZ: {{ timezone }}
     hostname: {{ id }}-emby-mount-check
     image: {{ requested_image_version['alpine'] }}
     restart: no

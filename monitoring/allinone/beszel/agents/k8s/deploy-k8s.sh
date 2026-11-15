@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=beszel-agent
 NS=beszel-agent
 RELEASE_NAME=beszel-agent
 

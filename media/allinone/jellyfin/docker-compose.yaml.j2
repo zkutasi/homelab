@@ -19,6 +19,8 @@ services:
       done
       '
     container_name: jellyfin-mount-check
+    environment:
+      TZ: {{ timezone }}
     hostname: {{ id }}-jellyfin-mount-check
     image: {{ requested_image_version['alpine'] }}
     restart: no

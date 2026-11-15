@@ -8,4 +8,4 @@
         dest: /etc/arpwatch/{{ arpwatch_interface }}.iface
         owner: root
         group: root
-        mode: 0644
+        mode: "0644"

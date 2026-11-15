@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=networking-toolbox
 NS=networking-toolbox
 RELEASE_NAME=networking-toolbox
 

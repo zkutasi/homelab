@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=apprise
 NS=apprise
 RELEASE_NAME=apprise
 

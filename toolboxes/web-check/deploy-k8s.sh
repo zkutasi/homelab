@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=web-check
 NS=web-check
 RELEASE_NAME=web-check
 

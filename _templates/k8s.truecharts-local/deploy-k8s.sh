@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=<APP_NAME_LOWERCASE>
 NS=<APP_NAME_LOWERCASE>
 RELEASE_NAME=<APP_NAME_LOWERCASE>
 

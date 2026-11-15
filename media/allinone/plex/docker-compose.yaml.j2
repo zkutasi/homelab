@@ -19,6 +19,8 @@ services:
       done
       '
     container_name: plex-mount-check
+    environment:
+      TZ: {{ timezone }}
     hostname: {{ id }}-plex-mount-check
     image: {{ requested_image_version['alpine'] }}
     restart: no

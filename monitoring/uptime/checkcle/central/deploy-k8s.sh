@@ -6,7 +6,6 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   exit 1
 fi
 
-APP=checkcle
 NS=checkcle
 RELEASE_NAME=checkcle
 
