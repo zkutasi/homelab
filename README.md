@@ -251,6 +251,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
 - The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
 - App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
+- A tool is written in one language: Bash, with `yq` and `jq` for any YAML or JSON work, never mixed with Python helpers. Ansible playbooks it runs stay separate files.
 
 #### Ansible
 
@@ -285,7 +286,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Run `deploy-k8s.sh` and `undeploy-k8s.sh` from the App's own folder, as they read their files relative to the current folder. They refuse to run anywhere else.
 - Helm values are split into three files: `app-values.yaml` for the general settings, `app-values-dimensioning.yaml` for the resource requests, limits and storage sizes, and `app-values-private.yaml` for anything secret.
 - Any additional raw manifest (ingress, certificates, scrape configs, alert rules, etc...) goes into the `extra-manifests` folder and is applied together with the App. The HTTPProxy and Certificate manifests are templates under `config/templates/extra-manifests/` using `{{ kubernetes_internal_domain }}`, never static files with a hardcoded domain.
-- Gatus, Uptime Kuma, Homepage and Dashy check each App by its HTTPProxy's root URL. Only an App whose main page can't be checked that way names another path in the `homelab/health-endpoint` HTTPProxy annotation, like Portabase's `/api/health`; Dashy adds a status check only for those.
+- The uptime monitors and dashboards check each App by its HTTPProxy's root URL. Only an App whose main page can't be checked that way names another path in the `homelab/health-endpoint` HTTPProxy annotation; a dashboard that can't fall back to the root URL adds a status check only for those.
 - Manifests never set `metadata.namespace`; the deploy helper supplies it with `-n $NS`. The only exception is where the API needs it inside the object, like a ClusterRoleBinding's ServiceAccount subject.
 - Undeploying an App deletes its namespace, and with it every volume (PVC) and its data. Cluster-wide objects created by a Kustomize App are deleted explicitly before that. Apps sharing a namespace with others keep the namespace, and their StatefulSet volumes usually survive.
 - What happens to a Helm App's CRDs on undeploy is up to its chart's defaults; the scripts never remove or keep CRDs by force. CRDs shipped in a chart's `crds/` folder or marked `helm.sh/resource-policy: keep` stay, the others are deleted on uninstall, together with every resource of their kind in the cluster.
@@ -299,10 +300,11 @@ How this repository is organised and the conventions every App follows. Follow t
 
 #### Documentation
 
-- Every App and category has a README following `_templates/README.layer1.md` (category) or `_templates/README.layer2.md` (App).
+- Every App and category has a README following `_templates/README.layer1.md` (category) or `_templates/README.layer2.md` (App). The structure they give is fixed: chapter names and order, the numbered step sentences, and the tables and steps stay, even when empty. Only the content inside them is edited; information that doesn't fit goes into a row or a paragraph, or the template itself is changed for all READMEs.
 - Inventory variable tables use `|Name|Mandatory/Optional|Details|`; Details describe what the value is, never which Apps or playbooks use it.
-- A structured variable gets a row of its own, then one dotted row per field, where the field's M/O applies within its parent (`fstab_entries`, `fstab_entries.src`, ...). The keys of a dictionary are written as an escaped placeholder (`omv_input_disks.\<label\>.snapraid_role`), so that GitHub shows `<label>`. The structure is never described in the parent's Details.
+- A structured variable gets a row of its own, then one dotted row per field, where the field's M/O applies within its parent (`app_entries`, `app_entries.src`, ...). The keys of a dictionary are written as an escaped placeholder (`app_disks.\<label\>.role`), so that GitHub shows `<label>`. The structure is never described in the parent's Details.
 - Each variable is documented once at the most generic level it belongs to: user-specific, network-specific and host connection variables in the Ansible README, Docker variables in the Docker README (per-App IPv6 subnets stay with their App), variables shared by a group of Apps in that group's README, and App-specific variables, prefixed with the App's name, in every README of an App that uses them.
+- Some documented variables are only read inside the private inventory, by other inventory values. They're documented like any other; a variable is only unused when neither the repository nor the inventory references it.
 - READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
 - Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.
 - Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`, run from the folder that holds it (the component's sub-folder for split Apps). Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.

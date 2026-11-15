@@ -70,3 +70,4 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 - A tad bit limited: for a given byte, it stores the source and destination IP. There is a possibility to enrich the IPs via reverse DNS lookup also
 - The reverse DNS lookup was abysmally slow, even the metrics endpoint was not responding for long seconds.
+- The binary has no version flag and carries no version, so every deploy run downloads it again and restarts the service. That's accepted until upstream adds a version flag.

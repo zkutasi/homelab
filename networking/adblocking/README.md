@@ -34,6 +34,8 @@ Often coupled with a DNS server, to not use public ones, and have full control o
 
 ## Usage
 
+AdGuard Home and Pi-hole are alternatives: both target the `dnsserver` group and publish the same ports (Unbound on 5335, for example), so only one of them runs at a time.
+
 ### Ansible inventory setup
 
 Variables that are shared more widely than this group of Apps are not listed here, but in the more generic README files higher up in the folder structure. Only the variables shared by the Apps of this group are listed below.

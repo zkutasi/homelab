@@ -45,4 +45,4 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ## Notable comments
 
-- The project was archived on 2026-07-11 (read-only, no successor named), so no further updates are expected.
+- The project was archived on 2026-07-11 (read-only, no successor named), so no further updates are expected. It's kept anyway, as it still works.

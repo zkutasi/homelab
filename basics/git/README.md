@@ -27,6 +27,8 @@ There are a handful of useful stuff set up:
   - [GitLeaks](https://github.com/gitleaks/gitleaks) - For avoiding to commit secrets in plaintext
   - [BetterLeaks](https://github.com/betterleaks/betterleaks) - A more modern and flexible secret scanner
 
+Not every hook in this list has to be in use: some are only candidates. `.pre-commit-config.yaml` holds the ones that actually run.
+
 Also, if you maybe want a more modern git-hook alternative, here are a few:
 
 - [Lefthook](https://lefthook.dev/)
