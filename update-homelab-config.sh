@@ -24,6 +24,11 @@ done
 "$(git rev-parse --show-toplevel)"/common-ansible-run-playbook.sh \
     --playbook "$(git rev-parse --show-toplevel)"/update-homelab-config.yaml \
     --no-check
+RC=$?
+if [ "${RC}" -ne 0 ]; then
+  echo "ERROR: the config playbook failed, Gatus is not redeployed"
+  exit "${RC}"
+fi
 
 pushd "$(git rev-parse --show-toplevel)"/monitoring/uptime/gatus/central
 ./deploy-k8s.sh
