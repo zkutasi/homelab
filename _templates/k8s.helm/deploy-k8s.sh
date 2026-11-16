@@ -12,12 +12,12 @@ RELEASE_NAME=<APP_NAME_LOWERCASE>
 REPO_URL=<HELM_REPO_URL>
 VERSION=<APP_VERSION>
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -29,4 +29,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

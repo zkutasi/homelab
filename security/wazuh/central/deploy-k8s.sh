@@ -10,12 +10,12 @@ NS=wazuh
 # renovate: datasource=github-tags depName=wazuh/wazuh-kubernetes extractVersion=^v(?<version>.+)$
 VERSION="4.14.2"
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -41,4 +41,4 @@ fi
 
 "$(git rev-parse --show-toplevel)"/common-deploy-kustomize.sh \
     --namespace $NS \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

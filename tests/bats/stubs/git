@@ -11,7 +11,9 @@ if [ $# -eq 2 ] && [ "$1" = "rev-parse" ] && [ "$2" = "--show-toplevel" ]; then
       exit 0
     fi
     [ "${DIR}" = "/" ] && break
-    DIR=$(dirname "${DIR}")
+    # Parameter expansion instead of dirname: no extra process per folder level
+    DIR=${DIR%/*}
+    [ -z "${DIR}" ] && DIR=/
   done
   echo "fatal: not a git repository (or any of the parent directories): .git" >&2
   exit 128

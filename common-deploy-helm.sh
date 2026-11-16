@@ -10,6 +10,7 @@ DEBUG=0
 DEPLOYMENT_TYPE=helm
 EXTRA_MANIFESTS=1
 EXTRA_VALUES_FILES=()
+FAILED=0
 LATEST=0
 NS=
 POST_RENDERER=
@@ -170,7 +171,8 @@ if [ "${DEPLOYMENT_TYPE}" == "helm" ] && [[ "${CHART_NAME}" != "oci://"* ]]; the
   helm repo update "${REPO_NAME}"
 fi
 
-if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ]; then
+# Only a real install keeps the deployed version; templating never needs the cluster
+if [ -z "${VERSION}" ] && [ ${LATEST} -eq 0 ] && [ "${TEMPLATE}" -eq 0 ]; then
   echo "Trying to figure out the current version..."
   current=$(helm -n "$NS" get metadata "${RELEASE_NAME}" | grep ^VERSION | awk '{print $NF}')
   if [ -n "${current}" ]; then
@@ -244,6 +246,9 @@ if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "$
       cluster)
     echo "Executing command: ${CMD[*]}"
     "${CMD[@]}" | kubectl apply -f -
+    # Either side of the pipe failing counts; PIPESTATUS is saved first, as the next command resets it
+    PIPE_RESULTS=("${PIPESTATUS[@]}")
+    [ "${PIPE_RESULTS[0]}" -eq 0 ] && [ "${PIPE_RESULTS[1]}" -eq 0 ] || FAILED=1
   done
 fi
 
@@ -251,7 +256,9 @@ if [ "${TEMPLATE}" -eq 0 ] && [ "${EXTRA_MANIFESTS}" -eq 1 ]; then
   echo "Apply additional manifests, if any..."
   if [ -d "./extra-manifests" ]; then
     while read -r line; do
-      kubectl apply -f "$line" -n "$NS"
+      kubectl apply -f "$line" -n "$NS" || FAILED=1
     done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
   fi
 fi
+
+exit "${FAILED}"

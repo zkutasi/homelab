@@ -11,12 +11,12 @@ NS=databasus
 RELEASE_NAME=databasus
 VERSION=3.36.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -27,4 +27,4 @@ done
     --namespace $NS \
     --release-name "${RELEASE_NAME}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

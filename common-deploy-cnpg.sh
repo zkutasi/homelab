@@ -12,7 +12,7 @@ NS=${APP}
 RELEASE_NAME=postgresql
 TEMPLATE=0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 function usage() {
     echo "Usage: $0 [--app <app-name>] [--namespace <namespace>] [--release-name <release-name>] [--db-database <name>] [--db-username <name>] [--db-password <password>] [--template] [--debug]"
@@ -80,7 +80,7 @@ while [ $# -ge 1 ]; do
       TEMPLATE=1
       ;;
     --debug)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
     *)
       echo "INFO: Ignoring ${1} for the database chart"
@@ -114,17 +114,15 @@ if [ "${TEMPLATE}" -eq 0 ]; then
   yq -i ".cluster.initdb.secret.name=\"${DB_SECRET_NAME}\"" app-postgresql-values-private.yaml
 fi
 
-TEMPLATE_ARGS=
-[ "${TEMPLATE}" -eq 1 ] && TEMPLATE_ARGS="--template"
+[ "${TEMPLATE}" -eq 1 ] && EXTRA_PARAMS=(--template "${EXTRA_PARAMS[@]}")
 
 echo "Deploying the PostgreSQL database..."
 "$(git rev-parse --show-toplevel)"/common-deploy-helm.sh \
     --chart-name cnpg/cluster \
     --release-name "${RELEASE_NAME}" \
     --namespace "$NS" \
-    --repo-url ${REPO_URL_CNPG} \
+    --repo-url "${REPO_URL_CNPG}" \
     --version "${CNPG_CLUSTER_CHART_VERSION}" \
     --app app-postgresql \
     --no-extra-manifests \
-    ${TEMPLATE_ARGS} \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

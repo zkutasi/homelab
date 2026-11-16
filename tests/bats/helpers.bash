@@ -38,7 +38,8 @@ function write_stub() {
   mkdir -p "$(dirname "${path}")"
   {
     echo '#!/bin/bash'
-    echo "{ printf '%s' $(basename "${path}"); [ \$# -gt 0 ] && printf ' %q' \"\$@\"; echo; } >> \"${STUB_LOG}\""
+    # One write per call, so stubs running at the same time (in a pipeline) don't mix their lines
+    echo "STUB_LINE=\$(printf '%s' $(basename "${path}"); [ \$# -gt 0 ] && printf ' %q' \"\$@\"); echo \"\${STUB_LINE}\" >> \"${STUB_LOG}\""
     for var in ${STUB_ENV_VARS:-}; do
       echo "if [ -n \"\${${var}+set}\" ]; then echo \"${var}=\${${var}}\"; else echo \"${var} unset\"; fi >> \"${STUB_LOG}\""
     done
@@ -51,6 +52,24 @@ function write_stub() {
 # make_stub <command> [exit code] [output]: a stub command on PATH
 function make_stub() {
   write_stub "${STUB_DIR}/$1" "${2:-0}" "${3:-}"
+}
+
+# make_stub_script <command> <bash code>: a stub on PATH that logs its call like make_stub, then runs the code,
+# which sees the call's arguments as "$@" (for stubs that answer differently per sub-command)
+function make_stub_script() {
+  local path="${STUB_DIR}/$1"
+  {
+    echo '#!/bin/bash'
+    echo "STUB_LINE=\$(printf '%s' $1; [ \$# -gt 0 ] && printf ' %q' \"\$@\"); echo \"\${STUB_LINE}\" >> \"${STUB_LOG}\""
+    printf '%s\n' "$2"
+  } > "${path}"
+  chmod +x "${path}"
+}
+
+# assert_stub_calls <line>...: the stub log holds exactly these lines, in this order (and nothing else)
+function assert_stub_calls() {
+  run cat "${STUB_LOG}"
+  assert_output "$(printf '%s\n' "$@")"
 }
 
 # assert_stub_called <line>: the stub log holds exactly this line

@@ -12,12 +12,12 @@ RELEASE_NAME=stirling-pdf
 REPO_URL=https://stirling-tools.github.io/Stirling-PDF-chart
 VERSION=2.2.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -29,4 +29,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

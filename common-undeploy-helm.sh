@@ -2,6 +2,7 @@
 
 DEBUG=0
 DELETE_NAMESPACE=1
+FAILED=0
 NS=
 RELEASE_NAME=
 
@@ -66,7 +67,7 @@ fi
 echo "Delete additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
-    kubectl delete -f "$line" -n "$NS" --ignore-not-found
+    kubectl delete -f "$line" -n "$NS" --ignore-not-found || FAILED=1
   done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi
 
@@ -84,12 +85,14 @@ if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
   fi
 
   echo "Executing command: ${CMD[*]}"
-  "${CMD[@]}"
+  "${CMD[@]}" || FAILED=1
 else
   echo "Helm release ${RELEASE_NAME} not found in namespace ${NS}, skipping uninstall"
 fi
 
 if [ "${DELETE_NAMESPACE}" -eq 1 ]; then
   echo "Deleting namespace ${NS}..."
-  kubectl delete namespace "$NS" --ignore-not-found
+  kubectl delete namespace "$NS" --ignore-not-found || FAILED=1
 fi
+
+exit "${FAILED}"

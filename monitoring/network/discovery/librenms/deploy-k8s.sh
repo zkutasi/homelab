@@ -12,12 +12,12 @@ RELEASE_NAME=librenms
 REPO_URL=https://librenms.github.io/helm-charts
 VERSION=7.2.0
 
-EXTRA_PARAMS="--post-renderer ${PWD}/kustomize.sh"
+EXTRA_PARAMS=(--post-renderer "${PWD}/kustomize.sh")
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -29,4 +29,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

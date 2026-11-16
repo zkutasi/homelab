@@ -7,13 +7,16 @@ if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
 fi
 
 NS=kube-system
+FAILED=0
 
 echo "Delete the manifests..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
-    kubectl delete -f "$line" -n $NS --ignore-not-found
+    kubectl delete -f "$line" -n $NS --ignore-not-found || FAILED=1
   done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi
 
 echo "Delete the generated TLS secrets..."
-kubectl -n $NS delete secret goldmane-tls whisker-backend-tls whisker-cert-secret --ignore-not-found
+kubectl -n $NS delete secret goldmane-tls whisker-backend-tls whisker-cert-secret --ignore-not-found || FAILED=1
+
+exit "${FAILED}"

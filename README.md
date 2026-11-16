@@ -249,8 +249,8 @@ How this repository is organised and the conventions every App follows. Follow t
 - Shebang `#!/bin/bash`, and the file is executable.
 - No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead. Every `cd`, `pushd` and `popd` carries its own `|| exit 1` (shellcheck SC2164).
 - Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`, except inside array assignments (`CMD=(… "$NS")`), where shellcheck needs them quoted. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
-- The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
-- App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
+- Every script, App wrappers included, parses its arguments in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, even when it only passes them on, so all scripts look alike and options can be added later. The common scripts reject unknown parameters with an error plus the usage, and offer `--help`.
+- App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect their arguments in that loop into the `EXTRA_PARAMS` array (after any fixed options of their own, like `EXTRA_PARAMS=(--delete-namespace 0)`) and pass them on as `"${EXTRA_PARAMS[@]}"`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
 - A tool is written in one language: Bash, with `yq` and `jq` for any YAML or JSON work, never mixed with Python helpers. Ansible playbooks it runs stay separate files.
 
 #### Ansible

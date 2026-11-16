@@ -11,12 +11,12 @@ NS=ntfy
 RELEASE_NAME=ntfy
 VERSION=13.7.0
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -28,4 +28,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --type truecharts \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

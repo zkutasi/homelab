@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NS=
+FAILED=0
 
 function usage() {
     echo "Usage: $0 --namespace <namespace>"
@@ -40,14 +41,16 @@ done
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
 
 echo "Delete the kustomization resources..."
-kubectl delete --kustomize . --namespace "$NS" --ignore-not-found
+kubectl delete --kustomize . --namespace "$NS" --ignore-not-found || FAILED=1
 
 echo "Delete additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
-    kubectl delete -f "$line" -n "$NS" --ignore-not-found
+    kubectl delete -f "$line" -n "$NS" --ignore-not-found || FAILED=1
   done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi
 
 echo "Deleting namespace ${NS}..."
-kubectl delete namespace "$NS" --ignore-not-found
+kubectl delete namespace "$NS" --ignore-not-found || FAILED=1
+
+exit "${FAILED}"

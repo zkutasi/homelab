@@ -12,12 +12,12 @@ RELEASE_NAME=seaweedfs
 REPO_URL=https://seaweedfs.github.io/seaweedfs/helm
 VERSION=4.29.0
 
-EXTRA_PARAMS="--post-renderer ${PWD}/all-in-one-replacements.sh"
+EXTRA_PARAMS=(--post-renderer "${PWD}/all-in-one-replacements.sh")
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -29,4 +29,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"

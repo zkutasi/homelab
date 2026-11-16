@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NS=
+FAILED=0
 
 function usage() {
     echo "Usage: $0 --namespace <namespace>"
@@ -59,13 +60,15 @@ kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"
 echo "Apply Kompose manifests..."
 if [ -d "./kompose-manifests" ]; then
   while read -r line; do
-    kubectl apply -f "$line" -n "$NS"
+    kubectl apply -f "$line" -n "$NS" || FAILED=1
   done < <(find ./kompose-manifests -type f -name "*.yaml" | sort)
 fi
 
 echo "Apply additional manifests, if any..."
 if [ -d "./extra-manifests" ]; then
   while read -r line; do
-    kubectl apply -f "$line" -n "$NS"
+    kubectl apply -f "$line" -n "$NS" || FAILED=1
   done < <(find ./extra-manifests -type f -name "*.yaml" | sort)
 fi
+
+exit "${FAILED}"

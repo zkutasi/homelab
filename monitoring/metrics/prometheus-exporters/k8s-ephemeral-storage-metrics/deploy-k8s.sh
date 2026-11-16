@@ -12,12 +12,12 @@ RELEASE_NAME=k8s-ephemeral-storage-metrics
 REPO_URL=https://jmcgrath207.github.io/k8s-ephemeral-storage-metrics/chart
 VERSION=1.21.3
 
-EXTRA_PARAMS=
+EXTRA_PARAMS=()
 
 while [ $# -ge 1 ]; do
   case "$1" in
     *)
-      EXTRA_PARAMS="${EXTRA_PARAMS} $1"
+      EXTRA_PARAMS+=("$1")
       ;;
   esac
   shift
@@ -29,4 +29,4 @@ done
     --release-name "${RELEASE_NAME}" \
     --repo-url "${REPO_URL}" \
     --version "${VERSION}" \
-    ${EXTRA_PARAMS}
+    "${EXTRA_PARAMS[@]}"
