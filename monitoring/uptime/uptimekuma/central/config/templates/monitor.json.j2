@@ -3,7 +3,6 @@
 {% if monitor_parent_name is defined %}
     "parent_name": "{{ monitor_parent_name }}",
 {% endif %}
-    "type": "{{ monitor_type }}",
 {% if monitor_url is defined %}
     "url": "{{ monitor_url }}",
 {% endif %}
@@ -19,9 +18,5 @@
 
     ],
 {% endif %}
-    "tag_names": [
-{% for tag in monitor_tag_names | default([]) %}
-      { "name": "{{ tag }}" }{% if not loop.last %},{% endif %}
-{% endfor %}
-    ]
+    "type": "{{ monitor_type }}"
 }
