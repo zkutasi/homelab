@@ -9,6 +9,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-vulnerability-tests
     image: {{ requested_image_version['vulnerability-tests'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/vt_data:/mnt
 
@@ -19,6 +20,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-notus-data
     image: {{ requested_image_version['notus-data'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/notus_data:/mnt
 
@@ -29,6 +31,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-scap-data
     image: {{ requested_image_version['scap-data'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/scap_data:/mnt
 
@@ -39,6 +42,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-cert-bund-data
     image: {{ requested_image_version['cert-bund-data'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cert_data:/mnt
 
@@ -52,6 +56,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-dfn-cert-data
     image: {{ requested_image_version['dfn-cert-data'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cert_data:/mnt
 
@@ -63,6 +68,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-data-objects
     image: {{ requested_image_version['data-objects'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data_objects:/mnt
 
@@ -77,6 +83,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-report-formats
     image: {{ requested_image_version['report-formats'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data_objects:/mnt
 
@@ -86,6 +93,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-gpg-data
     image: {{ requested_image_version['gpg-data'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/gpg_data:/mnt
 
@@ -195,6 +203,7 @@ services:
       NGINX_HTTPS_PORT: {{ port_openvas_https }}
     hostname: {{ id }}-greenbone-gvm-config
     image: {{ requested_image_version['gvm-config'] }}
+    pull_policy: always
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/nginx_config:/mnt/nginx/configs
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/nginx_certificates:/mnt/nginx/certs
@@ -212,6 +221,7 @@ services:
       TZ: {{ timezone }}
     hostname: {{ id }}-greenbone-nginx
     image: {{ requested_image_version['nginx'] }}
+    pull_policy: always
     ports:
       - {{ port_openvas_http }}:9392
       - {{ port_openvas_https }}:443
