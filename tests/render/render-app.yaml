@@ -1,0 +1,26 @@
+# Renders one Docker App the way the docker-compose role does, for the play's host. Included by the playbook
+# tests/render/render.sh generates; render_app_dir is the App's folder. Everything is rendered with lookups into the
+# host's render_results fact: set_fact runs on the controller, while every module run (template, file) costs about
+# half a second. The last play writes all results at once.
+- name: Render the App's files
+  block:
+    - name: Start with no config files
+      ansible.builtin.set_fact:
+        render_files: {}
+    - name: Render the config templates
+      ansible.builtin.set_fact:
+        render_files: "{{ render_files | combine({item.name: lookup('ansible.builtin.template',
+            '/code/' ~ render_app_dir ~ '/config/templates/' ~ item.name ~ '.j2', convert_data=False)}) }}"
+      loop: "{{ docker_compose_template_files_copy | default([]) }}"
+    - name: Render docker-compose.yaml
+      ansible.builtin.set_fact:
+        render_results: "{{ render_results | default({}) | combine({render_app_dir: {
+            'compose': lookup('ansible.builtin.template', '/code/' ~ render_app_dir ~ '/docker-compose.yaml.j2', convert_data=False),
+            'files': render_files,
+            'expected': {'id': id | default(''), 'rootdir': docker_compose_rootdir, 'project': docker_compose_projectname,
+                         'images': requested_image_version | default({})}}}) }}"
+  rescue:
+    - name: Record the failure
+      ansible.builtin.set_fact:
+        render_results: "{{ render_results | default({}) | combine({render_app_dir: {
+            'error': ansible_failed_task.name ~ ': ' ~ (ansible_failed_result.msg | default('unknown error'))}}) }}"

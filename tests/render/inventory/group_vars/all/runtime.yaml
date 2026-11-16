@@ -1,0 +1,48 @@
+# Stand-ins for values that an earlier play of the same deploy playbook fetches at run time (an API answer, a
+# certificate fingerprint), which the rendered templates then read. make-fake-inventory.sh copies this file into the
+# generated inventory.
+kopia_server_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
+# The BorgWarehouse API's repository list, with one repository per generic host
+borgwarehouse_repos:
+  json:
+    repoList:
+      - alias: host01
+        repositoryName: repo01
+      - alias: host02
+        repositoryName: repo02
+      - alias: host03
+        repositoryName: repo03
+      - alias: host04
+        repositoryName: repo04
+      - alias: host05
+        repositoryName: repo05
+      - alias: host06
+        repositoryName: repo06
+      - alias: host07
+        repositoryName: repo07
+      - alias: host08
+        repositoryName: repo08
+      - alias: host09
+        repositoryName: repo09
+      - alias: host10
+        repositoryName: repo10
+      - alias: host11
+        repositoryName: repo11
+      - alias: host12
+        repositoryName: repo12
+      - alias: host13
+        repositoryName: repo13
+      - alias: host14
+        repositoryName: repo14
+      - alias: host15
+        repositoryName: repo15
+      - alias: host16
+        repositoryName: repo16
+      - alias: host17
+        repositoryName: repo17
+      - alias: host18
+        repositoryName: repo18
+      - alias: host19
+        repositoryName: repo19
+      - alias: host20
+        repositoryName: repo20

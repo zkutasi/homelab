@@ -1,0 +1,27 @@
+# Accepted deviations from the Docker App rules that tests/render/check-conventions.sh checks (tab-separated):
+# App folder, service, rule, reason. Each entry was decided on its own.
+media/allinone/emby	mount-check	restart	runs once and exits
+media/allinone/jellyfin	mount-check	restart	runs once and exits
+media/allinone/plex	mount-check	restart	runs once and exits
+security/fail2ban	geoipupdate	restart	runs once and exits
+security/openvas/central	pg-gvm-migrator	restart	runs once and exits
+security/openvas/central	cert-bund-data	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	configure-openvas	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	data-objects	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	dfn-cert-data	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gpg-data	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gsa	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gsad	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gvm-config	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gvm-tools	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	gvmd	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	nginx	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	notus-data	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	openvas	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	openvasd	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	ospd-openvas	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	pg-gvm	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	redis-server	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	report-formats	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	scap-data	restart	follows Greenbone's compose file, whose start order depends on these policies
+security/openvas/central	vulnerability-tests	restart	follows Greenbone's compose file, whose start order depends on these policies

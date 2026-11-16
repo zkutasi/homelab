@@ -1,6 +1,6 @@
 homelab-ansible-inventory
 __pycache__
-inventory
+kubernetes/k8s-install/kubespray/inventory
 simoncaron.pve_permissions
 *.retry
 terraform.tfvars

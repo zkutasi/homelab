@@ -1,0 +1,333 @@
+# Generic global settings
+alloy_beyla_enabled: false
+alloy_beyla_geoip_enabled: false
+alloy_monitor_containers: true
+ansible_port: 22
+ansible_connection: ansible_connection
+ansible_python_interpreter: /srv/ansible_python_interpreter
+apprise_target_key: apprise_target_key
+backupfolders: []
+backup_exclude_patterns:
+  - "backup_exclude_patterns-0"
+backup_cron: "backup_cron"
+docker_cli_path: /srv/docker_cli_path
+docker_compose_rootdir: "{{ ansible_user_dir }}/docker-compose"
+docker_docker_group_id: 988
+docker_with_sudo: false
+grafana_dashboards:
+  - uid: grafana_dashboards-0-uid
+    save_name: "grafana_dashboards-0-save_name"
+network_domain: network_domain
+localdns_extra_cname_entries:
+  proxmox: localdns_extra_cname_entries-proxmox
+  torrents: localdns_extra_cname_entries-torrents
+localdns_extra_entries:
+  fisotech: 192.0.2.10
+  sg2008p.tplink: 192.0.2.10
+  gs116ev2.netgear: 192.0.2.10
+  paradox: 192.0.2.10
+  sg3428x.tplink: 192.0.2.10
+  "host20": 192.0.2.10
+  receiver.yamaha: 192.0.2.10
+  tv: 192.0.2.10
+  printer.hp: 192.0.2.10
+scanopy_network_id: scanopy_network_id
+speedtest_tracker_schedule: "speedtest_tracker_schedule"
+timezone: "timezone"
+# Credentials
+ansible_user: ansible_user
+arcane_encryption_key: arcane_encryption_key
+arcane_jwt_secret: arcane_jwt_secret
+autopulse_username: autopulse_username
+autopulse_password: autopulse_password
+beszel_username: beszel_username@example.com
+beszel_password: beszel_password
+beszel_ssh_key: "beszel_ssh_key"
+beszel_universal_token: "beszel_universal_token"
+bookorbit_bootstrap_token: bookorbit_bootstrap_token@example.com
+bookorbit_jwt_secret: bookorbit_jwt_secret
+bookorbit_postgres_password: bookorbit_postgres_password@example.com
+borgmatic_encryption_passphrase: "borgmatic_encryption_passphrase"
+borgui_username: "borgui_username"
+borgui_password: "borgui_password"
+borgwarehouse_cronjob_key: "borgwarehouse_cronjob_key"
+borgwarehouse_api_key: borgwarehouse_api_key
+budgetboard_database_password: budgetboard_database_password
+checkmate_jwt_secret: checkmate_jwt_secret
+convertx_jwt_secret: convertx_jwt_secret
+cup_registries:
+  ghcr.io:
+    authentication: "cup_registries-ghcr.io-authentication"
+ddns_hostname: "ddns_hostname.example.com"
+ddns_password: "ddns_password"
+ddns_username: "ddns_username"
+discogs_user_token: discogs_user_token
+dockhand_agent_token: dockhand_agent_token
+dockhand_database_password: dockhand_database_password
+dockpeek_secret_key: dockpeek_secret_key
+dockpeek_username: dockpeek_username
+dockpeek_password: dockpeek_password
+email_domain: email_domain.example.com
+email_server: email_server.example.com
+email_username: email_username.example.com
+email_password: email_password
+email_full: "{{ email_username }}@{{ email_domain }}"
+homepage_emby_apikey: homepage_emby_apikey
+autopulse_emby_apikey: autopulse_emby_apikey
+expenseowl_database_password: expenseowl_database_password
+ezbookkeeping_database_password: ezbookkeeping_database_password
+geoip_account_id: "geoip_account_id"
+geoip_license_key: "geoip_license_key"
+git_name: "git_name"
+git_email: "{{ email_full }}"
+github_access_token: github_access_token
+github_pat_renovate: github_pat_renovate
+github_homelab_repo: "github_homelab_repo"
+grafana_api_token: grafana_api_token
+grafana_admin_user: grafana_admin_user
+grafana_admin_password: grafana_admin_password
+grimmory_db_root_password: grimmory_db_root_password@example.com
+grimmory_db_user_password: grimmory_db_user_password@example.com
+grimmory_username: grimmory_username
+grimmory_password: grimmory_password
+homelable_auth_username: homelable_auth_username
+homelable_auth_password_hash: 'homelable_auth_password_hash'
+homelable_secret_key: homelable_secret_key
+immich_db_password: immich_db_password@example.com
+immich_api_key: immich_api_key
+influxdb_user: influxdb_user
+influxdb_password: influxdb_password
+influxdb_admin_token: influxdb_admin_token@example.com
+homepage_jellyfin_apikey: homepage_jellyfin_apikey
+autopulse_jellyfin_apikey: autopulse_jellyfin_apikey
+gatus_database_password: gatus_database_password
+gotify_default_user_pass: gotify_default_user_pass
+karakeep_nextauth_secret: karakeep_nextauth_secret
+keel_username: keel_username
+keel_password: keel_password
+kener_redis_password: kener_redis_password
+kener_secret_key: kener_secret_key
+koel_app_key: koel_app_key
+koel_db_password: koel_db_password@example.com
+koito_apikey: koito_apikey
+komodo_api_key: komodo_api_key
+komodo_api_secret: komodo_api_secret
+komodo_database_password: komodo_database_password
+komodo_periphery_passkey: komodo_periphery_passkey
+kopia_client_password: kopia_client_password
+kopia_repo_password: kopia_repo_password
+kopia_server_username: kopia_server_username
+kopia_server_password: kopia_server_password
+lastfm_username: lastfm_username
+librenms_appkey: librenms_appkey
+listenbrainz_token: listenbrainz_token
+listenbrainz_username: listenbrainz_username
+multiscrobbler_lastfm_api_key: multiscrobbler_lastfm_api_key
+multiscrobbler_lastfm_secret: multiscrobbler_lastfm_secret
+netalertx_api_token: netalertx_api_token
+nexterm_encryption_key: "nexterm_encryption_key"
+ntopng_redis_password: ntopng_redis_password
+nutify_secret_key: nutify_secret_key
+omv_username: omv_username
+omv_password: omv_password
+paperless_ngx_db_password: paperless_ngx_db_password
+paperless_ngx_secret_key: paperless_ngx_secret_key
+patchmon_redis_password: patchmon_redis_password
+patchmon_database_password: patchmon_database_password
+patchmon_jwt_secret: patchmon_jwt_secret
+pdfding_secret_key: pdfding_secret_key
+peanut_api_password: peanut_api_password@example.com
+photoprism_db_password: photoprism_db_password@example.com
+photoprism_db_root_password: photoprism_db_root_password@example.com
+photoprism_admin_password: photoprism_admin_password@example.com
+pihole_password: "pihole_password"
+pihole_apikey: pihole_apikey
+pihole_secondary_apikey: pihole_secondary_apikey
+plex_token: plex_token
+portabase_edge_key: portabase_edge_key
+portabase_secret: portabase_secret
+portainer_access_token: portainer_access_token
+pricebuddy_app_key: pricebuddy_app_key
+pricebuddy_database_password: pricebuddy_database_password@example.com
+pricebuddy_database_rootpassword: pricebuddy_database_rootpassword@example.com
+pricebuddy_user_email: pricebuddy_user_email@example.com
+pricebuddy_user_password: pricebuddy_user_password
+pushover_user: pushover_user
+qbittorrent_username: qbittorrent_username
+qbittorrent_password: qbittorrent_password
+scanopy_api_key: scanopy_api_key
+scanopy_database_password: scanopy_database_password
+seaweedfs_admin_accessKey: seaweedfs_admin_accesskey
+seaweedfs_admin_secretKey: seaweedfs_admin_secretkey
+seaweedfs_read_accessKey: seaweedfs_read_accesskey
+seaweedfs_read_secretKey: seaweedfs_read_secretkey
+semaphoreui_username: semaphoreui_username
+semaphoreui_password: semaphoreui_password
+snmp_auth_pass: snmp_auth_pass
+snmp_priv_pass: snmp_priv_pass
+speedtest_tracker_app_key: speedtest_tracker_app_key
+speedtest_tracker_api_key: speedtest_tracker_api_key
+tugtainer_agent_secret: "tugtainer_agent_secret"
+uptimekuma_username: uptimekuma_username
+uptimekuma_password: uptimekuma_password
+urbackup_username: urbackup_username
+urbackup_password: urbackup_password
+wazuh_registration_password: wazuh_registration_password
+wygiwyh_database_password: wygiwyh_database_password
+wygiwyh_secret_key: wygiwyh_secret_key
+yourlastfm_lastfm_api_key: yourlastfm_lastfm_api_key
+# Hostnames & IPs
+kubernetes_internal_domain: kubernetes.{{ network_domain }}
+reverseproxy_internal_domain: internal.{{ network_domain }}
+adguardhome_docker_network_3digit: adguardhome_docker_network_3digit
+apprise_api_hostname: https://apprise.{{ kubernetes_internal_domain }}
+backupserver_hostname: 192.0.2.10
+beszel_hub_url: https://beszel.{{ kubernetes_internal_domain }}
+bookorbit_app_url: https://bookorbit.{{ reverseproxy_internal_domain }}
+checkmate_url: https://checkmate.{{ kubernetes_internal_domain }}
+cup_control_server: "cup_control_server"
+cup_servers: {}
+docker_ipv6_ula_subnet_prefix: "fd00:db8::/64"
+docker_ipv6_ipam_subnet_borgwarehouse: "{{docker_ipv6_ula_subnet_prefix}}:0002::/64"
+docker_ipv6_ipam_subnet_borgmatic: "{{docker_ipv6_ula_subnet_prefix}}:0006::/64"
+docker_ipv6_ipam_subnet_kopia: "{{docker_ipv6_ula_subnet_prefix}}:0003::/64"
+docker_ipv6_ipam_subnet_qbittorrent_nox: "{{docker_ipv6_ula_subnet_prefix}}:0001::/64"
+docker_ipv6_ipam_subnet_urbackup_client: "{{docker_ipv6_ula_subnet_prefix}}:0005::/64"
+docker_ipv6_ipam_subnet_urbackup_server: "{{docker_ipv6_ula_subnet_prefix}}:0004::/64"
+homepage_allowed_hosts: homepage.{{ reverseproxy_internal_domain }}
+influxdb_hostname: influxdb.{{ kubernetes_internal_domain }}
+grafana_hostname: https://grafana.{{ kubernetes_internal_domain }}
+homelable_url: https://homelable.{{ kubernetes_internal_domain }}
+kener_url: https://kener.{{ kubernetes_internal_domain }}
+koito_endpoint_url: "https://koito_endpoint_url.example.com"
+komodo_hostname: https://komodo.{{ kubernetes_internal_domain }}
+kubernetes_ingress_ips:
+  - 192.0.2.10
+  - 192.0.2.10
+  - 192.0.2.10
+  - 192.0.2.10
+  - 192.0.2.10
+multiscrobbler_baseurl: "https://multi-scrobbler.{{ reverseproxy_internal_domain }}"
+network_subnet: "192.0.2.0/24"
+paperless_ngx_url: https://paperless-ngx.{{ reverseproxy_internal_domain }}
+pdfding_hostname: pdfding.{{ kubernetes_internal_domain }}
+portabase_url: https://portabase.{{ kubernetes_internal_domain }}
+portainer_hostname: https://portainer.{{ kubernetes_internal_domain }}
+portracker_hostname: https://portracker.{{ kubernetes_internal_domain }}
+rustdesk_server_address: rustdesk_server_address.example.com
+scanopy_server_host: https://scanopy.{{ kubernetes_internal_domain }}:443
+speedtest_tracker_app_url: https://speedtest-tracker.{{ reverseproxy_internal_domain }}
+wazuh_manager_hostname: "192.0.2.10"
+wygiwyh_url: wygiwyh.kubernetes.{{ network_domain }}
+# Ports
+port_adguardhome_webui_http: 8085
+port_adguardhome_webui_https: 45443
+port_adguardhome_init_webui_http: 3000
+port_adguardhome_unbound: 5335
+port_ampache: 8088
+port_alloy: 12345
+port_autopulse: 2875
+port_beets: 8337
+port_beszel: 45876
+port_bookorbit: 33000
+port_bookorbit_postgres: 45432
+port_borgitory: 8008
+port_borgmatic_exporter: 9996
+port_borgui: 8081
+port_borgwarehouse: 3000
+port_borgwarehouse_ssh: 22223
+port_caddy_api: 2019
+port_cadvisor: 18080
+port_crosswatch: 8787
+port_cup: 8800
+port_dashy: 8083
+port_docker_daemon_metrics: 9323
+port_docker_socket_proxy: 2375
+port_dockhand: 2376
+port_dockpeek: 2375
+port_drydock: 2375
+port_emby_http: 8096
+port_emby_https: 8920
+port_fail2ban_exporter: 8006
+port_fail2ban_geoexporter: 8007
+port_flood: 3001
+port_gatus: 8077
+port_glance: 8082
+port_glances: 61208
+port_grimmory: 6060
+port_grimmory_mariadb: 33306
+port_homepage: 3000
+port_homer: 8081
+port_immich: 2283
+port_immich_power_tools: 2284
+port_influxdb: 443
+port_jellyfin_http: 8097
+port_koel: 8089
+port_koito: 4110
+port_komodo_periphery: 8120
+port_kopia: 51515
+port_kopia_exporter: 9090
+port_librespeed: 30080
+port_mailrise: 8025
+port_medialyze: 28080
+port_multi_scrobbler: 9078
+port_navidrome: 4533
+port_netalertx: 20211
+port_netalertx_graphql: 20212
+port_node_exporter: 9100
+port_ntopng_redis: 6379
+port_nutify_web: 5050
+port_nutserver: 3493
+port_nut_exporter: 9199
+port_olivetin: 1337
+port_omv: 80
+port_openvas_http: 9392
+port_openvas_https: 9393
+port_paperless_ngx: 8000
+port_paperless_ngx_postgres: 55432
+port_peanut: 8493
+port_pihole_exporter: 9617
+port_pihole_unbound: 5335
+port_pihole_webui_http: 8080
+port_pihole_webui_https: 44443
+port_photoprism: 2342
+port_plex_http: 32400
+port_portainer_agent: 9001
+port_portracker: 4999
+port_proxmox: 8006
+port_pve_exporter: 9221
+port_qbittorrent: 48080
+port_qbittorrent_exporter: 48090
+port_qui: 7476
+port_reverseproxy_http: 80
+port_reverseproxy_https: 443
+port_scanopy_daemon: 60073
+port_shelfmark: 8084
+port_smartctl_exporter: 9633
+port_smokeping: 1234
+port_speedtest_tracker_http: 38080
+port_speedtest_tracker_https: 38443
+port_synology_dsm: 5001
+port_tautulli: 8181
+port_termix_guacd: 4822
+port_termix: 8080
+port_texporter: 2112
+port_tracearr: 3000
+port_tugtainer_agent: 9412
+port_urbackup_client_fileserver: 35621
+port_urbackup_client_discovery: 35622
+port_urbackup_client_commands: 35623
+port_urbackup_exporter: 9554
+port_urbackup_server_fastcgi: 55413
+port_urbackup_server_http: 55414
+port_urbackup_server_internet_clients: 55415
+port_vaultwarden: 8000
+port_watchyourlan: 8840
+port_windows_exporter: 9182
+port_wud: 2375
+port_yadnsb: 3001
+port_yourlastfm: 1533
+pihole_hostname: 192.0.2.10
+pihole_address: https://{{ pihole_hostname }}:{{ port_pihole_webui_https }}
+pihole_secondary_hostname: 192.0.2.10
+pihole_secondary_address: https://{{ pihole_secondary_hostname }}:{{ port_pihole_webui_https }}

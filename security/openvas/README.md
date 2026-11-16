@@ -59,3 +59,4 @@ Variables that are shared by several Apps are not listed here, but in the more g
 ## Notable comments
 
 - The feed data images, nginx and gvm-config have no version tags, and Greenbone removes old digests within days, so they stay untagged and Renovate doesn't track them. Their services always pull, so every redeploy fetches the current images.
+- The restart policies follow Greenbone's own compose file instead of the repository's `unless-stopped` rule: several services wait for the data containers to complete, which `unless-stopped` would break.

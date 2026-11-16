@@ -86,5 +86,17 @@ tests/bats/wrappers.bats"
 @test "--changed can't be combined with --lint or --renovate" {
   run "${RUNNER}" --changed --lint tool.sh
   assert_failure 1
-  assert_output --partial "ERROR: --lint, --renovate and --changed can't be combined"
+  assert_output --partial "can't be combined"
+}
+
+@test "--render hands over to the render tests, with the changed files when given" {
+  write_stub "${FAKE_REPO}/tests/render/render.sh"
+  run "${RUNNER}" --render
+  assert_success
+  run "${RUNNER}" --render --changed apps/web/docker-compose.yaml.j2
+  assert_success
+  assert_stub_calls "render.sh" "render.sh --changed apps/web/docker-compose.yaml.j2"
+  run "${RUNNER}" --render some.bats
+  assert_failure 1
+  assert_output --partial "take no test files"
 }

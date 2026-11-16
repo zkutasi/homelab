@@ -18,6 +18,12 @@ repos:
         language: script
         require_serial: true
         files: (\.(sh|bash|bats)$|^tests/)
+      - id: render
+        name: Render and check the Docker Apps whose files changed
+        entry: tests/run.sh --render --changed
+        language: script
+        require_serial: true
+        files: (^tests/render/|/docker-compose\.yaml\.j2$|/deploy-[^/]*\.yaml$|/config/templates/|^automation/ansible/roles/docker-compose/|^ansible\.cfg$)
       - id: renovate-extract
         name: Check that Renovate still extracts the fixtures
         entry: tests/run.sh --renovate

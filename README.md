@@ -277,7 +277,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Each App has a `docker-compose.yaml.j2` template, filled in from the Ansible inventory, plus a `deploy-<app>.yaml` and `undeploy-<app>.yaml` playbook.
 - The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `docker_compose_rootdir` (usually `~/docker-compose`) on the target host and starts the stack.
-- Each service sets `container_name`, `hostname: {{ id }}-<service>`, `restart: unless-stopped` and `TZ: {{ timezone }}` (plus `PUID`/`PGID` where the image supports them), takes its image from `requested_image_version['<service>']`, and mounts its folders from below `{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}`.
+- Each service sets `container_name`, `hostname: {{ id }}-<container_name>`, `restart: unless-stopped` (`restart: no` for services that run once and exit, like setup or check helpers) and `TZ: {{ timezone }}` (plus `PUID`/`PGID` where the image supports them), takes its image from an entry of the deploy playbook's `requested_image_version`, and mounts its folders from below `{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}`.
 - Undeploying an App runs `docker compose down` removing its volumes and images, then deletes its whole folder under `docker_compose_rootdir`, including all of its data and configuration. Back up anything worth keeping first.
 
 #### Kubernetes Apps
@@ -316,7 +316,8 @@ How this repository is organised and the conventions every App follows. Follow t
 - A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
 - A new or changed Renovate rule gets a fixture under `tests/renovate/fixtures`, and `tests/renovate/expected.tsv` lists exactly what Renovate must extract from them.
 - Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest: the commit hook only runs the test files that cover the changed files (`tests/run.sh --changed`), all of them for a change to the harness itself, and `wrappers.bats` checks only the changed wrappers. `tests/run.sh` alone still runs everything.
-- pre-commit runs shellcheck (warning level) and the covering bats tests when shell files change, and the Renovate check when `renovate.json` or its fixtures change. ansible-lint takes about 5 minutes, so it runs by hand: `pre-commit run --hook-stage manual ansible-lint --all-files`.
+- `tests/run.sh --render` renders every Docker App's compose file and config templates against a fake inventory in `tests/render/inventory`, for one host of its play, without contacting any host. Each compose file must pass `docker compose config` and the Docker App rules above; accepted deviations go into `tests/render/allowlist.tsv` with their reason, Apps that need a specific host into `tests/render/skip.tsv`. The fake inventory has the real one's groups and variable names but dummy values and generic host names: rerun `tests/render/make-fake-inventory.sh` after inventory changes and review the result before committing. Values that a deploy playbook's earlier play fetches at run time get stand-ins in `tests/render/runtime.yaml`.
+- pre-commit runs shellcheck (warning level) and the covering bats tests when shell files change, the render tests for the Docker Apps whose files changed, and the Renovate check when `renovate.json` or its fixtures change. ansible-lint takes about 5 minutes, so it runs by hand: `pre-commit run --hook-stage manual ansible-lint --all-files`.
 
 #### Adding a new App
 

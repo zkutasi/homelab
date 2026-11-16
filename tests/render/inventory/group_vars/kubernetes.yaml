@@ -1,0 +1,3 @@
+gotify_token: gotify_token
+node_exporter_textfiles_dir: "/srv/node_exporter_textfiles_dir"
+pushover_token: pushover_token

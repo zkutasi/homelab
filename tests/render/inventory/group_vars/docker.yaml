@@ -1,0 +1,1 @@
+node_exporter_textfiles_dir: "{{ ansible_user_dir }}/docker-compose/node-exporter/textfiles"

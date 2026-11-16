@@ -337,7 +337,7 @@ services:
         condition: service_healthy
     environment:
       TZ: {{ timezone }}
-    hostname: {{ id }}-ospd-openvas
+    hostname: {{ id }}-greenbone-ospd-openvas
     image: {{ requested_image_version['ospd-openvas'] }}
     restart: on-failure
     security_opt:

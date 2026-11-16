@@ -1,0 +1,11 @@
+# Stand-ins for the facts and connection details the templates read, as no host is contacted when rendering.
+# make-fake-inventory.sh copies this file into the generated inventory.
+ansible_user: tester
+ansible_user_id: tester
+ansible_user_uid: 1000
+ansible_user_gid: 1000
+ansible_user_dir: /home/tester
+ansible_architecture: x86_64
+ansible_env:
+  HOME: /home/tester
+  PATH: /usr/local/bin:/usr/bin:/bin

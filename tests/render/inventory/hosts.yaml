@@ -1,0 +1,1066 @@
+standalone:
+  hosts:
+    "host01":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: standalone-hosts-host01-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host01-ansible_become_pass
+      backupfolders:
+        - /srv/standalone-hosts-host01-backupfolders-0
+        - /srv/standalone-hosts-host01-backupfolders-1
+        - /srv/standalone-hosts-host01-backupfolders-2
+        - /srv/standalone-hosts-host01-backupfolders-3
+      backup_cron: "standalone-hosts-host01-backup_cron"
+      gotify_token: standalone-hosts-host01-gotify_token
+      id: standalone-hosts-host01-id
+      docker_docker_group_id: 990
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f001::/64"
+      exposed_services:
+        - name: standalone-hosts-host01-exposed_services-0-name
+          type: standalone-hosts-host01-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host01-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_termix }}"
+        - name: standalone-hosts-host01-exposed_services-1-name
+          type: standalone-hosts-host01-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host01-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_vaultwarden }}"
+      pushover_token: standalone-hosts-host01-pushover_token
+      urbackup_authkey: standalone-hosts-host01-urbackup_authkey
+    "host02":
+      ansible_host: 192.0.2.10
+      # ansible_host: 192.168.31.86   # Wifi
+      ansible_ssh_pass: standalone-hosts-host02-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host02-ansible_become_pass
+      backupfolders:
+        - /srv/standalone-hosts-host02-backupfolders-0
+      backup_cron: "standalone-hosts-host02-backup_cron"
+      backup_exclude_patterns:
+        - "standalone-hosts-host02-backup_exclude_patterns-0"
+        - "standalone-hosts-host02-backup_exclude_patterns-1"
+        - "standalone-hosts-host02-backup_exclude_patterns-2"
+        - "standalone-hosts-host02-backup_exclude_patterns-3"
+        - "standalone-hosts-host02-backup_exclude_patterns-4"
+        - "standalone-hosts-host02-backup_exclude_patterns-5"
+        - "standalone-hosts-host02-backup_exclude_patterns-6"
+        - "standalone-hosts-host02-backup_exclude_patterns-7"
+        - "standalone-hosts-host02-backup_exclude_patterns-8"
+        - "standalone-hosts-host02-backup_exclude_patterns-9"
+        - "standalone-hosts-host02-backup_exclude_patterns-10"
+        - "standalone-hosts-host02-backup_exclude_patterns-11"
+        - "standalone-hosts-host02-backup_exclude_patterns-12"
+        - "standalone-hosts-host02-backup_exclude_patterns-13"
+      disk_devices:
+        - path: /srv/standalone-hosts-host02-disk_devices-0-path
+      docker_docker_group_id: 984
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f003::/64"
+      exposed_services:
+        - name: standalone-hosts-host02-exposed_services-0-name
+          type: standalone-hosts-host02-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_crosswatch }}"
+        - name: standalone-hosts-host02-exposed_services-1-name
+          type: standalone-hosts-host02-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_emby_http }}"
+        - name: standalone-hosts-host02-exposed_services-2-name
+          type: standalone-hosts-host02-exposed_services-2-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-2-proxy_url_prefix
+          backend_port: "{{ port_jellyfin_http }}"
+        - name: standalone-hosts-host02-exposed_services-3-name
+          type: standalone-hosts-host02-exposed_services-3-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-3-proxy_url_prefix
+          backend_port: "{{ port_medialyze }}"
+        - name: standalone-hosts-host02-exposed_services-4-name
+          type: standalone-hosts-host02-exposed_services-4-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-4-proxy_url_prefix
+          backend_port: "{{ port_navidrome }}"
+        - name: standalone-hosts-host02-exposed_services-5-name
+          type: standalone-hosts-host02-exposed_services-5-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-5-proxy_url_prefix
+          backend_port: "{{ port_plex_http }}"
+          accepted_extra_statuscodes:
+            - 401
+        - name: standalone-hosts-host02-exposed_services-6-name
+          type: standalone-hosts-host02-exposed_services-6-type
+          proxy_url_prefix: standalone-hosts-host02-exposed_services-6-proxy_url_prefix
+          backend_port: "{{ port_tautulli }}"
+      fstab_entries:
+        - src: standalone-hosts-host02-fstab_entries-0-src
+          path: /srv/standalone-hosts-host02-fstab_entries-0-path
+        - src: /srv/standalone-hosts-host02-fstab_entries-1-src
+          path: /srv/standalone-hosts-host02-fstab_entries-1-path
+          fstype: standalone-hosts-host02-fstab_entries-1-fstype
+          opts: "vers=1.0,username={{ ansible_user }},password={{ hostvars['host08'].ansible_ssh_pass }},uid={{ ansible_user }},gid=users"
+        - src: standalone-hosts-host02-fstab_entries-2-src
+          path: /srv/standalone-hosts-host02-fstab_entries-2-path
+        - src: standalone-hosts-host02-fstab_entries-3-src
+          path: /srv/standalone-hosts-host02-fstab_entries-3-path
+        - src: standalone-hosts-host02-fstab_entries-4-src
+          path: /srv/standalone-hosts-host02-fstab_entries-4-path
+        - src: standalone-hosts-host02-fstab_entries-5-src
+          path: /srv/standalone-hosts-host02-fstab_entries-5-path
+        - src: standalone-hosts-host02-fstab_entries-6-src
+          path: /srv/standalone-hosts-host02-fstab_entries-6-path
+        - src: standalone-hosts-host02-fstab_entries-7-src
+          path: /srv/standalone-hosts-host02-fstab_entries-7-path
+        - src: standalone-hosts-host02-fstab_entries-8-src
+          path: /srv/standalone-hosts-host02-fstab_entries-8-path
+        - src: standalone-hosts-host02-fstab_entries-9-src
+          path: /srv/standalone-hosts-host02-fstab_entries-9-path
+      gotify_token: standalone-hosts-host02-gotify_token
+      id: standalone-hosts-host02-id
+      music_mounts:
+        - from: /srv/standalone-hosts-host02-music_mounts-0-from
+          to: "standalone-hosts-host02-music_mounts-0-to"
+      nut_server_monitoring_username: "standalone-hosts-host02-nut_server_monitoring_username"
+      nut_server_monitoring_password: "standalone-hosts-host02-nut_server_monitoring_password"
+      pushover_token: standalone-hosts-host02-pushover_token
+      rustdesk_password: standalone-hosts-host02-rustdesk_password
+      ups:
+        name: standalone-hosts-host02-ups-name
+        driver: standalone-hosts-host02-ups-driver
+        vendorid: "standalone-hosts-host02-ups-vendorid"
+        productid: "standalone-hosts-host02-ups-productid"
+        desc: "standalone-hosts-host02-ups-desc"
+      urbackup_authkey: standalone-hosts-host02-urbackup_authkey
+    "host03":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: standalone-hosts-host03-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host03-ansible_become_pass
+      backupfolders:
+        - /srv/standalone-hosts-host03-backupfolders-0
+      backup_cron: "standalone-hosts-host03-backup_cron"
+      docker_compose_ipv6: true
+      docker_docker_group_id: 989
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f002::/64"
+      emby_embyignores:
+        - destination: /srv/standalone-hosts-host03-emby_embyignores-0-destination
+          content: |-
+            standalone-hosts-host03-emby_embyignores-0-content
+        - destination: /srv/standalone-hosts-host03-emby_embyignores-1-destination
+          content: |-
+            standalone-hosts-host03-emby_embyignores-1-content
+      exposed_services:
+        - name: standalone-hosts-host03-exposed_services-0-name
+          type: standalone-hosts-host03-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host03-exposed_services-0-proxy_url_prefix
+          redirection_path: "/srv/standalone-hosts-host03-exposed_services-0-redirection_path"
+          backend_port: "{{ port_autopulse }}"
+        - name: standalone-hosts-host03-exposed_services-1-name
+          icon: standalone-hosts-host03-exposed_services-1-icon
+          type: standalone-hosts-host03-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host03-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_omv }}"
+        - name: standalone-hosts-host03-exposed_services-2-name
+          icon: standalone-hosts-host03-exposed_services-2-icon
+          type: standalone-hosts-host03-exposed_services-2-type
+          proxy_url_prefix: standalone-hosts-host03-exposed_services-2-proxy_url_prefix
+          backend_port: "{{ port_qbittorrent }}"
+        - name: standalone-hosts-host03-exposed_services-3-name
+          type: standalone-hosts-host03-exposed_services-3-type
+          proxy_url_prefix: standalone-hosts-host03-exposed_services-3-proxy_url_prefix
+          backend_port: "{{ port_qui }}"
+      gotify_token: standalone-hosts-host03-gotify_token.example.com
+      id: standalone-hosts-host03-id
+      jellyfin_ignores:
+        - destination: /srv/standalone-hosts-host03-jellyfin_ignores-0-destination
+          content: |-
+            standalone-hosts-host03-jellyfin_ignores-0-content
+        - destination: /srv/standalone-hosts-host03-jellyfin_ignores-1-destination
+          content: |-
+            standalone-hosts-host03-jellyfin_ignores-1-content
+        - destination: /srv/standalone-hosts-host03-jellyfin_ignores-2-destination
+          content: |-
+            standalone-hosts-host03-jellyfin_ignores-2-content
+        - destination: /srv/standalone-hosts-host03-jellyfin_ignores-3-destination
+          content: |-
+            standalone-hosts-host03-jellyfin_ignores-3-content
+        - destination: /srv/standalone-hosts-host03-jellyfin_ignores-4-destination
+          content: |-
+            standalone-hosts-host03-jellyfin_ignores-4-content
+      omv_input_disks:
+        hdd01:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-6-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-7-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-7-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-7-privileges-0
+              share_as_nfs: true
+            - name: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-8-name
+              path: standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-8-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd01-shared_folders-8-privileges-0
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd01-snapraid_role
+        hdd02:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-6-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-7-name
+              path: standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-7-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd02-shared_folders-7-privileges-0
+              share_as_nfs: true
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd02-snapraid_role
+        hdd03:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd03-shared_folders-6-privileges-0
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd03-snapraid_role
+        hdd04:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd04-shared_folders-6-privileges-0
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd04-snapraid_role
+        hdd05:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd05-shared_folders-6-privileges-0
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd05-snapraid_role
+        hdd06:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-6-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-7-name
+              path: standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-7-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd06-shared_folders-7-privileges-0
+              share_as_nfs: true
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd06-snapraid_role
+        hdd07:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-0-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-0-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-1-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-1-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-1-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-2-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-2-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-2-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-3-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-3-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-3-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-4-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-4-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-4-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-5-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-5-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-5-privileges-0
+            - name: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-6-name
+              path: standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-6-path
+              privileges:
+                - standalone-hosts-host03-omv_input_disks-hdd07-shared_folders-6-privileges-0
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd07-snapraid_role
+        hdd08:
+          snapraid_role: standalone-hosts-host03-omv_input_disks-hdd08-snapraid_role
+      omv_mergerfs_pools:
+        Anime:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-anime-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-anime-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-anime-shared_folders-0-privileges-0
+        AnimeSeries:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-animeseries-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-animeseries-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-animeseries-shared_folders-0-privileges-0
+        Animation:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-animation-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-animation-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-animation-shared_folders-0-privileges-0
+        Docu:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-docu-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-docu-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-docu-shared_folders-0-privileges-0
+        DocuSeries:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-docuseries-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-docuseries-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-docuseries-shared_folders-0-privileges-0
+        Movies:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-movies-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-movies-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-movies-shared_folders-0-privileges-0
+        TVSeries:
+          shared_folders:
+            - name: standalone-hosts-host03-omv_mergerfs_pools-tvseries-shared_folders-0-name
+              path: standalone-hosts-host03-omv_mergerfs_pools-tvseries-shared_folders-0-path
+              privileges:
+                - standalone-hosts-host03-omv_mergerfs_pools-tvseries-shared_folders-0-privileges-0
+      omv_nfs_allowed_clients: 192.0.2.0/24
+      omv_snapraid_array_name: standalone-hosts-host03-omv_snapraid_array_name
+      plex_plexignores:
+        - destination: /srv/standalone-hosts-host03-plex_plexignores-0-destination
+          content: |-
+            standalone-hosts-host03-plex_plexignores-0-content
+        - destination: /srv/standalone-hosts-host03-plex_plexignores-1-destination
+          content: |-
+            standalone-hosts-host03-plex_plexignores-1-content
+      qbittorrent_username: "standalone-hosts-host03-qbittorrent_username"
+      qbittorrent_password: "standalone-hosts-host03-qbittorrent_password"
+      qbittorrent_extra_mounts:
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-0-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-0-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-1-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-1-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-2-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-2-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-3-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-3-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-4-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-4-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-5-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-5-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-6-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-6-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-7-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-7-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-8-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-8-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-9-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-9-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-10-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-10-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-11-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-11-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-12-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-12-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-13-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-13-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-14-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-14-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-15-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-15-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-16-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-16-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-17-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-17-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-18-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-18-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-19-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-19-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-20-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-20-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-21-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-21-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-22-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-22-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-23-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-23-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-24-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-24-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-25-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-25-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-26-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-26-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-27-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-27-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-28-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-28-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-29-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-29-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-30-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-30-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-31-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-31-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-32-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-32-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-33-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-33-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-34-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-34-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-35-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-35-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-36-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-36-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-37-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-37-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-38-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-38-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-39-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-39-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-40-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-40-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-41-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-41-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-42-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-42-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-43-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-43-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-44-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-44-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-45-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-45-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-46-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-46-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-47-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-47-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-48-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-48-to
+        - from: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-49-from
+          to: /srv/standalone-hosts-host03-qbittorrent_extra_mounts-49-to
+      pushover_token: standalone-hosts-host03-pushover_token
+      urbackup_authkey: standalone-hosts-host03-urbackup_authkey
+    "host04":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: standalone-hosts-host04-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host04-ansible_become_pass
+      backupfolders:
+        - /srv/standalone-hosts-host04-backupfolders-0
+      backup_cron: "standalone-hosts-host04-backup_cron"
+      backup_exclude_patterns:
+        - "standalone-hosts-host04-backup_exclude_patterns-0"
+        - "standalone-hosts-host04-backup_exclude_patterns-1"
+      docker_docker_group_id: 988
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f004::/64"
+      exposed_services:
+        - name: standalone-hosts-host04-exposed_services-0-name
+          type: standalone-hosts-host04-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host04-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_netalertx }}"
+        - name: standalone-hosts-host04-exposed_services-1-name
+          icon: standalone-hosts-host04-exposed_services-1-icon
+          type: standalone-hosts-host04-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host04-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_pihole_webui_http }}"
+          redirection_path: "/srv/standalone-hosts-host04-exposed_services-1-redirection_path"
+      gotify_token: standalone-hosts-host04-gotify_token
+      id: standalone-hosts-host04-id
+      netalertx_interface: standalone-hosts-host04-netalertx_interface
+      pihole_docker_network_3digit: "standalone-hosts-host04-pihole_docker_network_3digit"
+      pushover_token: standalone-hosts-host04-pushover_token
+      urbackup_authkey: standalone-hosts-host04-urbackup_authkey
+    "host05":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: standalone-hosts-host05-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host05-ansible_become_pass
+      arpwatch_interface: standalone-hosts-host05-arpwatch_interface
+      backupfolders:
+        - /srv/standalone-hosts-host05-backupfolders-0
+      backup_cron: "standalone-hosts-host05-backup_cron"
+      backup_exclude_patterns:
+        - "standalone-hosts-host05-backup_exclude_patterns-0"
+        - "standalone-hosts-host05-backup_exclude_patterns-1"
+        - "standalone-hosts-host05-backup_exclude_patterns-2"
+      disk_devices:
+        - path: /srv/standalone-hosts-host05-disk_devices-0-path
+      docker_docker_group_id: 988
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f005::/64"
+      exposed_services:
+        - name: standalone-hosts-host05-exposed_services-0-name
+          icon: standalone-hosts-host05-exposed_services-0-icon
+          type: standalone-hosts-host05-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_gatus }}"
+          insecure_also: true
+        - name: standalone-hosts-host05-exposed_services-1-name
+          icon: standalone-hosts-host05-exposed_services-1-icon
+          type: standalone-hosts-host05-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_pihole_webui_http }}"
+          redirection_path: "/srv/standalone-hosts-host05-exposed_services-1-redirection_path"
+        - name: standalone-hosts-host05-exposed_services-2-name
+          type: standalone-hosts-host05-exposed_services-2-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-2-proxy_url_prefix
+          backend_port: "{{ port_smokeping }}"
+          redirection_path: "/srv/standalone-hosts-host05-exposed_services-2-redirection_path"
+        - name: standalone-hosts-host05-exposed_services-3-name
+          type: standalone-hosts-host05-exposed_services-3-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-3-proxy_url_prefix
+          backend_port: "{{ port_speedtest_tracker_http }}"
+        - name: standalone-hosts-host05-exposed_services-4-name
+          type: standalone-hosts-host05-exposed_services-4-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-4-proxy_url_prefix
+          backend_port: "{{ port_yadnsb }}"
+        - name: standalone-hosts-host05-exposed_services-5-name
+          type: standalone-hosts-host05-exposed_services-5-type
+          proxy_url_prefix: standalone-hosts-host05-exposed_services-5-proxy_url_prefix
+          backend_port: "{{ port_watchyourlan }}"
+      gotify_token: standalone-hosts-host05-gotify_token
+      id: standalone-hosts-host05-id
+      ntopng_interface: standalone-hosts-host05-ntopng_interface
+      pihole_docker_network_3digit: "standalone-hosts-host05-pihole_docker_network_3digit"
+      pushover_token: standalone-hosts-host05-pushover_token
+      urbackup_authkey: standalone-hosts-host05-urbackup_authkey
+      watchyourlan_interface: standalone-hosts-host05-watchyourlan_interface
+    "host06":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: standalone-hosts-host06-ansible_ssh_pass
+      ansible_become_pass: standalone-hosts-host06-ansible_become_pass
+      backupfolders:
+        - /srv/standalone-hosts-host06-backupfolders-0
+      backup_cron: "standalone-hosts-host06-backup_cron"
+      backup_exclude_patterns:
+        - "standalone-hosts-host06-backup_exclude_patterns-0"
+      docker_docker_group_id: 984
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f006::/64"
+      exposed_services:
+        - name: standalone-hosts-host06-exposed_services-0-name
+          type: standalone-hosts-host06-exposed_services-0-type
+          proxy_url_prefix: standalone-hosts-host06-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_glance }}"
+        - name: standalone-hosts-host06-exposed_services-1-name
+          type: standalone-hosts-host06-exposed_services-1-type
+          proxy_url_prefix: standalone-hosts-host06-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_homepage }}"
+      gotify_token: standalone-hosts-host06-gotify_token
+      id: standalone-hosts-host06-id
+      pushover_token: standalone-hosts-host06-pushover_token
+      rustdesk_password: standalone-hosts-host06-rustdesk_password
+      urbackup_authkey: standalone-hosts-host06-urbackup_authkey
+external:
+  hosts:
+    "host07":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: external-hosts-host07-ansible_ssh_pass
+      ansible_become_pass: external-hosts-host07-ansible_become_pass
+      backupfolders:
+        - /srv/external-hosts-host07-backupfolders-0
+      backupserver_hostname: "external-hosts-host07-backupserver_hostname.example.com"
+      backup_cron: "external-hosts-host07-backup_cron"
+      id: external-hosts-host07-id
+      ddns_aliases:
+        - external-hosts-host07-ddns_aliases-0
+        - external-hosts-host07-ddns_aliases-1
+        - external-hosts-host07-ddns_aliases-2
+        - external-hosts-host07-ddns_aliases-3
+      ddns_interface: external-hosts-host07-ddns_interface
+      docker_compose_ipv6: true
+      docker_docker_group_id: 988
+      docker_ipv6_ula_subnet: "{{ docker_ipv6_ula_subnet_prefix }}:f101::/64"
+      exposed_services:
+        - name: external-hosts-host07-exposed_services-0-name
+          type: external-hosts-host07-exposed_services-0-type
+          backend_port:
+            tcp:
+              - 21115
+              - 21116
+            udp:
+              - 21116
+        - name: external-hosts-host07-exposed_services-1-name
+          type: external-hosts-host07-exposed_services-1-type
+          backend_port:
+            tcp:
+              - 21117
+      pushover_token: external-hosts-host07-pushover_token
+      urbackup_authkey: external-hosts-host07-urbackup_authkey
+synology:
+  hosts:
+    "host08":
+      ansible_host: 192.0.2.10
+      ansible_port: 22222
+      ansible_ssh_pass: synology-hosts-host08-ansible_ssh_pass
+      ansible_become_pass: synology-hosts-host08-ansible_become_pass
+      ansible_ssh_transfer_method: synology-hosts-host08-ansible_ssh_transfer_method
+      backupfolders:
+        - /srv/synology-hosts-host08-backupfolders-0
+      backup_cron: "synology-hosts-host08-backup_cron"
+      disk_devices:
+        - path: /srv/synology-hosts-host08-disk_devices-0-path
+          smartctlexporter_extra_args: synology-hosts-host08-disk_devices-0-smartctlexporter_extra_args
+        - path: /srv/synology-hosts-host08-disk_devices-1-path
+          smartctlexporter_extra_args: synology-hosts-host08-disk_devices-1-smartctlexporter_extra_args
+      docker_cli_path: /srv/synology-hosts-host08-docker_cli_path
+      docker_compose_files_group: synology-hosts-host08-docker_compose_files_group
+      docker_compose_files_owner: 1026
+      docker_compose_ipv6: true
+      docker_docker_group_id: 65538
+      exposed_services:
+        - name: synology-hosts-host08-exposed_services-0-name
+          icon: synology-hosts-host08-exposed_services-0-icon
+          type: synology-hosts-host08-exposed_services-0-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_synology_dsm }}"
+          https_skip_verify: true
+        - name: synology-hosts-host08-exposed_services-1-name
+          type: synology-hosts-host08-exposed_services-1-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_koito }}"
+        - name: synology-hosts-host08-exposed_services-2-name
+          type: synology-hosts-host08-exposed_services-2-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-2-proxy_url_prefix
+          backend_port: "{{ port_multi_scrobbler }}"
+        - name: synology-hosts-host08-exposed_services-3-name
+          type: synology-hosts-host08-exposed_services-3-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-3-proxy_url_prefix
+          backend_port: "{{ port_nutify_web }}"
+        - name: synology-hosts-host08-exposed_services-4-name
+          type: synology-hosts-host08-exposed_services-4-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-4-proxy_url_prefix
+          backend_port: "{{ port_peanut }}"
+        - name: synology-hosts-host08-exposed_services-5-name
+          icon: synology-hosts-host08-exposed_services-5-icon
+          type: synology-hosts-host08-exposed_services-5-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-5-proxy_url_prefix
+          backend_port: "{{ port_qbittorrent }}"
+        - name: synology-hosts-host08-exposed_services-6-name
+          type: synology-hosts-host08-exposed_services-6-type
+          proxy_url_prefix: synology-hosts-host08-exposed_services-6-proxy_url_prefix
+          backend_port: "{{ port_yourlastfm }}"
+      music_mounts:
+        - from: /srv/synology-hosts-host08-music_mounts-0-from
+          to: /srv/synology-hosts-host08-music_mounts-0-to
+      nut_server_monitoring_username: "synology-hosts-host08-nut_server_monitoring_username"
+      nut_server_monitoring_password: "synology-hosts-host08-nut_server_monitoring_password"
+      path_extension_list:
+        - /srv/synology-hosts-host08-path_extension_list-0
+      docker_data_root: /srv/synology-hosts-host08-docker_data_root
+      gotify_token: synology-hosts-host08-gotify_token
+      id: synology-hosts-host08-id
+      docker_is_slave_mount_allowed: false
+      pushover_token: synology-hosts-host08-pushover_token
+      qbittorrent_username: "synology-hosts-host08-qbittorrent_username"
+      qbittorrent_password: "synology-hosts-host08-qbittorrent_password"
+      qbittorrent_extra_mounts:
+        - from: /srv/synology-hosts-host08-qbittorrent_extra_mounts-0-from
+          to: /srv/synology-hosts-host08-qbittorrent_extra_mounts-0-to
+        - from: /srv/synology-hosts-host08-qbittorrent_extra_mounts-1-from
+          to: /srv/synology-hosts-host08-qbittorrent_extra_mounts-1-to
+        - from: /srv/synology-hosts-host08-qbittorrent_extra_mounts-2-from
+          to: /srv/synology-hosts-host08-qbittorrent_extra_mounts-2-to
+      ups:
+        desc: "synology-hosts-host08-ups-desc"
+      urbackup_authkey: synology-hosts-host08-urbackup_authkey
+    "host09":
+      ansible_host: 192.0.2.10
+      ansible_port: 22222
+      ansible_ssh_pass: synology-hosts-host09-ansible_ssh_pass
+      ansible_become_pass: synology-hosts-host09-ansible_become_pass
+      ansible_ssh_transfer_method: synology-hosts-host09-ansible_ssh_transfer_method
+      backupfolders:
+        - /srv/synology-hosts-host09-backupfolders-0
+      backup_cron: "synology-hosts-host09-backup_cron"
+      backup_exclude_patterns:
+        - "synology-hosts-host09-backup_exclude_patterns-0"
+        - "synology-hosts-host09-backup_exclude_patterns-1"
+        - "synology-hosts-host09-backup_exclude_patterns-2"
+        - "synology-hosts-host09-backup_exclude_patterns-3"
+        - "synology-hosts-host09-backup_exclude_patterns-4"
+      books_mounts:
+        - from: /srv/synology-hosts-host09-books_mounts-0-from
+          to: /srv/synology-hosts-host09-books_mounts-0-to
+      ddns_aliases:
+        - synology-hosts-host09-ddns_aliases-0
+      ddns_interface: synology-hosts-host09-ddns_interface
+      ddns_ipv4: false
+      disk_devices:
+        - path: /srv/synology-hosts-host09-disk_devices-0-path
+          smartctlexporter_extra_args: synology-hosts-host09-disk_devices-0-smartctlexporter_extra_args
+        - path: /srv/synology-hosts-host09-disk_devices-1-path
+          smartctlexporter_extra_args: synology-hosts-host09-disk_devices-1-smartctlexporter_extra_args
+      docker_cli_path: /srv/synology-hosts-host09-docker_cli_path
+      docker_compose_files_group: synology-hosts-host09-docker_compose_files_group
+      docker_compose_files_owner: 1026
+      docker_compose_ipv6: true
+      docker_data_root: /srv/synology-hosts-host09-docker_data_root
+      docker_docker_group_id: 65536
+      exposed_services:
+        - name: synology-hosts-host09-exposed_services-0-name
+          icon: synology-hosts-host09-exposed_services-0-icon
+          type: synology-hosts-host09-exposed_services-0-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_synology_dsm }}"
+          https_skip_verify: true
+        - name: synology-hosts-host09-exposed_services-1-name
+          icon: 'https://synology-hosts-host09-exposed_services-1-icon.example.com'
+          type: synology-hosts-host09-exposed_services-1-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-1-proxy_url_prefix
+          backend_port: "{{ port_borgwarehouse }}"
+        - name: synology-hosts-host09-exposed_services-2-name
+          icon: synology-hosts-host09-exposed_services-2-icon
+          type: synology-hosts-host09-exposed_services-2-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-2-proxy_url_prefix
+          backend_port: "{{ port_borgui }}"
+        - name: synology-hosts-host09-exposed_services-3-name
+          type: synology-hosts-host09-exposed_services-3-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-3-proxy_url_prefix
+          backend_port: "{{ port_grimmory }}"
+        - name: synology-hosts-host09-exposed_services-4-name
+          type: synology-hosts-host09-exposed_services-4-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-4-proxy_url_prefix
+          backend_port: "{{ port_immich }}"
+        - name: synology-hosts-host09-exposed_services-5-name
+          type: synology-hosts-host09-exposed_services-5-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-5-proxy_url_prefix
+          backend_port: "{{ port_immich_power_tools }}"
+        - name: synology-hosts-host09-exposed_services-6-name
+          type: synology-hosts-host09-exposed_services-6-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-6-proxy_url_prefix
+          backend_port: "{{ port_kopia }}"
+          https_skip_verify: true
+          accepted_extra_statuscodes:
+            - 401
+        - name: synology-hosts-host09-exposed_services-7-name
+          type: synology-hosts-host09-exposed_services-7-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-7-proxy_url_prefix
+          backend_port: "{{ port_paperless_ngx }}"
+        - name: synology-hosts-host09-exposed_services-8-name
+          type: synology-hosts-host09-exposed_services-8-type
+          proxy_url_prefix: synology-hosts-host09-exposed_services-8-proxy_url_prefix
+          backend_port: "{{ port_urbackup_server_http }}"
+      gotify_token: synology-hosts-host09-gotify_token
+      id: synology-hosts-host09-id
+      docker_is_slave_mount_allowed: false
+      path_extension_list:
+        - /srv/synology-hosts-host09-path_extension_list-0
+      photos_mounts:
+        - from: /srv/synology-hosts-host09-photos_mounts-0-from
+          to: /srv/synology-hosts-host09-photos_mounts-0-to
+      pushover_token: synology-hosts-host09-pushover_token
+      urbackup_authkey: synology-hosts-host09-urbackup_authkey
+proxmox:
+  hosts:
+    "host10":
+      ansible_host: 192.0.2.10
+      ansible_user: proxmox-hosts-host10-ansible_user
+      ansible_ssh_pass: proxmox-hosts-host10-ansible_ssh_pass
+      ansible_become_pass: proxmox-hosts-host10-ansible_become_pass
+      alloy_monitor_containers: false
+      exposed_services:
+        - name: proxmox-hosts-host10-exposed_services-0-name
+          icon: proxmox-hosts-host10-exposed_services-0-icon
+          type: proxmox-hosts-host10-exposed_services-0-type
+          proxy_url_prefix: proxmox-hosts-host10-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_proxmox }}"
+          https_skip_verify: true
+      id: proxmox-hosts-host10-id
+    "host11":
+      ansible_host: 192.0.2.10
+      ansible_user: proxmox-hosts-host11-ansible_user
+      ansible_ssh_pass: proxmox-hosts-host11-ansible_ssh_pass
+      ansible_become_pass: proxmox-hosts-host11-ansible_become_pass
+      alloy_monitor_containers: false
+      exposed_services:
+        - name: proxmox-hosts-host11-exposed_services-0-name
+          icon: proxmox-hosts-host11-exposed_services-0-icon
+          type: proxmox-hosts-host11-exposed_services-0-type
+          proxy_url_prefix: proxmox-hosts-host11-exposed_services-0-proxy_url_prefix
+          backend_port: "{{ port_proxmox }}"
+          https_skip_verify: true
+      id: proxmox-hosts-host11-id
+      network_interface: proxmox-hosts-host11-network_interface
+    "host12":
+      ansible_host: 192.0.2.10
+      ansible_user: proxmox-hosts-host12-ansible_user
+      ansible_ssh_pass: proxmox-hosts-host12-ansible_ssh_pass
+      ansible_become_pass: proxmox-hosts-host12-ansible_become_pass
+      alloy_monitor_containers: false
+      id: proxmox-hosts-host12-id
+      network_interface: proxmox-hosts-host12-network_interface
+    "host13":
+      ansible_host: 192.0.2.10
+      ansible_user: proxmox-hosts-host13-ansible_user
+      ansible_ssh_pass: proxmox-hosts-host13-ansible_ssh_pass
+      ansible_become_pass: proxmox-hosts-host13-ansible_become_pass
+      alloy_monitor_containers: false
+      id: proxmox-hosts-host13-id
+      network_interface: proxmox-hosts-host13-network_interface
+proxmoxclusters:
+  hosts:
+    "host11":
+    "host10":
+kubernetes:
+  hosts:
+    "host14":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host14-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host14-ansible_become_pass
+      id: kubernetes-hosts-host14-id
+    "host15":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host15-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host15-ansible_become_pass
+      id: kubernetes-hosts-host15-id
+    "host16":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host16-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host16-ansible_become_pass
+      id: kubernetes-hosts-host16-id
+    "host17":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host17-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host17-ansible_become_pass
+      id: kubernetes-hosts-host17-id
+    "host18":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host18-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host18-ansible_become_pass
+      id: kubernetes-hosts-host18-id
+    "host19":
+      ansible_host: 192.0.2.10
+      ansible_ssh_pass: kubernetes-hosts-host19-ansible_ssh_pass
+      ansible_become_pass: kubernetes-hosts-host19-ansible_become_pass
+      id: kubernetes-hosts-host19-id
+home:
+  children:
+    standalone:
+    synology:
+    proxmox:
+    kubernetes:
+linux-selfmanaged:
+  children:
+    standalone:
+    external:
+    proxmox:
+    kubernetes:
+linux:
+  children:
+    linux-selfmanaged:
+    synology:
+vms:
+  children:
+    kubernetes:
+  hosts:
+    "host01":
+    "host03":
+windows:
+  hosts:
+    "host20":
+      ansible_host: 192.0.2.10
+      ansible_connection: windows-hosts-host20-ansible_connection
+      ansible_port: 5985
+      id: windows-hosts-host20-id
+docker:
+  children:
+    standalone:
+    external:
+    synology:
+smart:
+  hosts:
+    "host02":
+    "host05":
+  children:
+    synology:
+    proxmox:
+backupserver:
+  hosts:
+    "host09":
+backupclient:
+  children:
+    standalone:
+    external:
+    synology:
+nutserver:
+  hosts:
+    "host08":
+    "host02":
+controlserver:
+  hosts:
+    "host01":
+dnsserver:
+  hosts:
+    "host04":
+    "host05":
+reverseproxy:
+  hosts:
+    "host05":
+networkmonitoring:
+  hosts:
+    "host05":
+music:
+  hosts:
+    "host08":
+photos:
+  hosts:
+    "host09":
+books:
+  hosts:
+    "host09":
+documents:
+  hosts:
+    "host09":
+remotecontrolled:
+  hosts:
+    "host02":
+    "host06":
+dashboard:
+  hosts:
+    "host06":
+emailnotifiers:
+  hosts:
+    "host05":
+torrent:
+  hosts:
+    "host08":
+    "host03":
+openmediavault:
+  hosts:
+    "host03":
+mediaserver:
+  hosts:
+    "host02":
+displayscreen:
+  hosts:
+    "host06":
