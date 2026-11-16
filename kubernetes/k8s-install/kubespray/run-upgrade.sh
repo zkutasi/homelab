@@ -21,6 +21,9 @@ while [ $# -ge 1 ]; do
   shift
 done
 
+# The Kubernetes version to upgrade to; it must be supported by the checked out Kubespray
+KUBE_VERSION="1.34.3"
+
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 if [ "${SCRIPT_DIR}" != "$(pwd -P)" ]; then
   echo "ERROR: Run $(basename "$0") from its own folder: ${SCRIPT_DIR}"
@@ -35,6 +38,12 @@ if ! pushd kubespray-repo; then
   exit 1
 fi
 
+CHECKSUMS_FILE="roles/kubespray_defaults/vars/main/checksums.yml"
+if ! grep -q "^    ${KUBE_VERSION}:" "${CHECKSUMS_FILE}"; then
+  echo "ERROR: The checked out Kubespray doesn't support Kubernetes ${KUBE_VERSION} (see ${CHECKSUMS_FILE})"
+  exit 1
+fi
+
 "${REPO_ROOT}"/common-ansible-run-playbook.sh \
     --ansible-navigator-config "${REPO_ROOT}"/.ansible-navigator.yaml \
     --inventory "${CURRENT_DIR}"/inventory/hosts.yaml \
@@ -42,6 +51,6 @@ fi
     --no-check \
     --extra-args "--become" \
     --extra-args "-e system_upgrade=true" \
-    --extra-args "-e kube_version=1.34.3"
+    --extra-args "-e kube_version=${KUBE_VERSION}"
 
 popd

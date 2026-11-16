@@ -4,7 +4,7 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - prometheus-pve-exporter
+      - prometheus-pve-exporter==3.9.0
     pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"
 - name: Create a service for pve-exporter
   hosts: proxmox

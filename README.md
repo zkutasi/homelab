@@ -294,7 +294,7 @@ How this repository is organised and the conventions every App follows. Follow t
 
 #### Versions and Renovate
 
-- Every version is pinned where Renovate can see it: `requested_image_version` and `requested_binary_repo_version` in playbooks, `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`, Helm values, or a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
+- Every version is pinned where Renovate can see it: `requested_image_version` and `requested_binary_repo_version` in playbooks, Galaxy requirements files, `pkg==version` items in `pipx_packages` lists, `package_pip: name==version` in execution environment files, `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`, Helm values, images in `extra-manifests/` (approved from the Dependency Dashboard), or a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
 - Renovate rules are generic (tag shape, datasource, file type), never specific to one App or image.
 - Version bumps are left to Renovate.
 

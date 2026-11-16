@@ -24,6 +24,7 @@ INVENTORY=
 INVENTORY_ADDED=()
 REPO_ROOT=
 
+# renovate: datasource=docker depName=oci.trueforge.org/truecharts/mariadb
 MARIADB_CHART_VERSION="18.10.0"
 
 function usage() {

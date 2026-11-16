@@ -27,11 +27,15 @@ if command -v git >/dev/null 2>&1; then
 fi
 EE_DIR="${REPO_ROOT}/automation/ansible/ansible-execution-environment"
 EE_CONFIG="${EE_DIR}/execution-environment.yaml"
+# renovate: datasource=pypi depName=ansible-navigator
+NAVIGATOR_VERSION="26.11.0"
+# renovate: datasource=pypi depName=ansible-builder
+BUILDER_VERSION="3.1.1"
 
 echo "Installing Ansible navigator..."
 sudo apt-get install -y pipx
-pipx install ansible-navigator
-pipx install ansible-builder
+pipx install --force "ansible-navigator==${NAVIGATOR_VERSION}"
+pipx install --force "ansible-builder==${BUILDER_VERSION}"
 
 echo "Build the execution environment..."
 ansible-builder build -vvv -f "${EE_CONFIG}" --context "${EE_DIR}/context" -t ansible-execution-environment:latest

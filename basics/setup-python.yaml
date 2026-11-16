@@ -26,5 +26,5 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - ansible-dev-tools
+      - ansible-dev-tools==26.7.2
     pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

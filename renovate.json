@@ -72,14 +72,41 @@
         "$[].vars.requested_image_version.*.( $ref := $substringBefore($, \"@\"); $m := $match($ref, /^(.+):([^:\\/]+)$/); { \"depName\": $m ? $m.groups[0] : $ref, \"currentValue\": $m.groups[1], \"currentDigest\": $contains($, \"@\") ? $substringAfter($, \"@\") } )"
       ],
       "datasourceTemplate": "docker"
+    },
+    {
+      "description": "Exact pip pins in an execution environment definition",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)execution-environment\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "package_pip:\\s*(?<depName>[A-Za-z0-9._-]+)==(?<currentValue>[^\\s\"]+)"
+      ],
+      "datasourceTemplate": "pypi"
+    },
+    {
+      "description": "pipx packages pinned as pkg==version in a pipx_packages list",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/\\.ya?ml$/"
+      ],
+      "matchStringsStrategy": "recursive",
+      "matchStrings": [
+        "pipx_packages:\\s*\\n(?:[ \\t]+- [^\\n]+\\n)+",
+        "- (?<depName>[A-Za-z0-9._-]+)==(?<currentValue>[^\\s\"]+)"
+      ],
+      "datasourceTemplate": "pypi"
     }
   ],
 
   "enabledManagers": [
+    "ansible-galaxy",
     "custom.regex",
     "custom.jsonata",
     "helmv3",
     "helm-values",
+    "kubernetes",
+    "kustomize",
     "pre-commit"
   ],
 
@@ -89,7 +116,18 @@
     ]
   },
 
+  "kubernetes": {
+    "managerFilePatterns": [
+      "/(^|/)extra-manifests/[^/]+\\.ya?ml$/"
+    ]
+  },
+
   "packageRules": [
+    {
+      "description": "Images in plain manifests usually follow another component's version (the CNI, the storage cluster): approve them from the Dependency Dashboard",
+      "matchManagers": ["kubernetes"],
+      "dependencyDashboardApproval": true
+    },
     {
       "description": "Images pinned to release-X.Y.Z tags: compare them with plain X.Y.Z tags too, so a switch of tag scheme upstream is picked up",
       "matchDatasources": ["docker"],

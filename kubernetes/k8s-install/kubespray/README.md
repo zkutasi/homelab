@@ -80,7 +80,7 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
     `git tag`
     `git checkout <VERSION>`
 
-3. Edit `run-upgrade.sh` and add the desired version to upgrade to. Make sure to jump only 1 major version at a time! Check the file `kubernetes/k8s-install/kubespray/kubespray-repo/extra_playbooks/roles/kubespray_defaults/vars/main/checksums.yml` for the supported versions.
+3. Set `KUBE_VERSION` in `run-upgrade.sh` to the Kubernetes version to upgrade to, one minor version at a time. It has to be listed in `kubespray-repo/roles/kubespray_defaults/vars/main/checksums.yml`; the script stops otherwise. Kubespray can be stepped forward while keeping the current Kubernetes version. Move the execution environment's `ansible-core` pin first if the new release needs another one.
 
 4. Run the upgrade with
 
@@ -105,3 +105,4 @@ You upgrade via checking out a new version of Kubespray first. So lets say, you 
 - Unfortunately Kubespray is very conservative with Ansible versions... a too new one is just as bad as an old one. Make sure that you have the exact same version. A Navigator build is best to handle this, pinning the Ansible-core version.
 - Make sure to also jump only 1 major version of Kubernetes at once, to avoid a failed upgrade.
 - Make sure there is no PodDisruptionBudget blocking the Node draining, otherwise it won't get done.
+- Renovate doesn't track Kubespray or its Kubernetes version: upgrades go one release at a time, need the matching `ansible-core` and a Kubernetes version the release supports, while Renovate would propose the newest release directly.

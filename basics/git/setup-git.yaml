@@ -45,7 +45,8 @@
 - name: Install pre-commit package
   hosts: controlserver
   roles:
-    - package-install
+    - package-install-pipx
   vars:
     pipx_packages:
-      - pre-commit
+      - pre-commit==4.6.1
+    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

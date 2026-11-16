@@ -1,7 +1,7 @@
 - name: Install multiple packages from list
   community.general.pipx:
     name: "{{ item }}"
-    state: latest
+    state: present
     executable: "{{ pipx_executable | default(omit) }}"
     system_site_packages: "{{ pipx_system_site_packages | default(false) }}"
   with_items: "{{ pipx_packages }}"
