@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 # security/secret-mgmt/age-sops/sops.sh, as a component test with the real sops and age and a throwaway key
+# covers: security/secret-mgmt/age-sops/sops.sh
 
 load helpers
 

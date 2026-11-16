@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # update-homelab-config.sh: applies the config playbook for real, then redeploys Gatus, but only if the
 # playbook succeeded (item 187)
+# covers: update-homelab-config.sh
 
 load helpers
 

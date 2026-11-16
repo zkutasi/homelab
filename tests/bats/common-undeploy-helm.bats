@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # common-undeploy-helm.sh: deletes the extra manifests, uninstalls the release if it exists,
 # and deletes the namespace unless told not to
+# covers: common-undeploy-helm.sh
 
 load helpers
 

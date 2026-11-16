@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # kubernetes/k8s-install/kubespray/run-upgrade.sh: runs Kubespray's upgrade playbook for the pinned
 # KUBE_VERSION, but only from its own folder and only if the checked-out Kubespray supports that version
+# covers: kubernetes/k8s-install/kubespray/run-upgrade.sh
 
 load helpers
 

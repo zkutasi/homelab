@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 # Tests of the test harness itself: the git stub and the stub helpers
+# covers: tests/bats/helpers.bash tests/bats/stubs/git
 
 load helpers
 

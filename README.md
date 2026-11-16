@@ -315,7 +315,8 @@ How this repository is organised and the conventions every App follows. Follow t
 - Bats tests never touch hosts, the cluster or the real files: each test works in a throwaway copy of the scripts it needs (a temporary folder with an empty `.git` marker), with stub commands on `PATH` that record their calls. The `git` stub only answers `rev-parse --show-toplevel`.
 - A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
 - A new or changed Renovate rule gets a fixture under `tests/renovate/fixtures`, and `tests/renovate/expected.tsv` lists exactly what Renovate must extract from them.
-- pre-commit runs shellcheck (warning level) and the bats tests when shell files change, and the Renovate check when `renovate.json` or its fixtures change. ansible-lint takes about 5 minutes, so it runs by hand: `pre-commit run --hook-stage manual ansible-lint --all-files`.
+- Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest: the commit hook only runs the test files that cover the changed files (`tests/run.sh --changed`), all of them for a change to the harness itself, and `wrappers.bats` checks only the changed wrappers. `tests/run.sh` alone still runs everything.
+- pre-commit runs shellcheck (warning level) and the covering bats tests when shell files change, and the Renovate check when `renovate.json` or its fixtures change. ansible-lint takes about 5 minutes, so it runs by hand: `pre-commit run --hook-stage manual ansible-lint --all-files`.
 
 #### Adding a new App
 

@@ -2,6 +2,7 @@
 # Every App wrapper (deploy-k8s.sh / undeploy-k8s.sh) refuses to run outside its own folder, and calls its
 # helper with its NS and RELEASE_NAME, passing its own arguments on unchanged. Each test loops over all
 # wrappers and lists every one that breaks the rule.
+# covers: */deploy-k8s.sh */undeploy-k8s.sh
 
 load helpers
 
@@ -31,8 +32,15 @@ setup_file() {
   (cd "${REPO_ROOT}" && find . \
       \( -path ./.git -o -path ./_templates -o -path ./tests -o -name kubespray-repo -o -name wazuh-kubernetes \) -prune \
       -o -type f \( -name deploy-k8s.sh -o -name undeploy-k8s.sh \) -print | sed 's|^\./||' | sort) > "${BATS_FILE_TMPDIR}/wrappers.txt"
+  # tests/run.sh --changed passes the changed wrappers in WRAPPERS_ONLY: then only those are checked
+  if [ -n "${WRAPPERS_ONLY:-}" ]; then
+    tr ' ' '\n' <<< "${WRAPPERS_ONLY}" | grep -Fx -f - "${BATS_FILE_TMPDIR}/wrappers.txt" > "${BATS_FILE_TMPDIR}/only.txt" || true
+    mv "${BATS_FILE_TMPDIR}/only.txt" "${BATS_FILE_TMPDIR}/wrappers.txt"
+  fi
   local -a wrappers
   mapfile -t wrappers < "${BATS_FILE_TMPDIR}/wrappers.txt"
+  : > "${BATS_FILE_TMPDIR}/values.tsv"
+  [ "${#wrappers[@]}" -eq 0 ] && return
   # All wrappers go into the fake repository in one go, at their own paths
   (cd "${REPO_ROOT}" && tar cf - "${wrappers[@]}") | (cd "${FAKE_REPO}" && tar xf -)
   # Per wrapper, in one pass: its NS, its RELEASE_NAME, and whether it passes --release-name at all
@@ -65,6 +73,7 @@ function is_plain() {
 }
 
 @test "the wrapper list is complete enough to mean something" {
+  [ -n "${WRAPPERS_ONLY:-}" ] && skip "only the changed wrappers are checked"
   assert [ "${#WRAPPERS[@]}" -gt 200 ]
 }
 
@@ -140,6 +149,7 @@ function is_plain() {
 }
 
 @test "kubernetes/undeploy-k8s.sh deletes its manifests from kube-system, but keeps the namespace" {
+  copy_into_repo kubernetes/undeploy-k8s.sh
   local dir="${FAKE_REPO}/kubernetes"
   mkdir -p "${dir}/extra-manifests" && touch "${dir}/extra-manifests/b.yaml" "${dir}/extra-manifests/a.yaml"
   cd "${dir}" || exit 1
@@ -151,6 +161,7 @@ function is_plain() {
 }
 
 @test "Calico Whisker's undeploy deletes its manifests and its generated TLS secrets" {
+  copy_into_repo monitoring/ebpf/calico-whisker/undeploy-k8s.sh
   local dir="${FAKE_REPO}/monitoring/ebpf/calico-whisker"
   mkdir -p "${dir}/extra-manifests" && touch "${dir}/extra-manifests/a.yaml"
   cd "${dir}" || exit 1
@@ -163,6 +174,7 @@ function is_plain() {
 
 @test "the kubectl-only undeploys fail when a delete fails, after trying everything" {
   make_stub_script kubectl '[[ " $* " == *broken* ]] && exit 1; exit 0'
+  copy_into_repo kubernetes/undeploy-k8s.sh monitoring/ebpf/calico-whisker/undeploy-k8s.sh
   local dir
   for dir in "${FAKE_REPO}/kubernetes" "${FAKE_REPO}/monitoring/ebpf/calico-whisker"; do
     mkdir -p "${dir}/extra-manifests" && touch "${dir}/extra-manifests/0-broken.yaml"

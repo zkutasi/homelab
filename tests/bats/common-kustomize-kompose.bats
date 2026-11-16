@@ -1,5 +1,6 @@
 #!/usr/bin/env bats
 # common-deploy-kustomize.sh, common-undeploy-kustomize.sh and common-deploy-kompose.sh
+# covers: common-deploy-kustomize.sh common-undeploy-kustomize.sh common-deploy-kompose.sh
 
 load helpers
 

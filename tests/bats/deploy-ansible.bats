@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # automation/ansible/deploy-ansible.sh: installs the pinned ansible-navigator and ansible-builder with pipx,
 # then builds the execution environment image
+# covers: automation/ansible/deploy-ansible.sh
 
 load helpers
 

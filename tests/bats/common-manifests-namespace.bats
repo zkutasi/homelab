@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # common-deploy-manifests.sh (applies the extra manifests, optionally into a namespace it creates) and
 # common-undeploy-namespace.sh (deletes a namespace)
+# covers: common-deploy-manifests.sh common-undeploy-namespace.sh
 
 load helpers
 

@@ -13,10 +13,10 @@ repos:
         language: system
         files: (^|/)ca\.key$
       - id: bats
-        name: Run the bats tests
-        entry: tests/run.sh
+        name: Run the bats tests that cover the changed files
+        entry: tests/run.sh --changed
         language: script
-        pass_filenames: false
+        require_serial: true
         files: (\.(sh|bash|bats)$|^tests/)
       - id: renovate-extract
         name: Check that Renovate still extracts the fixtures

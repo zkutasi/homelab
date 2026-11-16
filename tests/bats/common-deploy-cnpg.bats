@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # common-deploy-cnpg.sh: creates the database secret and the init values once, then deploys a CNPG cluster
 # through common-deploy-helm.sh
+# covers: common-deploy-cnpg.sh
 
 load helpers
 

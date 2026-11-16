@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # common-deploy-helm.sh: finds the values files, picks the chart version, installs (or templates) the chart,
 # then applies the CNPG Prometheus rules and the extra manifests
+# covers: common-deploy-helm.sh
 
 load helpers
 

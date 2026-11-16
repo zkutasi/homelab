@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # common-ansible-run-playbook.sh: builds the ansible-navigator (or ansible-playbook) command line,
 # in check and diff mode unless told otherwise, and passes the playbook's exit code on
+# covers: common-ansible-run-playbook.sh
 
 load helpers
 

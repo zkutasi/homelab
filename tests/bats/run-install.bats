@@ -1,6 +1,7 @@
 #!/usr/bin/env bats
 # kubernetes/k8s-install/kubespray/run-install.sh: runs Kubespray's cluster playbook from its own folder,
 # and passes the playbook's exit code on
+# covers: kubernetes/k8s-install/kubespray/run-install.sh
 
 load helpers
 
