@@ -8,8 +8,11 @@
     WAZUH_REGISTRATION_PASSWORD: "{{ wazuh_registration_password }}"
     WAZUH_AGENT_NAME: "{{ id }}"
   vars:
-    requested_binary_version: "4.14.2"
+    requested_binary_repo_version: "wazuh/wazuh:4.14.2"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] | string }}"
     bin_filename: wazuh-agentd
+    # The package installs the agent into its own folder
+    bin_path: /var/ossec/bin
     arch_map:
       x86_64: amd64
       aarch64: arm64
