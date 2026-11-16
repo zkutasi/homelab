@@ -9,6 +9,8 @@
       unbound: "madnuttah/unbound:1.23.0-1"
     docker_compose_create_dirs:
       - name: pihole/etc-pihole
+        owner: 1000  # pihole
+        group: 1000  # pihole
       - name: pihole/etc-dnsmasqd
       - name: unbound/conf.d
       - name: unbound/log.d

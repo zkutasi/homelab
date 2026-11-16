@@ -9,4 +9,6 @@
       valkey: "docker.io/valkey/valkey:9.0.0"
     docker_compose_create_dirs:
       - name: ntopng
+        owner: 999  # ntopng
+        group: 989  # ntopng
       - name: redis

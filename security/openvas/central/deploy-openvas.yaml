@@ -49,11 +49,11 @@
       - name: psql_data
         owner: 104  # postgres
         group: 106  # postgres
-        folder_mode: 0755
+        folder_mode: "0755"
       - name: psql_socket
         owner: 104  # postgres
         group: 106  # postgres
-        folder_mode: 02775
+        folder_mode: "02775"
       - name: gvmd_data
         owner: 1001
         group: 1001

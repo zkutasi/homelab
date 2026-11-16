@@ -10,6 +10,7 @@
       - name: config
       - name: logs
       - name: ssh
+        folder_mode: "0700"
       - name: ssh_host
       - name: tmp
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_borgwarehouse }}"

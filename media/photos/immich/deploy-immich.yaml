@@ -14,4 +14,6 @@
       - name: server/library
       - name: ml/model-cache
       - name: postgres/data
+        owner: 999  # postgres
+        folder_mode: "0700"
     docker_compose_extra_volumes: "{{ photos_mounts | default([]) }}"

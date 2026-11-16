@@ -8,6 +8,14 @@
       nutify: "dartsteven/nutify:amd64-0.1.7"
     docker_compose_create_dirs:
       - name: logs
+        owner: 1000  # nutify
+        group: 1000  # nutify
       - name: instance
+        owner: 1000  # nutify
+        group: 1000  # nutify
+        folder_mode: "0775"
       - name: ssl
       - name: etc/nut
+        owner: 1000  # nutify
+        group: 1000  # nutify
+        folder_mode: "0750"

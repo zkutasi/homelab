@@ -10,6 +10,7 @@
       postgres: "docker.io/library/postgres:18"
     docker_compose_create_dirs:
       - name: redisdata
+        owner: 999  # redis
       - name: pgdata
       - name: data
       # - name: media
