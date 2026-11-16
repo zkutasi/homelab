@@ -18,7 +18,7 @@ Docker is installed on every host in the `docker` group. The daemon is configure
 - Live-restore
 - Prometheus metrics endpoint.
 
-On Synology, Docker comes from DSM; only Docker Compose is uplifted and sudoless usage is set up.
+On Synology, Docker and Docker Compose come from DSM (Container Manager); only sudoless usage is set up.
 
 ## Prerequisites
 
