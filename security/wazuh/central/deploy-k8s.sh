@@ -26,11 +26,11 @@ if [ ! -d wazuh-kubernetes ]; then
   git clone https://github.com/wazuh/wazuh-kubernetes.git -b v${VERSION} --depth=1
 else
   echo "Updating wazuh-kubernetes repo to ${VERSION}..."
-  pushd wazuh-kubernetes
+  pushd wazuh-kubernetes || exit 1
   git fetch origin
   git pull --tags
   git checkout v${VERSION}
-  popd
+  popd || exit 1
 fi
 if [ ! -f wazuh-kubernetes/wazuh/certs/indexer_cluster/filebeat.pem ]; then
   ./wazuh-kubernetes/wazuh/certs/indexer_cluster/generate_certs.sh

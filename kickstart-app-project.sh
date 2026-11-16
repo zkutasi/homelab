@@ -176,7 +176,7 @@ function fetch_docker_compose_and_repo_info() {
 function main_service() {
   local -a app_services
   local service
-  app_services=($(compose_app_services))
+  mapfile -t app_services < <(compose_app_services)
   [ "${#app_services[@]}" -eq 0 ] && return
   for service in "${app_services[@]}"; do
     if [ "${service}" == "${APP_NAME_LOWERCASE}" ]; then
@@ -685,7 +685,8 @@ function kickstart_k8s_truecharts_local() {
     # The main container is the App's own service (main_service), the others follow in file order
     local main
     main=$(main_service)
-    app_services=(${main} $(compose_app_services | grep -vx "${main}"))
+    mapfile -t app_services < <(compose_app_services | grep -vx "${main}")
+    [ -n "${main}" ] && app_services=("${main}" "${app_services[@]}")
     if (( ${#app_services[@]} >= 1 )); then
       local multi_container=false
       (( ${#app_services[@]} > 1 )) && multi_container=true

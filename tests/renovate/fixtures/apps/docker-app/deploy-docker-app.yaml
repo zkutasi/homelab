@@ -1,0 +1,7 @@
+- name: Deploy docker-app as docker
+  hosts: docker
+  vars:
+    requested_image_version:
+      app: "ghcr.io/example/docker-app:1.4.0"
+      db: "docker.io/library/postgres:16.4@sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      feed: "registry.example.com/community/feed-data"

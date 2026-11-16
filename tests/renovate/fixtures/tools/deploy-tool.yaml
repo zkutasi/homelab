@@ -1,0 +1,4 @@
+- name: Deploy tool as binary
+  hosts: all
+  vars:
+    requested_binary_repo_version: "example/tool:1.10.2"

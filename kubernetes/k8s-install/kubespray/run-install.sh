@@ -41,5 +41,7 @@ fi
     --playbook "${CURRENT_DIR}"/kubespray-repo/cluster.yml \
     --no-check \
     --extra-args "--become"
+RC=$?
 
-popd
+popd || exit 1
+exit "${RC}"

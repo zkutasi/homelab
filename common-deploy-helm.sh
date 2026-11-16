@@ -201,7 +201,7 @@ fi
 
 CMD=("${RELEASE_NAME}" "${CHART_NAME}"
     --version "${VERSION}"
-    --namespace $NS
+    --namespace "$NS"
     --create-namespace
     "${VALUE_FILES[@]}")
 
@@ -233,7 +233,7 @@ if [ "${TEMPLATE}" -eq 0 ] && { [ "${DEPLOYMENT_TYPE}" == "truecharts" ] || [ "$
     echo "Deploying Prometheus rules for CNPG cluster ${cnpg_clustername}..."
     CMD=(helm template
       --release-name "${RELEASE_NAME}-cnpg"
-      --namespace $NS
+      --namespace "$NS"
       --set "nameOverride=${cnpg_clustername}"
       --set cluster.monitoring.enabled=true
       --set "cluster.monitoring.prometheusRule.excludeRules[0]=CNPGClusterHAWarning"

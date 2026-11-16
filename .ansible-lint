@@ -4,6 +4,7 @@ exclude_paths:
   - security/wazuh/central/wazuh-kubernetes
   - automation/ansible/roles/simoncaron.pve_permissions
   - _build
+  - tests/renovate/fixtures
 skip_list:
   - yaml
   - risky-file-permissions

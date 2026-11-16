@@ -223,7 +223,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - The top-level folders are categories (monitoring, media, backups, etc...), sometimes with sub-categories. Their README describes the requirements and the investigated contenders for that kind of App.
 - Each App has its own folder below its category, with a README describing the setup, the inventory variables, the deployment and any notable comments.
 - Apps with more than one component split them into sub-folders: `central` for the main component and `agents` for what runs on the other hosts, or `k8s`, `docker` and `host` when the same App can be deployed in multiple ways.
-- Shared helpers live in the repository root as `common-*.sh`, reusable Ansible roles in `automation/ansible/roles`, and the scaffolding for new Apps in `_templates`.
+- Shared helpers live in the repository root as `common-*.sh`, reusable Ansible roles in `automation/ansible/roles`, the scaffolding for new Apps in `_templates`, and the tests in `tests`.
 
 #### File naming
 
@@ -247,8 +247,8 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Shell scripts
 
 - Shebang `#!/bin/bash`, and the file is executable.
-- No strict mode (`set -e`, `set -euo pipefail`), and no guard on every `pushd`, `popd` or `cd`; where a failure would go unnoticed, a targeted check is added on that one command instead.
-- Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
+- No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead. Every `cd`, `pushd` and `popd` carries its own `|| exit 1` (shellcheck SC2164).
+- Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`, except inside array assignments (`CMD=(… "$NS")`), where shellcheck needs them quoted. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
 - The common scripts parse their options in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, reject unknown parameters with an error plus the usage, and offer `--help`.
 - App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect any extra arguments into `EXTRA_PARAMS`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
 - A tool is written in one language: Bash, with `yq` and `jq` for any YAML or JSON work, never mixed with Python helpers. Ansible playbooks it runs stay separate files.
@@ -308,6 +308,14 @@ How this repository is organised and the conventions every App follows. Follow t
 - READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
 - Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.
 - Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`, run from the folder that holds it (the component's sub-folder for split Apps). Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
+
+#### Tests
+
+- `tests/run.sh` runs everything in containers: the bats tests in `tests/bats` by default, `--renovate` for the Renovate extraction check, and `--lint` for ansible-lint in the execution environment. Only Docker, and the host's own sops, age and yq, are needed.
+- Bats tests never touch hosts, the cluster or the real files: each test works in a throwaway copy of the scripts it needs (a temporary folder with an empty `.git` marker), with stub commands on `PATH` that record their calls. The `git` stub only answers `rev-parse --show-toplevel`.
+- A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
+- A new or changed Renovate rule gets a fixture under `tests/renovate/fixtures`, and `tests/renovate/expected.tsv` lists exactly what Renovate must extract from them.
+- pre-commit runs shellcheck (warning level) and the bats tests when shell files change, and the Renovate check when `renovate.json` or its fixtures change. ansible-lint takes about 5 minutes, so it runs by hand: `pre-commit run --hook-stage manual ansible-lint --all-files`.
 
 #### Adding a new App
 

@@ -35,7 +35,8 @@ fi
 CMD=(ansible --inventory inventory/hosts.yaml -m ping all)
 if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
-  export ANSIBLE_NAVIGATOR_CONFIG="$(git rev-parse --show-toplevel)/.ansible-navigator.yaml"
+  ANSIBLE_NAVIGATOR_CONFIG="$(git rev-parse --show-toplevel)/.ansible-navigator.yaml"
+  export ANSIBLE_NAVIGATOR_CONFIG
   CMD=(ansible-navigator exec --set-environment-variable ANSIBLE_CONFIG="${PWD}/kubespray-repo/ansible.cfg" -- "${CMD[@]}")
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible..."

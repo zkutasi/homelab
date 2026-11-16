@@ -77,7 +77,7 @@ if ! RELEASES=$(helm -n "$NS" list --short); then
 fi
 if echo "${RELEASES}" | grep -q "^${RELEASE_NAME}$"; then
   CMD=(helm uninstall "${RELEASE_NAME}"
-        --namespace $NS
+        --namespace "$NS"
         --wait)
   if [ "${DEBUG}" -eq 1 ]; then
     CMD+=(--debug)

@@ -1,0 +1,21 @@
+# Dependencies Renovate must extract from tests/renovate/fixtures, one per line (tab-separated):
+# manager, file, dependency, current value, datasource, and whether a digest is pinned.
+# tests/run.sh --renovate fails on any missing or additional line. Regenerate it only after checking the difference.
+ansible-galaxy	ee/requirements.yaml	community.general	>=12.0.0,<13.0.0	galaxy-collection	-
+ansible-galaxy	ee/requirements.yaml	example.role	1.0.0	galaxy	-
+helm-values	apps/web/app-values.yaml	ghcr.io/example/web-values	2.0.0	docker	-
+helmv3	apps/web/chart/Chart.yaml	common	28.26.3	docker	-
+jsonata	apps/docker-app/deploy-docker-app.yaml	docker.io/library/postgres	16.4	docker	digest
+jsonata	apps/docker-app/deploy-docker-app.yaml	ghcr.io/example/docker-app	1.4.0	docker	-
+kubernetes	apps/web/extra-manifests/deployment.yaml	Deployment	apps/v1	kubernetes-api	-
+kubernetes	apps/web/extra-manifests/deployment.yaml	docker.io/example/sidecar	v3.30.2	docker	-
+kustomize	apps/remote/kustomization.yaml	example/remote-app	v0.22.2	github-tags	-
+pre-commit	.pre-commit-config.yaml	adrienverge/yamllint	v1.37.1	github-tags	-
+regex	apps/remote/deploy-k8s.sh	ghcr.io/example/charts/remote	0.9.1	docker	-
+regex	apps/web/chart/Chart.yaml	ghcr.io/example/web	1.2.3	docker	-
+regex	apps/web/deploy-k8s.sh	example-chart	4.5.6	helm	-
+regex	ee/execution-environment.yaml	ansible-runner	2.4.3	pypi	-
+regex	ee/execution-environment.yaml	ghcr.io/ansible-community/community-ee-base	2.21.5-2	docker	digest
+regex	tools/deploy-tool.yaml	example/tool	1.10.2	github-releases	-
+regex	tools/deploy-tools.sh	ansible-navigator	26.11.0	pypi	-
+regex	tools/setup-tools.yaml	pre-commit	4.6.1	pypi	-

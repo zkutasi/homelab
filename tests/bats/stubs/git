@@ -1,0 +1,21 @@
+#!/bin/bash
+# Test stand-in for git. The tested scripts only ask git for the repository root, so this answers
+# "rev-parse --show-toplevel" by walking up to the first folder holding a .git folder, like git does,
+# and fails loudly on anything else, so no test can silently depend on real git.
+
+if [ $# -eq 2 ] && [ "$1" = "rev-parse" ] && [ "$2" = "--show-toplevel" ]; then
+  DIR=$(pwd -P)
+  while true; do
+    if [ -d "${DIR}/.git" ]; then
+      echo "${DIR}"
+      exit 0
+    fi
+    [ "${DIR}" = "/" ] && break
+    DIR=$(dirname "${DIR}")
+  done
+  echo "fatal: not a git repository (or any of the parent directories): .git" >&2
+  exit 128
+fi
+
+echo "ERROR: the git stub only supports 'git rev-parse --show-toplevel', got: git $*" >&2
+exit 1

@@ -12,6 +12,25 @@ repos:
         entry: "bash -c 'for f in \"$@\"; do [ -L \"$f\" ] || { echo \"ERROR: $f is a real key, only symlinks are allowed\"; exit 1; }; done' --"
         language: system
         files: (^|/)ca\.key$
+      - id: bats
+        name: Run the bats tests
+        entry: tests/run.sh
+        language: script
+        pass_filenames: false
+        files: (\.(sh|bash|bats)$|^tests/)
+      - id: renovate-extract
+        name: Check that Renovate still extracts the fixtures
+        entry: tests/run.sh --renovate
+        language: script
+        pass_filenames: false
+        files: ^(renovate\.json|tests/renovate/)
+      - id: ansible-lint
+        name: Run ansible-lint in the execution environment (about 5 minutes)
+        entry: tests/run.sh --lint
+        language: script
+        pass_filenames: false
+        always_run: true
+        stages: [manual]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
@@ -42,10 +61,11 @@ repos:
     rev: v8.28.0
     hooks:
       - id: gitleaks-docker
-# Disable ansible-lint for now, as it does not pass the staged files in due to context requirements, making it extremely slow.
-# - repo: https://github.com/ansible/ansible-lint
-#   rev: v26.4.0
-#   hooks:
-#     - id: ansible-lint
-#       files: \.(yaml|yml)$
-#       language_version: python3
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+      - id: shellcheck
+        args: ["--severity=warning"]
+        types: [file]
+        files: (\.(sh|bash|bats)$|^tests/bats/stubs/)
+        exclude: ^(_templates|tests/renovate/fixtures)/

@@ -11,7 +11,7 @@ INVENTORY="${REPO_ROOT}/automation/ansible/homelab-ansible-inventory/inventory"
 
 CHECK=1
 DIFF=1
-EXTRA_ARGS=""
+EXTRA_ARGS=()
 LIMIT=
 PLAYBOOK=
 
@@ -51,7 +51,9 @@ while [ $# -ge 1 ]; do
         exit 1
       fi
       shift
-      EXTRA_ARGS="$EXTRA_ARGS $1"
+      # Each value is split into words, like a shell would, but without file name globbing
+      read -r -a VALUE_WORDS <<< "$1"
+      EXTRA_ARGS+=("${VALUE_WORDS[@]}")
       ;;
     --help)
       usage
@@ -93,10 +95,10 @@ if command -v ansible-navigator >/dev/null 2>&1; then
   echo "Using ansible-navigator..."
   export ANSIBLE_NAVIGATOR_CONFIG
   echo "ANSIBLE_NAVIGATOR_CONFIG=${ANSIBLE_NAVIGATOR_CONFIG}"
-  CMD=(ansible-navigator run "${PLAYBOOK}" -m stdout --inventory "${INVENTORY}" ${EXTRA_ARGS})
+  CMD=(ansible-navigator run "${PLAYBOOK}" -m stdout --inventory "${INVENTORY}" "${EXTRA_ARGS[@]}")
 elif command -v ansible >/dev/null 2>&1; then
   echo "Using ansible-playbook..."
-  CMD=(ansible-playbook --inventory "${INVENTORY}" "${PLAYBOOK}" ${EXTRA_ARGS})
+  CMD=(ansible-playbook --inventory "${INVENTORY}" "${PLAYBOOK}" "${EXTRA_ARGS[@]}")
 else
   echo "ERROR: neither ansible-navigator nor ansible-playbook is available"
   exit 1

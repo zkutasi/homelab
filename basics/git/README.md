@@ -26,6 +26,10 @@ There are a handful of useful stuff set up:
   - [MarkdownLint](https://github.com/DavidAnson/markdownlint-cli2) - Lints those md files too. This one seems more up-to-date.
   - [GitLeaks](https://github.com/gitleaks/gitleaks) - For avoiding to commit secrets in plaintext
   - [BetterLeaks](https://github.com/betterleaks/betterleaks) - A more modern and flexible secret scanner
+  - [ShellCheck](https://github.com/shellcheck-py/shellcheck-py) - Static analysis of the shell scripts, at warning level
+  - Bats tests (local) - Runs the shell script tests when shell files or tests change, see `tests/run.sh`
+  - Renovate extraction check (local) - Checks that Renovate still finds every pinned version, when its config or fixtures change
+  - [Ansible-Lint](https://github.com/ansible/ansible-lint) (local, manual) - Lints the playbooks and roles in the execution environment, run by hand as it takes minutes
 
 Not every hook in this list has to be in use: some are only candidates. `.pre-commit-config.yaml` holds the ones that actually run.
 

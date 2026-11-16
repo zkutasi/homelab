@@ -52,5 +52,7 @@ fi
     --extra-args "--become" \
     --extra-args "-e system_upgrade=true" \
     --extra-args "-e kube_version=${KUBE_VERSION}"
+RC=$?
 
-popd
+popd || exit 1
+exit "${RC}"

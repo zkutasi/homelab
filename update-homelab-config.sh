@@ -30,6 +30,8 @@ if [ "${RC}" -ne 0 ]; then
   exit "${RC}"
 fi
 
-pushd "$(git rev-parse --show-toplevel)"/monitoring/uptime/gatus/central
+pushd "$(git rev-parse --show-toplevel)"/monitoring/uptime/gatus/central || exit 1
 ./deploy-k8s.sh
-popd
+RC=$?
+popd || exit 1
+exit "${RC}"

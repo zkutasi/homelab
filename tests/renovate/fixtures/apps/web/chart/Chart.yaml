@@ -1,0 +1,9 @@
+apiVersion: v2
+name: web
+version: 1.0.0
+# renovate: image=ghcr.io/example/web
+appVersion: "1.2.3"
+dependencies:
+  - name: common
+    version: 28.26.3
+    repository: oci://oci.trueforge.org/truecharts

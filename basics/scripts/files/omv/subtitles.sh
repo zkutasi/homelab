@@ -33,7 +33,8 @@ function process_path()
   local path=$1
   local hdd=$2
   while read -r line; do
-    local bn=$(basename "${line}")
+    local bn
+    bn=$(basename "${line}")
     local srtbasename="${line%.*}"
     local substatus=""
     ((count++))

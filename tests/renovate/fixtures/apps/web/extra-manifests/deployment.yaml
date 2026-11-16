@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sidecar
+spec:
+  template:
+    spec:
+      containers:
+        - name: sidecar
+          image: docker.io/example/sidecar:v3.30.2
