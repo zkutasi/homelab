@@ -2,3 +2,5 @@ grafana:
   enabled: false
 victoria-metrics-single:
   enabled: false
+rbac:
+  pspEnabled: false
