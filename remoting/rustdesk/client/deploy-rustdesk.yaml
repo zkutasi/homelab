@@ -14,7 +14,7 @@
   vars:
     requested_binary_repo_version: "rustdesk/rustdesk:1.4.6"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
-    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] | string }}"
     bin_filename: rustdesk
     bin_path: /usr/bin
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\

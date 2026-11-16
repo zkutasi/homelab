@@ -13,7 +13,7 @@
   vars:
     requested_binary_repo_version: "prometheus/node_exporter:1.10.2"
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
-    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] }}"
+    requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] | string }}"
     bin_filename: node_exporter
     service_name: node-exporter
     download_url: "https://github.com/{{ binary_repository }}/releases/download/\
