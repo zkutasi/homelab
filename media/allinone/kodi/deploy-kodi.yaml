@@ -24,6 +24,6 @@
         state: present
     - name: Copy and kodi.desktop autostart
       ansible.builtin.template:
-        src: templates/kodi.desktop.j2
+        src: config/templates/kodi.desktop.j2
         dest: "{{ ansible_user_dir }}/.config/autostart/kodi.desktop"
         mode: "0755"

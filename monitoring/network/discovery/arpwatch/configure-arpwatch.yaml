@@ -4,7 +4,7 @@
   tasks:
     - name: Copy templated out arpwatch config
       ansible.builtin.template:
-        src: iface.j2
+        src: config/templates/iface.j2
         dest: /etc/arpwatch/{{ arpwatch_interface }}.iface
         owner: root
         group: root

@@ -12,7 +12,7 @@
             mode: '0755'
         - name: Create config.json from template
           ansible.builtin.template:
-            src: ../config/config.json.j2
+            src: config/templates/config.json.j2
             dest: "/etc/texporter/config.json"
             mode: '0644'
             owner: root
