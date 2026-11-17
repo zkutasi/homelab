@@ -5,6 +5,8 @@ exclude_paths:
   - automation/ansible/roles/simoncaron.pve_permissions
   - _build
   - tests/renovate/fixtures
+  # Generated from the private inventory by tests/render/make-fake-inventory.sh; only as clean as its source
+  - tests/render/inventory
 skip_list:
   - yaml
   - risky-file-permissions
