@@ -57,7 +57,8 @@ repos:
     rev: v1.36.2
     hooks:
       - id: typos
-        args: ["--force-exclude"]
+        args: ["--force-exclude", "."]
+        pass_filenames: false
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
     hooks:
