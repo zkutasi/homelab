@@ -27,9 +27,7 @@ ca.key
 termix_hosts.json
 cacerts
 autokuma-monitors
-
-# Helm: dependency archives, lock files and interrupted-update leftovers are
-# re-created by `helm dependency update`, never commit them
 **/charts/*.tgz
 **/tmpcharts-*/
 Chart.lock
+security/secret-mgmt/age-sops/.decrypt-all-passed

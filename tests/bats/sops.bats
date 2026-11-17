@@ -168,3 +168,54 @@ setup() {
   run cat app/values-private.yaml
   assert_output "password: rotated"
 }
+
+# --- the record of passed pairs ---
+
+PASSED_FILE=security/secret-mgmt/age-sops/.decrypt-all-passed
+
+@test "--decrypt-all skips pairs unchanged since they passed, and records only checksums" {
+  "${SCRIPT}" --encrypt-all
+  "${SCRIPT}" --decrypt-all
+  run "${SCRIPT}" --decrypt-all
+  assert_success
+  assert_output --partial "Skipped 1 pair(s) unchanged since they last passed."
+  refute_output --partial "No differences found"
+  run grep -c hunter2 "${PASSED_FILE}"
+  assert_output "0"
+}
+
+@test "--decrypt-all checks only the changed pair again, and a stale plaintext keeps failing" {
+  echo "other: value" > app/other-private.yaml
+  "${SCRIPT}" --encrypt-all
+  "${SCRIPT}" --decrypt-all
+  echo "password: edited-but-not-encrypted" > app/values-private.yaml
+  run "${SCRIPT}" --decrypt-all
+  assert_failure 1
+  assert_output --partial "Skipped 1 pair(s) unchanged since they last passed."
+  assert_output --partial "  ${FAKE_REPO}/app/values-private.yaml"
+  run "${SCRIPT}" --decrypt-all
+  assert_failure 1
+  assert_output --partial "  ${FAKE_REPO}/app/values-private.yaml"
+}
+
+@test "--decrypt-all checks a pair again when only its encrypted copy changed" {
+  "${SCRIPT}" --encrypt-all
+  "${SCRIPT}" --decrypt-all
+  echo "password: from-a-pull" > "${BATS_TEST_TMPDIR}/pulled-private.yaml"
+  "${SCRIPT}" --encrypt "${BATS_TEST_TMPDIR}/pulled-private.yaml"
+  cp "${BATS_TEST_TMPDIR}/pulled-private.yaml_encrypted" app/values-private.yaml_encrypted
+  run "${SCRIPT}" --decrypt-all
+  assert_failure 1
+  refute_output --partial "Skipped"
+  assert_output --partial "  ${FAKE_REPO}/app/values-private.yaml"
+}
+
+@test "--decrypt-all checks everything again without its record" {
+  "${SCRIPT}" --encrypt-all
+  "${SCRIPT}" --decrypt-all
+  rm "${PASSED_FILE}"
+  run "${SCRIPT}" --decrypt-all
+  assert_success
+  refute_output --partial "Skipped"
+  assert_output --partial "No differences found between decrypted content and existing file."
+}

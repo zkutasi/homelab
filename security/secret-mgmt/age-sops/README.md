@@ -72,7 +72,7 @@ To encrypt or decrypt, use the helper script `sops.sh`. It always needs a mode, 
 |`sops.sh --encrypt <file>`|Encrypts one file into `<file>_encrypted`|
 |`sops.sh --decrypt <file>_encrypted`|Decrypts one file next to it, without the suffix|
 |`sops.sh --encrypt-all`|Encrypts every private file, skipping the ones whose content did not change|
-|`sops.sh --decrypt-all`|Decrypts every missing plaintext file, and checks the existing ones against their encrypted copy (what the pre-commit hook runs)|
+|`sops.sh --decrypt-all`|Decrypts every missing plaintext file, and checks the existing ones against their encrypted copy (what the pre-commit hook runs). Pairs unchanged since they last passed are skipped: their `sha256sum` lines are kept in the gitignored `.decrypt-all-passed` next to the script; delete it to check everything|
 |`sops.sh --reencrypt-all`|Re-encrypts every encrypted file whose plaintext has changed|
 |`sops.sh --redecrypt-all`|Recreates every plaintext file from its encrypted copy, overwriting local changes|
 

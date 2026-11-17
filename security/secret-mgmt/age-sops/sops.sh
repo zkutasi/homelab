@@ -6,6 +6,8 @@ FILE_TYPE="binary"
 FAILED=0
 MISMATCHES=()
 TMP_DECRYPTED=$(mktemp)
+# --decrypt-all remembers the pairs that passed, as sha256sum lines of both files, and skips them while both are unchanged
+PASSED_FILE="$(dirname "$(realpath "$0")")/.decrypt-all-passed"
 trap 'rm -f "${TMP_DECRYPTED}"' EXIT
 
 function usage() {
@@ -15,7 +17,8 @@ function usage() {
     echo "  --encrypt <file>      Encrypt <file> and save it as '<file>_encrypted'"
     echo "  --decrypt <file>      Decrypt <file> (must end with '_encrypted') and save it without that suffix"
     echo "  --encrypt-all         Encrypt every file with 'private' in its name (except templates and '_encrypted' copies), skipping unchanged ones"
-    echo "  --decrypt-all         Decrypt every '_encrypted' file whose plaintext is missing, and diff-check the existing ones (used by the pre-commit hook)"
+    echo "  --decrypt-all         Decrypt every '_encrypted' file whose plaintext is missing, and diff-check the existing ones (used by the pre-commit hook);"
+    echo "                        pairs unchanged since they last passed are skipped (delete ${PASSED_FILE##*/} next to this script to check all)"
     echo "  --reencrypt-all       Re-encrypt every '_encrypted' file whose plaintext has changed"
     echo "  --redecrypt-all       Overwrite every plaintext file with the decrypted content of its '_encrypted' copy"
     echo "  --help                Show this help"
@@ -181,16 +184,41 @@ elif [ "${MODE}" == "encrypt-all" ]; then
         fi
     done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -size +0c -name "*private*" ! -name "*_encrypted" ! -name "*.j2" -print)
 elif [ "${MODE}" == "decrypt-all" ]; then
-    while read -r line; do
+    mapfile -t ENCRYPTED_FILES < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -name "*_encrypted" -print)
+    declare -A PASSED CURRENT
+    if [ -f "${PASSED_FILE}" ]; then
+        while read -r hash path; do
+            PASSED[${path}]=${hash}
+        done < "${PASSED_FILE}"
+    fi
+    HASHED_FILES=()
+    for encrypted_filename in "${ENCRYPTED_FILES[@]}"; do
+        HASHED_FILES+=("${encrypted_filename}")
+        [ -f "${encrypted_filename%_encrypted}" ] && HASHED_FILES+=("${encrypted_filename%_encrypted}")
+    done
+    if [ ${#HASHED_FILES[@]} -gt 0 ]; then
+        while read -r hash path; do
+            CURRENT[${path}]=${hash}
+        done < <(sha256sum -- "${HASHED_FILES[@]}")
+    fi
+    PASSED_PAIRS=()
+    SKIPPED=0
+    for line in "${ENCRYPTED_FILES[@]}"; do
         encrypted_filename=${line}
         decrypted_filename=${line%_encrypted}
-        if [ -f "${decrypted_filename}" ]; then
+        if [ -f "${decrypted_filename}" ] && [ -n "${PASSED[${encrypted_filename}]}" ] && [ -n "${PASSED[${decrypted_filename}]}" ] \
+            && [ "${PASSED[${encrypted_filename}]}" == "${CURRENT[${encrypted_filename}]}" ] \
+            && [ "${PASSED[${decrypted_filename}]}" == "${CURRENT[${decrypted_filename}]}" ]; then
+            PASSED_PAIRS+=("${encrypted_filename}")
+            SKIPPED=$((SKIPPED + 1))
+        elif [ -f "${decrypted_filename}" ]; then
             echo "WARNING: Decrypted file ${decrypted_filename} already exists. Skipping decryption, but check the diff..."
             decrypt_to_tmp "${encrypted_filename}" || continue
             diff -u "${TMP_DECRYPTED}" "${decrypted_filename}"
             res=$?
             if [ $res -eq 0 ]; then
                 echo "No differences found between decrypted content and existing file."
+                PASSED_PAIRS+=("${encrypted_filename}")
             elif [ $res -eq 1 ]; then
                 echo "Differences found between decrypted content and existing file."
                 MISMATCHES+=("${decrypted_filename}")
@@ -200,7 +228,13 @@ elif [ "${MODE}" == "decrypt-all" ]; then
             echo "Decrypting file: ${encrypted_filename}..."
             sops_decrypt "${encrypted_filename}" "${decrypted_filename}"
         fi
-    done < <(find "$(git rev-parse --show-toplevel)" -name .git -prune -o -type f -name "*_encrypted" -print)
+    done
+    [ "${SKIPPED}" -gt 0 ] && echo "Skipped ${SKIPPED} pair(s) unchanged since they last passed."
+    # Only the pairs that passed now are remembered, so a failed or newly decrypted pair is checked again next time
+    for encrypted_filename in "${PASSED_PAIRS[@]}"; do
+        echo "${CURRENT[${encrypted_filename}]}  ${encrypted_filename}"
+        echo "${CURRENT[${encrypted_filename%_encrypted}]}  ${encrypted_filename%_encrypted}"
+    done > "${PASSED_FILE}"
 elif [ "${MODE}" == "reencrypt-all" ]; then
     while read -r line; do
         encrypted_filename=${line}
