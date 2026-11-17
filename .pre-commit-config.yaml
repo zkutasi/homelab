@@ -18,18 +18,21 @@ repos:
         language: script
         require_serial: true
         files: (\.(sh|bash|bats)$|^tests/)
+        stages: [manual]
       - id: render
         name: Render and check the Docker Apps whose files changed
         entry: tests/run.sh --render --changed
         language: script
         require_serial: true
         files: (^tests/render/|/docker-compose\.yaml\.j2$|/deploy-[^/]*\.yaml$|/config/templates/|^automation/ansible/roles/docker-compose/|^ansible\.cfg$)
+        stages: [manual]
       - id: renovate-extract
         name: Check that Renovate still extracts the fixtures
         entry: tests/run.sh --renovate
         language: script
         pass_filenames: false
         files: ^(renovate\.json|tests/renovate/)
+        stages: [manual]
       - id: ansible-lint
         name: Run ansible-lint in the execution environment (about 5 minutes)
         entry: tests/run.sh --lint
