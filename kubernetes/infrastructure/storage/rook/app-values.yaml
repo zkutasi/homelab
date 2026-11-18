@@ -1,4 +1,6 @@
 cephClusterSpec:
+  mgr:
+    modules: []
   storage:
     useAllNodes: false
     useAllDevices: false
