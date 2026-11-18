@@ -15,8 +15,6 @@ The external access of the services inside the cluster will be provided on the I
 
 ## Prerequisites
 
-- A few IP addresses -> Set them in file `ipaddresspool.yaml`
-
 ## Usage
 
 ### Ansible inventory setup
