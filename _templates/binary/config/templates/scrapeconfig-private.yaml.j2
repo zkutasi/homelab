@@ -11,4 +11,6 @@ spec:
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_<APP_VAR_NAME> }}"]
       labels:
         host: "{{ hostvars[host].id }}"
+{% else %}
+    []
 {% endfor %}

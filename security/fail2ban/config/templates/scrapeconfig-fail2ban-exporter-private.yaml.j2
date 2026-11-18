@@ -11,4 +11,6 @@ spec:
     - targets: ["{{ hostvars[host].ansible_host }}:{{ port_fail2ban_exporter }}"]
       labels:
         host: "{{ hostvars[host].id }}"
+{% else %}
+    []
 {% endfor %}

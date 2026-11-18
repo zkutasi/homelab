@@ -13,4 +13,6 @@ spec:
       labels:
         host: "{{ hostvars[host].id }}"
         ups: "{{ hostvars[host].ups.desc | default('UPS') }}"
+{% else %}
+    []
 {% endfor %}

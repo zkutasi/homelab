@@ -13,4 +13,6 @@ spec:
       labels:
         host: "{{ hostvars[host].id }}"
 {% endif %}
+{% else %}
+    []
 {% endfor %}
