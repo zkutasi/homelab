@@ -46,3 +46,19 @@ borgwarehouse_repos:
         repositoryName: repo19
       - alias: host20
         repositoryName: repo20
+# The live HTTPProxies the Gatus and Uptime Kuma generate playbooks query from the cluster, filtered to those with a
+# virtualhost: one App checked at its root URL and one with its own health endpoint
+contour_endpoints:
+  - metadata:
+      name: app01
+      annotations: {}
+    spec:
+      virtualhost:
+        fqdn: app01.kubernetes.example
+  - metadata:
+      name: app02
+      annotations:
+        homelab/health-endpoint: /health
+    spec:
+      virtualhost:
+        fqdn: app02.kubernetes.example

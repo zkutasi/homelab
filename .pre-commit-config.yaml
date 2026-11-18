@@ -26,6 +26,13 @@ repos:
         require_serial: true
         files: (^tests/render/|/docker-compose\.yaml\.j2$|/deploy-[^/]*\.yaml$|/config/templates/|^automation/ansible/roles/docker-compose/|^ansible\.cfg$)
         stages: [manual]
+      - id: render-k8s
+        name: Generate, render and validate the Kubernetes Apps whose files changed
+        entry: tests/run.sh --render-k8s --changed
+        language: script
+        require_serial: true
+        files: (^tests/render/|^common-[^/]*\.sh$|/deploy-k8s\.sh$|/app-values[^/]*\.yaml$|/extra-manifests/|/config/templates/|/chart/|/kustomization\.yaml$|/generate-configuration\.yaml$|^ansible\.cfg$|^kubernetes/k8s-install/kubespray/run-upgrade\.sh$)
+        stages: [manual]
       - id: renovate-extract
         name: Check that Renovate still extracts the fixtures
         entry: tests/run.sh --renovate

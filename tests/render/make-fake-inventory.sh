@@ -53,9 +53,10 @@ TARGET="${REPO_ROOT}/tests/render/inventory"
 # pass over the strings it applies to; the last pass catches everything no earlier pass produced. Numbers and
 # booleans stay (ports, IDs, flags), except numbers under secret-like keys.
 # yq has neither if/else nor def: STRS (the strings, Jinja expressions excluded) and NAME (a string's own path)
-# are spliced into the expression instead
+# are spliced into the expression instead. NAME uses hyphens only, as dummies end up in DNS names, which can't hold an
+# underscore.
 STRS='(.. | select(tag == "!!str" and (test("[{][{]") | not)))'
-NAME='(path | map(tostring) | join("-") | downcase)'
+NAME='(path | map(tostring) | join("-") | downcase | sub("_"; "-"))'
 DUMMY="
   (${STRS} | select(test(\"^[0-9]{1,3}([.][0-9]{1,3}){3}/[0-9]+$\"))) = \"192.0.2.0/24\" |
   (${STRS} | select(test(\"^[0-9]{1,3}([.][0-9]{1,3}){3}$\"))) = \"192.0.2.10\" |

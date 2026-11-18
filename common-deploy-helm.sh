@@ -11,6 +11,7 @@ DEPLOYMENT_TYPE=helm
 EXTRA_MANIFESTS=1
 EXTRA_VALUES_FILES=()
 FAILED=0
+KUBE_VERSION=
 LATEST=0
 NS=
 POST_RENDERER=
@@ -18,24 +19,27 @@ RELEASE_NAME=
 REPO_NAME=
 REPO_URL=
 TEMPLATE=0
+TEMPLATE_OUTPUT=
 VERSION=
 
 function usage() {
     cat <<EOF
-Usage: $0 --chart-name <chart-name> --namespace <namespace> --release-name <release-name> [--app <app-name>] [--type <helm|truecharts|local>] [--repo-url <repo-url>] [--extra-values <file>] [--latest] [--no-extra-manifests] [--post-renderer <post-renderer>] [--template] [--debug] [--version <version>]
+Usage: $0 --chart-name <chart-name> --namespace <namespace> --release-name <release-name> [--app <app-name>] [--type <helm|truecharts|local>] [--repo-url <repo-url>] [--extra-values <file>] [--latest] [--no-extra-manifests] [--post-renderer <post-renderer>] [--template] [--template-output <file>] [--kube-version <version>] [--debug] [--version <version>]
 
 Options:
   --app <app-name>            Name of the application (default: app)
   --chart-name <chart-name>   Name of the Helm chart (e.g., stable/mychart or oci://oci.trueforge.org/truecharts/<app-name>) (required)
   --debug                     Pass --debug to helm for verbose output
   --extra-values <file>       Additional values file to pass to helm (can be specified multiple times, must exist)
-  --latest                    Use the latest chart version instead of the deployed one (ignored when --version is given)
+  --kube-version <version>    Kubernetes version the chart is templated for (only with --template; an install asks the cluster)
+  --latest                   Use the latest chart version instead of the deployed one (ignored when --version is given)
   --namespace <namespace>     Kubernetes namespace to deploy to (required)
   --no-extra-manifests        Do not apply the ./extra-manifests folder (e.g. when deploying a helper chart for an App)
   --post-renderer <post-renderer> Helm post-renderer script to modify manifests before deployment
   --release-name <release-name> Helm release name (required)
   --repo-url <repo-url>       URL of the Helm chart repository (required for helm deployment type)
   --template                  Template out the results for testing, do not deploy
+  --template-output <file>    Like --template, but write the rendered YAML into the file instead of stdout
   --type <type>               Type of deployment. Can be either of the following:
                                 - helm         : for public Helm charts (default)
                                 - truecharts   : for existing Truecharts helm chart
@@ -72,6 +76,11 @@ while [ $# -ge 1 ]; do
       shift
       EXTRA_VALUES_FILES+=("$1")
       ;;
+    --kube-version)
+      require_value "$1" "$2"
+      shift
+      KUBE_VERSION=$1
+      ;;
     --latest)
       LATEST=1
       ;;
@@ -100,6 +109,12 @@ while [ $# -ge 1 ]; do
       ;;
     --template)
       TEMPLATE=1
+      ;;
+    --template-output)
+      require_value "$1" "$2"
+      shift
+      TEMPLATE=1
+      TEMPLATE_OUTPUT=$1
       ;;
     --type)
       require_value "$1" "$2"
@@ -197,8 +212,13 @@ fi
 [ -z "${VERSION}" ] && echo "ERROR: No version specified" && exit 1
 
 if [ "${DEPLOYMENT_TYPE}" == "local" ]; then
-  echo "Running helm dependency update for local helm chart..."
-  helm dependency update "${CHART_NAME}"
+  DEPENDENCIES=$(helm dependency list "${CHART_NAME}" 2>&1)
+  if [ $? -ne 0 ] || awk 'NR > 1 && NF && $0 !~ /[[:space:]]ok[[:space:]]*$/ { found = 1 } END { exit !found }' <<< "${DEPENDENCIES}"; then
+    echo "INFO: Running helm dependency update for the local chart..."
+    helm dependency update "${CHART_NAME}"
+  else
+    echo "INFO: The local chart's dependencies are in place"
+  fi
 fi
 
 CMD=("${RELEASE_NAME}" "${CHART_NAME}"
@@ -221,9 +241,15 @@ if [ "${TEMPLATE}" -eq 0 ]; then
 else
   echo "Template out the result..."
   CMD=(helm template "${CMD[@]}")
+  [ -n "${KUBE_VERSION}" ] && CMD+=(--kube-version "${KUBE_VERSION}")
 fi
 echo "Executing command: ${CMD[*]}"
-if ! "${CMD[@]}"; then
+if [ -n "${TEMPLATE_OUTPUT}" ]; then
+  if ! "${CMD[@]}" > "${TEMPLATE_OUTPUT}"; then
+    echo "ERROR: helm failed"
+    exit 1
+  fi
+elif ! "${CMD[@]}"; then
   echo "ERROR: helm failed, not applying anything else"
   exit 1
 fi

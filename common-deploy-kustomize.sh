@@ -2,12 +2,16 @@
 
 NS=
 FAILED=0
+TEMPLATE=0
+TEMPLATE_OUTPUT=
 
 function usage() {
-    echo "Usage: $0 --namespace <namespace>"
+    echo "Usage: $0 --namespace <namespace> [--template] [--template-output <file>]"
     echo ""
     echo "Options:"
     echo "  --namespace <namespace>   Specify the Kubernetes namespace to deploy to (required)"
+    echo "  --template                Print the rendered kustomization for testing, do not deploy"
+    echo "  --template-output <file>  Like --template, but write the rendered YAML into the file instead of stdout"
 }
 
 function require_value() {
@@ -25,6 +29,15 @@ while [ $# -ge 1 ]; do
       shift
       NS=$1
       ;;
+    --template)
+      TEMPLATE=1
+      ;;
+    --template-output)
+      require_value "$1" "$2"
+      shift
+      TEMPLATE=1
+      TEMPLATE_OUTPUT=$1
+      ;;
     --help)
       usage
       exit 0
@@ -39,6 +52,17 @@ while [ $# -ge 1 ]; do
 done
 
 [ -z "${NS}" ] && echo "ERROR: No namespace specified" && exit 1
+
+if [ "${TEMPLATE}" -eq 1 ]; then
+  CMD=(kubectl kustomize .)
+  echo "Executing command: ${CMD[*]}"
+  if [ -n "${TEMPLATE_OUTPUT}" ]; then
+    "${CMD[@]}" > "${TEMPLATE_OUTPUT}"
+  else
+    "${CMD[@]}"
+  fi
+  exit
+fi
 
 echo "Ensure namespace $NS exists..."
 kubectl get namespace "$NS" >/dev/null 2>&1 || kubectl create namespace "$NS"

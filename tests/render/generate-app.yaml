@@ -1,0 +1,24 @@
+# Renders the private files of one Kubernetes App the way its generate-configuration.yaml does. Included by the
+# playbook tests/render/render-k8s.sh generates in the App's copied folder; render_app_dir is the App's folder,
+# render_templates the playbook's template tasks (src and dest, relative to the App's folder). Everything is rendered
+# with lookups into the render_results fact, as module runs cost about half a second each. The last play of the run
+# writes all results.
+- name: Render the App's private files
+  block:
+    - name: Render the templates
+      ansible.builtin.set_fact:
+        render_files: "{{ render_files | default({}) | combine({item.dest: lookup('ansible.builtin.template',
+            '/work/repo/' ~ render_app_dir ~ '/' ~ item.src, convert_data=False)}) }}"
+      loop: "{{ render_templates }}"
+    - name: Record the files
+      ansible.builtin.set_fact:
+        render_results: "{{ render_results | default({}) | combine({render_app_dir: {'files': render_files | default({})}}) }}"
+  rescue:
+    - name: Record the failure
+      ansible.builtin.set_fact:
+        render_results: "{{ render_results | default({}) | combine({render_app_dir: {
+            'error': ansible_failed_task.name ~ ': ' ~ (ansible_failed_result.msg | default('unknown error'))}}) }}"
+  always:
+    - name: Start the next App with no files
+      ansible.builtin.set_fact:
+        render_files: {}

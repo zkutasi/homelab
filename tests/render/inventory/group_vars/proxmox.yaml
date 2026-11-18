@@ -1,4 +1,4 @@
-gotify_token: gotify_token
-hdsentinel_dir: "/srv/hdsentinel_dir"
+gotify_token: gotify-token
+hdsentinel_dir: "/srv/hdsentinel-dir"
 node_exporter_textfiles_dir: "{{ ansible_user_dir }}/node-exporter/textfiles"
-pushover_token: pushover_token
+pushover_token: pushover-token

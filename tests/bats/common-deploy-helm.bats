@@ -14,8 +14,10 @@ setup() {
   cd "${APP_DIR}" || exit 1
   # The helm stub answers from these variables:
   #   HELM_REPOS (repo list output), HELM_DEPLOYED (deployed version, empty: not installed),
-  #   HELM_LATEST (latest chart version), HELM_VALUES (computed release values), HELM_FAIL (sub-command that fails)
+  #   HELM_LATEST (latest chart version), HELM_VALUES (computed release values), HELM_FAIL (sub-command that fails),
+  #   HELM_DEPS (dependency list output, escapes allowed)
   export HELM_REPOS="" HELM_DEPLOYED="" HELM_LATEST="9.9.9" HELM_VALUES="{}" HELM_FAIL=""
+  export HELM_DEPS="NAME  \tVERSION\tREPOSITORY                    \tSTATUS\ncommon\t28.0.0 \toci://oci.trueforge.org/common\tok    \n"
   make_stub_script helm '
 args=" $* "
 if [ -n "${HELM_FAIL}" ] && [[ "${args}" == *" ${HELM_FAIL} "* ]]; then exit 1; fi
@@ -24,6 +26,7 @@ case "${args}" in
   *" get metadata "*) [ -n "${HELM_DEPLOYED}" ] || exit 1; printf "NAME: x\nVERSION: %s\n" "${HELM_DEPLOYED}" ;;
   *" show chart "*) printf "name: chart\nversion: %s\n" "${HELM_LATEST}" ;;
   *" get values "*) echo "${HELM_VALUES}" ;;
+  *" dependency list "*) printf "%b" "${HELM_DEPS}" ;;
   *" template "*) echo "kind: PrometheusRule" ;;
 esac
 exit 0'
@@ -55,7 +58,8 @@ function deploy() {
 
 @test "options that need a value refuse a missing value" {
   local option
-  for option in --app --chart-name --extra-values --namespace --post-renderer --release-name --repo-url --type --version; do
+  for option in --app --chart-name --extra-values --kube-version --namespace --post-renderer --release-name --repo-url \
+      --template-output --type --version; do
     run "${HELPER}" "${option}"
     assert_failure 1
     assert_output --partial "ERROR: ${option} needs a value"
@@ -182,13 +186,30 @@ function deploy() {
   assert_output --partial "ERROR: No version specified"
 }
 
-@test "a local chart gets its dependencies updated and the version 'local'" {
+@test "a local chart whose dependencies are all in place skips the download and gets the version 'local'" {
   run "${HELPER}" --type local --chart-name ./chart --namespace web --release-name web
   assert_success
-  assert_stub_called "helm dependency update ./chart"
+  assert_stub_called "helm dependency list ./chart"
+  assert_stub_not_called "helm dependency update"
   assert_stub_called "helm upgrade --install web ./chart --version local --namespace web --create-namespace"
   run grep -c "get metadata" "${STUB_LOG}"
   assert_output "0"
+}
+
+@test "a local chart gets its dependencies downloaded when one is missing, at another version, or the listing fails" {
+  local case
+  for case in missing "wrong version" "list fails"; do
+    : > "${STUB_LOG}"
+    if [ "${case}" = "list fails" ]; then
+      export HELM_FAIL="dependency list"
+    else
+      export HELM_FAIL="" HELM_DEPS="NAME  \tVERSION\tREPOSITORY\tSTATUS\ncommon\t28.0.0 \toci://x\tok\nother\t1.0.0\toci://y\t${case}\n"
+    fi
+    run "${HELPER}" --type local --chart-name ./chart --namespace web --release-name web
+    assert_success
+    assert_stub_called "helm dependency update ./chart"
+    assert_stub_called "helm upgrade --install web ./chart --version local --namespace web --create-namespace"
+  done
 }
 
 # --- the helm command ---
@@ -205,6 +226,27 @@ function deploy() {
   assert_success
   assert_stub_called "helm template web oci://registry.example.com/charts/web --version 1.0.0 --namespace web --create-namespace"
   assert_stub_not_called kubectl
+}
+
+@test "--template-output writes the render into the file instead of stdout, and applies nothing" {
+  mkdir extra-manifests && touch extra-manifests/a.yaml
+  deploy --version 1.0.0 --template-output "${BATS_TEST_TMPDIR}/render.yaml"
+  assert_success
+  refute_output --partial "kind: PrometheusRule"
+  assert_stub_called "helm template web oci://registry.example.com/charts/web --version 1.0.0 --namespace web --create-namespace"
+  assert_stub_not_called kubectl
+  run cat "${BATS_TEST_TMPDIR}/render.yaml"
+  assert_output "kind: PrometheusRule"
+}
+
+@test "--kube-version is passed to helm template, and ignored by an install" {
+  deploy --version 1.0.0 --template --kube-version 1.34.3
+  assert_success
+  assert_stub_called "helm template web oci://registry.example.com/charts/web --version 1.0.0 --namespace web --create-namespace --kube-version 1.34.3"
+  : > "${STUB_LOG}"
+  deploy --version 1.0.0 --kube-version 1.34.3
+  assert_success
+  assert_stub_called "helm upgrade --install web oci://registry.example.com/charts/web --version 1.0.0 --namespace web --create-namespace"
 }
 
 @test "--template without --version doesn't ask the cluster" {

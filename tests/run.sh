@@ -4,7 +4,7 @@
 BATS_VERSION="1.14.0"
 
 function usage() {
-    echo "Usage: $0 [--lint | --renovate | --render] [--changed <file>...] [--list] [<bats file or folder>...]"
+    echo "Usage: $0 [--lint | --renovate | --render | --render-k8s] [--changed <file>...] [--list] [<bats file or folder>...]"
     echo ""
     echo "Runs the bats tests in a container (all of tests/bats by default), ansible-lint in the Ansible execution environment,"
     echo "or a check that Renovate still extracts every dependency from tests/renovate/fixtures."
@@ -17,6 +17,8 @@ function usage() {
     echo "  --lint        Run ansible-lint on the whole repository inside the execution environment, instead of the tests"
     echo "  --render      Render the Docker Apps against the fake inventory and check them (tests/render/render.sh);"
     echo "                with --changed, only the Apps the changed files belong to"
+    echo "  --render-k8s  Generate, render and validate the Kubernetes Apps against the fake inventory"
+    echo "                (tests/render/render-k8s.sh); with --changed, only the Apps the changed files belong to"
     echo "  --renovate    Run Renovate's extract-only dry run on the fixtures and compare it with tests/renovate/expected.tsv"
 }
 
@@ -24,6 +26,7 @@ CHANGED=0
 LINT=0
 LIST=0
 RENDER=0
+RENDER_K8S=0
 RENOVATE=0
 TARGETS=()
 while [ $# -ge 1 ]; do
@@ -44,6 +47,9 @@ while [ $# -ge 1 ]; do
     --render)
       RENDER=1
       ;;
+    --render-k8s)
+      RENDER_K8S=1
+      ;;
     --renovate)
       RENOVATE=1
       ;;
@@ -63,14 +69,14 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 TTY=()
 [ -t 1 ] && TTY=(-t)
 
-if [ $((LINT + RENOVATE + RENDER)) -gt 1 ] || [ $((LINT + RENOVATE + CHANGED)) -gt 1 ]; then
-  echo "ERROR: --lint, --renovate and --render can't be combined, nor --lint and --renovate with --changed"
+if [ $((LINT + RENOVATE + RENDER + RENDER_K8S)) -gt 1 ] || [ $((LINT + RENOVATE + CHANGED)) -gt 1 ]; then
+  echo "ERROR: --lint, --renovate, --render and --render-k8s can't be combined, nor --lint and --renovate with --changed"
   usage
   exit 1
 fi
-if [ $((LINT + RENOVATE)) -gt 0 ] || { [ "${RENDER}" -eq 1 ] && [ "${CHANGED}" -eq 0 ]; }; then
+if [ $((LINT + RENOVATE)) -gt 0 ] || { [ $((RENDER + RENDER_K8S)) -gt 0 ] && [ "${CHANGED}" -eq 0 ]; }; then
   if [ "${#TARGETS[@]}" -gt 0 ]; then
-    echo "ERROR: --lint, --renovate and --render take no test files (--render takes changed files with --changed)"
+    echo "ERROR: --lint, --renovate, --render and --render-k8s take no test files (the renders take changed files with --changed)"
     usage
     exit 1
   fi
@@ -81,6 +87,13 @@ if [ "${RENDER}" -eq 1 ]; then
     exec "${REPO_ROOT}/tests/render/render.sh" --changed "${TARGETS[@]}"
   fi
   exec "${REPO_ROOT}/tests/render/render.sh"
+fi
+
+if [ "${RENDER_K8S}" -eq 1 ]; then
+  if [ "${CHANGED}" -eq 1 ]; then
+    exec "${REPO_ROOT}/tests/render/render-k8s.sh" --changed "${TARGETS[@]}"
+  fi
+  exec "${REPO_ROOT}/tests/render/render-k8s.sh"
 fi
 
 if [ "${RENOVATE}" -eq 1 ]; then

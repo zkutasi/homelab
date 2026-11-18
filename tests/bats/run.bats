@@ -100,3 +100,18 @@ tests/bats/wrappers.bats"
   assert_failure 1
   assert_output --partial "take no test files"
 }
+
+@test "--render-k8s hands over to the Kubernetes render tests, with the changed files when given" {
+  write_stub "${FAKE_REPO}/tests/render/render-k8s.sh"
+  run "${RUNNER}" --render-k8s
+  assert_success
+  run "${RUNNER}" --render-k8s --changed apps/web/app-values.yaml
+  assert_success
+  assert_stub_calls "render-k8s.sh" "render-k8s.sh --changed apps/web/app-values.yaml"
+  run "${RUNNER}" --render-k8s some.bats
+  assert_failure 1
+  assert_output --partial "take no test files"
+  run "${RUNNER}" --render-k8s --render
+  assert_failure 1
+  assert_output --partial "can't be combined"
+}

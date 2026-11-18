@@ -1,0 +1,3 @@
+# Accepted deviations from the Kubernetes App rules that tests/render/check-k8s-conventions.sh checks (tab-separated):
+# App folder, object (kind/name), rule, reason. Each entry was decided on its own.
+storage/databases/portabase/central	HTTPProxy/portabase-httpproxy	health-endpoint	checked at Portabase's health API instead of its root page since the annotation was introduced (6bda20c0); the original reason wasn't recorded

@@ -55,6 +55,37 @@ exit 0'
   assert_stub_not_called "kubectl apply -f"
 }
 
+@test "kustomize: --template only prints the kustomization, without touching the cluster" {
+  mkdir -p extra-manifests && touch extra-manifests/a.yaml
+  run "${FAKE_REPO}/common-deploy-kustomize.sh" --namespace web --template
+  assert_success
+  assert_stub_calls "kubectl kustomize ."
+}
+
+@test "kustomize: --template-output writes the render into the file instead of stdout" {
+  make_stub_script kubectl 'echo "kind: ConfigMap"'
+  run "${FAKE_REPO}/common-deploy-kustomize.sh" --namespace web --template-output "${BATS_TEST_TMPDIR}/render.yaml"
+  assert_success
+  refute_output --partial "kind: ConfigMap"
+  assert_stub_calls "kubectl kustomize ."
+  run cat "${BATS_TEST_TMPDIR}/render.yaml"
+  assert_output "kind: ConfigMap"
+}
+
+@test "kustomize: --template-output needs a value" {
+  run "${FAKE_REPO}/common-deploy-kustomize.sh" --namespace web --template-output
+  assert_failure 1
+  assert_output --partial "ERROR: --template-output needs a value"
+  assert_stub_not_called kubectl
+}
+
+@test "kustomize: a failed --template render fails" {
+  export KUBECTL_FAIL="kustomize"
+  run "${FAKE_REPO}/common-deploy-kustomize.sh" --namespace web --template
+  assert_failure 1
+  assert_stub_calls "kubectl kustomize ."
+}
+
 @test "kustomize: undeploy deletes the kustomization, the extra manifests and the namespace" {
   mkdir -p extra-manifests && touch extra-manifests/a.yaml
   run "${FAKE_REPO}/common-undeploy-kustomize.sh" --namespace web

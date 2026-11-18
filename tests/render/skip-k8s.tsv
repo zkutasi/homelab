@@ -1,0 +1,5 @@
+# Kubernetes Apps the render tests skip, with the reason (tab-separated): App folder, reason
+monitoring/uptime/uptimekuma/central	its monitor files are generated per host and per live HTTPProxy, in loops the harness doesn't follow; no longer in use (items 208, 249)
+monitoring/image-version-checker/cupdate	its kustomization pulls a remote git base from GitHub, which needs a real git in the render container (item 249)
+security/wazuh/central	its wrapper clones the upstream wazuh-kubernetes repository and generates certificates before rendering (item 249)
+media/music/navidrome	its values read a specific host's variables (hostvars['htpc']), which the fake inventory's generic hosts don't have (item 239)

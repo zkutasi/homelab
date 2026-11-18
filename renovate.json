@@ -54,12 +54,13 @@
     },
     {
       "customType": "regex",
-      "description": "Any VAR=version line preceded by a '# renovate: datasource=... depName=...' annotation",
+      "description": "Any VAR=version line preceded by a '# renovate: datasource=... depName=...' annotation, or a VAR=<git commit> line whose annotation names the branch it follows with currentValue=...",
       "managerFilePatterns": [
         "/\\.sh$/"
       ],
       "matchStrings": [
-        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(\\s+registryUrl=(?<registryUrl>\\S+))?(\\s+extractVersion=(?<extractVersion>\\S+))?\\s*\\n[A-Z_]+=\"?(?<currentValue>[^\"\\s#]+)\"?"
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)(\\s+registryUrl=(?<registryUrl>\\S+))?(\\s+extractVersion=(?<extractVersion>\\S+))?\\s*\\n[A-Z_]+=\"?(?<currentValue>[^\"\\s#]+)\"?",
+        "#\\s*renovate:\\s*datasource=(?<datasource>\\S+)\\s+depName=(?<depName>\\S+)\\s+currentValue=(?<currentValue>\\S+)\\s*\\n[A-Z_]+=\"?(?<currentDigest>[0-9a-f]{40})\"?"
       ]
     },
     {
