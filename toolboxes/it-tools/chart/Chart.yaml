@@ -1,6 +1,6 @@
 apiVersion: v2
 # renovate: image=sharevb/it-tools
-appVersion: 2025.10.12
+appVersion: 2026.10.25
 dependencies:
   - name: common
     version: 28.26.3
