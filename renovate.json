@@ -86,6 +86,19 @@
       "datasourceTemplate": "pypi"
     },
     {
+      "description": "Exact pip pins in an execution environment definition's python list (name==version, extras allowed)",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)execution-environment\\.ya?ml$/"
+      ],
+      "matchStringsStrategy": "recursive",
+      "matchStrings": [
+        "\\n\\s+python:\\s*\\n(?:\\s+-[^\\n]*\\n)+",
+        "\\n\\s+-\\s+(?<depName>[A-Za-z0-9._-]+)(?:\\[[^\\]\\n]*\\])?==(?<currentValue>[^\\s\"#]+)"
+      ],
+      "datasourceTemplate": "pypi"
+    },
+    {
       "description": "pipx packages pinned as pkg==version in a pipx_packages list",
       "customType": "regex",
       "managerFilePatterns": [

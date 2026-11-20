@@ -14,7 +14,11 @@ pre-commit	.pre-commit-config.yaml	adrienverge/yamllint	v1.37.1	github-tags	-
 regex	apps/remote/deploy-k8s.sh	ghcr.io/example/charts/remote	0.9.1	docker	-
 regex	apps/web/chart/Chart.yaml	ghcr.io/example/web	1.2.3	docker	-
 regex	apps/web/deploy-k8s.sh	example-chart	4.5.6	helm	-
+regex	ee/execution-environment.yaml	ansible-core	2.17.14	pypi	-
 regex	ee/execution-environment.yaml	ansible-runner	2.4.3	pypi	-
+regex	ee/execution-environment.yaml	example-extras	4.5.6	pypi	-
+regex	ee/execution-environment.yaml	example-pinned	1.2.3	pypi	-
+regex	ee/execution-environment.yaml	example-range	2.0.1	pypi	-
 regex	ee/execution-environment.yaml	ghcr.io/ansible-community/community-ee-base	2.21.5-2	docker	digest
 regex	tools/deploy-tool.yaml	example/tool	1.10.2	github-releases	-
 regex	tools/deploy-tools.sh	ansible-navigator	26.11.0	pypi	-
