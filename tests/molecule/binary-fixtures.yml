@@ -1,0 +1,23 @@
+- name: Serve the fake binaries for the binary-install and binary-remove scenarios
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Build the fake binaries and archives
+      ansible.builtin.script:
+        cmd: build-binary-fixtures.sh
+        creates: /srv/fixtures
+    - name: Serve them on localhost
+      ansible.builtin.command:
+        cmd: systemd-run --unit fixture-http python3 -m http.server 8080 --bind 127.0.0.1 --directory /srv/fixtures
+        creates: /run/systemd/transient/fixture-http.service
+    - name: Wait for the server
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 8080
+        timeout: 30
+    # Like the folder of a tool that lives outside the PATH, which the host already has
+    - name: Create the zip case's binary folder
+      ansible.builtin.file:
+        path: /opt/fake-zip
+        state: directory
+        mode: "0755"

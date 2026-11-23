@@ -1,0 +1,24 @@
+- name: Verify check mode installed nothing
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Look for the binaries and the service
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - /usr/local/bin/fake-tar
+        - /opt/fake-zip/fake-zip
+        - /usr/local/bin/fake-bare
+        - /usr/local/bin/fake-noversion
+        - /usr/local/bin/fake-svc
+        - /etc/systemd/system/fake-svc.service
+        - /opt/fake-pkg
+      register: leftovers
+    - name: Check none of them exist
+      ansible.builtin.assert:
+        that: not item.stat.exists
+        fail_msg: "{{ item.item }} was created in check mode"
+        quiet: true
+      loop: "{{ leftovers.results }}"
+      loop_control:
+        label: "{{ item.item }}"

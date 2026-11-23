@@ -1,0 +1,20 @@
+- name: Case signed repository with its key
+  hosts: all
+  roles:
+    - package-install
+  vars:
+    gpg_dearmor: true
+    gpg_project_name: fake-signed
+    gpg_key_url: http://127.0.0.1:8080/key.asc
+    gpg_signed_repo: "http://127.0.0.1:8080/signed ./"
+    packages:
+      - fake-signed
+- name: Case added repository, packages with a dependency
+  hosts: all
+  roles:
+    - package-install
+  vars:
+    apt_add_repo: "deb [trusted=yes] http://127.0.0.1:8080/plain ./"
+    packages:
+      - fake-plain
+      - fake-extra

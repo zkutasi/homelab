@@ -1,0 +1,32 @@
+- name: Verify the binary extracted with 7z
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the binary's version
+      ansible.builtin.command:
+        cmd: /opt/fake-zip/fake-zip -h
+      register: version
+      changed_when: false
+    - name: Read the binary's file
+      ansible.builtin.stat:
+        path: /opt/fake-zip/fake-zip
+      register: binary
+    - name: Look for unzip and leftover temporary folders
+      ansible.builtin.find:
+        paths: /tmp
+        patterns: "*fake-zip*"
+        file_type: any
+      register: leftovers
+    - name: Read whether unzip is there
+      ansible.builtin.stat:
+        path: /usr/bin/unzip
+      register: unzip
+    - name: Check the binary, and that unzip stayed absent and nothing was left behind
+      ansible.builtin.assert:
+        that:
+          - "'console 0.20c' in version.stdout"
+          - binary.stat.mode == "0755"
+          - binary.stat.pw_name == "root"
+          - not unzip.stat.exists
+          - leftovers.matched == 0
+        quiet: true

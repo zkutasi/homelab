@@ -1,0 +1,12 @@
+- name: Case zip on a host without unzip
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.20c"
+    bin_filename: fake-zip
+    bin_path: /opt/fake-zip
+    download_url: "http://127.0.0.1:8080/fake-zip/{{ requested_binary_version }}/fake-zip-x64.zip"
+    decompression_options: []
+    version_flag: "-h"

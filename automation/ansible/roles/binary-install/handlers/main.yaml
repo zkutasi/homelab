@@ -1,6 +1,7 @@
+# Check mode doesn't write the unit file, so systemd can't know a new service yet
 - name: Restart the service
   become: true
   ansible.builtin.systemd_service:
     name: "{{ service_name }}"
     state: restarted
-  when: service_name | length > 0
+  when: service_name | length > 0 and not (ansible_check_mode and binary_service_unit is changed)

@@ -1,0 +1,11 @@
+- name: Serve the fixtures
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/binary-fixtures.yml
+# Like a NAS appliance that ships 7z but no unzip
+- name: Remove unzip
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Remove the unzip package
+      ansible.builtin.command:
+        cmd: dpkg --purge unzip
+        removes: /usr/bin/unzip

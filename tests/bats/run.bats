@@ -115,3 +115,16 @@ tests/bats/wrappers.bats"
   assert_failure 1
   assert_output --partial "can't be combined"
 }
+
+@test "--molecule hands over to the Molecule runner, with --changed, --list and the roles when given" {
+  write_stub "${FAKE_REPO}/tests/molecule/molecule.sh"
+  run "${RUNNER}" --molecule binary-install
+  assert_success
+  run "${RUNNER}" --molecule --list --changed automation/ansible/roles/binary-install/tasks/main.yaml
+  assert_success
+  assert_stub_calls "molecule.sh binary-install" \
+    "molecule.sh --changed --list automation/ansible/roles/binary-install/tasks/main.yaml"
+  run "${RUNNER}" --molecule --lint
+  assert_failure 1
+  assert_output --partial "can't be combined"
+}

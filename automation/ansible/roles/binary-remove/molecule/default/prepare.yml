@@ -1,0 +1,24 @@
+- name: Serve the fixtures
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/binary-fixtures.yml
+- name: Install what the converge removes
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install fake-svc as a service
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "2.0.0"
+        bin_filename: fake-svc
+        download_url: "http://127.0.0.1:8080/fake-svc/2.0.0/fake-svc"
+        compressed: false
+        service_name: fake-svc
+        bin_serviceparams: serve
+    - name: Install fake-bare
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "2.0.0"
+        bin_filename: fake-bare
+        download_url: "http://127.0.0.1:8080/fake-bare/2.0.0/fake-bare"
+        compressed: false

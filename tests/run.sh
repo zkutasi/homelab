@@ -5,6 +5,7 @@ BATS_VERSION="1.14.0"
 
 function usage() {
     echo "Usage: $0 [--lint | --renovate | --render | --render-k8s] [--changed <file>...] [--list] [<bats file or folder>...]"
+    echo "       $0 --molecule [--changed <file>... | --list] [<role>...]"
     echo ""
     echo "Runs the bats tests in a container (all of tests/bats by default), ansible-lint in the Ansible execution environment,"
     echo "or a check that Renovate still extracts every dependency from tests/renovate/fixtures."
@@ -15,6 +16,8 @@ function usage() {
     echo "  --help        Display this help message"
     echo "  --list        Only print which test files would run"
     echo "  --lint        Run ansible-lint on the whole repository inside the execution environment, instead of the tests"
+    echo "  --molecule    Run the Molecule scenarios of the given roles, or of all roles that have some, in the execution"
+    echo "                environment (tests/molecule/molecule.sh); with --changed, only those of the changed roles"
     echo "  --render      Render the Docker Apps against the fake inventory and check them (tests/render/render.sh);"
     echo "                with --changed, only the Apps the changed files belong to"
     echo "  --render-k8s  Generate, render and validate the Kubernetes Apps against the fake inventory"
@@ -25,6 +28,7 @@ function usage() {
 CHANGED=0
 LINT=0
 LIST=0
+MOLECULE=0
 RENDER=0
 RENDER_K8S=0
 RENOVATE=0
@@ -43,6 +47,9 @@ while [ $# -ge 1 ]; do
       ;;
     --list)
       LIST=1
+      ;;
+    --molecule)
+      MOLECULE=1
       ;;
     --render)
       RENDER=1
@@ -69,8 +76,8 @@ REPO_ROOT=$(git rev-parse --show-toplevel)
 TTY=()
 [ -t 1 ] && TTY=(-t)
 
-if [ $((LINT + RENOVATE + RENDER + RENDER_K8S)) -gt 1 ] || [ $((LINT + RENOVATE + CHANGED)) -gt 1 ]; then
-  echo "ERROR: --lint, --renovate, --render and --render-k8s can't be combined, nor --lint and --renovate with --changed"
+if [ $((LINT + RENOVATE + RENDER + RENDER_K8S + MOLECULE)) -gt 1 ] || [ $((LINT + RENOVATE + CHANGED)) -gt 1 ]; then
+  echo "ERROR: --lint, --renovate, --render, --render-k8s and --molecule can't be combined, nor --lint and --renovate with --changed"
   usage
   exit 1
 fi
@@ -80,6 +87,13 @@ if [ $((LINT + RENOVATE)) -gt 0 ] || { [ $((RENDER + RENDER_K8S)) -gt 0 ] && [ "
     usage
     exit 1
   fi
+fi
+
+if [ "${MOLECULE}" -eq 1 ]; then
+  OPTIONS=()
+  [ "${CHANGED}" -eq 1 ] && OPTIONS+=(--changed)
+  [ "${LIST}" -eq 1 ] && OPTIONS+=(--list)
+  exec "${REPO_ROOT}/tests/molecule/molecule.sh" "${OPTIONS[@]}" "${TARGETS[@]}"
 fi
 
 if [ "${RENDER}" -eq 1 ]; then

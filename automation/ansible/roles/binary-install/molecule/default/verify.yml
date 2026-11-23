@@ -1,0 +1,81 @@
+- name: Verify the installed binaries
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the binaries' versions
+      ansible.builtin.command:
+        cmd: "{{ item.cmd }}"
+      loop:
+        - { cmd: /usr/local/bin/fake-tar --version, expected: "fake-tar version v2.0.0" }
+        - { cmd: /opt/fake-zip/fake-zip -h, expected: "console 0.20c" }
+        - { cmd: /usr/local/bin/fake-bare --version, expected: "fake-bare 2.0.0" }
+        - { cmd: /usr/local/bin/fake-svc --version, expected: "fake-svc 2.0.0" }
+        - { cmd: /opt/fake-pkg/bin/fake-pkgd -V, expected: "agent v2.0.0" }
+      loop_control:
+        label: "{{ item.cmd }}"
+      register: versions
+      changed_when: false
+    - name: Check the versions
+      ansible.builtin.assert:
+        that: item.item.expected in (item.stdout ~ item.stderr)
+        fail_msg: "{{ item.item.cmd }} printed '{{ item.stdout ~ item.stderr }}', expected '{{ item.item.expected }}'"
+        quiet: true
+      loop: "{{ versions.results }}"
+      loop_control:
+        label: "{{ item.item.cmd }}"
+    - name: Read the binaries' files
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - /usr/local/bin/fake-tar
+        - /opt/fake-zip/fake-zip
+        - /usr/local/bin/fake-bare
+        - /usr/local/bin/fake-noversion
+        - /usr/local/bin/fake-svc
+      register: binaries
+    - name: Check they are executable files owned by root
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.isreg
+          - item.stat.mode == "0755"
+          - item.stat.pw_name == "root"
+        quiet: true
+      loop: "{{ binaries.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+    - name: Look for the tar.gz's other file
+      ansible.builtin.stat:
+        path: /usr/local/bin/README.md
+      register: readme
+    - name: Check only the binary was extracted
+      ansible.builtin.assert:
+        that: not readme.stat.exists
+        quiet: true
+    - name: Read the package's version
+      ansible.builtin.command:
+        cmd: dpkg-query --showformat=${Version} --show fake-pkg
+      register: package_version
+      changed_when: false
+    - name: Check the package was updated
+      ansible.builtin.assert:
+        that: package_version.stdout == "2.0.0"
+        quiet: true
+    - name: Read the service's state
+      ansible.builtin.systemd_service:
+        name: fake-svc
+      register: service
+    - name: Read what the running service reports
+      ansible.builtin.slurp:
+        src: /run/fake-svc.version
+      register: service_report
+    - name: Check the service runs the new version with its environment, enabled
+      ansible.builtin.assert:
+        that:
+          - service.status.ActiveState == "active"
+          - service.status.UnitFileState == "enabled"
+          - (service_report.content | b64decode | trim) == "2.0.0 hello"
+        fail_msg: >-
+          state {{ service.status.ActiveState }}/{{ service.status.UnitFileState }},
+          the service reports '{{ service_report.content | b64decode | trim }}'
+        quiet: true

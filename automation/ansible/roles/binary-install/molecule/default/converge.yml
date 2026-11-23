@@ -1,0 +1,70 @@
+# One play per case, so the check-mode scenario can tell the cases apart in its report
+- name: Case tar.gz with a top folder
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "2.0.0"
+    bin_filename: fake-tar
+    download_url: "http://127.0.0.1:8080/fake-tar/{{ requested_binary_version }}/fake-tar_linux_amd64.tar.gz"
+- name: Case zip with the binary at its top level and a letter-suffixed version
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "0.20c"
+    bin_filename: fake-zip
+    bin_path: /opt/fake-zip
+    download_url: "http://127.0.0.1:8080/fake-zip/{{ requested_binary_version }}/fake-zip-x64.zip"
+    decompression_options: []
+    version_flag: "-h"
+- name: Case bare binary printing its version on stderr
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "2.0.0"
+    bin_filename: fake-bare
+    download_url: "http://127.0.0.1:8080/fake-bare/{{ requested_binary_version }}/fake-bare"
+    compressed: false
+- name: Case binary without version information
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "1.0.0"
+    bin_filename: fake-noversion
+    download_url: "http://127.0.0.1:8080/fake-noversion/{{ requested_binary_version }}/fake-noversion"
+    compressed: false
+    version_flag: ""
+- name: Case service
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "2.0.0"
+    bin_filename: fake-svc
+    download_url: "http://127.0.0.1:8080/fake-svc/{{ requested_binary_version }}/fake-svc"
+    compressed: false
+    service_name: fake-svc
+    bin_serviceparams: serve
+    environment_vars:
+      FAKE_GREETING: hello
+- name: Case installer package with its own binary folder
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "2.0.0"
+    bin_filename: fake-pkgd
+    bin_path: /opt/fake-pkg/bin
+    download_url: "http://127.0.0.1:8080/fake-pkg/{{ requested_binary_version }}/fake-pkg_{{ requested_binary_version }}_all.deb"
+    compressed: false
+    install_cmd: "dpkg --install ./fake-pkg_{{ requested_binary_version }}_all.deb"
+    version_flag: "-V"

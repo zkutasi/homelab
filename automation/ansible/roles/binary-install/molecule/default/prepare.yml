@@ -1,0 +1,45 @@
+- name: Serve the fixtures
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/binary-fixtures.yml
+# The converge then updates these to the versions it requests
+- name: Install older versions
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install fake-tar 1.0.0
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "1.0.0"
+        bin_filename: fake-tar
+        download_url: "http://127.0.0.1:8080/fake-tar/1.0.0/fake-tar_linux_amd64.tar.gz"
+    - name: Install fake-zip 0.20b
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "0.20b"
+        bin_filename: fake-zip
+        bin_path: /opt/fake-zip
+        download_url: "http://127.0.0.1:8080/fake-zip/0.20b/fake-zip-x64.zip"
+        decompression_options: []
+        version_flag: "-h"
+    - name: Install fake-svc 1.0.0 as a service
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "1.0.0"
+        bin_filename: fake-svc
+        download_url: "http://127.0.0.1:8080/fake-svc/1.0.0/fake-svc"
+        compressed: false
+        service_name: fake-svc
+        bin_serviceparams: serve
+    - name: Install the fake-pkg 1.0.0 package
+      ansible.builtin.include_role:
+        name: binary-install
+      vars:
+        requested_binary_version: "1.0.0"
+        bin_filename: fake-pkgd
+        bin_path: /opt/fake-pkg/bin
+        download_url: "http://127.0.0.1:8080/fake-pkg/1.0.0/fake-pkg_1.0.0_all.deb"
+        compressed: false
+        install_cmd: "dpkg --install ./fake-pkg_1.0.0_all.deb"
+        version_flag: "-V"

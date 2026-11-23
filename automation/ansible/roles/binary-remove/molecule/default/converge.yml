@@ -1,0 +1,23 @@
+- name: Case binary with a service
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: fake-svc
+    service_name: fake-svc
+- name: Case binary without a service
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: fake-bare
+- name: Case service never installed on this host
+  hosts: all
+  gather_facts: false
+  roles:
+    - binary-remove
+  vars:
+    bin_filename: fake-never
+    service_name: fake-never

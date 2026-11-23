@@ -1,0 +1,28 @@
+- name: Serve the fixtures
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/package-fixtures.yml
+- name: Install the older versions, then publish the newer ones
+  hosts: all
+  tasks:
+    - name: Install fake-plain 1.0.0, which pulls in fake-dep
+      ansible.builtin.include_role:
+        name: package-install
+      vars:
+        apt_add_repo: "deb [trusted=yes] http://127.0.0.1:8080/plain ./"
+        packages:
+          - fake-plain
+    # fake-plain 2.0.0 no longer depends on fake-dep, so the update leaves fake-dep for autoremove.
+    # The index gets a new date like a real publish; the server answers APT's If-Modified-Since with it.
+    - name: Date the newer index
+      ansible.builtin.file:
+        path: "/srv/apt/plain-2/{{ item }}"
+        modification_time: now
+        access_time: now
+      loop:
+        - Packages
+        - Release
+    - name: Publish the newer versions
+      ansible.builtin.file:
+        src: plain-2
+        dest: /srv/apt/plain
+        state: link
+        force: true

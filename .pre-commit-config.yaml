@@ -33,6 +33,13 @@ repos:
         require_serial: true
         files: (^tests/render/|^common-[^/]*\.sh$|/deploy-k8s\.sh$|/app-values[^/]*\.yaml$|/extra-manifests/|/config/templates/|/chart/|/kustomization\.yaml$|/generate-configuration\.yaml$|^ansible\.cfg$|^kubernetes/k8s-install/kubespray/run-upgrade\.sh$)
         stages: [manual]
+      - id: molecule
+        name: Run the Molecule scenarios of the changed roles (1 to 5 minutes per role)
+        entry: tests/run.sh --molecule --changed
+        language: script
+        require_serial: true
+        files: ^(automation/ansible/roles/|automation/ansible/ansible-execution-environment/|tests/molecule/)
+        stages: [manual]
       - id: renovate-extract
         name: Check that Renovate still extracts the fixtures
         entry: tests/run.sh --renovate

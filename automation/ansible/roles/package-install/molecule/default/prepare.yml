@@ -1,0 +1,2 @@
+- name: Serve the fixtures
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/package-fixtures.yml

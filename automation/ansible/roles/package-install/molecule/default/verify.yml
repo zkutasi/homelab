@@ -1,0 +1,35 @@
+- name: Verify the packages and repositories
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the installed packages
+      ansible.builtin.package_facts:
+    - name: Check the packages and the dependency are installed at the served versions
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.packages['fake-signed'][0].version == "1.0.0"
+          - ansible_facts.packages['fake-plain'][0].version == "1.0.0"
+          - ansible_facts.packages['fake-extra'][0].version == "1.0.0"
+          - ansible_facts.packages['fake-dep'][0].version == "1.0.0"
+        quiet: true
+    - name: Read the signed repository's key
+      ansible.builtin.stat:
+        path: /usr/share/keyrings/fake-signed.gpg
+      register: key
+    - name: Read the signed repository's file
+      ansible.builtin.slurp:
+        src: /etc/apt/sources.list.d/fake-signed.list
+      register: signed_list
+    - name: Find the added repository
+      ansible.builtin.find:
+        paths: /etc/apt/sources.list.d
+        contains: "^deb \\[trusted=yes\\] http://127.0.0.1:8080/plain ./$"
+      register: plain_list
+    - name: Check the key and both repository lines
+      ansible.builtin.assert:
+        that:
+          - key.stat.exists
+          - key.stat.mode == "0644"
+          - (signed_list.content | b64decode).splitlines() == ["deb [signed-by=/usr/share/keyrings/fake-signed.gpg] http://127.0.0.1:8080/signed ./"]
+          - plain_list.matched == 1
+        quiet: true

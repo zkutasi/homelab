@@ -1,0 +1,27 @@
+- name: Serve the APT repositories for the package scenarios
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Build the repositories
+      ansible.builtin.script:
+        cmd: build-package-fixtures.sh
+        creates: /srv/apt
+    # So APT sees only the fixture repositories, and runs need no network
+    - name: Find the distribution's sources
+      ansible.builtin.find:
+        paths: /etc/apt/sources.list.d
+      register: distribution_sources
+    - name: Remove the distribution's sources
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop: "{{ distribution_sources.files | map(attribute='path') + ['/etc/apt/sources.list'] }}"
+    - name: Serve the repositories on localhost
+      ansible.builtin.command:
+        cmd: systemd-run --unit fixture-http python3 -m http.server 8080 --bind 127.0.0.1 --directory /srv/apt
+        creates: /run/systemd/transient/fixture-http.service
+    - name: Wait for the server
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 8080
+        timeout: 30

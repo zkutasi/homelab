@@ -1,0 +1,28 @@
+- name: Verify the packages, the repository and the key are gone
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the installed packages
+      ansible.builtin.package_facts:
+    - name: Check the removed packages are gone and the others stay
+      ansible.builtin.assert:
+        that:
+          - "'fake-signed' not in ansible_facts.packages"
+          - "'fake-plain' not in ansible_facts.packages"
+          - "'fake-extra' in ansible_facts.packages"
+        quiet: true
+    - name: Read the key
+      ansible.builtin.stat:
+        path: /usr/share/keyrings/fake-signed.gpg
+      register: key
+    - name: Find the signed repository's line
+      ansible.builtin.find:
+        paths: /etc/apt/sources.list.d
+        contains: "http://127.0.0.1:8080/signed"
+      register: signed_lines
+    - name: Check the key and the repository line are gone
+      ansible.builtin.assert:
+        that:
+          - not key.stat.exists
+          - signed_lines.matched == 0
+        quiet: true

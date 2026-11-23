@@ -1,0 +1,4 @@
+- name: Case packages with a newer version in their repository
+  hosts: all
+  roles:
+    - package-update

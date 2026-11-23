@@ -1,0 +1,31 @@
+- name: Verify the binaries and the service are gone
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Look for the binaries and the unit file
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      loop:
+        - /usr/local/bin/fake-svc
+        - /usr/local/bin/fake-bare
+        - /etc/systemd/system/fake-svc.service
+      register: leftovers
+    - name: Check none of them exist
+      ansible.builtin.assert:
+        that: not item.stat.exists
+        fail_msg: "{{ item.item }} is still there"
+        quiet: true
+      loop: "{{ leftovers.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+    - name: Read the service's state
+      ansible.builtin.systemd_service:
+        name: fake-svc
+      register: service
+    - name: Check systemd no longer knows the service, and it doesn't run
+      ansible.builtin.assert:
+        that:
+          - service.status.LoadState == "not-found"
+          - service.status.ActiveState == "inactive"
+        fail_msg: "{{ service.status.LoadState }}/{{ service.status.ActiveState }}"
+        quiet: true

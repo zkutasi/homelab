@@ -1,0 +1,12 @@
+- name: Verify the update
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the installed packages
+      ansible.builtin.package_facts:
+    - name: Check fake-plain was upgraded and the dependency it dropped was removed
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.packages['fake-plain'][0].version == "2.0.0"
+          - "'fake-dep' not in ansible_facts.packages"
+        quiet: true

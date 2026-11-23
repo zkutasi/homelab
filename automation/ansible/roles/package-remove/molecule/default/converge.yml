@@ -1,0 +1,18 @@
+- name: Case package with its signed repository and key
+  hosts: all
+  roles:
+    - package-remove
+  vars:
+    gpg_dearmor: true
+    gpg_project_name: fake-signed
+    gpg_signed_repo: "http://127.0.0.1:8080/signed ./"
+    packages:
+      - fake-signed
+- name: Case packages only, one of them never installed
+  hosts: all
+  roles:
+    - package-remove
+  vars:
+    packages:
+      - fake-plain
+      - fake-never
