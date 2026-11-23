@@ -242,7 +242,11 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Ansible runs inside a locally built execution environment (a container image with Ansible and all required collections), built once with `automation/ansible/deploy-ansible.sh`.
 - The Ansible inventory lives in a separate private git repository, cloned into `automation/ansible/homelab-ansible-inventory`. It is ignored by this repository, so no host details or passwords end up here.
-- The scripts call a few command-line tools directly: `kubectl`, `helm`, `kompose`, `kustomize`, `sops`, `age`, `curl`, `jq` and the Go-based `yq` (mikefarah/yq v4; the Python `yq` wrapper of the same name doesn't work). The repository's own playbooks install them: `basics/setup-packages.yaml`, the `kubernetes/tools` playbooks and the ones in `security/secret-mgmt/age-sops`.
+- The scripts call a few command-line tools directly: `kubectl`, `helm`, `kompose`, `kustomize`, `sops`, `age`, `curl`, `jq` and the Go-based `yq` (mikefarah/yq v4; the Python `yq` wrapper of the same name doesn't work).
+- The repository's own playbooks install them:
+  - `basics/setup-packages.yaml`;
+  - the `kubernetes/tools` playbooks;
+  - the ones in `security/secret-mgmt/age-sops`.
 
 #### Shell scripts
 
@@ -250,7 +254,10 @@ How this repository is organised and the conventions every App follows. Follow t
 - No strict mode (`set -e`, `set -euo pipefail`); where a failure would go unnoticed, a targeted check is added on that one command instead. Every `cd`, `pushd` and `popd` carries its own `|| exit 1` (shellcheck SC2164).
 - Variables in `UPPER_CASE`, referenced as `"${VAR}"`, except very short ones that can't hold a space (like `NS`), which are written bare as `$NS`, except inside array assignments (`CMD=(… "$NS")`), where shellcheck needs them quoted. Messages start with `ERROR:`, `WARNING:` or `INFO:`.
 - Every script, App wrappers included, parses its arguments in a `while [ $# -ge 1 ]; do case "$1" in … esac; shift; done` loop, even when it only passes them on, so all scripts look alike and options can be added later. The common scripts reject unknown parameters with an error plus the usage, and offer `--help`.
-- App wrappers stay thin: they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc., collect their arguments in that loop into the `EXTRA_PARAMS` array (after any fixed options of their own, like `EXTRA_PARAMS=(--delete-namespace 0)`) and pass them on as `"${EXTRA_PARAMS[@]}"`, and call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
+- App wrappers stay thin:
+  - they set `NS`, `RELEASE_NAME`, `CHART_NAME`, `VERSION` etc.;
+  - they collect their arguments in that loop into the `EXTRA_PARAMS` array (after any fixed options of their own, like `EXTRA_PARAMS=(--delete-namespace 0)`) and pass them on as `"${EXTRA_PARAMS[@]}"`;
+  - they call the matching helper through `"$(git rev-parse --show-toplevel)"/common-<x>.sh`.
 - A tool is written in one language: Bash, with `yq` and `jq` for any YAML or JSON work, never mixed with Python helpers. Ansible playbooks it runs stay separate files.
 
 #### Ansible
@@ -277,7 +284,10 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - Each App has a `docker-compose.yaml.j2` template, filled in from the Ansible inventory, plus a `deploy-<app>.yaml` and `undeploy-<app>.yaml` playbook.
 - The deploy playbook pins the image versions and lists the folders and config files to create. A shared Ansible role renders everything into its own folder per App under `docker_compose_rootdir` (usually `~/docker-compose`) on the target host and starts the stack.
-- Each service sets `container_name`, `hostname: {{ id }}-<container_name>`, `restart: unless-stopped` (`restart: no` for services that run once and exit, like setup or check helpers) and `TZ: {{ timezone }}` (plus `PUID`/`PGID` where the image supports them), takes its image from an entry of the deploy playbook's `requested_image_version`, and mounts its folders from below `{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}`.
+- Each service:
+  - sets `container_name`, `hostname: {{ id }}-<container_name>`, `restart: unless-stopped` (`restart: no` for services that run once and exit, like setup or check helpers) and `TZ: {{ timezone }}` (plus `PUID`/`PGID` where the image supports them);
+  - takes its image from an entry of the deploy playbook's `requested_image_version`;
+  - mounts its folders from below `{{ docker_compose_rootdir }}/{{ docker_compose_projectname }}`.
 - Undeploying an App runs `docker compose down` removing its volumes and images, then deletes its whole folder under `docker_compose_rootdir`, including all of its data and configuration. Back up anything worth keeping first.
 
 #### Kubernetes Apps
@@ -294,7 +304,17 @@ How this repository is organised and the conventions every App follows. Follow t
 
 #### Versions and Renovate
 
-- Every version is pinned where Renovate can see it: `requested_image_version` and `requested_binary_repo_version` in playbooks, Galaxy requirements files, `pkg==version` items in `pipx_packages` lists, `package_pip: name==version` and `name==version` items of the `python:` list in execution environment files, `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`, Helm values, images in `extra-manifests/` (approved from the Dependency Dashboard), `FROM` lines of Dockerfiles (base image with its digest), or a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts. A git commit is pinned the same way, with the branch it follows in the comment: `# renovate: datasource=git-refs depName=<repository URL> currentValue=<branch>` above a `VAR=<full commit hash>` line.
+- Every version is pinned where Renovate can see it:
+  - `requested_image_version` and `requested_binary_repo_version` in playbooks;
+  - Galaxy requirements files;
+  - `pkg==version` items in `pipx_packages` lists;
+  - `package_pip: name==version` and `name==version` items of the `python:` list in execution environment files;
+  - `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`;
+  - Helm values;
+  - images in `extra-manifests/` (approved from the Dependency Dashboard);
+  - `FROM` lines of Dockerfiles (base image with its digest);
+  - a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
+- A git commit is pinned the same way, with the branch it follows in the comment: `# renovate: datasource=git-refs depName=<repository URL> currentValue=<branch>` above a `VAR=<full commit hash>` line.
 - Only direct dependencies are pinned. What they pull in themselves (Python packages below an execution environment's pins, a chart's subcharts, an image's packages) is resolved at build or install time and may move between builds; such a transitive dependency only gets a pin of its own once it breaks something, with the reason next to it.
 - Renovate rules are generic (tag shape, datasource, file type), never specific to one App or image.
 - Version bumps are left to Renovate.
@@ -304,24 +324,83 @@ How this repository is organised and the conventions every App follows. Follow t
 - Every App and category has a README following `_templates/README.layer1.md` (category) or `_templates/README.layer2.md` (App). The structure they give is fixed: chapter names and order, the numbered step sentences, and the tables and steps stay, even when empty. Only the content inside them is edited; information that doesn't fit goes into a row or a paragraph, or the template itself is changed for all READMEs.
 - Inventory variable tables use `|Name|Mandatory/Optional|Details|`; Details describe what the value is, never which Apps or playbooks use it.
 - A structured variable gets a row of its own, then one dotted row per field, where the field's M/O applies within its parent (`app_entries`, `app_entries.src`, ...). The keys of a dictionary are written as an escaped placeholder (`app_disks.\<label\>.role`), so that GitHub shows `<label>`. The structure is never described in the parent's Details.
-- Each variable is documented once at the most generic level it belongs to: user-specific, network-specific and host connection variables in the Ansible README, Docker variables in the Docker README (per-App IPv6 subnets stay with their App), variables shared by a group of Apps in that group's README, and App-specific variables, prefixed with the App's name, in every README of an App that uses them.
+- Each variable is documented once at the most generic level it belongs to:
+  - user-specific, network-specific and host connection variables in the Ansible README;
+  - Docker variables in the Docker README (per-App IPv6 subnets stay with their App);
+  - variables shared by a group of Apps in that group's README;
+  - App-specific variables, prefixed with the App's name, in every README of an App that uses them.
 - Some documented variables are only read inside the private inventory, by other inventory values. They're documented like any other; a variable is only unused when neither the repository nor the inventory references it.
 - READMEs never link to or name other READMEs for variables; the "Ansible inventory setup" chapter starts with the fixed generic sentence from the templates instead.
 - Lists of playbooks describe what each one achieves conceptually, never its individual steps, files or hosts.
-- Commands are shown as run: playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`, Kubernetes deploys as a bare `./deploy-k8s.sh`, run from the folder that holds it (the component's sub-folder for split Apps). Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
+- A bullet holds one note:
+  - a list of cases inside a note (modes, places, settings, steps) becomes sub-bullets under a short lead-in;
+  - a topic with several notes gets its own sub-header, one level below its chapter, with one bullet per note.
+- Commands are shown as run:
+  - playbooks with their full path from the repository root through `./common-ansible-run-playbook.sh … --no-check`;
+  - Kubernetes deploys as a bare `./deploy-k8s.sh`, run from the folder that holds it (the component's sub-folder for split Apps).
+- Running a playbook stays an explicit README step, never hidden inside `deploy-k8s.sh`.
 
 #### Tests
 
-- `tests/run.sh` runs everything in containers: the bats tests in `tests/bats` by default, `--renovate` for the Renovate extraction check, `--lint` for ansible-lint in the execution environment, `--render` and `--render-k8s` for the render tests below, and `--molecule` for the role scenarios. Only Docker and the host's own static tools are needed: sops, age and yq, plus helm, kubectl, kustomize and kubeconform for `--render-k8s`, which also needs the network.
+- `tests/run.sh` runs everything in containers:
+  - the bats tests in `tests/bats` by default;
+  - `--renovate` for the Renovate extraction check;
+  - `--lint` for ansible-lint in the execution environment;
+  - `--render` and `--render-k8s` for the render tests below;
+  - `--molecule` for the role scenarios.
+- Only Docker and the host's own static tools are needed: sops, age and yq, plus helm, kubectl, kustomize and kubeconform for `--render-k8s`, which also needs the network.
 - Bats tests never touch hosts, the cluster or the real files: each test works in a throwaway copy of the scripts it needs (a temporary folder with an empty `.git` marker), with stub commands on `PATH` that record their calls. The `git` stub only answers `rev-parse --show-toplevel`.
 - A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
 - Tests never read a README: no test takes what to check or what to accept from README text or tables. A test may enforce a convention written here, but the rule lives in the test code, accepted exceptions go into an allowlist file with their reason, and per-App data a test needs lives in a data file of its own. Where documentation and test data have to agree, the documentation is generated from the data.
 - A new or changed Renovate rule gets a fixture under `tests/renovate/fixtures`, and `tests/renovate/expected.tsv` lists exactly what Renovate must extract from them.
-- Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest: `tests/run.sh --changed <files>` (and its manual pre-commit hook) runs only the test files that cover the changed files, all of them for a change to the harness itself, and `wrappers.bats` checks only the changed wrappers. `tests/run.sh` alone still runs everything.
-- `tests/run.sh --render` renders every Docker App's compose file and config templates against a fake inventory in `tests/render/inventory`, for one host of its play, without contacting any host. Each compose file must pass `docker compose config` and the Docker App rules above; accepted deviations go into `tests/render/allowlist.tsv` with their reason, Apps that need a specific host into `tests/render/skip.tsv`. The fake inventory has the real one's groups and variable names but dummy values and generic host names: rerun `tests/render/make-fake-inventory.sh` after inventory changes and review the result before committing. Values that a deploy playbook's earlier play fetches at run time get stand-ins in `tests/render/runtime.yaml`.
-- `tests/run.sh --render-k8s` does the same for the Kubernetes Apps, with the same fake inventory, in a copy of each App's committed files: it renders the templates of every `generate-configuration.yaml`, then each Helm or Kustomize App through its own `deploy-k8s.sh --template-output`, for the Kubernetes version Kubespray's `run-upgrade.sh` installs. `kubeconform -strict` then validates the renders and every `extra-manifests` file, with the custom resources' schemas from the CRDs-catalog pinned to one commit, and `tests/render/check-k8s-conventions.sh` checks the Kubernetes App rules above. Accepted deviations go into `tests/render/allowlist-k8s.tsv` with their reason, Apps the harness can't render into `tests/render/skip-k8s.tsv`. Symlinks to the internal CA become dummy files in the copy, so the real CA key is never read. Charts, the local charts' dependencies and the schemas are cached in `~/.cache/homelab-tests`; a full run takes about 75 seconds.
-- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket. Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify) and share the base config `tests/molecule/config.yml`, which `-c` passes: the targets, the `docker_api` connection (the execution environment has no docker CLI), the roles path and pipelining. Each scenario runs on three targets, one per OS version the hosts run, built from the digest-pinned Dockerfiles in `tests/molecule/images` before every run; a new OS version is a new target folder, so Renovate's major updates are off for them. The targets boot systemd without `privileged`: they share the host's cgroup namespace with `/sys/fs/cgroup` mounted read-write, and tmpfs on `/run`, `/run/lock` and `/tmp`. Nothing is downloaded during a run: the prepare step builds fake binaries, archives and packages on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`), and the package scenarios remove the distribution's APT sources first. A full run takes about 10 minutes.
-- The test suites don't run on commit, to keep commits fast; every change has to pass the suites it affects before it is done. They are pre-commit hooks in the manual stage: the covering bats tests when shell files change, the render tests for the Docker Apps and for the Kubernetes Apps whose files changed, the Molecule scenarios of the changed roles and of the roles whose scenarios use them, the Renovate check when `renovate.json` or its fixtures change, and ansible-lint (about 5 minutes). `pre-commit run --hook-stage manual` runs them for the staged files, `pre-commit run --hook-stage manual --all-files` runs everything, and `pre-commit run --hook-stage manual <hook id>` runs one. shellcheck (warning level) still runs on every commit.
+- Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest, as `tests/run.sh --changed <files>` (and its manual pre-commit hook) picks the tests by them:
+  - it runs only the test files that cover the changed files;
+  - a change to the harness itself runs all of them;
+  - `wrappers.bats` checks only the changed wrappers.
+- `tests/run.sh` alone still runs everything.
+- The test suites don't run on commit, to keep commits fast; every change has to pass the suites it affects before it is done.
+- They are pre-commit hooks in the manual stage:
+  - the covering bats tests when shell files change;
+  - the render tests for the Docker Apps and for the Kubernetes Apps whose files changed;
+  - the Molecule scenarios of the changed roles and of the roles whose scenarios use them;
+  - the Renovate check when `renovate.json` or its fixtures change;
+  - ansible-lint (about 5 minutes).
+- To run them:
+  - `pre-commit run --hook-stage manual` for the staged files;
+  - `pre-commit run --hook-stage manual --all-files` for everything;
+  - `pre-commit run --hook-stage manual <hook id>` for one.
+- shellcheck (warning level) still runs on every commit.
+
+##### Docker render tests
+
+- `tests/run.sh --render` renders every Docker App's compose file and config templates against a fake inventory in `tests/render/inventory`, for one host of its play, without contacting any host.
+- Each compose file must pass `docker compose config` and the Docker App rules above.
+- Accepted deviations go into `tests/render/allowlist.tsv` with their reason, Apps that need a specific host into `tests/render/skip.tsv`.
+- The fake inventory has the real one's groups and variable names but dummy values and generic host names: rerun `tests/render/make-fake-inventory.sh` after inventory changes and review the result before committing.
+- Values that a deploy playbook's earlier play fetches at run time get stand-ins in `tests/render/runtime.yaml`.
+
+##### Kubernetes render tests
+
+- `tests/run.sh --render-k8s` does the same for the Kubernetes Apps, with the same fake inventory, in a copy of each App's committed files. It renders, for the Kubernetes version Kubespray's `run-upgrade.sh` installs:
+  - the templates of every `generate-configuration.yaml`;
+  - each Helm or Kustomize App through its own `deploy-k8s.sh --template-output`.
+- `kubeconform -strict` then validates the renders and every `extra-manifests` file, with the custom resources' schemas from the CRDs-catalog pinned to one commit.
+- `tests/render/check-k8s-conventions.sh` checks the Kubernetes App rules above.
+- Accepted deviations go into `tests/render/allowlist-k8s.tsv` with their reason, Apps the harness can't render into `tests/render/skip-k8s.tsv`.
+- Symlinks to the internal CA become dummy files in the copy, so the real CA key is never read.
+- Charts, the local charts' dependencies and the schemas are cached in `~/.cache/homelab-tests`; a full run takes about 75 seconds.
+
+##### Molecule
+
+- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 10 minutes.
+- Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
+- Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
+  - the targets;
+  - the `docker_api` connection, as the execution environment has no docker CLI;
+  - the roles path and pipelining.
+- Each scenario runs on three targets, one per OS version the hosts run, built from the digest-pinned Dockerfiles in `tests/molecule/images` before every run. A new OS version is a new target folder, so Renovate's major updates are off for them.
+- The targets boot systemd without `privileged`: they share the host's cgroup namespace with `/sys/fs/cgroup` mounted read-write, and tmpfs on `/run`, `/run/lock` and `/tmp`.
+- Nothing is downloaded during a run: the prepare step builds fake binaries, archives and packages on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`), and the package scenarios remove the distribution's APT sources first.
 
 #### Adding a new App
 
