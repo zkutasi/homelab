@@ -97,6 +97,17 @@
         "\\n\\s+-\\s+(?<depName>[A-Za-z0-9._-]+)(?:\\[[^\\]\\n]*\\])?==(?<currentValue>[^\\s\"#]+)"
       ],
       "datasourceTemplate": "pypi"
+    },
+    {
+      "description": "Docker images of pre-commit hooks, pinned in their entry",
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/(^|/)\\.pre-commit-config\\.yaml$/"
+      ],
+      "matchStrings": [
+        "entry: (?<depName>[a-z0-9._/-]+):(?<currentValue>v?\\d[^\\s\"]*)"
+      ],
+      "datasourceTemplate": "docker"
     }
   ],
 
@@ -147,6 +158,11 @@
       "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
       "groupName": "non-major updates",
       "groupSlug": "non-major"
+    },
+    {
+      "description": "One PR per pre-commit hook, named by its last name part, so a Docker hook's rev and its image tag move together",
+      "matchFileNames": [".pre-commit-config.yaml"],
+      "groupName": "pre-commit hook {{lowercase (replace '^.*/' '' depName)}}"
     },
     {
       "description": "Major updates need a decision: open them from the Dependency Dashboard",

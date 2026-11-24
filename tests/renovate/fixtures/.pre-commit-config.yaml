@@ -3,3 +3,8 @@ repos:
     rev: v1.37.1
     hooks:
       - id: yamllint
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks-docker
+        entry: zricethezav/gitleaks:v8.28.0 git --pre-commit

@@ -311,6 +311,7 @@ How this repository is organised and the conventions every App follows. Follow t
   - `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`;
   - Helm values;
   - images in `extra-manifests/` (approved from the Dependency Dashboard);
+  - a Docker pre-commit hook's image in its `entry`, with the tag matching the hook's `rev` (Renovate moves both in one PR);
   - a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
 - A git commit is pinned the same way, with the branch it follows in the comment: `# renovate: datasource=git-refs depName=<repository URL> currentValue=<branch>` above a `VAR=<full commit hash>` line.
 - apt and pipx packages are the exception: they're installed unpinned and get their routine maintenance outside of Renovate, through the hosts' own package management with the maintenance playbooks (`maintenance/update-packages.yaml` and `maintenance/update-pipx-packages.yaml`).

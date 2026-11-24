@@ -80,10 +80,13 @@ repos:
     rev: v0.18.1
     hooks:
       - id: markdownlint-cli2-docker
+        # The image follows rev; without a tag, pre-commit would run whatever :latest is local
+        entry: davidanson/markdownlint-cli2:v0.18.1
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
       - id: gitleaks-docker
+        entry: zricethezav/gitleaks:v8.28.0 git --pre-commit --redact --staged --verbose
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:

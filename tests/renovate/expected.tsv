@@ -11,6 +11,8 @@ kubernetes	apps/web/extra-manifests/deployment.yaml	Deployment	apps/v1	kubernete
 kubernetes	apps/web/extra-manifests/deployment.yaml	docker.io/example/sidecar	v3.30.2	docker	-
 kustomize	apps/remote/kustomization.yaml	example/remote-app	v0.22.2	github-tags	-
 pre-commit	.pre-commit-config.yaml	adrienverge/yamllint	v1.37.1	github-tags	-
+pre-commit	.pre-commit-config.yaml	gitleaks/gitleaks	v8.28.0	github-tags	-
+regex	.pre-commit-config.yaml	zricethezav/gitleaks	v8.28.0	docker	-
 regex	apps/remote/deploy-k8s.sh	ghcr.io/example/charts/remote	0.9.1	docker	-
 regex	apps/web/chart/Chart.yaml	ghcr.io/example/web	1.2.3	docker	-
 regex	apps/web/deploy-k8s.sh	example-chart	4.5.6	helm	-
