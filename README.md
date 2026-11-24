@@ -392,13 +392,13 @@ How this repository is organised and the conventions every App follows. Follow t
 
 ##### Molecule
 
-- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 10 minutes.
+- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 7.5 minutes.
 - Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
 - Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
   - the targets;
   - the `docker_api` connection, as the execution environment has no docker CLI;
   - the roles path and pipelining.
-- Each scenario runs on three targets, one per OS version the hosts run, built from the digest-pinned Dockerfiles in `tests/molecule/images` before every run. A new OS version is a new target folder, so Renovate's major updates are off for them.
+- Each scenario runs on one target, Ubuntu 24.04, the OS most hosts run, built from its digest-pinned Dockerfile in `tests/molecule/images` before every run. Another OS version would be a new target folder, so Renovate's major updates are off for them.
 - The targets boot systemd without `privileged`: they share the host's cgroup namespace with `/sys/fs/cgroup` mounted read-write, and tmpfs on `/run`, `/run/lock` and `/tmp`.
 - Nothing is downloaded during a run: the prepare step builds fake binaries, archives and packages on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`), and the package scenarios remove the distribution's APT sources first.
 
