@@ -1,5 +1,7 @@
 - name: Case package with its signed repository and key
   hosts: all
+  gather_subset:
+    - min
   roles:
     - package-remove
   vars:
@@ -10,6 +12,8 @@
       - fake-signed
 - name: Case packages only, one of them never installed
   hosts: all
+  gather_subset:
+    - min
   roles:
     - package-remove
   vars:

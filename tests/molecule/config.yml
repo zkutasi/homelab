@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: ubuntu-24.04
-    image: homelab-molecule:ubuntu-24.04
+    image: homelab-molecule:testing
     pre_build_image: true
     command: /lib/systemd/systemd
     cgroupns_mode: host
@@ -17,6 +17,10 @@ platforms:
       - /tmp
 provisioner:
   name: ansible
+  # Our own create and destroy: the driver's poll with a 5 s delay and run steps we don't use
+  playbooks:
+    create: ${MOLECULE_PROJECT_DIRECTORY}/../../../../tests/molecule/create.yml
+    destroy: ${MOLECULE_PROJECT_DIRECTORY}/../../../../tests/molecule/destroy.yml
   # The execution environment has the Docker SDK but no docker CLI
   connection_options:
     ansible_connection: community.docker.docker_api

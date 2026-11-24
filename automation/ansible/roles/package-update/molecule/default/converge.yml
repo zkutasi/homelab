@@ -1,4 +1,6 @@
 - name: Case packages with a newer version in their repository
   hosts: all
+  gather_subset:
+    - min
   roles:
     - package-update

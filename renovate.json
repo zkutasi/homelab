@@ -117,7 +117,6 @@
     "ansible-galaxy",
     "custom.regex",
     "custom.jsonata",
-    "dockerfile",
     "helmv3",
     "helm-values",
     "kubernetes",
@@ -166,12 +165,6 @@
       "description": "Major updates need a decision: open them from the Dependency Dashboard",
       "matchUpdateTypes": ["major"],
       "dependencyDashboardApproval": true
-    },
-    {
-      "description": "Molecule target images follow the hosts' OS versions: a new major is a new target, not an update",
-      "matchFileNames": ["tests/molecule/images/**"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false
     },
     {
       "description": "Template placeholders such as <APP_VERSION> aren't versions: never look them up",

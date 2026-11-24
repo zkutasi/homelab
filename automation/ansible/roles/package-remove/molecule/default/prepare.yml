@@ -2,6 +2,8 @@
   ansible.builtin.import_playbook: ../../../../../../tests/molecule/package-fixtures.yml
 - name: Install what the converge removes
   hosts: all
+  gather_subset:
+    - min
   tasks:
     - name: Install fake-signed from its signed repository
       ansible.builtin.include_role:

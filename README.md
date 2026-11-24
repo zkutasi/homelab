@@ -312,9 +312,9 @@ How this repository is organised and the conventions every App follows. Follow t
   - `CHART_NAME`, `REPO_URL` and `VERSION` in `deploy-k8s.sh`;
   - Helm values;
   - images in `extra-manifests/` (approved from the Dependency Dashboard);
-  - `FROM` lines of Dockerfiles (base image with its digest);
   - a `# renovate: datasource=… depName=…` comment directly above a `VAR=version` line in shell scripts.
 - A git commit is pinned the same way, with the branch it follows in the comment: `# renovate: datasource=git-refs depName=<repository URL> currentValue=<branch>` above a `VAR=<full commit hash>` line.
+- Test images are the exception: they build `FROM` a plain tag and are tagged `:testing`, so they only change with their Dockerfile.
 - Only direct dependencies are pinned. What they pull in themselves (Python packages below an execution environment's pins, a chart's subcharts, an image's packages) is resolved at build or install time and may move between builds; such a transitive dependency only gets a pin of its own once it breaks something, with the reason next to it.
 - Renovate rules are generic (tag shape, datasource, file type), never specific to one App or image.
 - Version bumps are left to Renovate.
@@ -392,13 +392,14 @@ How this repository is organised and the conventions every App follows. Follow t
 
 ##### Molecule
 
-- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 7.5 minutes.
+- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 5 minutes.
 - Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
 - Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
   - the targets;
   - the `docker_api` connection, as the execution environment has no docker CLI;
-  - the roles path and pipelining.
-- Each scenario runs on one target, Ubuntu 24.04, the OS most hosts run, built from its digest-pinned Dockerfile in `tests/molecule/images` before every run. Another OS version would be a new target folder, so Renovate's major updates are off for them.
+  - the roles path and pipelining;
+  - lean create and destroy playbooks of its own (`tests/molecule/create.yml`, `destroy.yml`), as the driver's poll with a 5-second delay and run steps the tests don't use.
+- Each scenario runs on one target, Ubuntu 24.04, the OS most hosts run, built from `tests/molecule/Dockerfile` as `homelab-molecule:testing`. It's rebuilt only when the Dockerfile changes, and the replaced image is removed.
 - The targets boot systemd without `privileged`: they share the host's cgroup namespace with `/sys/fs/cgroup` mounted read-write, and tmpfs on `/run`, `/run/lock` and `/tmp`.
 - Nothing is downloaded during a run: the prepare step builds fake binaries, archives and packages on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`), and the package scenarios remove the distribution's APT sources first.
 

@@ -4,7 +4,7 @@ function usage() {
     echo "Usage: $0 [--changed <file>... | --list] [<role>...]"
     echo ""
     echo "Runs every Molecule scenario of the given roles (all roles with a molecule folder by default) inside the"
-    echo "Ansible execution environment, against systemd containers built from tests/molecule/images."
+    echo "Ansible execution environment, against a systemd container built from tests/molecule/Dockerfile."
     echo ""
     echo "Options:"
     echo "  --changed     The arguments are changed files (relative to the repository root): test only the roles they belong"
@@ -95,15 +95,21 @@ if [ "${LIST}" -eq 1 ]; then
   exit 0
 fi
 
-# The targets are built locally; Docker's cache makes this quick when nothing changed
-for IMAGE_DIR in "${REPO_ROOT}"/tests/molecule/images/*/; do
-  TARGET=$(basename "${IMAGE_DIR}")
-  echo "INFO: Building the ${TARGET} target..."
-  if ! docker build -q -t "homelab-molecule:${TARGET}" "${IMAGE_DIR}" > /dev/null; then
-    echo "ERROR: Could not build the ${TARGET} target"
+# The target is built locally, and rebuilt only when its Dockerfile changes (its hash is a label of the image)
+IMAGE=homelab-molecule:testing
+DOCKERFILE="${REPO_ROOT}/tests/molecule/Dockerfile"
+DOCKERFILE_HASH=$(sha256sum "${DOCKERFILE}" | cut -c1-16)
+if [ "$(docker image inspect -f '{{index .Config.Labels "homelab.dockerfile"}}' "${IMAGE}" 2>/dev/null)" != "${DOCKERFILE_HASH}" ]; then
+  OLD_IMAGE=$(docker image inspect -f '{{.Id}}' "${IMAGE}" 2>/dev/null)
+  echo "INFO: Building the target..."
+  if ! docker build -q --label "homelab.dockerfile=${DOCKERFILE_HASH}" -t "${IMAGE}" - < "${DOCKERFILE}" > /dev/null; then
+    echo "ERROR: Could not build the target"
     exit 1
   fi
-done
+  if [ -n "${OLD_IMAGE}" ] && [ "${OLD_IMAGE}" != "$(docker image inspect -f '{{.Id}}' "${IMAGE}")" ]; then
+    docker rmi "${OLD_IMAGE}" > /dev/null 2>&1
+  fi
+fi
 
 # Molecule drives the host's Docker through its socket, as the socket's group
 EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.ansible-navigator.yaml")
