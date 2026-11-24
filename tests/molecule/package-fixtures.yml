@@ -1,5 +1,6 @@
 - name: Serve the APT repositories for the package scenarios
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Build the repositories

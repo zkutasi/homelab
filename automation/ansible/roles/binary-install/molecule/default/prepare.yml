@@ -3,6 +3,7 @@
 # The converge then updates these to the versions it requests
 - name: Install older versions
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Install fake-tar 1.0.0

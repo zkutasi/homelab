@@ -182,7 +182,7 @@ yq '{"all": {"vars": .}}' "${REPO_ROOT}/automation/ansible/roles/docker-compose/
 EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.ansible-navigator.yaml")
 # Everything runs locally in the EE container; the extra vars beat the inventory's connection settings
 docker run --rm --user "$(id -u):$(id -g)" -e HOME=/tmp \
-    -e ANSIBLE_CONFIG=/code/ansible.cfg -e ANSIBLE_CALLBACKS_ENABLED= -e ANSIBLE_ROLES_PATH=/code/automation/ansible/roles \
+    -e ANSIBLE_CONFIG=/code/ansible.cfg -e ANSIBLE_CALLBACKS_ENABLED=ansible.builtin.default -e ANSIBLE_ROLES_PATH=/code/automation/ansible/roles \
     -e ANSIBLE_LOCALHOST_WARNING=False -e ANSIBLE_INVENTORY_UNPARSED_WARNING=False \
     -v "${REPO_ROOT}:/code:ro" -v "${WORK_DIR}:/work" -w /work --entrypoint ansible-playbook "${EE_IMAGE}" \
     -i /work/defaults/hosts.yaml -i /code/tests/render/inventory /work/render.yaml \

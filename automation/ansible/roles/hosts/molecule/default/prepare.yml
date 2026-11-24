@@ -1,5 +1,6 @@
 - name: Start a stub DNS server and an existing /etc/hosts entry
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     # The role resolves the names from the execution environment, so the server listens on the target's address

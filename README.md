@@ -342,22 +342,24 @@ How this repository is organised and the conventions every App follows. Follow t
 
 #### Tests
 
-- `tests/run.sh` runs everything in containers:
-  - the bats tests in `tests/bats` by default;
+- Tests are written in Bash (bats) and YAML/Ansible only, never in Python. The harness lives in `tests/`: `run.sh`, `bats/`, `render/`, `renovate/` and `molecule/` (the Molecule base config, target image and fixtures); a role's Molecule scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`.
+- `tests/run.sh` runs the test suites in containers. There is no default: every run names its suites, or `--all` for every one of them:
+  - `--bats` for the bats tests in `tests/bats`;
   - `--renovate` for the Renovate extraction check;
   - `--lint` for ansible-lint in the execution environment;
   - `--render` and `--render-k8s` for the render tests below;
   - `--molecule` for the role scenarios.
+- Several suites run in the order given, each of them even when an earlier one failed, and the run fails if any did. `--changed <files>` applies to all of them: each suite selects what the changed files affect, ansible-lint still checks everything, and the Renovate check runs only when `renovate.json` or `tests/renovate/` changed. Test files or role names without `--changed` need a single suite.
 - Only Docker and the host's own static tools are needed: sops, age and yq, plus helm, kubectl, kustomize and kubeconform for `--render-k8s`, which also needs the network.
 - Bats tests never touch hosts, the cluster or the real files: each test works in a throwaway copy of the scripts it needs (a temporary folder with an empty `.git` marker), with stub commands on `PATH` that record their calls. The `git` stub only answers `rev-parse --show-toplevel`.
 - A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
 - Tests never read a README: no test takes what to check or what to accept from README text or tables. A test may enforce a convention written here, but the rule lives in the test code, accepted exceptions go into an allowlist file with their reason, and per-App data a test needs lives in a data file of its own. Where documentation and test data have to agree, the documentation is generated from the data.
 - A new or changed Renovate rule gets a fixture under `tests/renovate/fixtures`, and `tests/renovate/expected.tsv` lists exactly what Renovate must extract from them.
-- Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest, as `tests/run.sh --changed <files>` (and its manual pre-commit hook) picks the tests by them:
+- Every test file names what it tests in `# covers:` header lines: paths or patterns from the repository root, where `*` also matches `/`. Keep them honest, as `tests/run.sh --bats --changed <files>` (and its manual pre-commit hook) picks the tests by them:
   - it runs only the test files that cover the changed files;
   - a change to the harness itself runs all of them;
   - `wrappers.bats` checks only the changed wrappers.
-- `tests/run.sh` alone still runs everything.
+- `tests/run.sh --bats` alone still runs every test file.
 - The test suites don't run on commit, to keep commits fast; every change has to pass the suites it affects before it is done.
 - They are pre-commit hooks in the manual stage:
   - the covering bats tests when shell files change;
@@ -396,6 +398,8 @@ How this repository is organised and the conventions every App follows. Follow t
 
 - `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some.
 - Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
+- The scenarios run with the repository's `ansible.cfg`, like a real run, and connect as a normal user with passwordless sudo, like the hosts: a scenario's plays use `become` where the role's callers do, and setup or checks that need root use it too.
+- `--keep` leaves the targets in place and stops at the first failed role, so a failed scenario's target can be inspected; the next run removes it.
 - Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
   - the targets;
   - the `docker_api` connection, as the execution environment has no docker CLI;

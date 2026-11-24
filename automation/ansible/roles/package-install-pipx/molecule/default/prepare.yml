@@ -2,6 +2,7 @@
   ansible.builtin.import_playbook: ../../../../../../tests/molecule/pipx-fixtures.yml
 - name: Make the next version available too
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Copy fake-tool 2.0.0 next to 1.0.0

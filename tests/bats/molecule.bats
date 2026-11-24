@@ -134,3 +134,13 @@ function docker_answering() {
   assert_line "INFO: Testing tool-remove..."
   assert_line "ERROR: Molecule failed for: tool-install"
 }
+
+@test "--keep leaves the targets and stops at the first failed role" {
+  make_stub_script docker '[[ " $* " == *" -w /code/automation/ansible/roles/tool-install "* ]] && exit 2; exit 0'
+  run "${RUNNER}" --keep
+  assert_failure 1
+  assert_line --partial "Kept the target of tool-install's failed scenario"
+  refute_line "INFO: Testing tool-remove..."
+  run grep -c -- "test --all --destroy=never$" "${STUB_LOG}"
+  assert_output "1"
+}

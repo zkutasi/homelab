@@ -1,5 +1,6 @@
 - name: Case names that share an address, and an address the file already has
   hosts: all
+  become: true
   gather_facts: false
   # /etc/hosts is a bind mount in a container: write it in place, not by rename
   environment:

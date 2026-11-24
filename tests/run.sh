@@ -4,34 +4,41 @@
 BATS_VERSION="1.14.0"
 
 function usage() {
-    echo "Usage: $0 [--lint | --renovate | --render | --render-k8s] [--changed <file>...] [--list] [<bats file or folder>...]"
-    echo "       $0 --molecule [--changed <file>... | --list] [<role>...]"
+    echo "Usage: $0 <suite>... [--changed <file>... | --list] [<bats file or folder> | <role>...]"
     echo ""
-    echo "Runs the bats tests in a container (all of tests/bats by default), ansible-lint in the Ansible execution environment,"
-    echo "or a check that Renovate still extracts every dependency from tests/renovate/fixtures."
+    echo "Runs the named test suites in containers, in the order given (--all: every suite, fastest first). There is no"
+    echo "default: name the suites. Every suite runs even when an earlier one failed; the run fails if any of them did."
     echo ""
-    echo "Options:"
-    echo "  --changed     The arguments are changed files (relative to the repository root, as the commit hook passes them):"
-    echo "                run only the test files that cover them (see the '# covers:' headers), all of them for a harness change"
-    echo "  --help        Display this help message"
-    echo "  --list        Only print which test files would run"
-    echo "  --lint        Run ansible-lint on the whole repository inside the execution environment, instead of the tests"
-    echo "  --molecule    Run the Molecule scenarios of the given roles, or of all roles that have some, in the execution"
+    echo "Suites:"
+    echo "  --all         All of the suites below: bats, renovate, render, render-k8s, molecule, lint"
+    echo "  --bats        The bats tests of the given files or folders, or of all of tests/bats; with --changed, only the"
+    echo "                test files that cover the changed files (see the '# covers:' headers), all of them for a harness change"
+    echo "  --lint        ansible-lint on the whole repository, inside the execution environment, also with --changed"
+    echo "  --molecule    The Molecule scenarios of the given roles, or of all roles that have some, in the execution"
     echo "                environment (tests/molecule/molecule.sh); with --changed, only those of the changed roles"
     echo "  --render      Render the Docker Apps against the fake inventory and check them (tests/render/render.sh);"
     echo "                with --changed, only the Apps the changed files belong to"
     echo "  --render-k8s  Generate, render and validate the Kubernetes Apps against the fake inventory"
     echo "                (tests/render/render-k8s.sh); with --changed, only the Apps the changed files belong to"
-    echo "  --renovate    Run Renovate's extract-only dry run on the fixtures and compare it with tests/renovate/expected.tsv"
+    echo "  --renovate    Renovate's extract-only dry run on the fixtures, compared with tests/renovate/expected.tsv; with"
+    echo "                --changed, only when renovate.json or tests/renovate/ changed"
+    echo ""
+    echo "Options:"
+    echo "  --changed     The arguments are changed files, relative to the repository root, as the commit hooks pass them,"
+    echo "                for every named suite"
+    echo "  --help        Display this help message"
+    echo "  --keep        Keep what the tests leave for inspection: --molecule its targets (and it stops at the first failed"
+    echo "                role), the renders their work folder"
+    echo "  --list        Only print what would run (--bats and --molecule only)"
+    echo ""
+    echo "Test files or roles without --changed need a single suite, as they mean different things per suite."
 }
 
+ALL_SUITES=(bats renovate render render-k8s molecule lint)
+SUITES=()
 CHANGED=0
-LINT=0
+KEEP=0
 LIST=0
-MOLECULE=0
-RENDER=0
-RENDER_K8S=0
-RENOVATE=0
 TARGETS=()
 while [ $# -ge 1 ]; do
   case "$1" in
@@ -39,26 +46,20 @@ while [ $# -ge 1 ]; do
       usage
       exit 0
       ;;
+    --all)
+      SUITES+=("${ALL_SUITES[@]}")
+      ;;
+    --bats|--lint|--molecule|--render|--render-k8s|--renovate)
+      SUITES+=("${1#--}")
+      ;;
     --changed)
       CHANGED=1
       ;;
-    --lint)
-      LINT=1
+    --keep)
+      KEEP=1
       ;;
     --list)
       LIST=1
-      ;;
-    --molecule)
-      MOLECULE=1
-      ;;
-    --render)
-      RENDER=1
-      ;;
-    --render-k8s)
-      RENDER_K8S=1
-      ;;
-    --renovate)
-      RENOVATE=1
       ;;
     --*)
       echo "ERROR: unknown parameter \"$1\""
@@ -71,46 +72,70 @@ while [ $# -ge 1 ]; do
   esac
   shift
 done
+# Each suite once, at its first mention
+mapfile -t SUITES < <(printf '%s\n' "${SUITES[@]}" | awk 'NF && !seen[$0]++')
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 TTY=()
 [ -t 1 ] && TTY=(-t)
 
-if [ $((LINT + RENOVATE + RENDER + RENDER_K8S + MOLECULE)) -gt 1 ] || [ $((LINT + RENOVATE + CHANGED)) -gt 1 ]; then
-  echo "ERROR: --lint, --renovate, --render, --render-k8s and --molecule can't be combined, nor --lint and --renovate with --changed"
+if [ "${#SUITES[@]}" -eq 0 ]; then
+  echo "ERROR: name the suites to run: --bats, --lint, --molecule, --render, --render-k8s, --renovate, or --all"
   usage
   exit 1
 fi
-if [ $((LINT + RENOVATE)) -gt 0 ] || { [ $((RENDER + RENDER_K8S)) -gt 0 ] && [ "${CHANGED}" -eq 0 ]; }; then
-  if [ "${#TARGETS[@]}" -gt 0 ]; then
-    echo "ERROR: --lint, --renovate, --render and --render-k8s take no test files (the renders take changed files with --changed)"
+if [ "${CHANGED}" -eq 0 ] && [ "${#TARGETS[@]}" -gt 0 ]; then
+  if [ "${#SUITES[@]}" -gt 1 ]; then
+    echo "ERROR: test files or roles need a single suite"
+    usage
+    exit 1
+  fi
+  if [[ " lint renovate render render-k8s " == *" ${SUITES[0]} "* ]]; then
+    echo "ERROR: --${SUITES[0]} takes no arguments without --changed"
     usage
     exit 1
   fi
 fi
+if [ "${LIST}" -eq 1 ] && printf '%s\n' "${SUITES[@]}" | grep -q -v -x -E 'bats|molecule'; then
+  echo "ERROR: --list works with --bats and --molecule only"
+  usage
+  exit 1
+fi
 
-if [ "${MOLECULE}" -eq 1 ]; then
+# Each suite runs in a subshell, so its exit and its cleanup trap stay its own
+
+function suite_molecule() (
   OPTIONS=()
   [ "${CHANGED}" -eq 1 ] && OPTIONS+=(--changed)
   [ "${LIST}" -eq 1 ] && OPTIONS+=(--list)
+  [ "${KEEP}" -eq 1 ] && OPTIONS+=(--keep)
   exec "${REPO_ROOT}/tests/molecule/molecule.sh" "${OPTIONS[@]}" "${TARGETS[@]}"
-fi
+)
 
-if [ "${RENDER}" -eq 1 ]; then
+function suite_render() (
+  OPTIONS=()
+  [ "${KEEP}" -eq 1 ] && OPTIONS+=(--keep)
   if [ "${CHANGED}" -eq 1 ]; then
-    exec "${REPO_ROOT}/tests/render/render.sh" --changed "${TARGETS[@]}"
+    exec "${REPO_ROOT}/tests/render/render.sh" "${OPTIONS[@]}" --changed "${TARGETS[@]}"
   fi
-  exec "${REPO_ROOT}/tests/render/render.sh"
-fi
+  exec "${REPO_ROOT}/tests/render/render.sh" "${OPTIONS[@]}"
+)
 
-if [ "${RENDER_K8S}" -eq 1 ]; then
+function suite_render-k8s() (
+  OPTIONS=()
+  [ "${KEEP}" -eq 1 ] && OPTIONS+=(--keep)
   if [ "${CHANGED}" -eq 1 ]; then
-    exec "${REPO_ROOT}/tests/render/render-k8s.sh" --changed "${TARGETS[@]}"
+    exec "${REPO_ROOT}/tests/render/render-k8s.sh" "${OPTIONS[@]}" --changed "${TARGETS[@]}"
   fi
-  exec "${REPO_ROOT}/tests/render/render-k8s.sh"
-fi
+  exec "${REPO_ROOT}/tests/render/render-k8s.sh" "${OPTIONS[@]}"
+)
 
-if [ "${RENOVATE}" -eq 1 ]; then
+function suite_renovate() (
+  # With changed files, the check only concerns the rules and their fixtures, like its commit hook
+  if [ "${CHANGED}" -eq 1 ] && ! printf '%s\n' "${TARGETS[@]}" | grep -q -E '^(renovate\.json|tests/renovate/)'; then
+    echo "INFO: Neither renovate.json nor tests/renovate/ changed, nothing to check"
+    exit 0
+  fi
   # The same image the deployed Renovate chart runs, like automation/gitops/renovate/dry-run.sh
   RENOVATE_DIR="${REPO_ROOT}/automation/gitops/renovate"
   CHART_NAME=$(sed -n 's/^CHART_NAME=//p' "${RENOVATE_DIR}/renovate-oss/deploy-k8s.sh")
@@ -143,105 +168,125 @@ if [ "${RENOVATE}" -eq 1 ]; then
   fi
   echo "ERROR: Renovate's extraction differs from tests/renovate/expected.tsv (- expected, + extracted)"
   exit 1
-fi
+)
 
-if [ "${LINT}" -eq 1 ]; then
+function suite_lint() (
   EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.ansible-navigator.yaml")
   exec docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" -e HOME=/tmp \
     -v "${REPO_ROOT}:/code" -w /code --entrypoint ansible-lint "${EE_IMAGE}"
-fi
+)
 
-# Every test file declares what it covers in "# covers: <pattern>..." header lines: paths relative to the
-# repository root, where "*" also matches "/"
-declare -A COVERS
-for TEST_FILE in "${REPO_ROOT}"/tests/bats/*.bats; do
-  COVERS[${TEST_FILE}]=$(sed -n 's/^# covers: //p' "${TEST_FILE}" | tr '\n' ' ')
-  # A literal path that no longer exists means its test silently lost what it covers (a rename, a deletion)
-  # read -a splits the patterns without expanding them as file globs
-  read -r -a PATTERNS <<< "${COVERS[${TEST_FILE}]}"
-  for PATTERN in "${PATTERNS[@]}"; do
-    [[ "${PATTERN}" == *[*?[]* ]] && continue
-    [ -e "${REPO_ROOT}/${PATTERN}" ] || echo "WARNING: ${TEST_FILE#"${REPO_ROOT}"/} covers ${PATTERN}, which doesn't exist"
-  done
-done
-
-# --changed: pick the test files to run. A harness change runs all of them, a changed test file itself, and a
-# changed file outside tests/ every test file that covers it. When only wrappers changed, wrappers.bats checks
-# just those (WRAPPERS_ONLY) instead of all of them.
-WRAPPERS_ONLY=()
-if [ "${CHANGED}" -eq 1 ]; then
-  CHANGED_FILES=("${TARGETS[@]}")
-  TARGETS=()
-  HARNESS_CHANGED=0
-  for FILE in "${CHANGED_FILES[@]}"; do
-    case "${FILE}" in
-      tests/run.sh|tests/bats/helpers.bash|tests/bats/stubs/*)
-        HARNESS_CHANGED=1
-        ;;
-    esac
-  done
+function suite_bats() (
+  # Every test file declares what it covers in "# covers: <pattern>..." header lines: paths relative to the
+  # repository root, where "*" also matches "/"
+  declare -A COVERS
   for TEST_FILE in "${REPO_ROOT}"/tests/bats/*.bats; do
-    TEST_REL=${TEST_FILE#"${REPO_ROOT}"/}
+    COVERS[${TEST_FILE}]=$(sed -n 's/^# covers: //p' "${TEST_FILE}" | tr '\n' ' ')
+    # A literal path that no longer exists means its test silently lost what it covers (a rename, a deletion)
+    # read -a splits the patterns without expanding them as file globs
     read -r -a PATTERNS <<< "${COVERS[${TEST_FILE}]}"
-    SELF_CHANGED=0
-    MATCHED=()
-    for FILE in "${CHANGED_FILES[@]}"; do
-      [ "${FILE}" = "${TEST_REL}" ] && SELF_CHANGED=1
-      # Other files under tests/ (the Renovate fixtures, for example) select no test file
-      [[ "${FILE}" == tests/* ]] && continue
-      for PATTERN in "${PATTERNS[@]}"; do
-        # shellcheck disable=SC2053 # matched as a pattern on purpose
-        if [[ "${FILE}" == ${PATTERN} ]]; then
-          MATCHED+=("${FILE}")
-          break
-        fi
-      done
+    for PATTERN in "${PATTERNS[@]}"; do
+      [[ "${PATTERN}" == *[*?[]* ]] && continue
+      [ -e "${REPO_ROOT}/${PATTERN}" ] || echo "WARNING: ${TEST_FILE#"${REPO_ROOT}"/} covers ${PATTERN}, which doesn't exist"
     done
-    if [ $((HARNESS_CHANGED + SELF_CHANGED)) -gt 0 ] || [ "${#MATCHED[@]}" -gt 0 ]; then
-      TARGETS+=("${TEST_FILE}")
-      if [ "${TEST_REL}" = tests/bats/wrappers.bats ] && [ $((HARNESS_CHANGED + SELF_CHANGED)) -eq 0 ]; then
-        WRAPPERS_ONLY=("${MATCHED[@]}")
-      fi
-    fi
   done
-  if [ "${#TARGETS[@]}" -eq 0 ]; then
-    echo "INFO: No test covers the changed files"
+
+  # --changed: pick the test files to run. A harness change runs all of them, a changed test file itself, and a
+  # changed file (outside the Renovate fixtures) every test file that covers it. When only wrappers changed, wrappers.bats checks
+  # just those (WRAPPERS_ONLY) instead of all of them.
+  WRAPPERS_ONLY=()
+  if [ "${CHANGED}" -eq 1 ]; then
+    CHANGED_FILES=("${TARGETS[@]}")
+    TARGETS=()
+    HARNESS_CHANGED=0
+    for FILE in "${CHANGED_FILES[@]}"; do
+      case "${FILE}" in
+        tests/run.sh|tests/bats/helpers.bash|tests/bats/stubs/*)
+          HARNESS_CHANGED=1
+          ;;
+      esac
+    done
+    for TEST_FILE in "${REPO_ROOT}"/tests/bats/*.bats; do
+      TEST_REL=${TEST_FILE#"${REPO_ROOT}"/}
+      read -r -a PATTERNS <<< "${COVERS[${TEST_FILE}]}"
+      SELF_CHANGED=0
+      MATCHED=()
+      for FILE in "${CHANGED_FILES[@]}"; do
+        [ "${FILE}" = "${TEST_REL}" ] && SELF_CHANGED=1
+        # The Renovate fixtures look like the repository's files but are none of them
+        [[ "${FILE}" == tests/renovate/fixtures/* ]] && continue
+        for PATTERN in "${PATTERNS[@]}"; do
+          # shellcheck disable=SC2053 # matched as a pattern on purpose
+          if [[ "${FILE}" == ${PATTERN} ]]; then
+            MATCHED+=("${FILE}")
+            break
+          fi
+        done
+      done
+      if [ $((HARNESS_CHANGED + SELF_CHANGED)) -gt 0 ] || [ "${#MATCHED[@]}" -gt 0 ]; then
+        TARGETS+=("${TEST_FILE}")
+        if [ "${TEST_REL}" = tests/bats/wrappers.bats ] && [ $((HARNESS_CHANGED + SELF_CHANGED)) -eq 0 ]; then
+          WRAPPERS_ONLY=("${MATCHED[@]}")
+        fi
+      fi
+    done
+    if [ "${#TARGETS[@]}" -eq 0 ]; then
+      echo "INFO: No test covers the changed files"
+      exit 0
+    fi
+  fi
+
+  if [ "${LIST}" -eq 1 ]; then
+    if [ "${#TARGETS[@]}" -eq 0 ]; then
+      TARGETS=("${REPO_ROOT}"/tests/bats/*.bats)
+    fi
+    for TARGET in "${TARGETS[@]}"; do
+      TARGET=$(realpath "${TARGET}")
+      echo "${TARGET#"${REPO_ROOT}"/}"
+    done
+    [ "${#WRAPPERS_ONLY[@]}" -gt 0 ] && echo "INFO: wrappers.bats checks only: ${WRAPPERS_ONLY[*]}"
     exit 0
   fi
-fi
 
-if [ "${LIST}" -eq 1 ]; then
-  if [ "${#TARGETS[@]}" -eq 0 ]; then
-    TARGETS=("${REPO_ROOT}"/tests/bats/*.bats)
-  fi
+  # Test files are given relative to the caller's folder; inside the container the repository is /code
+  CONTAINER_TARGETS=()
   for TARGET in "${TARGETS[@]}"; do
+    if [ ! -e "${TARGET}" ]; then
+      echo "ERROR: ${TARGET} not found"
+      exit 1
+    fi
+    # Plain realpath and a prefix strip, as --relative-to is GNU-only
     TARGET=$(realpath "${TARGET}")
-    echo "${TARGET#"${REPO_ROOT}"/}"
+    CONTAINER_TARGETS+=("/code/${TARGET#"${REPO_ROOT}"/}")
   done
-  [ "${#WRAPPERS_ONLY[@]}" -gt 0 ] && echo "INFO: wrappers.bats checks only: ${WRAPPERS_ONLY[*]}"
-  exit 0
+  [ "${#CONTAINER_TARGETS[@]}" -eq 0 ] && CONTAINER_TARGETS=(--recursive /code/tests/bats)
+
+  # The tested scripts call these static tools; the host's own binaries are mounted, so the tests use the same versions
+  TOOL_MOUNTS=()
+  for TOOL in sops age age-keygen yq; do
+    TOOL_PATH=$(command -v "${TOOL}")
+    [ -n "${TOOL_PATH}" ] && TOOL_MOUNTS+=(-v "$(realpath "${TOOL_PATH}"):/usr/local/bin/${TOOL}:ro")
+  done
+
+  docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" -e HOME=/tmp -e WRAPPERS_ONLY="${WRAPPERS_ONLY[*]}" \
+    -v "${REPO_ROOT}:/code:ro" "${TOOL_MOUNTS[@]}" \
+    "bats/bats:${BATS_VERSION}" "${CONTAINER_TARGETS[@]}"
+)
+
+if [ "${#SUITES[@]}" -eq 1 ]; then
+  "suite_${SUITES[0]}"
+  exit $?
 fi
-
-# Test files are given relative to the caller's folder; inside the container the repository is /code
-CONTAINER_TARGETS=()
-for TARGET in "${TARGETS[@]}"; do
-  if [ ! -e "${TARGET}" ]; then
-    echo "ERROR: ${TARGET} not found"
-    exit 1
+FAILED=()
+for SUITE in "${SUITES[@]}"; do
+  echo "INFO: Running the ${SUITE} suite..."
+  "suite_${SUITE}" || FAILED+=("${SUITE}")
+done
+for SUITE in "${SUITES[@]}"; do
+  if [[ " ${FAILED[*]} " == *" ${SUITE} "* ]]; then
+    echo "ERROR: ${SUITE} failed"
+  else
+    echo "INFO: ${SUITE} passed"
   fi
-  # Plain realpath and a prefix strip, as --relative-to is GNU-only
-  TARGET=$(realpath "${TARGET}")
-  CONTAINER_TARGETS+=("/code/${TARGET#"${REPO_ROOT}"/}")
 done
-[ "${#CONTAINER_TARGETS[@]}" -eq 0 ] && CONTAINER_TARGETS=(--recursive /code/tests/bats)
-
-# The tested scripts call these static tools; the host's own binaries are mounted, so the tests use the same versions
-TOOL_MOUNTS=()
-for TOOL in sops age age-keygen yq; do
-  TOOL_PATH=$(command -v "${TOOL}")
-  [ -n "${TOOL_PATH}" ] && TOOL_MOUNTS+=(-v "$(realpath "${TOOL_PATH}"):/usr/local/bin/${TOOL}:ro")
-done
-
-docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" -e HOME=/tmp -e WRAPPERS_ONLY="${WRAPPERS_ONLY[*]}" \
-  -v "${REPO_ROOT}:/code:ro" "${TOOL_MOUNTS[@]}" \
-  "bats/bats:${BATS_VERSION}" "${CONTAINER_TARGETS[@]}"
+[ "${#FAILED[@]}" -eq 0 ]

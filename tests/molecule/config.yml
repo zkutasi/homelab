@@ -24,7 +24,13 @@ provisioner:
   # The execution environment has the Docker SDK but no docker CLI
   connection_options:
     ansible_connection: community.docker.docker_api
+    # The deploying user of the image, like on the hosts: a normal user with sudo
+    ansible_user: tester
   env:
+    # The repository's settings, like a real run (jinja2_native above all); its profiling callbacks stay off,
+    # replaced by the stdout callback it has anyway, as an empty list makes Ansible warn on every run
+    ANSIBLE_CONFIG: ${MOLECULE_PROJECT_DIRECTORY}/../../../../ansible.cfg
+    ANSIBLE_CALLBACKS_ENABLED: ansible.builtin.default
     ANSIBLE_ROLES_PATH: ${MOLECULE_PROJECT_DIRECTORY}/..
     ANSIBLE_PIPELINING: "true"
 verifier:

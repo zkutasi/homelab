@@ -2,6 +2,7 @@
   ansible.builtin.import_playbook: ../../../../../../tests/molecule/binary-fixtures.yml
 - name: Install what the converge removes
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Install fake-svc as a service

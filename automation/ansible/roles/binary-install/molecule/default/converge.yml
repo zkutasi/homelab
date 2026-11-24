@@ -57,6 +57,8 @@
       FAKE_GREETING: hello
 - name: Case installer package with its own binary folder
   hosts: all
+  # dpkg needs root, so its callers (like the Wazuh agent) use become; without become the role fails anyway (backlog 272)
+  become: true
   gather_facts: false
   roles:
     - binary-install

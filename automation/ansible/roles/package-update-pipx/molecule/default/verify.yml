@@ -4,7 +4,7 @@
   tasks:
     - name: Run the app
       ansible.builtin.command:
-        cmd: /root/.local/bin/fake-tool
+        cmd: /home/tester/.local/bin/fake-tool
       register: app
       changed_when: false
     # upgrade-all doesn't keep the version the package was installed with (backlog 259)

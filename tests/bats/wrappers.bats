@@ -32,7 +32,7 @@ setup_file() {
   (cd "${REPO_ROOT}" && find . \
       \( -path ./.git -o -path ./_templates -o -path ./tests -o -name kubespray-repo -o -name wazuh-kubernetes \) -prune \
       -o -type f \( -name deploy-k8s.sh -o -name undeploy-k8s.sh \) -print | sed 's|^\./||' | sort) > "${BATS_FILE_TMPDIR}/wrappers.txt"
-  # tests/run.sh --changed passes the changed wrappers in WRAPPERS_ONLY: then only those are checked
+  # tests/run.sh --bats --changed passes the changed wrappers in WRAPPERS_ONLY: then only those are checked
   if [ -n "${WRAPPERS_ONLY:-}" ]; then
     tr ' ' '\n' <<< "${WRAPPERS_ONLY}" | grep -Fx -f - "${BATS_FILE_TMPDIR}/wrappers.txt" > "${BATS_FILE_TMPDIR}/only.txt" || true
     mv "${BATS_FILE_TMPDIR}/only.txt" "${BATS_FILE_TMPDIR}/wrappers.txt"

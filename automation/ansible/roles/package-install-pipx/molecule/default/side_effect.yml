@@ -14,7 +14,7 @@
       changed_when: false
     - name: Run the app
       ansible.builtin.command:
-        cmd: /root/.local/bin/fake-tool
+        cmd: /home/tester/.local/bin/fake-tool
       register: app
       changed_when: false
     - name: Check the version didn't change
@@ -29,7 +29,7 @@
   tasks:
     - name: Run the app
       ansible.builtin.command:
-        cmd: /root/.local/bin/fake-tool
+        cmd: /home/tester/.local/bin/fake-tool
       register: app
       changed_when: false
     - name: Check the new version

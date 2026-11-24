@@ -15,6 +15,7 @@
           - fake-tool==1.0.0
   post_tasks:
     - name: Publish fake-tool 2.0.0
+      become: true
       ansible.builtin.copy:
         src: /srv/pipx/next/
         dest: /srv/pipx/current/

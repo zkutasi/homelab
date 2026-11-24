@@ -1,5 +1,6 @@
 - name: Serve the fake binaries for the binary-install and binary-remove scenarios
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Build the fake binaries and archives

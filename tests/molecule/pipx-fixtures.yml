@@ -1,5 +1,6 @@
 - name: Provide the fake Python packages for the pipx scenarios
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Build the wheels

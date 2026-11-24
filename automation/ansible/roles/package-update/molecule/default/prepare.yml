@@ -2,6 +2,7 @@
   ansible.builtin.import_playbook: ../../../../../../tests/molecule/package-fixtures.yml
 - name: Install the older versions, then publish the newer ones
   hosts: all
+  become: true
   gather_subset:
     - min
   tasks:

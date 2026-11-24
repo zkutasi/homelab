@@ -4,5 +4,7 @@
   roles:
     - create-user
   vars:
+    # Like its caller, which reaches the Proxmox hosts as root
+    ansible_user: root
     username: alice
     password: alice-secret

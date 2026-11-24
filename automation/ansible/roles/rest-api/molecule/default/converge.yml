@@ -65,6 +65,7 @@
   gather_facts: false
   pre_tasks:
     - name: Publish the document two seconds from now
+      become: true
       ansible.builtin.command:
         cmd: systemd-run --on-active=2 --timer-property=AccuracySec=100ms cp /srv/mock/data.json /srv/mock/late.json
       changed_when: false

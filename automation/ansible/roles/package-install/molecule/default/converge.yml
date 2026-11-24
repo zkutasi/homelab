@@ -1,5 +1,6 @@
 - name: Case signed repository with its key
   hosts: all
+  become: true
   gather_subset:
     - min
   roles:
@@ -13,6 +14,7 @@
       - fake-signed
 - name: Case added repository, packages with a dependency
   hosts: all
+  become: true
   gather_subset:
     - min
   roles:

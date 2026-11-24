@@ -1,5 +1,4 @@
 # The test App as a deploy playbook would set it up; the scenario files load this with vars_files
-ansible_user: tester
 docker_cli_path: /usr/bin/docker
 docker_with_sudo: false
 docker_compose_rootdir: /home/tester/docker-compose

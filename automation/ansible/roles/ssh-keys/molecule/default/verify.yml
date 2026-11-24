@@ -1,5 +1,6 @@
 - name: Verify the keys
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Read the keys
@@ -7,7 +8,7 @@
         path: "{{ item }}"
       register: keys
       loop:
-        - /root/.ssh/id_ed25519
+        - /home/tester/.ssh/id_ed25519
         - /home/bob/.ssh/id_ed25519
     - name: Check only the user without a key got one
       ansible.builtin.assert:

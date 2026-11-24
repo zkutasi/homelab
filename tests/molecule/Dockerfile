@@ -2,12 +2,17 @@ FROM ubuntu:24.04 AS base
 RUN apt-get update \
  && apt-get install -y --no-install-recommends systemd systemd-sysv python3 python3-apt gnupg sudo unzip p7zip-full openssh-client dnsmasq-base pipx \
  && apt-get clean && rm -rf /var/lib/apt/lists/*
+# The deploying user, like on the hosts: a normal user with passwordless sudo
+RUN useradd --create-home --shell /bin/bash tester \
+ && echo 'tester ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/tester \
+ && chmod 0440 /etc/sudoers.d/tester
 # pipx the way the hosts get it (basics/setup-python.yaml): Ubuntu's, then a current one installed by pipx itself
-# into ~/.local/bin, as Ubuntu's is too old for version pins
-RUN python3 -m venv /tmp/bootstrap \
+# into the user's ~/.local/bin, as Ubuntu's is too old for version pins
+RUN runuser -u tester -- sh -c 'cd \
+ && python3 -m venv /tmp/bootstrap \
  && /tmp/bootstrap/bin/pip install --no-cache-dir pipx \
  && /tmp/bootstrap/bin/pipx install pipx \
- && rm -rf /tmp/bootstrap /root/.cache
+ && rm -rf /tmp/bootstrap ~/.cache'
 STOPSIGNAL SIGRTMIN+3
 CMD ["/lib/systemd/systemd"]
 

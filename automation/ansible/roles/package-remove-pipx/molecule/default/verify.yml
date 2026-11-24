@@ -7,8 +7,8 @@
         path: "{{ item }}"
       register: leftovers
       loop:
-        - /root/.local/bin/fake-tool
-        - /root/.local/share/pipx/venvs/fake-tool
+        - /home/tester/.local/bin/fake-tool
+        - /home/tester/.local/share/pipx/venvs/fake-tool
     - name: Check both are gone
       ansible.builtin.assert:
         that: leftovers.results | selectattr('stat.exists') | list | length == 0

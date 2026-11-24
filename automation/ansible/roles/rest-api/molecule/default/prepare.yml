@@ -1,5 +1,6 @@
 - name: Start a mock REST API on the target
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Create the API's folders

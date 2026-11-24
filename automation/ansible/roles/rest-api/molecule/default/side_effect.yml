@@ -3,6 +3,7 @@
   gather_facts: false
   tasks:
     - name: Empty the request log
+      become: true
       ansible.builtin.copy:
         content: ""
         dest: /srv/mock/requests.log

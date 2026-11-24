@@ -1,5 +1,6 @@
 - name: Give a second user an RSA key already
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Create the user

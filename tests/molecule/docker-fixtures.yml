@@ -1,20 +1,14 @@
 - name: Prepare a Docker host for the docker-compose and docker-compose-remove scenarios
   hosts: all
+  become: true
   gather_facts: false
   tasks:
-    # Like on the hosts: a user in the docker group, with sudo for the folders it doesn't own
-    - name: Create the deploying user
+    # Like on the hosts: the deploying user runs Docker through the docker group
+    - name: Add the deploying user to the docker group
       ansible.builtin.user:
         name: tester
         groups: docker
         append: true
-        shell: /bin/bash
-    - name: Let the user sudo
-      ansible.builtin.copy:
-        content: "tester ALL=(ALL) NOPASSWD: ALL\n"
-        dest: /etc/sudoers.d/tester
-        mode: "0440"
-        validate: visudo -cf %s
     - name: Wait for Docker
       ansible.builtin.command:
         cmd: docker info

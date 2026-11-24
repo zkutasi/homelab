@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function usage() {
-    echo "Usage: $0 [--changed <file>... | --list] [<role>...]"
+    echo "Usage: $0 [--changed <file>... | --list] [--keep] [<role>...]"
     echo ""
     echo "Runs every Molecule scenario of the given roles (all roles with a molecule folder by default) inside the"
     echo "Ansible execution environment, against systemd containers built from tests/molecule/Dockerfile."
@@ -11,10 +11,13 @@ function usage() {
     echo "                to and the roles whose scenarios use them, or all of them when the Molecule harness or the"
     echo "                execution environment changed"
     echo "  --help        Display this help message"
+    echo "  --keep        Don't remove the targets, so a failed scenario's can be inspected, and stop at the first failed"
+    echo "                role; the next run removes the target"
     echo "  --list        Only print which roles would be tested"
 }
 
 CHANGED=0
+KEEP=0
 LIST=0
 ARGS=()
 while [ $# -ge 1 ]; do
@@ -25,6 +28,9 @@ while [ $# -ge 1 ]; do
     --help)
       usage
       exit 0
+      ;;
+    --keep)
+      KEEP=1
       ;;
     --list)
       LIST=1
@@ -126,12 +132,19 @@ EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.an
 DOCKER_GID=$(stat -c %g /var/run/docker.sock)
 TTY=()
 [ -t 1 ] && TTY=(-t)
+DESTROY=()
+[ "${KEEP}" -eq 1 ] && DESTROY=(--destroy=never)
 FAILED=()
 for ROLE in "${ROLES[@]}"; do
   echo "INFO: Testing ${ROLE}..."
   docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" --group-add "${DOCKER_GID}" -e HOME=/tmp \
     -v /var/run/docker.sock:/var/run/docker.sock -v "${REPO_ROOT}:/code" -w "/code/automation/ansible/roles/${ROLE}" \
-    --entrypoint molecule "${EE_IMAGE}" -c /code/tests/molecule/config.yml test --all || FAILED+=("${ROLE}")
+    --entrypoint molecule "${EE_IMAGE}" -c /code/tests/molecule/config.yml test --all "${DESTROY[@]}" || FAILED+=("${ROLE}")
+  # Every scenario starts by removing the target, so the next role would remove the kept one
+  if [ "${KEEP}" -eq 1 ] && [ "${#FAILED[@]}" -gt 0 ]; then
+    echo "INFO: Kept the target of ${ROLE}'s failed scenario; look inside with: docker exec -it ubuntu-24.04 bash"
+    break
+  fi
 done
 if [ "${#FAILED[@]}" -gt 0 ]; then
   echo "ERROR: Molecule failed for: ${FAILED[*]}"

@@ -4,12 +4,12 @@
   tasks:
     - name: Run the app
       ansible.builtin.command:
-        cmd: /root/.local/bin/fake-tool
+        cmd: /home/tester/.local/bin/fake-tool
       register: app
       changed_when: false
     - name: Import the injected package in the app's environment
       ansible.builtin.command:
-        cmd: /root/.local/share/pipx/venvs/fake-tool/bin/python -c 'import fake_plugin'
+        cmd: /home/tester/.local/share/pipx/venvs/fake-tool/bin/python -c 'import fake_plugin'
       changed_when: false
     - name: Check the pinned version
       ansible.builtin.assert:

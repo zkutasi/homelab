@@ -3,6 +3,7 @@
 # Like a NAS appliance that ships 7z but no unzip
 - name: Remove unzip
   hosts: all
+  become: true
   gather_facts: false
   tasks:
     - name: Remove the unzip package

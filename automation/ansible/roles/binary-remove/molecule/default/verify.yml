@@ -1,5 +1,7 @@
 - name: Verify the binaries and the service are gone
   hosts: all
+  # systemctl reaches systemd in the target only as root
+  become: true
   gather_facts: false
   tasks:
     - name: Look for the binaries and the unit file

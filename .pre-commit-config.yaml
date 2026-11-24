@@ -14,7 +14,7 @@ repos:
         files: (^|/)ca\.key$
       - id: bats
         name: Run the bats tests that cover the changed files
-        entry: tests/run.sh --changed
+        entry: tests/run.sh --bats --changed
         language: script
         require_serial: true
         files: (\.(sh|bash|bats)$|^tests/)
