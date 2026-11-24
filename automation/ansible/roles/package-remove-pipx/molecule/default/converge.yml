@@ -1,0 +1,10 @@
+- name: Case packages by their plain name, one of them never installed
+  hosts: all
+  gather_subset:
+    - min
+  roles:
+    - role: package-remove-pipx
+      vars:
+        pipx_packages:
+          - fake-tool
+          - fake-never

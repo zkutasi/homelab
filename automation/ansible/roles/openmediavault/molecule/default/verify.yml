@@ -1,0 +1,47 @@
+- name: Verify mergerfs_paths_to_sharedfolderrefs
+  hosts: localhost
+  gather_facts: false
+  vars:
+    mountpoints:
+      - dir: /srv/dev-disk-by-uuid-1111
+        uuid: mount-1
+      - dir: /srv/dev-disk-by-uuid-2222
+        uuid: mount-2
+    sharedfolders:
+      - uuid: share-1-media
+        mntentref: mount-1
+        reldirpath: media/
+      - uuid: share-2-media
+        mntentref: mount-2
+        reldirpath: media/
+      - uuid: share-1-movies
+        mntentref: mount-1
+        reldirpath: media/movies/
+  tasks:
+    - name: Check the shared folders found for each pool's paths
+      ansible.builtin.assert:
+        that: item.paths | mergerfs_paths_to_sharedfolderrefs(mountpoints, sharedfolders) == item.expected
+        fail_msg: "{{ item.paths }} gave {{ item.paths | mergerfs_paths_to_sharedfolderrefs(mountpoints, sharedfolders) }}"
+        quiet: true
+      loop:
+        - case: one path per disk, in the pool's order
+          paths: /srv/dev-disk-by-uuid-2222/media:/srv/dev-disk-by-uuid-1111/media
+          expected: [share-2-media, share-1-media]
+        - case: trailing slashes
+          paths: /srv/dev-disk-by-uuid-1111/media/:/srv/dev-disk-by-uuid-2222/media/
+          expected: [share-1-media, share-2-media]
+        - case: a nested shared folder
+          paths: /srv/dev-disk-by-uuid-1111/media/movies
+          expected: [share-1-movies]
+        - case: a folder that isn't shared
+          paths: /srv/dev-disk-by-uuid-1111/other
+          expected: []
+        - case: a path on no known disk
+          paths: /mnt/elsewhere/media
+          expected: []
+        # A new pool has no paths yet
+        - case: no paths
+          paths: ""
+          expected: ""
+      loop_control:
+        label: "{{ item.case }}"

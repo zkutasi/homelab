@@ -1,0 +1,8 @@
+# No idempotence step yet: the role rehashes the password with a new salt on every run (backlog 188)
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - verify
+    - destroy

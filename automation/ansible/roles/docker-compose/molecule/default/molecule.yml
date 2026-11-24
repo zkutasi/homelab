@@ -1,0 +1,24 @@
+# Docker runs inside the target: it needs privileged for container networking,
+# and its storage can't sit on the target's overlay
+platforms:
+  - name: ubuntu-24.04
+    image: homelab-molecule-docker:testing
+    command: /lib/systemd/systemd
+    privileged: true
+    cgroupns_mode: private
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /var/lib/docker
+      - /var/lib/containerd
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - side_effect
+    - destroy

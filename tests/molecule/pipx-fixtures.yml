@@ -1,0 +1,8 @@
+- name: Provide the fake Python packages for the pipx scenarios
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Build the wheels
+      ansible.builtin.script:
+        cmd: build-pipx-fixtures.sh
+        creates: /srv/pipx

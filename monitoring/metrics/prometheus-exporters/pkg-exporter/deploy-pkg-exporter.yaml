@@ -14,4 +14,3 @@
     pipx_packages:
       - pkg-exporter==0.2.7
     pipx_system_site_packages: true
-    pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

@@ -1,0 +1,10 @@
+- name: Prepare the Docker host
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/docker-fixtures.yml
+- name: Deploy the App the converge removes
+  hosts: all
+  gather_subset:
+    - min
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  roles:
+    - docker-compose

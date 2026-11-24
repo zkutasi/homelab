@@ -1,4 +1,5 @@
 - name: Upgrade all pipx packages via shell
   ansible.builtin.command:
-    cmd: pipx upgrade-all --include-injected
-  changed_when: true
+    cmd: "{{ pipx_executable }} upgrade-all --include-injected"
+  register: pipx_upgrade
+  changed_when: "'No packages upgraded' not in pipx_upgrade.stdout | default('')"

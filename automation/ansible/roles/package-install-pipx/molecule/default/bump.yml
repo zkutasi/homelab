@@ -1,0 +1,14 @@
+# The pin moves to the next version; side_effect.yml runs this in check mode first, then for real
+- name: Raise the pin
+  hosts: all
+  gather_subset:
+    - min
+  # pip installs only the fake packages, from the local folder
+  environment:
+    PIP_NO_INDEX: "1"
+    PIP_FIND_LINKS: /srv/pipx/current
+  roles:
+    - role: package-install-pipx
+      vars:
+        pipx_packages:
+          - fake-tool==2.0.0

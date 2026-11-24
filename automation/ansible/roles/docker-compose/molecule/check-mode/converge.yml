@@ -1,0 +1,48 @@
+# Runs the default scenario's deploy in check mode on a host that never had the App: it has to report a change
+- name: Run the deploy in check mode
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Run the default scenario's converge with --check
+      ansible.builtin.command:
+        argv:
+          - ansible-playbook
+          - --check
+          - --inventory
+          - "{{ lookup('ansible.builtin.env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory"
+          - "{{ playbook_dir }}/../default/converge.yml"
+      environment:
+        ANSIBLE_STDOUT_CALLBACK: ansible.builtin.json
+      register: check_run
+      changed_when: false
+      failed_when: false
+    - name: Read the run's report
+      ansible.builtin.set_fact:
+        check_report: "{{ check_run.stdout | from_json }}"
+    - name: Check the run didn't fail
+      ansible.builtin.assert:
+        that: check_run.rc == 0
+        fail_msg: "{{ failures }}"
+        quiet: true
+      vars:
+        failures: >-
+          {%- set found = [] -%}
+          {%- for play in check_report.plays -%}
+          {%- for task in play.tasks -%}
+          {%- for host, result in task.hosts.items() if result.failed | default(false) -%}
+          {%- set _ = found.append(play.play.name ~ ' / ' ~ task.task.name ~ ' / ' ~ host ~ ': ' ~ result.msg | default('')) -%}
+          {%- endfor -%}
+          {%- endfor -%}
+          {%- endfor -%}
+          {{ found }}
+    - name: Check every case reports a change on every host
+      ansible.builtin.assert:
+        that: changed_hosts | sort == check_report.stats.keys() | sort
+        fail_msg: "{{ item.play.name }} reports a change only on {{ changed_hosts }}"
+        quiet: true
+      vars:
+        changed_hosts: "{{ item.tasks | map(attribute='hosts') | map('dict2items') | flatten
+          | selectattr('value.changed', 'defined') | selectattr('value.changed') | map(attribute='key') | unique }}"
+      loop: "{{ check_report.plays }}"
+      loop_control:
+        label: "{{ item.play.name }}"

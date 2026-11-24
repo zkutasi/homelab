@@ -1,0 +1,32 @@
+- name: Verify the user
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the user
+      ansible.builtin.getent:
+        database: passwd
+        key: alice
+    - name: Read the user's password hash
+      ansible.builtin.getent:
+        database: shadow
+        key: alice
+    - name: Read the user's groups
+      ansible.builtin.command:
+        cmd: id -nG alice
+      register: groups_of_alice
+      changed_when: false
+    - name: Check the shell, the sudo group and the password
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.getent_passwd.alice[5] == "/bin/bash"
+          - "'sudo' in groups_of_alice.stdout.split()"
+          - "'alice-secret' | password_hash('sha512', parts[1], rounds=parts[0] | int) == shadow_hash"
+        quiet: true
+      vars:
+        shadow_hash: "{{ ansible_facts.getent_shadow.alice[0] }}"
+        # $6$rounds=<rounds>$<salt>$<hash>
+        parts: "{{ shadow_hash | regex_search('^\\$6\\$rounds=(\\d+)\\$([^$]+)\\$', '\\1', '\\2') }}"
+    - name: Run sudo as the user without a password
+      ansible.builtin.command:
+        cmd: runuser -u alice -- sudo -n true
+      changed_when: false

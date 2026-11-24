@@ -1,0 +1,28 @@
+- name: Case check mode sends GETs but no POSTs
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Empty the request log
+      ansible.builtin.copy:
+        content: ""
+        dest: /srv/mock/requests.log
+        mode: "0666"
+    - name: Run the calls with --check
+      ansible.builtin.command:
+        argv:
+          - ansible-playbook
+          - --check
+          - --inventory
+          - "{{ lookup('ansible.builtin.env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory"
+          - "{{ playbook_dir }}/check-mode-calls.yml"
+      delegate_to: localhost
+      changed_when: false
+    - name: Read the request log
+      ansible.builtin.slurp:
+        src: /srv/mock/requests.log
+      register: requests
+    - name: Check only the GET arrived
+      ansible.builtin.assert:
+        that: (requests.content | b64decode).splitlines() | map('split') | map('first') | list == ['GET']
+        fail_msg: "{{ requests.content | b64decode }}"
+        quiet: true

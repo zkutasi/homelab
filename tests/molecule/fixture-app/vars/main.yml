@@ -1,0 +1,19 @@
+# The test App as a deploy playbook would set it up; the scenario files load this with vars_files
+ansible_user: tester
+docker_cli_path: /usr/bin/docker
+docker_with_sudo: false
+docker_compose_rootdir: /home/tester/docker-compose
+docker_compose_projectname: fixture-app
+docker_compose_source_basepath: "{{ playbook_dir }}/../../../../../../tests/molecule/fixture-app"
+requested_image_version:
+  fixture-app: homelab-fixture:1
+docker_compose_create_dirs:
+  # A folder a container owns: the role gives it the declared owner (210)
+  - name: data
+    owner: 999
+    group: 999
+docker_compose_static_files_copy:
+  - name: static
+docker_compose_template_files_copy:
+  - name: conf/app.conf
+fixture_greeting: hello

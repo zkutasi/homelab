@@ -364,7 +364,7 @@ How this repository is organised and the conventions every App follows. Follow t
   - the render tests for the Docker Apps and for the Kubernetes Apps whose files changed;
   - the Molecule scenarios of the changed roles and of the roles whose scenarios use them;
   - the Renovate check when `renovate.json` or its fixtures change;
-  - ansible-lint (about 5 minutes).
+  - ansible-lint.
 - To run them:
   - `pre-commit run --hook-stage manual` for the staged files;
   - `pre-commit run --hook-stage manual --all-files` for everything;
@@ -388,11 +388,11 @@ How this repository is organised and the conventions every App follows. Follow t
 - `tests/render/check-k8s-conventions.sh` checks the Kubernetes App rules above.
 - Accepted deviations go into `tests/render/allowlist-k8s.tsv` with their reason, Apps the harness can't render into `tests/render/skip-k8s.tsv`.
 - Symlinks to the internal CA become dummy files in the copy, so the real CA key is never read.
-- Charts, the local charts' dependencies and the schemas are cached in `~/.cache/homelab-tests`; a full run takes about 75 seconds.
+- Charts, the local charts' dependencies and the schemas are cached in `~/.cache/homelab-tests`.
 
 ##### Molecule
 
-- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some: the `binary-*` and `package-*` roles today. A full run takes about 5 minutes.
+- `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some.
 - Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
 - Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
   - the targets;
@@ -401,7 +401,12 @@ How this repository is organised and the conventions every App follows. Follow t
   - lean create and destroy playbooks of its own (`tests/molecule/create.yml`, `destroy.yml`), as the driver's poll with a 5-second delay and run steps the tests don't use.
 - Each scenario runs on one target, Ubuntu 24.04, the OS most hosts run, built from `tests/molecule/Dockerfile` as `homelab-molecule:testing`. It's rebuilt only when the Dockerfile changes, and the replaced image is removed.
 - The targets boot systemd without `privileged`: they share the host's cgroup namespace with `/sys/fs/cgroup` mounted read-write, and tmpfs on `/run`, `/run/lock` and `/tmp`.
-- Nothing is downloaded during a run: the prepare step builds fake binaries, archives and packages on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`), and the package scenarios remove the distribution's APT sources first.
+- A scenario that only tests code running on the controller, like the `openmediavault` filter plugin, needs no target: it uses Molecule's unmanaged `default` driver and runs only its verify playbook against localhost.
+- Roles that deploy with Docker run on a second target, `homelab-molecule-docker:testing`, from the Dockerfile's `docker` stage (docker-ce from Docker's repository, like the hosts). It needs `privileged`, as Docker can't set up container networking without it, a private cgroup namespace, and tmpfs for Docker's storage, which can't sit on the target's overlay. Each such scenario names this platform in its own `molecule.yml`, and the runner builds the image only when a selected role uses it.
+- Nothing is downloaded during a run:
+  - the prepare step builds fake binaries, archives, packages, Python wheels and a busybox image on each target and serves them on its localhost (`tests/molecule/*-fixtures.yml`);
+  - the package scenarios remove the distribution's APT sources first;
+  - the `hosts` scenario answers its DNS lookups with a stub server on the target, and the `rest-api` scenario calls a mock API there.
 
 #### Adding a new App
 

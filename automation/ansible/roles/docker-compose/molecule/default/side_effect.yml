@@ -1,0 +1,97 @@
+# Each case changes something, reruns the role, then checks the outcome in the next play, after the handlers ran
+- name: Case an unchanged rerun keeps the container
+  hosts: all
+  gather_subset:
+    - min
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  tasks:
+    - name: Read the container's ID
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.Id{{ "}}" }}' fixture-app
+      register: before
+      changed_when: false
+    - name: Rerun the role
+      ansible.builtin.include_role:
+        name: docker-compose
+- name: Check the container was kept
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the container's ID
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.Id{{ "}}" }}' fixture-app
+      register: after
+      changed_when: false
+    - name: Check it's the same container
+      ansible.builtin.assert:
+        that: after.stdout == before.stdout
+        quiet: true
+
+- name: Case a changed config recreates the container
+  hosts: all
+  gather_subset:
+    - min
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  tasks:
+    - name: Read the container's ID
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.Id{{ "}}" }}' fixture-app
+      register: before
+      changed_when: false
+    - name: Rerun the role with another config value
+      ansible.builtin.include_role:
+        name: docker-compose
+      vars:
+        fixture_greeting: bye
+- name: Check the container was recreated with the new config
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the container's ID
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.Id{{ "}}" }}' fixture-app
+      register: after
+      changed_when: false
+    - name: Read the config the container started with
+      ansible.builtin.slurp:
+        src: /home/tester/docker-compose/fixture-app/data/seen.conf
+      register: seen
+    - name: Check it's a new container with the new config
+      ansible.builtin.assert:
+        that:
+          - after.stdout != before.stdout
+          - seen.content | b64decode == "greeting=bye\n"
+        quiet: true
+
+- name: Case a stack that is down gets started
+  hosts: all
+  gather_subset:
+    - min
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  tasks:
+    # Stopped like after an interrupted shutdown: unless-stopped then keeps it down
+    - name: Stop the container
+      ansible.builtin.command:
+        cmd: docker stop fixture-app
+      changed_when: true
+    - name: Rerun the role
+      ansible.builtin.include_role:
+        name: docker-compose
+      vars:
+        fixture_greeting: bye
+- name: Check the container runs again
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the container's state
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fixture-app
+      register: running
+      changed_when: false
+    - name: Check it runs
+      ansible.builtin.assert:
+        that: running.stdout == "true"
+        quiet: true

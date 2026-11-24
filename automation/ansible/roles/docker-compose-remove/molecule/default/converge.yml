@@ -1,0 +1,16 @@
+- name: Case a deployed App
+  hosts: all
+  gather_facts: false
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  roles:
+    - docker-compose-remove
+- name: Case an App that was never deployed
+  hosts: all
+  gather_facts: false
+  vars_files:
+    - ../../../../../../tests/molecule/fixture-app/vars/main.yml
+  roles:
+    - docker-compose-remove
+  vars:
+    docker_compose_projectname: fixture-never

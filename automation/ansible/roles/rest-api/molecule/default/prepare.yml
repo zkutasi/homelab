@@ -1,0 +1,38 @@
+- name: Start a mock REST API on the target
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Create the API's folders
+      ansible.builtin.file:
+        path: /srv/mock/cgi-bin
+        state: directory
+        mode: "0755"
+    - name: Add a JSON document
+      ansible.builtin.copy:
+        content: '{"items": [1, 2]}'
+        dest: /srv/mock/data.json
+        mode: "0644"
+    # Logs each request and answers with its method; the server runs CGI scripts as nobody
+    - name: Add an endpoint that records requests
+      ansible.builtin.copy:
+        content: |
+          #!/bin/sh
+          BODY=$(head -c "${CONTENT_LENGTH:-0}")
+          printf '%s %s %s %s\n' "${REQUEST_METHOD}" "${CONTENT_TYPE:--}" "${HTTP_REFERER:--}" "${BODY}" >> /srv/mock/requests.log
+          printf 'Content-Type: application/json\n\n{"method": "%s"}\n' "${REQUEST_METHOD}"
+        dest: /srv/mock/cgi-bin/echo.sh
+        mode: "0755"
+    - name: Create the request log
+      ansible.builtin.copy:
+        content: ""
+        dest: /srv/mock/requests.log
+        mode: "0666"
+    - name: Serve the API on localhost
+      ansible.builtin.command:
+        cmd: systemd-run --unit mock-api python3 -m http.server 8080 --cgi --bind 127.0.0.1 --directory /srv/mock
+        creates: /run/systemd/transient/mock-api.service
+    - name: Wait for the server
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 8080
+        timeout: 30

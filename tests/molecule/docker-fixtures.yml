@@ -1,0 +1,37 @@
+- name: Prepare a Docker host for the docker-compose and docker-compose-remove scenarios
+  hosts: all
+  gather_facts: false
+  tasks:
+    # Like on the hosts: a user in the docker group, with sudo for the folders it doesn't own
+    - name: Create the deploying user
+      ansible.builtin.user:
+        name: tester
+        groups: docker
+        append: true
+        shell: /bin/bash
+    - name: Let the user sudo
+      ansible.builtin.copy:
+        content: "tester ALL=(ALL) NOPASSWD: ALL\n"
+        dest: /etc/sudoers.d/tester
+        mode: "0440"
+        validate: visudo -cf %s
+    - name: Wait for Docker
+      ansible.builtin.command:
+        cmd: docker info
+      register: docker_info
+      until: docker_info.rc == 0
+      retries: 30
+      delay: 1
+      changed_when: false
+    # No registry during the tests: the App's image is busybox in an empty image
+    - name: Stage the image's files
+      ansible.builtin.shell:
+        cmd: |
+          mkdir -p /srv/fixture-image
+          cp /bin/busybox /srv/fixture-image/
+          printf 'FROM scratch\nCOPY busybox /bin/busybox\n' > /srv/fixture-image/Dockerfile
+        creates: /srv/fixture-image/Dockerfile
+    - name: Build the App's image
+      ansible.builtin.command:
+        cmd: docker build -q -t homelab-fixture:1 /srv/fixture-image
+      changed_when: true

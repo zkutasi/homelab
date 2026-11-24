@@ -1,0 +1,2 @@
+# The current pipx that basics/setup-python.yaml installs; Ubuntu's on the PATH is too old
+pipx_executable: "{{ ansible_user_dir }}/.local/bin/pipx"

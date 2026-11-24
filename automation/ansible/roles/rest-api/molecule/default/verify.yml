@@ -1,0 +1,17 @@
+- name: Verify what the API received
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the request log
+      ansible.builtin.slurp:
+        src: /srv/mock/requests.log
+      register: requests
+    - name: Check the bodies, their formats and the header arrived
+      ansible.builtin.assert:
+        that:
+          - '''POST application/json http://homelab.test/ {"name": "json-case"}'' in lines'
+          - "'POST application/x-www-form-urlencoded - name=form-case' in lines"
+        fail_msg: "{{ lines }}"
+        quiet: true
+      vars:
+        lines: "{{ (requests.content | b64decode).splitlines() }}"

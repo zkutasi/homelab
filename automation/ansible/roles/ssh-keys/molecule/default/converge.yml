@@ -1,0 +1,43 @@
+- name: Case a user without a key
+  hosts: all
+  gather_subset:
+    - min
+  roles:
+    - ssh-keys
+  post_tasks:
+    - name: Read the generated key
+      ansible.builtin.slurp:
+        src: /root/.ssh/id_ed25519.pub
+      register: generated
+    - name: Check the role returns the generated key
+      ansible.builtin.assert:
+        that: ssh_public_key == generated.content | b64decode
+        quiet: true
+# The same target under a second name, so the first case's facts don't carry over to this user
+- name: Add the target as the second user's host
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Add the host
+      ansible.builtin.add_host:
+        name: "{{ inventory_hostname }}-bob"
+        groups: second_user
+        ansible_host: "{{ inventory_hostname }}"
+        ansible_connection: community.docker.docker_api
+        ansible_user: bob
+      changed_when: false
+- name: Case a user with an RSA key
+  hosts: second_user
+  gather_subset:
+    - min
+  roles:
+    - ssh-keys
+  post_tasks:
+    - name: Read the existing key
+      ansible.builtin.slurp:
+        src: /home/bob/.ssh/id_rsa.pub
+      register: existing
+    - name: Check the role returns the existing key
+      ansible.builtin.assert:
+        that: ssh_public_key == existing.content | b64decode
+        quiet: true

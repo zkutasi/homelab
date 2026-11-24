@@ -34,7 +34,7 @@ repos:
         files: (^tests/render/|^common-[^/]*\.sh$|/deploy-k8s\.sh$|/app-values[^/]*\.yaml$|/extra-manifests/|/config/templates/|/chart/|/kustomization\.yaml$|/generate-configuration\.yaml$|^ansible\.cfg$|^kubernetes/k8s-install/kubespray/run-upgrade\.sh$)
         stages: [manual]
       - id: molecule
-        name: Run the Molecule scenarios of the changed roles (1 to 5 minutes per role)
+        name: Run the Molecule scenarios of the changed roles
         entry: tests/run.sh --molecule --changed
         language: script
         require_serial: true
@@ -48,7 +48,7 @@ repos:
         files: ^(renovate\.json|tests/renovate/)
         stages: [manual]
       - id: ansible-lint
-        name: Run ansible-lint in the execution environment (about 5 minutes)
+        name: Run ansible-lint in the execution environment
         entry: tests/run.sh --lint
         language: script
         pass_filenames: false

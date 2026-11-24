@@ -1,0 +1,17 @@
+- name: Verify the keys
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the keys
+      ansible.builtin.stat:
+        path: "{{ item }}"
+      register: keys
+      loop:
+        - /root/.ssh/id_ed25519
+        - /home/bob/.ssh/id_ed25519
+    - name: Check only the user without a key got one
+      ansible.builtin.assert:
+        that:
+          - keys.results[0].stat.exists
+          - not keys.results[1].stat.exists
+        quiet: true

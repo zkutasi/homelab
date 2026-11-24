@@ -1,0 +1,13 @@
+# The filter runs on the controller: no target to create, the cases run against localhost
+driver:
+  name: default
+  options:
+    managed: false
+platforms:
+  - name: controller
+provisioner:
+  env:
+    ANSIBLE_FILTER_PLUGINS: ${MOLECULE_PROJECT_DIRECTORY}/filter_plugins
+scenario:
+  test_sequence:
+    - verify

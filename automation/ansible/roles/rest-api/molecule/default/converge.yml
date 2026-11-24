@@ -1,0 +1,80 @@
+- name: Case a GET whose result goes into a named fact
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /data.json
+        rest_api_fact_name: mock_data
+  post_tasks:
+    - name: Check the fact holds the document
+      ansible.builtin.assert:
+        that: mock_data.json['items'] == [1, 2]
+        quiet: true
+
+- name: Case a JSON POST with a header
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /cgi-bin/echo.sh
+        rest_api_method: POST
+        rest_api_body_format: json
+        rest_api_headers:
+          Referer: http://homelab.test/
+        rest_api_data:
+          name: json-case
+  post_tasks:
+    - name: Check the response arrives in the default fact
+      ansible.builtin.assert:
+        that: rest_api_response.json.method == "POST"
+        quiet: true
+
+- name: Case a form POST with the defaults
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /cgi-bin/echo.sh
+        rest_api_method: POST
+        rest_api_data:
+          name: form-case
+
+- name: Case a status code the caller accepts
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /missing
+        rest_api_status_codes: [404]
+  post_tasks:
+    - name: Check the status
+      ansible.builtin.assert:
+        that: rest_api_response.status == 404
+        quiet: true
+
+- name: Case an endpoint that only answers on a retry
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Publish the document two seconds from now
+      ansible.builtin.command:
+        cmd: systemd-run --on-active=2 --timer-property=AccuracySec=100ms cp /srv/mock/data.json /srv/mock/late.json
+      changed_when: false
+  roles:
+    - role: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /late.json
+  post_tasks:
+    - name: Check the document arrived
+      ansible.builtin.assert:
+        that: rest_api_response.json['items'] == [1, 2]
+        quiet: true

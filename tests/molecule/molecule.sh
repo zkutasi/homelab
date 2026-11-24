@@ -4,7 +4,7 @@ function usage() {
     echo "Usage: $0 [--changed <file>... | --list] [<role>...]"
     echo ""
     echo "Runs every Molecule scenario of the given roles (all roles with a molecule folder by default) inside the"
-    echo "Ansible execution environment, against a systemd container built from tests/molecule/Dockerfile."
+    echo "Ansible execution environment, against systemd containers built from tests/molecule/Dockerfile."
     echo ""
     echo "Options:"
     echo "  --changed     The arguments are changed files (relative to the repository root): test only the roles they belong"
@@ -95,21 +95,31 @@ if [ "${LIST}" -eq 1 ]; then
   exit 0
 fi
 
-# The target is built locally, and rebuilt only when its Dockerfile changes (its hash is a label of the image)
-IMAGE=homelab-molecule:testing
+# The targets are built locally, and rebuilt only when their Dockerfile changes (its hash is a label of the image)
 DOCKERFILE="${REPO_ROOT}/tests/molecule/Dockerfile"
 DOCKERFILE_HASH=$(sha256sum "${DOCKERFILE}" | cut -c1-16)
-if [ "$(docker image inspect -f '{{index .Config.Labels "homelab.dockerfile"}}' "${IMAGE}" 2>/dev/null)" != "${DOCKERFILE_HASH}" ]; then
-  OLD_IMAGE=$(docker image inspect -f '{{.Id}}' "${IMAGE}" 2>/dev/null)
-  echo "INFO: Building the target..."
-  if ! docker build -q --label "homelab.dockerfile=${DOCKERFILE_HASH}" -t "${IMAGE}" - < "${DOCKERFILE}" > /dev/null; then
-    echo "ERROR: Could not build the target"
+# build_target <stage> <image>
+function build_target() {
+  local stage=$1 image=$2 old_image
+  [ "$(docker image inspect -f '{{index .Config.Labels "homelab.dockerfile"}}' "${image}" 2>/dev/null)" = "${DOCKERFILE_HASH}" ] && return 0
+  old_image=$(docker image inspect -f '{{.Id}}' "${image}" 2>/dev/null)
+  echo "INFO: Building ${image}..."
+  if ! docker build -q --target "${stage}" --label "homelab.dockerfile=${DOCKERFILE_HASH}" -t "${image}" - < "${DOCKERFILE}" > /dev/null; then
+    echo "ERROR: Could not build ${image}"
     exit 1
   fi
-  if [ -n "${OLD_IMAGE}" ] && [ "${OLD_IMAGE}" != "$(docker image inspect -f '{{.Id}}' "${IMAGE}")" ]; then
-    docker rmi "${OLD_IMAGE}" > /dev/null 2>&1
+  if [ -n "${old_image}" ] && [ "${old_image}" != "$(docker image inspect -f '{{.Id}}' "${image}")" ]; then
+    docker rmi "${old_image}" > /dev/null 2>&1
   fi
-fi
+}
+build_target base homelab-molecule:testing
+# The Docker target only when a selected role's scenarios use it
+for ROLE in "${ROLES[@]}"; do
+  if grep -q -r -F homelab-molecule-docker:testing "${ROLES_DIR}/${ROLE}/molecule"; then
+    build_target docker homelab-molecule-docker:testing
+    break
+  fi
+done
 
 # Molecule drives the host's Docker through its socket, as the socket's group
 EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.ansible-navigator.yaml")

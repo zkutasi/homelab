@@ -82,8 +82,8 @@ function docker_answering() {
   docker_answering "" "" sha256:new
   run "${RUNNER}" tool-install
   assert_success
-  assert_line "INFO: Building the target..."
-  assert_stub_called "docker build -q --label homelab.dockerfile=${DOCKERFILE_HASH} -t homelab-molecule:testing -"
+  assert_line "INFO: Building homelab-molecule:testing..."
+  assert_stub_called "docker build -q --target base --label homelab.dockerfile=${DOCKERFILE_HASH} -t homelab-molecule:testing -"
   run grep -c "^docker rmi" "${STUB_LOG}"
   assert_output "0"
   run grep -c "^docker run --rm --user [0-9]*:[0-9]* --group-add 999 .* -v /var/run/docker.sock:/var/run/docker.sock .* -w /code/automation/ansible/roles/tool-install --entrypoint molecule ee:latest -c /code/tests/molecule/config.yml test --all$" "${STUB_LOG}"
@@ -94,7 +94,7 @@ function docker_answering() {
   docker_answering "${DOCKERFILE_HASH}" sha256:old sha256:new
   run "${RUNNER}" tool-install
   assert_success
-  refute_line "INFO: Building the target..."
+  refute_line "INFO: Building homelab-molecule:testing..."
   run grep -c "^docker build" "${STUB_LOG}"
   assert_output "0"
 }
@@ -112,6 +112,19 @@ function docker_answering() {
   assert_success
   run grep -c "^docker rmi" "${STUB_LOG}"
   assert_output "0"
+}
+
+@test "the Docker target is built only when a selected role's scenarios use it" {
+  docker_answering "" "" sha256:new
+  run "${RUNNER}" tool-install
+  assert_success
+  run grep -c "^docker build .* --target docker " "${STUB_LOG}"
+  assert_output "0"
+  echo "    image: homelab-molecule-docker:testing" > "${ROLES}/tool-remove/molecule/default/molecule.yml"
+  rm -f "${BATS_TEST_TMPDIR}/built"
+  run "${RUNNER}" tool-install tool-remove
+  assert_success
+  assert_stub_called "docker build -q --target docker --label homelab.dockerfile=${DOCKERFILE_HASH} -t homelab-molecule-docker:testing -"
 }
 
 @test "a failing role doesn't stop the others, and the run fails naming it" {

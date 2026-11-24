@@ -1,0 +1,25 @@
+- name: Verify the App, its folder and its image are gone
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the App's folder
+      ansible.builtin.stat:
+        path: /home/tester/docker-compose/fixture-app
+      register: project_dir
+    - name: Look for the container
+      ansible.builtin.command:
+        cmd: docker ps -a -q --filter name=fixture-app
+      register: containers
+      changed_when: false
+    - name: Look for the image
+      ansible.builtin.command:
+        cmd: docker images -q homelab-fixture:1
+      register: images
+      changed_when: false
+    - name: Check the folder, the container and the image are gone
+      ansible.builtin.assert:
+        that:
+          - not project_dir.stat.exists
+          - containers.stdout == ""
+          - images.stdout == ""
+        quiet: true

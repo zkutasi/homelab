@@ -1,0 +1,8 @@
+- name: Case a new user with sudo rights
+  hosts: all
+  gather_facts: false
+  roles:
+    - create-user
+  vars:
+    username: alice
+    password: alice-secret

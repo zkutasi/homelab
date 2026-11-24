@@ -1,0 +1,17 @@
+- name: Start a stub DNS server and an existing /etc/hosts entry
+  hosts: all
+  gather_facts: false
+  tasks:
+    # The role resolves the names from the execution environment, so the server listens on the target's address
+    - name: Serve fixed names
+      ansible.builtin.command:
+        cmd: >-
+          systemd-run --unit stub-dns dnsmasq --keep-in-foreground --user=root --no-resolv --no-hosts
+          --host-record=app1.homelab.test,10.9.9.1 --host-record=app2.homelab.test,10.9.9.1
+          --host-record=app3.homelab.test,10.9.9.2
+        creates: /run/systemd/transient/stub-dns.service
+    # An alias that a host already has for one of the addresses; appended, as the file is a bind mount
+    - name: Add an existing entry
+      ansible.builtin.shell:
+        cmd: echo '10.9.9.2 old-alias' >> /etc/hosts
+      changed_when: true

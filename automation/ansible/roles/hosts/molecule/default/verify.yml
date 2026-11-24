@@ -1,0 +1,19 @@
+- name: Verify /etc/hosts
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read /etc/hosts
+      ansible.builtin.slurp:
+        src: /etc/hosts
+      register: hosts_file
+    - name: Check names are grouped by address, existing aliases kept, the rest untouched
+      ansible.builtin.assert:
+        that:
+          - "'10.9.9.1 app1.homelab.test app2.homelab.test' in lines"
+          - "'10.9.9.2 app3.homelab.test old-alias' in lines"
+          - lines | select('match', '^10\\.9\\.9\\.') | list | length == 2
+          - lines | select('match', '^127\\.0\\.0\\.1\\s+localhost') | list | length == 1
+        fail_msg: "{{ lines }}"
+        quiet: true
+      vars:
+        lines: "{{ (hosts_file.content | b64decode).splitlines() }}"

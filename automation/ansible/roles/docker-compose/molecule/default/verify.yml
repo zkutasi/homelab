@@ -1,0 +1,50 @@
+- name: Verify the deployed App
+  hosts: all
+  gather_facts: false
+  vars:
+    project_dir: /home/tester/docker-compose/fixture-app
+  tasks:
+    - name: Read the container's state
+      ansible.builtin.command:
+        cmd: docker inspect -f '{{ "{{" }}.State.Running{{ "}}" }}' fixture-app
+      register: running
+      changed_when: false
+    - name: Read the config the container started with
+      ansible.builtin.slurp:
+        src: "{{ project_dir }}/data/seen.conf"
+      register: seen
+    - name: Check the container runs with the rendered config
+      ansible.builtin.assert:
+        that:
+          - running.stdout == "true"
+          - seen.content | b64decode == "greeting=hello\n"
+        quiet: true
+    - name: Read the App's files
+      ansible.builtin.stat:
+        path: "{{ project_dir }}/{{ item }}"
+      register: files
+      loop:
+        - docker-compose.yaml
+        - conf/app.conf
+        - static/info.txt
+    - name: Check the files belong to the deploying user
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.mode == "0644"
+          - item.stat.pw_name == "tester"
+        fail_msg: "{{ item.item }}: {{ item.stat }}"
+        quiet: true
+      loop: "{{ files.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+    - name: Read the data folder
+      ansible.builtin.stat:
+        path: "{{ project_dir }}/data"
+      register: data_dir
+    - name: Check the data folder has its declared owner
+      ansible.builtin.assert:
+        that:
+          - data_dir.stat.uid == 999
+          - data_dir.stat.gid == 999
+        quiet: true

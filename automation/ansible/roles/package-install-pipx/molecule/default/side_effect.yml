@@ -1,0 +1,38 @@
+- name: Case check mode with a raised pin changes nothing
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Raise the pin with --check
+      ansible.builtin.command:
+        argv:
+          - ansible-playbook
+          - --check
+          - --inventory
+          - "{{ lookup('ansible.builtin.env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory"
+          - "{{ playbook_dir }}/bump.yml"
+      delegate_to: localhost
+      changed_when: false
+    - name: Run the app
+      ansible.builtin.command:
+        cmd: /root/.local/bin/fake-tool
+      register: app
+      changed_when: false
+    - name: Check the version didn't change
+      ansible.builtin.assert:
+        that: app.stdout == "1.0.0"
+        quiet: true
+- name: Case a raised pin upgrades
+  ansible.builtin.import_playbook: bump.yml
+- name: Check the upgrade
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run the app
+      ansible.builtin.command:
+        cmd: /root/.local/bin/fake-tool
+      register: app
+      changed_when: false
+    - name: Check the new version
+      ansible.builtin.assert:
+        that: app.stdout == "2.0.0"
+        quiet: true

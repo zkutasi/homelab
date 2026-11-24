@@ -1,0 +1,10 @@
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - side_effect
+    - destroy

@@ -1,0 +1,17 @@
+services:
+  fixture-app:
+    container_name: fixture-app
+    hostname: {{ inventory_hostname }}-fixture-app
+    image: {{ requested_image_version['fixture-app'] }}
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+    # Shows which config it started with
+    command:
+      - /bin/busybox
+      - sh
+      - -c
+      - /bin/busybox cp /conf/app.conf /data/seen.conf && exec /bin/busybox sleep 2147483647
+    volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/conf:/conf:ro
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data

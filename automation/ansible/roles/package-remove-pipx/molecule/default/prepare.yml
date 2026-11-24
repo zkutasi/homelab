@@ -1,0 +1,15 @@
+- name: Provide the fake Python packages
+  ansible.builtin.import_playbook: ../../../../../../tests/molecule/pipx-fixtures.yml
+- name: Install the package the converge removes
+  hosts: all
+  gather_subset:
+    - min
+  # pip installs only the fake packages, from the local folder
+  environment:
+    PIP_NO_INDEX: "1"
+    PIP_FIND_LINKS: /srv/pipx/current
+  roles:
+    - role: package-install-pipx
+      vars:
+        pipx_packages:
+          - fake-tool==1.0.0

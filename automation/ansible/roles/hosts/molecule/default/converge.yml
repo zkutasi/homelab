@@ -1,0 +1,20 @@
+- name: Case names that share an address, and an address the file already has
+  hosts: all
+  gather_facts: false
+  # /etc/hosts is a bind mount in a container: write it in place, not by rename
+  environment:
+    ANSIBLE_UNSAFE_WRITES: "1"
+  pre_tasks:
+    - name: Read the target's address, where the stub DNS server listens
+      ansible.builtin.command:
+        cmd: hostname -I
+      register: target_address
+      changed_when: false
+  roles:
+    - role: hosts
+      vars:
+        hosts_dns_server: "@{{ target_address.stdout.split() | first }}"
+        hosts_entries:
+          - app1.homelab.test
+          - app2.homelab.test
+          - app3.homelab.test

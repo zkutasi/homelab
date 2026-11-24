@@ -1,0 +1,10 @@
+- name: Case a pinned package with a newer version available
+  hosts: all
+  gather_subset:
+    - min
+  # pip installs only the fake packages, from the local folder
+  environment:
+    PIP_NO_INDEX: "1"
+    PIP_FIND_LINKS: /srv/pipx/current
+  roles:
+    - package-update-pipx

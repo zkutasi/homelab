@@ -1,0 +1,19 @@
+- name: Verify check mode left nothing behind
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read the App's folder
+      ansible.builtin.stat:
+        path: /home/tester/docker-compose/fixture-app
+      register: project_dir
+    - name: Look for the container
+      ansible.builtin.command:
+        cmd: docker ps -a -q --filter name=fixture-app
+      register: containers
+      changed_when: false
+    - name: Check there's no folder and no container
+      ansible.builtin.assert:
+        that:
+          - not project_dir.stat.exists
+          - containers.stdout == ""
+        quiet: true
