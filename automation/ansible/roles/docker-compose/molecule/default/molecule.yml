@@ -9,7 +9,8 @@ platforms:
     tmpfs:
       - /run
       - /run/lock
-      - /tmp
+      # Docker mounts a tmpfs noexec by default; installers run from their temporary folder there, as on the hosts
+      - /tmp:exec
       - /var/lib/docker
       - /var/lib/containerd
 scenario:

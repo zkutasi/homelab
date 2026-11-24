@@ -14,7 +14,8 @@ platforms:
     tmpfs:
       - /run
       - /run/lock
-      - /tmp
+      # Docker mounts a tmpfs noexec by default; installers run from their temporary folder there, as on the hosts
+      - /tmp:exec
 provisioner:
   name: ansible
   # Our own create and destroy: the driver's poll with a 5 s delay and run steps we don't use

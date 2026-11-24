@@ -64,4 +64,13 @@ done
 # A binary without any version information
 fake "${ROOT}/fake-noversion/1.0.0/fake-noversion" fake-noversion 1.0.0 --help "usage: fake-noversion" stdout
 
+# An installer for the user who runs it, like krew's: it puts the binary into that user's home
+mkdir -p "${ROOT}/fake-uinst/1.0.0"
+fake "${WORK}/fake-uinst" fake-uinst 1.0.0 --version "fake-uinst 1.0.0" stdout
+{
+  printf '#!/bin/sh\nset -e\nmkdir -p "${HOME}/.fake-uinst/bin"\ncat > "${HOME}/.fake-uinst/bin/fake-uinst" <<'"'"'EOF'"'"'\n'
+  cat "${WORK}/fake-uinst"
+  printf 'EOF\nchmod 0755 "${HOME}/.fake-uinst/bin/fake-uinst"\n'
+} > "${ROOT}/fake-uinst/1.0.0/fake-uinst-install.sh"
+
 rm -rf "${WORK}"

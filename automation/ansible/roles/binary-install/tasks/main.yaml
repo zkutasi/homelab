@@ -67,8 +67,6 @@
                     url: "{{ download_url }}"
                     dest: "{{ installer_tmpdir.path }}"
                     mode: '0755'
-                    owner: root
-                    group: root
                   when: not compressed
             - name: Run installer {{ bin_filename }}
               ansible.builtin.command:

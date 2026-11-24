@@ -57,7 +57,7 @@
       FAKE_GREETING: hello
 - name: Case installer package with its own binary folder
   hosts: all
-  # dpkg needs root, so its callers (like the Wazuh agent) use become; without become the role fails anyway (backlog 272)
+  # dpkg needs root, so its callers (like the Wazuh agent) use become
   become: true
   gather_facts: false
   roles:
@@ -70,3 +70,16 @@
     compressed: false
     install_cmd: "dpkg --install ./fake-pkg_{{ requested_binary_version }}_all.deb"
     version_flag: "-V"
+- name: Case installer for the deploying user, run without become like krew's
+  hosts: all
+  gather_subset:
+    - min
+  roles:
+    - binary-install
+  vars:
+    requested_binary_version: "1.0.0"
+    bin_filename: fake-uinst
+    bin_path: "{{ ansible_user_dir }}/.fake-uinst/bin"
+    download_url: "http://127.0.0.1:8080/fake-uinst/{{ requested_binary_version }}/fake-uinst-install.sh"
+    compressed: false
+    install_cmd: ./fake-uinst-install.sh
