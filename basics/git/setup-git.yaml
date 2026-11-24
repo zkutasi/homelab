@@ -48,4 +48,4 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - pre-commit==4.6.1
+      - pre-commit

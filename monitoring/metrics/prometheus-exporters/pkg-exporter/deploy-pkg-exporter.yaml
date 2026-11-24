@@ -12,5 +12,5 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - pkg-exporter==0.2.7
+      - pkg-exporter
     pipx_system_site_packages: true

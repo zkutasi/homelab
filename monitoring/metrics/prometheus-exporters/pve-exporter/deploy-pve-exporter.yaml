@@ -4,7 +4,7 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - prometheus-pve-exporter==3.9.0
+      - prometheus-pve-exporter
 - name: Create a service for pve-exporter
   hosts: proxmox
   roles:

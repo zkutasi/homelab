@@ -1,6 +1,0 @@
-- name: Install pipx tools
-  hosts: all
-  vars:
-    pipx_packages:
-      - pre-commit==4.6.1
-      - unpinned-tool

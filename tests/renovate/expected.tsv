@@ -23,4 +23,3 @@ regex	ee/execution-environment.yaml	ghcr.io/ansible-community/community-ee-base	
 regex	tools/deploy-tool.yaml	example/tool	1.10.2	github-releases	-
 regex	tools/deploy-tools.sh	ansible-navigator	26.11.0	pypi	-
 regex	tools/deploy-tools.sh	https://github.com/example/catalog	main	git-refs	digest
-regex	tools/setup-tools.yaml	pre-commit	4.6.1	pypi	-

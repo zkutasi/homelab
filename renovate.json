@@ -97,19 +97,6 @@
         "\\n\\s+-\\s+(?<depName>[A-Za-z0-9._-]+)(?:\\[[^\\]\\n]*\\])?==(?<currentValue>[^\\s\"#]+)"
       ],
       "datasourceTemplate": "pypi"
-    },
-    {
-      "description": "pipx packages pinned as pkg==version in a pipx_packages list",
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/\\.ya?ml$/"
-      ],
-      "matchStringsStrategy": "recursive",
-      "matchStrings": [
-        "pipx_packages:\\s*\\n(?:[ \\t]+- [^\\n]+\\n)+",
-        "- (?<depName>[A-Za-z0-9._-]+)==(?<currentValue>[^\\s\"]+)"
-      ],
-      "datasourceTemplate": "pypi"
     }
   ],
 

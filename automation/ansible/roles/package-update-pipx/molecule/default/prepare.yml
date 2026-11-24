@@ -1,6 +1,6 @@
 - name: Provide the fake Python packages
   ansible.builtin.import_playbook: ../../../../../../tests/molecule/pipx-fixtures.yml
-- name: Install the older version, then publish the newer one
+- name: Install the package unpinned, like its callers, then publish its next version
   hosts: all
   gather_subset:
     - min
@@ -12,7 +12,7 @@
     - role: package-install-pipx
       vars:
         pipx_packages:
-          - fake-tool==1.0.0
+          - fake-tool
   post_tasks:
     - name: Publish fake-tool 2.0.0
       become: true

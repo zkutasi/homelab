@@ -26,4 +26,4 @@
     - package-install-pipx
   vars:
     pipx_packages:
-      - ansible-dev-tools==26.7.2
+      - ansible-dev-tools
