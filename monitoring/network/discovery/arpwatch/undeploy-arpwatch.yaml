@@ -2,7 +2,13 @@
   hosts: networkmonitoring
   become: true
   tasks:
+    # Nothing to stop where arpwatch isn't installed (any more)
+    - name: Look for arpwatch's unit
+      ansible.builtin.stat:
+        path: /usr/lib/systemd/system/arpwatch@.service
+      register: arpwatch_unit
     - name: Disable and stop arpwatch service
+      when: arpwatch_unit.stat.exists
       ansible.builtin.systemd_service:
         name: "arpwatch@{{ arpwatch_interface }}.service"
         state: stopped

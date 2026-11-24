@@ -10,7 +10,13 @@
   hosts: networkmonitoring
   become: true
   tasks:
+    # Check mode doesn't install the package, so systemd can't know its unit yet
+    - name: Look for arpwatch's unit
+      ansible.builtin.stat:
+        path: /usr/lib/systemd/system/arpwatch@.service
+      register: arpwatch_unit
     - name: Enable and start arpwatch service
+      when: not (ansible_check_mode and not arpwatch_unit.stat.exists)
       ansible.builtin.systemd_service:
         name: "arpwatch@{{ arpwatch_interface }}.service"
         state: started
