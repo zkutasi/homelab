@@ -7,6 +7,9 @@
         uuid: mount-1
       - dir: /srv/dev-disk-by-uuid-2222
         uuid: mount-2
+      # A disk whose folder name starts with another disk's
+      - dir: /srv/dev-disk-by-uuid-11112
+        uuid: mount-3
     sharedfolders:
       - uuid: share-1-media
         mntentref: mount-1
@@ -17,6 +20,12 @@
       - uuid: share-1-movies
         mntentref: mount-1
         reldirpath: media/movies/
+      - uuid: share-3-media
+        mntentref: mount-3
+        reldirpath: media/
+      - uuid: share-2-root
+        mntentref: mount-2
+        reldirpath: /
   tasks:
     - name: Check the shared folders found for each pool's paths
       ansible.builtin.assert:
@@ -39,9 +48,15 @@
         - case: a path on no known disk
           paths: /mnt/elsewhere/media
           expected: []
+        - case: a disk whose folder name starts with another disk's
+          paths: /srv/dev-disk-by-uuid-11112/media
+          expected: [share-3-media]
+        - case: a disk's own folder
+          paths: /srv/dev-disk-by-uuid-2222
+          expected: [share-2-root]
         # A new pool has no paths yet
         - case: no paths
           paths: ""
-          expected: ""
+          expected: []
       loop_control:
         label: "{{ item.case }}"
