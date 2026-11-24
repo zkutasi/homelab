@@ -92,25 +92,33 @@ function is_plain() {
 }
 
 @test "every plain wrapper parses its arguments in the standard while loop, into the EXTRA_PARAMS array" {
-  local wrapper failures=()
+  local wrapper plain=()
   for wrapper in "${WRAPPERS[@]}"; do
-    is_plain "${wrapper}" || continue
-    grep -q '^while \[ \$# -ge 1 \]; do$' "${REPO_ROOT}/${wrapper}" \
-      && grep -q '^      EXTRA_PARAMS+=("\$1")$' "${REPO_ROOT}/${wrapper}" \
-      || failures+=("${wrapper}")
+    is_plain "${wrapper}" && plain+=("${wrapper}")
   done
-  assert_equal "$(printf '%s\n' "${failures[@]}")" ""
+  [ "${#plain[@]}" -eq 0 ] && return
+  # One pass over all of them, naming each wrapper that lacks the loop or the array
+  run awk '
+      FNR == 1 { if (NR > 1 && !(loop && param)) print f; f = FILENAME; loop = 0; param = 0 }
+      $0 == "while [ $# -ge 1 ]; do" { loop = 1 }
+      $0 == "      EXTRA_PARAMS+=(\"$1\")" { param = 1 }
+      END { if (!(loop && param)) print f }' "${plain[@]}"
+  assert_success
+  assert_output ""
 }
 
-@test "every plain wrapper calls exactly one helper, with its NS and RELEASE_NAME, and its arguments last" {
+# One run per wrapper checks the helper call and the arguments together: awkward ones (a space, a glob character
+# that would match a file) have to arrive last and unchanged
+@test "every plain wrapper calls exactly one helper, with its NS and RELEASE_NAME, and its arguments last and unchanged" {
   local wrapper ns release line logged failures=()
   for wrapper in "${WRAPPERS[@]}"; do
     is_plain "${wrapper}" || continue
     ns=${NS_OF[${wrapper}]}
     release=${RELEASE_OF[${wrapper}]}
-    : > "${STUB_LOG}"
     cd "${FAKE_REPO}/${wrapper%/*}" || exit 1
-    "./${wrapper##*/}" --template --debug > /dev/null 2>&1
+    touch match-me.yaml
+    : > "${STUB_LOG}"
+    "./${wrapper##*/}" --extra-values "my values.yaml" "*.yaml" > /dev/null 2>&1
     mapfile -t logged < "${STUB_LOG}"
     line=${logged[0]:-}
     if [ "${#logged[@]}" -ne 1 ] || [[ "${line}" != common-*.sh\ * ]]; then
@@ -119,24 +127,9 @@ function is_plain() {
       failures+=("${wrapper}: no --namespace ${ns}: ${line}")
     elif [ "${PASSES_RELEASE[${wrapper}]}" -eq 1 ] && [[ " ${line} " != *" --release-name ${release} "* ]]; then
       failures+=("${wrapper}: no --release-name ${release}: ${line}")
-    elif [[ "${line}" != *" --template --debug" ]]; then
-      failures+=("${wrapper}: arguments not passed on last: ${line}")
+    elif [[ "${line}" != *" --extra-values my\\ values.yaml \\*.yaml" ]]; then
+      failures+=("${wrapper}: arguments not passed on last and unchanged: ${line}")
     fi
-  done
-  assert_equal "$(printf '%s\n' "${failures[@]}")" ""
-}
-
-@test "every plain wrapper passes arguments on unchanged, even with spaces or glob characters" {
-  local wrapper line logged failures=()
-  for wrapper in "${WRAPPERS[@]}"; do
-    is_plain "${wrapper}" || continue
-    cd "${FAKE_REPO}/${wrapper%/*}" || exit 1
-    touch match-me.yaml
-    : > "${STUB_LOG}"
-    "./${wrapper##*/}" --extra-values "my values.yaml" "*.yaml" > /dev/null 2>&1
-    mapfile -t logged < "${STUB_LOG}"
-    line=${logged[0]:-}
-    [[ "${line}" == *" --extra-values my\\ values.yaml \\*.yaml" ]] || failures+=("${wrapper}: ${line}")
   done
   assert_equal "$(printf '%s\n' "${failures[@]}")" ""
 }

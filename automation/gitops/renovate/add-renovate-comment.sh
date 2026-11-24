@@ -31,7 +31,7 @@ while read -r chart; do
     echo "trying to find the image for ${chart}..."
     base_dir="${chart%/chart/Chart.yaml}"
     mapfile -t images < <(
-        grep -r --no-filename --include='*-values.yaml' 'repository:' "${base_dir}" | awk '{print $NF}' | sort -u
+        find "${base_dir}" -name '*-values.yaml' -exec grep -h 'repository:' {} + | awk '{print $NF}' | sort -u
     )
 
     case ${#images[@]} in

@@ -305,7 +305,7 @@ function suite_bats() (
 
   # The tested scripts call these static tools; the host's own binaries are mounted, so the tests use the same versions
   TOOL_MOUNTS=()
-  for TOOL in sops age age-keygen yq; do
+  for TOOL in sops age age-keygen yq kustomize; do
     TOOL_PATH=$(command -v "${TOOL}")
     [ -n "${TOOL_PATH}" ] && TOOL_MOUNTS+=(-v "$(realpath "${TOOL_PATH}"):/usr/local/bin/${TOOL}:ro")
   done
