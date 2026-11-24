@@ -13,23 +13,13 @@
       ansible.builtin.assert:
         that: ssh_public_key == generated.content | b64decode
         quiet: true
-# The same target under a second name, so the first case's facts don't carry over to this user
-- name: Add the target as the second user's host
+# The same host as the first case, so the role's facts from that run are still there
+- name: Case a user with an RSA key, right after the first case on the same host
   hosts: all
-  gather_facts: false
-  tasks:
-    - name: Add the host
-      ansible.builtin.add_host:
-        name: "{{ inventory_hostname }}-bob"
-        groups: second_user
-        ansible_host: "{{ inventory_hostname }}"
-        ansible_connection: community.docker.docker_api
-        ansible_user: bob
-      changed_when: false
-- name: Case a user with an RSA key
-  hosts: second_user
   gather_subset:
     - min
+  vars:
+    ansible_user: bob
   roles:
     - ssh-keys
   post_tasks:

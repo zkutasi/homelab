@@ -1,0 +1,14 @@
+# Run by side_effect.yml with --check, for a user without a key: the role must not fail and leaves the key empty
+- name: Look for the key of a user without one, in check mode
+  hosts: all
+  gather_subset:
+    - min
+  vars:
+    ansible_user: carol
+  roles:
+    - ssh-keys
+  post_tasks:
+    - name: Check the key is empty
+      ansible.builtin.assert:
+        that: ssh_public_key == ""
+        quiet: true

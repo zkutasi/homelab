@@ -1,0 +1,24 @@
+- name: Case check mode for a user without a key
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Run the role with --check
+      ansible.builtin.command:
+        argv:
+          - ansible-playbook
+          - --check
+          - --inventory
+          - "{{ lookup('ansible.builtin.env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory"
+          - "{{ playbook_dir }}/check-mode.yml"
+      delegate_to: localhost
+      become: false
+      changed_when: false
+    - name: Read the user's key folder
+      ansible.builtin.stat:
+        path: /home/carol/.ssh/id_ed25519
+      register: carol_key
+    - name: Check no key was created
+      ansible.builtin.assert:
+        that: not carol_key.stat.exists
+        quiet: true

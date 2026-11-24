@@ -1,12 +1,15 @@
-- name: Give a second user an RSA key already
+- name: Give a second user an RSA key already, and create a third user without a key for check mode
   hosts: all
   become: true
   gather_facts: false
   tasks:
-    - name: Create the user
+    - name: Create the users
       ansible.builtin.user:
-        name: bob
+        name: "{{ item }}"
         shell: /bin/bash
+      loop:
+        - bob
+        - carol
     - name: Create the key
       ansible.builtin.command:
         cmd: runuser -u bob -- ssh-keygen -q -t rsa -b 2048 -N '' -f /home/bob/.ssh/id_rsa
