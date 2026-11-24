@@ -1,4 +1,4 @@
-# Stand-ins for values that an earlier play of the same deploy playbook fetches at run time (an API answer, a
+# Stand-ins for values that an earlier play of the same playbook fetches at run time (an API answer, a
 # certificate fingerprint), which the rendered templates then read. make-fake-inventory.sh copies this file into the
 # generated inventory.
 kopia_server_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
@@ -46,8 +46,9 @@ borgwarehouse_repos:
         repositoryName: repo19
       - alias: host20
         repositoryName: repo20
-# The live HTTPProxies the Gatus and Uptime Kuma generate playbooks query from the cluster, filtered to those with a
-# virtualhost: one App checked at its root URL and one with its own health endpoint
+# The live HTTPProxies the Gatus and Uptime Kuma generate playbooks and the dashboard playbooks query from the cluster,
+# filtered to those with a virtualhost: one App checked at its root URL, one with its own health endpoint, and one
+# without annotations, which Kubernetes then leaves out of its metadata
 contour_endpoints:
   - metadata:
       name: app01
@@ -62,3 +63,8 @@ contour_endpoints:
     spec:
       virtualhost:
         fqdn: app02.kubernetes.example
+  - metadata:
+      name: app03
+    spec:
+      virtualhost:
+        fqdn: app03.kubernetes.example

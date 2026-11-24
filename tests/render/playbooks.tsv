@@ -1,0 +1,5 @@
+# Playbooks besides the deploy ones whose template tasks the render tests render (tab-separated): playbook, what it writes
+dashboard/app/dashy/configure-dashy.yaml	Dashy's config from the cluster's HTTPProxies
+dashboard/app/homepage/configure-homepage.yaml	Homepage's services and widgets
+dashboard/app/homer/configure-homer.yaml	Homer's config
+remoting/termix/generate-hosts-json.yaml	Termix's hosts from the inventory

@@ -24,7 +24,7 @@ repos:
         entry: tests/run.sh --render --changed
         language: script
         require_serial: true
-        files: (^tests/render/|/docker-compose\.yaml\.j2$|/deploy-[^/]*\.yaml$|/config/templates/|^automation/ansible/roles/docker-compose/|^ansible\.cfg$)
+        files: (^tests/render/|/docker-compose\.yaml\.j2$|/deploy-[^/]*\.yaml$|/configure-[^/]*\.yaml$|/generate-hosts-json\.yaml$|/config/templates/|^automation/ansible/roles/docker-compose/|^ansible\.cfg$)
         stages: [manual]
       - id: render-k8s
         name: Generate, render and validate the Kubernetes Apps whose files changed

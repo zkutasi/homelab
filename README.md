@@ -374,10 +374,12 @@ How this repository is organised and the conventions every App follows. Follow t
 ##### Docker render tests
 
 - `tests/run.sh --render` renders every Docker App's compose file and config templates against a fake inventory in `tests/render/inventory`, for one host of its play, without contacting any host.
-- Each compose file must pass `docker compose config` and the Docker App rules above.
+- Each compose file must pass `docker compose config` and the Docker App rules above, and a full run fails when two Apps share a `container_name` or an App with a `docker-compose.yaml.j2` isn't rendered.
+- The rendered config files that are YAML or JSON (by their extension) must parse.
+- `tests/render/playbooks.tsv` lists other playbooks that write an App's config files, like the dashboards; their template tasks are rendered and parsed too.
 - Accepted deviations go into `tests/render/allowlist.tsv` with their reason, Apps that need a specific host into `tests/render/skip.tsv`.
 - The fake inventory has the real one's groups and variable names but dummy values and generic host names: rerun `tests/render/make-fake-inventory.sh` after inventory changes and review the result before committing.
-- Values that a deploy playbook's earlier play fetches at run time get stand-ins in `tests/render/runtime.yaml`.
+- Values that a playbook's earlier play fetches at run time get stand-ins in `tests/render/runtime.yaml`.
 
 ##### Kubernetes render tests
 

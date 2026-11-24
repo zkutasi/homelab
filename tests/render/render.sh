@@ -51,13 +51,16 @@ fi
 REPO_ROOT=$(git rev-parse --show-toplevel)
 RENDER_DIR="${REPO_ROOT}/tests/render"
 
-# The Docker Apps: every deploy playbook with a play using the docker-compose role, minus the skipped ones
-mapfile -t PLAYBOOKS < <(cd "${REPO_ROOT}" && git grep -l -E '^\s+- docker-compose$' -- '*deploy*.yaml' ':!:_templates/**' | sort)
+# The Docker Apps: every deploy playbook with a play using the docker-compose role (`- docker-compose`, or
+# `- role: docker-compose` with options such as a `when`), minus the skipped ones
+mapfile -t PLAYBOOKS < <(cd "${REPO_ROOT}" && git grep -l -E '^\s+- (role: )?docker-compose$' -- '*deploy*.yaml' ':!:_templates/**' | sort)
 declare -A SKIP
 while IFS=$'\t' read -r APP_DIR REASON; do
   [[ -z "${APP_DIR}" || "${APP_DIR}" == \#* ]] && continue
   SKIP[${APP_DIR}]=${REASON}
 done < "${RENDER_DIR}/skip.tsv"
+# Other playbooks whose template tasks write an App's config, listed with what they write
+mapfile -t CONFIG_PLAYBOOKS < <(grep -v '^#' "${RENDER_DIR}/playbooks.tsv" | cut -f1)
 
 # --changed: an App is selected when one of its own files changed; the harness or the role select all of them
 SELECTED=()
@@ -84,11 +87,34 @@ for PLAYBOOK in "${PLAYBOOKS[@]}"; do
   fi
   SELECTED+=("${PLAYBOOK}")
 done
-if [ "${#SELECTED[@]}" -eq 0 ]; then
+# A full run covers every compose template: an App the selection above misses fails instead of passing unseen
+if [ "${FULL}" -eq 1 ]; then
+  declare -A COVERED
+  for PLAYBOOK in "${PLAYBOOKS[@]}"; do COVERED[$(dirname "${PLAYBOOK}")]=1; done
+  while read -r APP_DIR; do
+    if [ -z "${COVERED[${APP_DIR}]+set}" ] && [ -z "${SKIP[${APP_DIR}]+set}" ]; then
+      echo "FAIL ${APP_DIR}: has a docker-compose.yaml.j2, but no deploy playbook using the docker-compose role was found"
+      UNCOVERED=1
+    fi
+  done < <(cd "${REPO_ROOT}" && git ls-files '*docker-compose.yaml.j2' ':!:_templates/**' ':!:tests/**' | xargs -r -n 1 dirname | sort -u)
+fi
+CONFIG_SELECTED=()
+for PLAYBOOK in "${CONFIG_PLAYBOOKS[@]}"; do
+  if [ "${FULL}" -eq 0 ]; then
+    MATCH=0
+    for FILE in "${CHANGED_FILES[@]}"; do
+      [[ "${FILE}" == "$(dirname "${PLAYBOOK}")"/* ]] && MATCH=1
+    done
+    [ "${MATCH}" -eq 0 ] && continue
+  fi
+  CONFIG_SELECTED+=("${PLAYBOOK}")
+done
+if [ $((${#SELECTED[@]} + ${#CONFIG_SELECTED[@]})) -eq 0 ]; then
   echo "INFO: No Docker App is affected by the changed files"
   exit 0
 fi
-echo "INFO: Rendering ${#SELECTED[@]} Docker App(s), ${#SKIP[@]} skipped (see tests/render/skip.tsv)"
+echo "INFO: Rendering ${#SELECTED[@]} Docker App(s), ${#SKIP[@]} skipped (see tests/render/skip.tsv)," \
+  "and the templates of ${#CONFIG_SELECTED[@]} other playbook(s) (see tests/render/playbooks.tsv)"
 
 WORK_DIR=$(mktemp -d)
 if [ "${KEEP}" -eq 1 ]; then
@@ -104,24 +130,49 @@ mkdir -p "${WORK_DIR}/out"
 for PLAYBOOK in "${SELECTED[@]}"; do
   APP_DIR=$(dirname "${PLAYBOOK}")
   APP_DIR="${APP_DIR}" yq -o=json -I=0 '
-    [.[] | select(.roles[]? == "docker-compose")][0] | {
+    ([.[] | select(.roles[]? == "docker-compose")] + [.[] | select(.roles[]?.role? == "docker-compose")])[0] | {
       "name": "Render " + strenv(APP_DIR),
       "hosts": (
           (.hosts | select(tag == "!!seq") | "{{ query(\"inventory_hostnames\", \"" + join(",") + "\")[0:1] }}")
-          // (.hosts | select(test("[{][{]")) | sub("^[{][{] *(.*?) *[}][}]$"; "{{ ([${1}] if (${1}) is string else (${1}))[0:1] }}"))
+          // (.hosts | select(test("[{][{]")) | sub("^[{][{] *(.*?) *[}][}]$"; "{{ ([${1}] if (${1}) is string else (${1}) | sort)[0:1] }}"))
           // ("{{ query(\"inventory_hostnames\", \"" + .hosts + "\")[0:1] }}")),
       "gather_facts": false,
       "vars": (.vars + {"render_app_dir": strenv(APP_DIR)}),
       "tasks": [{"ansible.builtin.include_tasks": "/code/tests/render/render-app.yaml"}]
     }' "${REPO_ROOT}/${PLAYBOOK}"
-done | jq -s '. + [{
+done > "${WORK_DIR}/plays.jsonl"
+# The other playbooks: every play with template tasks, cut to one host, renders them with the play's and the task's
+# vars, keyed by the template's path below config/templates
+for PLAYBOOK in "${CONFIG_SELECTED[@]}"; do
+  CONFIG_PLAYBOOK="${PLAYBOOK}" CONFIG_DIR=$(dirname "${PLAYBOOK}") yq -o=json -I=0 '
+    .[] | select([.tasks[]? | has("ansible.builtin.template")] | any) | {
+      "name": "Render the templates of " + strenv(CONFIG_PLAYBOOK),
+      "hosts": (
+          (.hosts | select(. == "localhost"))
+          // (.hosts | select(tag == "!!seq") | "{{ query(\"inventory_hostnames\", \"" + join(",") + "\")[0:1] }}")
+          // ("{{ query(\"inventory_hostnames\", \"" + .hosts + "\")[0:1] }}")),
+      "gather_facts": false,
+      "vars": ((.vars // {}) + {"render_playbook": strenv(CONFIG_PLAYBOOK)}),
+      "tasks": [{
+        "block": [.tasks[] | select(has("ansible.builtin.template")) | .["ansible.builtin.template"].src as $src | {
+          "name": "Render " + $src,
+          "ansible.builtin.set_fact": {"render_results": "{{ render_results | default({}) | combine({render_playbook: {\"files\": {\""
+            + ($src | sub("^config/templates/"; "") | sub("\\.j2$"; "")) + "\": lookup(\"ansible.builtin.template\", \"/code/"
+            + strenv(CONFIG_DIR) + "/" + $src + "\", convert_data=False)}}}, recursive=True) }}"},
+          "vars": (.vars // {})}],
+        "rescue": [{"name": "Record the failure", "ansible.builtin.set_fact": {"render_results":
+          "{{ render_results | default({}) | combine({render_playbook: {\"error\": ansible_failed_task.name ~ \": \" ~ (ansible_failed_result.msg | default(\"unknown error\"))}}) }}"}}]
+      }]
+    }' "${REPO_ROOT}/${PLAYBOOK}"
+done >> "${WORK_DIR}/plays.jsonl"
+jq -s '. + [{
     "name": "Write every host'"'"'s results at once",
     "hosts": "localhost",
     "gather_facts": false,
     "tasks": [{"name": "Write the results", "ansible.builtin.copy": {
-      "content": "{{ groups[\"all\"] | map(\"extract\", hostvars) | map(attribute=\"render_results\", default={}) | combine | to_json }}",
+      "content": "{{ (groups[\"all\"] + [\"localhost\"]) | map(\"extract\", hostvars) | map(attribute=\"render_results\", default={}) | combine | to_json }}",
       "dest": "/work/results.json", "mode": "0644"}}]
-  }]' | yq -P '.' > "${WORK_DIR}/render.yaml"
+  }]' "${WORK_DIR}/plays.jsonl" | yq -P '.' > "${WORK_DIR}/render.yaml"
 
 # The docker-compose role's defaults come from an inventory of their own, loaded first: the fake inventory's values
 # then win over them, as inventory values win over role defaults in a real run, and no role has to be evaluated
@@ -144,24 +195,42 @@ if [ "${ANSIBLE_RC}" -ne 0 ] || [ ! -f "${WORK_DIR}/results.json" ]; then
   exit 1
 fi
 
-# Split the results into the App folders: out/<App>/docker-compose.yaml and out/<App>/config/<file>
-FAILED=0
-for PLAYBOOK in "${SELECTED[@]}"; do
-  APP_DIR=$(dirname "${PLAYBOOK}")
-  RESULT=$(jq -c --arg app "${APP_DIR}" '.[$app] // {"error": "nothing rendered (no host in its play?)"}' "${WORK_DIR}/results.json")
-  if [ "$(jq 'has("error")' <<< "${RESULT}")" = "true" ]; then
-    echo "FAIL ${APP_DIR}: rendering: $(jq -r '.error' <<< "${RESULT}" | head -c 400)"
+# Split the results into the output folders in one jq pass of NUL-separated records: a failure, or a file's path and
+# content. Apps: out/<App>/docker-compose.yaml, expected.json and config/<file>; the other playbooks:
+# out/<playbook without .yaml>/config/<file>
+FAILED=${UNCOVERED:-0}
+TARGETS=$({
+  for PLAYBOOK in "${SELECTED[@]}"; do printf '%s\t%s\n' "$(dirname "${PLAYBOOK}")" "$(dirname "${PLAYBOOK}")"; done
+  for PLAYBOOK in "${CONFIG_SELECTED[@]}"; do printf '%s\t%s\n' "${PLAYBOOK}" "${PLAYBOOK%.yaml}"; done
+} | jq -R -s 'split("\n")[:-1] | map(split("\t") | {key: .[0], out: .[1]})')
+while IFS= read -r -d '' KIND && IFS= read -r -d '' TARGET && IFS= read -r -d '' CONTENT; do
+  if [ "${KIND}" = error ]; then
+    echo "FAIL ${TARGET}: rendering: ${CONTENT:0:400}"
     FAILED=1
-    continue
+  else
+    mkdir -p "$(dirname "${WORK_DIR}/out/${TARGET}")"
+    printf '%s\n' "${CONTENT}" > "${WORK_DIR}/out/${TARGET}"
   fi
-  mkdir -p "${WORK_DIR}/out/${APP_DIR}/config"
-  jq -r '.compose' <<< "${RESULT}" > "${WORK_DIR}/out/${APP_DIR}/docker-compose.yaml"
-  jq '.expected' <<< "${RESULT}" > "${WORK_DIR}/out/${APP_DIR}/expected.json"
-  while read -r NAME; do
-    mkdir -p "$(dirname "${WORK_DIR}/out/${APP_DIR}/config/${NAME}")"
-    jq -r --arg name "${NAME}" '.files[$name]' <<< "${RESULT}" > "${WORK_DIR}/out/${APP_DIR}/config/${NAME}"
-  done < <(jq -r '.files | keys[]' <<< "${RESULT}")
-done
+done < <(jq -j --argjson targets "${TARGETS}" '. as $results | $targets[] | . as $t
+    | ($results[$t.key] // {"error": "nothing rendered (no host in its play?)"}) as $r
+    | if $r.error then ["error", $t.key, $r.error]
+      else (if $r.compose then ["file", $t.out + "/docker-compose.yaml", $r.compose],
+              ["file", $t.out + "/expected.json", ($r.expected | tojson)] else empty end),
+           ($r.files | to_entries[] | ["file", $t.out + "/config/" + .key, .value])
+      end
+    | map(. + "\u0000") | add' "${WORK_DIR}/results.json")
+
+# The rendered config files in a format with a parser: YAML through yq, JSON through jq; the others stay unchecked
+while read -r FILE; do
+  case "${FILE}" in
+    *.json) ERROR=$(jq empty "${FILE}" 2>&1) ;;
+    *) ERROR=$(yq '.' "${FILE}" 2>&1 > /dev/null) ;;
+  esac
+  if [ -n "${ERROR}" ]; then
+    echo "FAIL ${FILE#"${WORK_DIR}"/out/}: ${ERROR}" | head -3
+    FAILED=1
+  fi
+done < <(find "${WORK_DIR}/out" -path '*/config/*' -type f \( -name '*.yaml' -o -name '*.yml' -o -name '*.json' \) | sort)
 
 # docker compose config validates every rendered compose file, in one container, one file per CPU at a time
 docker run --rm --user "$(id -u):$(id -g)" -v "${WORK_DIR}/out:/out" -w /out --entrypoint sh "docker:${DOCKER_CLI_VERSION}" -c '
@@ -173,6 +242,21 @@ docker run --rm --user "$(id -u):$(id -g)" -v "${WORK_DIR}/out:/out" -w /out --e
 if [ -s "${WORK_DIR}/compose.log" ]; then
   cat "${WORK_DIR}/compose.log"
   FAILED=1
+fi
+
+# Docker refuses two containers with the same name on one host, so no two Apps may share a container_name
+if [ "${FULL}" -eq 1 ]; then
+  while read -r NORMALIZED; do
+    APP=${NORMALIZED#"${WORK_DIR}"/out/}
+    jq -r --arg app "${APP%/normalized.json}" '.services[] | select(.container_name) | [.container_name, $app] | @tsv' "${NORMALIZED}"
+  done < <(find "${WORK_DIR}/out" -name normalized.json | sort) \
+    | awk -F '\t' '{ apps[$1] = apps[$1] " " $2; count[$1]++ }
+        END { for (name in count) if (count[name] > 1) print "FAIL container_name " name " is used by:" apps[name] }' \
+    > "${WORK_DIR}/duplicates.log"
+  if [ -s "${WORK_DIR}/duplicates.log" ]; then
+    cat "${WORK_DIR}/duplicates.log"
+    FAILED=1
+  fi
 fi
 
 # The README's Docker App rules, minus the deviations accepted in allowlist.tsv
