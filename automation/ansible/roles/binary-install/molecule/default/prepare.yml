@@ -44,3 +44,13 @@
         compressed: false
         install_cmd: "dpkg --install ./fake-pkg_1.0.0_all.deb"
         version_flag: "-V"
+- name: Install the same-date tool's older release
+  hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - role: binary-install
+      vars:
+        requested_binary_version: "1.0.0"
+        bin_filename: fake-samedate
+        download_url: "http://127.0.0.1:8080/fake-samedate/{{ requested_binary_version }}/fake-samedate.tar.gz"

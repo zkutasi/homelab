@@ -11,8 +11,8 @@ function usage() {
     echo "                to and the roles whose scenarios use them, or all of them when the Molecule harness or the"
     echo "                execution environment changed"
     echo "  --help        Display this help message"
-    echo "  --keep        Don't remove the targets, so a failed scenario's can be inspected, and stop at the first failed"
-    echo "                role; the next run removes the target"
+    echo "  --keep        Run the scenarios one by one without removing their target, and stop at the first failed one,"
+    echo "                so its target can be inspected; the next run removes it"
     echo "  --list        Only print which roles would be tested"
 }
 
@@ -132,19 +132,30 @@ EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.an
 DOCKER_GID=$(stat -c %g /var/run/docker.sock)
 TTY=()
 [ -t 1 ] && TTY=(-t)
-DESTROY=()
-[ "${KEEP}" -eq 1 ] && DESTROY=(--destroy=never)
 FAILED=()
 for ROLE in "${ROLES[@]}"; do
   echo "INFO: Testing ${ROLE}..."
-  docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" --group-add "${DOCKER_GID}" -e HOME=/tmp \
-    -v /var/run/docker.sock:/var/run/docker.sock -v "${REPO_ROOT}:/code" -w "/code/automation/ansible/roles/${ROLE}" \
-    --entrypoint molecule "${EE_IMAGE}" -c /code/tests/molecule/config.yml test --all "${DESTROY[@]}" || FAILED+=("${ROLE}")
-  # Every scenario starts by removing the target, so the next role would remove the kept one
-  if [ "${KEEP}" -eq 1 ] && [ "${#FAILED[@]}" -gt 0 ]; then
-    echo "INFO: Kept the target of ${ROLE}'s failed scenario; look inside with: docker exec -it ubuntu-24.04 bash"
-    break
+  # molecule ROLE_ARGS..., in the role's folder inside the execution environment
+  function molecule_in_ee() {
+    docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" --group-add "${DOCKER_GID}" -e HOME=/tmp \
+      -v /var/run/docker.sock:/var/run/docker.sock -v "${REPO_ROOT}:/code" -w "/code/automation/ansible/roles/${ROLE}" \
+      --entrypoint molecule "${EE_IMAGE}" -c /code/tests/molecule/config.yml "$@"
+  }
+  if [ "${KEEP}" -eq 0 ]; then
+    molecule_in_ee test --all || FAILED+=("${ROLE}")
+    continue
   fi
+  # --destroy=never also skips the destroy each scenario starts with, so the scenarios run one by one here,
+  # each after removing the previous one's target, and the run stops at the first failure
+  for SCENARIO_DIR in "${ROLES_DIR}/${ROLE}"/molecule/*/; do
+    SCENARIO=$(basename "${SCENARIO_DIR}")
+    molecule_in_ee destroy -s "${SCENARIO}" > /dev/null
+    if ! molecule_in_ee test -s "${SCENARIO}" --destroy=never; then
+      FAILED+=("${ROLE}")
+      echo "INFO: Kept the target of ${ROLE}'s failed scenario ${SCENARIO}; look inside with: docker exec -it ubuntu-24.04 bash"
+      break 2
+    fi
+  done
 done
 if [ "${#FAILED[@]}" -gt 0 ]; then
   echo "ERROR: Molecule failed for: ${FAILED[*]}"

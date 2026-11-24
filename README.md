@@ -400,7 +400,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - `tests/run.sh --molecule [<role>...]` runs every Molecule scenario of the given roles, or of all roles that have some.
 - Molecule runs inside the execution environment, so tests and deploys share one ansible-core and one set of collections, and it drives the host's Docker through the mounted socket.
 - The scenarios run with the repository's `ansible.cfg`, like a real run, and connect as a normal user with passwordless sudo, like the hosts: a scenario's plays use `become` where the role's callers do, and setup or checks that need root use it too.
-- `--keep` leaves the targets in place and stops at the first failed role, so a failed scenario's target can be inspected; the next run removes it.
+- `--keep` runs the scenarios one by one without removing their target and stops at the first failed one, so its target can be inspected; the next run removes it.
 - Scenarios live in `automation/ansible/roles/<role>/molecule/<scenario>/`, Ansible-only (prepare, converge, verify). They share the base config `tests/molecule/config.yml`, which `-c` passes:
   - the targets;
   - the `docker_api` connection, as the execution environment has no docker CLI;

@@ -1,0 +1,29 @@
+- name: Case an update unarchive skips because the release has the same file date
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Run the update, reporting as JSON
+      ansible.builtin.command:
+        argv:
+          - ansible-playbook
+          - --inventory
+          - "{{ lookup('ansible.builtin.env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory"
+          - "{{ playbook_dir }}/same-date.yml"
+      environment:
+        ANSIBLE_STDOUT_CALLBACK: ansible.builtin.json
+      register: update_run
+      changed_when: false
+    - name: Check the run went on, with a warning naming the version it found
+      ansible.builtin.assert:
+        that:
+          - update_run.rc == 0
+          - warning.failed | default(false)
+          - expected_warning in warning.msg | default('')
+        fail_msg: "{{ warning | to_json }}"
+        quiet: true
+      vars:
+        expected_warning: "reports version '1.0.0' after the update to 2.0.0"
+        warning: >-
+          {{ (update_run.stdout | from_json).plays | map(attribute='tasks') | flatten
+             | selectattr('task.name', 'search', "Warn when the binary isn't at the requested version")
+             | map(attribute='hosts') | map('dict2items') | flatten | map(attribute='value') | first | default({}) }}

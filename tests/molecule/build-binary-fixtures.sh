@@ -61,6 +61,16 @@ Usage: fake-zip [-h] [-r]" stdout
   (cd "${D}" && python3 -m zipfile -c "${ROOT}/fake-zip/${V}/fake-zip-x64.zip" fake-zip)
 done
 
+# A tar.gz whose releases all carry the same file date, as some reproducible builds do: unarchive then sees
+# nothing to unpack
+for V in 1.0.0 2.0.0; do
+  D="${WORK}/fake-samedate-${V}"
+  fake "${D}/fake-samedate" fake-samedate "${V}" --version "fake-samedate ${V}" stdout
+  touch -d "2026-01-01 00:00" "${D}/fake-samedate" "${D}"
+  mkdir -p "${ROOT}/fake-samedate/${V}"
+  tar -czf "${ROOT}/fake-samedate/${V}/fake-samedate.tar.gz" -C "${WORK}" "fake-samedate-${V}"
+done
+
 # A binary without any version information
 fake "${ROOT}/fake-noversion/1.0.0/fake-noversion" fake-noversion 1.0.0 --help "usage: fake-noversion" stdout
 

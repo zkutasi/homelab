@@ -147,6 +147,28 @@
                 owner: root
                 group: root
               when: not compressed
+        # unarchive judges a tar archive as already unpacked by file dates alone, so a release stamped with the same
+        # date as the installed one is skipped without a word; reading the version again makes that visible
+        - name: Check the version after the update
+          when: version_flag | length > 0 and not ansible_check_mode
+          block:
+            - name: Read the version after the update
+              ansible.builtin.command:
+                cmd: "{{ bin_path }}/{{ bin_filename }} {{ version_flag }}"
+              register: binary_updated_version_output
+              changed_when: false
+            - name: Warn when the binary isn't at the requested version
+              ansible.builtin.assert:
+                that: (binary_updated_version | string) == (requested_binary_version | string)
+                fail_msg: >-
+                  {{ bin_filename }} reports version '{{ binary_updated_version }}' after the update to
+                  {{ requested_binary_version }}: the download didn't replace it, or its version output doesn't match
+                quiet: true
+              vars:
+                binary_updated_version: "{{ ((binary_updated_version_output.stdout_lines + binary_updated_version_output.stderr_lines)
+                  | join('\n') | regex_search('v?([0-9]+(?:\\.[0-9]+)+(?:[a-z](?![a-z0-9]))?)', '\\1') or ['']) | first | string }}"
+              # A warning, not a failure: the run goes on and the summary counts it as ignored
+              ignore_errors: true  # noqa: ignore-errors
 - name: Create a new Service for the binary if requested
   become: true
   ansible.builtin.template:
