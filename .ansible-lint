@@ -9,7 +9,10 @@ exclude_paths:
   - tests/render/inventory
 skip_list:
   - yaml
-  - risky-file-permissions
   - role-name
   - var-naming[no-jinja]
   - var-naming[no-role-prefix]
+# Opt-in rules with no findings today, on as a guard against regressions
+enable_list:
+  - no-log-password
+  - no-same-owner

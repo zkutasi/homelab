@@ -49,10 +49,9 @@ repos:
         stages: [manual]
       - id: ansible-lint
         name: Run ansible-lint in the execution environment
-        entry: tests/run.sh --lint
+        entry: tests/run.sh --lint --changed
         language: script
-        pass_filenames: false
-        always_run: true
+        require_serial: true
         stages: [manual]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

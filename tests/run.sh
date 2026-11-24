@@ -13,7 +13,8 @@ function usage() {
     echo "  --all         All of the suites below: bats, renovate, render, render-k8s, molecule, lint"
     echo "  --bats        The bats tests of the given files or folders, or of all of tests/bats; with --changed, only the"
     echo "                test files that cover the changed files (see the '# covers:' headers), all of them for a harness change"
-    echo "  --lint        ansible-lint on the whole repository, inside the execution environment, also with --changed"
+    echo "  --lint        ansible-lint on the whole repository, inside the execution environment; with --changed, only the changed"
+    echo "                YAML files, and the roles of changed role files with the playbooks that use them"
     echo "  --molecule    The Molecule scenarios of the given roles, or of all roles that have some, in the execution"
     echo "                environment (tests/molecule/molecule.sh); with --changed, only those of the changed roles"
     echo "  --render      Render the Docker Apps against the fake inventory and check them (tests/render/render.sh);"
@@ -171,9 +172,50 @@ function suite_renovate() (
 )
 
 function suite_lint() (
+  PATHS=()
+  # With changed files: a changed YAML file is linted itself, a changed role file its role and every playbook that
+  # uses the role; a change to the lint or Ansible configuration, or to the execution environment, lints everything
+  if [ "${CHANGED}" -eq 1 ]; then
+    declare -A PICKED
+    FULL=0
+    for FILE in "${TARGETS[@]}"; do
+      case "${FILE}" in
+        .ansible-lint|ansible.cfg|automation/ansible/ansible-execution-environment/*)
+          FULL=1
+          ;;
+        automation/ansible/roles/*/*)
+          ROLE=${FILE#automation/ansible/roles/}
+          ROLE=${ROLE%%/*}
+          PICKED[automation/ansible/roles/${ROLE}]=1
+          while read -r PLAYBOOK; do
+            PICKED[${PLAYBOOK}]=1
+          done < <(cd "${REPO_ROOT}" && git grep -l -E "^\s+(- |- role: |name: )${ROLE}\s*$" -- '*.yaml' '*.yml' ':!automation/ansible/roles/**')
+          ;;
+        *.yaml|*.yml)
+          [ -e "${REPO_ROOT}/${FILE}" ] && PICKED[${FILE}]=1
+          ;;
+      esac
+    done
+    if [ "${FULL}" -eq 0 ]; then
+      # Paths that .ansible-lint excludes stay excluded
+      mapfile -t EXCLUDED < <(yq -r '.exclude_paths[]' "${REPO_ROOT}/.ansible-lint")
+      for PICK in "${!PICKED[@]}"; do
+        for EXCLUDE in "${EXCLUDED[@]}"; do
+          [[ "${PICK}" == "${EXCLUDE}" || "${PICK}" == "${EXCLUDE}"/* ]] && continue 2
+        done
+        PATHS+=("${PICK}")
+      done
+      if [ "${#PATHS[@]}" -eq 0 ]; then
+        echo "INFO: No changed file for ansible-lint"
+        exit 0
+      fi
+      mapfile -t PATHS < <(printf '%s\n' "${PATHS[@]}" | sort)
+      echo "INFO: Linting ${#PATHS[@]} changed or affected path(s)"
+    fi
+  fi
   EE_IMAGE=$(yq '.ansible-navigator.execution-environment.image' "${REPO_ROOT}/.ansible-navigator.yaml")
   exec docker run --rm "${TTY[@]}" --user "$(id -u):$(id -g)" -e HOME=/tmp \
-    -v "${REPO_ROOT}:/code" -w /code --entrypoint ansible-lint "${EE_IMAGE}"
+    -v "${REPO_ROOT}:/code" -w /code --entrypoint ansible-lint "${EE_IMAGE}" "${PATHS[@]}"
 )
 
 function suite_bats() (

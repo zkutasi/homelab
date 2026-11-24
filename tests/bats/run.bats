@@ -83,14 +83,30 @@ tests/bats/wrappers.bats"
   assert_line "tests/bats/tool.bats"
 }
 
-@test "with changed files, the Renovate check runs only for its own files, ansible-lint always" {
+@test "with changed files, the Renovate check runs only for its own files" {
   run "${RUNNER}" --renovate --changed tool.sh
   assert_success
   assert_output "INFO: Neither renovate.json nor tests/renovate/ changed, nothing to check"
   assert_stub_not_called docker
-  run "${RUNNER}" --lint --changed tool.sh
+}
+
+@test "with changed files, ansible-lint lints the changed YAML, a changed role with its playbooks, or everything" {
+  printf 'exclude_paths:\n  - vendor\n' > "${FAKE_REPO}/.ansible-lint"
+  mkdir -p "${FAKE_REPO}/apps/web" "${FAKE_REPO}/vendor"
+  touch "${FAKE_REPO}/apps/web/deploy-web.yaml" "${FAKE_REPO}/vendor/x.yaml"
+  # git grep finds the playbooks that use the role
+  make_stub_script git 'case "$1" in rev-parse) pwd ;; grep) echo apps/web/deploy-web.yaml ;; esac'
+  run "${RUNNER}" --lint --changed tool.sh README.md vendor/x.yaml
   assert_success
-  run grep -c "^docker run .* --entrypoint ansible-lint " "${STUB_LOG}"
+  assert_output "INFO: No changed file for ansible-lint"
+  assert_stub_not_called docker
+  run "${RUNNER}" --lint --changed automation/ansible/roles/web/tasks/main.yaml
+  assert_success
+  run grep -c "^docker run .* --entrypoint ansible-lint .* apps/web/deploy-web.yaml automation/ansible/roles/web$" "${STUB_LOG}"
+  assert_output "1"
+  run "${RUNNER}" --lint --changed ansible.cfg apps/web/deploy-web.yaml
+  assert_success
+  run grep -c -- "--entrypoint ansible-lint [^ ]*$" "${STUB_LOG}"
   assert_output "1"
 }
 

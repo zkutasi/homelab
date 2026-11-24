@@ -28,6 +28,7 @@
         line: 'fastfetch'
         state: present
         create: true
+        mode: "0644"
 - name: Template the fastfetch configuration file
   hosts: linux-selfmanaged
   tasks:

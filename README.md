@@ -349,7 +349,7 @@ How this repository is organised and the conventions every App follows. Follow t
   - `--lint` for ansible-lint in the execution environment;
   - `--render` and `--render-k8s` for the render tests below;
   - `--molecule` for the role scenarios.
-- Several suites run in the order given, each of them even when an earlier one failed, and the run fails if any did. `--changed <files>` applies to all of them: each suite selects what the changed files affect, ansible-lint still checks everything, and the Renovate check runs only when `renovate.json` or `tests/renovate/` changed. Test files or role names without `--changed` need a single suite.
+- Several suites run in the order given, each of them even when an earlier one failed, and the run fails if any did. `--changed <files>` applies to all of them: each suite selects what the changed files affect (ansible-lint the changed YAML files, and for a changed role file the role and the playbooks that use it), and the Renovate check runs only when `renovate.json` or `tests/renovate/` changed. Test files or role names without `--changed` need a single suite.
 - Only Docker and the host's own static tools are needed: sops, age and yq, plus helm, kubectl, kustomize and kubeconform for `--render-k8s`, which also needs the network.
 - Bats tests never touch hosts, the cluster or the real files: each test works in a throwaway copy of the scripts it needs (a temporary folder with an empty `.git` marker), with stub commands on `PATH` that record their calls. The `git` stub only answers `rev-parse --show-toplevel`.
 - A script fix comes with a test that fails without it. A known bug can wait as a skipped test that names the reason.
@@ -366,7 +366,7 @@ How this repository is organised and the conventions every App follows. Follow t
   - the render tests for the Docker Apps and for the Kubernetes Apps whose files changed;
   - the Molecule scenarios of the changed roles and of the roles whose scenarios use them;
   - the Renovate check when `renovate.json` or its fixtures change;
-  - ansible-lint.
+  - ansible-lint of the changed Ansible files, and of the roles and playbooks they affect.
 - To run them:
   - `pre-commit run --hook-stage manual` for the staged files;
   - `pre-commit run --hook-stage manual --all-files` for everything;
@@ -429,4 +429,4 @@ How this repository is organised and the conventions every App follows. Follow t
 #### Linting
 
 - Pre-commit hooks run on every commit: file hygiene (whitespace, line endings, large files, executable scripts), YAML and Markdown linting, two spell checkers, secret detection, the check that the SOPS-encrypted files are up-to-date, and the check that a `ca.key` is only committed as a symlink.
-- The Ansible code can also be linted with `automation/ansible/ansible-lint.sh`.
+- `tests/run.sh --lint` lints the Ansible code in the execution environment; with `--changed <files>`, only what they affect (see the Tests chapter).
