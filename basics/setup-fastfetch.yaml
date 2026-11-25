@@ -1,5 +1,5 @@
 - name: Deploy fastfetch
-  hosts: linux-selfmanaged
+  hosts: linux
   roles:
     - binary-install
   become: true
@@ -8,19 +8,19 @@
     binary_repository: "{{ requested_binary_repo_version.split(':')[0] }}"
     requested_binary_version: "{{ requested_binary_repo_version.split(':')[1] | string }}"
     bin_filename: fastfetch
-    bin_path: /usr/bin
     arch_map:
       x86_64: amd64
       aarch64: aarch64
       arm64: aarch64
     arch: "{{ arch_map.get(ansible_architecture, ansible_architecture) }}"
     download_url: https://github.com/{{ binary_repository }}/releases/download/{{
-      requested_binary_version }}/fastfetch-linux-{{ arch }}.deb
-    compressed: false
-    install_cmd: "dpkg --install ./\
-      fastfetch-linux-{{ arch }}.deb"
+      requested_binary_version }}/fastfetch-linux-{{ arch }}.tar.gz
+    decompression_options:
+      - "--wildcards"
+      - "*/usr/bin/fastfetch"
+      - "--strip-components=3"
 - name: Add the inclusion of fastfetch in the bashrc file
-  hosts: linux-selfmanaged
+  hosts: linux
   tasks:
     - name: Add the inclusion of fastfetch in the bashrc file
       ansible.builtin.lineinfile:
@@ -31,7 +31,7 @@
         create: true
         mode: "0644"
 - name: Template the fastfetch configuration file
-  hosts: linux-selfmanaged
+  hosts: linux
   tasks:
     - name: Ensure the .config directory exists
       ansible.builtin.file:
