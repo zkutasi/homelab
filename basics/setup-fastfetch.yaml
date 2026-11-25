@@ -25,7 +25,8 @@
     - name: Add the inclusion of fastfetch in the bashrc file
       ansible.builtin.lineinfile:
         path: "{{ ansible_user_dir }}/.bashrc"
-        line: 'fastfetch'
+        line: '[[ $- == *i* ]] && fastfetch'
+        regexp: '^(\[\[ \$- == \*i\* \]\] && )?fastfetch$'
         state: present
         create: true
         mode: "0644"
