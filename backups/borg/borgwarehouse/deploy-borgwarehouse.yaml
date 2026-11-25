@@ -8,9 +8,11 @@
       borgwarehouse: "borgwarehouse/borgwarehouse:v3.6.0"
     docker_compose_create_dirs:
       - name: config
+        group: "{{ backups_gid }}"
       - name: logs
       - name: ssh
         folder_mode: "0700"
+        group: "{{ backups_gid }}"
       - name: ssh_host
       - name: tmp
     docker_ipv6_ipam_subnet: "{{ docker_ipv6_ipam_subnet_borgwarehouse }}"
