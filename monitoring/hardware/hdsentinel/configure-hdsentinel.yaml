@@ -8,14 +8,6 @@
       vars:
         packages:
           - samba
-    - name: Ensure HDSentinel base directory exists
-      become: true
-      ansible.builtin.file:
-        path: "{{ hdsentinel_dir }}"
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
     - name: Configure Samba
       ansible.builtin.blockinfile:
         path: /etc/samba/smb.conf

@@ -1,5 +1,14 @@
 - name: Deploy HDSentinel as binary
   hosts: smart
+  pre_tasks:
+    - name: Ensure the HDSentinel folder exists
+      when: "'synology' not in group_names"
+      ansible.builtin.file:
+        path: "{{ hdsentinel_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
   roles:
     - binary-install
   become: true

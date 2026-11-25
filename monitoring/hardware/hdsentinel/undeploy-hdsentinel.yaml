@@ -32,7 +32,7 @@
         path: /etc/samba/smb.conf
         state: absent
       notify: Restart Samba
-    # The configure playbook created this folder; on Synology it is a DSM share and stays
+    # The deploy playbook created this folder; on Synology it is a DSM share and stays
     - name: Remove the HDSentinel folder
       ansible.builtin.file:
         path: "{{ hdsentinel_dir }}"
