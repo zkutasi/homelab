@@ -37,7 +37,7 @@ On Synology, Docker and Docker Compose come from DSM (Container Manager); only s
     |Name|Mandatory/Optional|Details|
     |----|------------------|-------|
     |docker_cli_path|M|The path of the docker CLI on the host (e.g. `/usr/bin/docker`; elsewhere on Synology devices, where it is not on the PATH)|
-    |docker_compose_files_group|O|The group (name or GID) of the folders and files created for Docker apps on the host. Default is the Ansible user's name|
+    |docker_compose_files_group|O|The group (name or GID) of the folders and files created for Docker apps on the host. Default is the Ansible user's primary group, the one the containers run with|
     |docker_compose_files_owner|O|The owner (user name or UID) of the folders and files created for Docker apps on the host. Default is the Ansible user|
     |docker_compose_ipv6|O|Whether Docker Apps that support it get their own IPv6-enabled network on the host. Each such App then also needs its own IPv6 subnet variable set. Default is false|
     |docker_compose_rootdir|M|The folder on the host under which each Docker App gets its own folder (e.g. `"{{ ansible_user_dir }}/docker-compose"`)|
