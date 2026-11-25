@@ -6,7 +6,7 @@ This folder contains fundamental settings applied to hosts, including
 - `git/setup-git.yaml` - Set up git and some common best practices
 - `hardware/` - Hardware related settings, like alerts
 - `scripts/setup-scripts.yaml` - Some hosts have developed bash scripts. Distribute them.
-- `setup-bashrc.yaml` - Set up the shell environment of the login user
+- `setup-bash.yaml` - Set up the shell environment of the login user
 - `setup-dns.yaml` - Make the hosts resolve the local network domain through the home DNS servers
 - `setup-fastfetch.yaml` - Install fastfetch, a system information tool
 - `setup-fstab.yaml` - Mount the network shares the hosts need
