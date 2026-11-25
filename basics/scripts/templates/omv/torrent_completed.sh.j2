@@ -20,8 +20,11 @@ TORRENT_ID=${12}
 {{ ansible_user_dir }}/hasher.sh "${TORRENT_CONTENT_PATH}"
 
 # Trigger updates via AutoPulse
-curl -k \
+if ! curl -fsS -k --max-time 10 --retry 2 \
   -u {{ autopulse_username }}:{{ autopulse_password }} \
   -G \
   --data-urlencode "path=${TORRENT_CONTENT_PATH}" \
-  "https://autopulse.{{ reverseproxy_internal_domain }}/triggers/manual"
+  "https://autopulse.{{ reverseproxy_internal_domain }}/triggers/manual"; then
+  echo "ERROR: Could not trigger Autopulse for ${TORRENT_CONTENT_PATH}"
+  exit 1
+fi

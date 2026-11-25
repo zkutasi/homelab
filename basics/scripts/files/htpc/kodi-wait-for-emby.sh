@@ -34,26 +34,25 @@ while ! docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null | g
     sleep $INTERVAL
     WAITED=$((WAITED + INTERVAL))
     if [ $WAITED -ge $TIMEOUT ]; then
-        echo "Timeout waiting for Emby container to start."
+        echo "ERROR: Timeout waiting for Emby container to start."
         exit 1
     fi
 done
 
 # Step 2: Wait for Emby API to respond
-WAITED=0
-while ! curl -fs "$API_URL" >/dev/null; do
+DEADLINE=$((SECONDS + TIMEOUT))
+while ! curl -fs --max-time 5 "$API_URL" >/dev/null; do
     echo "Waiting for Emby API to respond..."
     sleep $INTERVAL
-    WAITED=$((WAITED + INTERVAL))
-    if [ $WAITED -ge $TIMEOUT ]; then
-        echo "Timeout waiting for Emby REST API."
+    if [ $SECONDS -ge $DEADLINE ]; then
+        echo "ERROR: Timeout waiting for Emby REST API."
         exit 1
     fi
 done
 
-response=$(curl -fs "$API_URL")
-if ! echo "$response" | jq -e '.LocalAddresses' >/dev/null 2>&1; then
-    echo "Emby API returned unexpected response"
+RESPONSE=$(curl -fsS --max-time 5 "$API_URL")
+if ! echo "${RESPONSE}" | jq -e '.LocalAddresses' >/dev/null 2>&1; then
+    echo "ERROR: Emby API returned unexpected response"
     exit 1
 fi
 

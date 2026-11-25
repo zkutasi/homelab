@@ -21,8 +21,8 @@ commands:
     - after: action
       run:
         - echo "Refreshing borgwarehouse"
-        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/status"
-        - "curl -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/storage"
+        - "curl -fsS --max-time 10 --retry 2 -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/status || echo 'WARNING: Could not refresh the BorgWarehouse status'"
+        - "curl -fsS --max-time 10 --retry 2 -X POST -H 'Authorization: Bearer {{ borgwarehouse_cronjob_key }}' {{ backupserver_hostname }}:{{ port_borgwarehouse }}/api/v1/cron/storage || echo 'WARNING: Could not refresh the BorgWarehouse storage'"
 
 {% if backup_exclude_patterns | default(['*.log']) | length > 0 %}
 exclude_patterns:
