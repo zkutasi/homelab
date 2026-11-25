@@ -1,9 +1,5 @@
 - name: Ensure bash_aliases file exists
-  hosts:
-    - controlserver
-    - openmediavault
-    - displayscreen
-    - proxmox
+  hosts: linux
   tasks:
     - name: Ensure bash_aliases file exists
       ansible.builtin.file:
@@ -12,6 +8,20 @@
         mode: '0644'
         access_time: preserve
         modification_time: preserve
+- name: Read .bash_aliases in interactive shells
+  hosts: linux
+  tasks:
+    - name: Read .bash_aliases in interactive shells
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bashrc"
+        line: '[[ $- == *i* && -f ~/.bash_aliases ]] && . ~/.bash_aliases'
+        mode: "0644"
+    - name: Define ll like Ubuntu does
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_user_dir }}/.bash_aliases"
+        line: "alias ll='ls -alF'"
+        create: true
+        mode: "0644"
 - name: Set up specific bash configuration for certain hosts
   hosts:
     - openmediavault
