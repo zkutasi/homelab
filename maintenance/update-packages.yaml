@@ -1,5 +1,5 @@
 - name: Update and upgrade packages
-  hosts: "{{ groups['linux-selfmanaged'] | default([]) | difference(groups['kubernetes'] | default([])) }} "
+  hosts: linux-selfmanaged:!kubernetes
   become: true
   roles:
     - package-update

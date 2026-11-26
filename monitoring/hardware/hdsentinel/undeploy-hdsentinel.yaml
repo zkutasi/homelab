@@ -19,7 +19,7 @@
     bin_filename: HDSentinel
     bin_path: "{{ hdsentinel_dir }}"
 - name: Remove the HDSentinel Samba share
-  hosts: "{{ groups['smart'] | default([]) | difference(groups['synology'] | default([])) }}"
+  hosts: smart:!synology
   become: true
   tasks:
     - name: Check if Samba is configured

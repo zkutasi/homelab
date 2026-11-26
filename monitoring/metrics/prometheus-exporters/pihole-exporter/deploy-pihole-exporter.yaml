@@ -1,5 +1,5 @@
 - name: Deploy pihole-exporter as docker
-  hosts: "{{ groups['dnsserver'][0] | default([]) }}"
+  hosts: dnsserver[0]
   roles:
     - docker-compose
   vars:

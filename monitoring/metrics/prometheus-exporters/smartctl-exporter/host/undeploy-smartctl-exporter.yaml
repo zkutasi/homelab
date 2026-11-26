@@ -1,5 +1,5 @@
 - name: Delete smartctl-exporter as a service
-  hosts: "{{ groups['smart'] | default([]) | difference(groups['docker'] | default([])) }}"
+  hosts: smart:!docker
   roles:
     - binary-remove
   vars:

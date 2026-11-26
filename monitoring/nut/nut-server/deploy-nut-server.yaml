@@ -1,5 +1,5 @@
 - name: Deploy Nut-server as service
-  hosts: "{{ groups['nutserver'] | default([]) | intersect(groups['linux-selfmanaged'] | default([])) }}"
+  hosts: nutserver:&linux-selfmanaged
   roles:
     - package-install
   vars:

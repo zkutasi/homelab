@@ -1,5 +1,5 @@
 - name: Configure Nut-server
-  hosts: "{{ groups['nutserver'] | default([]) | intersect(groups['linux-selfmanaged'] | default([])) }}"
+  hosts: nutserver:&linux-selfmanaged
   become: true
   tasks:
     - name: Prepare ups.conf file

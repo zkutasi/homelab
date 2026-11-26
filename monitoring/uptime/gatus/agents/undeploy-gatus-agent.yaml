@@ -1,5 +1,5 @@
 - name: Delete Gatus-agent containers
-  hosts: "{{ groups['networkmonitoring'][0] | default([]) }}"
+  hosts: networkmonitoring[0]
   roles:
     - docker-compose-remove
   vars:
