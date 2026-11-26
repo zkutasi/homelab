@@ -8,6 +8,7 @@
     rest_api_url: "http://{{ ansible_host }}:{{ port_qbittorrent }}"
     rest_api_endpoint: "/api/v2/auth/login"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_headers:
       Referer: "http://{{ ansible_host }}:{{ port_qbittorrent }}"
     rest_api_data:

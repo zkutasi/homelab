@@ -12,6 +12,7 @@
     rest_api_url: "{{ pihole_address }}"
     rest_api_endpoint: "/api/auth"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_data:
       password: "{{ pihole_password }}"
     rest_api_body_format: "json"
@@ -158,5 +159,6 @@
         rest_api_url: "{{ pihole_address }}"
         rest_api_endpoint: "/api/auth"
         rest_api_method: "DELETE"
+        rest_api_run_in_check_mode: true
         rest_api_headers:
           X-FTL-SID: "{{ pihole_authresponse.cookies.sid }}"

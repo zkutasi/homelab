@@ -268,6 +268,7 @@ How this repository is organised and the conventions every App follows. Follow t
 - Anything that talks to Docker uses the host's settings, like the shared role does: `become: "{{ docker_with_sudo }}"` and `docker_cli: "{{ docker_cli_path }}"`, with App folders under `{{ docker_compose_rootdir }}`, never a hardcoded path.
 - Plays target inventory groups named after a role, never single host names; host-specific template and script folders are named after the host.
 - Playbooks work in check mode: read-only lookups run with `check_mode: false`, and later tasks tolerate what a skipped write would have created.
+  - The `rest-api` role runs GETs in check mode; a non-GET call that only reads or logs in (or out) sets `rest_api_run_in_check_mode: true`.
 - Services are restarted through handlers on actual changes, not unconditionally.
 - An undeploy removes everything the deploy and its configure playbooks created, and can be re-run without failing.
 

@@ -13,6 +13,7 @@
     rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_headers:
       X-API-Key: "{{ komodo_api_key }}"
       X-API-Secret: "{{ komodo_api_secret }}"
@@ -62,6 +63,7 @@
     rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_headers:
       X-API-Key: "{{ komodo_api_key }}"
       X-API-Secret: "{{ komodo_api_secret }}"
@@ -98,6 +100,7 @@
     rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_headers:
       X-API-Key: "{{ komodo_api_key }}"
       X-API-Secret: "{{ komodo_api_secret }}"
@@ -118,6 +121,7 @@
     rest_api_url: "{{ komodo_hostname }}"
     rest_api_endpoint: "/read"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_headers:
       X-API-Key: "{{ komodo_api_key }}"
       X-API-Secret: "{{ komodo_api_secret }}"

@@ -1,4 +1,4 @@
-# Run by side_effect.yml with --check: the GET has to reach the API, the POST must not
+# Run by side_effect.yml with --check: the GET and the opted-in POST have to reach the API, the other POST must not
 - name: Call the API in check mode
   hosts: all
   gather_facts: false
@@ -18,3 +18,13 @@
         rest_api_method: POST
         rest_api_data:
           name: check-case
+    - name: Log in
+      ansible.builtin.include_role:
+        name: rest-api
+      vars:
+        rest_api_url: http://127.0.0.1:8080
+        rest_api_endpoint: /cgi-bin/echo.sh
+        rest_api_method: POST
+        rest_api_run_in_check_mode: true
+        rest_api_data:
+          name: login-case

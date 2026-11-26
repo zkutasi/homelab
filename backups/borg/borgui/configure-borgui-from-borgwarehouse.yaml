@@ -33,6 +33,7 @@
     rest_api_url: "http://{{ backupserver_hostname }}:{{ port_borgui }}"
     rest_api_endpoint: "/api/auth/login"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_data:
       username: "{{ borgui_username }}"
       password: "{{ borgui_password }}"

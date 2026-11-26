@@ -1,4 +1,4 @@
-- name: Case check mode sends GETs but no POSTs
+- name: Case check mode sends GETs and opted-in calls only
   hosts: all
   gather_facts: false
   tasks:
@@ -22,8 +22,9 @@
       ansible.builtin.slurp:
         src: /srv/mock/requests.log
       register: requests
-    - name: Check only the GET arrived
+    - name: Check only the GET and the login arrived
       ansible.builtin.assert:
-        that: (requests.content | b64decode).splitlines() | map('split') | map('first') | list == ['GET']
+        that: (requests.content | b64decode).splitlines() | map('split') | map('first') | list == ['GET', 'POST']
+          and 'login-case' in requests.content | b64decode
         fail_msg: "{{ requests.content | b64decode }}"
         quiet: true

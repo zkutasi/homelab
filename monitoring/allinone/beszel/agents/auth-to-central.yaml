@@ -16,6 +16,7 @@
     rest_api_url: "{{ beszel_hub_url }}"
     rest_api_endpoint: "/api/collections/users/auth-with-password"
     rest_api_method: "POST"
+    rest_api_run_in_check_mode: true
     rest_api_data:
       identity: "{{ beszel_username }}"
       password: "{{ beszel_password }}"
