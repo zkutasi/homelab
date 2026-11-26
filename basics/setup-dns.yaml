@@ -1,7 +1,12 @@
 - name: Set up home DNS domain
-  hosts: linux
+  hosts: linux-selfmanaged:!dnsserver:!external:!proxmox
   become: true
   tasks:
+    - name: Install systemd-resolved
+      ansible.builtin.apt:
+        name: systemd-resolved
+        state: present
+      register: resolved_package
     - name: Ensure systemd-resolved drop-in directory exists
       ansible.builtin.file:
         path: /etc/systemd/resolved.conf.d
@@ -21,6 +26,7 @@
 
   handlers:
     - name: Restart systemd-resolved
+      when: not (ansible_check_mode and resolved_package is changed)
       ansible.builtin.systemd:
         name: systemd-resolved
         state: restarted
