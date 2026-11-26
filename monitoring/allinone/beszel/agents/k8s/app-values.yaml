@@ -2,6 +2,14 @@ image:
   repository: henrygd/beszel-agent
   tag: 0.18.1
   pullPolicy: IfNotPresent
+persistence:
+  machine-id:
+    enabled: true
+    type: hostPath
+    hostPath: /etc/machine-id
+    hostPathType: File
+    mountPath: /etc/machine-id
+    readOnly: true
 service:
   main:
     enabled: true
