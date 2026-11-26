@@ -10,5 +10,6 @@ services:
     ports:
       - {{ port_vaultwarden }}:80
     restart: unless-stopped
+    user: "{{ ansible_user_uid }}:{{ ansible_user_gid }}"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data/:/data/
