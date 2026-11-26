@@ -31,3 +31,23 @@
         name: systemd-resolved
         state: restarted
         daemon_reload: true
+
+- name: Point the Proxmox node DNS at the home DNS servers
+  hosts: proxmox
+  vars:
+    # Up to two home DNS servers, then the router as the last fallback
+    proxmox_dns_servers: "{{ (groups['dnsserver'] | default([]) | map('extract', hostvars, ['ansible_host']) | list)[:2]
+      + [ansible_facts['default_ipv4']['gateway']] }}"
+    proxmox_dns: "{{ {'search': network_domain} | combine(dict(['dns1', 'dns2', 'dns3'] | zip(proxmox_dns_servers))) }}"
+  tasks:
+    - name: Read the node DNS settings
+      ansible.builtin.command: pvesh get /nodes/{{ ansible_facts['hostname'] }}/dns --output-format json
+      register: node_dns
+      changed_when: false
+      check_mode: false
+    - name: Set the node DNS servers
+      when: node_dns.stdout | from_json != proxmox_dns
+      ansible.builtin.command: >-
+        pvesh set /nodes/{{ ansible_facts['hostname'] }}/dns
+        {% for key, value in proxmox_dns.items() %} --{{ key }} {{ value }}{% endfor %}
+      changed_when: true
