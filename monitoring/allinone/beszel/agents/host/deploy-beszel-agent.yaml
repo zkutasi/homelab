@@ -21,5 +21,6 @@
       KEY: "{{ beszel_ssh_key }}"
       LISTEN: "{{ port_beszel }}"
       TOKEN: "{{ beszel_universal_token }}"
-    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
-    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] | default(undef(hint=beszel_login_hint)) }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] | default(undef(hint=beszel_login_hint)) }}"
+    beszel_login_hint: The Beszel hub login didn't run; include localhost in --limit

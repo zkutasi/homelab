@@ -25,8 +25,6 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |beszel_hub_url|M|The Beszel Hub URL for the agents|
     |beszel_username|M|Beszel username (email)|
     |beszel_password|M|Beszel password|
-    |beszel_universal_token|M|The universal token to use for the agents|
-    |beszel_ssh_key|M|SSH key for the agent|
     |port_beszel|M|The port the Beszel agents listen on|
 
 2. For each Ansible host, the following variables can be set
@@ -50,7 +48,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Post deployment of the central hub
 
-1. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`, and set it into `beszel_universal_token`
+1. On the GUI, enable a permanent universal token in `Settings->Tokens & Fingerprints`; the agent deploys fetch it, with the hub's SSH key, from the hub
 
 ### Deploy the agents on the Docker hosts
 

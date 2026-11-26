@@ -1,3 +1,5 @@
+- name: Authenticate to the Beszel central Hub
+  ansible.builtin.import_playbook: ../auth-to-central.yaml
 - name: Generate dynamic configuration for Beszel
   hosts: localhost
   gather_facts: false

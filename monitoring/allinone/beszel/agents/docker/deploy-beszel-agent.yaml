@@ -10,5 +10,6 @@
       beszel-agent: "henrygd/beszel-agent:0.18.1"
     docker_compose_create_dirs:
       - name: data
-    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] }}"
-    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] }}"
+    beszel_universal_token: "{{ hostvars['localhost']['beszel_universal_token'] | default(undef(hint=beszel_login_hint)) }}"
+    beszel_ssh_key: "{{ hostvars['localhost']['beszel_ssh_key'] | default(undef(hint=beszel_login_hint)) }}"
+    beszel_login_hint: The Beszel hub login didn't run; include localhost in --limit
