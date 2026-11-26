@@ -10,7 +10,7 @@ This folder contains fundamental settings applied to hosts, including
 - `setup-dns.yaml` - Make the hosts resolve the local network domain through the home DNS servers
 - `setup-fastfetch.yaml` - Install fastfetch, a system information tool
 - `setup-fstab.yaml` - Mount the network shares the hosts need
-- `setup-hosts.yaml` - Add static name resolution for the services some hosts need to reach without relying on the home DNS
+- `setup-hosts.yaml` - Add static name resolution for the services some hosts need to reach; only needed where no home DNS server is in place, as `setup-dns.yaml` covers name resolution otherwise
 - `setup-locale.yaml` - Install the locales
 - `setup-mail.yaml` - Enable sending emails from the hosts that need it
 - `setup-notifications.yaml` - Enable sending push notifications from the hosts
