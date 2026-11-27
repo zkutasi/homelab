@@ -5,6 +5,8 @@ extend-exclude = [
 
 [default.extend-words]
 browseable = "browseable"
+# The folder name on the OMV data disks
+Excercise = "Excercise"
 bund = "bund"
 Hashi = "Hashi"
 Observ = "Observ"
