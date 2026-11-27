@@ -82,7 +82,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
 
 ### Uninstall Rook
 
-To uninstall Rook, follow these steps
+There is deliberately no `undeploy-k8s.sh`: tearing down Ceph destroys all data on its disks, so it's manual only. To uninstall Rook, follow these steps
 
 1. Uninstall the cluster
 
