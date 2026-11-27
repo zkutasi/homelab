@@ -8,6 +8,7 @@ services:
       - PUID={{ ansible_user_uid }}
       - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
+      - UMASK=027
     hostname: {{ id }}-qbittorrent-nox
     image: {{ requested_image_version['qbittorrent-nox'] }}
     networks:

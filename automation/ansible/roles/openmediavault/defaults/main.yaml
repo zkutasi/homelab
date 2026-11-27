@@ -14,3 +14,9 @@ omv_nfs_allowed_clients: ''
 
 omv_shared_folders_as_nfs_shares: false
 omv_shared_folders_as_samba_shares: true
+# Modes of the files and folders created over Samba (OMV_SAMBA_SHARE_* settings)
+omv_samba_share_modes:
+  CREATEMASK: "0640"
+  FORCECREATEMODE: "0640"
+  DIRECTORYMASK: "0750"
+  FORCEDIRECTORYMODE: "0750"

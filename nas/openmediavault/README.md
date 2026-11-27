@@ -61,6 +61,7 @@ Variables that are shared by several Apps are not listed here, but in the more g
     |omv_mergerfs_pools.\<pool\>.shared_folders.share_as_samba|O|Same as for the disks' shared folders|
     |omv_nfs_allowed_clients|M|The clients allowed to mount the NFS exports: a host name, an IP address or a network (e.g. `192.168.1.0/24`)|
     |omv_shared_folders_as_nfs_shares|O|Whether a shared folder without `share_as_nfs` is exported over NFS. Default is false|
+    |omv_samba_share_modes|O|The modes of files and folders created over Samba, as OMV's `OMV_SAMBA_SHARE_*` settings: `CREATEMASK`, `FORCECREATEMODE`, `DIRECTORYMASK`, `FORCEDIRECTORYMODE`. Default is 0640 for files and 0750 for folders|
     |omv_shared_folders_as_samba_shares|O|Whether a shared folder without `share_as_samba` is shared over Samba. Default is true|
     |omv_snapraid_array_name|M|The name of the SnapRAID array to create|
 

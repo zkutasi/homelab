@@ -1,3 +1,19 @@
+- name: Set the modes of files and folders created over Samba
+  ansible.builtin.lineinfile:
+    path: /etc/default/openmediavault
+    regexp: "^OMV_SAMBA_SHARE_{{ item.key }}="
+    line: "OMV_SAMBA_SHARE_{{ item.key }}=\"{{ item.value }}\""
+  loop: "{{ omv_samba_share_modes | dict2items }}"
+  register: omv_samba_modes
+# OMV reads /etc/default/openmediavault into its Salt pillar only in this stage;
+# a handler would run after the samba apply below
+- name: Load the changed settings into OMV's Salt pillar
+  when: omv_samba_modes is changed  # noqa: no-handler
+  ansible.builtin.command: omv-salt stage run prepare
+  changed_when: true
+- name: Remember to apply Samba after a mode change
+  ansible.builtin.set_fact:
+    omv_modules_to_apply: "{{ (omv_modules_to_apply | default([]) + (['samba'] if omv_samba_modes is changed else [])) | unique }}"
 - name: Handle Samba shares for shared folders
   block:
     - name: Get current OMV mounts
