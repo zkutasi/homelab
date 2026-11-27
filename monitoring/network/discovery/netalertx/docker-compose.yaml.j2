@@ -27,4 +27,4 @@ services:
       - "/tmp:uid={{ ansible_user_uid }},gid={{ ansible_user_gid }},mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime"
     volumes:
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/data:/data
-      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/../pihole/etc-pihole/pihole-FTL.db:/etc/pihole/pihole-FTL.db:ro
+      - {{ docker_compose_rootdir }}/pihole/pihole/etc-pihole/pihole-FTL.db:/etc/pihole/pihole-FTL.db:ro

@@ -44,6 +44,8 @@ fi
 #   mount           no bind mount into another App's folder below docker_compose_rootdir
 #   pull_policy     an image without a tag or digest is always pulled
 RULES='
+  # Folds "." and "x/.." segments, so a path through another App'"'"'s folder can'"'"'t hide behind ".."
+  def normpath: split("/") | reduce .[] as $p ([]; if $p == ".." then .[:-1] elif $p == "." or $p == "" then . else . + [$p] end) | "/" + join("/");
   .expected as $e | .compose.services | to_entries[] | .key as $s | .value as $v |
   [
     (if ($v.container_name // "") == "" then ["container_name", "missing"] else empty end),
@@ -52,8 +54,8 @@ RULES='
     (if ($v.environment // {} | has("TZ")) | not then ["TZ", "missing"] else empty end),
     (if ($e.images | to_entries | map(.value) | index($v.image)) == null
      then ["image", (($v.image // "none") + " is not pinned in requested_image_version")] else empty end),
-    (($v.volumes // [])[] | select(.type == "bind"
-        and (.source | startswith($e.rootdir + "/"))
+    (($v.volumes // [])[] | select(.type == "bind") | .source |= normpath
+      | select((.source | startswith($e.rootdir + "/"))
         and ((.source == $e.rootdir + "/" + $e.project) or (.source | startswith($e.rootdir + "/" + $e.project + "/")) | not))
       | ["mount", (.source + " is in another App'"'"'s folder")]),
     (if ($v.image // "" | test(":[^/:]+$|@sha256:") | not) and ($v.pull_policy // "") != "always"

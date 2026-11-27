@@ -3,6 +3,7 @@
 media/allinone/emby	mount-check	restart	runs once and exits
 media/allinone/jellyfin	mount-check	restart	runs once and exits
 media/allinone/plex	mount-check	restart	runs once and exits
+monitoring/network/discovery/netalertx	netalertx	mount	reads Pi-hole's FTL database (read-only) for its PIHOLE plugin
 security/fail2ban	geoipupdate	restart	runs once and exits
 security/openvas/central	pg-gvm-migrator	restart	runs once and exits
 security/openvas/central	cert-bund-data	restart	follows Greenbone's compose file, whose start order depends on these policies
