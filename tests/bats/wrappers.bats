@@ -10,7 +10,7 @@ load helpers
 NOT_PLAIN=(
   kubernetes/undeploy-k8s.sh                                                          # kubectl only
   monitoring/ebpf/calico-whisker/undeploy-k8s.sh                                      # kubectl only
-  kubernetes/infrastructure/storage/postgresql/cloud-native-pg/operator/undeploy-k8s.sh  # checks for clusters first
+  kubernetes/infrastructure/storage/cloud-native-pg/operator/undeploy-k8s.sh          # checks for clusters first
 )
 
 # The fake repository, the stubs and the wrapper list are prepared once for the whole file: copying and
