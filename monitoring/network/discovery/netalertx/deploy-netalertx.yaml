@@ -5,7 +5,7 @@
   vars:
     docker_compose_projectname: netalertx
     requested_image_version:
-      netalertx: "ghcr.io/netalertx/netalertx:26.7.1"
+      netalertx: "ghcr.io/netalertx/netalertx:26.10.28"
     docker_compose_create_dirs:
       - name: data
     netalertx_subnet: "{{ network_subnet }}"
