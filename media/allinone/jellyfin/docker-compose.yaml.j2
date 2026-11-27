@@ -49,6 +49,8 @@ services:
     ports:
       - {{ port_jellyfin_http }}:8096
     restart: unless-stopped
+    user: "{{ ansible_user_uid }}:{{ ansible_user_gid }}"
     volumes:
+      - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/cache:/cache
       - {{ docker_compose_rootdir }}/{{ docker_compose_projectname }}/config:/config
       - /mnt:/mnt:ro

@@ -5,6 +5,7 @@
   vars:
     docker_compose_projectname: jellyfin
     docker_compose_create_dirs:
+      - name: cache
       - name: config
     requested_image_version:
       alpine: "alpine:3.24.3"
